@@ -8,6 +8,7 @@ using Terraria.GameContent.ItemDropRules;
 using Terraria.ID;
 using Terraria.ModLoader;
 using TRAEProject.NPCs.Banners;
+using TRAEProject.Items.Weapons.Underworld.WillOfTheWisp;
 using static Terraria.ModLoader.ModContent;
 
 namespace TRAEProject.NPCs.Boomxie
@@ -95,7 +96,8 @@ namespace TRAEProject.NPCs.Boomxie
         public override void ModifyNPCLoot(NPCLoot npcLoot)
         {
             npcLoot.Add(ItemDropRule.Common(ItemID.ExplosivePowder, 2, 1, 3));
-       }
+            npcLoot.Add(ItemDropRule.Common(ItemType<WillOfTheWisp>(), 20));
+        }
         public override void HitEffect(int hitDirection, double damage)
         {
             for (int i = 0; i < 2; i++)

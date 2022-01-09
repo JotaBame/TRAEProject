@@ -51,13 +51,13 @@ namespace TRAEProject
                     return;
             }
         }
-        public bool runonce = false;
+        public int bat = 0;
         public override void AI(NPC npc)
         {
             switch (npc.type)
             {
                 case NPCID.Hellbat:
-                    if (Main.expertMode && !runonce)
+                    if ((Main.expertMode && Main.masterMode) && bat < 2)
                     {
                         for (int i = 0; i < 2; ++i)
                         {
@@ -66,7 +66,7 @@ namespace TRAEProject
 							{
 								NPC.NewNPC((int)npc.position.X, (int)npc.position.Y, NPCID.Hellbat);
 							}
-							runonce = true;
+				           ++bat;
                         }
                     }
                     return;
