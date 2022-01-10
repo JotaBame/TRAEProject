@@ -15,8 +15,8 @@ namespace TRAEProject.Items.Summoner.Sentries.FroggabombaStaff
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Froggybomba Staff");
-            Tooltip.SetDefault("Summons a next of kamikaze frogs");
-            ItemID.Sets.SortingPriorityMaterials[Item.type] = 46; // what does this do
+            Tooltip.SetDefault("Summons a nest of kamikaze frogs");
+            //ItemID.Sets.SortingPriorityMaterials[Item.type] = 46; // what does this do
             ItemID.Sets.GamepadWholeScreenUseRange[Item.type] = true; // This lets the player target anywhere on the whole screen while using a controller.
             ItemID.Sets.LockOnIgnoresCollision[Item.type] = true;
         }
@@ -35,7 +35,7 @@ namespace TRAEProject.Items.Summoner.Sentries.FroggabombaStaff
             Item.sentry = true;
             Item.mana = 25;
             Item.UseSound = SoundID.Item78;
-
+            Item.DamageType = DamageClass.Summon;
             Item.damage = 20;
             //item.crit = 4;
             Item.knockBack = 1f;
@@ -52,13 +52,11 @@ namespace TRAEProject.Items.Summoner.Sentries.FroggabombaStaff
          {
              return new Vector2(5, 0);
          }*/
+
         public override bool Shoot(Player player, ProjectileSource_Item_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
         {
-
-            position = Main.MouseWorld;
-
-            return true;
-
+            player.SpawnMinionOnCursor(source, player.whoAmI, type, Item.damage, knockback);
+            return false;
         }
     }
 
@@ -79,8 +77,9 @@ namespace TRAEProject.Items.Summoner.Sentries.FroggabombaStaff
             Projectile.friendly = true;
             Projectile.ignoreWater = false;
             Projectile.sentry = true;
+            Projectile.minion = true;
             Projectile.penetrate = 1;
-            Projectile.timeLeft = 99999;
+            Projectile.timeLeft = Projectile.SentryLifeTime;
             Projectile.tileCollide = false;
 
         }
@@ -102,6 +101,13 @@ namespace TRAEProject.Items.Summoner.Sentries.FroggabombaStaff
             Main.player[Projectile.owner].UpdateMaxTurrets();
             Player player = Main.player[Projectile.owner];
             shoottime++;
+
+            for (int k = 0; k < 1; k++)
+            {
+                int dust = Dust.NewDust(Projectile.position + Projectile.velocity, Projectile.width, Projectile.height, DustID.Torch, Projectile.oldVelocity.X * 0.5f, Projectile.oldVelocity.Y * 0.5f);
+                Main.dust[dust].noGravity = true; //Disable the dust gravity.
+                Main.dust[dust].velocity *= 0.8f; //Dust velocity.
+            }
             //Getting the npc to fire at
             for (int i = 0; i < 200; i++)
             {
@@ -123,7 +129,7 @@ namespace TRAEProject.Items.Summoner.Sentries.FroggabombaStaff
                 //bool lineOfSight = Collision.CanHitLine(Projectile.Center, 1, 1, target.Center, 1, 1);
                 //If the distance between the projectile and the live target is active
 
-                if (distance < 200f && !target.friendly && target.active && !target.dontTakeDamage && target.lifeMax > 5 && target.type != NPCID.TargetDummy && Collision.CanHit(Projectile.Center, 0, 0, target.Center, 0, 0))
+                if (distance < 300f && !target.friendly && target.active && !target.dontTakeDamage && target.lifeMax > 5 && target.type != NPCID.TargetDummy && Collision.CanHit(Projectile.Center, 0, 0, target.Center, 0, 0))
                 {
 
                     if (shoottime > 20)
@@ -145,6 +151,7 @@ namespace TRAEProject.Items.Summoner.Sentries.FroggabombaStaff
         {
             DisplayName.SetDefault("Froggy");
             Main.projFrames[Projectile.type] = 4;
+ 
             ProjectileID.Sets.MinionTargettingFeature[Projectile.type] = true;
 
         }
@@ -152,7 +159,10 @@ namespace TRAEProject.Items.Summoner.Sentries.FroggabombaStaff
         {
             Projectile.CloneDefaults(ProjectileID.BabySpider);
             AIType = ProjectileID.BabySpider;
+            ProjectileID.Sets.SentryShot[Type] = true;
+            Projectile.minion = true;
             Projectile.GetGlobalProjectile<TRAEGlobalProjectile>().explodes = true;
+            Projectile.GetGlobalProjectile<TRAEGlobalProjectile>().DoesntExplodeOnTileCollide = true;
             Projectile.GetGlobalProjectile<TRAEGlobalProjectile>().ExplosionRadius = 80;
             Projectile.GetGlobalProjectile<TRAEGlobalProjectile>().UsesDefaultExplosion = true;
         }

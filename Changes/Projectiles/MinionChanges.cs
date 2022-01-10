@@ -58,7 +58,6 @@ namespace TRAEProject.Changes.Projectiles
                 case ItemID.RavenStaff:
                 case ItemID.Smolstar:
                 case ItemID.PirateStaff:
-                case ItemID.StormTigerStaff:
                 case ItemID.XenoStaff:
                 case ItemID.EmpressBlade:
                 case ItemID.StardustCellStaff:
@@ -86,6 +85,13 @@ namespace TRAEProject.Changes.Projectiles
                     item.useAnimation = 10;
                     item.autoReuse = true;
                     item.damage = 45; // up from 34
+                    break;
+                case ItemID.StormTigerStaff:
+                    item.damage = 34; // down from 41
+                    item.mana = 25;
+                    item.useTime = 10;
+                    item.useAnimation = 10;
+                    item.autoReuse = true;
                     break;
                 case ItemID.TempestStaff:
                     item.mana = 25;
@@ -389,9 +395,20 @@ namespace TRAEProject.Changes.Projectiles
         }
         NPC target;
         Projectile hook;
+        public int pygmyCharge = 0;
         public override bool PreAI(Projectile projectile)
         {
-            if (projectile.type == ProjectileID.PirateCaptain || projectile.type == ProjectileID.OneEyedPirate || projectile.type == ProjectileID.SoulscourgePirate)
+            if (projectile.type == ProjectileID.Pygmy || projectile.type == ProjectileID.Pygmy2 || projectile.type == ProjectileID.Pygmy3 || projectile.type == ProjectileID.Pygmy4)
+			{
+                Pygmy.AI(projectile);
+				return false;
+			}
+            if(projectile.type == ProjectileID.PygmySpear)
+            {
+                Pygmy.CreateChargeDust(projectile, projectile.extraUpdates);
+                projectile.ai[0] -= 0.5f;
+            }
+			if (projectile.type == ProjectileID.PirateCaptain || projectile.type == ProjectileID.OneEyedPirate || projectile.type == ProjectileID.SoulscourgePirate)
             {
                 //Main.NewText(projectile.ai[0] + ", " + projectile.ai[1] + ", " + projectile.localAI[0] + ", " + projectile.localAI[1]);
                 //Main.NewText(projectile.frame);
@@ -608,6 +625,17 @@ namespace TRAEProject.Changes.Projectiles
                 projectile.ai[0] = projectile.timeLeft < (3600 - (16 * 5000) / 10) ? 45 : 0;
             }
             return base.PreAI(projectile);
+        }
+        public override bool TileCollideStyle(Projectile projectile, ref int width, ref int height, ref bool fallThrough, ref Vector2 hitboxCenterFrac)
+        {
+            if (projectile.type == ProjectileID.Pygmy || projectile.type == ProjectileID.Pygmy2 || projectile.type == ProjectileID.Pygmy3 || projectile.type == ProjectileID.Pygmy4)
+            {
+                if(projectile.localAI[0] > 0)
+                {
+                    fallThrough = false;
+                }
+            }
+            return base.TileCollideStyle(projectile, ref width, ref height, ref fallThrough, ref hitboxCenterFrac);
         }
         public override bool PreDraw(Projectile projectile, ref Color lightColor)
         {

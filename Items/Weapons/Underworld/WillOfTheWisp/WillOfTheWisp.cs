@@ -27,11 +27,11 @@ namespace TRAEProject.Items.Weapons.Underworld.WillOfTheWisp
             Item.value = Item.sellPrice(gold: 5);
             Item.DamageType = DamageClass.Magic;
             Item.knockBack = 2f;
-            Item.shootSpeed = 12f;
+            Item.shootSpeed = 16f;
             Item.noMelee = true;
             Item.shoot = ProjectileType<WillOfTheWispFlame>();
             Item.useStyle = ItemUseStyleID.HoldUp;
-            Item.UseSound = SoundID.Item5;
+            Item.UseSound = SoundID.Item20;
         }
         public override bool Shoot(Player player, ProjectileSource_Item_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
         {
@@ -58,6 +58,7 @@ namespace TRAEProject.Items.Weapons.Underworld.WillOfTheWisp
             Projectile.height = 26;
             Projectile.friendly = true;
             Projectile.ignoreWater = false;
+
             Projectile.DamageType = DamageClass.Magic; 
             Projectile.usesIDStaticNPCImmunity = true;
             Projectile.idStaticNPCHitCooldown = 10;
@@ -65,7 +66,6 @@ namespace TRAEProject.Items.Weapons.Underworld.WillOfTheWisp
             Projectile.GetGlobalProjectile<TRAEGlobalProjectile>().SmartBouncesOffEnemies = true;
             Projectile.aiStyle = 1;
             Projectile.timeLeft = 600;
-
         }
         public override void AI()
         {
@@ -75,43 +75,62 @@ namespace TRAEProject.Items.Weapons.Underworld.WillOfTheWisp
                 Projectile.frameCounter = 0;
                 Projectile.frame = (Projectile.frame + 1) % 4;
             }
+            Projectile.rotation = Projectile.velocity.ToRotation() + MathHelper.ToRadians(90f);
+            if (Main.rand.Next(3) == 0)
+            {
+                Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, DustID.Torch, 1, Projectile.velocity.Y * -0.33f, 0, default, 0.7f);
+
+            }
+        }
+        public override void Kill(int timeLeft)
+        {
+            Terraria.Audio.SoundEngine.PlaySound(SoundID.Item10, (int)Projectile.position.X, (int)Projectile.position.Y);
+            for (int i = 0; i < 15; i++)
+            {
+                Dust dust = Dust.NewDustDirect(Projectile.oldPosition, Projectile.width, Projectile.height, DustID.Torch, 1f);
+                dust.noGravity = true;
+            }
         }
         public override bool OnTileCollide(Vector2 oldVelocity)
         {
-            int[] array = new int[10];
-            int num6 = 0;
-            int Range = 700;
-            int num8 = 20;
-            for (int j = 0; j < 200; j++)
+            int[] numArray = new int[10];
+            int maxValue = 0;
+            int num2 = 700;
+            int num3 = 20;
+            for (int index2 = 0; index2 < 200; ++index2)
             {
-                if (Main.npc[j].CanBeChasedBy(this, false) && Projectile.localNPCImmunity[j] != 1)
+                if (Main.npc[index2].CanBeChasedBy((object)this, false))
                 {
-                    float DistanceBetweenProjectileAndEnemy = (Projectile.Center - Main.npc[j].Center).Length();
-                    if (DistanceBetweenProjectileAndEnemy > num8 && DistanceBetweenProjectileAndEnemy < Range && Collision.CanHitLine(Projectile.Center, 1, 1, Main.npc[j].Center, 1, 1))
+                    Vector2 vector2 = Vector2.Subtract(Projectile.Center, Main.npc[index2].Center);
+                    // ISSUE: explicit reference operation
+                    float num4 = ((Vector2)@vector2).Length();
+                    if ((double)num4 > (double)num3 && (double)num4 < (double)num2 && Collision.CanHitLine(Projectile.Center, 1, 1, Main.npc[index2].Center, 1, 1))
                     {
-                        array[num6] = j;
-                        num6++;
-                        if (num6 >= 9)
-                        {
+                        numArray[maxValue] = index2;
+                        ++maxValue;
+                        if (maxValue >= 9)
                             break;
-                        }
                     }
                 }
             }
-            if (num6 > 0)
+            if (maxValue > 0)
             {
-                num6 = Main.rand.Next(num6);
-                Vector2 value2 = Main.npc[array[num6]].Center - Projectile.Center;
-                float scaleFactor2 = Projectile.velocity.Length();
-                value2.Normalize();
-               Projectile.velocity = value2 * scaleFactor2;
+                int index2 = Main.rand.Next(maxValue);
+                Vector2 vector2 = Vector2.Subtract(Main.npc[numArray[index2]].Center, Projectile.Center);
+                // ISSUE: explicit reference operation
+                float num4 = ((Vector2)Projectile.velocity).Length();
+                // ISSUE: explicit reference operation
+                ((Vector2)@vector2).Normalize();
+                Projectile.velocity = Vector2.Multiply(vector2, num4);
                 Projectile.netUpdate = true;
+                return false;
             }
             else
             {
                 Projectile.velocity.Y = -Projectile.oldVelocity.Y;
+                return false;
             }
-            return false;
+          
         }
     }   
 }

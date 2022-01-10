@@ -125,6 +125,11 @@ namespace TRAEProject.Changes.Projectiles
                     projectile.GetGlobalProjectile<TRAEGlobalProjectile>().dontHitTheSameEnemyMultipleTimes = true;
                     projectile.usesLocalNPCImmunity = true;
                     return;
+                case ProjectileID.BoulderStaffOfEarth:
+                    projectile.penetrate = 4;
+                    projectile.usesLocalNPCImmunity = true;
+                    projectile.localNPCHitCooldown = -1;
+                    return;
             }
         }
 

@@ -59,7 +59,7 @@ namespace TRAEProject.Changes.Projectiles.Spears
         {
             if(projectile.type == ProjectileID.NorthPoleSnowflake)
             {
-                projectile.timeLeft = 90;
+                projectile.timeLeft = 120;
             }
         }
         public override void AI(Projectile projectile)

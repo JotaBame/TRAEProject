@@ -30,6 +30,15 @@ namespace TRAEProject.Changes.Accesory
         {
             switch (item.type)
             {
+                case ItemID.FeralClaws:
+                case ItemID.PowerGlove:
+                case ItemID.MechanicalGlove:
+                case ItemID.BerserkerGlove:
+                    player.GetModPlayer<MeleeStats>().TRAEAutoswing = true;
+                    break;
+            }
+            switch (item.type)
+            {
                 case ItemID.FastClock:
                     Main.time += 4;
                     player.buffImmune[BuffID.Slow] = false;

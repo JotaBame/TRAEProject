@@ -8,6 +8,7 @@ using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 using TRAEProject;
+using TRAEProject.Changes.Prefixes;
 using static Terraria.ModLoader.ModContent;
 
 namespace TRAEProject.Items.DreadItems.ShellSpinner
@@ -36,6 +37,7 @@ namespace TRAEProject.Items.DreadItems.ShellSpinner
             Item.noUseGraphic = true;
             Item.useStyle = 1;
             Item.UseSound = SoundID.Item1;
+            Item.GetGlobalItem<GiveWeaponsPrefixes>().canGetBoomerangModifers = true;
         }
     }
     class ShellSpinnerP : ModProjectile
@@ -44,7 +46,7 @@ namespace TRAEProject.Items.DreadItems.ShellSpinner
         {
             Projectile.width = Projectile.height = 38;
             Projectile.DamageType = DamageClass.Melee;
-            Projectile.penetrate = 2;
+            Projectile.penetrate = 3;
             Projectile.usesLocalNPCImmunity = true;
             Projectile.localNPCHitCooldown = 15;
             Projectile.friendly = true;
@@ -62,6 +64,7 @@ namespace TRAEProject.Items.DreadItems.ShellSpinner
 
         public override void AI()
         {
+            Projectile.friendly = Projectile.penetrate > 1;
             Player player = Main.player[Projectile.owner];
             if (runOnce)
             {

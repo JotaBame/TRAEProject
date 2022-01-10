@@ -7,6 +7,7 @@ using Terraria.GameContent.Creative;
 using TRAEProject.Items.Accesories.ShadowflameCharm;
 using TRAEProject.Buffs;
 using static Terraria.ModLoader.ModContent;
+using TRAEProject.Common.ModPlayers;
 
 namespace TRAEProject.Items.Accesories.ShadowClaws
 {
@@ -28,6 +29,7 @@ namespace TRAEProject.Items.Accesories.ShadowClaws
         {
             player.meleeSpeed += 0.12f;
             player.autoReuseGlove = true;
+            player.GetModPlayer<MeleeStats>().TRAEAutoswing = true;
             player.GetModPlayer<ShadowflameCharmPlayer>().ShadowflameCharm += 1;
         }
         public override void AddRecipes()

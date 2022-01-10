@@ -12,7 +12,7 @@ namespace TRAEProject.Items.DreadItems.DreadSummon
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Bloody Sea Wasp");
-            Tooltip.SetDefault("Summons a powerful Blood Moon monster");
+            Tooltip.SetDefault("Use to catch a powerful Blood Moon monster");
 
         }
         public override void SetDefaults()
@@ -23,19 +23,7 @@ namespace TRAEProject.Items.DreadItems.DreadSummon
 			Item.height = 12;
             Item.rare = ItemRarityID.LightRed;
 			Item.value = Item.sellPrice(0, 0, 10);
-            Item.makeNPC = NPCID.BloodNautilus;
-            Item.useStyle = 4;
-        }
-
-        public override bool CanUseItem(Player player)
-        {
-            if (!NPC.AnyNPCs(NPCID.BloodNautilus) && Main.bloodMoon)
-            {
-                NPC.SpawnOnPlayer(player.whoAmI, NPCID.BloodNautilus);
-                SoundEngine.PlaySound(SoundID.Roar, player.position, 0);
-                return true;
-            }
-            return false;
+            Item.bait = 50;
         }
     }
     class BatiDrop : GlobalNPC

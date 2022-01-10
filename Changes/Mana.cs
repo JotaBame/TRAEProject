@@ -129,7 +129,7 @@ namespace TRAEProject.Changes
         {
             if(overloadedMana > 0)
             {
-                //Main.NewText("Overloaded Mana:" + overloadedMana);
+               // Main.NewText("Overloaded Mana:" + overloadedMana);
             }
             return base.PreItemCheck();
         }
@@ -159,154 +159,55 @@ namespace TRAEProject.Changes
         }
         public override void SetStaticDefaults()
         {
-            IL.Terraria.Player.ItemCheck_PayMana += PayManaHook; //this method is used by most magic weapons
-            IL.Terraria.Player.CheckMana_Item_int_bool_bool += CheckManaHook; //this is used by held projectiles like LMG
+            IL.Terraria.Player.ItemCheck_PayMana += PayManaHook2; //this method is used by most magic weapons
+            IL.Terraria.Player.CheckMana_Item_int_bool_bool += CheckManaHook2; //this is used by held projectiles like LMG
         }
-        private void PayManaHook(ILContext il)
+        private void PayManaHook2(ILContext il)
         {
             var c = new ILCursor(il);
             c.Emit(OpCodes.Ldarg_0);
             c.Emit(OpCodes.Ldarg_1);
             c.Emit(OpCodes.Ldarg_2);
-            c.EmitDelegate<Func<Player, Item, bool, bool>>((player, item, canUse) =>
+            c.EmitDelegate<Action<Player, Item, bool>>((player, item, canUse) =>
             {
-                //Main.NewText("Hijacked!");
-                
-                bool flag = player.altFunctionUse == 2;
-                bool flag2 = false;
-                int num = (int)((float)item.mana * player.manaCost);
-                if (item.type == ItemID.LaserMachinegun)
+                if (player.GetModPlayer<Mana>().overloadedMana > 0)
                 {
-                    flag2 = true;
+
+                    int amount = player.GetManaCost(item);
+                    int overloadedManaLoss = Math.Min(player.GetModPlayer<Mana>().overloadedMana, amount);
+                    player.GetModPlayer<Mana>().overloadedMana -= overloadedManaLoss;
+                    //amount -= overloadedManaLoss;
+                    player.statMana += overloadedManaLoss;
                 }
-                if (item.type == ItemID.BookStaff && flag)
-                {
-                    num = (int)((float)(item.mana * 2) * player.manaCost);
-                }
-                if (item.shoot > ProjectileID.None && ProjectileID.Sets.TurretFeature[item.shoot] && flag)
-                {
-                    flag2 = true;
-                }
-                if (item.shoot > 0 && ProjectileID.Sets.MinionTargettingFeature[item.shoot] && flag)
-                {
-                    flag2 = true;
-                }
-                if (item.type == ItemID.SoulDrain)
-                {
-                    flag2 = true;
-                }
-                if (item.type != ItemID.MedusaHead && (!player.spaceGun || (item.type != ItemID.SpaceGun && item.type != 4347 && item.type != 4348)))
-                {
-                    if (player.statMana + player.GetModPlayer<Mana>().overloadedMana >= num)
-                    {
-                        if (!flag2)
-                        {
-                            if(player.GetModPlayer<Mana>().overloadedMana > 0)
-                            {
-                                int overloadedManaLoss = Math.Min(player.GetModPlayer<Mana>().overloadedMana, num);
-                                player.GetModPlayer<Mana>().overloadedMana -= overloadedManaLoss;
-                                num -= overloadedManaLoss;
-                            }
-                            player.statMana -= num;
-                        }
-                    }
-                    else if (player.manaFlower)
-                    {
-                        player.QuickMana();
-                        if (player.statMana >= num)
-                        {
-                            if (!flag2)
-                            {
-                                if (player.GetModPlayer<Mana>().overloadedMana > 0)
-                                {
-                                    int overloadedManaLoss = Math.Min(player.GetModPlayer<Mana>().overloadedMana, num);
-                                    player.GetModPlayer<Mana>().overloadedMana -= overloadedManaLoss;
-                                    num -= overloadedManaLoss;
-                                }
-                                player.statMana -= num;
-                            }
-                        }
-                        else
-                        {
-                            canUse = false;
-                        }
-                    }
-                    else
-                    {
-                        canUse = false;
-                    }
-                }
-                return canUse;
             });
-            //pop the variable at the top of the stack onto the local variable
-            c.Emit(OpCodes.Stloc_0);
-            //push the local variable onto the stack
-            c.Emit(OpCodes.Ldloc_0);
-            c.Emit(OpCodes.Ret);
         }
-        private void CheckManaHook(ILContext il)
+        private void CheckManaHook2(ILContext il)
         {
+
             var c = new ILCursor(il);
             c.Emit(OpCodes.Ldarg_0);
             c.Emit(OpCodes.Ldarg_1);
             c.Emit(OpCodes.Ldarg_2);
             c.Emit(OpCodes.Ldarg_3);
             c.Emit(OpCodes.Ldarg, 4);
-            c.EmitDelegate<Func<Player, Item, int, bool, bool, bool>>((player, item, amount, pay, blockQuickMana) =>
+            c.EmitDelegate<Action<Player, Item, int, bool, bool>>((player, item, amount, pay, blockQuickMana) =>
             {
-                //Main.NewText("Hijacked!");
-                if (amount <= -1)
-                    amount = player.GetManaCost(item);
-
-                if (player.statMana + player.GetModPlayer<Mana>().overloadedMana >= amount)
+                if (player.GetModPlayer<Mana>().overloadedMana > 0)
                 {
-                    if (pay)
+                    if (amount <= -1)
                     {
-                        CombinedHooks.OnConsumeMana(player, item, amount);
-                        if (player.GetModPlayer<Mana>().overloadedMana > 0)
-                        {
-                            int overloadedManaLoss = Math.Min(player.GetModPlayer<Mana>().overloadedMana, amount);
-                            player.GetModPlayer<Mana>().overloadedMana -= overloadedManaLoss;
-                            amount -= overloadedManaLoss;
-                        }
-                        player.statMana -= amount;
+                        amount = player.GetManaCost(item);
                     }
 
-                    return true;
+                    int overloadedManaLoss = Math.Min(player.GetModPlayer<Mana>().overloadedMana, amount);
+                    player.GetModPlayer<Mana>().overloadedMana -= overloadedManaLoss;
+                    //amount -= overloadedManaLoss;
+                    player.statMana += overloadedManaLoss;
                 }
-
-                if (blockQuickMana)
-                    return false;
-
-                CombinedHooks.OnMissingMana(player, item, amount);
-                if (player.statMana < amount && player.manaFlower)
-                    player.QuickMana();
-
-                if (player.statMana >= amount)
-                {
-                    if (pay)
-                    {
-                        CombinedHooks.OnConsumeMana(player, item, amount);
-                        if (player.GetModPlayer<Mana>().overloadedMana > 0)
-                        {
-                            int overloadedManaLoss = Math.Min(player.GetModPlayer<Mana>().overloadedMana, amount);
-                            player.GetModPlayer<Mana>().overloadedMana -= overloadedManaLoss;
-                            amount -= overloadedManaLoss;
-                        }
-                        player.statMana -= amount;
-                    }
-
-                    return true;
-                }
-
-                return false;
             });
-            //pop the variable at the top of the stack onto the local variable
-            c.Emit(OpCodes.Stloc_0);
-            //push the local variable onto the stack
-            c.Emit(OpCodes.Ldloc_0);
-            c.Emit(OpCodes.Ret);
+
         }
+
     }
     public class DisplayOverload : ModSystem
     {

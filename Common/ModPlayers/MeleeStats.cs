@@ -19,11 +19,20 @@ namespace TRAEProject.Common.ModPlayers
         public float weaponSize = 1f;
         public int inflictHeavyBurn = 0;
         public float meleeVelocity = 1f;
+        public bool TRAEAutoswing = false;
         public override void ResetEffects()
         {
             weaponSize = 1f;
             inflictHeavyBurn = 0;
             meleeVelocity = 1f;
+            TRAEAutoswing = false;
+        }
+        public override void PostUpdateEquips()
+        {
+            if(TRAEAutoswing)
+            {
+                Player.autoReuseGlove = true;
+            }
         }
         #region Sword Size
         public override void SetStaticDefaults()

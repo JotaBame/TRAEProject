@@ -66,6 +66,7 @@ namespace TRAEProject.Changes.Prefixes
             {
 				canGetYoyoModifers = true;
             }
+			
         }
 		public override bool PreReforge(Item item)
         {

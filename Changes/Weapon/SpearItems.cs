@@ -212,7 +212,7 @@ namespace TRAEProject.Changes.Weapon
 					altShoot = ProjectileType<MushroomSpearThrow>();
 
 					item.shootSpeed = 8; //only the throw uses this
-					item.damage = 120;
+					item.damage = 100;
 					item.useTime = item.useAnimation = 50;
 					item.value = Item.buyPrice(platinum: 2);
 					break;
@@ -223,7 +223,7 @@ namespace TRAEProject.Changes.Weapon
 					altShoot = ProjectileType<NorthPoleThrow>();
 
 					item.shootSpeed = 9; //only the throw uses this
-					item.damage = 98;
+					item.damage = 107;
 					item.useTime = item.useAnimation = 24;
 					break;
 				case ItemID.ScourgeoftheCorruptor:

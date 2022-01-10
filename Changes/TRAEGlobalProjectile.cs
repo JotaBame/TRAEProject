@@ -49,6 +49,7 @@ namespace TRAEProject.Changes.Projectiles
         //
         // Explosion
         public bool explodes = false; // set to true to make the projectile explode. 
+        public bool DoesntExplodeOnTileCollide = false; // set to true to make the projectile explode. 
         public int ExplosionRadius = 80; // Hitbox size of the base explosion. Base value is 80.
         public float ExplosionDamage = 1f; // Makes the explosion deal Increased/decreased damage. 
         public bool DontRunThisAgain = false;
@@ -77,6 +78,10 @@ namespace TRAEProject.Changes.Projectiles
         {
             switch (projectile.type)
             {
+                case ProjectileID.FrostBlastFriendly:
+                    projectile.usesLocalNPCImmunity = true;
+                    projectile.localNPCHitCooldown = 30;
+                    break;
                 case ProjectileID.Bee:
                 case ProjectileID.GiantBee:
                     projectile.usesLocalNPCImmunity = true;
@@ -239,7 +244,7 @@ namespace TRAEProject.Changes.Projectiles
 
     public override bool OnTileCollide(Projectile projectile, Vector2 oldVelocity)
         {
-            if (explodes /*&&!Doesn'tExplodeOnTileCollide*/) // If you want a projectile that doesn't explode in contact with tiles, make the second variable.//
+            if (explodes && !DoesntExplodeOnTileCollide) // If you want a projectile that doesn't explode in contact with tiles, make the second variable.//
             {
                 TRAEMethods.Explode(projectile, ExplosionRadius, ExplosionDamage);
                 if (UsesDefaultExplosion)
@@ -266,36 +271,35 @@ namespace TRAEProject.Changes.Projectiles
                 projectile.damage -= (int)(projectile.damage * DamageLossOffATileBounce);
             if (SmartBouncesOffTiles)
             {
-                int[] array = new int[10];
-                int num6 = 0;
-                int Range = 700;
-                int num8 = 20;
-                for (int j = 0; j < 200; j++)
+                int[] numArray = new int[10];
+                int maxValue = 0;
+                int num2 = 700;
+                int num3 = 20;
+                for (int index2 = 0; index2 < 200; ++index2)
                 {
-                    if (Main.npc[j].CanBeChasedBy(this, false) && projectile.localNPCImmunity[j] != 1)
+                    if (Main.npc[index2].CanBeChasedBy((object)this, false))
                     {
-                        float DistanceBetweenProjectileAndEnemy = (projectile.Center - Main.npc[j].Center).Length();
-                        if (DistanceBetweenProjectileAndEnemy > num8 && DistanceBetweenProjectileAndEnemy < Range && Collision.CanHitLine(projectile.Center, 1, 1, Main.npc[j].Center, 1, 1))
+                        Vector2 vector2 = Vector2.Subtract(projectile.Center, Main.npc[index2].Center);
+                        // ISSUE: explicit reference operation
+                        float num4 = ((Vector2)@vector2).Length();
+                        if ((double)num4 > (double)num3 && (double)num4 < (double)num2 && Collision.CanHitLine(projectile.Center, 1, 1, Main.npc[index2].Center, 1, 1))
                         {
-                            array[num6] = j;
-                            num6++;
-                            if (num6 >= 9)
-                            {
+                            numArray[maxValue] = index2;
+                            ++maxValue;
+                            if (maxValue >= 9)
                                 break;
-                            }
                         }
                     }
                 }
-                if (num6 > 0)
+                if (maxValue > 0)
                 {
-                    num6 = Main.rand.Next(num6);
-                    Vector2 value2 = Main.npc[array[num6]].Center - projectile.Center;
-                    float scaleFactor2 = projectile.velocity.Length();
-                    value2.Normalize();
-                    projectile.velocity = value2 * scaleFactor2;
+                    int index2 = Main.rand.Next(maxValue);
+                    Vector2 vector2 = Vector2.Subtract(Main.npc[numArray[index2]].Center, projectile.Center);
+                    float num4 = ((Vector2)projectile.velocity).Length();
+                    ((Vector2)@vector2).Normalize();
+                    projectile.velocity = Vector2.Multiply(vector2, num4);
                     projectile.netUpdate = true;
                 }
-                return false;
             }
             return true;
         }
@@ -449,36 +453,36 @@ namespace TRAEProject.Changes.Projectiles
             {
                 projectile.localNPCImmunity[target.whoAmI] = -1;
                 target.immune[projectile.owner] = 0;
-                int[] array = new int[10];
-                int num6 = 0;
-                int num7 = 700;
-                int num8 = 20;
-                for (int j = 0; j < 200; j++)
+                int[] numArray = new int[10];
+                int maxValue = 0;
+                int num2 = 700;
+                int num3 = 20;
+                for (int index2 = 0; index2 < 200; ++index2)
                 {
-                    if (Main.npc[j].CanBeChasedBy(this, false) || Main.npc[j].type == NPCID.DetonatingBubble && projectile.localNPCImmunity[target.whoAmI] != -1/*see "dontHitTheSameEnemyMultipleTimes" above*/)
+                    if (Main.npc[index2].CanBeChasedBy((object)this, false))
                     {
-                        float num9 = (projectile.Center - Main.npc[j].Center).Length();
-                        if (num9 > num8 && num9 < num7 && Collision.CanHitLine(projectile.Center, 1, 1, Main.npc[j].Center, 1, 1))
+                        Vector2 vector2 = Vector2.Subtract(projectile.Center, Main.npc[index2].Center);
+                        // ISSUE: explicit reference operation
+                        float num4 = ((Vector2)@vector2).Length();
+                        if ((double)num4 > (double)num3 && (double)num4 < (double)num2 && Collision.CanHitLine(projectile.Center, 1, 1, Main.npc[index2].Center, 1, 1))
                         {
-                            array[num6] = j;
-                            num6++;
-                            if (num6 >= 9)
-                            {
+                            numArray[maxValue] = index2;
+                            ++maxValue;
+                            if (maxValue >= 9)
                                 break;
-                            }
                         }
                     }
                 }
-                if (num6 > 0)
+                if (maxValue > 0)
                 {
-                    num6 = Main.rand.Next(num6);
-                    Vector2 value2 = Main.npc[array[num6]].Center - projectile.Center;
-                    float scaleFactor2 = projectile.velocity.Length();
-                    value2.Normalize();
-                    projectile.velocity = value2 * scaleFactor2;
+                    int index2 = Main.rand.Next(maxValue);
+                    Vector2 vector2 = Vector2.Subtract(Main.npc[numArray[index2]].Center, projectile.Center);
+                    float num4 = ((Vector2)projectile.velocity).Length();
+                    ((Vector2)@vector2).Normalize();
+                    projectile.velocity = Vector2.Multiply(vector2, num4);
                     projectile.netUpdate = true;
                 }
-                return;
+
             }        
             Player player = Main.player[projectile.owner];
             // Damage Fall off

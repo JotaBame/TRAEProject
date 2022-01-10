@@ -11,9 +11,7 @@ using static Terraria.ModLoader.ModContent;
 namespace TRAEProject
 {
     public class HellEnemies: GlobalNPC
-    {               
-	
-	public override bool InstancePerEntity => true;
+    {       
         public override void SetDefaults(NPC npc)
         {
             switch (npc.type)

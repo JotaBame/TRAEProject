@@ -57,7 +57,7 @@ namespace TRAEProject
             switch (npc.type)
             {
                 case NPCID.Hellbat:
-                    if ((Main.expertMode && Main.masterMode) && bat < 2)
+                    if ((Main.expertMode || Main.masterMode) && bat < 2)
                     {
                         for (int i = 0; i < 2; ++i)
                         {

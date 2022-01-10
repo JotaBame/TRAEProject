@@ -23,16 +23,16 @@ namespace TRAEProject.NPCs.Boomxie
         }
         public override void SetDefaults()
         {
-            NPC.width = 68;
-            NPC.height = 72;
+            NPC.width = 38;
+            NPC.height = 40;
 
-            NPC.aiStyle = 41;
             AIType = NPCID.Pixie;
             AnimationType = NPCID.Pixie;
             NPC.damage = 50;
             NPC.defense = 10;
             NPC.lifeMax = 100;
-
+            NPC.lavaImmune = true;
+            NPC.noGravity = true;
             NPC.HitSound = SoundID.NPCHit5;
             NPC.knockBackResist = 0.5f;
 
