@@ -11,7 +11,7 @@ namespace TRAEProject
 {
     public class TRAEMethods
     {
-        public static void SpawnProjectilesFromAbove(Terraria.DataStructures.IProjectileSource spawnSource, Vector2 Base, int projectileCount, int spreadX, int spreadY, int[] offsetCenter, float velocity, int type, int damage, float knockback, int player)
+        public static void SpawnProjectilesFromAbove(Player Player, Vector2 Base, int projectileCount, int spreadX, int spreadY, int[] offsetCenter, float velocity, int type, int damage, float knockback, int player)
         {
             for (int i = 0; i < projectileCount; ++i)
             {
@@ -29,7 +29,7 @@ namespace TRAEProject
                 Y *= squareRoot;
                 ///
                 // Spawn the projectile
-                int Projectile = Terraria.Projectile.NewProjectile(spawnSource, x2, y, X, Y, type, damage, knockback, player);
+                int Projectile = Terraria.Projectile.NewProjectile(Player.GetItemSource_Misc(Player.HeldItem.type), x2, y, X, Y, type, damage, knockback, player);
                 // once the projectile reaches the base's position, it will no longer go through tiles.
                 Main.projectile[Projectile].localAI[1] += Base.Y;
            

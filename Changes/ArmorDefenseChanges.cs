@@ -88,8 +88,6 @@ namespace TRAEProject
                 case ItemID.SilverGreaves:
                 case ItemID.TungstenGreaves:
                 case ItemID.SilverHelmet:
-                case ItemID.FossilHelm:
-                case ItemID.FossilPants:
                     item.defense = 5;
                     return;
                 case ItemID.JungleHat:
@@ -100,7 +98,6 @@ namespace TRAEProject
                 case ItemID.GoldGreaves:
                 case ItemID.AncientGoldHelmet:
                 case ItemID.PlatinumGreaves:
-                case ItemID.FossilShirt:
                     item.defense = 6;
                     return;
                 case ItemID.MythrilHat:

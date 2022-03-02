@@ -42,11 +42,28 @@ namespace TRAEProject.NPCs.Boomxie
         int timer = 0;
         public override void AI()
         {
+<<<<<<< Updated upstream:NPCs/Boomxie/Boomxie.cs
             timer++;
             if (timer >= 60)
             { 
                 NPC.NewNPC((int)NPC.Center.X, (int)NPC.Center.Y, NPCType<LittleBoomxie>()); 
 				timer = 0;
+=======
+          
+            attackCycleTimer++;
+            if (attackCycleTimer > 150)
+            {
+                spamTimer++;
+                if (spamTimer >= 75)
+                {
+                    NPC.NewNPC(NPC.GetSpawnSourceForNPCFromNPCAI(), (int)NPC.Center.X, (int)NPC.Center.Y, NPCType<LittleBoomxie>());
+                    spamTimer = 0;
+                }
+            }
+            if (attackCycleTimer > 750)
+            {
+                attackCycleTimer = 0;
+>>>>>>> Stashed changes:NewContent/NPCs/Boomxie/Boomxie.cs
             }
         }
         public override void SetBestiary(BestiaryDatabase database, BestiaryEntry bestiaryEntry)
@@ -76,7 +93,7 @@ namespace TRAEProject.NPCs.Boomxie
                 for (int i = 0; i < smallBoomxiesToSpawn; i++)
                 {
                     damagestored -= 10;
-                    NPC.NewNPC((int)NPC.Center.X, (int)NPC.Center.Y, NPCType<LittleBoomxie>());
+                    NPC.NewNPC(NPC.GetSpawnSourceForNPCFromNPCAI(), (int)NPC.Center.X, (int)NPC.Center.Y, NPCType<LittleBoomxie>());
                 }
             }
         }
@@ -89,7 +106,7 @@ namespace TRAEProject.NPCs.Boomxie
                 for (int i = 0; i < smallBoomxiesToSpawn; i++)
                 {
                     damagestored -= 50;
-                    NPC.NewNPC((int)NPC.Center.X, (int)NPC.Center.Y, NPCType<LittleBoomxie>());
+                    NPC.NewNPC(NPC.GetSpawnSourceForNPCFromNPCAI(), (int)NPC.Center.X, (int)NPC.Center.Y, NPCType<LittleBoomxie>());
                 }
             }
         }
@@ -110,7 +127,11 @@ namespace TRAEProject.NPCs.Boomxie
         public override void OnKill()
         {
             Vector2 zero = new Vector2(0, 0);
+<<<<<<< Updated upstream:NPCs/Boomxie/Boomxie.cs
             Projectile.NewProjectile(NPC.GetProjectileSpawnSource(), NPC.Center, zero, ProjectileType<Boom>(), NPC.damage, 0);
+=======
+            Projectile.NewProjectile(NPC.GetSpawnSourceForNPCFromNPCAI(), NPC.Center, zero, ProjectileType<Boom>(), 30, 0);
+>>>>>>> Stashed changes:NewContent/NPCs/Boomxie/Boomxie.cs
         }
     }
     public class LittleBoomxie : ModNPC
@@ -147,11 +168,15 @@ namespace TRAEProject.NPCs.Boomxie
             Vector2 zero = new Vector2(0, 0);
             if (!Main.expertMode && !Main.masterMode)
             {
+<<<<<<< Updated upstream:NPCs/Boomxie/Boomxie.cs
                 Projectile.NewProjectile(NPC.GetProjectileSpawnSource(), NPC.Center, zero, ProjectileType<Boom>(), NPC.damage, 0);
+=======
+                Projectile.NewProjectile(NPC.GetSpawnSourceForNPCFromNPCAI(), NPC.Center, zero, ProjectileType<Boom>(), 30, 0);
+>>>>>>> Stashed changes:NewContent/NPCs/Boomxie/Boomxie.cs
             }
             else
             {
-                NPC.NewNPC((int)NPC.Center.X, (int)NPC.Center.Y, NPCID.BurningSphere);
+                NPC.NewNPC(NPC.GetSpawnSourceForNPCFromNPCAI(), (int)NPC.Center.X, (int)NPC.Center.Y, NPCID.BurningSphere);
             }
         }
     }

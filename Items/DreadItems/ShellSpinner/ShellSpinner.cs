@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Terraria;
+using Terraria.GameContent.Creative;
 using Terraria.ID;
 using Terraria.ModLoader;
 using TRAEProject;
@@ -17,6 +18,8 @@ namespace TRAEProject.Items.DreadItems.ShellSpinner
     {
         public override void SetStaticDefaults()
         {
+            CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
+
             DisplayName.SetDefault("Shell Spinner");
             Tooltip.SetDefault("Spin to win!");
         }

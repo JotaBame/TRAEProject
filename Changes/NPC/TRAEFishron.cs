@@ -23,6 +23,7 @@ namespace TRAEProject.NPCs
 		{
 			if (ServerConfig.Instance.DukeBuffs)
 			{
+<<<<<<< Updated upstream:Changes/NPC/TRAEFishron.cs
 				switch (npc.type)
 				{
 					case NPCID.DukeFishron:
@@ -32,6 +33,14 @@ namespace TRAEProject.NPCs
 								int length = Main.rand.Next(360, 600);
 								target.AddBuff(BuffID.Rabies, length, false);
 							}
+=======
+				case NPCID.DukeFishron:
+					{
+						if (Main.rand.Next(3) == 0)
+						{
+							int length = Main.rand.Next(1, 2) * 600;
+							target.AddBuff(BuffID.Rabies, length, false);
+>>>>>>> Stashed changes:Changes/NPCs/Boss/TRAEFishron.cs
 						}
 						return;
 				}
@@ -584,7 +593,7 @@ namespace TRAEProject.NPCs
 									if (Main.netMode != NetmodeID.MultiplayerClient)
 									{
 										Vector2 vector3 = Vector2.Normalize(player.Center - center) * (npc.width + 20) / 2f + center;
-										NPC.NewNPC((int)vector3.X, (int)vector3.Y + 45, 371);
+										NPC.NewNPC(NPC.GetSpawnSource_NPCRelease(npc.whoAmI),(int)vector3.X, (int)vector3.Y + 45, 371);
 									}
 								}
 								int num26 = Math.Sign(player.Center.X - center.X);
@@ -615,11 +624,11 @@ namespace TRAEProject.NPCs
 								{
 									Terraria.Audio.SoundEngine.PlaySound(SoundID.Zombie, (int)center.X, (int)center.Y, 9);
 								}
-								if (Main.netMode != NetmodeID.MultiplayerClient && npc.ai[2] == (num9 - 30))
-								{
-									Vector2 vector4 = npc.rotation.ToRotationVector2() * (Vector2.UnitX * npc.direction) * (npc.width + 20) / 2f + center;
-									Projectile.NewProjectile(npc.GetProjectileSpawnSource(), vector4.X, vector4.Y, npc.direction * 2, 8f, ProjectileID.SharknadoBolt, 0, 0f, Main.myPlayer);
-									Projectile.NewProjectile(npc.GetProjectileSpawnSource(), vector4.X, vector4.Y, -npc.direction * 2, 8f, ProjectileID.SharknadoBolt, 0, 0f, Main.myPlayer);
+							if (Main.netMode != NetmodeID.MultiplayerClient && npc.ai[2] == (num9 - 30))
+							{
+								Vector2 vector4 = npc.rotation.ToRotationVector2() * (Vector2.UnitX * npc.direction) * (npc.width + 20) / 2f + center;
+								Projectile.NewProjectile(npc.GetSpawnSourceForProjectileNPC(), vector4.X, vector4.Y, npc.direction * 2, 8f, ProjectileID.SharknadoBolt, 0, 0f, Main.myPlayer);
+									Projectile.NewProjectile(npc.GetSpawnSourceForProjectileNPC(), vector4.X, vector4.Y, -npc.direction * 2, 8f, ProjectileID.SharknadoBolt, 0, 0f, Main.myPlayer);
 								}
 								npc.ai[2] += 1f;
 								if (npc.ai[2] >= num9)
@@ -814,7 +823,7 @@ namespace TRAEProject.NPCs
 									if (Main.netMode != NetmodeID.MultiplayerClient)
 									{
 										Vector2 vector6 = Vector2.Normalize(npc.velocity) * (npc.width + 20) / 2f + center;
-										int num31 = NPC.NewNPC((int)vector6.X, (int)vector6.Y + 45, 371);
+										int num31 = NPC.NewNPC(NPC.GetSpawnSource_NPCRelease(npc.whoAmI), (int)vector6.X, (int)vector6.Y + 45, 371);
 										Main.npc[num31].target = npc.target;
 										Main.npc[num31].velocity = Vector2.Normalize(npc.velocity).RotatedBy((float)Math.PI / 2f * (float)npc.direction) * scaleFactor3;
 										Main.npc[num31].netUpdate = true;
@@ -843,7 +852,7 @@ namespace TRAEProject.NPCs
 								}
 								if (Main.netMode != NetmodeID.MultiplayerClient && npc.ai[2] == (float)(num9 - 30))
 								{
-									Projectile.NewProjectile(npc.GetProjectileSpawnSource(), center.X, center.Y, 0f, 0f, ProjectileID.SharknadoBolt, 0, 0f, Main.myPlayer, 1f, npc.target + 1);
+									Projectile.NewProjectile(npc.GetSpawnSourceForProjectileNPC(), center.X, center.Y, 0f, 0f, ProjectileID.SharknadoBolt, 0, 0f, Main.myPlayer, 1f, npc.target + 1);
 								}
 								npc.ai[2] += 1f;
 								if (npc.ai[2] >= (float)num9)
@@ -906,7 +915,7 @@ namespace TRAEProject.NPCs
 									++phase3NadoTimer;
 								if (phase3NadoTimer >= phase3NadoDelay)
 								{
-									Projectile.NewProjectile(npc.GetProjectileSpawnSource(), center.X, center.Y, 0f, 0f, ProjectileID.SharknadoBolt, 0, 0f, Main.myPlayer, 1f, npc.target + 1);
+									Projectile.NewProjectile(npc.GetSpawnSourceForProjectileNPC(), center.X, center.Y, 0f, 0f, ProjectileID.SharknadoBolt, 0, 0f, Main.myPlayer, 1f, npc.target + 1);
 									phase3NadoTimer = 0;
 								}
 								npc.dontTakeDamage = false;

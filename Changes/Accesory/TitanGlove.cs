@@ -49,7 +49,22 @@ namespace TRAEProject.Changes.Accesory
                     {
                         line.text = "25% increased melee weapon size and 50% increased melee velocity";
                     }
+<<<<<<< Updated upstream
 
+=======
+                    if (line.mod == "Terraria" && line.Name == "Tooltip1")
+                    {
+                        line.text = "";
+                    }
+                    if (line.mod == "Terraria" && line.Name == "Tooltip2")
+                    {
+                        line.text = "";
+                    }
+                    if (line.mod == "Terraria" && line.Name == "Tooltip3")
+                    {
+                        line.text = "";
+                    }
+>>>>>>> Stashed changes
                 }
                 if (item.type == ItemID.FireGauntlet)
                 {

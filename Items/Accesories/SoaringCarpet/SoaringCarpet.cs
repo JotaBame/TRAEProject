@@ -1,22 +1,25 @@
-﻿using MonoMod.Cil;
-using Mono.Cecil.Cil;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
+using Terraria.GameContent.Creative;
 
 namespace TRAEProject.Items.Accesories.SoaringCarpet
 {
     class SoaringCarpet : ModItem
     {
         public override void SetStaticDefaults()
+<<<<<<< Updated upstream:Items/Accesories/SoaringCarpet/SoaringCarpet.cs
         {
             DisplayName.SetDefault("Soaring Carpet");
             Tooltip.SetDefault("Grants a soaring carpet, use it by holding DOWN\n15% increased movement speed");
+=======
+		{
+			CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
+
+			DisplayName.SetDefault("Soaring Carpet");
+            Tooltip.SetDefault("Grants a soaring carpet, use it by holding UP\n25% movement speed\nFall damage immunity");
+>>>>>>> Stashed changes:NewContent/Items/Accesories/SoaringCarpet/SoaringCarpet.cs
         }
 
         public override void SetDefaults()
@@ -30,8 +33,15 @@ namespace TRAEProject.Items.Accesories.SoaringCarpet
         public override void UpdateAccessory(Player player, bool hideVisual)
         {
             player.GetModPlayer<SoaringCarpetEffect>().soaringCarpet = true;
+<<<<<<< Updated upstream:Items/Accesories/SoaringCarpet/SoaringCarpet.cs
 			player.moveSpeed += 0.1f;
 			player.jumpSpeedBoost += 0.5f;
+=======
+
+			player.moveSpeed += 0.25f;
+			player.noFallDmg = true;
+
+>>>>>>> Stashed changes:NewContent/Items/Accesories/SoaringCarpet/SoaringCarpet.cs
 		}
 		public override void AddRecipes()
 		{

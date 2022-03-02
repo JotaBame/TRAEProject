@@ -16,7 +16,8 @@ namespace TRAEProject.Changes.Dreadnautilus
     {
         public override void SetDefaults()
         {
-            Projectile.width = Projectile.height = 26;
+            Projectile.width = 32;
+            Projectile.height = 40;
             Projectile.hostile = true;
             Projectile.tileCollide = false;
             Projectile.ignoreWater = true;
@@ -54,7 +55,7 @@ namespace TRAEProject.Changes.Dreadnautilus
                 scaleY = 1f - scaleY;
                 for (float k = 0; k < beamLength; k += texture.Width)
                 {
-                    Main.EntitySpriteDraw(texture, Projectile.Center + TRAEMethods.PolarVector(k, Projectile.rotation) - Main.screenPosition, new Rectangle(0, frame * 26, 32, 26), Color.White, Projectile.rotation, Vector2.UnitY * 13, new Vector2(1f, scaleY), SpriteEffects.None, 0);
+                    Main.EntitySpriteDraw(texture, Projectile.Center + TRAEMethods.PolarVector(k, Projectile.rotation) - Main.screenPosition, new Rectangle(0, frame * 32, 32, 40), Color.White, Projectile.rotation, Vector2.UnitY * 13, new Vector2(1f, scaleY), SpriteEffects.None, 0);
                 }
             }
         }

@@ -139,7 +139,16 @@ namespace TRAEProject.Changes.Weapon
                     item.damage = 24;
                     item.scale = 1.33f;
                     item.value = 500000;
+<<<<<<< Updated upstream:Changes/Weapon/PreHardmodeSwords.cs
                     return;
+=======
+                    break;
+                //case ItemID.Beekeeper:
+                //    item.damage = 24;
+                //    item.scale = 1.33f;
+                //    item.value = 500000;
+                //    break;
+>>>>>>> Stashed changes:Changes/Weapon/Melee/PreHardmodeSwords.cs
                 //phaseblades
                 case ItemID.PurplePhaseblade:
                     item.damage = 29;
@@ -289,8 +298,13 @@ namespace TRAEProject.Changes.Weapon
         }
         /// SHOOT STUFF
 
+<<<<<<< Updated upstream:Changes/Weapon/PreHardmodeSwords.cs
       
         public override bool Shoot(Item item, Player player, ProjectileSource_Item_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
+=======
+        }
+        public override bool Shoot(Item item, Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
+>>>>>>> Stashed changes:Changes/Weapon/Melee/PreHardmodeSwords.cs
         {
             Vector2 mousePosition = Main.screenPosition + new Vector2(Main.mouseX, Main.mouseY);
             switch (item.type)

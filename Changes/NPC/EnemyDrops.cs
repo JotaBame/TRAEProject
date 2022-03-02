@@ -13,8 +13,13 @@ namespace TRAEProject
 {
     public class EnemyDrops: GlobalNPC
     {
+<<<<<<< Updated upstream:Changes/NPC/EnemyDrops.cs
         public static readonly int[] MimicDrops = new int[] { ItemID.CrossNecklace, ItemID.PhilosophersStone, ItemID.TitanGlove, ItemID.StarCloak, ItemID.MagicDagger};
        
+=======
+        public static readonly int[] MimicDrops = new int[] { ItemID.CrossNecklace, ItemID.PhilosophersStone, ItemID.TitanGlove, ItemID.StarCloak};
+        public static readonly int[] OgreDrops = new int[] { ItemID.ApprenticeScarf, ItemID.HuntressBuckler, ItemID.SquireShield, ItemID.MonkBelt };
+>>>>>>> Stashed changes:Changes/NPCs/EnemyDrops.cs
         public static readonly int[] PirateDrops = new int[] { ItemID.LuckyCoin, ItemID.GoldRing, ItemID.DiscountCard, ItemID.PirateStaff };
       
         public override void ModifyNPCLoot(NPC npc, NPCLoot npcLoot)
@@ -28,6 +33,26 @@ namespace TRAEProject
                         if (rule is not CommonDrop drop) // Type of drop you expect here
                             return false;
                         return drop.itemId == ItemID.FrostStaff; // compare more fields if needed
+                    });
+                    return;
+                case NPCID.EaterofSouls:
+                    npcLoot.RemoveWhere(rule =>
+                    {
+                        if (rule is not CommonDrop drop) // Type of drop you expect here
+                            return false;
+                        return drop.itemId == ItemID.AncientShadowHelmet; // compare more fields if needed
+                    });
+                    npcLoot.RemoveWhere(rule =>
+                    {
+                        if (rule is not CommonDrop drop) // Type of drop you expect here
+                            return false;
+                        return drop.itemId == ItemID.AncientShadowGreaves; // compare more fields if needed
+                    });
+                    npcLoot.RemoveWhere(rule =>
+                    {
+                        if (rule is not CommonDrop drop) // Type of drop you expect here
+                            return false;
+                        return drop.itemId == ItemID.AncientShadowScalemail; // compare more fields if needed
                     });
                     return;
                 case NPCID.GreekSkeleton:
@@ -56,6 +81,11 @@ namespace TRAEProject
                     return;
                 case NPCID.Tim:
                     npcLoot.Add(ItemDropRule.Common(ItemID.BookofSkulls, 2));
+                    return;
+                case NPCID.DD2DarkMageT1:
+                case NPCID.DD2DarkMageT3:
+                    npcLoot.Add(ItemDropRule.OneFromOptions(1, OgreDrops));
+                    npcLoot.Add(ItemDropRule.Common(ItemID.DefendersForge, 4));
                     return;
                 case NPCID.JungleCreeper:
                 case NPCID.JungleCreeperWall:

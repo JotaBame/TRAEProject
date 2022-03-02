@@ -1,6 +1,7 @@
 ﻿using System;
 using Microsoft.Xna.Framework;
 using Terraria;
+using Terraria.GameContent.Creative;
 using Terraria.ID;
 using Terraria.ModLoader;
 
@@ -10,6 +11,8 @@ namespace TRAEProject.Items.Accesories.EvilEye
     {
         public override void SetStaticDefaults()
         {
+            CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
+
             DisplayName.SetDefault("Evil Eye");
             Tooltip.SetDefault("Unleashes curses to the wielder and nearby enemies when damaged\nProjectiles deal 15% less damage and curse all enemies");
         }

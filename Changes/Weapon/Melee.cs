@@ -124,13 +124,13 @@ namespace TRAEProject.Changes.Weapon
                 if (target.active && !target.dontTakeDamage && !target.friendly && target.lifeMax > 5 && !target.immortal && !target.SpawnedFromStatue)
                 {
                     int amount = damage / 2;
-                    player.QuickSpawnItem(ItemID.CopperCoin, amount);
+                    player.QuickSpawnItem(player.GetProjectileSource_Item(item), ItemID.CopperCoin, amount);
                     return;
                 }
             }
         }
         /// SHOOT STUFF
-        public override bool Shoot(Item item, Player player, ProjectileSource_Item_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
+        public override bool Shoot(Item item, Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
         {
             Vector2 mousePosition = Main.screenPosition + new Vector2(Main.mouseX, Main.mouseY);
             switch (item.type)
@@ -262,16 +262,28 @@ namespace TRAEProject.Changes.Weapon
                         }
                     }
                     return;               
+<<<<<<< Updated upstream:Changes/Weapon/Melee.cs
                 case ItemID.VampireKnives:
+=======
+
+                case ItemID.ChainGuillotines:
+>>>>>>> Stashed changes:Changes/Weapon/Melee/MiscMelee.cs
                     foreach (TooltipLine line in tooltips)
                     {
                         if (line.mod == "Terraria" && line.Name == "Tooltip0")
                         {
+<<<<<<< Updated upstream:Changes/Weapon/Melee.cs
                             line.text = "Throw life stealing daggers";
                         }
                     }
                     return;
 
+=======
+                            line.text = "Heals on a critical hit";
+                        }
+                    }
+                    return;
+>>>>>>> Stashed changes:Changes/Weapon/Melee/MiscMelee.cs
             }
         }
     }

@@ -115,14 +115,14 @@ namespace TRAEProject.Changes.Prefixes
     {
         public override void SetStaticDefaults()
         {
-            SetPrefix( 15, 5, 5, 35, 35);
+            SetPrefix( 15, 5, 5, 20, 35);
         }
     }
     public class Brutal : BoomerangFlailPrefix
     {
         public override void SetStaticDefaults()
         {
-            SetPrefix( 10, 3, 3, 20, 20);
+            SetPrefix( 10, 3, 3, 10, 20);
         }
     }
     public class Kinetic : BoomerangFlailPrefix
@@ -164,7 +164,7 @@ namespace TRAEProject.Changes.Prefixes
     {
         public override void SetStaticDefaults()
         {
-            SetPrefix(20, 0, 0, -50, 35);
+            SetPrefix(20, 0, 0, -35, 35);
         }
     }
     public class Aerodynamic : BoomerangFlailPrefix

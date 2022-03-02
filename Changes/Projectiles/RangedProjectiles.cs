@@ -290,7 +290,91 @@ namespace TRAEProject.Changes.Projectiles
         { 
             switch (projectile.type)
             {
+<<<<<<< Updated upstream:Changes/Projectiles/RangedProjectiles.cs
               
+=======
+                case ProjectileID.BeeArrow:
+                    {
+                        int beeCount = Main.rand.Next(2, 3);
+                  
+                        for (int i = 0; i < beeCount; i++)
+                        {
+                            Vector2 vector56 = projectile.oldVelocity;
+                            vector56.Normalize();
+                            vector56 *= 8f;
+                            float X = (float)Main.rand.Next(-35, 36) * 0.01f;
+                            float Y = (float)Main.rand.Next(-35, 36) * 0.01f;
+                            X += projectile.oldVelocity.X / 6f;
+                            Y += projectile.oldVelocity.Y / 6f;
+                            Projectile.NewProjectile(projectile.GetProjectileSource_FromThis(), projectile.Center.X, projectile.Center.Y, X, Y, ProjectileID.Bee, projectile.damage / 4, projectile.knockBack, projectile.owner);
+                        }
+                    }
+                    return false;
+                case ProjectileID.Beenade:
+                    {
+                        int beeCount = Main.rand.Next(6, 10);
+
+                        for (int i = 0; i < beeCount; i++)
+                        {
+                            Vector2 vector56 = projectile.oldVelocity;
+                            vector56.Normalize();
+                            vector56 *= 8f;
+                            float X = (float)Main.rand.Next(-35, 36) * 0.01f;
+                            float Y = (float)Main.rand.Next(-35, 36) * 0.01f;
+                            X += projectile.oldVelocity.X / 6f;
+                            Y += projectile.oldVelocity.Y / 6f;
+                            Projectile.NewProjectile(projectile.GetProjectileSource_FromThis(), projectile.Center.X, projectile.Center.Y, X, Y, ProjectileID.Bee, projectile.damage, projectile.knockBack, projectile.owner);
+                        }
+                    }
+                    return false;
+                case ProjectileID.ClusterSnowmanFragmentsI:
+                    {
+                        SoundEngine.PlaySound(SoundID.Item62, projectile.position);
+                        Color transparent6 = Color.Transparent;
+                        for (int num840 = 0; num840 < 15; num840++)
+                        {
+                            Dust dust54 = Dust.NewDustDirect(projectile.position, projectile.width, projectile.height, 31, 0f, 0f, 100, transparent6, 0.8f);
+                            dust54.fadeIn = 0f;
+                            Dust dust = dust54;
+                            dust.velocity *= 0.5f;
+                        }
+                        for (int num841 = 0; num841 < 5; num841++)
+                        {
+                            Dust dust55 = Dust.NewDustDirect(projectile.position, projectile.width, projectile.height, 228, 0f, 0f, 100, transparent6, 2.5f);
+                            dust55.noGravity = true;
+                            Dust dust = dust55;
+                            dust.velocity *= 2.5f;
+                            dust55 = Dust.NewDustDirect(projectile.position, projectile.width, projectile.height, 228, 0f, 0f, 100, transparent6, 1.1f);
+                            dust = dust55;
+                            dust.velocity *= 2f;
+                            dust55.noGravity = true;
+                        }
+                        for (int num842 = 0; num842 < 3; num842++)
+                        {
+                            Dust dust56 = Dust.NewDustDirect(projectile.position, projectile.width, projectile.height, 226, 0f, 0f, 100, transparent6, 1.1f);
+                            Dust dust = dust56;
+                            dust.velocity *= 2f;
+                            dust56.noGravity = true;
+                        }
+                        for (int num843 = -1; num843 <= 1; num843 += 2)
+                        {
+                            for (int num844 = -1; num844 <= 1; num844 += 2)
+                            {
+                                if (Main.rand.Next(5) == 0)
+                                {
+                                    Gore gore11 = Gore.NewGoreDirect(projectile.position, Vector2.Zero, Main.rand.Next(61, 64));
+                                    Gore gore = gore11;
+                                    gore.velocity *= 0.2f;
+                                    gore = gore11;
+                                    gore.scale *= 0.65f;
+                                    gore = gore11;
+                                    gore.velocity += new Vector2(num843, num844) * 0.5f;
+                                }
+                            }
+                        }
+                        return false;
+                    }
+>>>>>>> Stashed changes:Changes/Weapon/Ranged/RangedProjectiles.cs
                 case ProjectileID.VortexBeaterRocket:
                     {
                         Terraria.Audio.SoundEngine.PlaySound(SoundID.Item14, projectile.position);
@@ -332,7 +416,7 @@ namespace TRAEProject.Changes.Projectiles
                             Gore.NewGore(projectile.position, new Vector2(projectile.velocity.X * 0.05f, projectile.velocity.Y * 0.05f), Main.rand.Next(16, 18), 1f);
                         }
                         int[] spread = { 1 };
-                        TRAEMethods.SpawnProjectilesFromAbove(projectile.GetProjectileSource_FromThis(), projectile.Center, 1, 400, 750, spread, 22, ProjectileID.HallowStar, (int)(projectile.damage * 0.5), projectile.knockBack, projectile.owner);
+                        TRAEMethods.SpawnProjectilesFromAbove(Main.player[projectile.owner], projectile.Center, 1, 400, 750, spread, 22, ProjectileID.HallowStar, (int)(projectile.damage * 0.5), projectile.knockBack, projectile.owner);
                         return false;
                     }
                 case ProjectileID.HallowStar:

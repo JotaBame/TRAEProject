@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Terraria;
+using Terraria.GameContent.Creative;
 using Terraria.ID;
 using Terraria.ModLoader;
 
@@ -13,6 +14,8 @@ namespace TRAEProject.Items.Accesories.TwoFlowers
     {
         public override void SetStaticDefaults()
         {
+            CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
+
             DisplayName.SetDefault("Two Flowers");
             Tooltip.SetDefault("Magic critical hits have a chance to spawn a mana star\nAutomatically uses mana potions when needed\nMagic attacks lower enemy contact damage by 15%");
         }

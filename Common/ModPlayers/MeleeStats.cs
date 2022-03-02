@@ -33,12 +33,12 @@ namespace TRAEProject.Common.ModPlayers
             {
                 Player.autoReuseGlove = true;
             }
+         
         }
         #region Sword Size
-        public override void SetStaticDefaults()
-        {
-            IL.Terraria.Player.GetAdjustedItemScale += HookSize;
-        }
+
+        public float bonusSize = 1f;
+
         private void HookSize(ILContext il)
         {
             var c = new ILCursor(il);
@@ -66,7 +66,6 @@ namespace TRAEProject.Common.ModPlayers
             {
                 if (item.CountsAsClass(DamageClass.Melee))
                 {                    //
-                    float bonusSize = 1f;
                     switch (item.prefix)
                     {
                         case PrefixID.Large:
@@ -93,7 +92,12 @@ namespace TRAEProject.Common.ModPlayers
             //push the local variable onto the stack
             c.Emit(OpCodes.Ldloc_0);
         }
+        public override void SetStaticDefaults()
+        {
+            IL.Terraria.Player.GetAdjustedItemScale += HookSize;
+        }
         #endregion
+
         public override void OnHitNPC(Item item, NPC target, int damage, float knockback, bool crit)
         {
             if(inflictHeavyBurn >0 && item.CountsAsClass(DamageClass.Melee))

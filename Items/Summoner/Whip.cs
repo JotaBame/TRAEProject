@@ -52,10 +52,17 @@ namespace TRAEProject.Items.Summoner.Whip
         {
 			Projectile.damage = (int)(Projectile.damage * (1f - fallOff));
 			Player player = Main.player[Projectile.owner];
+<<<<<<< Updated upstream:Items/Summoner/Whip.cs
 			if (player.GetModPlayer<TRAEPlayer>().PirateSet)
 			{
 				target.AddBuff(BuffType<PirateTag>(), 240);
 			}
+=======
+			if (player.HasBuff(BuffID.WeaponImbueNanites))
+			{
+				player.AddBuff(BuffType<NanoHealing>(), 60);
+            }
+>>>>>>> Stashed changes:NewContent/Items/Summoner/Whip.cs
 			if (tag != -1)
 			{
 				target.AddBuff(tag, 240);

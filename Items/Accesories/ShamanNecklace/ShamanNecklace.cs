@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Terraria;
+using Terraria.GameContent.Creative;
 using Terraria.ID;
 using Terraria.ModLoader;
 
@@ -13,6 +14,8 @@ namespace TRAEProject.Items.Accesories.ShamanNecklace
     {
         public override void SetStaticDefaults()
         {
+            CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
+
             DisplayName.SetDefault("Shaman Necklace");
             Tooltip.SetDefault("Increases your max number of minions by 1\n12% increased summon damage");
         }

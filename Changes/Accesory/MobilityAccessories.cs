@@ -15,7 +15,15 @@ namespace TRAEProject.Changes.Accesory
 		public override void PostUpdateEquips()
         {
             Player.jumpSpeedBoost += 1f;
+<<<<<<< Updated upstream
             Player.moveSpeed *= 1.33f;
+=======
+            Player.moveSpeed *= 1.20f;
+            if (Player.isPerformingJump_Sandstorm)
+            {
+                Player.moveSpeed *= 0.75f;
+            }
+>>>>>>> Stashed changes
         }
     }
     public class MobilityAccessories : GlobalItem
@@ -28,9 +36,23 @@ namespace TRAEProject.Changes.Accesory
                 case ItemID.FlurryBoots:
                 case ItemID.SandBoots:
                 case ItemID.SailfishBoots:
-                    player.moveSpeed += 0.25f;
+                    if (player.velocity.Y == 0)
+                    {
+                        player.moveSpeed += 0.25f;
+                    }
 					player.accRunSpeed = 4.8f;
                     return;
+<<<<<<< Updated upstream
+=======
+                case ItemID.SandBoots:
+                    if (player.velocity.Y == 0)
+                    {
+                        player.moveSpeed += 0.25f;
+                    }
+                    player.desertBoots = false;
+                    player.GetModPlayer<AccesoryEffects>().sandRunning = true;
+                    return;
+>>>>>>> Stashed changes
                 case ItemID.FrogLeg:
                 case ItemID.FrogWebbing:
                 case ItemID.FrogFlipper:
@@ -50,7 +72,10 @@ namespace TRAEProject.Changes.Accesory
                     player.frogLegJumpBoost = false;
                     player.extraFall += 15;
                     player.jumpSpeedBoost += 1.4f;
-                    player.moveSpeed += 0.25f;
+                    if (player.velocity.Y == 0)
+                    {
+                        player.moveSpeed += 0.25f;
+                    }
                     player.accRunSpeed = 4.8f;
                     return;     
                 case ItemID.Aglet:
@@ -58,6 +83,7 @@ namespace TRAEProject.Changes.Accesory
                     return;
                 case ItemID.AnkletoftheWind:
                     player.moveSpeed += 0.15f;
+                    
                     return;
                 case ItemID.IceSkates:
            	        player.runAcceleration *= 1.5f;
@@ -66,9 +92,18 @@ namespace TRAEProject.Changes.Accesory
                     player.rocketTimeMax -= 7;
                     player.accRunSpeed = 4.8f;
                     player.moveSpeed -= 0.08f; // get rid of the 8% move speed buff separately to not mess up future calcs 
+<<<<<<< Updated upstream
                     player.GetModPlayer<TRAEPlayer>().icceleration = true; 
                     player.moveSpeed += 0.25f;
             		player.runAcceleration *= 1.5f;
+=======
+                    player.GetModPlayer<AccesoryEffects>().icceleration = true;
+                    if (player.velocity.Y == 0)
+                    {
+                        player.moveSpeed += 0.25f;
+                    }
+                    player.runAcceleration *= 1.5f;
+>>>>>>> Stashed changes
                     return;
                 case ItemID.TerrasparkBoots:
                     player.iceSkate = false;
@@ -77,15 +112,22 @@ namespace TRAEProject.Changes.Accesory
                     player.waterWalk = false;
                     player.accRunSpeed = 6f; 
                     player.moveSpeed -= 0.08f; // get rid of the 8% move speed buff separately to not mess up future calcs 
-                    player.moveSpeed += 0.5f;
+                    player.moveSpeed += 0.25f;
+                    if (player.velocity.Y == 0)
+                    {
+                        player.moveSpeed += 0.25f;
+                    }
                     player.dashType = 1;
                     return;
                 case ItemID.LightningBoots:
                     player.moveSpeed -= 0.08f; // get rid of the 8% move speed buff separately to not mess up future calcs 
-                    player.jumpSpeedBoost += 0.5f;
                     player.rocketTimeMax = 7;
                     player.accRunSpeed = 6f; 
-                    player.moveSpeed += 0.5f;
+                    player.moveSpeed += 0.25f;
+                    if (player.velocity.Y == 0)
+                    {
+                        player.moveSpeed += 0.25f;
+                    }
                     return;
                 case ItemID.RocketBoots:
                     player.rocketTimeMax = 7;
@@ -93,8 +135,11 @@ namespace TRAEProject.Changes.Accesory
                 case ItemID.FairyBoots:
                 case ItemID.SpectreBoots:
                     player.rocketTimeMax = 7; 
-                    player.accRunSpeed = 5.2f;
-                    player.moveSpeed += 0.25f;
+                    player.accRunSpeed = 4.8f;
+                    if (player.velocity.Y == 0)
+                    {
+                        player.moveSpeed += 0.25f;
+                    }
                     return;
                 case ItemID.ObsidianHorseshoe:
                     player.fireWalk = false;
@@ -137,6 +182,22 @@ namespace TRAEProject.Changes.Accesory
                 case ItemID.EmpressFlightBooster:
                     player.jumpSpeedBoost -= 2.4f;
                     return;
+                case ItemID.Magiluminescence:
+                    player.hasMagiluminescence = false;
+                    if (player.velocity.Y == 0)
+                    {
+                        player.runAcceleration *= 1.33f;
+                        player.maxRunSpeed *= 1.2f;
+                        player.accRunSpeed *= 1.2f;
+                        player.runSlowdown *= 2f;
+                    }
+                    return;
+                case ItemID.ShinyStone:
+                    if (player.velocity.Y == 0)
+                    {
+                        player.lifeRegen += 4;
+                    }
+                    return;
             }
         }
         public override void ModifyTooltips(Item item, List<TooltipLine> tooltips)
@@ -157,7 +218,7 @@ namespace TRAEProject.Changes.Accesory
                     {
                         if (line.mod == "Terraria" && line.Name == "Tooltip0")
                         {
-                            line.text = "25% increased movement speed";
+                            line.text = "25% increased running speed";
                         }
                     }
                     return;
@@ -166,7 +227,11 @@ namespace TRAEProject.Changes.Accesory
                     {
                         if (line.mod == "Terraria" && line.Name == "Tooltip0")
                         {
+<<<<<<< Updated upstream
                             line.text = "25% increased movement speed, run even faster on sand";
+=======
+                            line.text = "25% increased running speed\nRunning and jumping speed increased by 25% on sand, and for 4 seconds after leaving it";
+>>>>>>> Stashed changes
                         }
                     }
                     return;
@@ -194,7 +259,7 @@ namespace TRAEProject.Changes.Accesory
                     {
                         if (line.mod == "Terraria" && line.Name == "Tooltip1")
                         {
-                            line.text = "25% increased movement speed";
+                            line.text = "25% increased running speed";
                         }
                     }
                     return;
@@ -203,7 +268,7 @@ namespace TRAEProject.Changes.Accesory
                     {
                         if (line.mod == "Terraria" && line.Name == "Tooltip0")
                         {
-                            line.text = "25% increased movement speed";
+                            line.text = "25% increased running speed";
                         }
                         if (line.mod == "Terraria" && line.Name == "Tooltip1")
                         {
@@ -216,7 +281,7 @@ namespace TRAEProject.Changes.Accesory
                     {
                         if (line.mod == "Terraria" && line.Name == "Tooltip0")
                         {
-                            line.text = "25% increased movement speed";
+                            line.text = "25% increased running speed";
                         }
                     }
                     return;
@@ -229,7 +294,7 @@ namespace TRAEProject.Changes.Accesory
                         }
                         if (line.mod == "Terraria" && line.Name == "Tooltip1")
                         {
-                            line.text = "50% increased movement speed";
+                            line.text = "50% increased running speed, 25% while grounded";
                         }
                     }
                     return;
@@ -238,7 +303,7 @@ namespace TRAEProject.Changes.Accesory
                     {
                         if (line.mod == "Terraria" && line.Name == "Tooltip0")
                         {
-                            line.text = "50% increased movement speed";
+                            line.text = "50% increased running speed, 25% while grounded";
                         }
                         if (line.mod == "Terraria" && line.Name == "Tooltip1")
                         {
@@ -376,6 +441,7 @@ namespace TRAEProject.Changes.Accesory
                         }
                     }
                     return;
+         
             }
         }
    

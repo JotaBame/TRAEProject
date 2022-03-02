@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Terraria;
 using Terraria.DataStructures;
+using Terraria.GameContent.Creative;
 using Terraria.ID;
 using Terraria.ModLoader;
 
@@ -14,6 +15,8 @@ namespace TRAEProject.Items.Accesories.TheBlackCross
     {
         public override void SetStaticDefaults()
         {
+            CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
+
             DisplayName.SetDefault("The Black Cross");
             Tooltip.SetDefault("Increases length of invincibility after taking damage.\nGrants the wearer a chance to dodge an attack");
         }

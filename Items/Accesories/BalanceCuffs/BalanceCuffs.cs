@@ -8,6 +8,7 @@ using Terraria.ID;
 using Terraria.ModLoader;
 using TRAEProject.Items.Accesories.LifeCuffs;
 using static Terraria.ModLoader.ModContent;
+using Terraria.GameContent.Creative;
 
 namespace TRAEProject.Items.Accesories.BalanceCuffs
 {    
@@ -16,6 +17,8 @@ namespace TRAEProject.Items.Accesories.BalanceCuffs
     {
         public override void SetStaticDefaults()
         {
+            CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
+
             DisplayName.SetDefault("Balance Cuffs");
             Tooltip.SetDefault("Temporarily increases damage by 20% and restore mana when damaged");
         }

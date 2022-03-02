@@ -73,9 +73,18 @@ namespace TRAEProject.Changes.Items
                     item.mana = 30; // up from 10
                     return;
                 case ItemID.CrimsonRod:
+<<<<<<< Updated upstream:Changes/Weapon/TRAEMagicItems.cs
                     item.damage = 10; // down from 12
                     item.mana = 100; // up from 10
                     return;
+=======
+                    item.damage = 12; // down from 12
+                    item.mana = 120; // up from 10
+                    break;   
+                case ItemID.WeatherPain:
+                    item.mana = 150; // up from 30
+                    break;
+>>>>>>> Stashed changes:Changes/Weapon/Magic/TRAEMagicItems.cs
                 case ItemID.SpaceGun:
                     item.damage = 22; // up from 17
 					item.mana = 10; // up from 6
@@ -91,8 +100,12 @@ namespace TRAEProject.Changes.Items
 				    item.useTime = 30; // down from 16
                     item.useAnimation = 30;
                     item.mana = 20; // up from 6
+<<<<<<< Updated upstream:Changes/Weapon/TRAEMagicItems.cs
 				    item.knockBack = 1f;
                     return;
+=======
+                    break;
+>>>>>>> Stashed changes:Changes/Weapon/Magic/TRAEMagicItems.cs
                 case ItemID.ZapinatorGray:
                 case ItemID.ZapinatorOrange:
                     item.mana = 32; // up from 16
@@ -346,7 +359,7 @@ namespace TRAEProject.Changes.Items
         /// SHOOT STUFF
         private static int shootDelay = 1;
         public int useCount = 0;
-        public override bool Shoot(Item item, Player player, ProjectileSource_Item_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
+        public override bool Shoot(Item item, Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
         {
             Vector2 mousePosition = Main.screenPosition + new Vector2(Main.mouseX, Main.mouseY);
             switch (item.type)

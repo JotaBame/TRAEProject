@@ -4,6 +4,7 @@ using Terraria.ID;
 using Terraria.Audio;
 using Terraria.GameContent.ItemDropRules;
 using static Terraria.ModLoader.ModContent;
+using Terraria.GameContent.Creative;
 
 namespace TRAEProject.Items.DreadItems.DreadSummon
 {
@@ -11,6 +12,8 @@ namespace TRAEProject.Items.DreadItems.DreadSummon
     {
         public override void SetStaticDefaults()
         {
+            CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 5;
+
             DisplayName.SetDefault("Bloody Sea Wasp");
             Tooltip.SetDefault("Use to catch a powerful Blood Moon monster");
 

@@ -3,6 +3,7 @@ using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.Audio;
 using Terraria.DataStructures;
+using Terraria.GameContent.Creative;
 using Terraria.ID;
 using Terraria.ModLoader;
 using TRAEProject.Changes.Projectiles;
@@ -14,8 +15,15 @@ namespace TRAEProject.Items.Weapons.Scorpio
     {
         public override void SetStaticDefaults()
         {
+<<<<<<< Updated upstream:Items/Weapons/Scorpio/Scorpio.cs
             DisplayName.SetDefault("Double Scorpio");
             Tooltip.SetDefault("Shoots two darts at once");
+=======
+            CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
+
+            DisplayName.SetDefault("Jungla");
+            Tooltip.SetDefault("Shoots three darts at once");
+>>>>>>> Stashed changes:NewContent/Items/Weapons/Scorpio/Scorpio.cs
         }
         public override void SetDefaults()
         {
@@ -36,7 +44,7 @@ namespace TRAEProject.Items.Weapons.Scorpio
             Item.useStyle = ItemUseStyleID.Shoot;
             Item.UseSound = SoundID.Item5; 
         }
-        public override bool Shoot(Player player, ProjectileSource_Item_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
+        public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
         {
             float numberProjectiles = 2; // 3, 4, or 5 shots
             float rotation = MathHelper.ToRadians(30);

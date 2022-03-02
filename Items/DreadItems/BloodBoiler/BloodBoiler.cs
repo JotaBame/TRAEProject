@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Terraria;
 using Terraria.DataStructures;
+using Terraria.GameContent.Creative;
 using Terraria.ID;
 using Terraria.ModLoader;
 using TRAEProject.Items.FlamethrowerAmmo;
@@ -17,6 +18,8 @@ namespace TRAEProject.Items.DreadItems.BloodBoiler
     {
         public override void SetStaticDefaults()
         {
+            CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
+
             DisplayName.SetDefault("Blood Boiler");
             Tooltip.SetDefault("Gives a new meaning to 'making your blood boil'");
         }
@@ -39,7 +42,7 @@ namespace TRAEProject.Items.DreadItems.BloodBoiler
             Item.useStyle = ItemUseStyleID.Shoot;
             Item.UseSound = SoundID.Item34; // find flamethrower sound
         }
-        public override bool Shoot(Player player, ProjectileSource_Item_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
+        public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
         {
             Vector2 muzzleOffset = Vector2.Normalize(new Vector2(velocity.X, velocity.Y)) * 54f; //This gets the direction of the flame projectile, makes its length to 1 by normalizing it. It then multiplies it by 54 (the item width) to get the position of the tip of the flamethrower.
             if (Collision.CanHit(position, 6, 6, position + muzzleOffset, 6, 6))

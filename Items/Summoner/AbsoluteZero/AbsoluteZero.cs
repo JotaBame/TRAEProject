@@ -13,7 +13,7 @@ namespace TRAEProject.Items.Summoner.AbsoluteZero
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Absolute Zero");
-            Tooltip.SetDefault("Your summons will focus struck enemies\n12 summon tag damage\n25% summon tag critical strike chance\nMinion critical hits will very briefly freeze enemies");
+            Tooltip.SetDefault("Your summons will focus struck enemies\n12 summon tag damage\n25% summon tag critical strike chance");
             ItemID.Sets.SummonerWeaponThatScalesWithAttackSpeed[Item.type] = true;
              CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
 		}

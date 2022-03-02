@@ -31,6 +31,9 @@ namespace TRAEProject.Changes.Projectiles
                     projectile.usesLocalNPCImmunity = true;
                     projectile.GetGlobalProjectile<TRAEGlobalProjectile>().dontHitTheSameEnemyMultipleTimes = true;
                     return;
+                case ProjectileID.WeatherPainShot:
+                    projectile.penetrate = 15; // up from 12
+                    return;
                 case ProjectileID.ManaCloakStar:
                     projectile.penetrate = 2;
                     projectile.GetGlobalProjectile<TRAEGlobalProjectile>().homesIn = true;

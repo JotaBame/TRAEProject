@@ -131,9 +131,15 @@ namespace TRAEProject.Changes.Accesory
                     player.lifeRegen++;
                     player.statManaMax2 += 20;
                     player.meleeSpeed += 0.05f;
+<<<<<<< Updated upstream
                     player.moveSpeed += 0.1f;
                     player.GetModPlayer<TRAEPlayer>().chanceNotToConsumeAmmo += 10;// new bonus
                                                                                    // total stats: +8% damage, +2% crit, +0.5 hp/s, +4 defense. +5% melee speed, +20 max mana, +10% movement speed
+=======
+                    player.moveSpeed += 0.05f;
+                    player.GetModPlayer<RangedStats>().chanceNotToConsumeAmmo += 10;// new bonus
+                    // total stats: +8% damage, +2% crit, +0.5 hp/s, +4 defense. +5% melee speed, +20 max mana, +10% movement speed
+>>>>>>> Stashed changes
                     break;
                 case ItemID.MoonStone:
                     if (!Main.dayTime)
@@ -145,8 +151,13 @@ namespace TRAEProject.Changes.Accesory
                         player.lifeRegen++;
                         player.statManaMax2 += 20;
                         player.meleeSpeed += 0.05f;
+<<<<<<< Updated upstream
                         player.moveSpeed += 0.1f;
                         player.GetModPlayer<TRAEPlayer>().chanceNotToConsumeAmmo += 10;
+=======
+                        player.moveSpeed += 0.05f;
+                        player.GetModPlayer<RangedStats>().chanceNotToConsumeAmmo += 10;
+>>>>>>> Stashed changes
                     }
                     break;
                 case ItemID.SunStone:
@@ -159,8 +170,13 @@ namespace TRAEProject.Changes.Accesory
                         player.lifeRegen++;
                         player.statManaMax2 += 20;
                         player.meleeSpeed += 0.05f;
+<<<<<<< Updated upstream
                         player.moveSpeed += 0.1f;
                         player.GetModPlayer<TRAEPlayer>().chanceNotToConsumeAmmo += 10;
+=======
+                        player.moveSpeed += 0.05f;
+                        player.GetModPlayer<RangedStats>().chanceNotToConsumeAmmo += 10;
+>>>>>>> Stashed changes
                     }
                     break;
                 case ItemID.CelestialShell:
@@ -171,17 +187,30 @@ namespace TRAEProject.Changes.Accesory
                     player.lifeRegen++;
                     player.statManaMax2 += 20;
                     player.meleeSpeed += 0.05f;
+<<<<<<< Updated upstream
                     player.moveSpeed += 0.1f;
                     player.GetModPlayer<TRAEPlayer>().chanceNotToConsumeAmmo += 10;
                     player.wolfAcc = false;
                     break;
                 case ItemID.BandofStarpower:
                     player.GetModPlayer<TRAEPlayer>().manaRegenBoost += 0.1f;
+=======
+                    player.moveSpeed += 0.05f;
+                    player.GetModPlayer<RangedStats>().chanceNotToConsumeAmmo += 10;
+                    player.wolfAcc = false;
+                    break;
+                case ItemID.BandofStarpower:
+                    player.GetModPlayer<Mana>().manaRegenBoost += 0.15f;
+>>>>>>> Stashed changes
                     player.statManaMax2 -= 20;
                     break;
                 case ItemID.ManaRegenerationBand:
                     player.statManaMax2 -= 20;
+<<<<<<< Updated upstream
                     player.GetModPlayer<TRAEPlayer>().manaRegenBoost += 0.1f;
+=======
+                    player.GetModPlayer<Mana>().manaRegenBoost += 0.15f;
+>>>>>>> Stashed changes
                     player.lifeRegen += 2;
                     break;
                 case ItemID.MagicCuffs:
@@ -421,7 +450,7 @@ namespace TRAEProject.Changes.Accesory
                     {
                         if (line.mod == "Terraria" && line.Name == "Tooltip0")
                         {
-                            line.text = "Increases mana regeneration rate by 10%";
+                            line.text = "Increases mana regeneration rate by 15%";
                         }
                         if (line.mod == "Terraria" && line.Name == "Tooltip1")
                         {
@@ -760,6 +789,10 @@ namespace TRAEProject.Changes.Accesory
                         {
                             line.text = "Turns into holder into a merfolk when entering water";
                         }
+                        if (line.mod == "Terraria" && line.Name == "Tooltip1")
+                        {
+                            line.text = "Minor increases to all stats";
+                        }
                     }
                     break;
                 case ItemID.NecromanticScroll:
@@ -798,7 +831,7 @@ namespace TRAEProject.Changes.Accesory
                     {
                         if (line.mod == "Terraria" && line.Name == "Tooltip0")
                         {
-                            line.text = "Your arrows will bounce towards nearby enemies after a certain time or hitting a tile, losing damage in the process";
+                            line.text = "Your arrows will bounce towards nearby enemies, losing 33% damage in the process";
                         }
                         if (line.mod == "Terraria" && line.Name == "Tooltip1")
                         {
@@ -811,7 +844,7 @@ namespace TRAEProject.Changes.Accesory
                     {
                         if (line.mod == "Terraria" && line.Name == "Tooltip0")
                         {
-                            line.text = "Your arrows will bounce towards nearby enemies after a certain time or hitting a tile, losing damage in the process";
+                            line.text = "Your arrows will bounce towards nearby enemies, losing 33% damage in the process";
 
                         }
                         if (line.mod == "Terraria" && line.Name == "Tooltip1")
@@ -825,7 +858,7 @@ namespace TRAEProject.Changes.Accesory
                     {
                         if (line.mod == "Terraria" && line.Name == "Tooltip0")
                         {
-                            line.text = "Your arrows will bounce towards nearby enemies after a certain time or hitting a tile, losing damage in the process";
+                            line.text = "Your arrows will bounce towards nearby enemies, losing 33% damage in the process";
                         }
                         if (line.mod == "Terraria" && line.Name == "Tooltip1")
                         {
@@ -880,6 +913,15 @@ namespace TRAEProject.Changes.Accesory
                         }
                     }
                     break;
+                case ItemID.ShinyStone:
+                    foreach (TooltipLine line in tooltips)
+                    {
+                        if (line.mod == "Terraria" && line.Name == "Tooltip0")
+                        {
+                            line.text += "\nIncreases life regeneration by 2hp/s when on the ground";
+                        }
+                    }
+                    return;
             }
         }
         public override int ChoosePrefix(Item item, UnifiedRandom rand)

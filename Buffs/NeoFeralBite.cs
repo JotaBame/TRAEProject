@@ -16,9 +16,20 @@ namespace TRAEProject.Buffs
 
 		public override void Update(Player player, ref int buffIndex)
 		{
+<<<<<<< Updated upstream:Buffs/NeoFeralBite.cs
 			if (Main.rand.Next(600) == 0)
 			{
 				float duration = Main.rand.Next(15, 20);
+=======
+			timer++;
+			if (timer > 540)
+            {
+				player.AddBuff(BuffID.Obstructed, 1);
+			}
+			if (timer == 600)
+			{
+				float duration = Main.rand.Next(10, 25);
+>>>>>>> Stashed changes:NewContent/Buffs/NeoFeralBite.cs
 				player.AddBuff(BuffID.Confused, (int)duration);
 			}
 		}

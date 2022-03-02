@@ -202,7 +202,15 @@ namespace ChangesArmor
             if (head.type == ItemID.ObsidianHelm && body.type == ItemID.ObsidianShirt && legs.type == ItemID.ObsidianPants)
                 return "ObsidianSet";
             if (head.type == ItemID.PirateHat && body.type == ItemID.PirateShirt && legs.type == ItemID.PiratePants)
+<<<<<<< Updated upstream:Changes/ArmorChanges.cs
                 return "PirateSet";
+=======
+                return "PirateSet"; 
+            if (head.type == ItemID.GladiatorHelmet && body.type == ItemID.GladiatorBreastplate && legs.type == ItemID.GladiatorLeggings)
+                return "GladiatorSet"; 
+            if (head.type == ItemID.FossilHelm && body.type == ItemID.FossilShirt && legs.type == ItemID.FossilPants)
+                return "FossilSet";
+>>>>>>> Stashed changes:Changes/Armor/ArmorChanges.cs
             return base.IsArmorSet(head, body, legs);
         }
         public override void UpdateArmorSet(Player player, string armorSet)
@@ -339,7 +347,16 @@ namespace ChangesArmor
             }
             if (armorSet == "SpectreHoodSet")
             {
+                player.setBonus = "Magic attacks heal the player and allies";
                 player.GetDamage<MagicDamageClass>() += 0.4f; // +0.4 to negate the reduction
+            }
+            if (armorSet == "FossilSet")
+            {
+                player.setBonus += "\nRanged weapons have 3 armor penetration";
+                if (player.HeldItem.CountsAsClass(DamageClass.Ranged))
+                {
+                    player.armorPenetration += 3;
+                }
             }
         }
         public override void ModifyTooltips(Item item, List<TooltipLine> tooltips)

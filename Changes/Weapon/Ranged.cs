@@ -34,8 +34,8 @@ namespace TRAEProject.Changes.Weapons
                     return;
 			    case ItemID.Beenade: 
                     item.damage = 8; // down from 12				
-					item.useAnimation = 120; // up from 15
-                    item.useTime = 120; // up from 15    
+					item.useAnimation = 42; // up from 15
+                    item.useTime = 42; // up from 15    
 					item.shootSpeed = 12f; // up from 6
                     item.autoReuse = true;
 					return;
@@ -63,10 +63,20 @@ namespace TRAEProject.Changes.Weapons
                     return;
                 case ItemID.FlintlockPistol:
                     item.shootSpeed = 7f;
+<<<<<<< Updated upstream:Changes/Weapon/Ranged.cs
                     item.autoReuse = true; //These are minishark's stats, BUT this weapon doesn't autofire
                     return;
+=======
+                    item.autoReuse = true;
+                    return;     
+>>>>>>> Stashed changes:Changes/Weapon/Ranged/GeneralChanges.cs
                 case ItemID.Minishark:
                     item.value = Item.buyPrice(gold: 50);
+                    return; 
+                case ItemID.BeesKnees:
+                 item.damage = 16;
+                    item.useAnimation = 26;
+                    item.useTime = 26;
                     return;
                 case ItemID.QuadBarrelShotgun:
                     item.value = Item.buyPrice(gold: 50);
@@ -98,9 +108,13 @@ namespace TRAEProject.Changes.Weapons
                     item.useAnimation = 50;
                     item.autoReuse = true;
                     return;
+<<<<<<< Updated upstream:Changes/Weapon/Ranged.cs
                 case ItemID.Megashark:
                     item.damage = 20; // down from 26
                     return;
+=======
+
+>>>>>>> Stashed changes:Changes/Weapon/Ranged/GeneralChanges.cs
                 case ItemID.TheUndertaker:
                 case ItemID.SniperRifle:
                     item.autoReuse = true;
@@ -177,7 +191,7 @@ namespace TRAEProject.Changes.Weapons
                     return;
             }
         }
-        public override bool Shoot(Item item, Player player, ProjectileSource_Item_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
+        public override bool Shoot(Item item, Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
         {
             Vector2 mousePosition = Main.screenPosition + new Vector2(Main.mouseX, Main.mouseY);
             switch (item.type)

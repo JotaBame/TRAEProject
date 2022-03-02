@@ -6,10 +6,12 @@ using static Terraria.ModLoader.ModContent;
 public class ChangesWorld : ModSystem
 {
     public static int[] PyramidItems;
+    public static int[] SecondaryPyramidItems;
     public static int[] ShadowItems;
     public override void PostSetupContent()
     {
-        PyramidItems = new int[] { ItemID.SandstorminaBottle, ItemID.FlyingCarpet, ItemID.AnkhCharm, ItemID.AncientChisel, ItemID.SandBoots, ItemID.ThunderSpear, ItemID.ThunderStaff, ItemID.CatBast, ItemID.MagicConch };
+        PyramidItems = new int[] { ItemID.SandstorminaBottle, ItemID.FlyingCarpet, ItemID.AnkhCharm, ItemID.AncientChisel, ItemID.SandBoots, ItemID.ThunderSpear, ItemID.ThunderStaff};
+        SecondaryPyramidItems = new int[] { ItemID.CatBast, ItemID.MagicConch, ItemID.MysticCoilSnake };
         ShadowItems = new int[] { ItemID.HellwingBow, ItemID.Flamelash, ItemID.FlowerofFire, ItemID.Sunfury, ItemType<PalladiumShield>() };
     }
     public override void PostWorldGen()
@@ -19,7 +21,27 @@ public class ChangesWorld : ModSystem
             Chest chest = Main.chest[chestIndex];
             if (chest != null)
             {
+                for (int i = 0; i < 40; i++)
+                {
+                    if (chest.item[i].type == ItemID.Dynamite)
+                    {
+                        chest.item[i].stack = Main.rand.Next(5, 8);
+                        break;
+                    }
+                }
                 if (chest.item[0].type == ItemID.TreasureMagnet)
+                {
+                    chest.item[0].SetDefaults(Main.rand.Next(ShadowItems), false);
+                    for (int i = 0; i < 40; i++)
+                    {
+                        if (chest.item[i].IsAir)
+                        {
+                            chest.item[i].SetDefaults(ItemID.TreasureMagnet);
+                            break;
+                        }
+                    }
+                }
+                if (chest.item[0].type == ItemID.CatBast)
                 {
                     chest.item[0].SetDefaults(Main.rand.Next(ShadowItems), false);
                     for (int i = 0; i < 40; i++)
@@ -93,14 +115,9 @@ public class ChangesWorld : ModSystem
                     chest.item[0].SetDefaults(pyramiditem, false);
                     if (WorldGen.genRand.NextBool(3))
                     {
-                        for (int i = 0; i < 40; i++)
-                        {
-                            if (chest.item[i].IsAir)
-                            {
-                                chest.item[i].SetDefaults(ItemID.MysticCoilSnake);
-                                break;
-                            }
-                        }
+                        int secondaryitem = Main.rand.Next(SecondaryPyramidItems);
+                        chest.item[1].SetDefaults(secondaryitem);
+                       break;
                     }
 
                 }
