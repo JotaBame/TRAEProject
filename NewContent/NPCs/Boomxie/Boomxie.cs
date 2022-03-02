@@ -50,7 +50,7 @@ namespace TRAEProject.NewContent.NPCs.Boomxie
                 spamTimer++;
                 if (spamTimer >= 75)
                 {
-                    NPC.NewNPC((int)NPC.Center.X, (int)NPC.Center.Y, NPCType<LittleBoomxie>());
+                    NPC.NewNPC(NPC.GetSpawnSourceForNPCFromNPCAI(), (int)NPC.Center.X, (int)NPC.Center.Y, NPCType<LittleBoomxie>());
                     spamTimer = 0;
                 }
             }
@@ -86,7 +86,7 @@ namespace TRAEProject.NewContent.NPCs.Boomxie
                 for (int i = 0; i < smallBoomxiesToSpawn; i++)
                 {
                     damagestored -= 10;
-                    NPC.NewNPC((int)NPC.Center.X, (int)NPC.Center.Y, NPCType<LittleBoomxie>());
+                    NPC.NewNPC(NPC.GetSpawnSourceForNPCFromNPCAI(), (int)NPC.Center.X, (int)NPC.Center.Y, NPCType<LittleBoomxie>());
                 }
             }
         }
@@ -99,7 +99,7 @@ namespace TRAEProject.NewContent.NPCs.Boomxie
                 for (int i = 0; i < smallBoomxiesToSpawn; i++)
                 {
                     damagestored -= 50;
-                    NPC.NewNPC((int)NPC.Center.X, (int)NPC.Center.Y, NPCType<LittleBoomxie>());
+                    NPC.NewNPC(NPC.GetSpawnSourceForNPCFromNPCAI(), (int)NPC.Center.X, (int)NPC.Center.Y, NPCType<LittleBoomxie>());
                 }
             }
         }
@@ -120,7 +120,7 @@ namespace TRAEProject.NewContent.NPCs.Boomxie
         public override void OnKill()
         {
             Vector2 zero = new Vector2(0, 0);
-            Projectile.NewProjectile(NPC.GetProjectileSpawnSource(), NPC.Center, zero, ProjectileType<Boom>(), 30, 0);
+            Projectile.NewProjectile(NPC.GetSpawnSourceForNPCFromNPCAI(), NPC.Center, zero, ProjectileType<Boom>(), 30, 0);
         }
     }
     public class LittleBoomxie : ModNPC
@@ -157,11 +157,11 @@ namespace TRAEProject.NewContent.NPCs.Boomxie
             Vector2 zero = new Vector2(0, 0);
             if (!Main.expertMode && !Main.masterMode)
             {
-                Projectile.NewProjectile(NPC.GetProjectileSpawnSource(), NPC.Center, zero, ProjectileType<Boom>(), 30, 0);
+                Projectile.NewProjectile(NPC.GetSpawnSourceForNPCFromNPCAI(), NPC.Center, zero, ProjectileType<Boom>(), 30, 0);
             }
             else
             {
-                NPC.NewNPC((int)NPC.Center.X, (int)NPC.Center.Y, NPCID.BurningSphere);
+                NPC.NewNPC(NPC.GetSpawnSourceForNPCFromNPCAI(), (int)NPC.Center.X, (int)NPC.Center.Y, NPCID.BurningSphere);
             }
         }
     }

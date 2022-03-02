@@ -71,7 +71,7 @@ namespace TRAEProject.NewContent.Items.Weapons.Launchers.T3Launcher
 	    public override Vector2? HoldoutOffset() {
 			return new Vector2(-16f, -5f);
 		}
-        public override bool Shoot(Player player, ProjectileSource_Item_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
+        public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
         {
             int numberProjectiles = 3 + Main.rand.Next(2); // 3 or 4 shots
             for (int i = 0; i < numberProjectiles; i++)

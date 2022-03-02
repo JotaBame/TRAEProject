@@ -30,7 +30,7 @@
           "RailSDK.Net": "1.0.0.0",
           "ReLogic": "1.0.0.0",
           "SixLabors.ImageSharp": "1.0.0.0",
-          "Steamworks.NET": "15.0.1.0",
+          "Steamworks.NET": "20.1.0.0",
           "SteelSeriesEngineWrapper": "1.0.0.0",
           "System.CodeDom": "6.0.0.0",
           "System.Configuration.ConfigurationManager": "6.0.0.0",
@@ -40,7 +40,7 @@
           "System.Security.Permissions": "6.0.0.0",
           "System.Windows.Extensions": "6.0.0.0",
           "TerrariaHooks": "0.0.0.0",
-          "tModLoader": "1.4.3.2"
+          "tModLoader": "1.4.3.4"
         },
         "runtime": {
           "TRAEProject.dll": {}
@@ -297,11 +297,11 @@
           }
         }
       },
-      "Steamworks.NET/15.0.1.0": {
+      "Steamworks.NET/20.1.0.0": {
         "runtime": {
           "Steamworks.NET.dll": {
-            "assemblyVersion": "15.0.1.0",
-            "fileVersion": "15.0.1.0"
+            "assemblyVersion": "20.1.0.0",
+            "fileVersion": "20.1.0.0"
           }
         }
       },
@@ -377,11 +377,11 @@
           }
         }
       },
-      "tModLoader/1.4.3.2": {
+      "tModLoader/1.4.3.4": {
         "runtime": {
           "tModLoader.dll": {
-            "assemblyVersion": "1.4.3.2",
-            "fileVersion": "1.4.3.2"
+            "assemblyVersion": "1.4.3.4",
+            "fileVersion": "1.4.3.4"
           }
         }
       }
@@ -505,7 +505,7 @@
       "serviceable": false,
       "sha512": ""
     },
-    "Steamworks.NET/15.0.1.0": {
+    "Steamworks.NET/20.1.0.0": {
       "type": "reference",
       "serviceable": false,
       "sha512": ""
@@ -555,7 +555,7 @@
       "serviceable": false,
       "sha512": ""
     },
-    "tModLoader/1.4.3.2": {
+    "tModLoader/1.4.3.4": {
       "type": "reference",
       "serviceable": false,
       "sha512": ""

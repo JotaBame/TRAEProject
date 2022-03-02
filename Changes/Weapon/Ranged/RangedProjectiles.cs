@@ -397,7 +397,7 @@ namespace TRAEProject.Changes.Weapon.Ranged
                             Gore.NewGore(projectile.position, new Vector2(projectile.velocity.X * 0.05f, projectile.velocity.Y * 0.05f), Main.rand.Next(16, 18), 1f);
                         }
                         int[] spread = { 1 };
-                        TRAEMethods.SpawnProjectilesFromAbove(projectile.GetProjectileSource_FromThis(), projectile.Center, 1, 400, 750, spread, 22, ProjectileID.HallowStar, (int)(projectile.damage * 0.5), projectile.knockBack, projectile.owner);
+                        TRAEMethods.SpawnProjectilesFromAbove(Main.player[projectile.owner], projectile.Center, 1, 400, 750, spread, 22, ProjectileID.HallowStar, (int)(projectile.damage * 0.5), projectile.knockBack, projectile.owner);
                         return false;
                     }
                 case ProjectileID.HallowStar:

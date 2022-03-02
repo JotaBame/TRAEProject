@@ -57,35 +57,35 @@ namespace TRAEProject.NewContent.Items.DreadItems.BossBag
                     mainLoot = ItemID.SanguineStaff;
                     break;
             }
-            player.QuickSpawnItem(mainLoot);
+            player.QuickSpawnItem(player.GetItemSource_OpenItem(Item.type), mainLoot);
             if (mainLoot == ItemType<BloodBoiler.BloodBoiler>())
-                player.QuickSpawnItem(ItemType<BloodyGel>(), 100);
+                player.QuickSpawnItem(player.GetItemSource_OpenItem(Item.type), ItemType<BloodyGel>(), 100);
             if (Main.rand.Next(8) == 0)
             {
-                player.QuickSpawnItem(ItemID.BloodHamaxe);
+                player.QuickSpawnItem(player.GetItemSource_OpenItem(Item.type), ItemID.BloodHamaxe);
             }
             if (Main.rand.Next(6) == 0)
             {
-                player.QuickSpawnItem(ItemType<BloodWings.BloodWings>());
+                player.QuickSpawnItem(player.GetItemSource_OpenItem(Item.type), ItemType<BloodWings.BloodWings>());
             }
             if (Main.rand.Next(9) == 0)
             {
-                player.QuickSpawnItem(ItemID.BloodMoonMonolith);
+                player.QuickSpawnItem(player.GetItemSource_OpenItem(Item.type), ItemID.BloodMoonMonolith);
             }
             if (Main.rand.Next(7) == 0)
             {
-                player.QuickSpawnItem(ItemType<DreadMask.DreadMask>());
+                player.QuickSpawnItem(player.GetItemSource_OpenItem(Item.type), ItemType<DreadMask.DreadMask>());
             }
             if (Main.rand.Next(9) == 0)
             {
-                player.QuickSpawnItem(ItemType<BottomlessChumBucket.BottomlessChumBucket>());
+                player.QuickSpawnItem(player.GetItemSource_OpenItem(Item.type), ItemType<BottomlessChumBucket.BottomlessChumBucket>());
             }
             else
             {
-                player.QuickSpawnItem(ItemID.ChumBucket, Main.rand.Next(20, 30));
+                player.QuickSpawnItem(player.GetItemSource_OpenItem(Item.type), ItemID.ChumBucket, Main.rand.Next(20, 30));
             }
-            player.QuickSpawnItem(ItemID.BloodMoonStarter);
-            player.QuickSpawnItem(ItemType<RedPearl.RedPearl>());
+            player.QuickSpawnItem(player.GetItemSource_OpenItem(Item.type), ItemID.BloodMoonStarter);
+            player.QuickSpawnItem(player.GetItemSource_OpenItem(Item.type), ItemType<RedPearl.RedPearl>());
         }
     }
 }

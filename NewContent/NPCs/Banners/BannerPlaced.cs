@@ -31,7 +31,7 @@ namespace TRAEProject.NewContent.NPCs.Banners
 
         public override void KillMultiTile(int i, int j, int frameX, int frameY)
         {
-            Item.NewItem(i * 16, j * 16, 16, 48, ItemType<BomberBonesBanner>());//this defines what to drop when this tile is destroyed
+            Item.NewItem(new EntitySource_TileBreak(i, j), i * 16, j * 16, 16, 48, ItemType<BomberBonesBanner>());//this defines what to drop when this tile is destroyed
         }
 
         //public override void NearbyEffects(int i, int j, bool closer)   //this make so the banner give an effect to nearby players
@@ -73,7 +73,7 @@ namespace TRAEProject.NewContent.NPCs.Banners
 
         public override void KillMultiTile(int i, int j, int frameX, int frameY)
         {
-            Item.NewItem(i * 16, j * 16, 16, 48, ItemType<BoomxieBanner>());//this defines what to drop when this tile is destroyed
+            Item.NewItem(new EntitySource_TileBreak(i, j), i * 16, j * 16, 16, 48, ItemType<BoomxieBanner>());//this defines what to drop when this tile is destroyed
         }
 
         //public override void NearbyEffects(int i, int j, bool closer)   //this make so the banner give an effect to nearby players
@@ -115,7 +115,7 @@ namespace TRAEProject.NewContent.NPCs.Banners
 
         public override void KillMultiTile(int i, int j, int frameX, int frameY)
         {
-            Item.NewItem(i * 16, j * 16, 16, 48, ItemType<FroggabombaBanner>());//this defines what to drop when this tile is destroyed
+            Item.NewItem(new EntitySource_TileBreak(i, j), i * 16, j * 16, 16, 48, ItemType<FroggabombaBanner>());//this defines what to drop when this tile is destroyed
         }
 
         //public override void NearbyEffects(int i, int j, bool closer)   //this make so the banner give an effect to nearby players

@@ -39,7 +39,7 @@ namespace TRAEProject.NewContent.Projectiles
             if (Projectile.localAI[0] > fireRate)
             {
                 Projectile.localAI[0] -= fireRate;
-                TRAEMethods.SpawnProjectilesFromAbove(Projectile.GetProjectileSource_FromThis(), Projectile.position, projectilesPerShot, SpreadX, SpreadY, offSetCenter, velocity, projectileType, Projectile.damage, Projectile.knockBack, Projectile.owner);
+                TRAEMethods.SpawnProjectilesFromAbove(Main.player[Projectile.owner], Projectile.position, projectilesPerShot, SpreadX, SpreadY, offSetCenter, velocity, projectileType, Projectile.damage, Projectile.knockBack, Projectile.owner);
             }
         }
     }

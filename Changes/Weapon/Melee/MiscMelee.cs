@@ -117,13 +117,13 @@ namespace TRAEProject.Changes.Weapon.Melee
                 if (target.active && !target.dontTakeDamage && !target.friendly && target.lifeMax > 5 && !target.immortal && !target.SpawnedFromStatue)
                 {
                     int amount = damage / 2;
-                    player.QuickSpawnItem(ItemID.CopperCoin, amount);
+                    player.QuickSpawnItem(player.GetItemSource_OnHit(target, item.type),ItemID.CopperCoin, amount);
                     return;
                 }
             }
         }
         /// SHOOT STUFF
-        public override bool Shoot(Item item, Player player, ProjectileSource_Item_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
+        public override bool Shoot(Item item, Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
         {
             Vector2 mousePosition = Main.screenPosition + new Vector2(Main.mouseX, Main.mouseY);
             switch (item.type)

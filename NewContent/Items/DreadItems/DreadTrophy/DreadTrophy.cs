@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Terraria;
+using Terraria.DataStructures;
 using Terraria.GameContent.Creative;
 using Terraria.ModLoader;
 using Terraria.ObjectData;
@@ -55,7 +56,7 @@ namespace TRAEProject.NewContent.Items.DreadItems.DreadTrophy
         {
             if (frameX == 0)
             {
-                Item.NewItem(i * 16, j * 16, 48, 48, ItemType<DreadTrophy>());
+                Item.NewItem(new EntitySource_TileBreak(i, j), i * 16, j * 16, 48, 48, ItemType<DreadTrophy>());
             }
         }
     }

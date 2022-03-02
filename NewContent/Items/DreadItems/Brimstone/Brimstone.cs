@@ -37,7 +37,7 @@ namespace TRAEProject.NewContent.Items.DreadItems.Brimstone
             Item.SetShopValues(ItemRarityColor.LightPurple6, Item.sellPrice(0, 5));
             Item.UseSound = SoundID.NPCDeath13;
         }
-        public override bool Shoot(Player player, ProjectileSource_Item_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
+        public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
         {
             Vector2 muzzleOffset = Vector2.Normalize(new Vector2(velocity.X, velocity.Y)) * 54f; //This gets the direction of the flame projectile, makes its length to 1 by normalizing it. It then multiplies it by 54 (the item width) to get the position of the tip of the flamethrower.
             if (Collision.CanHit(position, 6, 6, position + muzzleOffset, 6, 6))

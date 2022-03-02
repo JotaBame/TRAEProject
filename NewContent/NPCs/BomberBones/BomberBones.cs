@@ -215,7 +215,7 @@ namespace TRAEProject.NewContent.NPCs.BomberBones
 					if (Main.netMode != 1)
 					{
 
-						Projectile.NewProjectile(NPC.GetProjectileSpawnSource(), vector34.X, vector34.Y, num146, num148, TYPE, Damage, 0f, Main.myPlayer);
+						Projectile.NewProjectile(NPC.GetSpawnSourceForNPCFromNPCAI(), vector34.X, vector34.Y, num146, num148, TYPE, Damage, 0f, Main.myPlayer);
 
 					}
 					if (Math.Abs(num148) > Math.Abs(num146) * 2f)

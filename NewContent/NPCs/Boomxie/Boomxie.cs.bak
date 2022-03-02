@@ -108,7 +108,7 @@ namespace TRAEProject.NPCs.Boomxie
         public override void OnKill()
         {
             Vector2 zero = new Vector2(0, 0);
-            Projectile.NewProjectile(NPC.GetProjectileSpawnSource(), NPC.Center, zero, ProjectileType<Boom>(), NPC.damage, 0);
+            Projectile.NewProjectile(npc.GetSpawnSourceForNPCFromNPCAI(), NPC.Center, zero, ProjectileType<Boom>(), NPC.damage, 0);
         }
     }
     public class LittleBoomxie : ModNPC
@@ -145,7 +145,7 @@ namespace TRAEProject.NPCs.Boomxie
             Vector2 zero = new Vector2(0, 0);
             if (!Main.expertMode && !Main.masterMode)
             {
-                Projectile.NewProjectile(NPC.GetProjectileSpawnSource(), NPC.Center, zero, ProjectileType<Boom>(), NPC.damage, 0);
+                Projectile.NewProjectile(npc.GetSpawnSourceForNPCFromNPCAI(), NPC.Center, zero, ProjectileType<Boom>(), NPC.damage, 0);
             }
             else
             {

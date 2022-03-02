@@ -85,7 +85,7 @@ namespace TRAEProject.Changes.Items
                 int[] spread = { 1, 2 };
                 if (NewstarsOnHit)
                 {
-                    TRAEMethods.SpawnProjectilesFromAbove(Player.GetProjectileSource_Misc(Player.whoAmI), Player.position, 2 + (damage / 33), 400, 600, spread, 20, ProjectileID.StarCloakStar, 100, 2f, Player.whoAmI);
+                    TRAEMethods.SpawnProjectilesFromAbove(Player, Player.position, 2 + (damage / 33), 400, 600, spread, 20, ProjectileID.StarCloakStar, 100, 2f, Player.whoAmI);
                 }
                 if (NewbeesOnHit)
                 {
@@ -93,7 +93,7 @@ namespace TRAEProject.Changes.Items
                     {
                         beedamage = damage;
                     }
-                    TRAEMethods.SpawnProjectilesFromAbove(Player.GetProjectileSource_Misc(Player.whoAmI), Player.position, 3 + (damage / 33), 400, 600, spread, 20, ProjectileType<BuzzyStar>(), beedamage, 2f, Player.whoAmI);
+                    TRAEMethods.SpawnProjectilesFromAbove(Player, Player.position, 3 + (damage / 33), 400, 600, spread, 20, ProjectileType<BuzzyStar>(), beedamage, 2f, Player.whoAmI);
                 }
                 if (runethorns > 0f && runeCooldown == 0)
                 {
@@ -142,7 +142,7 @@ namespace TRAEProject.Changes.Items
                 int[] spread = { 1, 2 };
                 if (NewstarsOnHit)
                 {
-                    TRAEMethods.SpawnProjectilesFromAbove(Player.GetProjectileSource_Misc(Player.whoAmI), Player.position, 2 + (damage / 33), 400, 600, spread, 20, ProjectileID.HallowStar, 100, 2f, Player.whoAmI);
+                    TRAEMethods.SpawnProjectilesFromAbove(Player, Player.position, 2 + (damage / 33), 400, 600, spread, 20, ProjectileID.HallowStar, 100, 2f, Player.whoAmI);
                 }
                 if (NewbeesOnHit)
                 {
@@ -150,7 +150,7 @@ namespace TRAEProject.Changes.Items
                     {
                         beedamage = damage;
                     }
-                    TRAEMethods.SpawnProjectilesFromAbove(Player.GetProjectileSource_Misc(Player.whoAmI), Player.position, 3 + (damage / 33), 400, 600, spread, 20, ProjectileType<BuzzyStar>(), beedamage, 2f, Player.whoAmI);
+                    TRAEMethods.SpawnProjectilesFromAbove(Player, Player.position, 3 + (damage / 33), 400, 600, spread, 20, ProjectileType<BuzzyStar>(), beedamage, 2f, Player.whoAmI);
                 }
                 if (runethorns > 0f && runeCooldown == 0)
                 {

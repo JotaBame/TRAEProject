@@ -32,7 +32,7 @@ namespace TRAEProject.NewContent.Items.Weapons.Scorpio
             Item.useStyle = ItemUseStyleID.Shoot;
             Item.UseSound = SoundID.Item5; 
         }
-        public override bool Shoot(Player player, ProjectileSource_Item_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
+        public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
         {
             float numberProjectiles = 3; 
             float rotation = MathHelper.ToRadians(10);

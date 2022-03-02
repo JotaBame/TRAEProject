@@ -317,6 +317,12 @@
             <param name="type">The item type to check.</param>
             <returns>The number of sacrifices remaining , or null if the item can never be unlocked.</returns>
         </member>
+        <member name="M:Terraria.GameContent.Drawing.TileDrawing.IsTileDangerous(System.Int32,System.Int32,Terraria.Player)">
+            <summary>
+            Checks if a tile at the given coordinates counts towards tile coloring from the Dangersense buff.
+            <br/>Vanilla only uses Main.LocalPlayer for <paramref name="player"/>
+            </summary>
+        </member>
         <member name="M:Terraria.GameContent.Events.Sandstorm.StartSandstorm">
             <summary>
             Starts sandstorm for a random amount of time. Should be called on the server (netMode != client) - the method syncs it automatically.
@@ -351,20 +357,6 @@
             <summary>
             Hiding arms also hides hands
             </summary>
-        </member>
-        <member name="T:Terraria.ID.PrimaryBiomeID">
-            <summary>
-            <b>WARNING:</b> This is not an exhaustive list of vanilla biomes.
-            This class only covers the biomes used for NPC happiness.
-            </summary>
-            TODO: biomeFullName does not exist for vanilla biomes and scope of class only covers biomes that are used in npc happiness
-        </member>
-        <member name="M:Terraria.ID.PrimaryBiomeID.GetLocalizedName(System.Int32)">
-            <summary>
-            Equivalent to <see cref="M:Terraria.GameContent.ShopHelper.BiomeNameByKey(System.Int32)"/>
-            </summary>
-            <param name="biomeID"></param>
-            <returns>Localized name of the biome with <paramref name="biomeID"/></returns>
         </member>
         <member name="F:Terraria.ID.BuffID.Sets.LongerExpertDebuff">
             <summary>
@@ -1190,7 +1182,7 @@
         </member>
         <member name="F:Terraria.ID.NPCID.Sets.SpawnFromLastEmptySlot">
             <summary>
-            Whether or not the spawned NPC will start looking for a suitable slot from the end of <seealso cref="F:Terraria.Main.npc"/>, ignoring the Start parameter of <see cref="M:Terraria.NPC.NewNPC(System.Int32,System.Int32,System.Int32,System.Int32,System.Single,System.Single,System.Single,System.Single,System.Int32)"/>.
+            Whether or not the spawned NPC will start looking for a suitable slot from the end of <seealso cref="F:Terraria.Main.npc"/>, ignoring the Start parameter of <see cref="M:Terraria.NPC.NewNPC(Terraria.DataStructures.IEntitySource,System.Int32,System.Int32,System.Int32,System.Int32,System.Single,System.Single,System.Single,System.Single,System.Int32)"/>.
             Useful if you have a multi-segmented boss and want its parts to draw over the main body (body will be in this set).
             </summary>
         </member>
@@ -2238,6 +2230,17 @@
             <param name="shotVelocity"></param>
             <param name="hasAutoReuse"></param>
         </member>
+        <member name="P:Terraria.Item.AllowReforgeForStackableItem">
+            <summary>
+            Set to true in SetDefaults to allow this item to receive a prefix on reforge even if maxStack is not 1.
+            <br>This prevents it from receiving a prefix on craft.</br>
+            </summary>
+        </member>
+        <member name="P:Terraria.Item.IsCandidateForReforge">
+            <summary>
+            Used to make stackable items reforgeable
+            </summary>
+        </member>
         <member name="P:Terraria.Item.DamageType">
             <summary>
             The damage type of this Item. Assign to DamageClass.Melee/Ranged/Magic/Summon/Throwing for vanilla classes, or <see cref="M:Terraria.ModLoader.ModContent.GetInstance``1"/> for custom damage types.
@@ -2259,6 +2262,11 @@
         <member name="M:Terraria.Item.TryGetGlobalItem``1(``0,``0@)">
             <summary> Safely attempts to get the local instance of the type of the specified GlobalItem instance. </summary>
             <returns> Whether or not the requested instance has been found. </returns>
+        </member>
+        <member name="M:Terraria.Item.IsNotSameTypePrefixAndStack(Terraria.Item)">
+            <summary>
+            returns false if and only if netID (deprecated, equivalent to type), stack and prefix match
+            </summary>
         </member>
         <member name="M:Terraria.Main.RegisterItemAnimation(System.Int32,Terraria.DataStructures.DrawAnimation)">
             <summary>
@@ -2284,6 +2292,11 @@
             <summary>
             A replacement for `Main.LocalPlayer` which respects whichever player is currently running hooks on the main thread.
             This works in the player select screen, and in multiplayer (when other players are updating)
+            </summary>
+        </member>
+        <member name="M:Terraria.Main.IsTileSpelunkable(System.Int32,System.Int32)">
+            <summary>
+            Checks if a tile at the given coordinates counts towards tile coloring from the Spelunker buff, and is detected by various pets.
             </summary>
         </member>
         <member name="M:Terraria.Main.SyncRain">
@@ -3612,7 +3625,7 @@
             <param name="damage"> The damage of the projectile. </param>
             <param name="knockback"> The knockback of the projectile. </param>
         </member>
-        <member name="M:Terraria.ModLoader.GlobalItem.Shoot(Terraria.Item,Terraria.Player,Terraria.DataStructures.ProjectileSource_Item_WithAmmo,Microsoft.Xna.Framework.Vector2,Microsoft.Xna.Framework.Vector2,System.Int32,System.Int32,System.Single)">
+        <member name="M:Terraria.ModLoader.GlobalItem.Shoot(Terraria.Item,Terraria.Player,Terraria.DataStructures.EntitySource_ItemUse_WithAmmo,Microsoft.Xna.Framework.Vector2,Microsoft.Xna.Framework.Vector2,System.Int32,System.Int32,System.Single)">
             <summary>
             Allows you to modify an item's shooting mechanism. Return false to prevent vanilla's shooting code from running. Returns true by default.
             </summary>
@@ -3820,13 +3833,20 @@
              This method is not instanced.
              </summary>
         </member>
+        <member name="M:Terraria.ModLoader.GlobalItem.CanStack(Terraria.Item,Terraria.Item)">
+            <summary>
+            Allows you to prevent items from stacking.
+            <br/>This is only called when two items of the same type attempt to stack.
+            <br/>This is usually not called for coins and ammo in the inventory/UI.
+            <br/>This covers all scenarios, if you just need to change in-world stacking behavior, use <see cref="M:Terraria.ModLoader.GlobalItem.CanStackInWorld(Terraria.Item,Terraria.Item)"/>.
+            </summary>
+            <returns>Whether or not the items are allowed to stack</returns>
+        </member>
         <member name="M:Terraria.ModLoader.GlobalItem.CanStackInWorld(Terraria.Item,Terraria.Item)">
             <summary>
-            Allows you to prevent vanilla items from stacking in the world.
-            This is only called when two items of the same type attempt to stack.
+            Allows you to prevent items from stacking in the world.
+            <br/>This is only called when two items of the same type attempt to stack.
             </summary>
-            <param name="item1">The item that is attempting to stack</param>
-            <param name="item2">The item that the other item is attempting to stack with</param>
             <returns>Whether or not the items are allowed to stack</returns>
         </member>
         <member name="M:Terraria.ModLoader.GlobalItem.ReforgePrice(Terraria.Item,System.Int32@,System.Boolean@)">
@@ -5005,15 +5025,25 @@
             <param name="type"></param>
             <param name="closer"></param>
         </member>
-        <member name="M:Terraria.ModLoader.GlobalTile.Dangersense(System.Int32,System.Int32,System.Int32,Terraria.Player)">
+        <member name="M:Terraria.ModLoader.GlobalTile.IsTileDangerous(System.Int32,System.Int32,System.Int32,Terraria.Player)">
             <summary>
-            Allows you to determine whether the block glows red when the given player has the Dangersense buff.
+            Allows you to determine whether this tile glows red when the given player has the Dangersense buff.
+            <br/>Return true to force this behavior, or false to prevent it, overriding vanilla conditions. Returns null by default.
+            <br/>This is only called on the local client.
             </summary>
-            <param name="i"></param>
-            <param name="j"></param>
-            <param name="type"></param>
-            <param name="player"></param>
-            <returns></returns>
+            <param name="i">The x position in tile coordinates.</param>
+            <param name="j">The y position in tile coordinates.</param>
+            <param name="type">The tile type</param>
+            <param name="player">Main.LocalPlayer</param>
+        </member>
+        <member name="M:Terraria.ModLoader.GlobalTile.IsTileSpelunkable(System.Int32,System.Int32,System.Int32)">
+            <summary>
+            Allows you to customize whether this tile can glow yellow while having the Spelunker buff, and is also detected by various pets.
+            <br/>Return true to force this behavior, or false to prevent it, overriding vanilla conditions. Returns null by default.
+            </summary>
+            <param name="i">The x position in tile coordinates.</param>
+            <param name="j">The y position in tile coordinates.</param>
+            <param name="type">The tile type</param>
         </member>
         <member name="M:Terraria.ModLoader.GlobalTile.SetSpriteEffects(System.Int32,System.Int32,System.Int32,Microsoft.Xna.Framework.Graphics.SpriteEffects@)">
             <summary>
@@ -5415,7 +5445,7 @@
             Calls ModItem.ModifyShootStats, then each GlobalItem.ModifyShootStats hook.
             </summary>
         </member>
-        <member name="M:Terraria.ModLoader.ItemLoader.Shoot(Terraria.Item,Terraria.Player,Terraria.DataStructures.ProjectileSource_Item_WithAmmo,Microsoft.Xna.Framework.Vector2,Microsoft.Xna.Framework.Vector2,System.Int32,System.Int32,System.Single,System.Boolean)">
+        <member name="M:Terraria.ModLoader.ItemLoader.Shoot(Terraria.Item,Terraria.Player,Terraria.DataStructures.EntitySource_ItemUse_WithAmmo,Microsoft.Xna.Framework.Vector2,Microsoft.Xna.Framework.Vector2,System.Int32,System.Int32,System.Single,System.Boolean)">
             <summary>
             Calls each GlobalItem.Shoot hook then, if none of them returns false, calls the ModItem.Shoot hook and returns its value.
             </summary>
@@ -5578,6 +5608,11 @@
         <member name="M:Terraria.ModLoader.ItemLoader.OpenVanillaBag(System.String,Terraria.Player,System.Int32)">
             <summary>
             Calls all GlobalItem.OpenVanillaBag hooks.
+            </summary>
+        </member>
+        <member name="M:Terraria.ModLoader.ItemLoader.CanStack(Terraria.Item,Terraria.Item)">
+            <summary>
+            Returns false if item prefixes don't match. Then calls all GlobalItem.CanStack hooks until one returns false then ModItem.CanStack. Returns whether any of the hooks returned false.
             </summary>
         </member>
         <member name="M:Terraria.ModLoader.ItemLoader.CanStackInWorld(Terraria.Item,Terraria.Item)">
@@ -6095,11 +6130,6 @@
         <member name="T:Terraria.ModLoader.ModBiome">
             <summary>
             This class represents a biome added by a mod. It exists to centralize various biome related hooks, handling a lot of biome boilerplate.
-            </summary>
-        </member>
-        <member name="P:Terraria.ModLoader.ModBiome.IsPrimaryBiome">
-            <summary>
-            Whether or not this biome impacts NPC shop prices.
             </summary>
         </member>
         <member name="P:Terraria.ModLoader.ModBiome.DisplayName">
@@ -7021,7 +7051,7 @@
             <param name="damage"> The damage of the projectile. </param>
             <param name="knockback"> The knockback of the projectile. </param>
         </member>
-        <member name="M:Terraria.ModLoader.ModItem.Shoot(Terraria.Player,Terraria.DataStructures.ProjectileSource_Item_WithAmmo,Microsoft.Xna.Framework.Vector2,Microsoft.Xna.Framework.Vector2,System.Int32,System.Int32,System.Single)">
+        <member name="M:Terraria.ModLoader.ModItem.Shoot(Terraria.Player,Terraria.DataStructures.EntitySource_ItemUse_WithAmmo,Microsoft.Xna.Framework.Vector2,Microsoft.Xna.Framework.Vector2,System.Int32,System.Int32,System.Single)">
             <summary>
             Allows you to modify this item's shooting mechanism. Return false to prevent vanilla's shooting code from running. Returns true by default.
             </summary>
@@ -7257,12 +7287,20 @@
             </summary>
             <param name="player">The player.</param>
         </member>
+        <member name="M:Terraria.ModLoader.ModItem.CanStack(Terraria.Item)">
+            <summary>
+            Allows you to decide if this item is allowed to stack with another of its type.
+            <br/>This is only called when attempting to stack with an item of the same type.
+            <br/>This is usually not called for coins and ammo in the inventory/UI.
+            <br/>This covers all scenarios, if you just need to change in-world stacking behavior, use <see cref="M:Terraria.ModLoader.ModItem.CanStackInWorld(Terraria.Item)"/>.
+            </summary>
+            <returns>Whether or not the item is allowed to stack</returns>
+        </member>
         <member name="M:Terraria.ModLoader.ModItem.CanStackInWorld(Terraria.Item)">
             <summary>
             Allows you to decide if this item is allowed to stack with another of its type in the world.
-            This is only called when attempting to stack with an item of the same type.
+            <br/>This is only called when attempting to stack with an item of the same type.
             </summary>
-            <param name="item2">The item this is trying to stack with</param>
             <returns>Whether or not the item is allowed to stack</returns>
         </member>
         <member name="M:Terraria.ModLoader.ModItem.ReforgePrice(System.Int32@,System.Boolean@)">
@@ -7856,9 +7894,6 @@
         </member>
         <member name="P:Terraria.ModLoader.ModNPC.AnimationType">
             <summary> Determines which type of vanilla NPC this ModNPC will copy the animation (FindFrame) of. Leave as 0 to not copy any animation. Defaults to 0. </summary>
-        </member>
-        <member name="P:Terraria.ModLoader.ModNPC.BossBag">
-            <summary> The item type of the boss bag that is dropped when DropBossBags is called for this NPC. </summary>
         </member>
         <member name="P:Terraria.ModLoader.ModNPC.Music">
             <summary> The ID of the music that plays when this NPC is on or near the screen. Defaults to -1, which means music plays normally. </summary>
@@ -8752,7 +8787,7 @@
             <param name="damage"> The damage of the projectile. </param>
             <param name="knockback"> The knockback of the projectile. </param>
         </member>
-        <member name="M:Terraria.ModLoader.ModPlayer.Shoot(Terraria.Item,Terraria.DataStructures.ProjectileSource_Item_WithAmmo,Microsoft.Xna.Framework.Vector2,Microsoft.Xna.Framework.Vector2,System.Int32,System.Int32,System.Single)">
+        <member name="M:Terraria.ModLoader.ModPlayer.Shoot(Terraria.Item,Terraria.DataStructures.EntitySource_ItemUse_WithAmmo,Microsoft.Xna.Framework.Vector2,Microsoft.Xna.Framework.Vector2,System.Int32,System.Int32,System.Single)">
             <summary>
             Allows you to modify an item's shooting mechanism. Return false to prevent vanilla's shooting code from running. Returns true by default.
             </summary>
@@ -10038,9 +10073,19 @@
             <param name="player">Main.LocalPlayer</param>
             <returns></returns>
         </member>
-        <member name="M:Terraria.ModLoader.ModTile.Dangersense(System.Int32,System.Int32,Terraria.Player)">
+        <member name="M:Terraria.ModLoader.ModTile.IsTileDangerous(System.Int32,System.Int32,Terraria.Player)">
             <summary>
-            Allows you to determine whether this block glows red when the given player has the Dangersense buff.
+            Allows you to determine whether this tile glows red when the given player has the Dangersense buff.
+            <br/>This is only called on the local client.
+            </summary>
+            <param name="i">The x position in tile coordinates.</param>
+            <param name="j">The y position in tile coordinates.</param>
+            <param name="player">Main.LocalPlayer</param>
+        </member>
+        <member name="M:Terraria.ModLoader.ModTile.IsTileSpelunkable(System.Int32,System.Int32)">
+            <summary>
+            Allows you to customize whether this tile can glow yellow while having the Spelunker buff, and is also detected by various pets.
+            <br/>This is only called if Main.tileSpelunker[type] is false.
             </summary>
             <param name="i">The x position in tile coordinates.</param>
             <param name="j">The y position in tile coordinates.</param>
@@ -10569,7 +10614,7 @@
         <member name="T:Terraria.ModLoader.NPCHappiness">
             <summary> This struct provides access to an NPC type's NPC &amp; Biome relationships. </summary>
         </member>
-        <member name="F:Terraria.ModLoader.NPCHappiness.RelationshipToPriceMultiplier">
+        <member name="F:Terraria.ModLoader.NPCHappiness.AffectionLevelToPriceMultiplier">
             <summary> Allows you to modify the shop price multipliers associated with a (biome/npc type) relationship level. </summary>
         </member>
         <member name="T:Terraria.ModLoader.NPCHeadLoader">
@@ -11207,15 +11252,21 @@
             <summary> Safely attempts to get the local instance of the type of the specified ModPlayer instance. </summary>
             <returns> Whether or not the requested instance has been found. </returns>
         </member>
-        <member name="M:Terraria.Player.QuickSpawnClonedItem(Terraria.Item,System.Int32)">
+        <member name="M:Terraria.Player.QuickSpawnClonedItem(Terraria.DataStructures.IEntitySource,Terraria.Item,System.Int32)">
             <summary>
             Will spawn an item like QuickSpawnItem, but clones it (handy when you need to retain item infos)
             </summary>
             <param name="item">The item you want to be cloned</param>
             <param name="stack">The stack to give the item. Note that this will override maxStack if it's higher.</param>
         </member>
-        <member name="M:Terraria.Player.QuickSpawnClonedItemDirect(Terraria.Item,System.Int32)">
-            <inheritdoc cref="M:Terraria.Player.QuickSpawnClonedItem(Terraria.Item,System.Int32)"/>
+        <member name="M:Terraria.Player.QuickSpawnClonedItemDirect(Terraria.DataStructures.IEntitySource,Terraria.Item,System.Int32)">
+            <inheritdoc cref="M:Terraria.Player.QuickSpawnClonedItem(Terraria.DataStructures.IEntitySource,Terraria.Item,System.Int32)"/>
+        </member>
+        <member name="M:Terraria.Player.QuickSpawnItemDirect(Terraria.DataStructures.IEntitySource,Terraria.Item,System.Int32)">
+            <inheritdoc cref="M:Terraria.Player.QuickSpawnClonedItem(Terraria.DataStructures.IEntitySource,Terraria.Item,System.Int32)"/>
+        </member>
+        <member name="M:Terraria.Player.QuickSpawnItemDirect(Terraria.DataStructures.IEntitySource,System.Int32,System.Int32)">
+            <inheritdoc cref="M:Terraria.Player.QuickSpawnClonedItem(Terraria.DataStructures.IEntitySource,Terraria.Item,System.Int32)"/>
         </member>
         <member name="M:Terraria.Player.HasBuff(System.Int32)">
             <summary> Returns whether or not this Player currently has a (de)buff of the provided type. </summary>
@@ -11312,7 +11363,7 @@
             Invoked in UpdateVisibleAccessories. Runs common code for both modded slots and vanilla slots based on provided Items.
             </summary>
         </member>
-        <member name="M:Terraria.Player.DropItem(Microsoft.Xna.Framework.Vector2,Terraria.Item@)">
+        <member name="M:Terraria.Player.DropItem(Terraria.DataStructures.IEntitySource,Microsoft.Xna.Framework.Vector2,Terraria.Item@)">
             <summary>
             Drops the ref'd item from the player at the position, and than turns the ref'd Item to air.
             </summary>

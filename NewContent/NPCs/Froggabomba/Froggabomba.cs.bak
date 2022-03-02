@@ -100,7 +100,7 @@ namespace TRAEProject.NPCs.Froggabomba
         public override void OnKill()
         {
             Vector2 zero = new Vector2(0, 0);
-            Projectile.NewProjectile(NPC.GetProjectileSpawnSource(), NPC.Center, zero, ProjectileType<Boom>(), NPC.damage, 0);
+            Projectile.NewProjectile(npc.GetSpawnSourceForNPCFromNPCAI(), NPC.Center, zero, ProjectileType<Boom>(), NPC.damage, 0);
         }
     }
     public class FroggabombaClone : ModNPC
@@ -170,7 +170,7 @@ namespace TRAEProject.NPCs.Froggabomba
             Vector2 zero = new Vector2(0, 0);
             if (!Main.expertMode && !Main.masterMode)
             {
-                Projectile.NewProjectile(NPC.GetProjectileSpawnSource(), NPC.Center, zero, ProjectileType<Boom>(), NPC.damage, 0);
+                Projectile.NewProjectile(npc.GetSpawnSourceForNPCFromNPCAI(), NPC.Center, zero, ProjectileType<Boom>(), NPC.damage, 0);
             }
             else
             {

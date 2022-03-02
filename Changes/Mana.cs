@@ -47,13 +47,13 @@ namespace TRAEProject.Changes
             if (proj.CountsAsClass(DamageClass.Magic) && manaCloak == true && crit && Main.rand.Next(3) == 0)
             {
                 int[] spread = { 3, 4, 5 };
-                TRAEMethods.SpawnProjectilesFromAbove(Player.GetProjectileSource_Misc(Player.whoAmI), target.position, 1, 400, 600, spread, 20, ProjectileID.ManaCloakStar, damage / 3, 2f, Player.whoAmI);
+                TRAEMethods.SpawnProjectilesFromAbove(Player, target.position, 1, 400, 600, spread, 20, ProjectileID.ManaCloakStar, damage / 3, 2f, Player.whoAmI);
             }
             if (proj.CountsAsClass(DamageClass.Magic) && newManaFlower == true && crit && manaFlowerLimit < 3)
             {
                 if (Main.rand.Next(3) == 0)
                 {
-                    Item.NewItem(target.getRect(), ItemID.Star, 1);
+                    Item.NewItem(Player.GetItemSource_OnHit(target, Player.HeldItem.type), target.getRect(), ItemID.Star, 1);
                     ++manaFlowerLimit;
                 }
             }
