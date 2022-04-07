@@ -190,7 +190,7 @@ namespace TRAEProject.Changes.Prefixes
             if(AP > 0)
             {
                 TooltipLine line = new TooltipLine(TRAEProj.Instance, "TRAEAP", "+" + AP + " armor penetration");
-                line.isModifier = true;
+                line.IsModifier = true;
                 int kbIndex = tooltips.FindIndex(TL => TL.Name == "PrefixKnockback");
                 int velIndex = tooltips.FindIndex(TL => TL.Name == "PrefixShootSpeed");
                 if(velIndex != -1)

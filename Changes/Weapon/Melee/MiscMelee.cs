@@ -168,108 +168,108 @@ namespace TRAEProject.Changes.Weapon.Melee
                 case ItemID.Cutlass:
                     foreach (TooltipLine line in tooltips)
                     {
-                        if (line.mod == "Terraria" && line.Name == "Knockback")
+                        if (line.Mod == "Terraria" && line.Name == "Knockback")
                         {
-                            line.text += "\nCreates money on enemy hits";
+                            line.Text += "\nCreates money on enemy hits";
                         }
                     }
                     return;
                 case ItemID.PalladiumPike:
                     foreach (TooltipLine line in tooltips)
                     {
-                        if (line.mod == "Terraria" && line.Name == "Knockback")
+                        if (line.Mod == "Terraria" && line.Name == "Knockback")
                         {
-                            line.text += "\nIncreases health regeneration after striking an enemy";
+                            line.Text += "\nIncreases health regeneration after striking an enemy";
                         }
                     }
                     return;
                 case ItemID.OrichalcumHalberd:
                     foreach (TooltipLine line in tooltips)
                     {
-                        if (line.mod == "Terraria" && line.Name == "Knockback")
+                        if (line.Mod == "Terraria" && line.Name == "Knockback")
                         {
-                            line.text += "\nCreates damaging petals on contact";
+                            line.Text += "\nCreates damaging petals on contact";
                         }
                     }
                     return;
                 case ItemID.ChristmasTreeSword:
                     foreach (TooltipLine line in tooltips)
                     {
-                        if (line.mod == "Terraria" && line.Name == "Tooltip0")
+                        if (line.Mod == "Terraria" && line.Name == "Tooltip0")
                         {
-                            line.text = "Shoots christmas decorations";
+                            line.Text = "Shoots christmas decorations";
                         }
                     }
                     return;
                 case ItemID.Chik:
                     foreach (TooltipLine line in tooltips)
                     {
-                        if (line.mod == "Terraria" && line.Name == "Knockback")
+                        if (line.Mod == "Terraria" && line.Name == "Knockback")
                         {
-                            line.text += "\nCauses an explosion of crystal shards on hit";
+                            line.Text += "\nCauses an explosion of crystal shards on hit";
                         }
                     }
                     return;
                 case ItemID.FormatC:
                     foreach (TooltipLine line in tooltips)
                     {
-                        if (line.mod == "Terraria" && line.Name == "Knockback")
+                        if (line.Mod == "Terraria" && line.Name == "Knockback")
                         {
-                            line.text += "\nCharges power as it is held out";
+                            line.Text += "\nCharges power as it is held out";
                         }
                     }
                     return;
                 case ItemID.Gradient:
                     foreach (TooltipLine line in tooltips)
                     {
-                        if (line.mod == "Terraria" && line.Name == "Knockback")
+                        if (line.Mod == "Terraria" && line.Name == "Knockback")
                         {
-                            line.text += "\nFires Bones at enemies";
+                            line.Text += "\nFires Bones at enemies";
                         }
                     }
                     return;
                 case ItemID.Kraken:
                     foreach (TooltipLine line in tooltips)
                     {
-                        if (line.mod == "Terraria" && line.Name == "Knockback")
+                        if (line.Mod == "Terraria" && line.Name == "Knockback")
                         {
-                            line.text += "\nReleases a tentacle made out of lost souls while held out";
+                            line.Text += "\nReleases a tentacle made out of lost souls while held out";
                         }
                     }
                     return;
                 case ItemID.Cascade:
                     foreach (TooltipLine line in tooltips)
                     {
-                        if (line.mod == "Terraria" && line.Name == "Knockback")
+                        if (line.Mod == "Terraria" && line.Name == "Knockback")
                         {
-                            line.text += "\nHighly Volatile";
+                            line.Text += "\nHighly Volatile";
                         }
                     }
                     return;
                 case ItemID.Sunfury:
                     foreach (TooltipLine line in tooltips)
                     {
-                        if (line.mod == "Terraria" && line.Name == "Knockback")
+                        if (line.Mod == "Terraria" && line.Name == "Knockback")
                         {
-                            line.text += "\nInflicts a heavy burn on enemies";
+                            line.Text += "\nInflicts a heavy burn on enemies";
                         }
                     }
                     return;               
                 case ItemID.VampireKnives:
                     foreach (TooltipLine line in tooltips)
                     {
-                        if (line.mod == "Terraria" && line.Name == "Tooltip0")
+                        if (line.Mod == "Terraria" && line.Name == "Tooltip0")
                         {
-                            line.text = "Throw life stealing daggers";
+                            line.Text = "Throw life stealing daggers";
                         }
                     }
                     return;
                 case ItemID.ChainGuillotines:
                     foreach (TooltipLine line in tooltips)
                     {
-                        if (line.mod == "Terraria" && line.Name == "Tooltip0")
+                        if (line.Mod == "Terraria" && line.Name == "Tooltip0")
                         {
-                            line.text = "Heals on a critical hit";
+                            line.Text = "Heals on a critical hit";
                         }
                     }
                     return;

@@ -72,9 +72,9 @@ namespace TRAEProject.Changes.Prefixes
                         //if the tooltip has a character equal to 'i' replace it with a number that twice as big as 'i'
                         for (int i = 1; i <= 4; i++)
                         {
-                            if (line.text.Contains("" + i))
+                            if (line.Text.Contains("" + i))
                             {
-                                line.text = line.text.Replace("" + i, "" + (i * 2));
+                                line.Text = line.Text.Replace("" + i, "" + (i * 2));
                                 break;
                             }
                         }
@@ -84,17 +84,17 @@ namespace TRAEProject.Changes.Prefixes
                         //if the tooltip has a character equal to 'i' replace it with a number that twice as big as 'i'
                         for (int i = 1; i <= 4; i++)
                         {
-                            if (line.text.Contains("" + i))
+                            if (line.Text.Contains("" + i))
                             {
-                                line.text = line.text.Replace("" + i, "" + (i * 1));
+                                line.Text = line.Text.Replace("" + i, "" + (i * 1));
                                 break;
                             }
                         }
-                        line.text += " and jump speed";
+                        line.Text += " and jump speed";
                     }
                     if (line.Name == "PrefixAccMaxMana")
                     {
-                        //line.text += " and 4% reduced mana costs";
+                        //line.Text += " and 4% reduced mana costs";
                     }
                 }
             }

@@ -145,9 +145,9 @@ namespace TRAEProject.Changes.Accesory
             switch (item.type)
             {           case ItemID.EmpressFlightBooster:       foreach (TooltipLine line in tooltips)
                     {
-                        if (line.mod == "Terraria" && line.Name == "Tooltip1")
+                        if (line.Mod == "Terraria" && line.Name == "Tooltip1")
                         {
-                            line.text = "Doubles acceleration";
+                            line.Text = "Doubles acceleration";
                         }     
                     }
                     return;
@@ -156,36 +156,36 @@ namespace TRAEProject.Changes.Accesory
                 case ItemID.FlurryBoots:
                     foreach (TooltipLine line in tooltips)
                     {
-                        if (line.mod == "Terraria" && line.Name == "Tooltip0")
+                        if (line.Mod == "Terraria" && line.Name == "Tooltip0")
                         {
-                            line.text = "25% increased movement speed";
+                            line.Text = "25% increased movement speed";
                         }
                     }
                     return;
                 case ItemID.SandBoots:
                     foreach (TooltipLine line in tooltips)
                     {
-                        if (line.mod == "Terraria" && line.Name == "Tooltip0")
+                        if (line.Mod == "Terraria" && line.Name == "Tooltip0")
                         {
-                            line.text = "25% increased movement speed\nRunning and jumping speed increased by 25% on sand, and for 8 seconds after leaving it";
+                            line.Text = "25% increased movement speed\nRunning and jumping speed increased by 25% on sand, and for 8 seconds after leaving it";
                         }
                     }
                     return;
                 case ItemID.Aglet:
                     foreach (TooltipLine line in tooltips)
                     {
-                        if (line.mod == "Terraria" && line.Name == "Tooltip0")
+                        if (line.Mod == "Terraria" && line.Name == "Tooltip0")
                         {
-                            line.text = "10% increased movement speed";
+                            line.Text = "10% increased movement speed";
                         }
                     }
                     return;
                 case ItemID.AnkletoftheWind:
                     foreach (TooltipLine line in tooltips)
                     {
-                        if (line.mod == "Terraria" && line.Name == "Tooltip0")
+                        if (line.Mod == "Terraria" && line.Name == "Tooltip0")
                         {
-                            line.text = "25% increased movement speed";
+                            line.Text = "25% increased movement speed";
                         }
                     }
                     return;
@@ -193,108 +193,108 @@ namespace TRAEProject.Changes.Accesory
                 case ItemID.SpectreBoots:
                     foreach (TooltipLine line in tooltips)
                     {
-                        if (line.mod == "Terraria" && line.Name == "Tooltip1")
+                        if (line.Mod == "Terraria" && line.Name == "Tooltip1")
                         {
-                            line.text = "25% increased movement speed";
+                            line.Text = "25% increased movement speed";
                         }
                     }
                     return;
                 case ItemID.FrostsparkBoots:
                     foreach (TooltipLine line in tooltips)
                     {
-                        if (line.mod == "Terraria" && line.Name == "Tooltip0")
+                        if (line.Mod == "Terraria" && line.Name == "Tooltip0")
                         {
-                            line.text = "25% increased movement speed";
+                            line.Text = "25% increased movement speed";
                         }
-                        if (line.mod == "Terraria" && line.Name == "Tooltip1")
+                        if (line.Mod == "Terraria" && line.Name == "Tooltip1")
                         {
-                            line.text = "Increases acceleration by 50%, and mobility on ice";
+                            line.Text = "Increases acceleration by 50%, and mobility on ice";
                         }
                     }
                     return;
                 case ItemID.AmphibianBoots:
                     foreach (TooltipLine line in tooltips)
                     {
-                        if (line.mod == "Terraria" && line.Name == "Tooltip0")
+                        if (line.Mod == "Terraria" && line.Name == "Tooltip0")
                         {
-                            line.text = "25% increased movement speed";
+                            line.Text = "25% increased movement speed";
                         }
                     }
                     return;
                 case ItemID.LightningBoots:
                     foreach (TooltipLine line in tooltips)
                     {
-                        if (line.mod == "Terraria" && line.Name == "Tooltip0")
+                        if (line.Mod == "Terraria" && line.Name == "Tooltip0")
                         {
-                            line.text = "Allows flight";
+                            line.Text = "Allows flight";
                         }
-                        if (line.mod == "Terraria" && line.Name == "Tooltip1")
+                        if (line.Mod == "Terraria" && line.Name == "Tooltip1")
                         {
-                            line.text = "50% increased movement speed";
+                            line.Text = "50% increased movement speed";
                         }
                     }
                     return;
                 case ItemID.TerrasparkBoots:
                     foreach (TooltipLine line in tooltips)
                     {
-                        if (line.mod == "Terraria" && line.Name == "Tooltip0")
+                        if (line.Mod == "Terraria" && line.Name == "Tooltip0")
                         {
-                            line.text = "50% increased movement speed";
+                            line.Text = "50% increased movement speed";
                         }
-                        if (line.mod == "Terraria" && line.Name == "Tooltip1")
+                        if (line.Mod == "Terraria" && line.Name == "Tooltip1")
                         {
-                            line.text = "Allows flight and the ability to dash";
+                            line.Text = "Allows flight and the ability to dash";
                         }
-                        if (line.mod == "Terraria" && line.Name == "Tooltip2")
+                        if (line.Mod == "Terraria" && line.Name == "Tooltip2")
                         {
-                            line.text = "Grants temporary immunity to lava";
+                            line.Text = "Grants temporary immunity to lava";
                         }
-                        if (line.mod == "Terraria" && line.Name == "Tooltip3")
+                        if (line.Mod == "Terraria" && line.Name == "Tooltip3")
                         {
-                            line.text = "";
+                            line.Text = "";
                         }
-                        if (line.mod == "Terraria" && line.Name == "Tooltip4")
+                        if (line.Mod == "Terraria" && line.Name == "Tooltip4")
                         {
-                            line.text = "";
+                            line.Text = "";
                         }
                     }
                     return;
                 case ItemID.WaterWalkingBoots:
                     foreach (TooltipLine line in tooltips)
                     {
-                        if (line.mod == "Terraria" && line.Name == "Tooltip0")
+                        if (line.Mod == "Terraria" && line.Name == "Tooltip0")
                         {
-                            line.text = "The wearer can walk on water\nIncreases running speed by 33% when walking on a liquid";
+                            line.Text = "The wearer can walk on water\nIncreases running speed by 33% when walking on a liquid";
                         }
                     }
                     return;
                 case ItemID.ObsidianHorseshoe:
                     foreach (TooltipLine line in tooltips)
                     {
-                        if (line.mod == "Terraria" && line.Name == "Tooltip0")
+                        if (line.Mod == "Terraria" && line.Name == "Tooltip0")
                         {
-                            line.text = "Negates fall damage";
+                            line.Text = "Negates fall damage";
                         }
-                        if (line.mod == "Terraria" && line.Name == "Tooltip1")
+                        if (line.Mod == "Terraria" && line.Name == "Tooltip1")
                         {
-                            line.text = "Hold DOWN to increase falling speed";
+                            line.Text = "Hold DOWN to increase falling speed";
                         }
                     }
                     return;
                 case ItemID.ObsidianWaterWalkingBoots:
                     foreach (TooltipLine line in tooltips)
                     {
-                        if (line.mod == "Terraria" && line.Name == "Tooltip0")
+                        if (line.Mod == "Terraria" && line.Name == "Tooltip0")
                         {
-                            line.text = "Allows extended flight";
+                            line.Text = "Allows extended flight";
                         }
-                        if (line.mod == "Terraria" && line.Name == "Tooltip1")
+                        if (line.Mod == "Terraria" && line.Name == "Tooltip1")
                         {
-                            line.text = "Hold DOWN to increase falling speed";
+                            line.Text = "Hold DOWN to increase falling speed";
                         }
-                        if (line.mod == "Terraria" && line.Name == "Tooltip2")
+                        if (line.Mod == "Terraria" && line.Name == "Tooltip2")
                         {
-                            line.text = "Grants immunity to fall damage";
+                            line.Text = "Grants immunity to fall damage";
                         }
                     }
                     return;
@@ -302,9 +302,9 @@ namespace TRAEProject.Changes.Accesory
                     foreach (TooltipLine line in tooltips)
                     {
                         {
-                            if (line.mod == "Terraria" && line.Name == "Tooltip0")
+                            if (line.Mod == "Terraria" && line.Name == "Tooltip0")
                             {
-                                line.text += "\nShields the wearer when entering lava";
+                                line.Text += "\nShields the wearer when entering lava";
                             }
                         }
                     }
@@ -313,13 +313,13 @@ namespace TRAEProject.Changes.Accesory
                     foreach (TooltipLine line in tooltips)
                     {
                         {
-                            if (line.mod == "Terraria" && line.Name == "Tooltip0")
+                            if (line.Mod == "Terraria" && line.Name == "Tooltip0")
                             {
-                                line.text = "Increases movement speed and shields the wearer when entering liquids";
+                                line.Text = "Increases movement speed and shields the wearer when entering liquids";
                             }
-                            if (line.mod == "Terraria" && line.Name == "Tooltip1")
+                            if (line.Mod == "Terraria" && line.Name == "Tooltip1")
                             {
-                                line.text = "Allows walking on water and grants immunity to lava";
+                                line.Text = "Allows walking on water and grants immunity to lava";
                             }
                         }
                     }
@@ -327,53 +327,53 @@ namespace TRAEProject.Changes.Accesory
                 case ItemID.HiveBackpack:
                     foreach (TooltipLine line in tooltips)
                     {
-                        if (line.mod == "Terraria" && line.Name == "Tooltip0")
+                        if (line.Mod == "Terraria" && line.Name == "Tooltip0")
                         {
-                            line.text = "Stores up to 16 bees while grounded, releases them while in mid-air\nIncreases jump height by 4.5% for every bee stored\nDoubles strength, recharge delay, and release rate of the bees when honeyed";
+                            line.Text = "Stores up to 16 bees while grounded, releases them while in mid-air\nIncreases jump height by 4.5% for every bee stored\nDoubles strength, recharge delay, and release rate of the bees when honeyed";
                         }
                     }
                     return;
                 case ItemID.FrogGear:
                     foreach (TooltipLine line in tooltips)
                     {
-                        if (line.mod == "Terraria" && line.Name == "Tooltip1")
+                        if (line.Mod == "Terraria" && line.Name == "Tooltip1")
                         {
-                            line.text = "Allows the wearer to perform a short dash";
+                            line.Text = "Allows the wearer to perform a short dash";
                         }
                     }
                     return;
                 case ItemID.HoneyBalloon:
                     foreach (TooltipLine line in tooltips)
                     {
-                        if (line.mod == "Terraria" && line.Name == "Tooltip0")
+                        if (line.Mod == "Terraria" && line.Name == "Tooltip0")
                         {
-                            line.text = "Releases bees and douses you in honey when damaged";
+                            line.Text = "Releases bees and douses you in honey when damaged";
                         }
-                        if (line.mod == "Terraria" && line.Name == "Tooltip1")
+                        if (line.Mod == "Terraria" && line.Name == "Tooltip1")
                         {
-                            line.text = "Increases jump height and life regeneration";
+                            line.Text = "Increases jump height and life regeneration";
                         }
                     }
                     return;
                 case ItemID.BalloonHorseshoeHoney:
                     foreach (TooltipLine line in tooltips)
                     {
-                        if (line.mod == "Terraria" && line.Name == "Tooltip0")
+                        if (line.Mod == "Terraria" && line.Name == "Tooltip0")
                         {
-                            line.text = "Releases bees and douses you in honey when damaged and negates fall damage";
+                            line.Text = "Releases bees and douses you in honey when damaged and negates fall damage";
                         }
-                        if (line.mod == "Terraria" && line.Name == "Tooltip1")
+                        if (line.Mod == "Terraria" && line.Name == "Tooltip1")
                         {
-                            line.text = "Increases jump height and life regeneration";
+                            line.Text = "Increases jump height and life regeneration";
                         }
                     }
                     return;
                 case ItemID.IceSkates:
                     foreach (TooltipLine line in tooltips)
                     {
-                        if (line.mod == "Terraria" && line.Name == "Tooltip0")
+                        if (line.Mod == "Terraria" && line.Name == "Tooltip0")
                         {
-                            line.text = "Increases acceleration by 50%\nIncreases mobility on ice";
+                            line.Text = "Increases acceleration by 50%\nIncreases mobility on ice";
                         }
                     }
                     return;

@@ -469,18 +469,18 @@ namespace TRAEProject.Changes.Weapon.Magic
                 case ItemID.AquaScepter:
                     foreach (TooltipLine line in tooltips)
                     {
-                        if (line.mod == "Terraria" && line.Name == "Tooltip0")
+                        if (line.Mod == "Terraria" && line.Name == "Tooltip0")
                         {
-                            line.text = "Shoots a double high pressure jet of water";
+                            line.Text = "Shoots a double high pressure jet of water";
                         }
                     }
                     return;
                 case ItemID.InfernoFork:
                     foreach (TooltipLine line in tooltips)
                     {
-                        if (line.mod == "Terraria" && line.Name == "Tooltip0")
+                        if (line.Mod == "Terraria" && line.Name == "Tooltip0")
                         {
-                            line.text = "Deals 50% more damage on a direct hit";
+                            line.Text = "Deals 50% more damage on a direct hit";
                         }
                     }
                     return;

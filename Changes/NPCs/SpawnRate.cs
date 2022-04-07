@@ -28,7 +28,7 @@ namespace TRAEProject.Changes.NPCs
 
         public override void EditSpawnPool(IDictionary<int, float> pool, NPCSpawnInfo spawnInfo)
         {
-            if (spawnInfo.player.ZoneJungle)
+            if (spawnInfo.Player.ZoneJungle)
                 pool.Add(NPCID.JungleCreeper, 0.2f);
         }
     }

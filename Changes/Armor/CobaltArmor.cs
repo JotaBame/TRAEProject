@@ -96,61 +96,61 @@ namespace TRAEProject.Changes.Armor
                 case ItemID.CobaltHelmet:
                     foreach (TooltipLine line in tooltips)
                     {
-                        if (line.mod == "Terraria" && line.Name == "Tooltip0")
+                        if (line.Mod == "Terraria" && line.Name == "Tooltip0")
                         {
-                            line.text = "5% increased melee damage and 10% increased melee critical strike chance";
+                            line.Text = "5% increased melee damage and 10% increased melee critical strike chance";
                         }
-                        if (line.mod == "Terraria" && line.Name == "Tooltip1")
+                        if (line.Mod == "Terraria" && line.Name == "Tooltip1")
                         {
-                            line.text = "15% increased movement speed";
+                            line.Text = "15% increased movement speed";
                         }
                     }
                     break;
                 case ItemID.CobaltMask:
                     foreach (TooltipLine line in tooltips)
                     {
-                        if (line.mod == "Terraria" && line.Name == "Tooltip0")
+                        if (line.Mod == "Terraria" && line.Name == "Tooltip0")
                         {
-                            line.text = "5% increased ranged damage and 10% increased ranged critical strike chance";
+                            line.Text = "5% increased ranged damage and 10% increased ranged critical strike chance";
                         }
-                        if (line.mod == "Terraria" && line.Name == "Tooltip1")
+                        if (line.Mod == "Terraria" && line.Name == "Tooltip1")
                         {
-                            line.text = "15% increased movement speed";
+                            line.Text = "15% increased movement speed";
                         }
                     }
                     break;
                 case ItemID.CobaltHat:
                     foreach (TooltipLine line in tooltips)
                     {
-                        if (line.mod == "Terraria" && line.Name == "Tooltip0")
+                        if (line.Mod == "Terraria" && line.Name == "Tooltip0")
                         {
-                            line.text = "5% increased magic damage and 10% increased magic critical strike chance";
+                            line.Text = "5% increased magic damage and 10% increased magic critical strike chance";
                         }
-                        if (line.mod == "Terraria" && line.Name == "Tooltip1")
+                        if (line.Mod == "Terraria" && line.Name == "Tooltip1")
                         {
-                            line.text = "15% increased movement speed";
+                            line.Text = "15% increased movement speed";
                         }
-                        if (line.mod == "Terraria" && line.Name == "Tooltip2")
+                        if (line.Mod == "Terraria" && line.Name == "Tooltip2")
                         {
-                            line.text = "Increases maximum mana by 40";
+                            line.Text = "Increases maximum mana by 40";
                         }
                     }
                     break;
                 case ItemID.CobaltBreastplate:
                     foreach (TooltipLine line in tooltips)
                     {
-                        if (line.mod == "Terraria" && line.Name == "Tooltip0")
+                        if (line.Mod == "Terraria" && line.Name == "Tooltip0")
                         {
-                            line.text = "15% increased movement speed and 5% increased critical strike chance";
+                            line.Text = "15% increased movement speed and 5% increased critical strike chance";
                         }
                     }
                     break;
                 case ItemID.CobaltLeggings:
                     foreach (TooltipLine line in tooltips)
                     {
-                        if (line.mod == "Terraria" && line.Name == "Tooltip0")
+                        if (line.Mod == "Terraria" && line.Name == "Tooltip0")
                         {
-                            line.text = "20% increased movement speed and 3% increased damage";
+                            line.Text = "20% increased movement speed and 3% increased damage";
                         }
                     }
                     break;

@@ -49,7 +49,7 @@ namespace TRAEProject.NewContent.NPCs.Froggabomba
         }
         public override float SpawnChance(NPCSpawnInfo spawnInfo)
         {
-            if (spawnInfo.player.ZoneUnderworldHeight)
+            if (spawnInfo.Player.ZoneUnderworldHeight)
             {
                 return 0.10f;
             }

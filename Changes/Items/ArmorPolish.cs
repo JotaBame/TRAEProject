@@ -28,9 +28,9 @@ namespace TRAEProject.Changes.Items
             {
                 if (item.type == ItemID.ArmorPolish)
                 {
-                    if (line.mod == "Terraria" && line.Name == "Tooltip0")
+                    if (line.Mod == "Terraria" && line.Name == "Tooltip0")
                     {
-                        line.text = "Your armor sparkles";
+                        line.Text = "Your armor sparkles";
                     }
 
                 }

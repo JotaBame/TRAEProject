@@ -69,9 +69,9 @@ namespace TRAEProject.Changes.Weapon.Summon.Minions
                 case ItemID.StardustDragonStaff:
                     foreach (TooltipLine line in tooltips)
                     {
-                        if (line.mod == "Terraria" && line.Name == "Tooltip0")
+                        if (line.Mod == "Terraria" && line.Name == "Tooltip0")
                         {
-                            line.text = "Summons a lunar dragon to fight for you";
+                            line.Text = "Summons a lunar dragon to fight for you";
                         }
                     }
                     break;

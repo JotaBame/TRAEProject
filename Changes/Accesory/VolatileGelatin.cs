@@ -30,9 +30,9 @@ namespace TRAEProject.Changes.Accesory
                 case ItemID.VolatileGelatin:
                     foreach (TooltipLine line in tooltips)
                     {
-                        if (line.mod == "Terraria" && line.Name == "Tooltip0")
+                        if (line.Mod == "Terraria" && line.Name == "Tooltip0")
                         {
-                            line.text = "Critical hits temporarily raise defense\nWhen hit, all stored defense is released as damaging gel\nLimited to 25 extra defense";
+                            line.Text = "Critical hits temporarily raise defense\nWhen hit, all stored defense is released as damaging gel\nLimited to 25 extra defense";
                         }
                     }
                     break;

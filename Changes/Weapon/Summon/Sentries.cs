@@ -36,9 +36,9 @@ namespace TRAEProject.Changes.Weapon.Summon
                 case ItemID.MoonlordTurretStaff:
                     foreach (TooltipLine line in tooltips)
                     {
-                        if (line.mod == "Terraria" && line.Name == "Tooltip1")
+                        if (line.Mod == "Terraria" && line.Name == "Tooltip1")
                         {
-                            line.text = "Summons a stardust portal to shoot lasers at your enemies";
+                            line.Text = "Summons a stardust portal to shoot lasers at your enemies";
                         }
                     }
                     break;

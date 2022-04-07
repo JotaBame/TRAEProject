@@ -30,16 +30,16 @@ namespace TRAEProject.Changes.NewContent.Accesory.Vitamins
                 if (item.type == ItemID.Vitamins)
                 {
 
-                    if (line.mod == "Terraria" && line.Name == "Tooltip0")
+                    if (line.Mod == "Terraria" && line.Name == "Tooltip0")
                     {
-                        line.text = "Who needs a workout?";
+                        line.Text = "Who needs a workout?";
                     }
                 }
                 if (item.type == ItemID.ArmorBracing)
                 {
-                    if (line.mod == "Terraria" && line.Name == "Tooltip0")
+                    if (line.Mod == "Terraria" && line.Name == "Tooltip0")
                     {
-                        line.text = "Gives you shiny armor and great arms";
+                        line.Text = "Gives you shiny armor and great arms";
                     }
 
                 }

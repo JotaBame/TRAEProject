@@ -44,36 +44,36 @@ namespace TRAEProject.Changes.Accesory
             {
                 if (item.type == ItemID.TitanGlove || item.type == ItemID.PowerGlove)
                 {
-                    if (line.mod == "Terraria" && line.Name == "Tooltip0")
+                    if (line.Mod == "Terraria" && line.Name == "Tooltip0")
                     {
-                        line.text = "25% increased melee weapon size and 50% increased melee velocity";
+                        line.Text = "25% increased melee weapon size and 50% increased melee velocity";
                     }
-                    if (line.mod == "Terraria" && line.Name == "Tooltip1")
+                    if (line.Mod == "Terraria" && line.Name == "Tooltip1")
                     {
-                        line.text = "";
+                        line.Text = "";
                     }
-                    if (line.mod == "Terraria" && line.Name == "Tooltip2")
+                    if (line.Mod == "Terraria" && line.Name == "Tooltip2")
                     {
-                        line.text = "";
+                        line.Text = "";
                     }
                 }
                 if (item.type == ItemID.FireGauntlet)
                 {
-                    if (line.mod == "Terraria" && line.Name == "Tooltip0")
+                    if (line.Mod == "Terraria" && line.Name == "Tooltip0")
                     {
-                        line.text = "25% increased melee weapon size and 50% increased melee velocity";
+                        line.Text = "25% increased melee weapon size and 50% increased melee velocity";
                     }
-                    if (line.mod == "Terraria" && line.Name == "Tooltip1")
+                    if (line.Mod == "Terraria" && line.Name == "Tooltip1")
                     {
-                        line.text = "Melee weapons inflict heavy fire damage";
+                        line.Text = "Melee weapons inflict heavy fire damage";
                     }
-                    if (line.mod == "Terraria" && line.Name == "Tooltip2")
+                    if (line.Mod == "Terraria" && line.Name == "Tooltip2")
                     {
-                        line.text = "";
+                        line.Text = "";
                     }
-                    if (line.mod == "Terraria" && line.Name == "Tooltip3")
+                    if (line.Mod == "Terraria" && line.Name == "Tooltip3")
                     {
-                        line.text = "";
+                        line.Text = "";
                     }
                 }
             }

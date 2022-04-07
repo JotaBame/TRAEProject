@@ -481,10 +481,10 @@ namespace TRAEProject.Changes.Prefixes
             if (speed != 1)
             {
                 TooltipLine line = new TooltipLine(TRAEProj.Instance, "TRAEYoyoSpeed", (speed <1 ? "-" : "+") + (int)Math.Round((speed < 1 ? (1f - speed): (speed - 1f)) * 100) + "% yoyo speed");
-                line.isModifier = true;
+                line.IsModifier = true;
                 if(speed < 1)
                 {
-                    line.isModifierBad = true;
+                    line.IsModifierBad = true;
                 }
                 int kbIndex = tooltips.FindIndex(TL => TL.Name == "PrefixKnockback");
                 if (kbIndex != -1)
@@ -499,10 +499,10 @@ namespace TRAEProject.Changes.Prefixes
             if (range != 1)
             {
                 TooltipLine line = new TooltipLine(TRAEProj.Instance, "TRAEYoyoRange", (range < 1 ? "-" : "+") + (int)Math.Round((range < 1 ? (1f - range) : (range - 1f)) * 100) + "% range");
-                line.isModifier = true;
+                line.IsModifier = true;
                 if (range < 1)
                 {
-                    line.isModifierBad = true;
+                    line.IsModifierBad = true;
                 }
                 int kbIndex = tooltips.FindIndex(TL => TL.Name == "PrefixKnockback");
                 if (kbIndex != -1)

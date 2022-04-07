@@ -296,81 +296,81 @@ namespace TRAEProject.Changes.Accesory
                 case ItemID.SquireShield:
                     foreach (TooltipLine line in tooltips)
                     {
-                        if (line.mod == "Terraria" && line.Name == "Tooltip1")
+                        if (line.Mod == "Terraria" && line.Name == "Tooltip1")
                         {
-                            line.text = "10% increased melee damage";
+                            line.Text = "10% increased melee damage";
                         }
                     }
                     break;
                 case ItemID.ApprenticeScarf:
                     foreach (TooltipLine line in tooltips)
                     {
-                        if (line.mod == "Terraria" && line.Name == "Tooltip1")
+                        if (line.Mod == "Terraria" && line.Name == "Tooltip1")
                         {
-                            line.text = "10% increased magic damage";
+                            line.Text = "10% increased magic damage";
                         }
                     }
                     break;
                 case ItemID.HuntressBuckler:
                     foreach (TooltipLine line in tooltips)
                     {
-                        if (line.mod == "Terraria" && line.Name == "Tooltip1")
+                        if (line.Mod == "Terraria" && line.Name == "Tooltip1")
                         {
-                            line.text = "10% increased ranged damage";
+                            line.Text = "10% increased ranged damage";
                         }
                     }
                     break;   
 				case ItemID.Bezoar:
                     foreach (TooltipLine line in tooltips)
                     {
-                        if (line.mod == "Terraria" && line.Name == "Tooltip0")
+                        if (line.Mod == "Terraria" && line.Name == "Tooltip0")
                         {
-                            line.text = "Significantly increases potency of friendly Poison";
+                            line.Text = "Significantly increases potency of friendly Poison";
                         }
                     }
                     break;
                 case ItemID.AdhesiveBandage:
                     foreach (TooltipLine line in tooltips)
                     {
-                        if (line.mod == "Terraria" && line.Name == "Tooltip0")
+                        if (line.Mod == "Terraria" && line.Name == "Tooltip0")
                         {
-                            line.text = "Increases potency of friendly debuffs by 50%";
+                            line.Text = "Increases potency of friendly debuffs by 50%";
                         }
                     }
                     break;
                 case ItemID.MedicatedBandage:
                     foreach (TooltipLine line in tooltips)
                     {
-                        if (line.mod == "Terraria" && line.Name == "Tooltip0")
+                        if (line.Mod == "Terraria" && line.Name == "Tooltip0")
                         {
-                            line.text = "Significantly increases potency of friendly Poison\nIncreases potency of friendly debuffs by 50%";
+                            line.Text = "Significantly increases potency of friendly Poison\nIncreases potency of friendly debuffs by 50%";
                         }
                     }
                     break;
                 case ItemID.Blindfold:
                     foreach (TooltipLine line in tooltips)
                     {
-                        if (line.mod == "Terraria" && line.Name == "Tooltip0")
+                        if (line.Mod == "Terraria" && line.Name == "Tooltip0")
                         {
-                            line.text = "";
+                            line.Text = "";
                         }
                     }
                     break;
                 case ItemID.FastClock:
                     foreach (TooltipLine line in tooltips)
                     {
-                        if (line.mod == "Terraria" && line.Name == "Tooltip0")
+                        if (line.Mod == "Terraria" && line.Name == "Tooltip0")
                         {
-                            line.text = "Time goes by faster when equipped";
+                            line.Text = "Time goes by faster when equipped";
                         }
                     }
                     break;
                 case ItemID.Nazar:
                     foreach (TooltipLine line in tooltips)
                     {
-                        if (line.mod == "Terraria" && line.Name == "Tooltip0")
+                        if (line.Mod == "Terraria" && line.Name == "Tooltip0")
                         {
-                            line.text = "Unleashes curses to the wielder and nearby enemies when damaged" +
+                            line.Text = "Unleashes curses to the wielder and nearby enemies when damaged" +
                                 "\nCurses either deal damage over time, reduce contact damage by 20% or defense by 25";
                         }
                     }
@@ -378,19 +378,19 @@ namespace TRAEProject.Changes.Accesory
                 case ItemID.CountercurseMantra:
                     foreach (TooltipLine line in tooltips)
                     {
-                        if (line.mod == "Terraria" && line.Name == "Tooltip0")
+                        if (line.Mod == "Terraria" && line.Name == "Tooltip0")
                         {
-                            line.text = "Provides immunity to a large number of debuffs\nUnleashes curses to nearby enemies when damaged";
+                            line.Text = "Provides immunity to a large number of debuffs\nUnleashes curses to nearby enemies when damaged";
                         }
                     }
                     break;
                 case ItemID.HoneyComb:
                     foreach (TooltipLine line in tooltips)
                     {
-                        if (line.mod == "Terraria" && line.Name == "Tooltip0")
+                        if (line.Mod == "Terraria" && line.Name == "Tooltip0")
                         {
 
-                            line.text = "Releases bees and increases life regeneration when damaged";
+                            line.Text = "Releases bees and increases life regeneration when damaged";
                         }
                     }
                     break;
@@ -398,162 +398,162 @@ namespace TRAEProject.Changes.Accesory
                 case ItemID.BeeCloak:
                     foreach (TooltipLine line in tooltips)
                     {
-                        if (line.mod == "Terraria" && line.Name == "Tooltip0")
+                        if (line.Mod == "Terraria" && line.Name == "Tooltip0")
                         {
-                            line.text = "Causes buzzy stars to fall when damaged";
+                            line.Text = "Causes buzzy stars to fall when damaged";
                         }
                     }
                     break;
                 case ItemID.Shackle:
                     foreach (TooltipLine line in tooltips)
                     {
-                        if (line.mod == "Terraria" && line.Name == "Defense")
+                        if (line.Mod == "Terraria" && line.Name == "Defense")
                         {
-                            line.text += "\nTemporarily increases defense when damaged";
+                            line.Text += "\nTemporarily increases defense when damaged";
                         }
                     }
                     break;
                 case ItemID.BandofStarpower:
                     foreach (TooltipLine line in tooltips)
                     {
-                        if (line.mod == "Terraria" && line.Name == "Tooltip0")
+                        if (line.Mod == "Terraria" && line.Name == "Tooltip0")
                         {
-                            line.text = "Increases mana regeneration rate by 10%";
+                            line.Text = "Increases mana regeneration rate by 10%";
                         }
-                        if (line.mod == "Terraria" && line.Name == "Tooltip1")
+                        if (line.Mod == "Terraria" && line.Name == "Tooltip1")
                         {
-                            line.text = "";
+                            line.Text = "";
                         }
                     }
                     break;
                 case ItemID.ManaRegenerationBand:
                     foreach (TooltipLine line in tooltips)
                     {
-                        if (line.mod == "Terraria" && line.Name == "Tooltip0")
+                        if (line.Mod == "Terraria" && line.Name == "Tooltip0")
                         {
-                            line.text = "Increases mana and health regeneration rate";
+                            line.Text = "Increases mana and health regeneration rate";
                         }
-                        if (line.mod == "Terraria" && line.Name == "Tooltip1")
+                        if (line.Mod == "Terraria" && line.Name == "Tooltip1")
                         {
-                            line.text = "";
+                            line.Text = "";
                         }
                     }
                     break;
                 case ItemID.AnkhShield:
                     foreach (TooltipLine line in tooltips)
                     {
-                        if (line.mod == "Terraria" && line.Name == "Tooltip0")
+                        if (line.Mod == "Terraria" && line.Name == "Tooltip0")
                         {
-                            line.text = "Grants immunity to knockback and most debuffs";
+                            line.Text = "Grants immunity to knockback and most debuffs";
                         }
-                        if (line.mod == "Terraria" && line.Name == "Tooltip1")
+                        if (line.Mod == "Terraria" && line.Name == "Tooltip1")
                         {
-                            line.text = "";
+                            line.Text = "";
                         }
                     }
                     break;
                 case ItemID.MagicCuffs:
                     foreach (TooltipLine line in tooltips)
                     {
-                        if (line.mod == "Terraria" && line.Name == "Tooltip0")
+                        if (line.Mod == "Terraria" && line.Name == "Tooltip0")
                         {
-                            line.text = "Restores mana when damaged";
+                            line.Text = "Restores mana when damaged";
                         }
-                        if (line.mod == "Terraria" && line.Name == "Tooltip1")
+                        if (line.Mod == "Terraria" && line.Name == "Tooltip1")
                         {
-                            line.text = "Can go over maximum mana";
+                            line.Text = "Can go over maximum mana";
                         }
                     }
                     break;
                 case ItemID.CelestialCuffs:
                     foreach (TooltipLine line in tooltips)
                     {
-                        if (line.mod == "Terraria" && line.Name == "Tooltip0")
+                        if (line.Mod == "Terraria" && line.Name == "Tooltip0")
                         {
-                            line.text = "Restores mana when damaged, can go over maximum mana";
+                            line.Text = "Restores mana when damaged, can go over maximum mana";
                         }
-                        if (line.mod == "Terraria" && line.Name == "Tooltip1")
+                        if (line.Mod == "Terraria" && line.Name == "Tooltip1")
                         {
-                            line.text = "Increases pickup range for mana stars";
+                            line.Text = "Increases pickup range for mana stars";
                         }
-                        if (line.mod == "Terraria" && line.Name == "Tooltip2")
+                        if (line.Mod == "Terraria" && line.Name == "Tooltip2")
                         {
-                            line.text = "";
+                            line.Text = "";
                         }
                     }
                     break;
                 case ItemID.MechanicalGlove:
                     foreach (TooltipLine line in tooltips)
                     {
-                        if (line.mod == "Terraria" && line.Name == "Tooltip0")
+                        if (line.Mod == "Terraria" && line.Name == "Tooltip0")
                         {
-                            line.text = "12% increased melee damage and speed";
+                            line.Text = "12% increased melee damage and speed";
                         }
-                        if (line.mod == "Terraria" && line.Name == "Tooltip1")
+                        if (line.Mod == "Terraria" && line.Name == "Tooltip1")
                         {
-                            line.text = "";
+                            line.Text = "";
                         }
                     }
                     break;
                 case ItemID.MoltenSkullRose:
                     foreach (TooltipLine line in tooltips)
                     {
-                        if (line.mod == "Terraria" && line.Name == "Tooltip1")
+                        if (line.Mod == "Terraria" && line.Name == "Tooltip1")
                         {
-                            line.text = "Magic attacks lower enemy contact damage by 15%";
+                            line.Text = "Magic attacks lower enemy contact damage by 15%";
                         }
-                        if (line.mod == "Terraria" && line.Name == "Tooltip2")
+                        if (line.Mod == "Terraria" && line.Name == "Tooltip2")
                         {
-                            line.text = "Enemies near the player take 10% more damage";
+                            line.Text = "Enemies near the player take 10% more damage";
                         }
                     }
                     break;
                 case ItemID.ObsidianSkullRose:
                     foreach (TooltipLine line in tooltips)
                     {
-                        if (line.mod == "Terraria" && line.Name == "Tooltip0")
+                        if (line.Mod == "Terraria" && line.Name == "Tooltip0")
                         {
-                            line.text = "Magic attacks lower enemy contact damage by 15%";
+                            line.Text = "Magic attacks lower enemy contact damage by 15%";
                         }
-                        if (line.mod == "Terraria" && line.Name == "Tooltip1")
+                        if (line.Mod == "Terraria" && line.Name == "Tooltip1")
                         {
-                            line.text = "Enemies near the player take 10% more damage";
+                            line.Text = "Enemies near the player take 10% more damage";
                         }
                     }
                     break;
                 case 3999: // Magma Skull
                     foreach (TooltipLine line in tooltips)
                     {
-                        if (line.mod == "Terraria" && line.Name == "Tooltip1")
+                        if (line.Mod == "Terraria" && line.Name == "Tooltip1")
                         {
-                            line.text = "Enemies near the player take 10% more damage";
+                            line.Text = "Enemies near the player take 10% more damage";
                         }
                     }
                     break;
                 case ItemID.ObsidianSkull:
                     foreach (TooltipLine line in tooltips)
                     {
-                        if (line.mod == "Terraria" && line.Name == "Tooltip0")
+                        if (line.Mod == "Terraria" && line.Name == "Tooltip0")
                         {
-                            line.text = "Enemies near the player take 10% more damage";
+                            line.Text = "Enemies near the player take 10% more damage";
                         }
                     }
                     break;
                 case ItemID.ObsidianShield:
                     foreach (TooltipLine line in tooltips)
                     {
-                        if (line.mod == "Terraria" && line.Name == "Tooltip1")
+                        if (line.Mod == "Terraria" && line.Name == "Tooltip1")
                         {
-                            line.text = "Enemies near the player take 10% more damage";
+                            line.Text = "Enemies near the player take 10% more damage";
                         }
                     }
                     break;
                 case ItemID.ObsidianRose:
                     foreach (TooltipLine line in tooltips)
                     {
-                        if (line.mod == "Terraria" && line.Name == "Tooltip0")
+                        if (line.Mod == "Terraria" && line.Name == "Tooltip0")
                         {
-                            line.text = "Magic attacks lower enemy contact damage by 15%";
+                            line.Text = "Magic attacks lower enemy contact damage by 15%";
                         }
                     }
                     break;
@@ -561,9 +561,9 @@ namespace TRAEProject.Changes.Accesory
                 case ItemID.StarVeil:
                     foreach (TooltipLine line in tooltips)
                     {
-                        if (line.mod == "Terraria" && line.Name == "Tooltip0")
+                        if (line.Mod == "Terraria" && line.Name == "Tooltip0")
                         {
-                            line.text += "\nMore effective on strong hits";
+                            line.Text += "\nMore effective on strong hits";
                         }
                     }
                     break;
@@ -571,309 +571,309 @@ namespace TRAEProject.Changes.Accesory
                 case ItemID.ManaFlower:
                     foreach (TooltipLine line in tooltips)
                     {
-                        if (line.mod == "Terraria" && line.Name == "Tooltip0")
+                        if (line.Mod == "Terraria" && line.Name == "Tooltip0")
                         {
-                            line.text = "Magic critical hits have a chance to spawn a mana star";
+                            line.Text = "Magic critical hits have a chance to spawn a mana star";
                         }
                     }
                     break;
                 case ItemID.ArcaneFlower:
                     foreach (TooltipLine line in tooltips)
                     {
-                        if (line.mod == "Terraria" && line.Name == "Tooltip0")
+                        if (line.Mod == "Terraria" && line.Name == "Tooltip0")
                         {
-                            line.text = "Magic critical hits have a chance to spawn a mana star\n5% increased magic damage and critical strike chance";
+                            line.Text = "Magic critical hits have a chance to spawn a mana star\n5% increased magic damage and critical strike chance";
                         }
                     }
                     break;
                 case ItemID.ManaCloak:
                     foreach (TooltipLine line in tooltips)
                     {
-                        if (line.mod == "Terraria" && line.Name == "Tooltip0")
+                        if (line.Mod == "Terraria" && line.Name == "Tooltip0")
                         {
-                            line.text = "Magic critical hits have a chance to cause a damaging star to fall";
+                            line.Text = "Magic critical hits have a chance to cause a damaging star to fall";
                         }
-                        if (line.mod == "Terraria" && line.Name == "Tooltip1")
+                        if (line.Mod == "Terraria" && line.Name == "Tooltip1")
                         {
-                            line.text = "Stars restore mana when collected";
+                            line.Text = "Stars restore mana when collected";
                         }
-                        if (line.mod == "Terraria" && line.Name == "Tooltip2")
+                        if (line.Mod == "Terraria" && line.Name == "Tooltip2")
                         {
-                            line.text = "Automatically uses mana potions when needed";
+                            line.Text = "Automatically uses mana potions when needed";
                         }
-                        if (line.mod == "Terraria" && line.Name == "Tooltip3")
+                        if (line.Mod == "Terraria" && line.Name == "Tooltip3")
                         {
-                            line.text = "";
+                            line.Text = "";
                         }
                     }
                     break;
                 case ItemID.DestroyerEmblem:
                     foreach (TooltipLine line in tooltips)
                     {
-                        if (line.mod == "Terraria" && line.Name == "Tooltip0")
+                        if (line.Mod == "Terraria" && line.Name == "Tooltip0")
                         {
-                            line.text = "22% increased critical strike chance";
+                            line.Text = "22% increased critical strike chance";
                         }
-                        if (line.mod == "Terraria" && line.Name == "Tooltip1")
+                        if (line.Mod == "Terraria" && line.Name == "Tooltip1")
                         {
-                            line.text = "";
+                            line.Text = "";
                         }
                     }
                     break;
                 case ItemID.CelestialEmblem:
                     foreach (TooltipLine line in tooltips)
                     {
-                        if (line.mod == "Terraria" && line.Name == "Tooltip1")
+                        if (line.Mod == "Terraria" && line.Name == "Tooltip1")
                         {
-                            line.text = "12% increased magic damage";
+                            line.Text = "12% increased magic damage";
                         }
                     }
                     break;
                 case ItemID.HeroShield:
                     foreach (TooltipLine line in tooltips)
                     {
-                        if (line.mod == "Terraria" && line.Name == "Tooltip0")
+                        if (line.Mod == "Terraria" && line.Name == "Tooltip0")
                         {
-                            line.text = "Grants immunity to knockback";
+                            line.Text = "Grants immunity to knockback";
                         }
-                        if (line.mod == "Terraria" && line.Name == "Tooltip1")
+                        if (line.Mod == "Terraria" && line.Name == "Tooltip1")
                         {
-                            line.text = "Enemies are more likely to target you";
+                            line.Text = "Enemies are more likely to target you";
                         }
-                        if (line.mod == "Terraria" && line.Name == "Tooltip2")
+                        if (line.Mod == "Terraria" && line.Name == "Tooltip2")
                         {
-                            line.text = "";
+                            line.Text = "";
                         }
-                        if (line.mod == "Terraria" && line.Name == "Tooltip3")
+                        if (line.Mod == "Terraria" && line.Name == "Tooltip3")
                         {
-                            line.text = "";
+                            line.Text = "";
                         }
-                        if (line.mod == "Terraria" && line.Name == "Tooltip4")
+                        if (line.Mod == "Terraria" && line.Name == "Tooltip4")
                         {
-                            line.text = "";
+                            line.Text = "";
                         }
                     }
                     break;
                 case ItemID.BerserkerGlove:
                     foreach (TooltipLine line in tooltips)
                     {
-                        if (line.mod == "Terraria" && line.Name == "Tooltip0")
+                        if (line.Mod == "Terraria" && line.Name == "Tooltip0")
                         {
-                            line.text = "12% increased melee speed";
+                            line.Text = "12% increased melee speed";
                         }
-                        if (line.mod == "Terraria" && line.Name == "Tooltip1")
+                        if (line.Mod == "Terraria" && line.Name == "Tooltip1")
                         {
-                            line.text = "Enables auto swing for melee weapons\nEnemies are more likely to target you";
+                            line.Text = "Enables auto swing for melee weapons\nEnemies are more likely to target you";
                         }
-                        if (line.mod == "Terraria" && line.Name == "Tooltip2")
+                        if (line.Mod == "Terraria" && line.Name == "Tooltip2")
                         {
-                            line.text = "";
+                            line.Text = "";
                         }
-                        if (line.mod == "Terraria" && line.Name == "Tooltip3")
+                        if (line.Mod == "Terraria" && line.Name == "Tooltip3")
                         {
-                            line.text = "";
+                            line.Text = "";
                         }
-                        if (line.mod == "Terraria" && line.Name == "Tooltip4")
+                        if (line.Mod == "Terraria" && line.Name == "Tooltip4")
                         {
-                            line.text = "";
+                            line.Text = "";
                         }
                     }
                     break;
                 case ItemID.MoltenCharm:
                     foreach (TooltipLine line in tooltips)
                     {
-                        if (line.mod == "Terraria" && line.Name == "Tooltip0")
+                        if (line.Mod == "Terraria" && line.Name == "Tooltip0")
                         {
-                            line.text = "Minion damage is stored as Fire energy, up to 2250\nWhip strikes summon a friendly Molten Apparition for every 600 damage stored";
+                            line.Text = "Minion damage is stored as Fire energy, up to 2250\nWhip strikes summon a friendly Molten Apparition for every 600 damage stored";
                         }
-                        if (line.mod == "Terraria" && line.Name == "Tooltip1")
+                        if (line.Mod == "Terraria" && line.Name == "Tooltip1")
                         {
-                            line.text = "The wearer is immune to lava";
+                            line.Text = "The wearer is immune to lava";
                         }
                     }
                     break;
                 case ItemID.RoyalGel:
                     foreach (TooltipLine line in tooltips)
                     {
-                        if (line.mod == "Terraria" && line.Name == "Tooltip0")
+                        if (line.Mod == "Terraria" && line.Name == "Tooltip0")
                         {
-                            line.text += "\nReduces damage by 25 every 30 seconds";
+                            line.Text += "\nReduces damage by 25 every 30 seconds";
                         }
                     }
                     break;
                 case ItemID.MoonCharm:
                     foreach (TooltipLine line in tooltips)
                     {
-                        if (line.mod == "Terraria" && line.Name == "Tooltip0")
+                        if (line.Mod == "Terraria" && line.Name == "Tooltip0")
                         {
-                            line.text = "Turns the holder into a werewolf when missing health";
+                            line.Text = "Turns the holder into a werewolf when missing health";
                         }
                     }
                     break;
                 case ItemID.MoonShell:
                     foreach (TooltipLine line in tooltips)
                     {
-                        if (line.mod == "Terraria" && line.Name == "Tooltip0")
+                        if (line.Mod == "Terraria" && line.Name == "Tooltip0")
                         {
-                            line.text = "Turns the holder into a werewolf when missing health and into a merfolk when entering water\nPuts a shell around the owner when below 50% life";
+                            line.Text = "Turns the holder into a werewolf when missing health and into a merfolk when entering water\nPuts a shell around the owner when below 50% life";
                         }
                     }
                     break;
                 case ItemID.MoonStone:
                     foreach (TooltipLine line in tooltips)
                     {
-                        if (line.mod == "Terraria" && line.Name == "Tooltip0")
+                        if (line.Mod == "Terraria" && line.Name == "Tooltip0")
                         {
-                            line.text = "Minor increases to all stats during the night";
+                            line.Text = "Minor increases to all stats during the night";
                         }
                     }
                     break;
                 case ItemID.SunStone:
                     foreach (TooltipLine line in tooltips)
                     {
-                        if (line.mod == "Terraria" && line.Name == "Tooltip0")
+                        if (line.Mod == "Terraria" && line.Name == "Tooltip0")
                         {
-                            line.text = "Minor increases to all stats during the day";
+                            line.Text = "Minor increases to all stats during the day";
                         }
                     }
                     break;
                 case ItemID.CelestialStone:
                     foreach (TooltipLine line in tooltips)
                     {
-                        if (line.mod == "Terraria" && line.Name == "Tooltip0")
+                        if (line.Mod == "Terraria" && line.Name == "Tooltip0")
                         {
-                            line.text = "Minor increases to all stats";
+                            line.Text = "Minor increases to all stats";
                         }
-                        if (line.mod == "Terraria" && line.Name == "Tooltip1")
+                        if (line.Mod == "Terraria" && line.Name == "Tooltip1")
                         {
-                            line.text = "";
+                            line.Text = "";
                         }
                     }
                     break;
                 case ItemID.CelestialShell:
                     foreach (TooltipLine line in tooltips)
                     {
-                        if (line.mod == "Terraria" && line.Name == "Tooltip0")
+                        if (line.Mod == "Terraria" && line.Name == "Tooltip0")
                         {
-                            line.text = "Turns into holder into a merfolk when entering water";
+                            line.Text = "Turns into holder into a merfolk when entering water";
                         }
                     }
                     break;
                 case ItemID.NecromanticScroll:
                     foreach (TooltipLine line in tooltips)
                     {
-                        if (line.mod == "Terraria" && line.Name == "Tooltip1")
+                        if (line.Mod == "Terraria" && line.Name == "Tooltip1")
                         {
-                            line.text = "Gives minions a 5% chance to crit";
+                            line.Text = "Gives minions a 5% chance to crit";
                         }
                     }
                     break;
                 case ItemID.HerculesBeetle:
                     foreach (TooltipLine line in tooltips)
                     {
-                        if (line.mod == "Terraria" && line.Name == "Tooltip0")
+                        if (line.Mod == "Terraria" && line.Name == "Tooltip0")
                         {
-                            line.text = "Increases your maximum number of sentries by 1";
+                            line.Text = "Increases your maximum number of sentries by 1";
                         }
                     }
                     break;
                 case ItemID.PapyrusScarab:
                     foreach (TooltipLine line in tooltips)
                     {
-                        if (line.mod == "Terraria" && line.Name == "Tooltip0")
+                        if (line.Mod == "Terraria" && line.Name == "Tooltip0")
                         {
-                            line.text = "Increases your max number of minions and sentries by 1";
+                            line.Text = "Increases your max number of minions and sentries by 1";
                         }
-                        if (line.mod == "Terraria" && line.Name == "Tooltip1")
+                        if (line.Mod == "Terraria" && line.Name == "Tooltip1")
                         {
-                            line.text = "Gives minions a 5% chance to crit";
+                            line.Text = "Gives minions a 5% chance to crit";
                         }
                     }
                     break;
                 case ItemID.MagicQuiver:
                     foreach (TooltipLine line in tooltips)
                     {
-                        if (line.mod == "Terraria" && line.Name == "Tooltip0")
+                        if (line.Mod == "Terraria" && line.Name == "Tooltip0")
                         {
-                            line.text = "Your arrows will bounce towards nearby enemies after a certain time or hitting a tile, losing damage in the process";
+                            line.Text = "Your arrows will bounce towards nearby enemies after a certain time or hitting a tile, losing damage in the process";
                         }
-                        if (line.mod == "Terraria" && line.Name == "Tooltip1")
+                        if (line.Mod == "Terraria" && line.Name == "Tooltip1")
                         {
-                            line.text = "";
+                            line.Text = "";
                         }
                     }
                     break;
                 case ItemID.StalkersQuiver:
                     foreach (TooltipLine line in tooltips)
                     {
-                        if (line.mod == "Terraria" && line.Name == "Tooltip0")
+                        if (line.Mod == "Terraria" && line.Name == "Tooltip0")
                         {
-                            line.text = "Your arrows will bounce towards nearby enemies after a certain time or hitting a tile, losing damage in the process";
+                            line.Text = "Your arrows will bounce towards nearby enemies after a certain time or hitting a tile, losing damage in the process";
 
                         }
-                        if (line.mod == "Terraria" && line.Name == "Tooltip1")
+                        if (line.Mod == "Terraria" && line.Name == "Tooltip1")
                         {
-                            line.text = "5% increased ranged damage and critical strike chance";
+                            line.Text = "5% increased ranged damage and critical strike chance";
                         }
                     }
                     break;
                 case ItemID.MoltenQuiver:
                     foreach (TooltipLine line in tooltips)
                     {
-                        if (line.mod == "Terraria" && line.Name == "Tooltip0")
+                        if (line.Mod == "Terraria" && line.Name == "Tooltip0")
                         {
-                            line.text = "Your arrows will bounce towards nearby enemies after a certain time or hitting a tile, losing damage in the process";
+                            line.Text = "Your arrows will bounce towards nearby enemies after a certain time or hitting a tile, losing damage in the process";
                         }
-                        if (line.mod == "Terraria" && line.Name == "Tooltip1")
+                        if (line.Mod == "Terraria" && line.Name == "Tooltip1")
                         {
-                            line.text = "Lights wooden arrows ablaze";
+                            line.Text = "Lights wooden arrows ablaze";
                         }
-                        if (line.mod == "Terraria" && line.Name == "Tooltip2")
+                        if (line.Mod == "Terraria" && line.Name == "Tooltip2")
                         {
-                            line.text = "Quiver in fear!";
+                            line.Text = "Quiver in fear!";
                         }
-                        if (line.mod == "Terraria" && line.Name == "Tooltip3")
+                        if (line.Mod == "Terraria" && line.Name == "Tooltip3")
                         {
-                            line.text = "";
+                            line.Text = "";
                         }
                     }
                     break;
                 case ItemID.RifleScope:
                     foreach (TooltipLine line in tooltips)
                     {
-                        if (line.mod == "Terraria" && line.Name == "Tooltip0")
+                        if (line.Mod == "Terraria" && line.Name == "Tooltip0")
                         {
-                            line.text = "Increases view range for guns (right click to zoom out!)";
+                            line.Text = "Increases view range for guns (right click to zoom out!)";
                         }
-                        if (line.mod == "Terraria" && line.Name == "Tooltip1")
+                        if (line.Mod == "Terraria" && line.Name == "Tooltip1")
                         {
-                            line.text = "80% increased velocity for guns";
+                            line.Text = "80% increased velocity for guns";
                         }
                     }
                     break;
                 case ItemID.SniperScope:
                     foreach (TooltipLine line in tooltips)
                     {
-                        if (line.mod == "Terraria" && line.Name == "Tooltip1")
+                        if (line.Mod == "Terraria" && line.Name == "Tooltip1")
                         {
-                            line.text = "80% increased velocity for guns\n10% increased ranged critical strike chance";
+                            line.Text = "80% increased velocity for guns\n10% increased ranged critical strike chance";
                         }
                     }
                     break;
                 case ItemID.ReconScope:
                     foreach (TooltipLine line in tooltips)
                     {
-                        if (line.mod == "Terraria" && line.Name == "Tooltip0")
+                        if (line.Mod == "Terraria" && line.Name == "Tooltip0")
                         {
-                            line.text = "Increases view range for guns (right click to zoom out!)";
+                            line.Text = "Increases view range for guns (right click to zoom out!)";
                         }
-                        if (line.mod == "Terraria" && line.Name == "Tooltip1")
+                        if (line.Mod == "Terraria" && line.Name == "Tooltip1")
                         {
-                            line.text = "80% increased velocity for ranged weapons";
+                            line.Text = "80% increased velocity for ranged weapons";
                         }
-                        if (line.mod == "Terraria" && line.Name == "Tooltip2")
+                        if (line.Mod == "Terraria" && line.Name == "Tooltip2")
                         {
-                            line.text = "Your ranged attacks will bounce towards their nearby enemy";
+                            line.Text = "Your ranged attacks will bounce towards their nearby enemy";
                         }
                     }
                     break;

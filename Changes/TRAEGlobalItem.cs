@@ -236,63 +236,63 @@ namespace TRAEProject.Changes
                 case ItemID.VineRope:
                     foreach (TooltipLine line in tooltips)
                     {
-                        if (line.mod == "Terraria" && line.Name == "Tooltip0")
+                        if (line.Mod == "Terraria" && line.Name == "Tooltip0")
                         {
-                            line.text = "+6 range";
+                            line.Text = "+6 range";
                         }
                     }
                     break;
                 case ItemID.ArcheryPotion:
                     foreach (TooltipLine line in tooltips)
                     {
-                        if (line.mod == "Terraria" && line.Name == "Tooltip0")
+                        if (line.Mod == "Terraria" && line.Name == "Tooltip0")
                         {
-                            line.text = "Increases arrow damage by 10% and arrow speed by 20%";
+                            line.Text = "Increases arrow damage by 10% and arrow speed by 20%";
                         }
                     }
                     break; 
                 case ItemID.TitanPotion:
                     foreach (TooltipLine line in tooltips)
                     {
-                        if (line.mod == "Terraria" && line.Name == "Tooltip0")
+                        if (line.Mod == "Terraria" && line.Name == "Tooltip0")
                         {
-                            line.text = "50% increased knockback and 10% increased melee weapon size";
+                            line.Text = "50% increased knockback and 10% increased melee weapon size";
                         }
                     }
                     break;
                 case ItemID.InfernoPotion:
                     foreach (TooltipLine line in tooltips)
                     {
-                        if (line.mod == "Terraria" && line.Name == "Tooltip0")
+                        if (line.Mod == "Terraria" && line.Name == "Tooltip0")
                         {
-                            line.text = "Attacks create fiery explosions, dealing 10% damage in a small area and igniting foes";
+                            line.Text = "Attacks create fiery explosions, dealing 10% damage in a small area and igniting foes";
                         }
                     }
                     break;
                 case ItemID.AmmoReservationPotion:
                     foreach (TooltipLine line in tooltips)
                     {
-                        if (line.mod == "Terraria" && line.Name == "Tooltip0")
+                        if (line.Mod == "Terraria" && line.Name == "Tooltip0")
                         {
-                            line.text = "Prevents most ammo consumption while active";
+                            line.Text = "Prevents most ammo consumption while active";
                         }
                     }
                     break;
                 case ItemID.SwiftnessPotion:
                     foreach (TooltipLine line in tooltips)
                     {
-                        if (line.mod == "Terraria" && line.Name == "Tooltip0")
+                        if (line.Mod == "Terraria" && line.Name == "Tooltip0")
                         {
-                            line.text = "20% increased movement speed";
+                            line.Text = "20% increased movement speed";
                         }
                     }
                     break;
                 case ItemID.FlaskofNanites:
                     foreach (TooltipLine line in tooltips)
                     {
-                        if (line.mod == "Terraria" && line.Name == "Tooltip0")
+                        if (line.Mod == "Terraria" && line.Name == "Tooltip0")
                         {
-                            line.text = "Melee attacks confuse enemies and increase health regeneration";
+                            line.Text = "Melee attacks confuse enemies and increase health regeneration";
                         }
                     }
                     break;              

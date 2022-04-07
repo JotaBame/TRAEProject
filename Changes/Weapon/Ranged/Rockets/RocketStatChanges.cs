@@ -75,72 +75,72 @@ namespace TRAEProject.Changes.Weapons.Rockets
                 case ItemID.RocketLauncher:
                     foreach (TooltipLine line in tooltips)
                     {
-                        if (line.mod == "Terraria" && line.Name == "Tooltip0")
+                        if (line.Mod == "Terraria" && line.Name == "Tooltip0")
                         {
-                            line.text = "";
+                            line.Text = "";
                         }
                     }
                     return;
                 case ItemID.RocketI:
                     foreach (TooltipLine line in tooltips)
                     {
-                        if (line.mod == "Terraria" && line.Name == "Tooltip0")
+                        if (line.Mod == "Terraria" && line.Name == "Tooltip0")
                         {
-                            line.text = "Normal explosion.";
+                            line.Text = "Normal explosion.";
                         }
                     }
                     return;
                 case ItemID.RocketII:
                     foreach (TooltipLine line in tooltips)
                     {
-                        if (line.mod == "Terraria" && line.Name == "Tooltip0")
+                        if (line.Mod == "Terraria" && line.Name == "Tooltip0")
                         {
-                            line.text = "Normal explosion. Will destroy tiles.";
+                            line.Text = "Normal explosion. Will destroy tiles.";
                         }
                     }
                     return;
                 case ItemID.RocketIII:
                     foreach (TooltipLine line in tooltips)
                     {
-                        if (line.mod == "Terraria" && line.Name == "Tooltip0")
+                        if (line.Mod == "Terraria" && line.Name == "Tooltip0")
                         {
-                            line.text = "Big explosion.";
+                            line.Text = "Big explosion.";
                         }
                     }
                     return;
                 case ItemID.RocketIV:
                     foreach (TooltipLine line in tooltips)
                     {
-                        if (line.mod == "Terraria" && line.Name == "Tooltip0")
+                        if (line.Mod == "Terraria" && line.Name == "Tooltip0")
                         {
-                            line.text = "Small explosion. Direct hits deal 50% more damage.";
+                            line.Text = "Small explosion. Direct hits deal 50% more damage.";
                         }
                     }
                     return;
                 case ItemID.MiniNukeI:
                     foreach (TooltipLine line in tooltips)
                     {
-                        if (line.mod == "Terraria" && line.Name == "Tooltip0")
+                        if (line.Mod == "Terraria" && line.Name == "Tooltip0")
                         {
-                            line.text = "Giant Explosion.";
+                            line.Text = "Giant Explosion.";
                         }
                     }
                     return;
                 case ItemID.MiniNukeII:
                     foreach (TooltipLine line in tooltips)
                     {
-                        if (line.mod == "Terraria" && line.Name == "Tooltip0")
+                        if (line.Mod == "Terraria" && line.Name == "Tooltip0")
                         {
-                            line.text = "Giant explosion. Will destroy tiles.";
+                            line.Text = "Giant explosion. Will destroy tiles.";
                         }
                     }
                     return;
                 case ItemID.ClusterRocketII:
                     foreach (TooltipLine line in tooltips)
                     {
-                        if (line.mod == "Terraria" && line.Name == "Tooltip0")
+                        if (line.Mod == "Terraria" && line.Name == "Tooltip0")
                         {
-                            line.text = "Normal explosion. Stuns enemies.";
+                            line.Text = "Normal explosion. Stuns enemies.";
                         }
                     }
                     return;

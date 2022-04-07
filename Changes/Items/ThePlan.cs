@@ -29,9 +29,9 @@ namespace TRAEProject.Changes.Items
                 if (item.type == ItemID.ThePlan)
                 {
 
-                    if (line.mod == "Terraria" && line.Name == "Tooltip0")
+                    if (line.Mod == "Terraria" && line.Name == "Tooltip0")
                     {
-                        line.text = "Reveals all chests on the map";
+                        line.Text = "Reveals all chests on the map";
                     }
 
                 }

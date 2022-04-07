@@ -345,108 +345,108 @@ namespace TRAEProject.Changes.Armor
                 case ItemID.SpectreHood:
                     foreach (TooltipLine line in tooltips)
                     {
-                        if (line.mod == "Terraria" && line.Name == "Defense")
+                        if (line.Mod == "Terraria" && line.Name == "Defense")
                         {
-                            line.text += "\nIncreases maximum mana by 100 and reduces mana costs by 20%";
+                            line.Text += "\nIncreases maximum mana by 100 and reduces mana costs by 20%";
                         }
                     }
                     return;
                 case ItemID.SpectreMask:
                     foreach (TooltipLine line in tooltips)
                     {
-                        if (line.mod == "Terraria" && line.Name == "Tooltip0")
+                        if (line.Mod == "Terraria" && line.Name == "Tooltip0")
                         {
-                            line.text = "Increases maximum mana by 60";
+                            line.Text = "Increases maximum mana by 60";
                         }
                     }
                     return;
                 case ItemID.ObsidianShirt:
                     foreach (TooltipLine line in tooltips)
                     {
-                        if (line.mod == "Terraria" && line.Name == "Tooltip0")
+                        if (line.Mod == "Terraria" && line.Name == "Tooltip0")
                         {
-                            line.text += "\nIncreases summon damage by 8%";
+                            line.Text += "\nIncreases summon damage by 8%";
                         }
                     }
                     return;
                 case ItemID.PharaohsRobe:
                     foreach (TooltipLine line in tooltips)
                     {
-                        if (line.mod == "Terraria" && line.Name == "Defense")
+                        if (line.Mod == "Terraria" && line.Name == "Defense")
                         {
-                            line.text += "\nIncreases movement speed by 15%";
+                            line.Text += "\nIncreases movement speed by 15%";
                         }
                     }
                     return;
                 case ItemID.PharaohsMask:
                     foreach (TooltipLine line in tooltips)
                     {
-                        if (line.mod == "Terraria" && line.Name == "Defense")
+                        if (line.Mod == "Terraria" && line.Name == "Defense")
                         {
-                            line.text += "\nIncreases movement speed by 10%";
+                            line.Text += "\nIncreases movement speed by 10%";
                         }
                     }
                     return;
                 case ItemID.PirateHat:
                     foreach (TooltipLine line in tooltips)
                     {
-                        if (line.mod == "Terraria" && line.Name == "Defense")
+                        if (line.Mod == "Terraria" && line.Name == "Defense")
                         {
-                            line.text += "\n10% increased summon damage\n30% increased whip range";
+                            line.Text += "\n10% increased summon damage\n30% increased whip range";
                         }
                     }
                     return;
                 case ItemID.PirateShirt:
                     foreach (TooltipLine line in tooltips)
                     {
-                        if (line.mod == "Terraria" && line.Name == "Defense")
+                        if (line.Mod == "Terraria" && line.Name == "Defense")
                         {
-                            line.text += "\n10% increased summon damage\n12% increased whip speed";
+                            line.Text += "\n10% increased summon damage\n12% increased whip speed";
                         }
                     }
                     return;
                 case ItemID.PiratePants:
                     foreach (TooltipLine line in tooltips)
                     {
-                        if (line.mod == "Terraria" && line.Name == "Defense")
+                        if (line.Mod == "Terraria" && line.Name == "Defense")
                         {
-                            line.text += "\n10% increased summon damage and movement speed\n8% increased whip speed";
+                            line.Text += "\n10% increased summon damage and movement speed\n8% increased whip speed";
                         }
                     }
                     return;
                 case ItemID.AncientArmorHat:
                     foreach (TooltipLine line in tooltips)
                     {
-                        if (line.mod == "Terraria" && line.Name == "Defense")
+                        if (line.Mod == "Terraria" && line.Name == "Defense")
                         {
-                            line.text += "\n17% increased summon damage\nIncreases your maximum number of sentries by 1";
+                            line.Text += "\n17% increased summon damage\nIncreases your maximum number of sentries by 1";
                         }
                     }
                     return;
                 case ItemID.AncientArmorShirt:
                     foreach (TooltipLine line in tooltips)
                     {
-                        if (line.mod == "Terraria" && line.Name == "Defense")
+                        if (line.Mod == "Terraria" && line.Name == "Defense")
                         {
-                            line.text += "\n5% increased summon damage\nIncreases your maximum number of sentries by 1";
+                            line.Text += "\n5% increased summon damage\nIncreases your maximum number of sentries by 1";
                         }
                     }
                     return;
                 case ItemID.AncientArmorPants:
                     foreach (TooltipLine line in tooltips)
                     {
-                        if (line.mod == "Terraria" && line.Name == "Defense")
+                        if (line.Mod == "Terraria" && line.Name == "Defense")
                         {
-                            line.text += "\nIncreases movement speed by 10%\n3% increased summon damage";
+                            line.Text += "\nIncreases movement speed by 10%\n3% increased summon damage";
                         }
                     }
                     return;
                 case ItemID.CrimsonScalemail:
                     foreach (TooltipLine line in tooltips)
                     {
-                        if (line.mod == "Terraria" && line.Name == "Tooltip0")
+                        if (line.Mod == "Terraria" && line.Name == "Tooltip0")
                         {
-                            line.text += "\nSlightly increased life regeneration";
+                            line.Text += "\nSlightly increased life regeneration";
                         }
                     }
                     return;
@@ -456,9 +456,9 @@ namespace TRAEProject.Changes.Armor
                 case ItemID.AncientShadowScalemail:
                     foreach (TooltipLine line in tooltips)
                     {
-                        if (line.mod == "Terraria" && line.Name == "Tooltip0")
+                        if (line.Mod == "Terraria" && line.Name == "Tooltip0")
                         {
-                            line.text = "2% increased critical strike chance";
+                            line.Text = "2% increased critical strike chance";
                         }
                     }
                     return;
@@ -466,134 +466,134 @@ namespace TRAEProject.Changes.Armor
                 case ItemID.AncientShadowGreaves:
                     foreach (TooltipLine line in tooltips)
                     {
-                        if (line.mod == "Terraria" && line.Name == "Tooltip0")
+                        if (line.Mod == "Terraria" && line.Name == "Tooltip0")
                         {
-                            line.text = "2% increased critical strike chance\n10% increased movement speed";
+                            line.Text = "2% increased critical strike chance\n10% increased movement speed";
                         }
                     }
                     return;
                 case ItemID.RuneHat:
                     foreach (TooltipLine line in tooltips)
                     {
-                        if (line.mod == "Terraria" && line.Name == "Defense")
+                        if (line.Mod == "Terraria" && line.Name == "Defense")
                         {
-                            line.text += "\n15% increased magic damage and critical strike chance";
+                            line.Text += "\n15% increased magic damage and critical strike chance";
                         }
                     }
                     return;
                 case ItemID.RuneRobe:
                     foreach (TooltipLine line in tooltips)
                     {
-                        if (line.mod == "Terraria" && line.Name == "Defense")
+                        if (line.Mod == "Terraria" && line.Name == "Defense")
                         {
-                            line.text += "\nIncreases maximum mana by 100\nReduces mana costs by 21%";
+                            line.Text += "\nIncreases maximum mana by 100\nReduces mana costs by 21%";
                         }
                     }
                     return;
                 case ItemID.OrichalcumMask:
                     foreach (TooltipLine line in tooltips)
                     {
-                        if (line.mod == "Terraria" && line.Name == "Tooltip0")
+                        if (line.Mod == "Terraria" && line.Name == "Tooltip0")
                         {
-                            line.text = "13% increased melee critical strike chance";
+                            line.Text = "13% increased melee critical strike chance";
                         }
-                        if (line.mod == "Terraria" && line.Name == "Tooltip1")
+                        if (line.Mod == "Terraria" && line.Name == "Tooltip1")
                         {
-                            line.text = "7% increased melee and movement speed";
+                            line.Text = "7% increased melee and movement speed";
                         }
                     }
                     return;
                 case ItemID.DjinnsCurse:
                     foreach (TooltipLine line in tooltips)
                     {
-                        if (line.mod == "Terraria" && line.Name == "Tooltip0")
+                        if (line.Mod == "Terraria" && line.Name == "Tooltip0")
                         {
-                            line.text += "\nIncreases jump height and speed";
+                            line.Text += "\nIncreases jump height and speed";
                         }
                     }
                     return;
                 case ItemID.ChlorophytePlateMail:
                     foreach (TooltipLine line in tooltips)
                     {
-                        if (line.mod == "Terraria" && line.Name == "Tooltip0")
+                        if (line.Mod == "Terraria" && line.Name == "Tooltip0")
                         {
-                            line.text = "10% increased damage";
+                            line.Text = "10% increased damage";
                         }
                     }
                     return;
                 case ItemID.ChlorophyteGreaves:
                     foreach (TooltipLine line in tooltips)
                     {
-                        if (line.mod == "Terraria" && line.Name == "Tooltip0")
+                        if (line.Mod == "Terraria" && line.Name == "Tooltip0")
                         {
-                            line.text = "10% increased critical strike chance and movement speed";
+                            line.Text = "10% increased critical strike chance and movement speed";
                         }
-                        if (line.mod == "Terraria" && line.Name == "Tooltip1")
+                        if (line.Mod == "Terraria" && line.Name == "Tooltip1")
                         {
-                            line.text = "";
+                            line.Text = "";
                         }
                     }
                     return;
                 case ItemID.TikiMask:
                     foreach (TooltipLine line in tooltips)
                     {
-                        if (line.mod == "Terraria" && line.Name == "Tooltip1")
+                        if (line.Mod == "Terraria" && line.Name == "Tooltip1")
                         {
-                            line.text += "\nIncreases whip range by 30%";
+                            line.Text += "\nIncreases whip range by 30%";
                         }
                     }
                     return;
                 case ItemID.MonkAltHead:
                     foreach (TooltipLine line in tooltips)
                     {
-                        if (line.mod == "Terraria" && line.Name == "Tooltip0")
+                        if (line.Mod == "Terraria" && line.Name == "Tooltip0")
                         {
-                            line.text = "Increases melee speed and minion damage by 30%\nIncreases your maximum number of sentries by 2 ";
+                            line.Text = "Increases melee speed and minion damage by 30%\nIncreases your maximum number of sentries by 2 ";
                         }
                     }
                     return;
                 case ItemID.MonkAltShirt:
                     foreach (TooltipLine line in tooltips)
                     {
-                        if (line.mod == "Terraria" && line.Name == "Tooltip0")
+                        if (line.Mod == "Terraria" && line.Name == "Tooltip0")
                         {
-                            line.text = "20% increased melee and minion damage";
+                            line.Text = "20% increased melee and minion damage";
                         }
                     }
                     return;
                 case ItemID.SquireGreaves:
                     foreach (TooltipLine line in tooltips)
                     {
-                        if (line.mod == "Terraria" && line.Name == "Tooltip0")
+                        if (line.Mod == "Terraria" && line.Name == "Tooltip0")
                         {
-                            line.text = "20% increased summon damage\n5% increased melee critical strike chance";
+                            line.Text = "20% increased summon damage\n5% increased melee critical strike chance";
                         }
                     }
                     return;
                 case ItemID.SquirePlating:
                     foreach (TooltipLine line in tooltips)
                     {
-                        if (line.mod == "Terraria" && line.Name == "Tooltip0")
+                        if (line.Mod == "Terraria" && line.Name == "Tooltip0")
                         {
-                            line.text = "10% increased melee and minion damage\nIncreases life regeneration";
+                            line.Text = "10% increased melee and minion damage\nIncreases life regeneration";
                         }
                     }
                     return;
                 case ItemID.SquireAltHead:
                     foreach (TooltipLine line in tooltips)
                     {
-                        if (line.mod == "Terraria" && line.Name == "Tooltip0")
+                        if (line.Mod == "Terraria" && line.Name == "Tooltip0")
                         {
-                            line.text += "\nGreatly increased life regeneration";
+                            line.Text += "\nGreatly increased life regeneration";
                         }
                     }
                     return;
                 case ItemID.SquireAltShirt:
                     foreach (TooltipLine line in tooltips)
                     {
-                        if (line.mod == "Terraria" && line.Name == "Tooltip0")
+                        if (line.Mod == "Terraria" && line.Name == "Tooltip0")
                         {
-                            line.text = "30% increased minion damage and greatly increased life regeneration";
+                            line.Text = "30% increased minion damage and greatly increased life regeneration";
                         }
                     }
                     return;

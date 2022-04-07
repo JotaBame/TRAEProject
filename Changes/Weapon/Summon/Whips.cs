@@ -55,40 +55,40 @@ namespace TRAEProject.Changes.Weapon.Summon
                 case ItemID.CoolWhip:
                     foreach (TooltipLine line in tooltips)
                     {
-                        if (line.mod == "Terraria" && line.Name == "Tooltip0")
+                        if (line.Mod == "Terraria" && line.Name == "Tooltip0")
                         {
-                            line.text += "\n8 summon tag damage";
+                            line.Text += "\n8 summon tag damage";
                         }
                     }
                     break;
                 case ItemID.MaceWhip:
                     foreach (TooltipLine line in tooltips)
                     {
-                        if (line.mod == "Terraria" && line.Name == "Tooltip1")
+                        if (line.Mod == "Terraria" && line.Name == "Tooltip1")
                         {
-                            line.text = "15% summon tag critical strike chance";
+                            line.Text = "15% summon tag critical strike chance";
                         }
                     }
                     break;
                 case ItemID.ScytheWhip:
                     foreach (TooltipLine line in tooltips)
                     {
-                        if (line.mod == "Terraria" && line.Name == "Tooltip0")
+                        if (line.Mod == "Terraria" && line.Name == "Tooltip0")
                         {
-                            line.text += "\n10 summon tag damage";
+                            line.Text += "\n10 summon tag damage";
                         }
                     }
                     break;
                 case ItemID.RainbowWhip:
                     foreach (TooltipLine line in tooltips)
                     {
-                        if (line.mod == "Terraria" && line.Name == "Tooltip0")
+                        if (line.Mod == "Terraria" && line.Name == "Tooltip0")
                         {
-                            line.text = "50 summon tag damage";
+                            line.Text = "50 summon tag damage";
                         }
-                        if (line.mod == "Terraria" && line.Name == "Tooltip1")
+                        if (line.Mod == "Terraria" && line.Name == "Tooltip1")
                         {
-                            line.text = "30% summon tag critical strike chance\nColorful destruction comes out of enemies hit by summons";
+                            line.Text = "30% summon tag critical strike chance\nColorful destruction comes out of enemies hit by summons";
                         }
                     }
                     break;

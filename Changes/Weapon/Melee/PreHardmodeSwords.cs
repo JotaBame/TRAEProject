@@ -318,18 +318,18 @@ namespace TRAEProject.Changes.Weapon.Melee
                 case ItemID.BloodButcherer:
                     foreach (TooltipLine line in tooltips)
                     {
-                        if (line.mod == "Terraria" && line.Name == "Material")
+                        if (line.Mod == "Terraria" && line.Name == "Material")
                         {
-                            line.text += "\nChance to heal the user on contact";
+                            line.Text += "\nChance to heal the user on contact";
                         }
                     }
                     break;
                 case ItemID.BladeofGrass:
                     foreach (TooltipLine line in tooltips)
                     {
-                        if (line.mod == "Terraria" && line.Name == "Tooltip0")
+                        if (line.Mod == "Terraria" && line.Name == "Tooltip0")
                         {
-                            line.text += "\nCreates a spore on contact";
+                            line.Text += "\nCreates a spore on contact";
                         }
                     }
                     break;

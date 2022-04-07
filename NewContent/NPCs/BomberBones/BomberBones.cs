@@ -55,7 +55,7 @@ namespace TRAEProject.NewContent.NPCs.BomberBones
 
         public override float SpawnChance(NPCSpawnInfo spawnInfo)
         {
-            if (spawnInfo.player.ZoneDungeon)
+            if (spawnInfo.Player.ZoneDungeon)
             {
                 return 0.1f;
             }

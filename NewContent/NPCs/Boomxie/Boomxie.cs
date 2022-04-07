@@ -70,7 +70,7 @@ namespace TRAEProject.NewContent.NPCs.Boomxie
         }
         public override float SpawnChance(NPCSpawnInfo spawnInfo)
         {
-            if (spawnInfo.player.ZoneUnderworldHeight)
+            if (spawnInfo.Player.ZoneUnderworldHeight)
             {
                 return 0.15f;
             }

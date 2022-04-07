@@ -206,53 +206,53 @@ namespace TRAEProject
                 case ItemID.WormScarf:
                     foreach (TooltipLine line in tooltips)
                     {
-                        if (line.mod == "Terraria" && line.Name == "Tooltip0")
+                        if (line.Mod == "Terraria" && line.Name == "Tooltip0")
                         {
-                            line.text = "Reduces damage taken by 14%";
+                            line.Text = "Reduces damage taken by 14%";
                         }
                     }
                     return;
                 case ItemID.FrozenTurtleShell:
                     foreach (TooltipLine line in tooltips)
                     {
-                        if (line.mod == "Terraria" && line.Name == "Tooltip0")
+                        if (line.Mod == "Terraria" && line.Name == "Tooltip0")
                         {
-                            line.text = "Puts a shell around the owner when below 50% life that reduces damage by 20%";
+                            line.Text = "Puts a shell around the owner when below 50% life that reduces damage by 20%";
                         }
                     }
                     return;
                 case ItemID.FrozenShield:
                     foreach (TooltipLine line in tooltips)
                     {
-                        if (line.mod == "Terraria" && line.Name == "Tooltip1")
+                        if (line.Mod == "Terraria" && line.Name == "Tooltip1")
                         {
-                            line.text = "Puts a shell around the owner when below 50% life that reduces damage by 20%";
+                            line.Text = "Puts a shell around the owner when below 50% life that reduces damage by 20%";
                         }
                     }
                     return;
                 case ItemID.PocketMirror:
                     foreach (TooltipLine line in tooltips)
                     {
-                        if (line.mod == "Terraria" && line.Name == "Tooltip0")
+                        if (line.Mod == "Terraria" && line.Name == "Tooltip0")
                         {
-                            line.text = "15% reduced damage from projectiles\nGrants immunity to Petrified";
+                            line.Text = "15% reduced damage from projectiles\nGrants immunity to Petrified";
                         }
                     }
                     return;
                 case ItemID.BrainOfConfusion:
                     foreach (TooltipLine line in tooltips)
                     {
-                        if (line.mod == "Terraria" && line.Name == "Tooltip0")
+                        if (line.Mod == "Terraria" && line.Name == "Tooltip0")
                         {
-                            line.text = "Has a chance to dodge an attack using illusions";
+                            line.Text = "Has a chance to dodge an attack using illusions";
                         }
-                        if (line.mod == "Terraria" && line.Name == "Tooltip1")
+                        if (line.Mod == "Terraria" && line.Name == "Tooltip1")
                         {
-                            line.text = "Temporarily increase critical strike chance and confuse nearby enemies after a dodge";
+                            line.Text = "Temporarily increase critical strike chance and confuse nearby enemies after a dodge";
                         }
-                        if (line.mod == "Terraria" && line.Name == "Tooltip2")
+                        if (line.Mod == "Terraria" && line.Name == "Tooltip2")
                         {
-                            line.text = "";
+                            line.Text = "";
                         }
                     }
                     return;

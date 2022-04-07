@@ -226,18 +226,18 @@ namespace TRAEProject.Changes.Weapons
 				case ItemID.Flamethrower:
                     foreach (TooltipLine line in tooltips)
                     {
-                        if (line.mod == "Terraria" && line.Name == "Tooltip0")
+                        if (line.Mod == "Terraria" && line.Name == "Tooltip0")
                         {
-                            line.text += "\n33% chance to not consume ammo";
+                            line.Text += "\n33% chance to not consume ammo";
                         }
                     }
                     return;
                 case ItemID.ChainGun:
                     foreach (TooltipLine line in tooltips)
                     {
-                        if (line.mod == "Terraria" && line.Name == "Tooltip0")
+                        if (line.Mod == "Terraria" && line.Name == "Tooltip0")
                         {
-                            line.text = "66% chance to not consume ammo";
+                            line.Text = "66% chance to not consume ammo";
                         }
                     }
                     return;            

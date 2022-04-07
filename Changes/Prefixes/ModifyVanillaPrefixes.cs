@@ -219,35 +219,35 @@ namespace TRAEProject.Changes.Prefixes
         {
             #region damage
             //modify damage
-            TooltipLine line = tooltips.FirstOrDefault(x => x.Name == "PrefixDamage" && x.mod == "Terraria");
+            TooltipLine line = tooltips.FirstOrDefault(x => x.Name == "PrefixDamage" && x.Mod == "Terraria");
             if (line != null)
             {
                 switch (item.prefix)
                 {
                     case PrefixID.Sighted:
-                        line.text = ModifyDamage(item, 1.1f, ModifyVanillaPrefixes.T3Damage);
+                        line.Text = ModifyDamage(item, 1.1f, ModifyVanillaPrefixes.T3Damage);
                         break;
                     case PrefixID.Staunch:
-                        line.text = ModifyDamage(item, 1.1f, ModifyVanillaPrefixes.T4Damage);
+                        line.Text = ModifyDamage(item, 1.1f, ModifyVanillaPrefixes.T4Damage);
                         break;
                     case PrefixID.Powerful:
-                        line.text = ModifyDamage(item, 1.1f, ModifyVanillaPrefixes.T5Damage);
+                        line.Text = ModifyDamage(item, 1.1f, ModifyVanillaPrefixes.T5Damage);
                         break;
                     case PrefixID.Bulky:
-                        line.text = ModifyDamage(item, 1.05f, ModifyVanillaPrefixes.T7Damage);
+                        line.Text = ModifyDamage(item, 1.05f, ModifyVanillaPrefixes.T7Damage);
                         break;
                     case PrefixID.Intense:
-                        line.text = ModifyDamage(item, 1.1f, ModifyVanillaPrefixes.T6Damage);
+                        line.Text = ModifyDamage(item, 1.1f, ModifyVanillaPrefixes.T6Damage);
                         break;
                     case PrefixID.Furious:
-                        line.text = ModifyDamage(item, 1.15f, ModifyVanillaPrefixes.T6Damage);
+                        line.Text = ModifyDamage(item, 1.15f, ModifyVanillaPrefixes.T6Damage);
                         break;
 
                     case PrefixID.Frenzying:
-                        line.text = ModifyDamage(item, 0.85f, 0.95f);
+                        line.Text = ModifyDamage(item, 0.85f, 0.95f);
                         break;
                     case PrefixID.Manic:
-                        line.text = ModifyDamage(item, 0.9f, 1f);
+                        line.Text = ModifyDamage(item, 0.9f, 1f);
                         break;
                 }
             }
@@ -259,28 +259,28 @@ namespace TRAEProject.Changes.Prefixes
                     int sizeIndex = tooltips.FindIndex(TL => TL.Name == "PrefixSize");
 
                     line = new TooltipLine(TRAEProj.Instance, "TRAEDamage", "+"+ (int)((ModifyVanillaPrefixes.T1Damage - 1f) * 100f) + "% damage");
-                    line.isModifier = true;
+                    line.IsModifier = true;
                     tooltips.Insert(sizeIndex, line);
                     break;
                 case PrefixID.Heavy:
                     int speedIndex = tooltips.FindIndex(TL => TL.Name == "PrefixSpeed");
 
                     line = new TooltipLine(TRAEProj.Instance, "TRAEDamage", "+" + (int)((ModifyVanillaPrefixes.T1Damage - 1f) * 100f) + "% damage");
-                    line.isModifier = true;
+                    line.IsModifier = true;
                     tooltips.Insert(speedIndex, line);
                     break;
                 case PrefixID.Strong:
                     int kbIndex = tooltips.FindIndex(TL => TL.Name == "PrefixKnockback");
 
                     line = new TooltipLine(TRAEProj.Instance, "TRAEDamage", "+" + (int)((ModifyVanillaPrefixes.T2Damage - 1f) * 100f) + "% damage");
-                    line.isModifier = true;
+                    line.IsModifier = true;
                     tooltips.Insert(kbIndex, line);
                     break;
                 case PrefixID.Massive:
                     int sizeIndex2 = tooltips.FindIndex(TL => TL.Name == "PrefixSize");
 
                     line = new TooltipLine(TRAEProj.Instance, "TRAEDamage", "+" + (int)((ModifyVanillaPrefixes.T2Damage - 1f) * 100f) + "% damage");
-                    line.isModifier = true;
+                    line.IsModifier = true;
                     tooltips.Insert(sizeIndex2, line);
                     break;
             }
@@ -293,29 +293,29 @@ namespace TRAEProject.Changes.Prefixes
                 int damageIndex = tooltips.FindIndex(TL => TL.Name == "PrefixDamage");
 
                 line = new TooltipLine(TRAEProj.Instance, "TRAESpeed", "+10% speed");
-                line.isModifier = true;
+                line.IsModifier = true;
                 tooltips.Insert(damageIndex + 1, line);
             }
             #endregion
 
             #region crit
             //modify crit
-            line = tooltips.FirstOrDefault(x => x.Name == "PrefixCritChance" && x.mod == "Terraria");
+            line = tooltips.FirstOrDefault(x => x.Name == "PrefixCritChance" && x.Mod == "Terraria");
             if (line != null)
             {
                 switch (item.prefix)
                 {
                     case PrefixID.Keen:
-                        line.text = "+8% critical strike chance";
+                        line.Text = "+8% critical strike chance";
                         break;
                     case PrefixID.Zealous:
-                        line.text = "+12% critical strike chance";
+                        line.Text = "+12% critical strike chance";
                         break;
                     case PrefixID.Sighted:
-                        line.text = "+5% critical strike chance";
+                        line.Text = "+5% critical strike chance";
                         break;
                     case PrefixID.Powerful:
-                        line.text = "+3% critical strike chance";
+                        line.Text = "+3% critical strike chance";
                         break;
 
                 }
@@ -325,7 +325,7 @@ namespace TRAEProject.Changes.Prefixes
             if (item.prefix == PrefixID.Nimble)
             {
                 line = new TooltipLine(TRAEProj.Instance, "TRAECrit", "+2% critical strike chance");
-                line.isModifier = true;
+                line.IsModifier = true;
                 tooltips.Add(line);
             }
             if (item.prefix == PrefixID.Unpleasant)
@@ -333,29 +333,29 @@ namespace TRAEProject.Changes.Prefixes
                 int kbIndex = tooltips.FindIndex(TL => TL.Name == "PrefixKnockback");
 
                 line = new TooltipLine(TRAEProj.Instance, "TRAECrit", "+5% critical strike chance");
-                line.isModifier = true;
+                line.IsModifier = true;
                 tooltips.Insert(kbIndex, line);
             }
             #endregion
 
             #region size
             //modify size
-            line = tooltips.FirstOrDefault(x => x.Name == "PrefixSize" && x.mod == "Terraria");
+            line = tooltips.FirstOrDefault(x => x.Name == "PrefixSize" && x.Mod == "Terraria");
             if (line != null)
             {
                 switch (item.prefix)
                 {
                     case PrefixID.Large:
-                        line.text = "+18% size";
+                        line.Text = "+18% size";
                         break;
                     case PrefixID.Massive:
-                        line.text = "+25% size";
+                        line.Text = "+25% size";
                         break;
                     case PrefixID.Dangerous:
-                        line.text = "+12% size";
+                        line.Text = "+12% size";
                         break;
                     case PrefixID.Bulky:
-                        line.text = "+20% size";
+                        line.Text = "+20% size";
                         break;
                 }
             }
@@ -363,13 +363,13 @@ namespace TRAEProject.Changes.Prefixes
 
             #region velocity
             //modify size
-            line = tooltips.FirstOrDefault(x => x.Name == "PrefixShootSpeed" && x.mod == "Terraria");
+            line = tooltips.FirstOrDefault(x => x.Name == "PrefixShootSpeed" && x.Mod == "Terraria");
             if (line != null)
             {
                 switch (item.prefix)
                 {
                     case PrefixID.Hasty:
-                        line.text = "+35% velocity";
+                        line.Text = "+35% velocity";
                         break;
                 }
             }
@@ -377,7 +377,7 @@ namespace TRAEProject.Changes.Prefixes
 
             #region knockback
             //modify knockback
-            line = tooltips.FirstOrDefault(x => x.Name == "PrefixKnockback" && x.mod == "Terraria");
+            line = tooltips.FirstOrDefault(x => x.Name == "PrefixKnockback" && x.Mod == "Terraria");
             if (line != null)
             {
                 switch (item.prefix)
@@ -388,10 +388,10 @@ namespace TRAEProject.Changes.Prefixes
                     case PrefixID.Heavy:
                     case PrefixID.Intimidating:
                     case PrefixID.Staunch:
-                        line.text = "+" + (int)((ModifyVanillaPrefixes.T3Knockback - 1f) * 100f) + "% knockback";
+                        line.Text = "+" + (int)((ModifyVanillaPrefixes.T3Knockback - 1f) * 100f) + "% knockback";
                         break;
                     case PrefixID.Savage:
-                        line.text = "";
+                        line.Text = "";
                         break;
                 }
             }
@@ -402,19 +402,19 @@ namespace TRAEProject.Changes.Prefixes
                 case PrefixID.Large:
                 case PrefixID.Massive:
                     line = new TooltipLine(TRAEProj.Instance, "TRAEKnockback", "+" + (int)((ModifyVanillaPrefixes.T1Knockback - 1f) * 100f) + "% knockback");
-                    line.isModifier = true;
+                    line.IsModifier = true;
                     tooltips.Add(line);
                     break;
                 case PrefixID.Zealous:
                     line = new TooltipLine(TRAEProj.Instance, "TRAEKnockback", "+" + (int)((ModifyVanillaPrefixes.T2Knockback - 1f) * 100f) + "% knockback");
                     tooltips.Add(line);
-                    line.isModifier = true;
+                    line.IsModifier = true;
                     break;
                 case PrefixID.Frenzying:
                     line = new TooltipLine(TRAEProj.Instance, "TRAEKnockback", "-" + (int)((ModifyVanillaPrefixes.T2Knockback - 1f) * 100f) + "% knockback");
                     tooltips.Add(line);
-                    line.isModifier = true;
-                    line.isModifierBad = true;
+                    line.IsModifier = true;
+                    line.IsModifierBad = true;
                     break;
             }
             #endregion

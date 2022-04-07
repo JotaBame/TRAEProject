@@ -29,9 +29,9 @@ namespace TRAEProject.Changes.Items
                 if (item.type == ItemID.TrifoldMap)
                 {
 
-                    if (line.mod == "Terraria" && line.Name == "Tooltip0")
+                    if (line.Mod == "Terraria" && line.Name == "Tooltip0")
                     {
-                        line.text = "Reveals the entire map";
+                        line.Text = "Reveals the entire map";
                     }
 
                 }
@@ -51,7 +51,7 @@ namespace TRAEProject.Changes.Items
                         {
                             if(!Main.Map.IsRevealed(i, j))
                             {
-                                Main.Map.Update(i, j, 40);
+                                Main.Map.Update(i, j, 255);
                             }
                         }
                     }
