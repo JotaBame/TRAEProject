@@ -35,19 +35,19 @@ namespace TRAEProject.Changes.Prefixes
                     }
                     if (Player.armor[i].prefix == PrefixID.Wild)
                     {
-                        Player.meleeSpeed += 0.01f;
+                        Player.GetAttackSpeed(DamageClass.Melee) += 0.01f;
                     }
                     if (Player.armor[i].prefix == PrefixID.Rash)
                     {
-                        Player.meleeSpeed += 0.02f;
+                        Player.GetAttackSpeed(DamageClass.Melee) += 0.02f;
                     }
                     if (Player.armor[i].prefix == PrefixID.Intrepid)
                     {
-                        Player.meleeSpeed += 0.03f;
+                        Player.GetAttackSpeed(DamageClass.Melee) += 0.03f;
                     }
                     if (Player.armor[i].prefix == PrefixID.Violent)
                     {
-                        Player.meleeSpeed += 0.04f;
+                        Player.GetAttackSpeed(DamageClass.Melee) += 0.04f;
                     }
                     if (Player.armor[i].prefix == PrefixID.Arcane)
                     {
@@ -67,7 +67,7 @@ namespace TRAEProject.Changes.Prefixes
                 foreach (TooltipLine line in tooltips)
                 {
                     //find the tooltip line we want to change based on its name
-                    if (line.Name == "PrefixAccMeleeSpeed")
+                    if (line.Name == "PrefixAccGetAttackSpeed(DamageClass.Melee)")
                     {
                         //if the tooltip has a character equal to 'i' replace it with a number that twice as big as 'i'
                         for (int i = 1; i <= 4; i++)

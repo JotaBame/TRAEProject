@@ -29,7 +29,7 @@ namespace TRAEProject.NewContent.Projectiles
         public override void ModifyHitNPC(NPC target, ref int damage, ref float knockback, ref bool crit, ref int hitDirection)
         {
             Player player = Main.player[Projectile.owner];
-            int finalDefense = target.defense - player.armorPenetration;
+            int finalDefense = target.defense - (int)(player.GetArmorPenetration(DamageClass.Generic));
             target.ichor = false;
             target.betsysCurse = false;
             if (finalDefense < 0)

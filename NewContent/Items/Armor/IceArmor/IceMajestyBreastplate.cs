@@ -74,7 +74,7 @@ namespace TRAEProject.NewContent.Items.Armor.IceArmor
 				Player.AddBuff(BuffType<MadFlockos>(), 1);
 				if (Player.ownedProjectileCounts[ProjectileType<MadFlocko>()] < 3)
 				{
-					Projectile.NewProjectile(Player.GetProjectileSource_SetBonus(Player.whoAmI), Player.Center.X, Player.Center.Y, 0, 0, ProjectileType<MadFlocko>(), 15, 1f, Player.whoAmI, 0f, 0f);
+					Projectile.NewProjectile(Player.GetSource_FromThis(), Player.Center.X, Player.Center.Y, 0, 0, ProjectileType<MadFlocko>(), 15, 1f, Player.whoAmI, 0f, 0f);
 				}
 			}
 

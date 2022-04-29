@@ -70,7 +70,7 @@ namespace TRAEProject.Common
             {
                 if (projectile.GetGlobalProjectile<ProjectileStats>().armorPenetration > 0)
                 {
-                    Main.player[projectile.owner].armorPenetration += projectile.GetGlobalProjectile<ProjectileStats>().armorPenetration;
+                    Main.player[projectile.owner].GetArmorPenetration(DamageClass.Generic) += projectile.GetGlobalProjectile<ProjectileStats>().armorPenetration;
                     projectile.GetGlobalProjectile<ProjectileStats>().extraAP += projectile.GetGlobalProjectile<ProjectileStats>().armorPenetration;
                 }
             });
@@ -306,13 +306,13 @@ namespace TRAEProject.Common
             Player player = Main.player[projectile.owner];
             if (armorPenetration > 0)
             {
-                player.armorPenetration += armorPenetration;
+                player.GetArmorPenetration(DamageClass.Generic) += armorPenetration;
                 extraAP += armorPenetration;
             }
             damage = (int)(damage * DirectDamage);
             if (IgnoresDefense && target.type != NPCID.DungeonGuardian)
             {
-                int finalDefense = target.defense - player.armorPenetration;
+                int finalDefense = target.defense - (int)(player.GetArmorPenetration(DamageClass.Generic));
                 target.ichor = false;
                 target.betsysCurse = false;
                 if (finalDefense < 0)
@@ -373,7 +373,7 @@ namespace TRAEProject.Common
         {
             if(extraAP > 0)
             {
-                Main.player[projectile.owner].armorPenetration -= extraAP;
+                Main.player[projectile.owner].GetArmorPenetration(DamageClass.Generic) -= extraAP;
                 extraAP = 0;
             }
 
@@ -435,7 +435,7 @@ namespace TRAEProject.Common
             //
             if (Main.rand.Next(AddsBuffChance) == 0)
             {
-                int length = BuffDurationScalesWithMeleeSpeed ? (int)(AddsBuffDuration * (1 + player.meleeSpeed)) : AddsBuffDuration; 
+                int length = BuffDurationScalesWithMeleeSpeed ? (int)(AddsBuffDuration * (1 + player.GetAttackSpeed(DamageClass.Melee))) : AddsBuffDuration; 
                 target.AddBuff(AddsBuff, length, false);          
             }          
         }
@@ -446,7 +446,7 @@ namespace TRAEProject.Common
                
                 case ProjectileID.DirtBall:
                     {
-                        Item.NewItem(projectile.GetItemSource_DropAsItem(), projectile.getRect(), ItemID.DirtBlock, 1);
+                        Item.NewItem(projectile.GetSource_ReleaseEntity(), projectile.getRect(), ItemID.DirtBlock, 1);
                         return false;
                     }
              
@@ -474,7 +474,7 @@ namespace TRAEProject.Common
                         int stormChance = Main.rand.Next(0, 2);
                         if (stormChance == 0 && Main.expertMode)
                         {
-                            NPC.NewNPC(projectile.GetNPCSource_FromThis(), (int)projectile.position.X, (int)projectile.position.Y, NPCID.VortexRifleman);
+                            NPC.NewNPC(projectile.GetSource_FromThis(), (int)projectile.position.X, (int)projectile.position.Y, NPCID.VortexRifleman);
                         }
                     }
                     return;             

@@ -239,10 +239,10 @@ namespace TRAEProject.Changes.Weapon.Melee
                     num4 = 24f / num4;
                     num2 *= num4;
                     num3 *= num4;
-                    Projectile.NewProjectile(player.GetProjectileSource_SetBonus(5), k, y2, num2, num3, 221, 36, 0f, player.whoAmI);
+                    Projectile.NewProjectile(player.GetSource_FromThis(), k, y2, num2, num3, 221, 36, 0f, player.whoAmI);
                     return;
                 case ItemID.ChlorophyteSaber:
-                    Projectile.NewProjectile(player.GetProjectileSource_Item(item), target.Center, TRAEMethods.PolarVector(Main.rand.NextFloat() * 2f, Main.rand.NextFloat(-(float)Math.PI, (float)Math.PI)), ProjectileID.SporeCloud, (int)(.8f * damage), 0, player.whoAmI);
+                    Projectile.NewProjectile(player.GetSource_ItemUse(player.HeldItem), target.Center, TRAEMethods.PolarVector(Main.rand.NextFloat() * 2f, Main.rand.NextFloat(-(float)Math.PI, (float)Math.PI)), ProjectileID.SporeCloud, (int)(.8f * damage), 0, player.whoAmI);
                     break;
             }
         }

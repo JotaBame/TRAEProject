@@ -122,7 +122,7 @@ namespace TRAEProject.Changes.Accesory
                     float f2 = num852 + c * ((float)Math.PI * 2f);
                     Vector2 velocity = f2.ToRotationVector2() * (8f + Main.rand.NextFloat() * 3f);
                     velocity += Vector2.UnitY * -1f;
-                    int num854 = Projectile.NewProjectile(Player.GetProjectileSource_Misc(Player.whoAmI), Player.Center, velocity, GelID, 50, 0f, Player.whoAmI);
+                    int num854 = Projectile.NewProjectile(Player.GetSource_FromThis(), Player.Center, velocity, GelID, 50, 0f, Player.whoAmI);
                     Projectile pRojectile = Main.projectile[num854];
                     Projectile projectile2 = pRojectile;
                     projectile2.timeLeft = 40;
@@ -143,7 +143,7 @@ namespace TRAEProject.Changes.Accesory
                     float f2 = num852 + c * ((float)Math.PI * 2f);
                     Vector2 velocity = f2.ToRotationVector2() * (4f + Main.rand.NextFloat() * 2f);
                     velocity += Vector2.UnitY * -1f;
-                    int num854 = Projectile.NewProjectile(Player.GetProjectileSource_Misc(Player.whoAmI), Player.Center, velocity, GelID, 50, 0f, Player.whoAmI);
+                    int num854 = Projectile.NewProjectile(Player.GetSource_FromThis(), Player.Center, velocity, GelID, 50, 0f, Player.whoAmI);
                     Projectile pRojectile = Main.projectile[num854];
                     Projectile projectile2 = pRojectile;
      

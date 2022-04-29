@@ -1,10 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Terraria;
+using Terraria.ModLoader;
 using Terraria.Audio;
 
 namespace TRAEProject.Common.AIs
@@ -112,8 +109,8 @@ namespace TRAEProject.Common.AIs
 			int num16 = 10;
 			int num17 = throwTime + 5;
 
-			float meleeSpeed = player.meleeSpeed;
-			float num18 = 1f / meleeSpeed;
+			float meleespeed = player.GetAttackSpeed(DamageClass.Melee);
+			float num18 = 1f / meleespeed;
 			throwSpeed *= num18;
 			num11 *= num18;
 			num12 *= num18;

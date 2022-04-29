@@ -34,7 +34,7 @@ namespace TRAEProject.NewContent.Items.Armor.IceArmor
         }
         public override void UpdateEquip(Player player)
         {
-            player.whipUseTimeMultiplier *= 1 / 1.1f;
+            player.GetAttackSpeed(DamageClass.SummonMeleeSpeed) *= 1 / 1.1f;
             player.GetDamage<SummonDamageClass>() += 0.1f;
             player.moveSpeed += 0.2f;
         }

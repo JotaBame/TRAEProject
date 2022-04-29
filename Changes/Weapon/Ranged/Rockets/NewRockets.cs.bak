@@ -188,7 +188,7 @@ namespace TRAEProject.Changes.Weapon.Ranged.Rockets
                     float f2 = num852 + c * ((float)Math.PI * 2f);
                     Vector2 velocity = f2.ToRotationVector2() * (4f + Main.rand.NextFloat() * 2f);
                     velocity += Vector2.UnitY * -1f;
-                    int num854 = Projectile.NewProjectile(projectile.GetProjectileSource_FromThis(), projectile.Center, velocity, Cluster, projectile.damage / 3, 0f, projectile.owner);
+                    int num854 = Projectile.NewProjectile(projectile.GetSource_FromThis(), projectile.Center, velocity, Cluster, projectile.damage / 3, 0f, projectile.owner);
                     Projectile pRojectile = Main.projectile[num854];
                     Projectile projectile2 = pRojectile;
                     projectile2.timeLeft = 30;

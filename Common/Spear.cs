@@ -513,7 +513,7 @@ namespace TRAEProject.Common
             {
                 floatTime = (int)(floatTime * chargeAmt);
             }
-            Projectile.velocity = PolarVector(player.HeldItem.shootSpeed * player.GetModPlayer<MeleeStats>().meleeVelocity * (1 / player.meleeSpeed) * (chargeAmt == 1 ? 1 : 0.6f), dir);
+            Projectile.velocity = PolarVector(player.HeldItem.shootSpeed * player.GetModPlayer<MeleeStats>().meleeVelocity * (1 / player.GetAttackSpeed(DamageClass.Melee)) * (chargeAmt == 1 ? 1 : 0.6f), dir);
             SoundEngine.PlaySound(SoundID.Item1, Projectile.Center);
             player.itemAnimationMax += chargeTime;
             player.itemAnimation = player.itemAnimationMax - 1;

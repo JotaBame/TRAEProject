@@ -66,7 +66,7 @@ namespace TRAEProject.Changes.Weapon.Ranged
                                 offset.Y *= -1;
                             }
                             offset = offset.RotatedBy(dir);
-                            Projectile p = Main.projectile[Projectile.NewProjectile(Player.GetProjectileSource_Item(Player.HeldItem), Player.Center + offset, unit * speed, projToShoot, Damage, KnockBack, Player.whoAmI)];
+                            Projectile p = Main.projectile[Projectile.NewProjectile(Player.GetSource_ItemUse(Player.HeldItem), Player.Center + offset, unit * speed, projToShoot, Damage, KnockBack, Player.whoAmI)];
                             p.timeLeft = Math.Min(p.timeLeft, 45);
                         }
                     }

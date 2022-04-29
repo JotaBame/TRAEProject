@@ -43,7 +43,7 @@ namespace TRAEProject.NewContent.TRAEDebuffs
                 {
                     float velX = Main.rand.Next(-35, 36) * 0.1f;
                     float velY = Main.rand.Next(-35, 36) * 0.1f;
-                    Projectile.NewProjectile(npc.GetSpawnSourceForNPCFromNPCAI(), npc.Center.X, npc.Center.Y, velX, velY, ProjectileID.TinyEater, 52, 0f, Main.myPlayer, 0f, 0f);
+                    Projectile.NewProjectile(npc.GetSource_FromAI(), npc.Center.X, npc.Center.Y, velX, velY, ProjectileID.TinyEater, 52, 0f, Main.myPlayer, 0f, 0f);
                 }
             }
         }
@@ -54,7 +54,7 @@ namespace TRAEProject.NewContent.TRAEDebuffs
             {
                 float velX = Main.rand.Next(-35, 36) * 0.2f;
                 float velY = Main.rand.Next(-35, 36) * 0.2f;
-                Projectile.NewProjectile(npc.GetSpawnSourceForNPCFromNPCAI(), npc.position.X, npc.position.Y, velX, velY, ProjectileID.TinyEater, 52, 0f, Main.myPlayer, 0f, 0f);
+                Projectile.NewProjectile(npc.GetSource_FromAI(), npc.position.X, npc.position.Y, velX, velY, ProjectileID.TinyEater, 52, 0f, Main.myPlayer, 0f, 0f);
             }
         }
     }

@@ -202,9 +202,9 @@ namespace TRAEProject.Changes.Weapons
                     return false;
                 }
             }
-            if ((weapon.type == ItemID.Flamethrower || weapon.type == ItemID.EldMelter) && player.itemTime < player.itemTimeMax)
+            if ((weapon.type == ItemID.Flamethrower || weapon.type == ItemID.EldMelter))
             {
-                return false;
+                return player.itemAnimation >= player.itemAnimationMax - 4;
             }
 
             return true;

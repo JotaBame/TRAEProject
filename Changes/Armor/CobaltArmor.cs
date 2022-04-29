@@ -76,7 +76,7 @@ namespace TRAEProject.Changes.Armor
                 switch (player.armor[0].type)
                 {
                     case ItemID.CobaltHelmet:
-                        player.meleeSpeed -= 0.15f;
+                        player.GetAttackSpeed(DamageClass.Melee) -= 0.15f;
                         break;
                     case ItemID.CobaltMask:
                         player.ammoCost80 = false;

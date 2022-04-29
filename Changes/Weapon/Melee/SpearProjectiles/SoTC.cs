@@ -35,7 +35,7 @@ namespace TRAEProject.Changes.Weapon.Melee.SpearProjectiles
                     float num704 = (float)Main.rand.Next(-35, 36) * 0.02f;
                     num703 *= 10f;
                     num704 *= 10f;
-                    Projectile.NewProjectile(Projectile.GetProjectileSource_FromThis(), target.Center.X, target.Center.Y, num703, num704, 307, (int)((double)Projectile.damage * 0.75), (int)((double)Projectile.knockBack * 0.35), Projectile.owner);
+                    Projectile.NewProjectile(Projectile.GetSource_FromThis(), target.Center.X, target.Center.Y, num703, num704, 307, (int)((double)Projectile.damage * 0.75), (int)((double)Projectile.knockBack * 0.35), Projectile.owner);
                 }
             }
         }
@@ -61,7 +61,7 @@ namespace TRAEProject.Changes.Weapon.Melee.SpearProjectiles
             {
                 dmgMult = 2f;
             }
-            Projectile p = Main.projectile[Projectile.NewProjectile(Projectile.GetProjectileSource_FromThis(), Projectile.Center, Projectile.velocity, 306, (int)(Projectile.damage * dmgMult), Projectile.knockBack, Projectile.owner)];
+            Projectile p = Main.projectile[Projectile.NewProjectile(projectile.GetSource_FromThis(), Projectile.Center, Projectile.velocity, 306, (int)(Projectile.damage * dmgMult), Projectile.knockBack, Projectile.owner)];
             p.scale = Projectile.scale;
             p.width = (int)(p.width * Projectile.scale);
             p.height = (int)(p.height * Projectile.scale);
@@ -85,7 +85,7 @@ namespace TRAEProject.Changes.Weapon.Melee.SpearProjectiles
                 float num704 = (float)Main.rand.Next(-35, 36) * 0.02f;
                 num703 *= 10f;
                 num704 *= 10f;
-                Projectile.NewProjectile(Projectile.GetProjectileSource_FromThis(), target.Center.X, target.Center.Y, num703, num704, 307, (int)((double)Projectile.damage * 0.75f * (atMaxCharge ? 2 : 1)), (int)((double)Projectile.knockBack * 0.35), Projectile.owner);
+                Projectile.NewProjectile(Projectile.GetSource_FromThis(), target.Center.X, target.Center.Y, num703, num704, 307, (int)((double)Projectile.damage * 0.75f * (atMaxCharge ? 2 : 1)), (int)((double)Projectile.knockBack * 0.35), Projectile.owner);
             }
         }
         public override bool OnTileCollide(Vector2 oldVelocity)
@@ -105,7 +105,7 @@ namespace TRAEProject.Changes.Weapon.Melee.SpearProjectiles
                 float num704 = (float)Main.rand.Next(-35, 36) * 0.02f;
                 num703 *= 10f;
                 num704 *= 10f;
-                Projectile.NewProjectile(Projectile.GetProjectileSource_FromThis(), Projectile.Center.X, Projectile.Center.Y, num703, num704, 307, (int)((double)Projectile.damage * 0.75f * (chargeAmt == 1 ? 2 : 1)), (int)((double)Projectile.knockBack * 0.35), Projectile.owner);
+                Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.Center.X, Projectile.Center.Y, num703, num704, 307, (int)((double)Projectile.damage * 0.75f * (chargeAmt == 1 ? 2 : 1)), (int)((double)Projectile.knockBack * 0.35), Projectile.owner);
             }
             return true;
         }

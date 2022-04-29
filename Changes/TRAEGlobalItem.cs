@@ -179,7 +179,7 @@ namespace TRAEProject.Changes
                         ++NPCLimit;
                         if (NPCLimit < 5)
                         {
-                            int finalDefense = nPC.defense - player.armorPenetration;
+                            int finalDefense = nPC.defense - (int)(player.GetArmorPenetration(DamageClass.Generic));
                             nPC.ichor = false;
                             nPC.betsysCurse = false;
                             if (finalDefense < 0)

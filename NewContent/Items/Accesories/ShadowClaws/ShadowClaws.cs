@@ -27,7 +27,7 @@ namespace TRAEProject.NewContent.Items.Accesories.ShadowClaws
         }
         public override void UpdateAccessory(Player player, bool hideVisual)
         {
-            player.meleeSpeed += 0.12f;
+            player.GetAttackSpeed(DamageClass.Melee) += 0.12f;
             player.autoReuseGlove = true;
             player.GetModPlayer<MeleeStats>().TRAEAutoswing = true;
             player.GetModPlayer<ShadowflameCharmPlayer>().ShadowflameCharm += 1;

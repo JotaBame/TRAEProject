@@ -29,7 +29,7 @@ namespace TRAEProject.Changes.Weapon.Melee.SpearProjectiles
             timer++;
             if(timer % (player.itemAnimationMax / 8) == 0)
             {
-                Projectile.NewProjectile(Projectile.GetProjectileSource_FromThis(), Projectile.Center, Projectile.velocity, 131, Projectile.damage / 4, 0f, Projectile.owner);
+                Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.Center, Projectile.velocity, 131, Projectile.damage / 4, 0f, Projectile.owner);
             }
         }
     }
@@ -49,7 +49,7 @@ namespace TRAEProject.Changes.Weapon.Melee.SpearProjectiles
             if(counter > 48f)
             {
                 counter -= 48f;
-                Projectile.NewProjectile(Projectile.GetProjectileSource_FromThis(), Projectile.Center, Projectile.velocity, 131, Projectile.damage / 4, 0f, Projectile.owner);
+                Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.Center, Projectile.velocity, 131, Projectile.damage / 4, 0f, Projectile.owner);
             }
         }
         int heldCounter = 0;
@@ -58,7 +58,7 @@ namespace TRAEProject.Changes.Weapon.Melee.SpearProjectiles
             heldCounter++;
             if(heldCounter % 6 ==0)
             {
-                Projectile.NewProjectile(Projectile.GetProjectileSource_FromThis(), Projectile.Center, Projectile.velocity, 131, Projectile.damage / 4, 0f, Projectile.owner);
+                Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.Center, Projectile.velocity, 131, Projectile.damage / 4, 0f, Projectile.owner);
             }
         }
     }

@@ -18,7 +18,7 @@ namespace TRAEProject.NewContent.Items.FlamethrowerAmmo
                 item.consumable = true;
                 item.shoot = ProjectileType<PinkGelP>();
                 item.ammo = AmmoID.Gel;
-                item.maxStack = 3000;
+                item.maxStack = 9999;
             }    
         }
     }

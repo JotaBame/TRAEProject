@@ -57,7 +57,7 @@ namespace TRAEProject.Changes.Weapon.Summon.Minions
                         if (projectile.GetGlobalProjectile<MinionChanges>().target.Distance(projectile.Center) > 300 || projectile.ai[0] == 1)
                         {
                             projectile.localAI[1] = 0;
-                            projectile.GetGlobalProjectile<MinionChanges>().hook = Main.projectile[Projectile.NewProjectile(projectile.GetProjectileSource_FromThis(), projectile.Center, TRAEMethods.PolarVector(12, (projectile.GetGlobalProjectile<MinionChanges>().target.Center - projectile.Center).ToRotation()), ProjectileType<PirateHook>(), projectile.damage, 0, projectile.owner)];
+                            projectile.GetGlobalProjectile<MinionChanges>().hook = Main.projectile[Projectile.NewProjectile(projectile.GetSource_FromThis(), projectile.Center, TRAEMethods.PolarVector(12, (projectile.GetGlobalProjectile<MinionChanges>().target.Center - projectile.Center).ToRotation()), ProjectileType<PirateHook>(), projectile.damage, 0, projectile.owner)];
                             for (int n = 0; n < 200; n++)
                             {
                                 if (Main.npc[n] != projectile.GetGlobalProjectile<MinionChanges>().target)

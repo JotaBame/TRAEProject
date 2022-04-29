@@ -137,7 +137,7 @@ namespace TRAEProject.NewContent.Items.Summoner.Sentries.FroggabombaStaff
 
                         Vector2 perturbedSpeed = new Vector2(shootToX, shootToY).RotatedByRandom(MathHelper.ToRadians(15));
 
-                        Projectile.NewProjectile(Projectile.GetProjectileSource_FromThis(), Projectile.Center.X, Projectile.Center.Y, 0, 0, ProjectileType<Froggy>(), Projectile.damage, Projectile.knockBack, Main.myPlayer, 0f, 0f);
+                        Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.Center.X, Projectile.Center.Y, 0, 0, ProjectileType<Froggy>(), Projectile.damage, Projectile.knockBack, Main.myPlayer, 0f, 0f);
 
                         shoottime = 0;
                     }

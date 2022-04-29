@@ -26,7 +26,7 @@ namespace TRAEProject.NewContent.Items.Accesories.PutridToothNecklace
         {
             player.GetDamage(DamageClass.Generic) += 0.05f;
             player.GetCritChance(DamageClass.Generic) += 5;
-            player.armorPenetration += 5;
+            player.GetArmorPenetration(DamageClass.Generic) += 5;
             player.aggro -= 500;
         }
         public override void AddRecipes()

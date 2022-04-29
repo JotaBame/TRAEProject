@@ -198,7 +198,7 @@ namespace TRAEProject.Changes.Weapon.Magic
                     if (projectile.owner == Main.myPlayer)
                     {
                         PosX += Main.rand.Next(-14, 15);
-                        Projectile.NewProjectile(projectile.GetProjectileSource_FromThis(), PosX, PosY, 0f, 5f, ProjectileID.BloodRain, projectile.damage, 0f, projectile.owner);
+                        Projectile.NewProjectile(projectile.GetSource_FromThis(), PosX, PosY, 0f, 5f, ProjectileID.BloodRain, projectile.damage, 0f, projectile.owner);
                     }
                 }
                 projectile.localAI[0] += 1f;
@@ -280,8 +280,8 @@ namespace TRAEProject.Changes.Weapon.Magic
                             }
                         }
                         Terraria.Audio.SoundEngine.PlaySound(SoundID.Item107, projectile.position);
-                        Gore.NewGore(projectile.Center, -projectile.oldVelocity * 0.2f, 704);
-                        Gore.NewGore(projectile.Center, -projectile.oldVelocity * 0.2f, 705);
+                        Gore.NewGore(projectile.GetSource_FromThis(), projectile.Center, -projectile.oldVelocity * 0.2f, 704);
+                        Gore.NewGore(projectile.GetSource_FromThis(), projectile.Center, -projectile.oldVelocity * 0.2f, 705);
                         if (projectile.owner == Main.myPlayer)
                         {
                             int ToxicCloudsSpawned = Main.rand.Next(34, 37);
@@ -290,7 +290,7 @@ namespace TRAEProject.Changes.Weapon.Magic
                                 Vector2 vector22 = new Vector2(Main.rand.Next(-100, 101), Main.rand.Next(-100, 101));
                                 vector22.Normalize();
                                 vector22 *= Main.rand.Next(10, 101) * 0.02f;
-                                Projectile.NewProjectile(projectile.GetProjectileSource_FromThis(), projectile.Center.X, projectile.Center.Y, vector22.X, vector22.Y, ProjectileType<ToxicCloud>(), projectile.damage, 1f, projectile.owner);
+                                Projectile.NewProjectile(projectile.GetSource_FromThis(), projectile.Center.X, projectile.Center.Y, vector22.X, vector22.Y, ProjectileType<ToxicCloud>(), projectile.damage, 1f, projectile.owner);
                             }
                         }
                     }

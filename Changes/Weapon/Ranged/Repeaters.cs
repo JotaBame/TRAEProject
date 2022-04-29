@@ -68,7 +68,7 @@ namespace TRAEProject.Changes.Weapon.Ranged
                 int count = Main.rand.Next(2) + 2;
                 for(int i =0; i < count; i++)
                 {
-                    Projectile.NewProjectile(player.GetProjectileSource_Item(item), position, (velocity * 0.5f).RotatedByRandom((float)Math.PI / 10), ProjectileType<TitaniumShrapnel>(), damage / 3, 0, player.whoAmI);
+                    Projectile.NewProjectile(player.GetSource_ItemUse(item), position, (velocity * 0.5f).RotatedByRandom((float)Math.PI / 10), ProjectileType<TitaniumShrapnel>(), damage / 3, 0, player.whoAmI);
                 }
             }
             if(item.type == ItemID.MythrilRepeater)
@@ -110,7 +110,7 @@ namespace TRAEProject.Changes.Weapon.Ranged
                         num4 = 24f / num4;
                         num2 *= num4;
                         num3 *= num4;
-                        Projectile.NewProjectile(player.GetProjectileSource_SetBonus(5), k, y2, num2, num3, 221, 20, 0f, player.whoAmI);
+                        Projectile.NewProjectile(player.GetSource_OnHit(target), k, y2, num2, num3, 221, 20, 0f, player.whoAmI);
                         return;
                 }
             }

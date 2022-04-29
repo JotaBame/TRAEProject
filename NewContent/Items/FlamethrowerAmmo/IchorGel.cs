@@ -71,7 +71,7 @@ namespace TRAEProject.NewContent.Items.FlamethrowerAmmo
             {
                 float velX = Main.rand.NextFloat(-2f, 3f) * 3f;
                 float velY = Main.rand.NextFloat(-4f, 4f) * 3f;
-                Projectile.NewProjectile(Projectile.GetProjectileSource_FromThis(), Projectile.position.X, Projectile.position.Y, velX, velY, ProjectileType<Ichorthrower>(), Projectile.damage, 1f, Projectile.owner, 0f, 0f);
+                Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.position.X, Projectile.position.Y, velX, velY, ProjectileType<Ichorthrower>(), Projectile.damage, 1f, Projectile.owner, 0f, 0f);
             }
             Vector2 spinningpoint1 = ((float)Main.rand.NextDouble() * 6.283185f).ToRotationVector2();
             Vector2 spinningpoint2 = spinningpoint1;

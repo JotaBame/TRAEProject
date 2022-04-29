@@ -73,7 +73,7 @@ namespace TRAEProject.Changes.Accesory
                     }
                     break;
                 case ItemID.AnkhShield:
-				player.fireWalk = false;
+                    player.fireWalk = false;
                     foreach (int i in AnkhDebuffList)
                     {
                         player.buffImmune[i] = true;
@@ -130,8 +130,8 @@ namespace TRAEProject.Changes.Accesory
                     player.statDefense += 4;
                     player.lifeRegen++;
                     player.statManaMax2 += 20;
-                    player.meleeSpeed += 0.05f;
-                    player.moveSpeed += 0.1f;
+                    player.GetAttackSpeed(DamageClass.Melee) += 0.05f;
+                    player.moveSpeed += 0.05f;
                     player.GetModPlayer<RangedStats>().chanceNotToConsumeAmmo += 10;// new bonus
                     // total stats: +8% damage, +2% crit, +0.5 hp/s, +4 defense. +5% melee speed, +20 max mana, +10% movement speed
                     break;
@@ -144,8 +144,9 @@ namespace TRAEProject.Changes.Accesory
                         player.statDefense += 4;
                         player.lifeRegen++;
                         player.statManaMax2 += 20;
-                        player.meleeSpeed += 0.05f;
-                        player.moveSpeed += 0.1f;
+                        player.GetAttackSpeed(DamageClass.Melee) += 0.05f;
+
+                        player.moveSpeed += 0.05f;
                         player.GetModPlayer<RangedStats>().chanceNotToConsumeAmmo += 10;
                     }
                     break;
@@ -158,8 +159,9 @@ namespace TRAEProject.Changes.Accesory
                         player.statDefense += 4;
                         player.lifeRegen++;
                         player.statManaMax2 += 20;
-                        player.meleeSpeed += 0.05f;
-                        player.moveSpeed += 0.1f;
+                        player.GetAttackSpeed(DamageClass.Melee) += 0.05f;
+
+                        player.moveSpeed += 0.05f;
                         player.GetModPlayer<RangedStats>().chanceNotToConsumeAmmo += 10;
                     }
                     break;
@@ -170,18 +172,18 @@ namespace TRAEProject.Changes.Accesory
                     player.statDefense += 4;
                     player.lifeRegen++;
                     player.statManaMax2 += 20;
-                    player.meleeSpeed += 0.05f;
-                    player.moveSpeed += 0.1f;
+                    player.GetAttackSpeed(DamageClass.Melee) += 0.05f;
+                    player.moveSpeed += 0.05f;
                     player.GetModPlayer<RangedStats>().chanceNotToConsumeAmmo += 10;
                     player.wolfAcc = false;
                     break;
                 case ItemID.BandofStarpower:
-                    player.GetModPlayer<Mana>().manaRegenBoost += 0.1f;
-                    player.statManaMax2 -= 20;
+                    player.GetModPlayer<Mana>().manaRegenBoost += 0.15f; player.statManaMax2 -= 20;
                     break;
                 case ItemID.ManaRegenerationBand:
                     player.statManaMax2 -= 20;
-                    player.GetModPlayer<Mana>().manaRegenBoost += 0.1f;
+
+                    player.GetModPlayer<Mana>().manaRegenBoost += 0.15f;
                     player.lifeRegen += 2;
                     break;
                 case ItemID.MagicCuffs:
@@ -244,37 +246,31 @@ namespace TRAEProject.Changes.Accesory
                     break;
                 case ItemID.SquireShield:
                     player.dd2Accessory = false;
-                    player.GetDamage<MeleeDamageClass>() += 0.1f;
+                    player.GetDamage<MeleeDamageClass>() += 0.07f;
                     ++player.maxTurrets;
                     break;
                 case ItemID.ApprenticeScarf:
                     ++player.maxTurrets;
                     player.GetDamage<SummonDamageClass>() -= 0.1f;
-                    player.GetDamage<MagicDamageClass>() += 0.1f;
+                    player.GetDamage<MagicDamageClass>() += 0.07f;
                     player.dd2Accessory = false;
                     break;
                 case ItemID.MonkBelt:
                     ++player.maxTurrets;
-                    player.GetDamage<SummonDamageClass>() += 0.1f;
+                    player.GetDamage<SummonDamageClass>() += 0.07f;
                     player.dd2Accessory = false;
                     break;
                 case ItemID.HuntressBuckler:
                     ++player.maxTurrets;
-                    player.GetDamage<RangedDamageClass>() += 0.1f;
+                    player.GetDamage<RangedDamageClass>() += 0.07f;
                     player.dd2Accessory = false;
                     break;
                 case ItemID.RifleScope:
-                    player.GetModPlayer<RangedStats>().gunVelocity += 0.8f; 
+                    player.GetModPlayer<RangedStats>().gunVelocity += 0.8f;
                     break;
                 case ItemID.SniperScope:
                     player.GetModPlayer<RangedStats>().gunVelocity += 0.8f;
                     player.GetDamage<RangedDamageClass>() -= 0.1f;
-                    break;
-                case ItemID.ReconScope:
-                    player.GetModPlayer<RangedStats>().rangedVelocity += 0.8f;
-                    player.GetModPlayer<RangedStats>().Magicandgunquiver += 1; 
-                    player.GetDamage<RangedDamageClass>() -= 0.1f; 
-                    player.GetCritChance<RangedDamageClass>() -= 10;
                     break;
             }
         }
@@ -298,7 +294,7 @@ namespace TRAEProject.Changes.Accesory
                     {
                         if (line.Mod == "Terraria" && line.Name == "Tooltip1")
                         {
-                            line.Text = "10% increased melee damage";
+                            line.Text = "7% increased melee damage";
                         }
                     }
                     break;
@@ -307,7 +303,7 @@ namespace TRAEProject.Changes.Accesory
                     {
                         if (line.Mod == "Terraria" && line.Name == "Tooltip1")
                         {
-                            line.Text = "10% increased magic damage";
+                            line.Text = "7% increased magic damage";
                         }
                     }
                     break;
@@ -316,11 +312,20 @@ namespace TRAEProject.Changes.Accesory
                     {
                         if (line.Mod == "Terraria" && line.Name == "Tooltip1")
                         {
-                            line.Text = "10% increased ranged damage";
+                            line.Text = "7% increased ranged damage";
                         }
                     }
-                    break;   
-				case ItemID.Bezoar:
+                    break;
+                case ItemID.MonkBelt:
+                    foreach (TooltipLine line in tooltips)
+                    {
+                        if (line.Mod == "Terraria" && line.Name == "Tooltip1")
+                        {
+                            line.Text = "7% increased summon damage";
+                        }
+                    }
+                    break;
+                case ItemID.Bezoar:
                     foreach (TooltipLine line in tooltips)
                     {
                         if (line.Mod == "Terraria" && line.Name == "Tooltip0")
@@ -418,7 +423,7 @@ namespace TRAEProject.Changes.Accesory
                     {
                         if (line.Mod == "Terraria" && line.Name == "Tooltip0")
                         {
-                            line.Text = "Increases mana regeneration rate by 10%";
+                            line.Text = "Increases mana regeneration rate by 15%";
                         }
                         if (line.Mod == "Terraria" && line.Name == "Tooltip1")
                         {
@@ -563,7 +568,7 @@ namespace TRAEProject.Changes.Accesory
                     {
                         if (line.Mod == "Terraria" && line.Name == "Tooltip0")
                         {
-                            line.Text += "\nMore effective on strong hits";
+                            line.Text += "\nMore effective on stronger hits";
                         }
                     }
                     break;
@@ -684,7 +689,7 @@ namespace TRAEProject.Changes.Accesory
                     {
                         if (line.Mod == "Terraria" && line.Name == "Tooltip0")
                         {
-                            line.Text = "Minion damage is stored as Fire energy, up to 2250\nWhip strikes summon a friendly Molten Apparition for every 600 damage stored";
+                            line.Text = "Minion damage is stored as Fire energy, up to 2250\nWhip strikes summon a friendly Molten Apparition for every 750 damage stored";
                         }
                         if (line.Mod == "Terraria" && line.Name == "Tooltip1")
                         {
@@ -697,7 +702,7 @@ namespace TRAEProject.Changes.Accesory
                     {
                         if (line.Mod == "Terraria" && line.Name == "Tooltip0")
                         {
-                            line.Text += "\nReduces damage by 25 every 30 seconds";
+                            line.Text += "\nStores damage dealt, dealing it slowly over time";
                         }
                     }
                     break;
@@ -757,6 +762,10 @@ namespace TRAEProject.Changes.Accesory
                         {
                             line.Text = "Turns into holder into a merfolk when entering water";
                         }
+                        if (line.Mod == "Terraria" && line.Name == "Tooltip1")
+                        {
+                            line.Text = "Minor increases to all stats";
+                        }
                     }
                     break;
                 case ItemID.NecromanticScroll:
@@ -795,7 +804,7 @@ namespace TRAEProject.Changes.Accesory
                     {
                         if (line.Mod == "Terraria" && line.Name == "Tooltip0")
                         {
-                            line.Text = "Your arrows will bounce towards nearby enemies after a certain time or hitting a tile, losing damage in the process";
+                            line.Text = "Your arrows will bounce towards nearby enemies, losing 33% damage in the process";
                         }
                         if (line.Mod == "Terraria" && line.Name == "Tooltip1")
                         {
@@ -808,7 +817,7 @@ namespace TRAEProject.Changes.Accesory
                     {
                         if (line.Mod == "Terraria" && line.Name == "Tooltip0")
                         {
-                            line.Text = "Your arrows will bounce towards nearby enemies after a certain time or hitting a tile, losing damage in the process";
+                            line.Text = "Your arrows will bounce towards nearby enemies, losing 33% damage in the process";
 
                         }
                         if (line.Mod == "Terraria" && line.Name == "Tooltip1")
@@ -822,7 +831,7 @@ namespace TRAEProject.Changes.Accesory
                     {
                         if (line.Mod == "Terraria" && line.Name == "Tooltip0")
                         {
-                            line.Text = "Your arrows will bounce towards nearby enemies after a certain time or hitting a tile, losing damage in the process";
+                            line.Text = "Your arrows will bounce towards nearby enemies, losing 33% damage in the process";
                         }
                         if (line.Mod == "Terraria" && line.Name == "Tooltip1")
                         {
@@ -847,7 +856,7 @@ namespace TRAEProject.Changes.Accesory
                         }
                         if (line.Mod == "Terraria" && line.Name == "Tooltip1")
                         {
-                            line.Text = "80% increased velocity for guns";
+                            line.Text = "Increased gun velocity";
                         }
                     }
                     break;
@@ -856,7 +865,7 @@ namespace TRAEProject.Changes.Accesory
                     {
                         if (line.Mod == "Terraria" && line.Name == "Tooltip1")
                         {
-                            line.Text = "80% increased velocity for guns\n10% increased ranged critical strike chance";
+                            line.Text = "Increased gun velocity\n10% increased ranged critical strike chance";
                         }
                     }
                     break;
@@ -869,7 +878,7 @@ namespace TRAEProject.Changes.Accesory
                         }
                         if (line.Mod == "Terraria" && line.Name == "Tooltip1")
                         {
-                            line.Text = "80% increased velocity for ranged weapons";
+                            line.Text = "Increased ranged velocity";
                         }
                         if (line.Mod == "Terraria" && line.Name == "Tooltip2")
                         {
@@ -877,10 +886,32 @@ namespace TRAEProject.Changes.Accesory
                         }
                     }
                     break;
+                case ItemID.ShinyStone:
+                    foreach (TooltipLine line in tooltips)
+                    {
+                        if (line.Mod == "Terraria" && line.Name == "Tooltip0")
+                        {
+                            line.Text += "\nIncreases life regeneration by 2hp/s when on the ground";
+                        }
+                    }
+                    return;
             }
+        }
+        public override int ChoosePrefix(Item item, UnifiedRandom rand)
+        {
+            if (item.type == ItemID.MagicDagger)
+            {
+                return rand.Next(62, 81);
+            }
+            return base.ChoosePrefix(item, rand);
         }
     }
 }
+
+
+
+
+
 
 
 

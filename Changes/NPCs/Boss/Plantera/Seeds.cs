@@ -30,7 +30,7 @@ namespace TRAEProject.Changes.NPCs.Boss.Plantera
             {
 
 				SoundEngine.PlaySound(SoundID.NPCHit, projectile.Center);
-				Projectile.NewProjectile(projectile.GetProjectileSource_FromThis(), projectile.Center, Vector2.Zero, ProjectileType<HostileCloud>(), projectile.damage, 0);
+				Projectile.NewProjectile(projectile.GetSource_FromThis(), projectile.Center, Vector2.Zero, ProjectileType<HostileCloud>(), projectile.damage, 0);
             }
         }
         public override bool PreAI(Projectile projectile)

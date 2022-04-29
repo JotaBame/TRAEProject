@@ -56,7 +56,7 @@ namespace TRAEProject.NewContent.Projectiles
                     for (int i = 0; i < 4; i++)
                     {
                         float random = Main.rand.NextFloat(0.1f, 1f);
-                        int bee = Projectile.NewProjectile(Projectile.GetProjectileSource_FromThis(),Projectile.oldPosition.X, Projectile.oldPosition.Y, 0, 1, ProjectileType<CosmicStingy>(), Projectile.damage / 2, 0, Projectile.owner, 0f, 0f);
+                        int bee = Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.oldPosition.X, Projectile.oldPosition.Y, 0, 1, ProjectileType<CosmicStingy>(), Projectile.damage / 2, 0, Projectile.owner, 0f, 0f);
                         Main.projectile[bee].velocity = value2 * random;
                     }
                 }

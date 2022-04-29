@@ -58,9 +58,8 @@ namespace TRAEProject.Changes.Weapon.Melee
             switch (projectile.type)
             {
                 case ProjectileID.CorruptYoyo:
-                    projectile.GetGlobalProjectile<ProjectileStats>().AddsBuff = BuffID.Weak;
+                    projectile.GetGlobalProjectile<ProjectileStats>().AddsBuff = BuffID.Poisoned;
                     projectile.GetGlobalProjectile<ProjectileStats>().AddsBuffDuration = 120;
-                    projectile.GetGlobalProjectile<ProjectileStats>().BuffDurationScalesWithMeleeSpeed = true;
                     break;
                 case ProjectileID.BlackCounterweight:
                 case ProjectileID.YellowCounterweight:
@@ -100,16 +99,7 @@ namespace TRAEProject.Changes.Weapon.Melee
                 case ProjectileID.PaladinsHammerFriendly:
                     projectile.tileCollide = false;
                     break;
-                case ProjectileID.EatersBite:
-                    //projectile.GetGlobalProjectile<ProjectileStats>().AddsBuff = BuffType<Corrupted>();
-                    //projectile.GetGlobalProjectile<ProjectileStats>().AddsBuffDuration = 300;
-                    projectile.GetGlobalProjectile<ProjectileStats>().BuffDurationScalesWithMeleeSpeed = true;
-                    break;
-                case ProjectileID.TinyEater:
-                    //projectile.GetGlobalProjectile<ProjectileStats>().AddsBuff = BuffType<Corrupted>();
-                    //projectile.GetGlobalProjectile<ProjectileStats>().AddsBuffDuration = 60;
-                    projectile.GetGlobalProjectile<ProjectileStats>().BuffDurationScalesWithMeleeSpeed = true;
-                    break;
+
                 case ProjectileID.TerraBeam:
                     projectile.extraUpdates = 1;
                     break;
@@ -138,7 +128,7 @@ namespace TRAEProject.Changes.Weapon.Melee
 					if (timer > 20)
                     {
                         timer -= 20;
-                        Projectile.NewProjectile(projectile.GetProjectileSource_FromThis(), projectile.Center, projectile.velocity, 131, projectile.damage / 2, 0f, projectile.owner);
+                        Projectile.NewProjectile(projectile.GetSource_FromThis(), projectile.Center, projectile.velocity, 131, projectile.damage / 2, 0f, projectile.owner);
                     }
                     return;
                 case ProjectileID.Gradient:
@@ -149,7 +139,7 @@ namespace TRAEProject.Changes.Weapon.Melee
                         bool flag4 = false;
                         if (projectile.owner == Main.myPlayer)
                         {
-                            projectile.localAI[1] += 1f + (1 * player.meleeSpeed);
+                            projectile.localAI[1] += 1f + (1 * player.GetAttackSpeed(DamageClass.Melee));
                             if (projectile.localAI[1] > 90f)
                             {
                                 projectile.localAI[1] = 90f;
@@ -183,7 +173,7 @@ namespace TRAEProject.Changes.Weapon.Melee
                             sqrRoot = num229 / sqrRoot;
                             velX *= sqrRoot;
                             velY *= sqrRoot;
-                            int bone = Projectile.NewProjectile(projectile.GetProjectileSource_FromThis(), vector19.X, vector19.Y, velX, velY, ProjectileID.BoneGloveProj, projectile.damage * 2, projectile.knockBack, Main.myPlayer, 0f, 0f);
+                            int bone = Projectile.NewProjectile(projectile.GetSource_FromThis(), vector19.X, vector19.Y, velX, velY, ProjectileID.BoneGloveProj, projectile.damage * 2, projectile.knockBack, Main.myPlayer, 0f, 0f);
                             Main.projectile[bone].DamageType = DamageClass.Melee;
                         }
                         return;
@@ -230,7 +220,7 @@ namespace TRAEProject.Changes.Weapon.Melee
                             sqrRoot = num229 / sqrRoot;
                             velX *= sqrRoot;
                             velY *= sqrRoot;
-                            Projectile.NewProjectile(projectile.GetProjectileSource_FromThis(), vector19.X, vector19.Y, velX, velY, ProjectileType<PhantomTentacle>(), projectile.damage, projectile.knockBack, Main.myPlayer, 0f, 0f);
+                            Projectile.NewProjectile(projectile.GetSource_FromThis(), vector19.X, vector19.Y, velX, velY, ProjectileType<PhantomTentacle>(), projectile.damage, projectile.knockBack, Main.myPlayer, 0f, 0f);
                         }
                         return;
                     }
@@ -294,7 +284,7 @@ namespace TRAEProject.Changes.Weapon.Melee
                         {
                             float velX = (0f - projectile.velocity.X) * Main.rand.Next(40, 70) * 0.01f + Main.rand.Next(-20, 21) * 0.5f;
                             float velY = (0f - projectile.velocity.Y) * Main.rand.Next(40, 70) * 0.01f + Main.rand.Next(-20, 21) * 0.5f;
-                            Projectile.NewProjectile(projectile.GetProjectileSource_FromThis(), projectile.position.X + velX, projectile.position.Y + velY, velX, velY, ProjectileID.CrystalShard, 1, 0, projectile.owner, 0f, 0f);
+                            Projectile.NewProjectile(projectile.GetSource_FromThis(), projectile.position.X + velX, projectile.position.Y + velY, velX, velY, ProjectileID.CrystalShard, 1, 0, projectile.owner, 0f, 0f);
                         }
                         break;
                     }
@@ -357,8 +347,8 @@ namespace TRAEProject.Changes.Weapon.Melee
                             }
                         }
                         Terraria.Audio.SoundEngine.PlaySound(SoundID.Item107, projectile.position);
-                        Gore.NewGore(projectile.Center, -projectile.oldVelocity * 0.2f, 704);
-                        Gore.NewGore(projectile.Center, -projectile.oldVelocity * 0.2f, 705);
+                        Gore.NewGore(projectile.GetSource_FromThis(), projectile.Center, -projectile.oldVelocity * 0.2f, 704);
+                        Gore.NewGore(projectile.GetSource_FromThis(), projectile.Center, -projectile.oldVelocity * 0.2f, 705);
                         if (projectile.owner == Main.myPlayer)
                         {
                             int ToxicCloudsSpawned = Main.rand.Next(34, 37);
@@ -367,7 +357,7 @@ namespace TRAEProject.Changes.Weapon.Melee
                                 Vector2 vector22 = new Vector2(Main.rand.Next(-100, 101), Main.rand.Next(-100, 101));
                                 vector22.Normalize();
                                 vector22 *= Main.rand.Next(10, 101) * 0.02f;
-                                Projectile.NewProjectile(projectile.GetProjectileSource_FromThis(), projectile.Center.X, projectile.Center.Y, vector22.X, vector22.Y, ProjectileType<ToxicCloud>(), projectile.damage, 1f, projectile.owner);
+                                Projectile.NewProjectile(projectile.GetSource_FromThis(), projectile.Center.X, projectile.Center.Y, vector22.X, vector22.Y, ProjectileType<ToxicCloud>(), projectile.damage, 1f, projectile.owner);
                             }
                         }
                     }

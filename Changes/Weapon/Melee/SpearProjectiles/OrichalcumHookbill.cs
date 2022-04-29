@@ -120,7 +120,7 @@ namespace TRAEProject.Changes.Weapon.Melee.SpearProjectiles
                 num4 = 24f / num4;
                 num2 *= num4;
                 num3 *= num4;
-                Projectile.NewProjectile(player.GetProjectileSource_SetBonus(5), k, y2, num2, num3, 221, 36, 0f, player.whoAmI);
+                Projectile.NewProjectile(player.GetSource_FromThis(), k, y2, num2, num3, 221, 36, 0f, player.whoAmI);
             }
         }
     }
@@ -156,7 +156,7 @@ namespace TRAEProject.Changes.Weapon.Melee.SpearProjectiles
                 num4 = 24f / num4;
                 num2 *= num4;
                 num3 *= num4;
-                Projectile.NewProjectile(player.GetProjectileSource_SetBonus(5), k, y2, num2, num3, 221, 36, 0f, player.whoAmI);
+                Projectile.NewProjectile(player.GetSource_FromAI(), k, y2, num2, num3, 221, 36, 0f, player.whoAmI);
             }
         }
     }

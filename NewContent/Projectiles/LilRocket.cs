@@ -43,7 +43,7 @@ namespace TRAEProject.NewContent.Projectiles
             }
             for (int num370 = 0; num370 < 1; num370++)
             {
-                int num371 = Gore.NewGore(Projectile.position + new Vector2(Projectile.width * Main.rand.Next(100) / 100f, Projectile.height * Main.rand.Next(100) / 100f) - Vector2.One * 10f, default, Main.rand.Next(61, 64));
+                int num371 = Gore.NewGore(Projectile.GetSource_FromThis(), Projectile.position + new Vector2(Projectile.width * Main.rand.Next(100) / 100f, Projectile.height * Main.rand.Next(100) / 100f) - Vector2.One * 10f, default, Main.rand.Next(61, 64));
                 Gore gore = Main.gore[num371];
                 gore.velocity *= 0.3f;
                 Main.gore[num371].velocity.X += Main.rand.Next(-10, 11) * 0.05f;

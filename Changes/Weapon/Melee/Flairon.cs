@@ -83,7 +83,7 @@ namespace TRAEProject.Changes.Weapon.Melee.Flairon
                     spinningpoint3.Normalize();
                     spinningpoint3 *= (float)Main.rand.Next(45, 65) * 0.1f;
                     spinningpoint3 = spinningpoint3.RotatedBy((Main.rand.NextDouble() - 0.5) * 1.5707963705062866);
-                    Projectile.NewProjectile(projectile.GetProjectileSource_FromThis(), projectile.Center.X, projectile.Center.Y, spinningpoint3.X, spinningpoint3.Y, 405, projectile.damage / 2, projectile.knockBack, projectile.owner, -10f);
+                    Projectile.NewProjectile(projectile.GetSource_FromThis(), projectile.Center.X, projectile.Center.Y, spinningpoint3.X, spinningpoint3.Y, 405, projectile.damage / 2, projectile.knockBack, projectile.owner, -10f);
                 }
             }
             return base.PreAI(projectile);

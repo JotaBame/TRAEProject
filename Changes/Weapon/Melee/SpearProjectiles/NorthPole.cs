@@ -29,7 +29,7 @@ namespace TRAEProject.Changes.Weapon.Melee.SpearProjectiles
             for(int i =0; i < 5; i++)
             {
                 float rot = (float)Math.PI * (i / 4f) - (float)Math.PI / 2f + direction;
-                Projectile.NewProjectile(Projectile.GetProjectileSource_FromThis(), center, TRAEMethods.PolarVector(10, rot), ProjectileType<NorthStar>(), (int)(Projectile.damage * 0.25f), 0f, Projectile.owner);
+                Projectile.NewProjectile(Projectile.GetSource_FromThis(), center, TRAEMethods.PolarVector(10, rot), ProjectileType<NorthStar>(), (int)(Projectile.damage * 0.25f), 0f, Projectile.owner);
             }
         }
     }
@@ -49,7 +49,7 @@ namespace TRAEProject.Changes.Weapon.Melee.SpearProjectiles
             if (counter > 99f)
             {
                 counter -= 99f;
-                Projectile.NewProjectile(Projectile.GetProjectileSource_FromThis(), Projectile.Center, Vector2.Zero, ProjectileID.NorthPoleSnowflake, (int)(Projectile.damage * 0.7f), 0f, Projectile.owner, 0f, Main.rand.Next(3));
+                Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.Center, Vector2.Zero, ProjectileID.NorthPoleSnowflake, (int)(Projectile.damage * 0.7f), 0f, Projectile.owner, 0f, Main.rand.Next(3));
             }
         }
     }

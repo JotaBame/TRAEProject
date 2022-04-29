@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using Terraria;
 using Terraria.Audio;
 using Terraria.ID;
+using Terraria.ModLoader;
 using TRAEProject.Common;
 using TRAEProject.Common.ModPlayers;
 using static Terraria.ModLoader.ModContent;
@@ -27,7 +28,7 @@ namespace TRAEProject.Changes.Weapon.Melee.SpearProjectiles
             if (Projectile.wet)
             {
                 Player player = Main.player[Projectile.owner];
-                Projectile p = Main.projectile[Projectile.NewProjectile(Projectile.GetProjectileSource_FromThis(), Projectile.Center, TRAEMethods.PolarVector(player.HeldItem.shootSpeed * player.GetModPlayer<MeleeStats>().meleeVelocity * (1 / player.meleeSpeed), direction), ProjectileType<ObsidianSwordfishThrow>(), (int)(Projectile.damage * 0.6f), Projectile.knockBack, Projectile.owner)];
+                Projectile p = Main.projectile[Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.Center, TRAEMethods.PolarVector(player.HeldItem.shootSpeed * player.GetModPlayer<MeleeStats>().meleeVelocity * (1 / player.GetAttackSpeed(DamageClass.Melee)), direction), ProjectileType<ObsidianSwordfishThrow>(), (int)(Projectile.damage * 0.6f), Projectile.knockBack, Projectile.owner)];
                 ((SpearThrow)p.ModProjectile).chargeAmt = 1f;
                 SoundEngine.PlaySound(SoundID.Item1, Projectile.Center);
                 Projectile.Kill();

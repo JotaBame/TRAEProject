@@ -42,12 +42,12 @@ namespace TRAEProject.Changes.Armor
                 case ItemID.ShadowScalemail:
                 case ItemID.AncientShadowHelmet:
                 case ItemID.AncientShadowScalemail:
-                    player.meleeSpeed -= 0.07f;
+                    player.GetAttackSpeed(DamageClass.Melee) -= 0.07f;
                     player.GetCritChance<GenericDamageClass>() += 2;
                     break;
                 case ItemID.ShadowGreaves:
                 case ItemID.AncientShadowGreaves:
-                    player.meleeSpeed -= 0.07f;
+                    player.GetAttackSpeed(DamageClass.Melee) -= 0.07f;
                     player.GetCritChance<GenericDamageClass>() += 2;
                     player.moveSpeed += 0.1f;
                     break;
@@ -71,12 +71,12 @@ namespace TRAEProject.Changes.Armor
                     player.GetDamage<SummonDamageClass>() += 0.1f;
                     break;
                 case ItemID.PirateShirt:
-                    player.whipUseTimeMultiplier *= (1 / 1.12f);
+                    player.GetAttackSpeed(DamageClass.SummonMeleeSpeed) *= (1 / 1.12f);
                     player.GetDamage<SummonDamageClass>() += 0.1f;
                     break;
                 case ItemID.PiratePants:
                     player.moveSpeed += 0.1f;
-                    player.whipUseTimeMultiplier *= (1 / 1.08f);
+                    player.GetAttackSpeed(DamageClass.SummonMeleeSpeed) *= (1 / 1.08f);
                     player.GetDamage<SummonDamageClass>() += 0.1f;
                     break;
                 case ItemID.DjinnsCurse:
@@ -108,11 +108,11 @@ namespace TRAEProject.Changes.Armor
                     player.lifeRegen -= 4;
                     break;
                 case ItemID.MonkAltShirt:
-                    player.meleeSpeed -= 0.2f;
+                    player.GetAttackSpeed(DamageClass.Melee) -= 0.2f;
                     player.GetDamage<MeleeDamageClass>() += 0.2f;
                     break;
                 case ItemID.MonkAltHead:
-                    player.meleeSpeed += 0.3f;
+                    player.GetAttackSpeed(DamageClass.Melee) += 0.3f;
                     player.GetDamage<SummonDamageClass>() += 0.1f;
                     player.GetDamage<MeleeDamageClass>() -= 0.2f;
                     break;
@@ -325,7 +325,7 @@ namespace TRAEProject.Changes.Armor
             {
                 player.setBonus = "30% increased whip range and 15% increased whip speed";
                 player.whipRangeMultiplier -= 0.2f;
-                player.whipUseTimeMultiplier /= 0.869f;
+                player.GetAttackSpeed(DamageClass.SummonMeleeSpeed) /= 0.869f;
                 player.GetDamage<SummonDamageClass>() -= 0.15f;
             }
             if (armorSet == "PirateSet")

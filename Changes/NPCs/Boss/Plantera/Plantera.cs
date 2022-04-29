@@ -253,7 +253,7 @@ namespace TRAEProject.Changes.NPCs.Boss.Plantera
                 {
                     attackCounter++;
                     float rot = (player.Center - npc.Center).ToRotation();
-                    Projectile.NewProjectile(npc.GetSpawnSourceForNPCFromNPCAI(), npc.Center + TRAEMethods.PolarVector(50, rot), TRAEMethods.PolarVector((player.Center - npc.Center).Length() / 120f, rot), ProjectileID.SeedPlantera, npc.GetAttackDamage_ForProjectiles(26f, 22f), 0);
+                    Projectile.NewProjectile(npc.GetSource_FromAI(), npc.Center + TRAEMethods.PolarVector(50, rot), TRAEMethods.PolarVector((player.Center - npc.Center).Length() / 120f, rot), ProjectileID.SeedPlantera, npc.GetAttackDamage_ForProjectiles(26f, 22f), 0);
                 }
             }
         }
@@ -276,7 +276,7 @@ namespace TRAEProject.Changes.NPCs.Boss.Plantera
 
             if (thornBall == null && timer >= thornBallStart && timer < thornBallStart + thornBallHold)
             {
-                thornBall = Main.projectile[Projectile.NewProjectile(npc.GetSpawnSourceForNPCFromNPCAI(), npc.Center, Vector2.Zero, ProjectileID.ThornBall, npc.GetAttackDamage_ForProjectiles(39f, 33f), 0)];
+                thornBall = Main.projectile[Projectile.NewProjectile(npc.GetSource_FromAI(), npc.Center, Vector2.Zero, ProjectileID.ThornBall, npc.GetAttackDamage_ForProjectiles(39f, 33f), 0)];
                 thornBall.tileCollide = false;
             }
             if (thornBall != null)
@@ -343,7 +343,7 @@ namespace TRAEProject.Changes.NPCs.Boss.Plantera
 
             if (thornBall == null && timer >= thornBall2Start && timer < thornBall2Start + thornBall2Hold)
             {
-                thornBall = Main.projectile[Projectile.NewProjectile(npc.GetSpawnSourceForNPCFromNPCAI(), npc.Center, Vector2.Zero, ProjectileID.ThornBall, npc.GetAttackDamage_ForProjectiles(39f, 33f), 0)];
+                thornBall = Main.projectile[Projectile.NewProjectile(npc.GetSource_FromAI(), npc.Center, Vector2.Zero, ProjectileID.ThornBall, npc.GetAttackDamage_ForProjectiles(39f, 33f), 0)];
                 thornBall.tileCollide = false;
             }
             if (thornBall != null)
@@ -405,7 +405,7 @@ namespace TRAEProject.Changes.NPCs.Boss.Plantera
                 {
                     attackCounter++;
                     Vector2 pos = npc.position + new Vector2(Main.rand.Next(npc.width), Main.rand.Next(npc.height));
-                    NPC tent = Main.npc[NPC.NewNPC(npc.GetSpawnSourceForNPCFromNPCAI(), (int)pos.X, (int)pos.Y, NPCID.PlanterasTentacle)];
+                    NPC tent = Main.npc[NPC.NewNPC(npc.GetSource_FromAI(), (int)pos.X, (int)pos.Y, NPCID.PlanterasTentacle)];
                     tent.localAI[0] = npc.whoAmI;
                     tent.localAI[1] = -1;
                 }
@@ -422,7 +422,7 @@ namespace TRAEProject.Changes.NPCs.Boss.Plantera
                     if (hooks[i] != null && hooks[i].active)
                     {
                         float rot = (player.Center - hooks[i].Center).ToRotation();
-                        Projectile p = Main.projectile[Projectile.NewProjectile(npc.GetSpawnSourceForNPCFromNPCAI(), hooks[i].Center, TRAEMethods.PolarVector((player.Center - hooks[i].Center).Length() / 120f, rot), ProjectileID.PoisonSeedPlantera, npc.GetAttackDamage_ForProjectiles(26f, 22f), 0)];
+                        Projectile p = Main.projectile[Projectile.NewProjectile(npc.GetSource_FromAI(), hooks[i].Center, TRAEMethods.PolarVector((player.Center - hooks[i].Center).Length() / 120f, rot), ProjectileID.PoisonSeedPlantera, npc.GetAttackDamage_ForProjectiles(26f, 22f), 0)];
                         if (i == 0)
                         {
                             p.localAI[1] = 1;
@@ -471,7 +471,7 @@ namespace TRAEProject.Changes.NPCs.Boss.Plantera
                         }
                         pos += TRAEMethods.PolarVector(10, rot);
                     }
-                    hooks[i] = Main.projectile[Projectile.NewProjectile(npc.GetSpawnSourceForNPCFromNPCAI(), pos, TRAEMethods.PolarVector(1f, rot + (float)Math.PI), ProjectileType<PlanteraHook2>(), npc.GetAttackDamage_ForProjectiles(26f, 22f), 0)];
+                    hooks[i] = Main.projectile[Projectile.NewProjectile(npc.GetSource_FromAI(), pos, TRAEMethods.PolarVector(1f, rot + (float)Math.PI), ProjectileType<PlanteraHook2>(), npc.GetAttackDamage_ForProjectiles(26f, 22f), 0)];
                 }
             }
         }
@@ -492,7 +492,7 @@ namespace TRAEProject.Changes.NPCs.Boss.Plantera
                         }
                         pos += TRAEMethods.PolarVector(-10, rot);
                     }
-                    Projectile.NewProjectile(npc.GetSpawnSourceForNPCFromNPCAI(), pos, TRAEMethods.PolarVector(8, rot), ProjectileType<PlanteraHook>(), npc.GetAttackDamage_ForProjectiles(39f, 33f), 0);
+                    Projectile.NewProjectile(npc.GetSource_FromAI(), pos, TRAEMethods.PolarVector(8, rot), ProjectileType<PlanteraHook>(), npc.GetAttackDamage_ForProjectiles(39f, 33f), 0);
                 }
             }
         }

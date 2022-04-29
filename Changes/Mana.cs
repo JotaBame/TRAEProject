@@ -53,7 +53,7 @@ namespace TRAEProject.Changes
             {
                 if (Main.rand.Next(3) == 0)
                 {
-                    Item.NewItem(Player.GetItemSource_OnHit(target, Player.HeldItem.type), target.getRect(), ItemID.Star, 1);
+                    Item.NewItem(Player.GetSource_OnHurt(target), target.getRect(), ItemID.Star, 1);
                     ++manaFlowerLimit;
                 }
             }

@@ -168,7 +168,7 @@ namespace TRAEProject.NewContent.Items.Summoner.Sentries.YoungQueenBeeStaff
                     float num8 = 6f;
                     float SpeedX2 = num4 + (float)Main.rand.Next(-35, 36) * 0.02f;
                     float SpeedY2 = num8 + (float)Main.rand.Next(-35, 36) * 0.02f;
-                    int index2 = Projectile.NewProjectile(Projectile.GetProjectileSource_FromThis(), Projectile.Center.X, Projectile.Center.Y, SpeedX2, SpeedY2, type, damage, knockback);
+                    int index2 = Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.Center.X, Projectile.Center.Y, SpeedX2, SpeedY2, type, damage, knockback);
                     ProjectileID.Sets.MinionShot[index2] = true;
                 }
             }

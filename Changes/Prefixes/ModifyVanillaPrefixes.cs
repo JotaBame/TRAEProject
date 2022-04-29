@@ -24,15 +24,14 @@ namespace TRAEProject.Changes.Prefixes
 
         void ModifyDamage(Item item, ref StatModifier damageBonus, float current, float wanted)
         {
-            int origonalDamage = (int)Math.Round((float)item.damage / current);
             //Main.NewText("Origonal Damage:" + origonalDamage);
-            int finalDamage = (int)((int)Math.Round(origonalDamage * wanted ) * damageBonus);
+            int finalDamage = (int)((int)Math.Round(item.damage * wanted));
             //Main.NewText("Final Damage:" + finalDamage);
             float newDamageBonus = (float)finalDamage / (float)item.damage;
             //Main.NewText("New Damage Bonus:" + newDamageBonus);
-            damageBonus += newDamageBonus - damageBonus;
+            damageBonus += newDamageBonus - current;
         }
-        public override void ModifyWeaponDamage(Item item, ref StatModifier damage, ref float flat)
+        public override void ModifyWeaponDamage(Item item, ref StatModifier damage)
         {
             switch (item.prefix)
             {
@@ -78,7 +77,7 @@ namespace TRAEProject.Changes.Prefixes
         #region speed
         public override float UseSpeedMultiplier(Item item)
         {
-            if(item.prefix == PrefixID.Savage)
+            if (item.prefix == PrefixID.Savage)
             {
                 return (1f / 1.1f);
             }
@@ -87,9 +86,9 @@ namespace TRAEProject.Changes.Prefixes
         #endregion
 
         #region crit
-        public override void ModifyWeaponCrit(Item item, ref int crit)
+        public override void ModifyWeaponCrit(Item item, ref float crit)
         {
-            switch(item.prefix)
+            switch (item.prefix)
             {
                 case PrefixID.Keen:
                     crit += 5; // 3% crit -> 8% crit
@@ -120,7 +119,7 @@ namespace TRAEProject.Changes.Prefixes
         //check Spear.cs for spear size
         public void UpdateWhipSize(Item item)
         {
-            if (!item.IsAir && ItemID.Sets.SummonerWeaponThatScalesWithAttackSpeed[item.type])
+            if (!item.IsAir && item.DamageType == DamageClass.SummonMeleeSpeed)
             {
                 switch (item.prefix)
                 {
@@ -149,7 +148,7 @@ namespace TRAEProject.Changes.Prefixes
         #region velocity
         public override void ModifyShootStats(Item item, ref Vector2 position, ref Vector2 velocity, ref int type, ref int damage, ref float knockback)
         {
-            if(item.prefix == PrefixID.Hasty)
+            if (item.prefix == PrefixID.Hasty)
             {
                 velocity *= (1.35f / 1.15f);
             }
@@ -161,7 +160,7 @@ namespace TRAEProject.Changes.Prefixes
         public const float T1Knockback = 1.1f;
         public const float T2Knockback = 1.2f;
         public const float T3Knockback = 1.35f;
-        public override void ModifyWeaponKnockback(Item item, ref StatModifier knockback, ref float flat)
+        public override void ModifyWeaponKnockback(Item item, ref StatModifier knockback)
         {
             switch (item.prefix)
             {
@@ -185,14 +184,14 @@ namespace TRAEProject.Changes.Prefixes
                     knockback /= T1Knockback;
                     break;
                 case PrefixID.Frenzying:
-                    knockback *= (2f-T2Knockback);
+                    knockback *= (2f - T2Knockback);
                     break;
             }
-            base.ModifyWeaponKnockback(item, ref knockback, ref flat);
+            base.ModifyWeaponKnockback(item, ref knockback);
         }
         #endregion
 
-        
+
     }
     class PrefixTooltips : GlobalItem
     {
@@ -205,13 +204,13 @@ namespace TRAEProject.Changes.Prefixes
             float newDamageBonus = (float)finalDamage / (float)origonalDamage;
 
             int per = (int)Math.Round((newDamageBonus - 1f) * 100f);
-            if(per == 0)
+            if (per == 0)
             {
                 return "";
             }
-            if(per < 0)
+            if (per < 0)
             {
-               return per + "% damage";
+                return per + "% damage";
             }
             return "+" + per + "% damage";
         }
@@ -258,7 +257,7 @@ namespace TRAEProject.Changes.Prefixes
                 case PrefixID.Large:
                     int sizeIndex = tooltips.FindIndex(TL => TL.Name == "PrefixSize");
 
-                    line = new TooltipLine(TRAEProj.Instance, "TRAEDamage", "+"+ (int)((ModifyVanillaPrefixes.T1Damage - 1f) * 100f) + "% damage");
+                    line = new TooltipLine(TRAEProj.Instance, "TRAEDamage", "+" + (int)((ModifyVanillaPrefixes.T1Damage - 1f) * 100f) + "% damage");
                     line.IsModifier = true;
                     tooltips.Insert(sizeIndex, line);
                     break;
@@ -381,8 +380,8 @@ namespace TRAEProject.Changes.Prefixes
             if (line != null)
             {
                 switch (item.prefix)
-                {    
-				    case PrefixID.Strong:
+                {
+                    case PrefixID.Strong:
                     case PrefixID.Forceful:
                     case PrefixID.Godly:
                     case PrefixID.Heavy:
@@ -398,7 +397,7 @@ namespace TRAEProject.Changes.Prefixes
             //insert knockback
             switch (item.prefix)
             {
-            
+
                 case PrefixID.Large:
                 case PrefixID.Massive:
                     line = new TooltipLine(TRAEProj.Instance, "TRAEKnockback", "+" + (int)((ModifyVanillaPrefixes.T1Knockback - 1f) * 100f) + "% knockback");

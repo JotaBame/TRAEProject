@@ -26,7 +26,7 @@ namespace TRAEProject.Changes.Weapon.Melee.SpearProjectiles
         {
             if (Main.myPlayer == Projectile.owner)
             {
-                Projectile.NewProjectile(Projectile.GetProjectileSource_FromThis(), Projectile.Center.X, Projectile.Center.Y, 0f, 0f, 953, Projectile.damage / 2, 10f, Projectile.owner, 0f, 0.85f + Main.rand.NextFloat() * 1.15f);
+                Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.Center.X, Projectile.Center.Y, 0f, 0f, 953, Projectile.damage / 2, 10f, Projectile.owner, 0f, 0.85f + Main.rand.NextFloat() * 1.15f);
             }
         }
     }
@@ -59,7 +59,7 @@ namespace TRAEProject.Changes.Weapon.Melee.SpearProjectiles
             }
             if (Main.myPlayer == Projectile.owner)
             {
-                Projectile.NewProjectile(Projectile.GetProjectileSource_FromThis(), Projectile.Center.X, Projectile.Center.Y, 0f, 0f, 953, Projectile.damage, 10f, Projectile.owner, 0f, 0.85f + Main.rand.NextFloat() * 1.15f);
+                Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.Center.X, Projectile.Center.Y, 0f, 0f, 953, Projectile.damage, 10f, Projectile.owner, 0f, 0.85f + Main.rand.NextFloat() * 1.15f);
             }
         }
         public override void StuckEffects(NPC victim)

@@ -117,7 +117,7 @@ namespace TRAEProject.NewContent.Items.FlamethrowerAmmo
                 for (int i = 0; i < 4; ++i)
                 {
 	                 Vector2 perturbedSpeed = new Vector2(Projectile.velocity.X, Projectile.velocity.Y).RotatedBy(MathHelper.Lerp(-rotation, rotation, i / (2 - 1))) * 0.2f; // Watch out for dividing by 0 if there is only 1 projectile.
-                     int Gel = Projectile.NewProjectile(Projectile.GetProjectileSource_FromThis(), Projectile.Center.X, Projectile.Center.Y, Projectile.velocity.X + perturbedSpeed.X, Projectile.velocity.Y + perturbedSpeed.Y, Projectile.type, (int)(Projectile.damage * 0.25), Projectile.knockBack, Projectile.owner, 0f, Projectile.ai[1] + 1f);
+                     int Gel = Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.Center.X, Projectile.Center.Y, Projectile.velocity.X + perturbedSpeed.X, Projectile.velocity.Y + perturbedSpeed.Y, Projectile.type, (int)(Projectile.damage * 0.25), Projectile.knockBack, Projectile.owner, 0f, Projectile.ai[1] + 1f);
                      Main.projectile[Gel].timeLeft = 30;	    
                 }    
             }

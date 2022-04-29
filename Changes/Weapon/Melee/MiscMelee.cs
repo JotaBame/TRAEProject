@@ -117,7 +117,7 @@ namespace TRAEProject.Changes.Weapon.Melee
                 if (target.active && !target.dontTakeDamage && !target.friendly && target.lifeMax > 5 && !target.immortal && !target.SpawnedFromStatue)
                 {
                     int amount = damage / 2;
-                    player.QuickSpawnItem(player.GetItemSource_OnHit(target, item.type),ItemID.CopperCoin, amount);
+                    player.QuickSpawnItem(player.GetSource_OnHit(target),ItemID.CopperCoin, amount);
                     return;
                 }
             }
@@ -136,12 +136,12 @@ namespace TRAEProject.Changes.Weapon.Melee
                         for (int i = 0; i < numberLights; i++)
                         {
                             Vector2 perturbedSpeed = new Vector2(velocity.X, velocity.Y).RotatedByRandom(MathHelper.ToRadians(24));
-                            Projectile.NewProjectile(player.GetProjectileSource_Item(item), position, perturbedSpeed * 0.95f, ProjectileType<LightsLong>(), damage, knockback * 1.5f, player.whoAmI);
+                            Projectile.NewProjectile(player.GetSource_ItemUse(item), position, perturbedSpeed * 0.95f, ProjectileType<LightsLong>(), damage, knockback * 1.5f, player.whoAmI);
                         }
                         for (int i = 0; i < numberOrnaments; i++)
                         {
                             Vector2 perturbedSpeed = new Vector2(velocity.X, velocity.Y).RotatedByRandom(MathHelper.ToRadians(30));
-                            Projectile.NewProjectile(player.GetProjectileSource_Item(item), position, perturbedSpeed * 1.2f, ProjectileID.OrnamentFriendly, (int)(damage * 0.9), knockback, player.whoAmI);
+                            Projectile.NewProjectile(player.GetSource_ItemUse(item), position, perturbedSpeed * 1.2f, ProjectileID.OrnamentFriendly, (int)(damage * 0.9), knockback, player.whoAmI);
                         }
                         if (chance == 0)
                         {
@@ -152,7 +152,7 @@ namespace TRAEProject.Changes.Weapon.Melee
                                 dust.noGravity = true;
                                 dust.velocity *= 0.5f;
                             }
-                            Projectile.NewProjectile(player.GetProjectileSource_Item(item), position, velocity * 1.8f, ProjectileType<Star1>(), (int)(damage * 1.8), knockback, player.whoAmI);
+                            Projectile.NewProjectile(player.GetSource_ItemUse(item), position, velocity * 1.8f, ProjectileType<Star1>(), (int)(damage * 1.8), knockback, player.whoAmI);
                             Terraria.Audio.SoundEngine.PlaySound(SoundID.Item25);
                             return false;
                         }

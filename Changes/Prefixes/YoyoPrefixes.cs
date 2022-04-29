@@ -215,7 +215,7 @@ namespace TRAEProject.Changes.Prefixes
 						projectile.localAI[0] += (float)Main.rand.Next(10, 31) * 0.1f;
 					}
 					float num = projectile.localAI[0] / 60f;
-					num /= (1f + Main.player[projectile.owner].meleeSpeed) / 2f;
+					num /= (1f + Main.player[projectile.owner].GetAttackSpeed(DamageClass.Melee)) / 2f;
 					float num2 = ProjectileID.Sets.YoyosLifeTimeMultiplier[projectile.type];
 					if (num2 != -1f && num > num2)
 					{
@@ -257,7 +257,7 @@ namespace TRAEProject.Changes.Prefixes
 							}
 						}
 						vector *= 0.8f;
-						Projectile.NewProjectile(projectile.GetProjectileSource_FromThis(), projectile.Center.X - vector.X, projectile.Center.Y - vector.Y, vector.X, vector.Y, 604, projectile.damage, projectile.knockBack, projectile.owner, 0f, 0f);
+						Projectile.NewProjectile(projectile.GetSource_FromThis(), projectile.Center.X - vector.X, projectile.Center.Y - vector.Y, vector.X, vector.Y, 604, projectile.damage, projectile.knockBack, projectile.owner, 0f, 0f);
 						projectile.localAI[1] = 0f;
 					}
 				}
@@ -314,8 +314,8 @@ namespace TRAEProject.Changes.Prefixes
 				{
 					num7 = num7 * 1.25f + 30f;
 				}
-				num7 /= (1f + Main.player[projectile.owner].meleeSpeed * 3f) / 4f;
-				num8 /= (1f + Main.player[projectile.owner].meleeSpeed * 3f) / 4f;
+				num7 /= (1f + Main.player[projectile.owner].GetAttackSpeed(DamageClass.Melee) * 3f) / 4f;
+				num8 /= (1f + Main.player[projectile.owner].GetAttackSpeed(DamageClass.Melee) * 3f) / 4f;
 				float num11 = 14f - num8 / 2f;
 				if (num11 < 1f)
 				{

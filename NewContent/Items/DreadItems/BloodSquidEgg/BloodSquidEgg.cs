@@ -95,7 +95,7 @@ namespace TRAEProject.NewContent.Items.DreadItems.BloodSquidEgg
 			bool petProjectileNotSpawned = player.ownedProjectileCounts[ProjectileType<BloodSquidPet>()] <= 0;
 			if (petProjectileNotSpawned && player.whoAmI == Main.myPlayer)
 			{
-				Projectile.NewProjectile(player.GetProjectileSource_Misc(player.whoAmI), player.position.X + (float)(player.width / 2), player.position.Y + (float)(player.height / 2), 0f, 0f, ProjectileType<BloodSquidPet>(), 0, 0f, player.whoAmI, 0f, 0f);
+				Projectile.NewProjectile(player.GetSource_FromThis(), player.position.X + (float)(player.width / 2), player.position.Y + (float)(player.height / 2), 0f, 0f, ProjectileType<BloodSquidPet>(), 0, 0f, player.whoAmI, 0f, 0f);
 			}
 		}
 	}

@@ -25,7 +25,7 @@ namespace TRAEProject.NewContent.Items.Accesories.SkeletonBeetle
         public override void UpdateEquip(Player player)
         {
 			player.maxTurrets += 2;
-			player.minionKB = player.minionKB + 2f;
+			player.GetKnockback(DamageClass.Summon) = player.GetKnockback(DamageClass.Summon) + 2f;
         }
         public override void AddRecipes()
 		{

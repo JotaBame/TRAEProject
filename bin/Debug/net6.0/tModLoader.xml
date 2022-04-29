@@ -130,6 +130,41 @@
             Color used to draw the buff. Use Main.buffAlpha[buffIndex] accordingly if you change it.
             </summary>
         </member>
+        <member name="T:Terraria.DataStructures.EntitySource_HitEffect">
+            <summary>
+            Added by TML.
+            <br/> To be used in not always authoritative contexts, like <see cref="M:Terraria.NPC.HitEffect(System.Int32,System.Double)"/>'s,
+            <br/> where the method may be called from a network packet, and not everything about the entity hit can be retrieved.
+            </summary>
+        </member>
+        <member name="M:Terraria.DataStructures.EntitySource_HitEffect.#ctor(Terraria.Entity,System.String)">
+            <summary>
+            Added by TML.
+            <br/> To be used in not always authoritative contexts, like <see cref="M:Terraria.NPC.HitEffect(System.Int32,System.Double)"/>'s,
+            <br/> where the method may be called from a network packet, and not everything about the entity hit can be retrieved.
+            </summary>
+        </member>
+        <member name="T:Terraria.DataStructures.EntitySource_Misc">
+            <summary>
+            To be used in cases where no entity is present.<para/>
+            <b>NOTE:</b> Unlike most other entity sources, this one requires <b>context</b> to be specified.
+            </summary>
+        </member>
+        <member name="T:Terraria.DataStructures.EntitySource_TileUpdate">
+            <summary>
+            Added by TML. Derives from <see cref="T:Terraria.DataStructures.AEntitySource_Tile"/>.
+            </summary>
+        </member>
+        <member name="T:Terraria.DataStructures.EntitySource_TorchGod">
+            <summary>
+            Added by TML. Used during TorchGod-related projectile and item spawning.
+            </summary>
+        </member>
+        <member name="M:Terraria.DataStructures.EntitySource_TorchGod.#ctor(Terraria.Entity,System.String)">
+            <summary>
+            Added by TML. Used during TorchGod-related projectile and item spawning.
+            </summary>
+        </member>
         <member name="F:Terraria.DataStructures.PlayerDrawLayers.TorsoGroup">
             <summary> Adds <see cref="F:Terraria.DataStructures.PlayerDrawSet.torsoOffset"/> to <see cref="F:Terraria.DataStructures.PlayerDrawSet.Position"/> and <see cref="F:Terraria.DataStructures.PlayerDrawSet.ItemLocation"/> vectors' Y axes. </summary>
         </member>
@@ -2288,7 +2323,7 @@
         <member name="M:Terraria.Item.DefaultToBow(System.Int32,System.Single,System.Boolean)">
             <summary>
             This method sets a variety of common Item values common to bow weapons.<br/>
-            Specfically: width = 14; height = 30; UseSound = SoundID.Item5;<br/>
+            Specifically: width = 14; height = 30; UseSound = SoundID.Item5;<br/>
             Addtionally: <inheritdoc cref="M:Terraria.Item.DefaultToRangedWeapon(System.Int32,System.Int32,System.Int32,System.Single,System.Boolean)" />
             </summary>
             <param name="singleShotTime"></param>
@@ -2306,6 +2341,20 @@
             <param name="shotVelocity"></param>
             <param name="hasAutoReuse"></param>
         </member>
+        <member name="M:Terraria.Item.DefaultToFood(System.Int32,System.Int32,System.Int32,System.Int32,System.Boolean,System.Int32)">
+            <summary>
+            This method sets a variety of common Item values common to food items.<br/>
+            Specifically: UseSound = useGulpSound ? Item3 : Item2; useStyle = useGulpSound ? DrinkLiquid : EatFood;<br/>
+            useTurn = true; useAnimation = useTime = animationTime; maxStack = 30; consumable = true;<br/>
+            buffType = foodbuff; buffTime = foodbuffduration; rare = Blue; value = 20 silver;
+            </summary>
+            <param name="newwidth"></param>
+            <param name="newheight"></param>
+            <param name="foodbuff"></param>
+            <param name="foodbuffduration"></param>
+            <param name="useGulpSound">If true, the gulp sound is set, otherwise the crunch sound is set</param>
+            <param name="animationTime"></param>
+        </member>
         <member name="P:Terraria.Item.AllowReforgeForStackableItem">
             <summary>
             Set to true in SetDefaults to allow this item to receive a prefix on reforge even if maxStack is not 1.
@@ -2320,6 +2369,11 @@
         <member name="P:Terraria.Item.DamageType">
             <summary>
             The damage type of this Item. Assign to DamageClass.Melee/Ranged/Magic/Summon/Throwing for vanilla classes, or <see cref="M:Terraria.ModLoader.ModContent.GetInstance``1"/> for custom damage types.
+            </summary>
+        </member>
+        <member name="P:Terraria.Item.ArmorPenetration">
+            <summary>
+            The number of defense points that this item can ignore on its own. Cannot be set to negative values. Defaults to 0.
             </summary>
         </member>
         <member name="M:Terraria.Item.GetGlobalItem``1(System.Boolean)">
@@ -2684,7 +2738,7 @@
         </member>
         <member name="T:Terraria.ModLoader.Config.SliderAttribute">
             <summary>
-            Affects whether this data will be presented as a slider of an input field. Add this attribute to use a slider. Currently only affects data of type int.
+            Affects whether this data will be presented as a slider or an input field. Add this attribute to use a slider. Currently only affects data of type int.
             </summary>
         </member>
         <member name="T:Terraria.ModLoader.Config.DrawTicksAttribute">
@@ -2948,6 +3002,32 @@
             When Ionic.Zip extracts an entry it uses \\ for all separators when it should use Path.DirectorySeparatorChar for platform compatibility
             </summary>
         </member>
+        <member name="P:Terraria.ModLoader.DamageClass.Default">
+            <summary>
+            Default damage class for non-classed weapons and items, does not benefit from Generic bonuses
+            </summary>
+        </member>
+        <member name="P:Terraria.ModLoader.DamageClass.Generic">
+            <summary>
+            Base damage class for all weapons. All vanilla damage classes inherit bonuses applied to this class.
+            Accessories which benefit all classes provide bonuses via the Generic class
+            </summary>
+        </member>
+        <member name="P:Terraria.ModLoader.DamageClass.SummonMeleeSpeed">
+            <summary>
+            This is a damage class used solely by vanilla whips. It benefits from melee attackSpeed bonuses.
+            </summary>
+        </member>
+        <member name="P:Terraria.ModLoader.DamageClass.MagicSummonHybrid">
+            <summary>
+            This is a damage class used solely by vanilla forbidden storm. It scales with both magic and summon damage modifiers.
+            </summary>
+        </member>
+        <member name="P:Terraria.ModLoader.DamageClass.Throwing">
+            <summary>
+            Class provided for modders who want to coordinate throwing accessories and items. Not used by any vanilla items.
+            </summary>
+        </member>
         <member name="P:Terraria.ModLoader.DamageClass.Type">
             <summary>
             This is the internal ID of this DamageClass.
@@ -2959,25 +3039,45 @@
             </summary>
         </member>
         <member name="P:Terraria.ModLoader.DamageClass.DisplayName">
-            <summary> This is the name that will show up when an item tooltip displays 'X [ClassName]'. This should include the 'damage' part. </summary>
+            <summary>
+            This is the name that will show up when an item tooltip displays 'X [ClassName]'.
+            This should include the 'damage' part.
+            </summary>
         </member>
-        <member name="M:Terraria.ModLoader.DamageClass.GetBenefitFrom(Terraria.ModLoader.DamageClass)">
+        <member name="M:Terraria.ModLoader.DamageClass.GetModifierInheritance(Terraria.ModLoader.DamageClass)">
             <summary>
             This lets you define the classes that this DamageClass will benefit from (other than itself) for the purposes of stat bonuses, such as damage and crit chance.
-            Returns 0 in all cases by default, which does not let any other classes boost this DamageClass.
+            This returns a struct called StatInheritanceData.
+            This is used to allow extensive specifications for what your damage class can and can't benefit from in terms of other classes' stat bonuses.
+            By default, this will return StatInheritanceData.Full for DamageClass.Generic, and StatInheritanceData.None for any other.
+            Any given DamageClass will also never call this method for itself.
+            For a more in-depth explanation and demonstration, refer to ExampleMod/Content/DamageClasses/ExampleDamageClass.
             </summary>
             <param name="damageClass">The DamageClass which you want this DamageClass to benefit from statistically.</param>
         </member>
-        <member name="M:Terraria.ModLoader.DamageClass.CountsAs(Terraria.ModLoader.DamageClass)">
-            <summary>
+        <member name="M:Terraria.ModLoader.DamageClass.GetEffectInheritance(Terraria.ModLoader.DamageClass)">
+            <summary> 
             This lets you define the classes that this DamageClass will count as (other than itself) for the purpose of armor and accessory effects, such as Spectre armor's bolts on magic attacks, or Magma Stone's Hellfire debuff on melee attacks.
             Returns false in all cases by default, which does not let any other classes' effects trigger on this DamageClass.
+            For a more in-depth explanation and demonstration, refer to ExampleMod/Content/DamageClasses/ExampleDamageClass.
             </summary>
             <param name="damageClass">The DamageClass which you want this DamageClass to gain effects from.</param>
         </member>
         <member name="M:Terraria.ModLoader.DamageClass.SetDefaultStats(Terraria.Player)">
+            <summary> 
+            This lets you define default stat modifiers for all items of this class (e.g. base crit chance).
+            </summary>
+        </member>
+        <member name="P:Terraria.ModLoader.DamageClass.UseStandardCritCalcs">
             <summary>
-            This lets you define default buffs for all items of this class (eg, base crit)
+            This lets you decide whether or not your damage class will use standard crit chance calculations.
+            Setting this to false will also hide the critical strike chance line in the tooltip of any item that uses this DamageClass.
+            </summary>
+        </member>
+        <member name="M:Terraria.ModLoader.DamageClass.ShowStatTooltipLine(Terraria.Player,System.String)">
+            <summary>
+            This lets you enable or disable standard statistical tooltip lines displaying on items associated with this DamageClass.
+            The lines usable are "Damage", "CritChance", "Speed", and "Knockback".
             </summary>
         </member>
         <member name="T:Terraria.ModLoader.Default.DefaultBossBarStyle">
@@ -3525,6 +3625,11 @@
             Allows you to set the properties of any and every item that gets created.
             </summary>
         </member>
+        <member name="M:Terraria.ModLoader.GlobalItem.OnSpawn(Terraria.Item,Terraria.DataStructures.IEntitySource)">
+            <summary>
+            Gets called when any item spawns in world
+            </summary>
+        </member>
         <member name="M:Terraria.ModLoader.GlobalItem.ChoosePrefix(Terraria.Item,Terraria.Utilities.UnifiedRandom)">
             <summary>
             Allows you to manually choose what prefix an item will get.
@@ -3652,15 +3757,14 @@
             <param name="player">The player using the item.</param>
             <param name="manaConsumed">The mana consumed from the player.</param>
         </member>
-        <member name="M:Terraria.ModLoader.GlobalItem.ModifyWeaponDamage(Terraria.Item,Terraria.Player,Terraria.ModLoader.StatModifier@,System.Single@)">
-             <summary>
-             Allows you to temporarily modify this weapon's damage based on player buffs, etc. This is useful for creating new classes of damage, or for making subclasses of damage (for example, Shroomite armor set boosts). 
-             </summary>
-             <param name="item">The item being used</param>
-             <param name="player">The player using the item</param>
-             <param name="damage">The StatModifier object corresponding to the combination of the damage multipliers currently set to apply to this weapon</param>
-             <param name="flat">This is a flat damage bonus that will be added after add and mult are applied. It facilitates effects like "4 more damage from weapons"</param>
-            
+        <member name="M:Terraria.ModLoader.GlobalItem.ModifyWeaponDamage(Terraria.Item,Terraria.Player,Terraria.ModLoader.StatModifier@)">
+            <summary>
+            Allows you to dynamically modify a weapon's damage based on player and item conditions.
+            Can be utilized to modify damage beyond the tools that DamageClass has to offer.
+            </summary>
+            <param name="item">The item being used.</param>
+            <param name="player">The player using the item.</param>
+            <param name="damage">The StatModifier object representing the totality of the various modifiers to be applied to the item's base damage.</param>
         </member>
         <member name="M:Terraria.ModLoader.GlobalItem.ModifyResearchSorting(Terraria.Item,Terraria.ID.ContentSamples.CreativeHelper.ItemGroup@)">
             <summary>
@@ -3690,22 +3794,23 @@
             <param name="item">The item being researched</param>
             <param name="fullyResearched">True if the item was completely researched, and is ready to be duplicated, false if only partially researched.</param>
         </member>
-        <member name="M:Terraria.ModLoader.GlobalItem.ModifyWeaponKnockback(Terraria.Item,Terraria.Player,Terraria.ModLoader.StatModifier@,System.Single@)">
+        <member name="M:Terraria.ModLoader.GlobalItem.ModifyWeaponKnockback(Terraria.Item,Terraria.Player,Terraria.ModLoader.StatModifier@)">
             <summary>
-            Allows you to temporarily modify this weapon's knockback based on player buffs, etc. This allows you to customize knockback beyond the Player class's limited fields.
+            Allows you to dynamically modify a weapon's knockback based on player and item conditions.
+            Can be utilized to modify damage beyond the tools that DamageClass has to offer.
             </summary>
-            <param name="item">The item being used</param>
-            <param name="player">The player using the item</param>
-            <param name="knockback">The StatModifier object representing the totality of the additive and multiplicative bonuses to be applied to the knockback</param>
-            <param name="flat">This is a flat knockback bonus that will be added after additive and multiplicative bonuses are applied.</param>
+            <param name="item">The item being used.</param>
+            <param name="player">The player using the item.</param>
+            <param name="knockback">The StatModifier object representing the totality of the various modifiers to be applied to the item's base knockback.</param>
         </member>
-        <member name="M:Terraria.ModLoader.GlobalItem.ModifyWeaponCrit(Terraria.Item,Terraria.Player,System.Int32@)">
+        <member name="M:Terraria.ModLoader.GlobalItem.ModifyWeaponCrit(Terraria.Item,Terraria.Player,System.Single@)">
             <summary>
-            Allows you to temporarily modify this weapon's crit chance based on player buffs, etc.
+            Allows you to dynamically modify a weapon's crit chance based on player and item conditions.
+            Can be utilized to modify damage beyond the tools that DamageClass has to offer.
             </summary>
-            <param name="item">The item being used</param>
-            <param name="player">The player using the item</param>
-            <param name="crit">The critical strike chance</param>
+            <param name="item">The item being used.</param>
+            <param name="player">The player using the item.</param>
+            <param name="crit">The total crit chance of the item after all normal crit chance calculations.</param>
         </member>
         <member name="M:Terraria.ModLoader.GlobalItem.PickAmmo(Terraria.Item,Terraria.Item,Terraria.Player,System.Int32@,System.Single@,System.Int32@,System.Single@)">
             <summary>
@@ -4258,32 +4363,22 @@
             This class allows you to modify and use hooks for all NPCs, including vanilla mobs. Create an instance of an overriding class then call Mod.AddGlobalNPC to use this.
             </summary>
         </member>
-        <member name="P:Terraria.ModLoader.GlobalNPC.CloneNewInstances">
+        <member name="M:Terraria.ModLoader.GlobalNPC.Clone(Terraria.NPC,Terraria.NPC)">
             <summary>
-            Whether instances of this GlobalNPC are created through Clone or constructor (by default implementations of NewInstance and Clone()).
-            Defaults to false (using default constructor).
+            Create a copy of this instanced GlobalNPC. Called when an npc is cloned.
             </summary>
-        </member>
-        <member name="M:Terraria.ModLoader.GlobalNPC.Clone">
-            <summary>
-            Returns a clone of this GlobalNPC.
-            By default this will return a memberwise clone; you will want to override this if your GlobalNPC contains object references.
-            Only called if CloneNewInstances &amp;&amp; InstancePerEntity
-            </summary>
-        </member>
-        <member name="M:Terraria.ModLoader.GlobalNPC.NewInstance(Terraria.NPC)">
-            <summary>
-            Create a new instance of this GlobalNPC for an NPC instance.
-            Called at the end of NPC.SetDefaults.
-            If CloneNewInstances is true, just calls Clone()
-            Otherwise calls the default constructor and copies fields
-            </summary>
+            <param name="npc">The npc being cloned</param>
+            <param name="npcClone">The new npc</param>
         </member>
         <member name="M:Terraria.ModLoader.GlobalNPC.SetDefaults(Terraria.NPC)">
             <summary>
             Allows you to set the properties of any and every NPC that gets created.
             </summary>
-            <param name="npc"></param>
+        </member>
+        <member name="M:Terraria.ModLoader.GlobalNPC.OnSpawn(Terraria.NPC,Terraria.DataStructures.IEntitySource)">
+            <summary>
+            Gets called when any NPC spawns in world
+            </summary>
         </member>
         <member name="M:Terraria.ModLoader.GlobalNPC.ScaleExpertStats(Terraria.NPC,System.Int32,System.Single)">
             <summary>
@@ -4300,6 +4395,25 @@
             <param name="npc"></param>
             <param name="database"></param>
             <param name="bestiaryEntry"></param>
+        </member>
+        <member name="M:Terraria.ModLoader.GlobalNPC.ModifyTypeName(Terraria.NPC,System.String@)">
+            <summary>
+            Allows you to modify the type name of this NPC dynamically.
+            </summary>
+        </member>
+        <member name="M:Terraria.ModLoader.GlobalNPC.ModifyTownNPCProfile(Terraria.NPC)">
+            <summary>
+            Allows you to set the town NPC profile that a given NPC uses.
+            </summary>
+            <param name="npc">The NPC in question.</param>
+            <returns>The profile that you want the given NPC to use.<br></br>
+            This will only influence their choice of profile if you do not return null.<br></br>
+            By default, returns null, which causes no change.</returns>
+        </member>
+        <member name="M:Terraria.ModLoader.GlobalNPC.ModifyNPCNameList(Terraria.NPC,System.Collections.Generic.List{System.String})">
+            <summary>
+            Allows you to modify the list of names available to the given town NPC.
+            </summary>
         </member>
         <member name="M:Terraria.ModLoader.GlobalNPC.ResetEffects(Terraria.NPC)">
             <summary>
@@ -4335,11 +4449,9 @@
         </member>
         <member name="M:Terraria.ModLoader.GlobalNPC.HitEffect(Terraria.NPC,System.Int32,System.Double)">
             <summary>
-            Allows you to make things happen whenever an NPC is hit, such as creating dust or gores. This hook is client side. Usually when something happens when an npc dies such as item spawning, you use NPCLoot, but you can use HitEffect paired with a check for `if (npc.life &lt;= 0)` to do client-side death effects, such as spawning dust, gore, or death sounds.
+            Allows you to make things happen whenever an NPC is hit, such as creating dust or gores.
+            <br/> This hook is client side. Usually when something happens when an npc dies such as item spawning, you use NPCLoot, but you can use HitEffect paired with a check for `if (npc.life &lt;= 0)` to do client-side death effects, such as spawning dust, gore, or death sounds.
             </summary>
-            <param name="npc"></param>
-            <param name="hitDirection"></param>
-            <param name="damage"></param>
         </member>
         <member name="M:Terraria.ModLoader.GlobalNPC.UpdateLifeRegen(Terraria.NPC,System.Int32@)">
             <summary>
@@ -4787,32 +4899,23 @@
             This class allows you to modify and use hooks for all projectiles, including vanilla projectiles. Create an instance of an overriding class then call Mod.AddGlobalProjectile to use this.
             </summary>
         </member>
-        <member name="P:Terraria.ModLoader.GlobalProjectile.CloneNewInstances">
+        <member name="M:Terraria.ModLoader.GlobalProjectile.Clone(Terraria.Projectile,Terraria.Projectile)">
             <summary>
-            Whether instances of this GlobalProjectile are created through Clone or constructor (by default implementations of NewInstance and Clone()).
-            Defaults to false (using default constructor).
+            Create a copy of this instanced GlobalProjectile. Called when a projectile is cloned.
             </summary>
-        </member>
-        <member name="M:Terraria.ModLoader.GlobalProjectile.Clone">
-            <summary>
-            Returns a clone of this GlobalProjectile.
-            By default this will return a memberwise clone; you will want to override this if your GlobalProjectile contains object references.
-            Only called if CloneNewInstances &amp;&amp; InstancePerEntity
-            </summary>
-        </member>
-        <member name="M:Terraria.ModLoader.GlobalProjectile.NewInstance(Terraria.Projectile)">
-            <summary>
-            Create a new instance of this GlobalProjectile for a Projectile instance.
-            Called at the end of Projectile.SetDefaults.
-            If CloneNewInstances is true, just calls Clone()
-            Otherwise calls the default constructor and copies fields
-            </summary>
+            <param name="projectile">The projectile being cloned</param>
+            <param name="projectileClone">The new projectile</param>
         </member>
         <member name="M:Terraria.ModLoader.GlobalProjectile.SetDefaults(Terraria.Projectile)">
             <summary>
             Allows you to set the properties of any and every projectile that gets created.
             </summary>
             <param name="projectile"></param>
+        </member>
+        <member name="M:Terraria.ModLoader.GlobalProjectile.OnSpawn(Terraria.Projectile,Terraria.DataStructures.IEntitySource)">
+            <summary>
+            Gets called when any projectiles spawns in world
+            </summary>
         </member>
         <member name="M:Terraria.ModLoader.GlobalProjectile.PreAI(Terraria.Projectile)">
             <summary>
@@ -5553,17 +5656,17 @@
             </summary>
             <param name="item">The item to be consumed or not</param>
         </member>
-        <member name="M:Terraria.ModLoader.ItemLoader.ModifyWeaponDamage(Terraria.Item,Terraria.Player,Terraria.ModLoader.StatModifier@,System.Single@)">
+        <member name="M:Terraria.ModLoader.ItemLoader.ModifyWeaponDamage(Terraria.Item,Terraria.Player,Terraria.ModLoader.StatModifier@)">
             <summary>
             Calls ModItem.HookModifyWeaponDamage, then all GlobalItem.HookModifyWeaponDamage hooks.
             </summary>
         </member>
-        <member name="M:Terraria.ModLoader.ItemLoader.ModifyWeaponKnockback(Terraria.Item,Terraria.Player,Terraria.ModLoader.StatModifier@,System.Single@)">
+        <member name="M:Terraria.ModLoader.ItemLoader.ModifyWeaponKnockback(Terraria.Item,Terraria.Player,Terraria.ModLoader.StatModifier@)">
             <summary>
             Calls ModItem.ModifyWeaponKnockback, then all GlobalItem.ModifyWeaponKnockback hooks.
             </summary>
         </member>
-        <member name="M:Terraria.ModLoader.ItemLoader.ModifyWeaponCrit(Terraria.Item,Terraria.Player,System.Int32@)">
+        <member name="M:Terraria.ModLoader.ItemLoader.ModifyWeaponCrit(Terraria.Item,Terraria.Player,System.Single@)">
             <summary>
             Calls ModItem.ModifyWeaponCrit, then all GlobalItem.ModifyWeaponCrit hooks.
             </summary>
@@ -6938,7 +7041,7 @@
         <member name="P:Terraria.ModLoader.ModGore.UpdateType">
             <summary> Allows you to copy the Update behavior of a different type of gore. This defaults to 0, which means no behavior is copied. </summary>
         </member>
-        <member name="M:Terraria.ModLoader.ModGore.OnSpawn(Terraria.Gore)">
+        <member name="M:Terraria.ModLoader.ModGore.OnSpawn(Terraria.Gore,Terraria.DataStructures.IEntitySource)">
             <summary>
             Allows you to modify a gore's fields when it is created.
             </summary>
@@ -6995,6 +7098,11 @@
             <summary>
             This is where you set all your item's properties, such as width, damage, shootSpeed, defense, etc.
             For those that are familiar with tAPI, this has the same function as .json files.
+            </summary>
+        </member>
+        <member name="M:Terraria.ModLoader.ModItem.OnSpawn(Terraria.DataStructures.IEntitySource)">
+            <summary>
+            Gets called when your item spawns in world
             </summary>
         </member>
         <member name="M:Terraria.ModLoader.ModItem.AutoDefaults">
@@ -7129,13 +7237,13 @@
             <param name="player">The player using the item.</param>
             <param name="manaConsumed">The mana consumed from the player.</param>
         </member>
-        <member name="M:Terraria.ModLoader.ModItem.ModifyWeaponDamage(Terraria.Player,Terraria.ModLoader.StatModifier@,System.Single@)">
+        <member name="M:Terraria.ModLoader.ModItem.ModifyWeaponDamage(Terraria.Player,Terraria.ModLoader.StatModifier@)">
             <summary>
-            Allows you to temporarily modify this weapon's damage based on player buffs, etc. This is useful for creating new classes of damage, or for making subclasses of damage (for example, Shroomite armor set boosts).
+            Allows you to dynamically modify a weapon's damage based on player and item conditions.
+            Can be utilized to modify damage beyond the tools that DamageClass has to offer.
             </summary>
-            <param name="player">The player using the item</param>
-            <param name="damage">The StatModifier object representing the totality of the additive and multiplicative bonuses to be applied to the player's effective damage.</param>
-            <param name="flat">This is a flat damage bonus that will be added after add and mult are applied. It facilitates effects like "4 more damage from weapons"</param>
+            <param name="player">The player using the item.</param>
+            <param name="damage">The StatModifier object representing the totality of the various modifiers to be applied to the item's base damage.</param>
         </member>
         <member name="M:Terraria.ModLoader.ModItem.ModifyResearchSorting(Terraria.ID.ContentSamples.CreativeHelper.ItemGroup@)">
             <summary>
@@ -7160,20 +7268,21 @@
             </summary>
             <param name="fullyResearched">True if the item was completely researched, and is ready to be duplicated, false if only partially researched.</param>
         </member>
-        <member name="M:Terraria.ModLoader.ModItem.ModifyWeaponKnockback(Terraria.Player,Terraria.ModLoader.StatModifier@,System.Single@)">
+        <member name="M:Terraria.ModLoader.ModItem.ModifyWeaponKnockback(Terraria.Player,Terraria.ModLoader.StatModifier@)">
             <summary>
-            Allows you to temporarily modify this weapon's knockback based on player buffs, etc. This allows you to customize knockback beyond the Player class's limited fields.
+            Allows you to dynamically modify a weapon's knockback based on player and item conditions.
+            Can be utilized to modify damage beyond the tools that DamageClass has to offer.
             </summary>
-            <param name="player">The player using the item</param>
-            <param name="knockback">The StatModifier object representing the totality of the additive and multiplicative bonuses to be applied to the knockback</param>
-            <param name="flat">This is a flat knockback bonus that will be added after additive and multiplicative bonuses are applied.</param>
+            <param name="player">The player using the item.</param>
+            <param name="knockback">The StatModifier object representing the totality of the various modifiers to be applied to the item's base knockback.</param>
         </member>
-        <member name="M:Terraria.ModLoader.ModItem.ModifyWeaponCrit(Terraria.Player,System.Int32@)">
+        <member name="M:Terraria.ModLoader.ModItem.ModifyWeaponCrit(Terraria.Player,System.Single@)">
             <summary>
-            Allows you to temporarily modify this weapon's crit chance based on player buffs, etc.
+            Allows you to dynamically modify a weapon's crit chance based on player and item conditions.
+            Can be utilized to modify damage beyond the tools that DamageClass has to offer.
             </summary>
-            <param name="player">The player using this item</param>
-            <param name="crit">The critical strike chance, at 0 it will never trigger a crit and at 100 or above it will always trigger a crit</param>
+            <param name="player">The player using the item.</param>
+            <param name="crit">The total crit chance of the item after all normal crit chance calculations.</param>
         </member>
         <member name="M:Terraria.ModLoader.ModItem.PickAmmo(Terraria.Item,Terraria.Player,System.Int32@,System.Single@,System.Int32@,System.Single@)">
             <summary>
@@ -8098,30 +8207,21 @@
         <member name="P:Terraria.ModLoader.ModNPC.SpawnModBiomes">
             <summary> The ModBiome Types associated with this NPC spawning, if applicable. Used in Bestiary </summary>
         </member>
-        <member name="P:Terraria.ModLoader.ModNPC.CloneNewInstances">
+        <member name="M:Terraria.ModLoader.ModNPC.Clone(Terraria.NPC)">
             <summary>
-            Whether instances of this ModNPC are created through a memberwise clone or its constructor. Defaults to false.
-            </summary>
-        </member>
-        <member name="M:Terraria.ModLoader.ModNPC.Clone">
-            <summary>
-            Returns a clone of this ModNPC.
-            Allows you to decide which fields of your ModNPC class are copied over when a new NPC is created.
-            By default this will return a memberwise clone; you will want to override this if your ModNPC contains object references.
-            Only called if CloneNewInstances is set to true.
-            </summary>
-        </member>
-        <member name="M:Terraria.ModLoader.ModNPC.NewInstance(Terraria.NPC)">
-            <summary>
-            Create a new instance of this ModNPC for an NPC instance.
-            Called at the end of NPC.SetDefaults.
-            If CloneNewInstances is true, just calls Clone()
-            Otherwise calls the default constructor and copies fields
+            Returns a clone of this ModNPC. 
+            Allows you to decide which fields of your ModNPC class are copied over when a new NPC is created. 
+            By default this will return a memberwise clone; you will want to override this if your ModNPC contains object references. 
             </summary>
         </member>
         <member name="M:Terraria.ModLoader.ModNPC.SetDefaults">
             <summary>
             Allows you to set all your NPC's properties, such as width, damage, aiStyle, lifeMax, etc.
+            </summary>
+        </member>
+        <member name="M:Terraria.ModLoader.ModNPC.OnSpawn(Terraria.DataStructures.IEntitySource)">
+            <summary>
+            Gets called when your NPC spawns in world
             </summary>
         </member>
         <member name="M:Terraria.ModLoader.ModNPC.AutoStaticDefaults">
@@ -8142,6 +8242,12 @@
             </summary>
             <param name="database"></param>
             <param name="bestiaryEntry"></param>
+        </member>
+        <member name="M:Terraria.ModLoader.ModNPC.TownNPCProfile">
+            <summary>
+            Allows you to set the town NPC profile that this NPC uses.<br></br>
+            By default, returns null, meaning that the NPC doesn't use one.
+            </summary>
         </member>
         <member name="M:Terraria.ModLoader.ModNPC.ResetEffects">
             <summary>
@@ -8179,10 +8285,9 @@
         </member>
         <member name="M:Terraria.ModLoader.ModNPC.HitEffect(System.Int32,System.Double)">
             <summary>
-            Allows you to make things happen whenever this NPC is hit, such as creating dust or gores. This hook is client side. Usually when something happens when an npc dies such as item spawning, you use NPCLoot, but you can use HitEffect paired with a check for `if (npc.life &lt;= 0)` to do client-side death effects, such as spawning dust, gore, or death sounds.
+            Allows you to make things happen whenever this NPC is hit, such as creating dust or gores.
+            <br/> This hook is client side. Usually when something happens when an npc dies such as item spawning, you use NPCLoot, but you can use HitEffect paired with a check for `if (npc.life &lt;= 0)` to do client-side death effects, such as spawning dust, gore, or death sounds.
             </summary>
-            <param name="hitDirection"></param>
-            <param name="damage"></param>
         </member>
         <member name="M:Terraria.ModLoader.ModNPC.UpdateLifeRegen(System.Int32@)">
             <summary>
@@ -8456,9 +8561,15 @@
             <param name="bottom"></param>
             <returns></returns>
         </member>
-        <member name="M:Terraria.ModLoader.ModNPC.TownNPCName">
+        <member name="M:Terraria.ModLoader.ModNPC.ModifyTypeName(System.String@)">
             <summary>
-            Allows you to give this town NPC any name when it spawns. By default returns something embarrassing.
+            Allows you to modify the type name of this NPC dynamically.
+            </summary>
+        </member>
+        <member name="M:Terraria.ModLoader.ModNPC.SetNPCNameList">
+            <summary>
+            Allows you to give a list of names this NPC can be given on spawn.
+            By default, returns a blank list, which means the NPC will simply use its type name as its given name when prompted.
             </summary>
             <returns></returns>
         </member>
@@ -8917,27 +9028,29 @@
             <param name="item">The item being used.</param>
             <param name="manaConsumed">The mana consumed from the player.</param>
         </member>
-        <member name="M:Terraria.ModLoader.ModPlayer.ModifyWeaponDamage(Terraria.Item,Terraria.ModLoader.StatModifier@,System.Single@)">
+        <member name="M:Terraria.ModLoader.ModPlayer.ModifyWeaponDamage(Terraria.Item,Terraria.ModLoader.StatModifier@)">
             <summary>
-            Allows you to temporarily modify this weapon's damage based on player buffs, etc. This is useful for creating new classes of damage, or for making subclasses of damage (for example, Shroomite armor set boosts).
+            Allows you to dynamically modify a weapon's damage based on player and item conditions.
+            Can be utilized to modify damage beyond the tools that DamageClass has to offer.
             </summary>
-            <param name="item">The item being used</param>
-            <param name="damage">The StatModifier object representing the totality of the additive and multiplicative bonuses to be applied to the player's effective damage for this item.</param>
-            <param name="flat">This is a flat damage bonus that will be added after add and mult are applied. It facilitates effects like "4 more damage from weapons"</param>
+            <param name="item">The item being used.</param>
+            <param name="damage">The StatModifier object representing the totality of the various modifiers to be applied to the item's base damage.</param>
         </member>
-        <member name="M:Terraria.ModLoader.ModPlayer.ModifyWeaponKnockback(Terraria.Item,Terraria.ModLoader.StatModifier@,System.Single@)">
+        <member name="M:Terraria.ModLoader.ModPlayer.ModifyWeaponKnockback(Terraria.Item,Terraria.ModLoader.StatModifier@)">
             <summary>
-            Allows you to temporarily modify a weapon's knockback based on player buffs, etc. This allows you to customize knockback beyond the Player class's limited fields.
+            Allows you to dynamically modify a weapon's knockback based on player and item conditions.
+            Can be utilized to modify damage beyond the tools that DamageClass has to offer.
             </summary>
-            <param name="item"></param>
-            <param name="knockback"></param>
+            <param name="item">The item being used.</param>
+            <param name="knockback">The StatModifier object representing the totality of the various modifiers to be applied to the item's base knockback.</param>
         </member>
-        <member name="M:Terraria.ModLoader.ModPlayer.ModifyWeaponCrit(Terraria.Item,System.Int32@)">
+        <member name="M:Terraria.ModLoader.ModPlayer.ModifyWeaponCrit(Terraria.Item,System.Single@)">
             <summary>
-            Allows you to temporarily modify a weapon's crit chance based on player buffs, etc.
+            Allows you to dynamically modify a weapon's crit chance based on player and item conditions.
+            Can be utilized to modify damage beyond the tools that DamageClass has to offer.
             </summary>
-            <param name="item">The item</param>
-            <param name="crit">The crit chance, ranging from 0 to 100</param>
+            <param name="item">The item.</param>
+            <param name="crit">The total crit chance of the item after all normal crit chance calculations.</param>
         </member>
         <member name="M:Terraria.ModLoader.ModPlayer.CanConsumeAmmo(Terraria.Item,Terraria.Item)">
             <summary>
@@ -9463,30 +9576,21 @@
         <member name="P:Terraria.ModLoader.ModProjectile.Type">
             <summary>  Shorthand for projectile.type; </summary>
         </member>
-        <member name="P:Terraria.ModLoader.ModProjectile.CloneNewInstances">
+        <member name="M:Terraria.ModLoader.ModProjectile.Clone(Terraria.Projectile)">
             <summary>
-            Whether instances of this ModProjectile are created through a memberwise clone or its constructor. Defaults to false.
-            </summary>
-        </member>
-        <member name="M:Terraria.ModLoader.ModProjectile.Clone">
-            <summary>
-            Returns a clone of this ModProjectile.
-            Allows you to decide which fields of your ModProjectile class are copied over when a new Projectile is created.
-            By default this will return a memberwise clone; you will want to override this if your ModProjectile contains object references.
-            Only called if CloneNewInstances is set to true.
-            </summary>
-        </member>
-        <member name="M:Terraria.ModLoader.ModProjectile.NewInstance(Terraria.Projectile)">
-            <summary>
-            Create a new instance of this ModProjectile for a Projectile instance.
-            Called at the end of Projectile.SetDefaults.
-            If CloneNewInstances is true, just calls Clone()
-            Otherwise calls the default constructor and copies fields
+            Returns a clone of this ModProjectile. 
+            Allows you to decide which fields of your ModProjectile class are copied over when a new Projectile is created. 
+            By default this will return a memberwise clone; you will want to override this if your ModProjectile contains object references. 
             </summary>
         </member>
         <member name="M:Terraria.ModLoader.ModProjectile.SetDefaults">
             <summary>
             Allows you to set all your projectile's properties, such as width, damage, aiStyle, penetrate, etc.
+            </summary>
+        </member>
+        <member name="M:Terraria.ModLoader.ModProjectile.OnSpawn(Terraria.DataStructures.IEntitySource)">
+            <summary>
+            Gets called when your projectiles spawns in world
             </summary>
         </member>
         <member name="M:Terraria.ModLoader.ModProjectile.AutoStaticDefaults">
@@ -11072,7 +11176,7 @@
             This is where all ModPlayer hooks are gathered and called.
             </summary>
         </member>
-        <member name="M:Terraria.ModLoader.PlayerLoader.ModifyWeaponDamage(Terraria.Player,Terraria.Item,Terraria.ModLoader.StatModifier@,System.Single@)">
+        <member name="M:Terraria.ModLoader.PlayerLoader.ModifyWeaponDamage(Terraria.Player,Terraria.Item,Terraria.ModLoader.StatModifier@)">
             <summary>
             Calls ModItem.HookModifyWeaponDamage, then all GlobalItem.HookModifyWeaponDamage hooks.
             </summary>
@@ -11280,6 +11384,26 @@
             Returns a LegacySoundStyle object which encapsulates both a sound type and a sound style (This is the new way to do sounds in 1.3.4) Returns null if there is no corresponding style.
             </summary>
         </member>
+        <member name="F:Terraria.ModLoader.StatModifier.Base">
+            <summary>
+            Increase to the base value of the stat. Directly added to the stat before multipliers are applied.
+            </summary>
+        </member>
+        <member name="P:Terraria.ModLoader.StatModifier.Additive">
+            <summary>
+            The combination of all additive multipliers. Starts at 1
+            </summary>
+        </member>
+        <member name="P:Terraria.ModLoader.StatModifier.Multiplicative">
+            <summary>
+            The combination of all multiplicative multipliers. Starts at 1. Applies 'after' all additive bonuses have been accumulated.
+            </summary>
+        </member>
+        <member name="F:Terraria.ModLoader.StatModifier.Flat">
+            <summary>
+            Increase to the final value of the stat. Directly added to the stat after multipliers are applied.
+            </summary>
+        </member>
         <member name="M:Terraria.ModLoader.StatModifier.op_Addition(Terraria.ModLoader.StatModifier,System.Single)">
             <summary>
             By using the add operator, the supplied additive modifier is combined with the existing modifiers. For example, adding 0.12f would be equivalent to a typical 12% damage boost. For 99% of effects used in the game, this approach is used.
@@ -11485,10 +11609,37 @@
             <summary> Safely attempts to get the local instance of the type of the specified GlobalNPC instance. </summary>
             <returns> Whether or not the requested instance has been found. </returns>
         </member>
+        <member name="M:Terraria.NPC.NewNPCDirect(Terraria.DataStructures.IEntitySource,System.Int32,System.Int32,System.Int32,System.Int32,System.Single,System.Single,System.Single,System.Single,System.Int32)">
+            <summary> A short-hand for <code> Main.npc[Main.NewNPC(...)] </code> </summary>
+        </member>
+        <member name="M:Terraria.NPC.NewNPCDirect(Terraria.DataStructures.IEntitySource,Microsoft.Xna.Framework.Vector2,System.Int32,System.Int32,System.Single,System.Single,System.Single,System.Single,System.Int32)">
+            <inheritdoc cref="M:Terraria.NPC.NewNPCDirect(Terraria.DataStructures.IEntitySource,System.Int32,System.Int32,System.Int32,System.Int32,System.Single,System.Single,System.Single,System.Single,System.Int32)"/>
+        </member>
         <member name="M:Terraria.NPC.SitDown(Microsoft.Xna.Framework.Point,System.Int32@,Microsoft.Xna.Framework.Vector2@)">
             <summary>
             Helper method for getting the parameters for seating a town NPC. Assumes the tile at <paramref name="anchorTilePosition"/> is a valid tile for sitting
             </summary>
+        </member>
+        <member name="M:Terraria.Player.AddBuff(System.Int32,System.Int32,System.Boolean,System.Boolean)">
+            <summary>
+            Gives the player the provided buff. This accounts for if the player is immune to the buff. This also accounts for adjusting the buff time for different game modes. If the player already has the buff, the re-apply logic will happen. Vanilla buff types are found in <see cref="T:Terraria.ID.BuffID"/> and modded buffs are typically retrieved using <see cref="M:Terraria.ModLoader.ModContent.BuffType``1"/>. The quiet parameter will determine if the network sync message should happen. This should only be set to false in non-deterministic situations (such as random chance) and code that only runs locally. Other situations, run on all clients so the buff should automatically be applied on all clients, keeping the player buff data in sync without burdening the network. When in doubt, consult vanilla source code examples or test your code.
+            </summary>
+            <param name="type">The buff type</param>
+            <param name="timeToAdd">The desired buff time in ticks. 60 ticks is 1 second</param>
+            <param name="quiet">If true, the network sync message is skipped.</param>
+            <param name="foodHack">unused</param>
+        </member>
+        <member name="M:Terraria.Player.DelBuff(System.Int32)">
+            <summary>
+            Removes the buff at the provided index and shuffles the remaining buff indexes down to fill the gap. Use <see cref="M:Terraria.Player.ClearBuff(System.Int32)"/> if you only know the buff type
+            </summary>
+            <param name="b">The index of the buff to remove.</param>
+        </member>
+        <member name="M:Terraria.Player.ClearBuff(System.Int32)">
+            <summary>
+            Removes the provided buff type from the player and shuffles the remaining buff indexes down to fill the gap. Use <see cref="M:Terraria.Player.DelBuff(System.Int32)"/> if you only know the buff index
+            </summary>
+            <param name="type">The buff type</param>
         </member>
         <member name="M:Terraria.Player.GetModPlayer``1">
             <summary> Gets the instance of the specified ModPlayer type. This will throw exceptions on failure. </summary>
@@ -11530,33 +11681,59 @@
         <member name="M:Terraria.Player.HasBuff``1">
             <inheritdoc cref="M:Terraria.Player.HasBuff(System.Int32)" />
         </member>
-        <member name="M:Terraria.Player.GetCritChance``1">
-            <summary>
-            Gets the crit modifier for this damage type on this player.
-            This returns a reference, and as such, you can freely modify this method's return value with operators.
-            </summary>
-        </member>
         <member name="M:Terraria.Player.GetDamage``1">
             <summary>
             Gets the damage modifier for this damage type on this player.
             This returns a reference, and as such, you can freely modify this method's return value with operators.
             </summary>
         </member>
-        <member name="M:Terraria.Player.GetKnockback``1">
+        <member name="M:Terraria.Player.GetDamage(Terraria.ModLoader.DamageClass)">
             <summary>
-            Gets the knockback modifier for this damage type on this player.
+            Gets the damage modifier for this damage type on this player.
+            This returns a reference, and as such, you can freely modify this method's return value with operators.
+            </summary>
+        </member>
+        <member name="M:Terraria.Player.GetCritChance``1">
+            <summary>
+            Gets the crit chance modifier for this damage type on this player.
             This returns a reference, and as such, you can freely modify this method's return value with operators.
             </summary>
         </member>
         <member name="M:Terraria.Player.GetCritChance(Terraria.ModLoader.DamageClass)">
             <summary>
-            Gets the crit modifier for this damage type on this player.
+            Gets the crit chance modifier for this damage type on this player.
             This returns a reference, and as such, you can freely modify this method's return value with operators.
             </summary>
         </member>
-        <member name="M:Terraria.Player.GetDamage(Terraria.ModLoader.DamageClass)">
+        <member name="M:Terraria.Player.GetAttackSpeed``1">
             <summary>
-            Gets the damage modifier for this damage type on this player.
+            Gets the attack speed modifier for this damage type on this player.
+            This returns a reference, and as such, you can freely modify this method's return values with operators.
+            Setting this such that it results in zero or a negative value will throw an exception.
+            NOTE: Due to the nature of attack speed modifiers, modifications to Flat will do nothing for this modifier.
+            </summary>
+        </member>
+        <member name="M:Terraria.Player.GetAttackSpeed(Terraria.ModLoader.DamageClass)">
+            <summary>
+            Gets the attack speed modifier for this damage type on this player.
+            This returns a reference, and as such, you can freely modify this method's return values with operators.
+            </summary>
+        </member>
+        <member name="M:Terraria.Player.GetArmorPenetration``1">
+            <summary>
+            Gets the armor penetration modifier for this damage type on this player.
+            This returns a reference, and as such, you can freely modify this method's return value with operators.
+            </summary>
+        </member>
+        <member name="M:Terraria.Player.GetArmorPenetration(Terraria.ModLoader.DamageClass)">
+            <summary>
+            Gets the armor penetration modifier for this damage type on this player.
+            This returns a reference, and as such, you can freely modify this method's return value with operators.
+            </summary>
+        </member>
+        <member name="M:Terraria.Player.GetKnockback``1">
+            <summary>
+            Gets the knockback modifier for this damage type on this player.
             This returns a reference, and as such, you can freely modify this method's return value with operators.
             </summary>
         </member>
@@ -11635,7 +11812,22 @@
         </member>
         <member name="P:Terraria.Projectile.DamageType">
             <summary>
-            The damage type of this Projectile. Assign to DamageClass.Generic/Melee/Ranged/Magic/Summon/Throwing, or ModContent.GetInstance&lt;T&gt;() for custom damage types.
+            The damage type assigned to this projectile, represented as a DamageClass.
+            Leave blank or use DamageClass.Default to prevent damage type scaling of any kind for this projectile.
+            Use DamageClass.Generic/Melee/Ranged/Magic/Summon/Throwing for vanilla damage types.
+            Refer to ExampleMod for more information on how to create and use your own damage types.
+            </summary>
+        </member>
+        <member name="P:Terraria.Projectile.ArmorPenetration">
+            <summary>
+            The number of defense points that this projectile can ignore on its own. Cannot be set to negative values. Defaults to 0.
+            On spawn, if this projectile was fired from a weapon, this value has the total armor penetration of the weapon that made the projectile added to itself.
+            </summary>
+        </member>
+        <member name="P:Terraria.Projectile.CritChance">
+            <summary>
+            The critical strike chance modifier of this projectile. Cannot be set to negative values. Defaults to 0.
+            On spawn, if this projectile was fired from a weapon, this value has the total critical strike chance of the weapon that made the projectile added to itself.
             </summary>
         </member>
         <member name="M:Terraria.Projectile.GetGlobalProjectile``1(System.Boolean)">
@@ -11788,6 +11980,11 @@
         <member name="M:Terraria.Social.Steam.WorkshopHelper.QueryHelper.AQueryInstance.ReleaseWorkshopQuery">
             <summary>
             Ought be called to release the existing query when we are done with it. Frees memory associated with the handle.
+            </summary>
+        </member>
+        <member name="M:Terraria.TileWallWireStateData.SetAllBitsClearFrame(System.Int32)">
+            <summary>
+            Intended to be used to set all the persistent data about a tile. For example, when loading a schematic from serialized NonFrameBits.
             </summary>
         </member>
         <member name="M:Terraria.UI.ItemSlot.ModSlotDyeSwap(Terraria.Item,System.Boolean@)">

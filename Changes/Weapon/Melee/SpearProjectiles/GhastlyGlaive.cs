@@ -59,7 +59,7 @@ namespace TRAEProject.Changes.Weapon.Melee.SpearProjectiles
             Vector2 velocity = new Vector2((float)num * (4f + (float)Main.rand.Next(3)), 0f);
             Vector2 vector = center + new Vector2(-num * 120, 0f);
             velocity += (center + value * 15f - vector).SafeNormalize(Vector2.Zero) * 2f;
-            Projectile.NewProjectile(Projectile.GetProjectileSource_FromThis(), vector, velocity, 700, Projectile.damage / 2, 0f, Projectile.owner);
+            Projectile.NewProjectile(Projectile.GetSource_FromThis(), vector, velocity, 700, Projectile.damage / 2, 0f, Projectile.owner);
         }
     }
     class GhastlyGlaiveThrow : SpearThrow
@@ -112,7 +112,7 @@ namespace TRAEProject.Changes.Weapon.Melee.SpearProjectiles
             Vector2 velocity = new Vector2((float)num * (4f + (float)Main.rand.Next(3)), 0f);
             Vector2 vector = center + new Vector2(-num * 120, 0f);
             velocity += (center + value * 15f - vector).SafeNormalize(Vector2.Zero) * 2f;
-            Projectile.NewProjectile(Projectile.GetProjectileSource_FromThis(), vector, velocity, 700, Projectile.damage / 2, 0f, Projectile.owner);
+            Projectile.NewProjectile(Projectile.GetSource_FromThis(), vector, velocity, 700, Projectile.damage / 2, 0f, Projectile.owner);
         }
     }
 }

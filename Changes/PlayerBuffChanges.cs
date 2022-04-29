@@ -10,7 +10,6 @@ using TRAEProject.Changes;
 using TRAEProject.Changes.Weapon.Summon.Minions;
 using Terraria.DataStructures;
 using Microsoft.Xna.Framework;
-
 namespace ChangesBuffs
 {
     public class PlayerBuffChanges : GlobalBuff
@@ -20,15 +19,15 @@ namespace ChangesBuffs
             switch (type)
             {
                 case BuffID.ThornWhipPlayerBuff:
-                    player.meleeSpeed -= 0.05f;
+                    player.GetAttackSpeed(DamageClass.Melee) -= 0.05f;
                     player.autoReuseGlove = true;
                     return;
                 case BuffID.SwordWhipPlayerBuff:
-                    player.meleeSpeed -= 0.1f;
-                    player.autoReuseGlove = true; 
+                    player.GetAttackSpeed(DamageClass.Melee) -= 0.1f;
+                    player.autoReuseGlove = true;
                     return;
                 case BuffID.ScytheWhipPlayerBuff:
-                    player.meleeSpeed -= 0.15f;
+                    player.GetAttackSpeed(DamageClass.Melee) -= 0.15f;
                     player.autoReuseGlove = true;
                     return;
                 case BuffID.ObsidianSkin:
@@ -57,24 +56,28 @@ namespace ChangesBuffs
                 case BuffID.ManaRegeneration:
                     player.GetModPlayer<Mana>().manaRegenBoost += 0.2f;
                     return;
-                case BuffID.ManaSickness:               
+                case BuffID.ManaSickness:
                     player.manaSickReduction = 0f;
                     return;
                 case BuffID.WellFed:
                     player.moveSpeed -= 0.15f;
                     return;
                 case BuffID.WellFed2:
-                    player.moveSpeed -= 0.225f;
+                    player.moveSpeed -= 0.24f;
                     return;
                 case BuffID.WellFed3:
-                    player.moveSpeed -= 0.3f;
+                    player.moveSpeed -= 0.33f;
                     return;
                 case BuffID.Swiftness:
-                    player.moveSpeed -= 0.05f;
-                    return; 
-				case BuffID.Panic:
-                    player.moveSpeed -= 0.5f;
-                    return; 
+                    player.moveSpeed -= 0.10f;
+                    return;
+                case BuffID.Sunflower:
+                case BuffID.SugarRush:
+                    player.moveSpeed -= 0.1f;
+                    return;
+                case BuffID.Panic:
+                    player.moveSpeed -= 0.6f;
+                    return;
             }
         }
 
@@ -115,11 +118,11 @@ namespace ChangesBuffs
                 case BuffID.ManaRegeneration:
                     tip = "Increases mana regeneration by 20%";
                     return;
-	            case BuffID.ManaSickness:
+                case BuffID.ManaSickness:
                     tip = "Can't drink another mana potion";
                     return;
                 case BuffID.Swiftness:
-                    tip = "20% increased movement speed";
+                    tip = "15% increased movement speed";
                     return;
             }
         }
@@ -248,7 +251,7 @@ namespace ChangesBuffs
                         ++NPCLimit;
                         if (NPCLimit < 5)
                         {
-                            int finalDefense = nPC.defense - Player.armorPenetration;
+                            int finalDefense = nPC.defense - (int)Player.GetArmorPenetration(DamageClass.Generic);
                             nPC.ichor = false;
                             nPC.betsysCurse = false;
                             if (finalDefense < 0)
@@ -274,4 +277,5 @@ namespace ChangesBuffs
     }
 }
 
-        
+
+

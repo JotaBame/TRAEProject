@@ -30,7 +30,7 @@ namespace TRAEProject
                 Y *= squareRoot;
                 ///
                 // Spawn the projectile
-                int Projectile = Terraria.Projectile.NewProjectile(player1.GetProjectileSource_Misc(type), x2, y, X, Y, type, damage, knockback, player);
+                int Projectile = Terraria.Projectile.NewProjectile(player1.GetSource_FromThis(), x2, y, X, Y, type, damage, knockback, player);
                 // once the projectile reaches the base's position, it will no longer go through tiles.
                 Main.projectile[Projectile].localAI[1] += Base.Y;
            

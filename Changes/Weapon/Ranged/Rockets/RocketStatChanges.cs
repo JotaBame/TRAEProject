@@ -16,7 +16,7 @@ namespace TRAEProject.Changes.Weapons.Rockets
         {
             return base.Clone(item, itemClone);
         }
-	    public virtual Vector2? HoldoutOffset(int type) {
+	    public override Vector2? HoldoutOffset(int type) {
 			if (type == ItemID.RocketLauncher)
 			{
 				return new Vector2(-16f, -5f);
@@ -33,7 +33,7 @@ namespace TRAEProject.Changes.Weapons.Rockets
                     break;
                 case ItemID.RocketII:
                     item.damage = 20; // down from 50
-                    item.SetNameOverride("Destrutive Rocket");
+                    item.SetNameOverride("Destructive Rocket");
                     break;
                 case ItemID.RocketIV:
                     item.damage = 33; // down from 65

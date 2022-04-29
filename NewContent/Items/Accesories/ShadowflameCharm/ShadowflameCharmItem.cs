@@ -100,7 +100,7 @@ namespace TRAEProject.NewContent.Items.Accesories.ShadowflameCharm
                         num4 = 24f / num4;
                         num2 *= num4;
                         num3 *= num4;
-                        Projectile.NewProjectile(player.GetProjectileSource_SetBonus(5), k, y2, num2, num3, ProjectileType<ShadowflameApparition>(), 50, 0f, player.whoAmI);
+                        Projectile.NewProjectile(player.GetSource_FromThis(), k, y2, num2, num3, ProjectileType<ShadowflameApparition>(), 50, 0f, player.whoAmI);
                         ShadowflameCharmCharge -= 600;
                     }
                 }
@@ -126,7 +126,7 @@ namespace TRAEProject.NewContent.Items.Accesories.ShadowflameCharm
                         num4 = 24f / num4;
                         num2 *= num4;
                         num3 *= num4;
-                        Projectile.NewProjectile(player.GetProjectileSource_SetBonus(5), k, y2, num2, num3, ProjectileType<MoltenApparition>(), 50, 0f, player.whoAmI);
+                        Projectile.NewProjectile(player.GetSource_FromThis(), k, y2, num2, num3, ProjectileType<MoltenApparition>(), 50, 0f, player.whoAmI);
                         MoltenCharmCharge -= 600;
                     }
                 }    

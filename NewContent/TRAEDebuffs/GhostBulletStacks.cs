@@ -23,7 +23,7 @@ namespace TRAEProject.NewContent.TRAEDebuffs
             Vector2 velocity = new Vector2(Main.rand.Next(-100, 101), Main.rand.Next(-100, 0));
             velocity.Normalize();
             velocity *= Main.rand.Next(10, 101) * 0.5f;
-            Projectile.NewProjectile(projectile.GetProjectileSource_FromThis(), npc.position, velocity, ProjectileType<GhostShot>(), projectile.damage, 4f);
+            Projectile.NewProjectile(projectile.GetSource_FromThis(), npc.position, velocity, ProjectileType<GhostShot>(), projectile.damage, 4f);
         }
         public override void CheckDead(NPC npc)
         {

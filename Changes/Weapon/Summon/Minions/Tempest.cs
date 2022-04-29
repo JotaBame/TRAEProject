@@ -154,7 +154,7 @@ namespace TRAEProject.Changes.Weapon.Summon.Minions
                         float calculatedShootAngle = TRAEMethods.PredictiveAim(projectile.Center, shootSpeed, projectile.GetGlobalProjectile<MinionChanges>().target.Center, projectile.GetGlobalProjectile<MinionChanges>().target.velocity, out _);
                         if (!float.IsNaN(calculatedShootAngle))
                         {
-                            Projectile.NewProjectile(projectile.GetProjectileSource_FromThis(), projectile.Center, TRAEMethods.PolarVector(shootSpeed, calculatedShootAngle), ProjectileID.MiniSharkron, projectile.damage, projectile.knockBack, projectile.owner);
+                            Projectile.NewProjectile(projectile.GetSource_FromThis(), projectile.Center, TRAEMethods.PolarVector(shootSpeed, calculatedShootAngle), ProjectileID.MiniSharkron, projectile.damage, projectile.knockBack, projectile.owner);
                         }
 
 

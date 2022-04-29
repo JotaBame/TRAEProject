@@ -142,7 +142,7 @@ namespace TRAEProject
                 Player.wereWolf = true;
                 Player.GetDamage<GenericDamageClass>() += 0.11f;
                 Player.GetCritChance<GenericDamageClass>() += 9;
-                Player.meleeSpeed += 0.07f;
+                Player.GetAttackSpeed(DamageClass.Melee) += 0.07f;
             }
             if (sandRunning)
             {

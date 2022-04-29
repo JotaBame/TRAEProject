@@ -53,7 +53,7 @@ namespace TRAEProject.Changes.NPCs
             Vector2 zero = new Vector2(0, 0);
             if (npc.type == NPCID.BurningSphere && Main.expertMode)
             {
-                Projectile.NewProjectile(npc.GetSpawnSourceForNPCFromNPCAI(), npc.Center, zero, ProjectileType<Boom>(), npc.damage, 0);
+                Projectile.NewProjectile(npc.GetSource_FromAI(), npc.Center, zero, ProjectileType<Boom>(), npc.damage, 0);
             }
         }
     }

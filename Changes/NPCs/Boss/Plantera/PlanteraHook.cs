@@ -34,8 +34,8 @@ namespace TRAEProject.Changes.NPCs.Boss.Plantera
         Player player;
         public override void Kill(int timeLeft)
         {
-            Gore.NewGore(new Vector2(Projectile.position.X + (float)Main.rand.Next(Projectile.width), Projectile.position.Y + (float)Main.rand.Next(Projectile.height)), Projectile.velocity, 390, Projectile.scale);
-            Gore.NewGore(new Vector2(Projectile.position.X + (float)Main.rand.Next(Projectile.width), Projectile.position.Y + (float)Main.rand.Next(Projectile.height)), Projectile.velocity, 391, Projectile.scale);
+            Gore.NewGore(Projectile.GetSource_Death(), new Vector2(Projectile.position.X + (float)Main.rand.Next(Projectile.width), Projectile.position.Y + (float)Main.rand.Next(Projectile.height)), Projectile.velocity, 390, Projectile.scale);
+            Gore.NewGore(Projectile.GetSource_Death(), new Vector2(Projectile.position.X + (float)Main.rand.Next(Projectile.width), Projectile.position.Y + (float)Main.rand.Next(Projectile.height)), Projectile.velocity, 391, Projectile.scale);
 
 
             float dist = (Projectile.Center - (Vector2)anchor).Length();
