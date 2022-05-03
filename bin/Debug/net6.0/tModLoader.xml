@@ -6202,6 +6202,13 @@
             <returns></returns>
             <exception cref="T:System.Exception">Cannot get packet for " + Name + " because it does not exist on the other side</exception>
         </member>
+        <member name="M:Terraria.ModLoader.Mod.CloneRecipe(Terraria.Recipe)">
+            <summary>
+            Creates a clone of the provided recipe except the source mod of the Recipe will be this Mod. The clone will have to registered after being tweaked.
+            </summary>
+            <param name="recipe"></param>
+            <returns></returns>
+        </member>
         <member name="M:Terraria.ModLoader.Mod.Load">
             <summary>
             Override this method to add most of your content to your mod. Here you will call other methods such as AddItem. This is guaranteed to be called after all content has been autoloaded.
@@ -11960,6 +11967,12 @@
             <summary>
             Sets a callback that allows you to determine how many of a certain ingredient is consumed when this recipe is used. Return the number of ingredients that will actually be consumed. By default returns numRequired.
             </summary>
+        </member>
+        <member name="M:Terraria.Recipe.Clone(Terraria.Recipe)">
+            <summary>
+            Returns a copy of the recipe passed in, including the same OnCraftHooks and ConsumeItemHooks. Called only on the result of Recipe.Create to ensure Mod and RecipeIndex set correctly
+            </summary>
+            <param name="recipe">The recipe to clone.</param>
         </member>
         <member name="M:Terraria.Recipe.Register">
             <summary>

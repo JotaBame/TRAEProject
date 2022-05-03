@@ -7,7 +7,7 @@ using TRAEProject.NewContent.Buffs;
 using TRAEProject.Changes.Items;
 using TRAEProject.Common;
 using TRAEProject.Changes;
-using TRAEProject.Changes.Weapon.Summon.Minions;
+using TRAEProject.Changes.Accesory;
 using Terraria.DataStructures;
 using Microsoft.Xna.Framework;
 namespace ChangesBuffs
@@ -52,7 +52,10 @@ namespace ChangesBuffs
                     player.AddBuff(BuffType<NeoFeralBite>(), player.buffTime[buffIndex], false);
                     player.DelBuff(buffIndex);
                     return;
-
+                case BuffID.WaterWalking:
+                    player.AddBuff(BuffType<NeoFeralBite>(), player.buffTime[buffIndex], false);
+                    player.GetModPlayer<MoveSpeed>().TRAEwaterwalk = true;
+                    return;
                 case BuffID.ManaRegeneration:
                     player.GetModPlayer<Mana>().manaRegenBoost += 0.2f;
                     return;

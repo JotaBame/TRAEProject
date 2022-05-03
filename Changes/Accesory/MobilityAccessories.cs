@@ -7,7 +7,12 @@ namespace TRAEProject.Changes.Accesory
 {
     public class MoveSpeed : ModPlayer
     {
-                public override void PreUpdate()
+        public bool TRAEwaterwalk = false;
+        public override void ResetEffects()
+        {
+            TRAEwaterwalk = false;
+        }
+        public override void PreUpdate()
         {
             Player.rocketTimeMax = 7; // without this Obsidian Hover Shoes permanently set it to 14          
    
@@ -16,6 +21,10 @@ namespace TRAEProject.Changes.Accesory
         {
             Player.jumpSpeedBoost += 1f;
             Player.moveSpeed *= 1.33f;
+            if (TRAEwaterwalk)
+            {
+                Player.waterWalk = true;
+            }
         }
     }
     public class MobilityAccessories : GlobalItem
@@ -124,6 +133,7 @@ namespace TRAEProject.Changes.Accesory
                 case ItemID.WaterWalkingBoots:
                     player.GetModPlayer<AccesoryEffects>().waterRunning = true;
                     player.waterWalk = true;
+                    player.GetModPlayer<MoveSpeed>().TRAEwaterwalk = true;
                     return;
                 case ItemID.LavaCharm:
                     player.GetModPlayer<AccesoryEffects>().LavaShield = true;
@@ -131,6 +141,8 @@ namespace TRAEProject.Changes.Accesory
                 case ItemID.LavaWaders:
                     player.GetModPlayer<AccesoryEffects>().waterRunning = true;
                     player.GetModPlayer<AccesoryEffects>().LavaShield = true;
+                    player.GetModPlayer<MoveSpeed>().TRAEwaterwalk = true;
+
                     player.fireWalk = false;
                     player.lavaImmune = true;
                     player.lavaRose = false;
