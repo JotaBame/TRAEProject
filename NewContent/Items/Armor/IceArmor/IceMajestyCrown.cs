@@ -30,7 +30,7 @@ namespace TRAEProject.NewContent.Items.Armor.IceArmor
         public override void UpdateEquip(Player player)
         {
             ++player.maxMinions;
-            player.GetAttackSpeed(DamageClass.SummonMeleeSpeed) *= 1 / 1.2f;
+            player.GetAttackSpeed(DamageClass.SummonMeleeSpeed) += 0.2f;
         }
         public override void AddRecipes()
         {
