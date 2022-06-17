@@ -107,9 +107,10 @@ namespace TRAEProject.Changes.Accesory
                     player.iceSkate = false;
                     player.lavaMax -= 42;
                     player.lavaRose = false;
-
-                    player.fireWalk = false;
-                    player.waterWalk = false;
+		    if (player.fireWalk == false && player.waterWalk == false){
+                        player.fireWalk = false;
+                        player.waterWalk = false;
+		    }
                     player.accRunSpeed = 6f; 
                     player.moveSpeed -= 0.08f; // get rid of the 8% move speed buff separately to not mess up future calcs 
                     player.moveSpeed += 0.25f;
