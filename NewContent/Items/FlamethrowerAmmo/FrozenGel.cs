@@ -21,14 +21,14 @@ namespace TRAEProject.NewContent.Items.FlamethrowerAmmo
 
         public override void SetDefaults()
         {
-            Item.damage = 20;
+            Item.damage = 24;
             Item.DamageType = DamageClass.Ranged;
             Item.knockBack = 0.5f;
             Item.value = Item.sellPrice(0, 0, 10, 0);
             Item.rare = ItemRarityID.Pink;
             Item.width = 24;
             Item.height = 24;
-            Item.shootSpeed = 1;
+            Item.shootSpeed = 0;
             Item.consumable = true;
             Item.shoot = ProjectileType<FrozenGelP>();
             Item.ammo = AmmoID.Gel;
@@ -53,14 +53,22 @@ namespace TRAEProject.NewContent.Items.FlamethrowerAmmo
         public override string Texture => "Terraria/Images/Item_0";
         public override void FlamethrowerDefaults()
         {
-            color1 = new Color(95, 120, 255, 200);
-            color2 = new Color(215, 255, 249, 200);
-            color3 = new Color(95, 160, 255, 200);
-            color4 = new Color(33, 125, 202, 200);
+            ColorMiddle = new Color(95, 120, 255, 225);
+            ColorBack = new Color(215, 255, 249, 225);
+            ColorLerp = new Color(95, 160, 255, 225);
+            ColorSmoke = new Color(33, 125, 202, 200);
             dustID = 135;
-
-            Projectile.GetGlobalProjectile<ProjectileStats>().DamageFalloff = 0.15f;
+            scalemodifier = 0.2f;
+            Projectile.GetGlobalProjectile<ProjectileStats>().DamageFalloff = 0.1f;
         }
+
+        public override bool PreAI()
+        {
+            if (scalemodifier < 2.4f)               
+                scalemodifier += 2f / 60;
+            return true;
+        }
+
     }
 }
 

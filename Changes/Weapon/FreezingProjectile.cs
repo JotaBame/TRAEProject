@@ -31,7 +31,7 @@ namespace TRAEProject.Changes.Projectiles
             }
             if (projectile.type == ProjectileType<FrozenGelP>() && Main.rand.NextBool(10))
             {
-                target.GetGlobalNPC<Freeze>().FreezeMe(target, 45);
+                target.GetGlobalNPC<Freeze>().FreezeMe(target, 60);
             }
             if (projectile.type == ProjectileType<AbsoluteZeroP>() && Main.rand.NextBool(5))
             {

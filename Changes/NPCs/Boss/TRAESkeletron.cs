@@ -15,16 +15,50 @@ namespace TRAEProject.Changes.NPCs.Boss
 		public override void SetDefaults(NPC npc)
         {
             if (GetInstance<TRAEConfig>().SkeletronChanges)
-			{ 
+            {
                 if (npc.type == NPCID.SkeletronHead)
-            {
-				npc.lifeMax = (int)(npc.lifeMax  * ((float)3500 / 4400));
+                {
+                    npc.lifeMax = (int)(npc.lifeMax * ((float)3500 / 4400));
+                }
+                if (npc.type == NPCID.SkeletronHand)
+                {
+                    npc.lifeMax = (int)(npc.lifeMax * ((float)800 / 600));
+                    // basically we take HP off of the head but add it back to the hands
+                }
             }
-			if (npc.type == NPCID.SkeletronHand)
+        }
+
+        void RageDusts(NPC npc)
+		{
+            SoundEngine.PlaySound(SoundID.ForceRoarPitched, npc.Center);
+            Vector2 spinningpoint1 = ((float)Main.rand.NextDouble() * 6.283185f).ToRotationVector2();
+            Vector2 spinningpoint2 = spinningpoint1;
+            float fourToSix = Main.rand.Next(2, 3) * 2;
+            int ten = 10;
+            float OneOrMinusOne = Main.rand.Next(2) == 0 ? 1f : -1f; // one in three chance of it being 1
+            bool flag = true;
+            for (int i = 0; i < ten * fourToSix; ++i) // makes 20 or 30 dusts total
             {
-				npc.lifeMax = (int)(npc.lifeMax  * ((float)800 / 600));
-				// basically we take HP off of the head but add it back to the hands
-            }
+                if (i % ten == 0)
+                {
+                    spinningpoint2 = spinningpoint2.RotatedBy(OneOrMinusOne * (6.28318548202515 / fourToSix), default);
+                    spinningpoint1 = spinningpoint2;
+                    flag = !flag;
+                }
+                else
+                {
+                    float num4 = 6.283185f / (ten * fourToSix);
+                    spinningpoint1 = spinningpoint1.RotatedBy(num4 * OneOrMinusOne * 3.0, default);
+                }
+                float num5 = MathHelper.Lerp(7.5f, 60f, i % ten / ten);
+                int index2 = Dust.NewDust(new Vector2(npc.Center.X, npc.Center.Y), 6, 6, DustID.TreasureSparkle, 0.0f, 0.0f, 100, default, 3f);
+                Dust dust1 = Main.dust[index2];
+                dust1.velocity = Vector2.Multiply(dust1.velocity, 0.1f);
+                Dust dust2 = Main.dust[index2];
+                dust2.velocity = Vector2.Add(dust2.velocity, Vector2.Multiply(spinningpoint1, num5));
+                if (flag)
+                    Main.dust[index2].scale = 0.9f;
+                Main.dust[index2].noGravity = true;
             }
         }
         public override bool PreAI(NPC npc)
@@ -33,7 +67,7 @@ namespace TRAEProject.Changes.NPCs.Boss
 			{
 				if (npc.type == NPCID.SkeletronHead)
 				{
-
+					
 					npc.defense = npc.defDefense;
 					if (npc.ai[0] == 0f && Main.netMode != NetmodeID.MultiplayerClient)
 					{
@@ -150,9 +184,61 @@ namespace TRAEProject.Changes.NPCs.Boss
 
 						}
 					}
+					if (Main.masterMode && npc.life < (int)(npc.lifeMax * 0.15f) && Hands == 0)
+					{
+                        Rectangle r3 = Utils.CenteredRectangle(npc.Center, Vector2.One * npc.width);
+                        Dust.NewDust(r3.TopLeft(), r3.Width, r3.Height, DustID.Shadowflame, 0f, 0f, 0, default, 1f);
 
-					// hovering above the player
-					if (npc.ai[1] == 0f)
+						if (Main.rand.NextBool(3))
+						{
+							int num3 = Dust.NewDust(r3.TopLeft(), r3.Width, r3.Height, DustID.TreasureSparkle, 0f, 0f, 0, default, 0.3f);
+							Main.dust[num3].fadeIn = 1f;
+							Main.dust[num3].velocity *= 0.1f;
+							Main.dust[num3].noLight = true;
+						}
+                        npc.ai[1] = 1f;
+
+						npc.defense -= 10;
+						if (npc.ai[2] != -1f && npc.ai[2] != -2f)
+                        {
+							RageDusts(npc);
+                        
+                            npc.ai[2] = -1f;
+
+
+                        }
+                        if (npc.ai[2] == -1f && npc.life < (int)(npc.lifeMax * 0.075f))
+                        {
+                            RageDusts(npc);
+                            npc.ai[2] = -2f;
+                        }
+                        npc.rotation += npc.direction * 0.3f;
+						Vector2 skeletronPosition = new Vector2(npc.position.X + npc.width * 0.5f, npc.position.Y + npc.height * 0.5f);
+						float playerX3 = Main.player[npc.target].position.X + (Main.player[npc.target].width / 2) - skeletronPosition.X;
+						float playerY3 = Main.player[npc.target].position.Y + (Main.player[npc.target].height / 2) - skeletronPosition.Y;
+						float distance3 = (float)Math.Sqrt(playerX3 * playerX3 + playerY3 * playerY3);
+						float spinVelocity = 6f;
+                        npc.damage = npc.GetAttackDamage_LerpBetweenFinalValues(npc.defDamage, npc.defDamage * 1.3f);
+
+                        if (distance3 > 150f)
+                        {
+                            double extraSpeed = Math.Pow(1.1, ((double)distance3 - 100) / 50);
+                            spinVelocity *= (float)extraSpeed;
+                        }
+						if (npc.life < (int)(npc.lifeMax * 0.05f))
+							spinVelocity *= 1.2f;
+                        distance3 = spinVelocity / distance3;
+                        npc.velocity.X = playerX3 * distance3;
+                        npc.velocity.Y = playerY3 * distance3;
+
+
+
+
+                        return false;
+
+                    }
+                    // hovering above the player
+                    if (npc.ai[1] == 0f)
 					{
 						npc.damage = npc.defDamage;
 						npc.ai[2] += 1f;
@@ -274,48 +360,8 @@ namespace TRAEProject.Changes.NPCs.Boss
 
 								if (npc.life <= (int)(npc.lifeMax * 0.60f))
 								{
-									if (npc.ai[2] == 150f)
-									{
-										SoundEngine.PlaySound(SoundID.ForceRoarPitched, npc.Center);
-										Vector2 spinningpoint1 = ((float)Main.rand.NextDouble() * 6.283185f).ToRotationVector2();
-										Vector2 spinningpoint2 = spinningpoint1;
-										float fourToSix = Main.rand.Next(2, 3) * 2;
-										int ten = 10;
-										float OneOrMinusOne = Main.rand.Next(2) == 0 ? 1f : -1f; // one in three chance of it being 1
-										bool flag = true;
-										for (int i = 0; i < ten * fourToSix; ++i) // makes 20 or 30 dusts total
-										{
-											if (i % ten == 0)
-											{
-												spinningpoint2 = spinningpoint2.RotatedBy(OneOrMinusOne * (6.28318548202515 / fourToSix), default);
-												spinningpoint1 = spinningpoint2;
-												flag = !flag;
-											}
-											else
-											{
-												float num4 = 6.283185f / (ten * fourToSix);
-												spinningpoint1 = spinningpoint1.RotatedBy(num4 * OneOrMinusOne * 3.0, default);
-											}
-											float num5 = MathHelper.Lerp(7.5f, 60f, i % ten / ten);
-											int index2 = Dust.NewDust(new Vector2(npc.Center.X, npc.Center.Y), 6, 6, DustID.TreasureSparkle, 0.0f, 0.0f, 100, default, 3f);
-											Dust dust1 = Main.dust[index2];
-											dust1.velocity = Vector2.Multiply(dust1.velocity, 0.1f);
-											Dust dust2 = Main.dust[index2];
-											dust2.velocity = Vector2.Add(dust2.velocity, Vector2.Multiply(spinningpoint1, num5));
-											if (flag)
-												Main.dust[index2].scale = 0.9f;
-											Main.dust[index2].noGravity = true;
-										}
+                                    spinVelocity *= 1.60f;
 
-									}
-									if (npc.ai[2] >= 150f)
-									{
-										spinVelocity *= 1.70f;
-									}
-									if (npc.life <= (int)(npc.lifeMax * 0.05f))
-									{
-										spinVelocity *= 1.16f;
-									}
 								}
 							}
 						}
@@ -366,6 +412,7 @@ namespace TRAEProject.Changes.NPCs.Boss
 							Main.dust[num180].velocity.Y += 5f;
 						}
 					}
+
 					return false;
 				}
 				if (npc.type == NPCID.SkeletronHand)

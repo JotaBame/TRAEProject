@@ -264,7 +264,7 @@ namespace TRAEProject.NewContent.Items.Accesories.ExtraJumps
 			{
 				RestoreJumps();
 			}
-			if(advFlight)
+			if(advFlight && !Player.TryingToHoverDown)
             {
                 Player.gravControl = false;
                 Player.gravControl2 = false;

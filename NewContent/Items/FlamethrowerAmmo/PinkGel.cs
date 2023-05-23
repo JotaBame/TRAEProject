@@ -37,16 +37,18 @@ namespace TRAEProject.NewContent.Items.FlamethrowerAmmo
         public override string Texture => "Terraria/Images/Item_0";
         public override void FlamethrowerDefaults()
         {
-            color1 = new Color(255, 64, 226, 200);
-            color2 = new Color(255, 110, 180, 200);
-            color3 = Color.Lerp(color1, color2, 0.25f);
-            color4 = new Color(80, 80, 80, 100);
+            ColorMiddle = new Color(255, 64, 226, 200);
+            ColorBack = new Color(255, 145, 193, 200);
+            ColorLerp = Color.Lerp(ColorMiddle, ColorBack, 0.25f);
+            ColorSmoke = new Color(80, 80, 80, 100);
             dustID = DustID.PinkTorch;
+            dustScale = 0.75f;
             Projectile.GetGlobalProjectile<ProjectileStats>().dontHitTheSameEnemyMultipleTimes = true;
             Projectile.GetGlobalProjectile<ProjectileStats>().BouncesOffTiles = true;
             Projectile.GetGlobalProjectile<ProjectileStats>().AddsBuff = BuffID.OnFire;
             Projectile.GetGlobalProjectile<ProjectileStats>().AddsBuffDuration = 300;
             Projectile.GetGlobalProjectile<ProjectileStats>().DamageFalloff = 0.15f;
+            dieInWater = true;
         }
     }
 }

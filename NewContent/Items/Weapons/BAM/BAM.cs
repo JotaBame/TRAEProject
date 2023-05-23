@@ -11,6 +11,7 @@ using TRAEProject.Changes.Weapon.Ranged.Rockets;
 using static Terraria.ModLoader.ModContent;
 using TRAEProject.NewContent.Items.Weapons.Ammo;
 using TRAEProject.NewContent.Items.FlamethrowerAmmo;
+using TRAEProject.NewContent.TRAEDebuffs;
 
 namespace TRAEProject.NewContent.Items.Weapons.BAM
 {
@@ -35,7 +36,7 @@ namespace TRAEProject.NewContent.Items.Weapons.BAM
             Item.value = Item.sellPrice(gold: 5);
             Item.DamageType = DamageClass.Ranged;
             Item.knockBack = 2f;
-            Item.shootSpeed = 6f;
+            Item.shootSpeed = 10f;
             Item.scale = 1.15f;
             Item.noMelee = true;
             Item.useAmmo = AmmoID.Gel;
@@ -54,6 +55,7 @@ namespace TRAEProject.NewContent.Items.Weapons.BAM
             return new Vector2(-5f, 0f);
         }
         int shotCount = 0;
+        int previousType = 0;
         public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
         {
             shotCount++;
@@ -73,12 +75,15 @@ namespace TRAEProject.NewContent.Items.Weapons.BAM
             }
             if (Item.useAmmo == AmmoID.Rocket)
             {
+                Projectile.NewProjectile(source, position.X, position.Y, velocity.X, velocity.Y, previousType, damage, knockback, player.whoAmI);
                 Projectile.NewProjectile(source, position.X, position.Y, velocity.X, velocity.Y, type, (int)(damage * 2f), knockback, player.whoAmI);
                 return false;
 
             }
             if (Item.useAmmo == AmmoID.Dart)
             {
+                Projectile.NewProjectile(source, position.X, position.Y, velocity.X, velocity.Y, previousType, damage, knockback, player.whoAmI);
+
                 float numberProjectiles = 3;
                 float rotation = MathHelper.ToRadians(10);
                 position += Vector2.Normalize(new Vector2(velocity.X, velocity.Y)) * 10f;
@@ -89,6 +94,8 @@ namespace TRAEProject.NewContent.Items.Weapons.BAM
                 }
                 return false;
             }
+            else
+                previousType = type;
             if (shotCount >= 7)
             {
                 shotCount = 0;
@@ -176,17 +183,25 @@ namespace TRAEProject.NewContent.Items.Weapons.BAM
         public override string Texture => "Terraria/Images/Item_0";
         public override void FlamethrowerDefaults()
         {
-            color1 = new Color(33, 255, 164, 200);
-            color2 = new Color(87, 255, 186, 200);
-            color3 = Color.Lerp(color1, color2, 0.25f);
-            color4 = new Color(80, 80, 80, 100);
+            ColorMiddle = new Color(33, 255, 164, 200);
+            ColorBack = new Color(87, 255, 186, 200);
+            ColorLerp = Color.Lerp(ColorMiddle, ColorBack, 0.25f);
+            ColorSmoke = new Color(80, 80, 80, 100);
             dustID = 229;
             dustScale = 0.5f;
             Projectile.GetGlobalProjectile<ProjectileStats>().dontHitTheSameEnemyMultipleTimes = true;
-            Projectile.GetGlobalProjectile<ProjectileStats>().DamageFalloff = 0.1f;
+            Projectile.GetGlobalProjectile<ProjectileStats>().DamageFalloff = 0.05f;
+            Projectile.ArmorPenetration = 40;
+
+        }
+        public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
+        {
+            if (!target.buffImmune[BuffID.OnFire])
+            {
+                TRAEDebuff.Apply<BamFire>(target, 2400, 1);
+            }
         }
     }
-
     public class BAMAttacks : ModPlayer
     {
         public int ammoToUse = 1;

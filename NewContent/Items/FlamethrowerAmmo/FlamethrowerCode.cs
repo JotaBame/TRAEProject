@@ -15,35 +15,41 @@ namespace TRAEProject.NewContent.Items.FlamethrowerAmmo
 {
     public abstract class FlamethrowerProjectile : ModProjectile
     {
+        // these are the defaults for all gels
         public override void SetDefaults()
         {
             Projectile.width = 6;
             Projectile.height = 6;
             Projectile.alpha = 255;
-            Projectile.penetrate = 3;
             Projectile.extraUpdates = 2;
             Projectile.DamageType = DamageClass.Ranged;
             Projectile.hostile = false;
             Projectile.friendly = true;
             Projectile.usesLocalNPCImmunity = true;
             Projectile.localNPCHitCooldown = -1;
+            Projectile.penetrate = 3;
+
+            Projectile.GetGlobalProjectile<ProjectileStats>().DamageFalloff = 0.15f;
+
             FlamethrowerDefaults();
         }
         public virtual void FlamethrowerDefaults()
         {
             
         }
-        protected Color color1 = new Color(255, 80, 20, 200);
-        protected Color color2 = new Color(255, 255, 20, 70);
-        protected Color color3 = Color.Lerp(new Color(80, 255, 20, 100), new Color(255, 255, 20, 70), 0.25f);
-        protected Color color4 = new Color(80, 80, 80, 100);
+        protected Color ColorMiddle = new Color(255, 80, 20, 200);
+        protected Color ColorBack = new Color(255, 255, 20, 70);
+        protected Color ColorLerp = Color.Lerp(new Color(80, 255, 20, 100), new Color(255, 255, 20, 70), 0.25f);
+        protected Color ColorSmoke = new Color(80, 80, 80, 100);
         protected short dustID = DustID.Torch;
         protected float dustScale = 1;
+        protected bool dieInWater = false;
+        protected float scalemodifier = 1f;
 
         public override bool PreDraw(ref Color lightColor)
         {
-            Color[] palette = new Color[] { color1, color2, color3, color4};
-            DrawFlamethrower(color1, color2, color3, color4);
+            Color[] palette = new Color[] { ColorMiddle, ColorBack, ColorLerp, ColorSmoke};
+            DrawFlamethrower(ColorMiddle, ColorBack, ColorLerp, ColorSmoke);
             return false;
         }
         public void DrawFlamethrower(Color color1, Color color2, Color color3, Color color4)
@@ -73,7 +79,7 @@ namespace TRAEProject.NewContent.Items.FlamethrowerAmmo
             float num11 = Utils.Remap(Projectile.localAI[0], num, fromMax, 1f, 0f);
             float num12 = Math.Min(Projectile.localAI[0], 20f);
             float num13 = Utils.Remap(Projectile.localAI[0], 0f, fromMax, 0f, 1f);
-            float num14 = Utils.Remap(num13, 0.2f, 0.5f, 0.25f, 1f);
+            float scale = Utils.Remap(num13, 0.2f, 0.5f, 0.25f, 1f) * scalemodifier;
             Rectangle rectangle = value.Frame(1, num9, 0, 3);
             if (!(num13 < 1f))
             {
@@ -102,14 +108,21 @@ namespace TRAEProject.NewContent.Items.FlamethrowerAmmo
                     switch (i)
                     {
                         case 0:
-                            Main.EntitySpriteDraw(value, vector + Projectile.velocity * (0f - num12) * num6 * 0.5f, rectangle, color6 * num11 * 0.25f, num19 + (float)Math.PI / 4f, rectangle.Size() / 2f, num14, SpriteEffects.None);
-                            Main.EntitySpriteDraw(value, vector, rectangle, color6 * num11, num20, rectangle.Size() / 2f, num14, SpriteEffects.None);
+                            Main.EntitySpriteDraw(value, 
+                                vector + Projectile.velocity * (0f - num12) * num6 * 0.5f, 
+                                rectangle, 
+                                color6 * num11 * 0.25f,
+                                num19 + (float)Math.PI / 4f,
+                                rectangle.Size() / 2f,
+                                scale, 
+                                SpriteEffects.None);
+                            Main.EntitySpriteDraw(value, vector, rectangle, color6 * num11, num20, rectangle.Size() / 2f, scale, SpriteEffects.None);
                             break;
                         case 1:
                             if (!elfMelterProjectile)
                             {
-                                Main.EntitySpriteDraw(value, vector + Projectile.velocity * (0f - num12) * num6 * 0.2f, rectangle, color5 * num11 * 0.25f, num19 + (float)Math.PI / 2f, rectangle.Size() / 2f, num14 * 0.75f, SpriteEffects.None);
-                            Main.EntitySpriteDraw(value, vector, rectangle, color5 * num11, num20 + (float)Math.PI / 2f, rectangle.Size() / 2f, num14 * 0.75f, SpriteEffects.None);
+                                Main.EntitySpriteDraw(value, vector + Projectile.velocity * (0f - num12) * num6 * 0.2f, rectangle, color5 * num11 * 0.25f, num19 + (float)Math.PI / 2f, rectangle.Size() / 2f, scale * 0.75f, SpriteEffects.None);
+                            Main.EntitySpriteDraw(value, vector, rectangle, color5 * num11, num20 + (float)Math.PI / 2f, rectangle.Size() / 2f, scale * 0.75f, SpriteEffects.None);
                             }
                             break;
                     }
@@ -134,9 +147,11 @@ namespace TRAEProject.NewContent.Items.FlamethrowerAmmo
         }
         public override void AI()
         {
+            if (dieInWater && Projectile.wet)
+                Projectile.Kill();
             Projectile.localAI[0] += 1f;
-            int timeBeforeItSlowsDown = 60;
             int timeItFadesOut = 12;
+            int timeBeforeItSlowsDown = 60;
             int maxTime = timeBeforeItSlowsDown + timeItFadesOut;
             if (Projectile.localAI[0] >= maxTime)
             {
@@ -147,11 +162,11 @@ namespace TRAEProject.NewContent.Items.FlamethrowerAmmo
                 Projectile.velocity *= 0.95f;
             }
             bool IsItElfMelter = Projectile.ai[0] == 1f;
-            int timer1 = 50;
-            int timerExclusiveToElfMelter = timer1;
+            int dustTimer = 60;
+            int timerExclusiveToElfMelter = dustTimer;
             if (IsItElfMelter)
             {
-                timer1 = 0;
+                dustTimer = 0;
                 timerExclusiveToElfMelter = timeBeforeItSlowsDown;
             }
             if (Projectile.localAI[0] < (float)timerExclusiveToElfMelter && Main.rand.NextFloat() < 0.25f)
@@ -173,7 +188,7 @@ namespace TRAEProject.NewContent.Items.FlamethrowerAmmo
                 dust.velocity += Projectile.velocity * 1f * Utils.Remap(Projectile.localAI[0], 0f, (float)timeBeforeItSlowsDown * 0.75f, 1f, 0.1f) * Utils.Remap(Projectile.localAI[0], 0f, (float)timeBeforeItSlowsDown * 0.1f, 0.1f, 1f);
                 dust.customData = 1;
             }
-            if (timer1 > 0 && Projectile.localAI[0] >= (float)timer1 && Main.rand.NextFloat() < 0.5f)
+            if (dustTimer > 0 && Projectile.localAI[0] >= (float)dustTimer && Main.rand.NextFloat() < 0.5f)
             {
                 Vector2 center = Main.player[Projectile.owner].Center;
                 Vector2 vector = (Projectile.Center - center).SafeNormalize(Vector2.Zero).RotatedByRandom(0.19634954631328583) * 7f;
@@ -187,7 +202,7 @@ namespace TRAEProject.NewContent.Items.FlamethrowerAmmo
         }
         public override void ModifyDamageHitbox(ref Rectangle hitbox)
         {
-            int num = (int)Utils.Remap(Projectile.localAI[0], 0f, 72f, 10f, 40f);
+            int num = (int)(Utils.Remap(Projectile.localAI[0], 0f, 72f, 10f, 40f) * scalemodifier);
             hitbox.Inflate(num, num);
         }
 

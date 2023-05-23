@@ -18,7 +18,7 @@ namespace TRAEProject.NewContent.Items.FlamethrowerAmmo
         }
         public override void SetDefaults()
         {
-            Item.damage = 10;
+            Item.damage = 13;
             Item.DamageType = DamageClass.Ranged;
             Item.knockBack = 2;
             Item.value = Item.sellPrice(0, 0, 0, 10);
@@ -66,42 +66,23 @@ namespace TRAEProject.NewContent.Items.FlamethrowerAmmo
         }        
         public override void Kill(int timeLeft)
         {
-            int spits = Main.rand.Next(1, 2);
+            int spits = 1;
             for (int i = 0; i < spits; i++)
             {
                 float velX = Main.rand.NextFloat(-2f, 3f) * 3f;
                 float velY = Main.rand.NextFloat(-4f, 4f) * 3f;
                 Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.position.X, Projectile.position.Y, velX, velY, ProjectileType<Ichorthrower>(), Projectile.damage, 1f, Projectile.owner, 0f, 0f);
             }
-            Vector2 spinningpoint1 = ((float)Main.rand.NextDouble() * 6.283185f).ToRotationVector2();
-            Vector2 spinningpoint2 = spinningpoint1;
-            float RandomNumberBetweenSixAndTen = Main.rand.Next(3, 5) * 2;
-            int Fifteen = 5;
-            float OneOrMinusOne = Main.rand.Next(2) == 0 ? 1f : -1f; // one in three chance of it being 1
-            bool flag = true;
-            for (int i = 0; i < Fifteen * RandomNumberBetweenSixAndTen; ++i) // makes 90 or 150 dusts total
+
+
+            for (int i = 0; i < 6; ++i)
             {
-                if (i % Fifteen == 0)
-                {
-                    spinningpoint2 = spinningpoint2.RotatedBy(OneOrMinusOne * (6.28318548202515 / RandomNumberBetweenSixAndTen), default);
-                    spinningpoint1 = spinningpoint2;
-                    flag = !flag;
-                }
-                else
-                {
-                    float num4 = 6.283185f / (Fifteen * RandomNumberBetweenSixAndTen);
-                    spinningpoint1 = spinningpoint1.RotatedBy(num4 * OneOrMinusOne * 3.0, default);
-                }
-                float num5 = MathHelper.Lerp(7.5f, 60f, i % Fifteen / Fifteen);
-                int index2 = Dust.NewDust(new Vector2(Projectile.Center.X, Projectile.Center.Y), 6, 6, DustID.Smoke, 0.0f, 0.0f, 100, default, 3f);
-                Dust dust1 = Main.dust[index2];
-                dust1.velocity = Vector2.Multiply(dust1.velocity, 0.1f);
-                Dust dust2 = Main.dust[index2];
-                dust2.velocity = Vector2.Add(dust2.velocity, Vector2.Multiply(spinningpoint1, num5));
-                if (flag)
-                    Main.dust[index2].scale = 0.9f;
-                Main.dust[index2].noGravity = true;
+                int dust = Dust.NewDust(new Vector2(Projectile.Center.X, Projectile.Center.Y), 6, 6, DustID.Smoke, 0.0f, 0.0f, 100, default, 3f);
+                Main.dust[dust].noGravity = true;
+                Main.dust[dust].velocity *= 0.8f;
+                Main.dust[dust].velocity.Y -= 0.3f;
             }
+
         }
         public override bool OnTileCollide(Vector2 oldVelocity)
         {
@@ -125,7 +106,7 @@ namespace TRAEProject.NewContent.Items.FlamethrowerAmmo
                 Projectile.usesLocalNPCImmunity = true;
                 Projectile.localNPCHitCooldown = 10;
                 Projectile.GetGlobalProjectile<ProjectileStats>().BouncesOffTiles = true;
-                Projectile.GetGlobalProjectile<ProjectileStats>().DirectDamage = 0.75f;
+                Projectile.GetGlobalProjectile<ProjectileStats>().DirectDamage = 0.7f;
                 Projectile.GetGlobalProjectile<ProjectileStats>().AddsBuff = BuffID.Ichor;
                 Projectile.GetGlobalProjectile<ProjectileStats>().AddsBuffDuration = 240;
             }
