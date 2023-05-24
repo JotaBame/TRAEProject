@@ -44,30 +44,30 @@ namespace TRAEProject.Common.ModPlayers
             
 
         }
-        //public override void ModifyHitNPCWithProj(Projectile proj, NPC target, ref NPC.HitModifiers modifiers)
-        //{
-        //    //modifiers.DefenseEffectiveness *= 0.5f;
-        //        float multiplier = critDamage + proj.GetGlobalProjectile<ProjectileStats>().CritDamage;
-        //        if (proj.CountsAsClass(DamageClass.Melee))
-        //        {
-        //            multiplier += meleeCritDamage;
-        //        }
-        //        if (proj.CountsAsClass(DamageClass.Ranged))
-        //        {
-        //            if (proj.arrow)
-        //            {
-        //                multiplier += arrowCritDamage;
-        //            }
-        //            multiplier += rangedCritDamage;
-        //        }
-        //        if (proj.CountsAsClass(DamageClass.Magic))
-        //        {
-        //            multiplier += magicCritDamage;
-        //        }
-        //    modifiers.CritDamage += multiplier;
+        public override void ModifyHitNPCWithProj(Projectile proj, NPC target, ref NPC.HitModifiers modifiers)
+        {
+            //modifiers.DefenseEffectiveness *= 0.5f;
+                float multiplier = critDamage + proj.GetGlobalProjectile<ProjectileStats>().CritDamage;
+                if (proj.CountsAsClass(DamageClass.Melee))
+                {
+                    multiplier += meleeCritDamage;
+                }
+                if (proj.CountsAsClass(DamageClass.Ranged))
+                {
+                    if (proj.arrow)
+                    {
+                        multiplier += arrowCritDamage;
+                    }
+                    multiplier += rangedCritDamage;
+                }
+                if (proj.CountsAsClass(DamageClass.Magic))
+                {
+                    multiplier += magicCritDamage;
+                }
+            modifiers.CritDamage += (multiplier * 2);
 
             
 
-        //}
+        }
     }
 }

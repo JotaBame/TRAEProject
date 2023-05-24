@@ -2381,7 +2381,7 @@
         </member>
         <member name="F:Terraria.ID.ItemID.BannerEffect.ExpertDamageReceived">
             <summary>
-            The percent of damage dealt to players by the NPC this banner represnets in Expert Mode or higher.
+            The percent of damage dealt to players by the NPC this banner represents in Expert Mode or higher.
             </summary>
         </member>
         <member name="F:Terraria.ID.ItemID.BannerEffect.Enabled">
@@ -2665,7 +2665,7 @@
         </member>
         <member name="F:Terraria.ID.ItemID.Sets.DrinkParticleColors">
             <summary>
-            If non-empty for a given item type (<see cref="F:Terraria.Item.type"/>), then that item will create transluscent particles of the retrieved colors when used.
+            If non-empty for a given item type (<see cref="F:Terraria.Item.type"/>), then that item will create translucent particles of the retrieved colors when used.
             <br/> Particles created by this set will drop downwards.
             <br/> Defaults to <c>Array.Empty&lt;Color&gt;</c>.
             </summary>
@@ -2681,7 +2681,7 @@
         </member>
         <member name="F:Terraria.ID.ItemID.Sets.DefaultKillsForBannerNeeded">
             <summary>
-            The default number of NPC kills requried to obtain the NPC's respective banner.
+            The default number of NPC kills required to obtain the NPC's respective banner.
             </summary>
         </member>
         <member name="F:Terraria.ID.ItemID.Sets.KillsToBanner">
@@ -2822,7 +2822,7 @@
         </member>
         <member name="F:Terraria.ID.ItemID.Sets.SortingPriorityBossSpawns">
             <summary>
-            Determines the sorting order of miscellaneous important items, such as boss/event spawners, permanant stat upgrades, and <see cref="F:Terraria.ID.ItemID.MagicMirror"/>-like items.
+            Determines the sorting order of miscellaneous important items, such as boss/event spawners, permanent stat upgrades, and <see cref="F:Terraria.ID.ItemID.MagicMirror"/>-like items.
             <br/> If <c>!= -1</c> for a given item type (<see cref="F:Terraria.Item.type"/>), then that item will fall into the "gameplay" tab of the Journey Mode menu
             <br/> Defaults to <c>-1</c>.
             </summary>
@@ -2968,8 +2968,8 @@
         </member>
         <member name="F:Terraria.ID.ItemID.Sets.BossBag">
             <summary>
-            Set for all boss bags. Causes bags to drop dev armor.
-            <br/> If your bag is pre-hardmode, don't forget to use the <see cref="F:Terraria.ID.ItemID.Sets.PreHardmodeLikeBossBag"/> set in conjuction with this one.
+            Set for all boss bags. Causes bags to drop dev armor and creates a glow around the item when dropped in the world.
+            <br/> If your bag is pre-hardmode, don't forget to use the <see cref="F:Terraria.ID.ItemID.Sets.PreHardmodeLikeBossBag"/> set in conjunction with this one.
             </summary>
         </member>
         <member name="F:Terraria.ID.ItemID.Sets.OpenableBag">
@@ -4016,7 +4016,7 @@
             <br/> A value of <c>3</c> or <c>7</c> will store the NPC's position and rotation in <see cref="F:Terraria.NPC.oldPos"/> and <see cref="F:Terraria.NPC.oldRot"/> respectively every frame.
             <br/> A value of <c>4</c> will store the NPC's position in <see cref="F:Terraria.NPC.oldPos"/> every frame, as well as creating light (0x4D0033) at the NPC's position.
             <br/> Other values will do nothing.
-            <br/> <strong>Vanilla wil not automatically draw trails for you.</strong>
+            <br/> <strong>Vanilla will not automatically draw trails for you.</strong>
             <br/> Defaults to <c>-1</c>.
             </summary>
             <remarks>The length of an NPC's trail is determined by <see cref="F:Terraria.ID.NPCID.Sets.TrailCacheLength"/>.</remarks>
@@ -4026,7 +4026,7 @@
             If <see langword="true"/> for a given NPC type (<see cref="F:Terraria.NPC.type"/>), then that NPC is categorized as a dragonfly.
             <br/> Defaults to <see langword="false"/>.
             </summary>
-            <remarks>Vanilla only uses this set to ensure the <see cref="F:Terraria.ID.ItemID.DragonflyStatue"/> doesn't spawn too many dragonflies without checkng each type individually. It's still recommended to add your NPC to this set if it applies.</remarks>
+            <remarks>Vanilla only uses this set to ensure the <see cref="F:Terraria.ID.ItemID.DragonflyStatue"/> doesn't spawn too many dragonflies without checking each type individually. It's still recommended to add your NPC to this set if it applies.</remarks>
         </member>
         <member name="F:Terraria.ID.NPCID.Sets.BelongsToInvasionOldOnesArmy">
             <summary>
@@ -4042,13 +4042,13 @@
             <br/> Defaults to <see langword="false"/>.
             </summary>
             <remarks>
-            Bosses and tile-phasing (<see cref="F:Terraria.NPC.noTileCollide"/>) NPCs can't be teleproted at all, regardless of this set.
+            Bosses and tile-phasing (<see cref="F:Terraria.NPC.noTileCollide"/>) NPCs can't be teleported at all, regardless of this set.
             </remarks>
         </member>
         <member name="F:Terraria.ID.NPCID.Sets.UsesNewTargetting">
             <summary>
             If <see langword="true"/> for a given NPC type (<see cref="F:Terraria.NPC.type"/>), then that NPC can target other NPCs.
-            <br/> This set does <strong>not</strong> automatically handle NPC targetting. You should use <see cref="M:Terraria.Utilities.NPCUtils.SearchForTarget(Terraria.NPC,Terraria.Utilities.NPCUtils.TargetSearchFlag,Terraria.Utilities.NPCUtils.SearchFilter{Terraria.Player},Terraria.Utilities.NPCUtils.SearchFilter{Terraria.NPC})"/> or any of its overloads to write your own targetting function.
+            <br/> This set does <strong>not</strong> automatically handle NPC targeting. You should use <see cref="M:Terraria.Utilities.NPCUtils.SearchForTarget(Terraria.NPC,Terraria.Utilities.NPCUtils.TargetSearchFlag,Terraria.Utilities.NPCUtils.SearchFilter{Terraria.Player},Terraria.Utilities.NPCUtils.SearchFilter{Terraria.NPC})"/> or any of its overloads to write your own targeting function.
             <br/> Defaults to <see langword="false"/>.
             </summary>
             <remarks>
@@ -4208,7 +4208,7 @@
             If <see langword="true"/> for a given NPC type (<see cref="F:Terraria.NPC.type"/>), then that NPC is immune to the effects of the shimmer.
             <br/> Defaults to <see langword="false"/>.
             </summary>
-            <remarks>To make an NPC ignore the player's shimmer invulnerabilty, use <see cref="F:Terraria.ID.NPCID.Sets.CanHitPastShimmer"/> instead.</remarks>
+            <remarks>To make an NPC ignore the player's shimmer invulnerability, use <see cref="F:Terraria.ID.NPCID.Sets.CanHitPastShimmer"/> instead.</remarks>
         </member>
         <member name="F:Terraria.ID.NPCID.Sets.ShimmerTransformToItem">
             <summary>
@@ -4288,7 +4288,7 @@
         <member name="F:Terraria.ID.NPCID.Sets.Skeletons">
             <summary>
             If <see langword="true"/> for a given NPC type (<see cref="F:Terraria.NPC.type"/>), then that NPC is a type of skeleton.
-            <br/> Skeletons cannot huer the <see cref="F:Terraria.ID.NPCID.SkeletonMerchant"/>.
+            <br/> Skeletons cannot hurt the <see cref="F:Terraria.ID.NPCID.SkeletonMerchant"/>.
             <br/> Defaults to <see langword="false"/>.
             </summary>
         </member>
@@ -4321,21 +4321,21 @@
         <member name="F:Terraria.ID.NPCID.Sets.DangerThatPreventsOtherDangers">
             <summary>
             If <see langword="true"/> for a given NPC type (<see cref="F:Terraria.NPC.type"/>), then that NPC is considered dangerous without having <see cref="F:Terraria.NPC.boss"/> set.
-            <br/> <see cref="F:Terraria.Main.CurrentFrameFlags.AnyActiveBossNPC"/> will be set to <see langword="true"/> if any NPC in this set is alive, and <see cref="M:Terraria.NPC.AnyDanger(System.Boolean,System.Boolean)"/> will rturn <see langword="true"/> if any NPCs in this set are alive.
+            <br/> <see cref="F:Terraria.Main.CurrentFrameFlags.AnyActiveBossNPC"/> will be set to <see langword="true"/> if any NPC in this set is alive, and <see cref="M:Terraria.NPC.AnyDanger(System.Boolean,System.Boolean)"/> will return <see langword="true"/> if any NPCs in this set are alive.
             <br/> Defaults to <see langword="false"/>.
             </summary>
         </member>
         <member name="F:Terraria.ID.NPCID.Sets.MustAlwaysDraw">
             <summary>
-            If <see langword="true"/> for a given NPC type (<see cref="F:Terraria.NPC.type"/>), then that NPC will alays draw, even if its hitbox is off-screen.
+            If <see langword="true"/> for a given NPC type (<see cref="F:Terraria.NPC.type"/>), then that NPC will always draw, even if its hitbox is off-screen.
             <br/> Default to <see langword="false"/>.
             </summary>
         </member>
         <member name="F:Terraria.ID.NPCID.Sets.ExtraTextureCount">
             <summary>
-            The number of extra textrues this town NPC has.
-            <br/> Most extra textures are hatless versions used for parties, though the <see cref="F:Terraria.ID.NPCID.BestiaryGirl"/> has an additional tranformed texture as well.
-            <br/> Unused in vailla.
+            The number of extra textures this town NPC has.
+            <br/> Most extra textures are hatless versions used for parties, though the <see cref="F:Terraria.ID.NPCID.BestiaryGirl"/> has an additional transformed texture as well.
+            <br/> Unused in vanilla.
             <br/> Defaults to <c>0</c>.
             </summary>
         </member>
@@ -4347,7 +4347,7 @@
         </member>
         <member name="F:Terraria.ID.NPCID.Sets.CanHitPastShimmer">
             <summary>
-            If <see langword="true"/> for a given NPC type (<see cref="F:Terraria.NPC.type"/>), then that NPC can players that are submerged in shimmer.
+            If <see langword="true"/> for a given NPC type (<see cref="F:Terraria.NPC.type"/>), then that NPC can hit players that are submerged in shimmer.
             <br/> Defaults to <see langword="false"/>.
             </summary>
             <remarks>Bosses (<see cref="F:Terraria.NPC.boss"/>) and invasion enemies (<see cref="M:Terraria.NPC.GetNPCInvasionGroup(System.Int32)"/>) can always hit shimmered players.</remarks>
@@ -5476,7 +5476,7 @@
         <member name="F:Terraria.ID.ProjectileID.Sets.IsAGolfBall">
             <summary>
             If <see langword="true"/> for a given projectile type (<see cref="F:Terraria.Projectile.type"/>), then that projectile is a kind of golf ball.
-            <br/> Items that "shoot" golf balls can be placed onto tees. if one of thes eitems is in the player's inventory or equipped, then its projectile will be preferred over the standard golf ball.
+            <br/> Items that "shoot" golf balls can be placed onto tees. if one of these items is in the player's inventory or equipped, then its projectile will be preferred over the standard golf ball.
             <br/> Defaults to <see langword="false"/>.
             </summary>
         </member>
@@ -5531,7 +5531,7 @@
         </member>
         <member name="F:Terraria.ID.ProjectileID.Sets.TrailCacheLength">
             <summary>
-            The length of the the trail to store. Each projectile type defaults to 10. Use for drawing trails. Must be used with <see cref="F:Terraria.ID.ProjectileID.Sets.TrailingMode"/> to be used properly. 
+            The length of the trail to store. Each projectile type defaults to 10. Use for drawing trails. Must be used with <see cref="F:Terraria.ID.ProjectileID.Sets.TrailingMode"/> to be used properly. 
             </summary>
         </member>
         <member name="F:Terraria.ID.ProjectileID.Sets.LightPet">
@@ -5564,7 +5564,7 @@
         <member name="F:Terraria.ID.ProjectileID.Sets.IsADD2Turret">
             <summary>
             Iff <see langword="true"/> for a given projectile type (<see cref="F:Terraria.Projectile.type"/>), then that projectile is counted as a DD2 turret.
-            <br/> Items that create DD2 turrets cannot be used before the Old One's Army is cleared at least once, but can be infinitely used during the event for 20 Etehrian Mana.
+            <br/> Items that create DD2 turrets cannot be used before the Old One's Army is cleared at least once, but can be infinitely used during the event for 20 Etherian Mana.
             <br/> All DD2 turrets are cleared when the Old One's Army ends.
             <br/> Defaults to <see langword="false"/>.
             </summary>
@@ -5578,7 +5578,7 @@
         </member>
         <member name="F:Terraria.ID.ProjectileID.Sets.MinionTargettingFeature">
             <summary>
-            If <see langword="true"/> for a given projectile type (<see cref="F:Terraria.Projectile.type"/>), then any item that shoots that projectile can be right-clicked to force minion targetting.
+            If <see langword="true"/> for a given projectile type (<see cref="F:Terraria.Projectile.type"/>), then any item that shoots that projectile can be right-clicked to force minion targeting.
             <br/> Defaults to <see langword="false"/>.
             </summary>
         </member>
@@ -13206,7 +13206,7 @@
             <summary>
             Used to set the character gender based on hairstyle when randomizing a new character. <br />
             If <see cref="F:Terraria.ModLoader.Gender.Unspecified" />, the gender will be randomly rolled. <br />
-            Note that all hairstyles can be selected with either gender. THis is just a defualt for quick randomization.
+            Note that all hairstyles can be selected with either gender. This is just a default for quick randomization.
             </summary>
         </member>
         <member name="P:Terraria.ModLoader.ModHair.AvailableDuringCharacterCreation">

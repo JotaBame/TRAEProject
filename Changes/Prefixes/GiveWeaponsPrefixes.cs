@@ -73,6 +73,8 @@ namespace TRAEProject.Changes.Prefixes
 
 			return;
 		}
+
+		
 		public override int ChoosePrefix(Item item, UnifiedRandom rand)
 		{
 			//reset custom modifiable stats before addign a new prefix
@@ -288,5 +290,6 @@ namespace TRAEProject.Changes.Prefixes
 			}
 			return base.ChoosePrefix(item, rand);
 		}
+		
     }
 }

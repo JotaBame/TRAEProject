@@ -18,8 +18,8 @@ namespace TRAEProject.NewContent.Items.BeholderItems
         }
         public override void SetDefaults()
         {            
-		Item.expert = true;
- Item.width = 28;
+		        Item.expert = true;
+            Item.width = 28;
             Item.height = 28;
             Item.accessory = true;
             Item.rare = ItemRarityID.LightPurple;

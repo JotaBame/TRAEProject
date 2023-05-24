@@ -114,6 +114,10 @@ namespace ChangesArmor
                         {
                             line.Text = "Provides immunity to knockback";
                         }
+                        if (line.Mod == "Terraria" && line.Name == "Tooltip2")
+                        {
+                            line.Text = "";
+                        }
                     }
                 break;
             }
@@ -124,9 +128,9 @@ namespace ChangesArmor
         public float ShroomDodge = 0;
         public float ShroomIframes = 0;
         int noRangedTimer = 0;
-        int maskStartStealthTime = 60;
-        int timeToMax = 5 * 60;
-        float maxMaskDamage = 6f;
+        int maskStartStealthTime = 20;
+        int timeToMax = 5 * 60 - 20;
+        float maxMaskDamage = 4f;
         public float damageMult = 1f;
         float traeStealth = 0f;
         bool maskSet = false;
@@ -157,7 +161,7 @@ namespace ChangesArmor
                     break;
                     case ItemID.ShroomiteMask:
                     maskSet = true;
-                    Player.setBonus = "Build up stealth while not using ranged attacks\nStealth wears off after half a second of resuming ranged attacks\nStealth provides up to 6x ranged damage multiplier";
+                    Player.setBonus = "Build up stealth while not using ranged attacks\nStealth wears off after a second of resuming ranged attacks\nStealth provides up to 4x ranged damage multiplier";
                     if(noRangedTimer < maskStartStealthTime + timeToMax)
                     {
                         noRangedTimer++;
@@ -191,6 +195,8 @@ namespace ChangesArmor
                     break;
                     default:
                         traeStealth = 0;
+                        ShroomDodge = 0;
+                        ShroomIframes = 0;
                     break;
                 }
                 
@@ -198,6 +204,8 @@ namespace ChangesArmor
             else
             {
                 traeStealth = 0;
+                ShroomDodge = 0;
+                ShroomIframes = 0;
             }
             Player.shroomiteStealth = false;
             if(!maskSet)
@@ -248,7 +256,7 @@ namespace ChangesArmor
                     }
                     else
                     {
-                        noRangedTimer = -30;
+                        noRangedTimer = -60;
                         traeStealth = 0f;
                         for(int i =0; i < 100; i++)
                         {
@@ -316,58 +324,3 @@ namespace ChangesArmor
 
 
 
-/*
-
-if (armorSet == "ShroomiteSet")
-{
-    player.setBonus = "Enter a stealth mode while on the ground, significantly increasing ranged abilities";
-}
-
-if (Player.shroomiteStealth && !Player.mount.Active) // Always active while on the ground, Stealth disappears slower, reduced all bonuses by 25%, max damage is reduced by a further 10%.  
-{
-    if (traeStealth <= 0.25f)
-    {
-        traeStealth = 0.25f;
-        if (Main.netMode == NetmodeID.MultiplayerClient)
-        {
-            NetMessage.SendData(MessageID.PlayerStealth, -1, -1, null, Player.whoAmI);
-        }
-    }
-    if (Player.itemAnimation > 0)
-    {
-        traeStealthTimer = 0;
-    }
-    if (Player.velocity.Y == 0 && traeStealth > 0.25f)
-    {
-        traeStealth -= 0.015f;
-    }
-    if (Player.velocity.X > -0.1 && Player.velocity.X < 0.1 && Player.velocity.Y > -0.1 && Player.velocity.Y < 0.1 && Player.mount.Active)
-    {
-        if (traeStealthTimer == 0 && traeStealth > 0f)
-        {
-            traeStealth += 0.015f;
-        }
-    }
-    else
-    {
-        float VelocityY = Math.Abs(Player.velocity.Y);
-        traeStealth += VelocityY * 0.0035f;
-        float Velocity = Math.Abs(Player.velocity.X) + Math.Abs(Player.velocity.Y);
-        traeStealth -= Velocity * 0.0075f;
-        if (traeStealth > 1f)
-        {
-            traeStealth = 1f;
-        }
-        if (Player.mount.Active)
-        {
-            traeStealth = 1f;
-        }
-    }
-    Player.GetDamage<RangedDamageClass>() -= (1f - traeStealth) * 0.2f;// at maximum stealth (0.25, not 0 like in vanilla), damage is increased by 45%. With this code, it's reduced by 20%, making it +25%
-    //Player.aggro -= (int)((1f - traeStealth) * 750f);
-    if (traeStealthTimer > 0)
-    {
-        traeStealthTimer--;
-    }
-}
-*/

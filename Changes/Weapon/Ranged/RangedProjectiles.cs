@@ -136,6 +136,9 @@ namespace TRAEProject.Changes.Projectiles
                     projectile.GetGlobalProjectile<ProjectileStats>().ExplosionRadius = 80;
                     projectile.GetGlobalProjectile<ProjectileStats>().DamageFalloff = 0.25f;
                     return;
+                case ProjectileID.MechanicalPiranha:
+                    projectile.ContinuouslyUpdateDamage = true;
+                    break;
             }
         }
         public override bool TileCollideStyle(Projectile projectile, ref int width, ref int height, ref bool fallThrough, ref Vector2 hitboxCenterFrac)
@@ -518,7 +521,13 @@ namespace TRAEProject.Changes.Projectiles
                             projectile.scale *= 1.004f;
                         }
                     }
-                    return;
+                    break;
+                case ProjectileID.Xenopopper:
+                    if(Main.player[projectile.owner].channel && projectile.timeLeft < 2)
+                    {
+                        projectile.timeLeft = 2;
+                    }
+                    break;
        
             }                    
         }

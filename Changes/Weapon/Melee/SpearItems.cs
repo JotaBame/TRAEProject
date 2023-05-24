@@ -15,6 +15,7 @@ using static Terraria.ModLoader.ModContent;
 
 namespace TRAEProject.Changes.Weapon
 {
+	
 	class SpearItems : GlobalItem
 	{
 		public override bool InstancePerEntity => true;
@@ -323,6 +324,7 @@ namespace TRAEProject.Changes.Weapon
 				}
 			}
         }
+		
         public override int ChoosePrefix(Item item, UnifiedRandom rand)
         {
             if(canGetMeleeModifiers)
@@ -518,5 +520,4 @@ namespace TRAEProject.Changes.Weapon
             }
         }
     }
-
 }

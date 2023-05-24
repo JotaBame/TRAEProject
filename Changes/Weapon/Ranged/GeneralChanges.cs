@@ -166,6 +166,9 @@ namespace TRAEProject.Changes.Weapons
                     item.damage = 10; // down from 16
                     item.knockBack = 2f; // down from 3.5
                     return;
+                case ItemID.Xenopopper:
+                    //item.channel = true;
+                    return;
             }
         }
         public override bool CanConsumeAmmo(Item weapon, Item ammo, Player player)
