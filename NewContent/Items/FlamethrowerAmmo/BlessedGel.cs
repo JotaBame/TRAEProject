@@ -19,7 +19,7 @@ namespace TRAEProject.NewContent.Items.FlamethrowerAmmo
         }
         public override void SetDefaults()
         {
-            Item.damage = 12;
+            Item.damage = 3;
             Item.DamageType = DamageClass.Ranged;
             Item.knockBack = 2;
             Item.value = Item.sellPrice(0, 0, 0, 5);
@@ -36,6 +36,7 @@ namespace TRAEProject.NewContent.Items.FlamethrowerAmmo
         public override void AddRecipes()
         {
             CreateRecipe(2).AddIngredient(ItemID.Gel, 1)
+                .AddIngredient(ItemID.Bone, 1)
                 .AddTile(TileID.WaterCandle)
                 .Register();
         }
@@ -51,8 +52,8 @@ namespace TRAEProject.NewContent.Items.FlamethrowerAmmo
         {
             Projectile.CloneDefaults(ProjectileID.WaterStream);
             AIType = ProjectileID.WaterStream; 
-            Projectile.timeLeft = 240;
-            Projectile.penetrate = 6;
+            Projectile.timeLeft = 210;
+            Projectile.penetrate = 5;
             Projectile.extraUpdates = 2;
             Projectile.ignoreWater = true;
             Projectile.DamageType = DamageClass.Ranged;

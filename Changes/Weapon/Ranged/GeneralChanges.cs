@@ -63,6 +63,7 @@ namespace TRAEProject.Changes.Weapons
                     item.value = Item.buyPrice(gold: 70);
                     return;
                 case ItemID.Uzi:
+                    item.damage = 35; // up from 30
                     item.value = Item.buyPrice(platinum: 1);
                     item.shootSpeed = 5f;
                     item.useTime = 7;
@@ -108,12 +109,6 @@ namespace TRAEProject.Changes.Weapons
                     item.useTime = 29; // down from 34
                     item.useAnimation = 29; // down from 34
                     return;
-                case ItemID.VenusMagnum:
-                    item.damage = 100; // up from 50
-                    item.useTime = 21; // up from 8
-                    item.useAnimation = 21; // up from 8
-                    item.autoReuse = true;
-                    return;
                 case ItemID.NailGun:
                     item.damage = 115; // up from 85
                     item.knockBack = 1f; // up from 0
@@ -137,9 +132,6 @@ namespace TRAEProject.Changes.Weapons
                     item.damage = 42;
                     return;
                 // AMMO
-                case ItemID.MeteorShot:
-                    item.damage = 7;
-                    return;
                 case ItemID.CrystalBullet:
                     item.damage = 7; // down from 9
                     return;

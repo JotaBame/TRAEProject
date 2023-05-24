@@ -7,6 +7,8 @@ using static Terraria.ModLoader.ModContent;
 using Terraria.GameContent.Creative;
 using TRAEProject.Common;
 using TRAEProject.NewContent.TRAEDebuffs;
+using Microsoft.CodeAnalysis;
+using System.Drawing.Text;
 
 namespace TRAEProject.NewContent.Items.FlamethrowerAmmo
 {
@@ -21,7 +23,7 @@ namespace TRAEProject.NewContent.Items.FlamethrowerAmmo
         }
         public override void SetDefaults()
         {
-            Item.damage = 33;
+            Item.damage = 21;
             Item.DamageType = DamageClass.Ranged;
             Item.knockBack = 2;
             Item.value = Item.sellPrice(0, 0, 0, 20);
@@ -61,21 +63,33 @@ namespace TRAEProject.NewContent.Items.FlamethrowerAmmo
             Projectile.ignoreWater = true;
             Projectile.DamageType = DamageClass.Ranged;
             Projectile.hostile = false;
-            Projectile.friendly = true;
+            Projectile.friendly = true; Projectile.GetGlobalProjectile<ProjectileStats>().DamageFalloff = 0.05f;
+
             Projectile.usesLocalNPCImmunity = true;
+            Projectile.localNPCHitCooldown = -1;
         }
         public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
-            BoilingBlood bb = TRAEDebuff.Apply<BoilingBlood>(target, 30, 5);
+            int duration = 30;
+            if (hit.Crit)
+            {
+                duration *= 2;
+                damageDone /= 2;
+
+            }
+            BoilingBlood bb = TRAEDebuff.Apply<BoilingBlood>(target, duration, -1);
             if(bb != null)
             {
+                
                 bb.SetDamage(damageDone);
             }
         }
         public override void AI()
         {
+            Lighting.AddLight(Projectile.position, 0.5f, 0.1f, 0f);
+
             Projectile.localAI[0] += 1;
-            if (Projectile.localAI[0] % 10f == 0f)
+            if (Projectile.localAI[0] % 12f == 0f)
             {
                 Dust.NewDustDirect(Projectile.Center, 0, -1, DustID.Smoke, 0, -1);
             }
@@ -93,9 +107,9 @@ namespace TRAEProject.NewContent.Items.FlamethrowerAmmo
         }
         public override void Kill(int timeLeft)
         {
-            for (int i = 0; i < 3; ++i)
+            for (int i = 0; i < 2; ++i)
             {
-                int dust = Dust.NewDust(new Vector2(Projectile.Center.X, Projectile.Center.Y), 6, 6, DustID.Smoke, 0.0f, 0.0f, 100, default, 3f);
+                int dust = Dust.NewDust(new Vector2(Projectile.Center.X, Projectile.Center.Y), 6, 6, DustID.Smoke, 0.0f, 0.0f, 100, default, 2f);
                 Main.dust[dust].noGravity = true;
                 Main.dust[dust].velocity *= 0.8f;
                 Main.dust[dust].velocity.Y -= 0.3f;

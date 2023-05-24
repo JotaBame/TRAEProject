@@ -26,15 +26,15 @@ namespace TRAEProject.Changes.Weapons.Ranged
             switch (item.type)
             {
                 case ItemID.Flamethrower:
-                    item.damage = 14; // down from 35
-                    item.shootSpeed = 5.33f; // down from 7
+                    item.damage = 9; // down from 35
+                    item.shootSpeed = 5.5f; // down from 7
                     item.useAnimation = 60; // down from 30
                     item.useTime = 8; // up from 6
                     item.knockBack = 0.25f; // down from 0.3
                     item.shoot = ProjectileType<FlameP>();
                     break;
                 case ItemID.ElfMelter:
-                    item.damage = 30;
+                    item.damage = 24;
                     item.useAnimation = 60; // up from 30
                     item.useTime = 6; // up from 6
                     item.shoot = ProjectileType<FrostFlameP>();
@@ -77,16 +77,16 @@ namespace TRAEProject.Changes.Weapons.Ranged
         public override string Texture => "Terraria/Images/Item_0";
         public override void FlamethrowerDefaults()
         {
-            color1 = new Color(255, 80, 20, 200);
-            color2 = new Color(255, 255, 20, 200);
-            color3 = Color.Lerp(color1, color2, 0.25f);
-            color4 = new Color(80, 80, 80, 100);
+            ColorMiddle = new Color(255, 80, 20, 200);
+            ColorBack = new Color(255, 255, 20, 200);
+            ColorLerp = Color.Lerp(ColorMiddle, ColorBack, 0.25f);
+            ColorSmoke = new Color(80, 80, 80, 100);
             dustID = DustID.Torch;
             Projectile.GetGlobalProjectile<ProjectileStats>().dontHitTheSameEnemyMultipleTimes = true;
             Projectile.GetGlobalProjectile<ProjectileStats>().AddsBuff = BuffID.OnFire;
             Projectile.GetGlobalProjectile<ProjectileStats>().AddsBuffDuration = 1200;
-            Projectile.GetGlobalProjectile<ProjectileStats>().DamageFalloff = 0.2f;
             Projectile.ai[0] = 1f;
+            dieInWater = true;
         }
     }
     public class FrostFlameP : FlamethrowerProjectile
@@ -99,15 +99,14 @@ namespace TRAEProject.Changes.Weapons.Ranged
         public override string Texture => "Terraria/Images/Item_0";
         public override void FlamethrowerDefaults()
         {
-            color1 = new Color(255, 80, 20, 200);
-            color2 = new Color(255, 255, 20, 200);
-            color3 = Color.Lerp(color1, color2, 0.25f);
-            color4 = new Color(80, 80, 80, 100);
+            ColorMiddle = new Color(255, 80, 20, 200);
+            ColorBack = new Color(255, 255, 20, 200);
+            ColorLerp = Color.Lerp(ColorMiddle, ColorBack, 0.25f);
+            ColorSmoke = new Color(80, 80, 80, 100);
             dustID = 135;
             Projectile.GetGlobalProjectile<ProjectileStats>().dontHitTheSameEnemyMultipleTimes = true;
-            Projectile.GetGlobalProjectile<ProjectileStats>().AddsBuff = BuffID.OnFire;
+            Projectile.GetGlobalProjectile<ProjectileStats>().AddsBuff = BuffID.Frostburn2;
             Projectile.GetGlobalProjectile<ProjectileStats>().AddsBuffDuration = 1200;
-            Projectile.GetGlobalProjectile<ProjectileStats>().DamageFalloff = 0.15f;
         }
     }
 }

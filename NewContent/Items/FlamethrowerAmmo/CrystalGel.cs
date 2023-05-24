@@ -1,16 +1,16 @@
 
 using Microsoft.Xna.Framework;
 using Terraria;
+using Terraria.DataStructures;
+using Terraria.GameContent.Creative;
 using Terraria.ID;
 using Terraria.ModLoader;
-using static Terraria.ModLoader.ModContent;
-using System;
-using Terraria.GameContent.Creative;
 using TRAEProject.Common;
-using Terraria.DataStructures;
+using TRAEProject.NewContent.TRAEDebuffs;
+using static Terraria.ModLoader.ModContent;
 
 namespace TRAEProject.NewContent.Items.FlamethrowerAmmo
-{        
+{
     public class CrystalGel : ModItem
     {
         public override void SetStaticDefaults()
@@ -22,14 +22,14 @@ namespace TRAEProject.NewContent.Items.FlamethrowerAmmo
         }
         public override void SetDefaults()
         {
-            Item.damage = 0;
+            Item.damage = 7;
             Item.DamageType = DamageClass.Ranged;
             Item.knockBack = 2;
             Item.value = Item.sellPrice(0, 0, 10, 0);
             Item.rare = ItemRarityID.Pink;
             Item.width = 24;
             Item.height = 22;
-            Item.shootSpeed = 0f;
+            Item.shootSpeed = 1f;
             Item.consumable = true;
             Item.shoot = ProjectileType<CrystalGelP>();
             Item.ammo = AmmoID.Gel;
@@ -54,81 +54,98 @@ namespace TRAEProject.NewContent.Items.FlamethrowerAmmo
         public override string Texture => "Terraria/Images/Item_0";
         public override void FlamethrowerDefaults()
         {
-            dustID = Main.rand.NextFromList(DustID.BlueTorch, DustID.PinkTorch, DustID.PurpleTorch);
-            if (dustID == DustID.BlueTorch)
-            {
-                color1 = new Color(20, 80, 255, 200);
-                color2 = new Color(20, 255, 255, 200);
-                color3 = Color.Lerp(color1, color2, 0.25f);
-                color4 = new Color(80, 80, 80, 100);
-            }
-            if (dustID == DustID.PinkTorch)
-            {
-                color1 = new Color(255, 20, 230, 200);
-                color2 = new Color(254, 50, 239, 200);
-                color3 = Color.Lerp(color1, color2, 0.25f);
-                color4 = new Color(80, 80, 80, 100);
-            }
-            if (dustID == DustID.PurpleTorch)
-            {
-                color1 = new Color(187, 20, 255, 200);
-                color2 = new Color(194, 89, 255, 200);
-                color3 = Color.Lerp(color1, color2, 0.25f);
-                color4 = new Color(80, 80, 80, 100);
-            }
+            dustID = DustID.BlueTorch;
+            dustScale = 0.5f;
+            ColorMiddle = new Color(82, 158, 218, 200);
+            ColorBack = new Color(91, 163, 245, 200);
+            ColorLerp = Color.Lerp(ColorMiddle, ColorBack, 0.25f);
+            ColorSmoke = new Color(60, 80, 115, 100);
             Projectile.ArmorPenetration = 25;
-            Projectile.GetGlobalProjectile<ProjectileStats>().homesIn = true;
             Projectile.GetGlobalProjectile<ProjectileStats>().dontHitTheSameEnemyMultipleTimes = true;
             Projectile.GetGlobalProjectile<ProjectileStats>().DamageFalloff = 0.15f;
         }
+
         public override void OnSpawn(IEntitySource source)
         {
-            float rotation = MathHelper.ToRadians(100);
+            float rotation = MathHelper.ToRadians(120);
             for (int i = 0; i < 2; ++i)
             {
                 Vector2 perturbedSpeed = new Vector2(Projectile.velocity.X, Projectile.velocity.Y).RotatedBy(MathHelper.Lerp(-rotation, rotation, i / (2 - 1))) * 0.2f; // Watch out for dividing by 0 if there is only 1 projectile.
-                Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.Center.X, Projectile.Center.Y, Projectile.velocity.X + perturbedSpeed.X, Projectile.velocity.Y + perturbedSpeed.Y, ProjectileType<CrystalGelSplitP>(), Projectile.damage, Projectile.knockBack, Projectile.owner, 0f, ai2: 1f);
-            }
-        }
-        public class CrystalGelSplitP : FlamethrowerProjectile
-        {
-            public override void SetStaticDefaults()
-            {
-                // DisplayName.SetDefault("CursedFlamethrower");     //The English name of the Projectile
+                if (i == 0)
+                    Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.Center.X, Projectile.Center.Y, Projectile.velocity.X + perturbedSpeed.X, Projectile.velocity.Y + perturbedSpeed.Y, ProjectileType<CrystalGelSplitPink>(), (int)(Projectile.damage * 0.5f), Projectile.knockBack, Projectile.owner, 0f, ai2: 1f);
+                if (i == 1)
+                    Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.Center.X, Projectile.Center.Y, Projectile.velocity.X + perturbedSpeed.X, Projectile.velocity.Y + perturbedSpeed.Y, ProjectileType<CrystalGelSplitPurple>(), (int)(Projectile.damage * 0.5f), Projectile.knockBack, Projectile.owner, 0f, ai2: 1f);
 
             }
-            public override string Texture => "Terraria/Images/Item_0";
-            public override void FlamethrowerDefaults()
+        }
+        public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
+        {
+            if (!target.buffImmune[BuffID.OnFire])
             {
-                dustID = Main.rand.NextFromList(DustID.BlueTorch, DustID.PinkTorch, DustID.PurpleTorch);
-                if (dustID == DustID.BlueTorch)
-                {
-                    color1 = new Color(20, 80, 255, 100);
-                    color2 = new Color(20, 255, 255, 100);
-                    color3 = Color.Lerp(color1, color2, 0.25f);
-                    color4 = new Color(80, 80, 80, 100);
-                }
-                if (dustID == DustID.PinkTorch)
-                {
-                    color1 = new Color(255, 20, 230, 100);
-                    color2 = new Color(254, 50, 239, 100);
-                    color3 = Color.Lerp(color1, color2, 0.25f);
-                    color4 = new Color(80, 80, 80, 100);
-                }
-                if (dustID == DustID.PurpleTorch)
-                {
-                    color1 = new Color(187, 20, 255, 100);
-                    color2 = new Color(194, 89, 255, 100);
-                    color3 = Color.Lerp(color1, color2, 0.25f);
-                    color4 = new Color(80, 80, 80, 100);
-                }
-                Projectile.ArmorPenetration = 25;
-                Projectile.GetGlobalProjectile<ProjectileStats>().homesIn = true;
-                Projectile.GetGlobalProjectile<ProjectileStats>().dontHitTheSameEnemyMultipleTimes = true;
-                Projectile.GetGlobalProjectile<ProjectileStats>().DamageFalloff = 0.15f;
+                TRAEDebuff.Apply<CrystalFire>(target, 300, 1);
+            }
+        }
+    }
+    public class CrystalGelSplitPurple : FlamethrowerProjectile
+    {
+        public override void SetStaticDefaults()
+        {
+            // DisplayName.SetDefault("CursedFlamethrower");     //The English name of the Projectile
+
+        }
+        public override string Texture => "Terraria/Images/Item_0";
+        public override void FlamethrowerDefaults()
+        {
+            dustID = DustID.PurpleTorch;
+            scalemodifier = 0.5f; 
+
+            ColorMiddle = new Color(154, 72, 183, 100);
+                ColorBack = new Color(194, 89, 255, 100);
+                ColorLerp = Color.Lerp(ColorMiddle, ColorBack, 0.25f);
+                ColorSmoke = new Color(75, 40, 75, 100);
+            dustScale = 0.5f;
+            Projectile.ArmorPenetration = 25;
+            Projectile.GetGlobalProjectile<ProjectileStats>().dontHitTheSameEnemyMultipleTimes = true;
+            Projectile.GetGlobalProjectile<ProjectileStats>().DamageFalloff = 0.15f;
+        }
+        public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
+        {
+            if (!target.buffImmune[BuffID.OnFire])
+            {
+                TRAEDebuff.Apply<CrystalFire>(target, 300, 1);
+            }
+        }
+    }
+    public class CrystalGelSplitPink : FlamethrowerProjectile
+    {
+        public override void SetStaticDefaults()
+        {
+            // DisplayName.SetDefault("CursedFlamethrower");     //The English name of the Projectile
+
+        }
+        public override string Texture => "Terraria/Images/Item_0";
+        public override void FlamethrowerDefaults()
+        {
+            dustID = DustID.PinkTorch;
+            scalemodifier = 0.5f;
+            ColorMiddle = new Color(255, 88, 178, 100);
+                ColorBack = new Color(254, 132, 231, 100);
+                ColorLerp = Color.Lerp(ColorMiddle, ColorBack, 0.25f);
+                ColorSmoke = new Color(100, 60, 90, 100);
+           
+            Projectile.ArmorPenetration = 25;
+            Projectile.GetGlobalProjectile<ProjectileStats>().dontHitTheSameEnemyMultipleTimes = true;
+            Projectile.GetGlobalProjectile<ProjectileStats>().DamageFalloff = 0.15f;
+        }
+        public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
+        {
+            if (!target.buffImmune[BuffID.OnFire])
+            {
+                TRAEDebuff.Apply<CrystalFire>(target, 300, 1);
             }
         }
     }
 }
+
 
 

@@ -20,14 +20,14 @@ namespace TRAEProject.NewContent.Items.FlamethrowerAmmo
 
         public override void SetDefaults()
         {
-            Item.damage = 18;
+            Item.damage = 3;
             Item.DamageType = DamageClass.Ranged;
             Item.knockBack = 4f;
             Item.value = Item.sellPrice(0, 0, 0, 5);
             Item.rare = ItemRarityID.Orange;
             Item.width = 22;
             Item.height = 18;
-            Item.shootSpeed = 6;
+            Item.shootSpeed = 4.5f;
             Item.consumable = true;
             Item.shoot = ProjectileType<LavaGelP>();
             Item.ammo = AmmoID.Gel;
@@ -35,7 +35,7 @@ namespace TRAEProject.NewContent.Items.FlamethrowerAmmo
         }
         public override void AddRecipes()
         {
-            CreateRecipe(50).AddIngredient(ItemID.Hellstone)
+            CreateRecipe(50).AddIngredient(ItemID.Hellstone, 3)
                 .AddIngredient(ItemID.Gel, 20)
                 .AddTile(TileID.Hellforge)
                 .Register();
@@ -51,15 +51,16 @@ namespace TRAEProject.NewContent.Items.FlamethrowerAmmo
         public override string Texture => "Terraria/Images/Item_0";
         public override void FlamethrowerDefaults()
         {
-            color1 = new Color(255, 67, 67, 200);
-            color2 = new Color(255, 127, 20, 200);
-            color3 = Color.Lerp(color1, color2, 0.25f);
-            color4 = new Color(80, 80, 80, 100);
+            ColorMiddle = new Color(255, 50, 50, 200);
+            ColorBack = new Color(240, 170, 23, 200);
+            ColorLerp = Color.Lerp(ColorMiddle, ColorBack, 0.25f);
+            ColorSmoke = new Color(65, 65, 65, 100);
             dustID = DustID.RedTorch;
-            Projectile.GetGlobalProjectile<ProjectileStats>().homesIn = true;
+            dustScale = 0.8f;
             Projectile.GetGlobalProjectile<ProjectileStats>().AddsBuff = BuffID.OnFire3;
-            Projectile.GetGlobalProjectile<ProjectileStats>().AddsBuffDuration = 240;
-            Projectile.GetGlobalProjectile<ProjectileStats>().DamageFalloff = 0.1f;
+            Projectile.GetGlobalProjectile<ProjectileStats>().AddsBuffDuration = 60;
+            Projectile.GetGlobalProjectile<ProjectileStats>().DamageFalloff = 0.2f;
+            dieInWater = true;
         }
     }
 }

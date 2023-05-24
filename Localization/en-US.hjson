@@ -252,6 +252,9 @@ Mods: {
 			ShortAura.DisplayName: Short Aura
 			TitaniumAura.DisplayName: Titanium Aura
 			PearlwoodAura.DisplayName: Pearlwood Aura
+			BloodFlameP.DisplayName: Blood Flame P
+			CrystalGelSplitPink.DisplayName: Crystal Gel Split Pink
+			CrystalGelSplitPurple.DisplayName: Crystal Gel Split Purple
 		}
 
 		Prefixes: {
@@ -1144,7 +1147,7 @@ Mods: {
 
 			SolarGel: {
 				DisplayName: Sun Gel
-				Tooltip: Shoots a concentrated Solar Flare
+				Tooltip: Shoots a concentrated solar flare
 			}
 
 			DriedRose: {
