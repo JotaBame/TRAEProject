@@ -1507,6 +1507,11 @@ Mods: {
 					Allows auto-jump and reducing gravity
 					'''
 			}
+
+			StarfuryTempleTestItem: {
+				DisplayName: Starfury Temple Test Item
+				Tooltip: ""
+			}
 		}
 
 		NPCs: {
@@ -1543,6 +1548,47 @@ Mods: {
 			OniRoninBannerPlaced.MapEntry: Oni Ronin Banner Placed
 			PhoenixBannerPlaced.MapEntry: Phoenix Banner Placed
 			SalalavaBannerPlaced.MapEntry: Salalava Banner Placed
+		}
+
+		Configs: {
+			TRAEConfig: {
+				DisplayName: TRAEConfig
+
+				PlanteraRework: {
+					Label: Plantera Rework
+					Tooltip: Experimental Plantera Rework, buggy as hell.
+				}
+
+				TwinsRework: {
+					Label: Twins Rework
+					Tooltip: Recommended when mixing multiple mods with boss changes.
+				}
+
+				CultistChanges: {
+					Label: Cultist Changes
+					Tooltip: Recommended when mixing multiple mods with boss changes.
+				}
+
+				DeerclopsChanges: {
+					Label: Deerclops Changes
+					Tooltip: Recommended when mixing multiple mods with boss changes.
+				}
+
+				FishronChanges: {
+					Label: Fishron Changes
+					Tooltip: Recommended when mixing multiple mods with boss changes.
+				}
+
+				QBChanges: {
+					Label: Queen Bee Changes
+					Tooltip: Recommended when mixing multiple mods with boss changes.
+				}
+
+				SkeletronChanges: {
+					Label: Skeletron Changes
+					Tooltip: Recommended when mixing multiple mods with boss changes.
+				}
+			}
 		}
 	}
 }
