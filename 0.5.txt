@@ -182,6 +182,20 @@ Redone HM ore sword changes:
 
 * Rocket Launcher damage 120 -> 110
 
+* Tactical shotgun damage 38 -> 35
+
+* Uzi 
+** damage 30 -> 22
+** now sold by arms dealer at any time in hardmode while not in a graveyard
+** buy price increased to 1 platinum and 50 gold
+
+Gatligator
+** damage 21 -> 18
+** use time 7 -> 5
+** now sold by arms dealer at any time in hardmode while in a graveyard
+** buy price increased to 1 platinum and 50 gold
+
+**
 * Stynger 
 ** direct hit damage increased from 2x to 2.25x 
 ** rocket pierce reduced from infinite to 5

@@ -21,9 +21,9 @@ namespace TRAEProject.NewContent.Items.FlamethrowerAmmo
 
         public override void SetDefaults()
         {
-            Item.damage = 24;
+            Item.damage = 30;
             Item.DamageType = DamageClass.Ranged;
-            Item.knockBack = 0.5f;
+            Item.knockBack = 1f;
             Item.value = Item.sellPrice(0, 0, 10, 0);
             Item.rare = ItemRarityID.Pink;
             Item.width = 24;
@@ -38,7 +38,7 @@ namespace TRAEProject.NewContent.Items.FlamethrowerAmmo
         public override void AddRecipes()
         {
             CreateRecipe(200).AddIngredient(ItemType<IceQueenJewel>())
-                .AddIngredient(ItemID.Gel, 10)
+                .AddIngredient(ItemID.Gel, 20)
                 .AddTile(TileID.Solidifier)
                 .Register();
         }
@@ -59,12 +59,15 @@ namespace TRAEProject.NewContent.Items.FlamethrowerAmmo
             ColorSmoke = new Color(33, 125, 202, 200);
             dustID = 135;
             scalemodifier = 0.2f;
-            Projectile.GetGlobalProjectile<ProjectileStats>().DamageFalloff = 0.1f;
+            Projectile.GetGlobalProjectile<ProjectileStats>().DamageFalloff = 0.15f;
+			Projectile.GetGlobalProjectile<ProjectileStats>().AddsBuff = BuffID.Frostburn2;
+            Projectile.GetGlobalProjectile<ProjectileStats>().AddsBuffDuration = 180;
+			Projectile.penetrate = 5;
         }
 
         public override bool PreAI()
         {
-            if (scalemodifier < 2.4f)               
+            if (scalemodifier < 2.25f)               
                 scalemodifier += 2f / 60;
             return true;
         }

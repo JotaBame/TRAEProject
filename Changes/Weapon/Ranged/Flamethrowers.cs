@@ -28,14 +28,14 @@ namespace TRAEProject.Changes.Weapons.Ranged
                 case ItemID.Flamethrower:
                     item.damage = 9; // down from 35
                     item.shootSpeed = 5.5f; // down from 7
-                    item.useAnimation = 60; // down from 30
+                    item.useAnimation = 40; // down from 30
                     item.useTime = 8; // up from 6
                     item.knockBack = 0.25f; // down from 0.3
                     item.shoot = ProjectileType<FlameP>();
                     break;
                 case ItemID.ElfMelter:
                     item.damage = 24;
-                    item.useAnimation = 60; // up from 30
+                    item.useAnimation = 30; // up from 30
                     item.useTime = 6; // up from 6
                     item.shoot = ProjectileType<FrostFlameP>();
                     break;
@@ -104,6 +104,8 @@ namespace TRAEProject.Changes.Weapons.Ranged
             ColorLerp = Color.Lerp(ColorMiddle, ColorBack, 0.25f);
             ColorSmoke = new Color(80, 80, 80, 100);
             dustID = 135;
+            Projectile.ArmorPenetration = 40;
+            Projectile.penetrate = 5;
             Projectile.GetGlobalProjectile<ProjectileStats>().dontHitTheSameEnemyMultipleTimes = true;
             Projectile.GetGlobalProjectile<ProjectileStats>().AddsBuff = BuffID.Frostburn2;
             Projectile.GetGlobalProjectile<ProjectileStats>().AddsBuffDuration = 1200;

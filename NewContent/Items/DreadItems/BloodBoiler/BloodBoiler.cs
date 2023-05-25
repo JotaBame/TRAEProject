@@ -31,7 +31,7 @@ namespace TRAEProject.NewContent.Items.DreadItems.BloodBoiler
             Item.width = 38;
             Item.height = 32;
             Item.damage = 12;
-            Item.useAnimation = 70;
+            Item.useAnimation = 45;
             Item.useTime = 7;
             Item.autoReuse = true;
             Item.rare = ItemRarityID.LightPurple;

@@ -1132,7 +1132,7 @@ Mods: {
 
 			FrozenGel: {
 				DisplayName: Glacial Gel
-				Tooltip: Create the coldest winds
+				Tooltip: Create the coldest flames
 			}
 
 			IchorGel: {
@@ -1543,6 +1543,48 @@ Mods: {
 			OniRoninBannerPlaced.MapEntry: Oni Ronin Banner Placed
 			PhoenixBannerPlaced.MapEntry: Phoenix Banner Placed
 			SalalavaBannerPlaced.MapEntry: Salalava Banner Placed
+		}
+
+		Configs: {
+			TRAEConfig: {
+				DisplayName: T R A E Config
+				Headers.BossChanges: Boss Changes Header
+
+				PlanteraRework: {
+					Label: Plantera Rework
+					Tooltip: Experimental plantera rework, very buggy
+				}
+
+				TwinsRework: {
+					Label: Twins Rework
+					Tooltip: ""
+				}
+
+				CultistChanges: {
+					Label: Cultist Changes
+					Tooltip: ""
+				}
+
+				DeerclopsChanges: {
+					Label: Deerclops Changes
+					Tooltip: ""
+				}
+
+				FishronChanges: {
+					Label: Duke Fishron Changes
+					Tooltip: ""
+				}
+
+				QBChanges: {
+					Label: Queen Bee Changes
+					Tooltip: ""
+				}
+
+				SkeletronChanges: {
+					Label: Skeletron Changes
+					Tooltip: ""
+				}
+			}
 		}
 	}
 }

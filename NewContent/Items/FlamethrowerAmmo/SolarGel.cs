@@ -7,6 +7,7 @@ using Terraria.GameContent.Creative;
 using TRAEProject.Common;
 using TRAEProject.NewContent.TRAEDebuffs;
 using Microsoft.Xna.Framework;
+using TRAEProject.Changes.Weapon.Ranged;
 
 namespace TRAEProject.NewContent.Items.FlamethrowerAmmo
 {
@@ -22,9 +23,9 @@ namespace TRAEProject.NewContent.Items.FlamethrowerAmmo
 
         public override void SetDefaults()
         {
-            Item.damage = 36;
+            Item.damage = 40;
             Item.DamageType = DamageClass.Ranged;
-            Item.knockBack = 6;
+            Item.knockBack = 7;
             Item.value = Item.sellPrice(0, 0, 10, 0);
             Item.rare = ItemRarityID.Pink;
             Item.width = 20;
@@ -39,7 +40,7 @@ namespace TRAEProject.NewContent.Items.FlamethrowerAmmo
         public override void AddRecipes()
         {
             CreateRecipe(100).AddIngredient(ItemID.LunarTabletFragment)
-                .AddIngredient(ItemID.Gel, 10)
+                .AddIngredient(ItemID.Gel, 20)
                 .AddTile(TileID.Solidifier)
                 .Register();
         }
@@ -61,16 +62,19 @@ namespace TRAEProject.NewContent.Items.FlamethrowerAmmo
             ColorBack = new Color(250, 247, 86, 100);
             ColorLerp = Color.Lerp(ColorMiddle, ColorBack, 0.25f);
             ColorSmoke = new Color(150, 55, 27, 100);
-            dustScale = 0.67f;
+            dustScale = 0.67f; 
+
             Projectile.GetGlobalProjectile<ProjectileStats>().AddsBuff = BuffID.Daybreak;
             Projectile.GetGlobalProjectile<ProjectileStats>().AddsBuffDuration = 120;
-            Projectile.penetrate = -1; 
+            Projectile.penetrate = 5;
+            Projectile.GetGlobalProjectile<ProjectileStats>().DamageFalloff = 0.5f;
+
             Projectile.extraUpdates = 1;
 
         }
         public override void PostAI()
         {
-            if (Projectile.damage == 0)
+            if (Projectile.GetGlobalProjectile<ProjectileStats>().FirstHit)
             {
                 Projectile.velocity *= 0.95f;
                 Projectile.position -= Projectile.velocity;
@@ -78,7 +82,6 @@ namespace TRAEProject.NewContent.Items.FlamethrowerAmmo
         }
         public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
-            Projectile.damage = 0;
             for (int i = 0; i < 20; i++)
             {
                 // Create a new dust

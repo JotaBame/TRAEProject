@@ -467,7 +467,7 @@ namespace TRAEProject.Changes.NPCs.Boss
                                 Vector2 spazposition = new Vector2(npc.position.X + (float)npc.width * 0.5f, npc.position.Y + (float)npc.height * 0.5f);
                                 float playerpositionX = Main.player[npc.target].position.X + (float)(Main.player[npc.target].width / 2) + (float)(num425 * 180) - spazposition.X;
                                 float playerpositionY = Main.player[npc.target].position.Y + (float)(Main.player[npc.target].height / 2) - spazposition.Y;
-                                float playerpositiontospaz = MathF.Sqrt((double)(playerpositionX * playerpositionX + playerpositionY * playerpositionY));
+                                float playerpositiontospaz = MathF.Sqrt((float)(playerpositionX * playerpositionX + playerpositionY * playerpositionY));
                                 if (Main.expertMode)
                                 {
                                     if (playerpositiontospaz > 300f)
