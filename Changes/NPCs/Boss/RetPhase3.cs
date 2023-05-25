@@ -129,7 +129,7 @@ namespace TRAEProject.Changes.NPCs.Boss
             TeleportDust(npc.Center);
             npc.Center = new Vector2(npc.ai[1], npc.ai[3]);
             TeleportDust(npc.Center);
-            SoundEngine.PlaySound(SoundID.Item8);
+            SoundEngine.PlaySound(SoundID.Item8 with { MaxInstances = 0 });
             npc.TargetClosest(false);
             Player player = Main.player[npc.target];
             npc.rotation = (player.Center - npc.Center).ToRotation() - (float)Math.PI /2;
@@ -209,7 +209,7 @@ namespace TRAEProject.Changes.NPCs.Boss
                         Dust.NewDust(npc.position, npc.width, npc.height, 5, (float)Main.rand.Next(-30, 31) * 0.2f, (float)Main.rand.Next(-30, 31) * 0.2f);
                     }
 
-                    Terraria.Audio.SoundEngine.PlaySound(SoundID.ForceRoarPitched, npc.Center);
+                    Terraria.Audio.SoundEngine.PlaySound(SoundID.ForceRoarPitched with { MaxInstances = 0 }, npc.Center);
                 }
             }
             Dust.NewDust(npc.position, npc.width, npc.height, 5, (float)Main.rand.Next(-30, 31) * 0.2f, (float)Main.rand.Next(-30, 31) * 0.2f);
@@ -306,7 +306,7 @@ namespace TRAEProject.Changes.NPCs.Boss
         {
             projectile.width = projectile.height = 500;
             projectile.position += Vector2.One * -1 * (500 - 60) / 2f;
-            SoundEngine.PlaySound(SoundID.Item62, Projectile.position);
+            SoundEngine.PlaySound(SoundID.Item62 with { MaxInstances = 0 }, Projectile.position);
             for (int i = 0; i < 200; i++)
             {
                 float theta = Main.rand.NextFloat(-(float)Math.PI, (float)Math.PI);

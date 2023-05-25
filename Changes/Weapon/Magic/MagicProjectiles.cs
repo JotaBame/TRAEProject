@@ -463,7 +463,7 @@ namespace TRAEProject.Changes.Projectiles
                                 Main.projectile[num332].ai[1] = 600f;
                             }
                         }
-                        Terraria.Audio.SoundEngine.PlaySound(SoundID.Item107, projectile.position);
+                        Terraria.Audio.SoundEngine.PlaySound(SoundID.Item107 with { MaxInstances = 0 }, projectile.position);
                         Gore.NewGore(projectile.GetSource_FromThis(), projectile.Center, -projectile.oldVelocity * 0.2f, 704);
                         Gore.NewGore(projectile.GetSource_FromThis(), projectile.Center, -projectile.oldVelocity * 0.2f, 705);
                         if (projectile.owner == Main.myPlayer)

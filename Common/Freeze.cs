@@ -84,7 +84,7 @@ namespace TRAEProject.Common
             {
                 Dust.NewDust(npc.position, npc.width, npc.height, DustID.Ice);
             }
-            SoundEngine.PlaySound(SoundID.Item27, npc.Center);
+            SoundEngine.PlaySound(SoundID.Item27 with { MaxInstances = 0 }, npc.Center);
         }
         public override bool PreAI(NPC npc)
         {

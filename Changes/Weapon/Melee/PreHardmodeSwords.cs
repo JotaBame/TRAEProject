@@ -155,7 +155,7 @@ namespace TRAEProject.Changes.Weapon.Melee
             switch (item.type)
             {
                 case ItemID.NightsEdge:
-                        Terraria.Audio.SoundEngine.PlaySound(SoundID.Item8);
+                        Terraria.Audio.SoundEngine.PlaySound(SoundID.Item8 with { MaxInstances = 0 });
                         return true;
   
             }

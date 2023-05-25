@@ -30,7 +30,7 @@ namespace TRAEProject.Changes.NPCs.Boss
 
         void RageDusts(NPC npc)
 		{
-            SoundEngine.PlaySound(SoundID.ForceRoarPitched, npc.Center);
+            SoundEngine.PlaySound(SoundID.ForceRoarPitched with { MaxInstances = 0 }, npc.Center);
             Vector2 spinningpoint1 = ((float)Main.rand.NextDouble() * 6.283185f).ToRotationVector2();
             Vector2 spinningpoint2 = spinningpoint1;
             float fourToSix = Main.rand.Next(2, 3) * 2;
@@ -91,7 +91,7 @@ namespace TRAEProject.Changes.NPCs.Boss
 					if ((/*type == 68 ||*/ Main.netMode == 1) && npc.localAI[0] == 0f)
 					{
 						npc.localAI[0] = 1f;
-						SoundEngine.PlaySound(SoundID.Roar, npc.Center);
+						SoundEngine.PlaySound(SoundID.Roar with { MaxInstances = 0 }, npc.Center);
 					}
 					if (Main.player[npc.target].dead || Math.Abs(npc.position.X - Main.player[npc.target].position.X) > 2000f || Math.Abs(npc.position.Y - Main.player[npc.target].position.Y) > 2000f)
 					{
@@ -104,7 +104,7 @@ namespace TRAEProject.Changes.NPCs.Boss
 					if (Main.dayTime && npc.ai[1] != 3f && npc.ai[1] != 2f)
 					{
 						npc.ai[1] = 2f;
-						SoundEngine.PlaySound(SoundID.Roar, npc.Center);
+						SoundEngine.PlaySound(SoundID.Roar with { MaxInstances = 0 }, npc.Center);
 					}
 					int Hands = 0;
 					// expert changes (more defense with more hands, shoot skulls)
@@ -323,7 +323,7 @@ namespace TRAEProject.Changes.NPCs.Boss
 						npc.ai[2] += 1f;
 						if (npc.ai[2] == 2f)
 						{
-							SoundEngine.PlaySound(SoundID.Roar, npc.Center);
+							SoundEngine.PlaySound(SoundID.Roar with { MaxInstances = 0 }, npc.Center);
 						}
 						if (npc.ai[2] >= 400f)
 						{
@@ -759,7 +759,7 @@ namespace TRAEProject.Changes.NPCs.Boss
 			if (Projectile.localAI[0] == 0f)
 			{
 				Projectile.localAI[0] = 1f;
-				SoundEngine.PlaySound(SoundID.Item8, Projectile.position);
+				SoundEngine.PlaySound(SoundID.Item8 with { MaxInstances = 0 }, Projectile.position);
 				for (int num134 = 0; num134 < 3; num134++)
 				{
 					int num135 = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, 27, Projectile.velocity.X, Projectile.velocity.Y, 0, default, 2f);
@@ -826,7 +826,7 @@ namespace TRAEProject.Changes.NPCs.Boss
 		}
 		public override void Kill(int timeLeft)
 		{
-			SoundEngine.PlaySound(SoundID.Dig, Projectile.Center);
+			SoundEngine.PlaySound(SoundID.Dig with { MaxInstances = 0 }, Projectile.Center);
 			for (int index1 = 0; index1 < 20; ++index1)
 			{
 				int index2 = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, DustID.Bone, 0.0f, 0.0f, 100, default, 1f);

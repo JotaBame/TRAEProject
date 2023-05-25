@@ -45,6 +45,7 @@ namespace TRAEProject.NewContent.Items.FlamethrowerAmmo
         protected float dustScale = 1;
         protected bool dieInWater = false;
         protected float scalemodifier = 1f;
+        protected float dustAmount = 0.25f;
 
         public override bool PreDraw(ref Color lightColor)
         {
@@ -87,11 +88,11 @@ namespace TRAEProject.NewContent.Items.FlamethrowerAmmo
             }
             for (int i = 0; i < 2; i++)
             {
-                for (float num15 = 1f; num15 >= 0f; num15 -= num6)
+                for (float j = 1f; j >= 0f; j -= num6)
                 {
                     transparent = ((num13 < 0.1f) ? Color.Lerp(Color.Transparent, color1, Utils.GetLerpValue(0f, 0.1f, num13, clamped: true)) : ((num13 < 0.2f) ? Color.Lerp(color1, color2, Utils.GetLerpValue(0.1f, 0.2f, num13, clamped: true)) : ((num13 < num3) ? color2 : ((num13 < num4) ? Color.Lerp(color2, color3, Utils.GetLerpValue(num3, num4, num13, clamped: true)) : ((num13 < num5) ? Color.Lerp(color3, color4, Utils.GetLerpValue(num4, num5, num13, clamped: true)) : ((!(num13 < 1f)) ? Color.Transparent : Color.Lerp(color4, Color.Transparent, Utils.GetLerpValue(num5, 1f, num13, clamped: true))))))));
-                    float num16 = (1f - num15) * Utils.Remap(num13, 0f, 0.2f, 0f, 1f);
-                    Vector2 vector = Projectile.Center - Main.screenPosition + Projectile.velocity * (0f - num12) * num15;
+                    float num16 = (1f - j) * Utils.Remap(num13, 0f, 0.2f, 0f, 1f);
+                    Vector2 vector = Projectile.Center - Main.screenPosition + Projectile.velocity * (0f - num12) * j;
                     Color color5 = transparent * num16;
                     Color color6 = color5;
                     if (!elfMelterProjectile) 
@@ -102,9 +103,9 @@ namespace TRAEProject.NewContent.Items.FlamethrowerAmmo
                         float num17 = Utils.Remap(Projectile.localAI[0], 20f, fromMax, 0f, 1f);
                         num17 *= num17;
                     }
-                    float num18 = 1f / num6 * (num15 + 1f);
-                    float num19 = Projectile.rotation + num15 * ((float)Math.PI / 2f) + Main.GlobalTimeWrappedHourly * num18 * 2f;
-                    float num20 = Projectile.rotation - num15 * ((float)Math.PI / 2f) - Main.GlobalTimeWrappedHourly * num18 * 2f;
+                    float num18 = 1f / num6 * (j + 1f);
+                    float num19 = Projectile.rotation + j * ((float)Math.PI / 2f) + Main.GlobalTimeWrappedHourly * num18 * 2f;
+                    float num20 = Projectile.rotation - j * ((float)Math.PI / 2f) - Main.GlobalTimeWrappedHourly * num18 * 2f;
                     switch (i)
                     {
                         case 0:
@@ -128,15 +129,26 @@ namespace TRAEProject.NewContent.Items.FlamethrowerAmmo
                     }
                 }
             }
+
             return;
         }
         public override bool? Colliding(Rectangle projHitbox, Rectangle targetHitbox)
         {
-            if (!projHitbox.Intersects(targetHitbox))
-            {
-                return false;
-            }
-            return Collision.CanHit(Projectile.Center, 0, 0, targetHitbox.Center.ToVector2(), 0, 0);
+            float num = 60f;
+            float num2 = 12f;
+            float fromMax = num + num2;
+            float num13 = Utils.Remap(Projectile.localAI[0], 0f, fromMax, 0f, 1f);
+            float scale = Utils.Remap(num13, 0.2f, 0.5f, 0.25f, 1f) * scalemodifier * 50;//visual sprite size is around 55 pixels big
+
+            bool collided = (CheckCircleCollision(scale, Projectile.Center, targetHitbox) || 
+                (CheckCircleCollision(scale, Projectile.Center - Projectile.velocity * 7, targetHitbox) && Projectile.localAI[0] >  3 * Projectile.MaxUpdates) || 
+                (CheckCircleCollision(scale, Projectile.Center - Projectile.velocity * 14, targetHitbox) && Projectile.localAI[0] > 6 * Projectile.MaxUpdates));//projHitbox.Intersects(targetHitbox))
+
+            return collided && Collision.CanHit(Projectile.Center, 0, 0, targetHitbox.Center.ToVector2(), 0, 0);
+        }
+        static bool CheckCircleCollision(float radius, Vector2 circleOrigin, Rectangle targetHitbox)
+        {
+            return circleOrigin.DistanceSQ(targetHitbox.ClosestPointInRect(circleOrigin)) < radius * radius;
         }
         public override bool OnTileCollide(Vector2 oldVelocity)
         {
@@ -169,7 +181,7 @@ namespace TRAEProject.NewContent.Items.FlamethrowerAmmo
                 dustTimer = 0;
                 timerExclusiveToElfMelter = timeBeforeItSlowsDown;
             }
-            if (Projectile.localAI[0] < (float)timerExclusiveToElfMelter && Main.rand.NextFloat() < 0.25f)
+            if (Projectile.localAI[0] < (float)timerExclusiveToElfMelter && Main.rand.NextFloat() < dustAmount)
             {
                 Dust dust = Dust.NewDustDirect(Projectile.Center + Main.rand.NextVector2Circular(60f, 60f) * Utils.Remap(Projectile.localAI[0], 0f, 72f, 0.5f, 1f), 4, 4, dustID, Projectile.velocity.X * 0.2f, Projectile.velocity.Y * 0.2f, 100, Scale: dustScale);
                 if (Main.rand.NextBool(4))
@@ -185,10 +197,10 @@ namespace TRAEProject.NewContent.Items.FlamethrowerAmmo
                 }
                 dust.scale *= 1.5f;
                 dust.velocity *= 1.2f;
-                dust.velocity += Projectile.velocity * 1f * Utils.Remap(Projectile.localAI[0], 0f, (float)timeBeforeItSlowsDown * 0.75f, 1f, 0.1f) * Utils.Remap(Projectile.localAI[0], 0f, (float)timeBeforeItSlowsDown * 0.1f, 0.1f, 1f);
+                dust.velocity += Projectile.velocity * 1f * Utils.Remap(Projectile.localAI[0], 0f, timeBeforeItSlowsDown * 0.75f, 1f, 0.1f) * Utils.Remap(Projectile.localAI[0], 0f, (float)timeBeforeItSlowsDown * 0.1f, 0.1f, 1f);
                 dust.customData = 1;
             }
-            if (dustTimer > 0 && Projectile.localAI[0] >= (float)dustTimer && Main.rand.NextFloat() < 0.5f)
+            if (dustTimer > 0 && Projectile.localAI[0] >= dustTimer && Main.rand.NextFloat() < dustAmount)
             {
                 Vector2 center = Main.player[Projectile.owner].Center;
                 Vector2 vector = (Projectile.Center - center).SafeNormalize(Vector2.Zero).RotatedByRandom(0.19634954631328583) * 7f;
@@ -202,11 +214,9 @@ namespace TRAEProject.NewContent.Items.FlamethrowerAmmo
         }
         public override void ModifyDamageHitbox(ref Rectangle hitbox)
         {
+
             int num = (int)(Utils.Remap(Projectile.localAI[0], 0f, 72f, 10f, 40f) * scalemodifier);
             hitbox.Inflate(num, num);
         }
-
     }
-
-
 }

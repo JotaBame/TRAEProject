@@ -31,7 +31,7 @@ namespace TRAEProject.Changes.Items
         {
             if (item.type == ItemID.Megaphone)
             {
-                SoundEngine.PlaySound(SoundID.Roar, player.position);
+                SoundEngine.PlaySound(SoundID.Roar with { MaxInstances = 0 }, player.position);
                 return true;
             }
             return base.CanUseItem(item, player);

@@ -557,7 +557,7 @@ namespace TRAEProject.Changes.NPCs.Boss
                                     if (npc.localAI[2] > 22f)
                                     {
                                         npc.localAI[2] = 0f;
-                                        Terraria.Audio.SoundEngine.PlaySound(SoundID.Item34, npc.position);
+                                        Terraria.Audio.SoundEngine.PlaySound(SoundID.Item34 with { MaxInstances = 0 }, npc.position);
                                     }
                                     if (Main.netMode != NetmodeID.MultiplayerClient)
                                     {
@@ -585,7 +585,7 @@ namespace TRAEProject.Changes.NPCs.Boss
                                         }
                                         if (npc.soundDelay <= 0)
                                         {
-                                            Terraria.Audio.SoundEngine.PlaySound(SoundID.ForceRoarPitched, npc.Center);
+                                            Terraria.Audio.SoundEngine.PlaySound(SoundID.ForceRoarPitched with { MaxInstances = 0 }, npc.Center);
                                             npc.soundDelay = 240;
                                         }
                                         if (npc.localAI[1] > 8f)

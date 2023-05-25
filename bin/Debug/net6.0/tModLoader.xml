@@ -2950,13 +2950,13 @@
             <br/> Defaults to <see langword="false"/>.
             </summary>
             <remarks>
-            To make a torch placable underwater, use <see cref="F:Terraria.ID.ItemID.Sets.WaterTorches"/>.
+            To make a torch placable underwater, use <see cref="F:Terraria.ID.ItemID.Sets.WaterTorches"/> as well.
             </remarks>
         </member>
         <member name="F:Terraria.ID.ItemID.Sets.WaterTorches">
             <summary>
             If <see langword="true"/> for a given item type (<see cref="F:Terraria.Item.type"/>), then that item is a water torch.
-            <br/> Funtionally identical to <see cref="F:Terraria.ID.ItemID.Sets.Torches"/>, but items in this set also function whilst underwater.
+            <br/> Funtionally identical to <see cref="F:Terraria.ID.ItemID.Sets.Torches"/>, but items in this set also function whilst underwater. Make sure to set <see cref="F:Terraria.ID.ItemID.Sets.Torches"/> as well if using this.
             <br/> Defaults to <see langword="false"/>.
             </summary>
         </member>
@@ -2981,6 +2981,13 @@
             For <see cref="T:Terraria.ModLoader.ModItem"/>s, you can simply use <see cref="M:Terraria.ModLoader.ModItem.CanRightClick"/> or <see cref="M:Terraria.ModLoader.GlobalItem.CanRightClick(Terraria.Item)"/> instead of this set.
             <br/> If you need to check if any item is right-clickable, use <see cref="M:Terraria.ModLoader.ItemLoader.CanRightClick(Terraria.Item)"/>.
             </remarks>
+        </member>
+        <member name="F:Terraria.ID.ItemID.Sets.Glowsticks">
+            <summary>
+            If <see langword="true"/> for a given item type (<see cref="F:Terraria.Item.type"/>), then that item is a glowstick.
+            <br/> Glowsticks work underwater and will be auto-selected by Smart Cursor when the cursor is far away from the player.
+            <br/> Defaults to <see langword="false"/>.
+            </summary>
         </member>
         <member name="F:Terraria.ID.ItemID.Sets.PreHardmodeLikeBossBag">
             <summary>
@@ -4366,8 +4373,12 @@
         </member>
         <member name="F:Terraria.ID.NPCID.Sets.ActsLikeTownNPC">
             <summary>
-            Whether or not a given NPC will act like a town NPC in terms of AI, animations, and attacks, but not in other regards, such as having a happiness button or appearing
-            on the minimap, like the bone merchant in vanilla.
+            Whether or not a given NPC will act like a town NPC in terms of AI, animations, and attacks, but not in other regards, such as appearing on the minimap, like the bone merchant in vanilla.
+            </summary>
+        </member>
+        <member name="F:Terraria.ID.NPCID.Sets.NoTownNPCHappiness">
+            <summary>
+            If true, the given NPC will not count towards town NPC happiness and won't have a happiness button. Pets (<see cref="F:Terraria.ID.NPCID.Sets.IsTownPet"/>) do not need to set this.
             </summary>
         </member>
         <member name="F:Terraria.ID.NPCID.Sets.SpawnsWithCustomName">
@@ -5821,7 +5832,11 @@
             <summary> Whether or not this tile is a valid spawn point. </summary>
         </member>
         <member name="F:Terraria.ID.TileID.Sets.Torch">
-            <summary> Whether or not this tile behaves like a torch. If you are making a torch tile, then setting this to true is necessary in order for tile placement, tile framing, and the item's smart selection to work properly. </summary>
+            <summary> Whether or not this tile behaves like a torch. If you are making a torch tile, then setting this to true is necessary in order for tile placement, tile framing, and the item's smart selection to work properly. Each item that places torch tiles should also set <see cref="F:Terraria.ID.ItemID.Sets.Torches"/>.</summary>
+        </member>
+        <member name="F:Terraria.ID.TileID.Sets.Campfire">
+            <summary> Whether or not this tile behaves like a campfire. Campfires must be 3x2 and need to follow the vanilla layout with the on state being at the top of the texture. Padding must also be present in the same manner, resulting in a 54x36 section for each style. The animation, however, can be done with a separate flame texture if desired. <br/>
+            Necessary for block swap and Marshmallow on a Stick features.</summary>
         </member>
         <member name="F:Terraria.ID.TileID.Sets.Clock">
             <summary> Whether or not this tile is a clock. </summary>
@@ -7350,6 +7365,9 @@
         <member name="F:Terraria.Main.tileFrameImportant">
             <summary> Set to true if this is not a typical Terrain tile. Terrain tiles are 1x1 tiles that automatically adjust their frame values to nearby tiles. They don't have a TileObjectData.
             <br/> All non-1x1 tiles should set this to true. All 1x1 tiles that have a TileObjectData or that shoud preserve frame data should set this to true. </summary>
+        </member>
+        <member name="F:Terraria.Main.tileFlame">
+            <summary>If true, indicates that a tile has a flame texture that will draw over the tile. Modded tiles should not use this. <see cref="M:Terraria.ModLoader.ModBlockType.PostDraw(System.Int32,System.Int32,Microsoft.Xna.Framework.Graphics.SpriteBatch)"/> can be used to manually draw a flame texture.</summary>
         </member>
         <member name="F:Terraria.Main.npcCatchable">
             <summary>
@@ -12537,6 +12555,16 @@
             <br/>Unlike <see cref="T:Terraria.ModLoader.ModSceneEffect"/>, this defaults <see cref="P:Terraria.ModLoader.ModBiome.Music"/> to 0 and <see cref="P:Terraria.ModLoader.ModBiome.Priority"/> to <see cref="F:Terraria.ModLoader.SceneEffectPriority.BiomeLow"/>.
             </summary>
         </member>
+        <member name="P:Terraria.ModLoader.ModBiome.BiomeTorchItemType">
+            <summary>
+            The torch item type that will be placed when under the effect of biome torches
+            </summary>
+        </member>
+        <member name="P:Terraria.ModLoader.ModBiome.BiomeCampfireItemType">
+            <summary>
+            The campfire item type that will be placed when under the effect of biome torches
+            </summary>
+        </member>
         <member name="P:Terraria.ModLoader.ModBiome.DisplayName">
             <summary>
             The display name for this biome in the bestiary.
@@ -14105,14 +14133,6 @@
             <param name="extractinatorBlockType">Which Extractinator tile is being used, <see cref="F:Terraria.ID.TileID.Extractinator"/> or <see cref="F:Terraria.ID.TileID.ChlorophyteExtractinator"/>.</param>
             <param name="resultType">Type of the result.</param>
             <param name="resultStack">The result stack.</param>
-        </member>
-        <member name="M:Terraria.ModLoader.ModItem.AutoLightSelect(System.Boolean@,System.Boolean@,System.Boolean@)">
-            <summary>
-            Allows you to tell the game whether this item is a torch that cannot be placed in liquid, a torch that can be placed in liquid, or a glowstick. This information is used for when the player is holding down the auto-select keybind.
-            </summary>
-            <param name="dryTorch">if set to <c>true</c> [dry torch].</param>
-            <param name="wetTorch">if set to <c>true</c> [wet torch].</param>
-            <param name="glowstick">if set to <c>true</c> [glowstick].</param>
         </member>
         <member name="M:Terraria.ModLoader.ModItem.CaughtFishStack(System.Int32@)">
             <summary>

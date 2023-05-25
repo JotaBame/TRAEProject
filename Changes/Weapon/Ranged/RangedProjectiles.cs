@@ -171,7 +171,7 @@ namespace TRAEProject.Changes.Projectiles
                 if (projectile.ai[1] == 90f)
                 {
                     projectile.ai[1] = 91f;
-                    SoundEngine.PlaySound(SoundID.Item14, projectile.position);
+                    SoundEngine.PlaySound(SoundID.Item14 with { MaxInstances = 0 }, projectile.position);
                     for (int num760 = 0; num760 < 10; num760++)
                     {
                         int num761 = Dust.NewDust(new Vector2(projectile.position.X, projectile.position.Y), projectile.width, projectile.height, 31, 0f, 0f, 100, default(Color), 1.3f);
@@ -404,7 +404,7 @@ namespace TRAEProject.Changes.Projectiles
                     projectile.soundDelay = num68 - num69 * speedMultiplier;
                     if (projectile.ai[0] != 1f)
                     {
-                        SoundEngine.PlaySound(SoundID.Item5, projectile.position);
+                        SoundEngine.PlaySound(SoundID.Item5 with { MaxInstances = 0 }, projectile.position);
                     }
                     projectile.localAI[0] = 12f;
                 }
@@ -608,7 +608,7 @@ namespace TRAEProject.Changes.Projectiles
                     }
                     break;
                 case ProjectileID.StyngerShrapnel:
-                    SoundEngine.PlaySound(SoundID.Item14, projectile.position);
+                    SoundEngine.PlaySound(SoundID.Item14 with { MaxInstances = 0 }, projectile.position);
                     for (int num958 = 0; num958 < 7; num958++)
                     {
                         int num959 = Dust.NewDust(new Vector2(projectile.position.X, projectile.position.Y), projectile.width, projectile.height, 31, 0f, 0f, 100, default(Color), 1.5f);
@@ -718,7 +718,7 @@ namespace TRAEProject.Changes.Projectiles
                     return false;
                 case ProjectileID.ClusterSnowmanFragmentsI:
                     {
-                        SoundEngine.PlaySound(SoundID.Item62, projectile.position);
+                        SoundEngine.PlaySound(SoundID.Item62 with { MaxInstances = 0 }, projectile.position);
                         Color transparent6 = Color.Transparent;
                         for (int num840 = 0; num840 < 15; num840++)
                         {
@@ -765,7 +765,7 @@ namespace TRAEProject.Changes.Projectiles
                     }
                 case ProjectileID.VortexBeaterRocket:
                     {
-                        Terraria.Audio.SoundEngine.PlaySound(SoundID.Item14, projectile.position);
+                        Terraria.Audio.SoundEngine.PlaySound(SoundID.Item14 with { MaxInstances = 0 }, projectile.position);
                         for (int i = 0; i < 4; i++)
                         {
                             Dust.NewDust(new Vector2(projectile.position.X, projectile.position.Y), projectile.width, projectile.height, 31, 0f, 0f, 100, default, 1.5f);
@@ -794,7 +794,7 @@ namespace TRAEProject.Changes.Projectiles
                
                 case ProjectileID.HolyArrow:
                     {
-                        Terraria.Audio.SoundEngine.PlaySound(SoundID.Item10, projectile.position);
+                        Terraria.Audio.SoundEngine.PlaySound(SoundID.Item10 with { MaxInstances = 0 }, projectile.position);
                         for (int i = 0; i < 10; ++i)
                         {
                             Dust.NewDust(projectile.position, projectile.width, projectile.height, 58, projectile.velocity.X * 0.1f, projectile.velocity.Y * 0.1f, 150, default, 1.2f);
@@ -809,7 +809,7 @@ namespace TRAEProject.Changes.Projectiles
                     }
                 case ProjectileID.HallowStar:
                     {
-                        Terraria.Audio.SoundEngine.PlaySound(SoundID.Item10, projectile.position);
+                        Terraria.Audio.SoundEngine.PlaySound(SoundID.Item10 with { MaxInstances = 0 }, projectile.position);
                         int DustCount = 30;
                         int[] DustTypes = { 15, 57, 58 };
                         for (int i = 0; i < DustCount; ++i)

@@ -121,7 +121,7 @@ namespace TRAEProject.NewContent.Items.Weapons.Ammo
                     Projectile.extraUpdates = 100;
                     Projectile.alpha = 255;
                     Projectile.ai[1] = 1;
-					                    SoundEngine.PlaySound(SoundID.Item93, Projectile.position);            
+					                    SoundEngine.PlaySound(SoundID.Item93 with { MaxInstances = 0 }, Projectile.position);            
 
                 }
                 return;

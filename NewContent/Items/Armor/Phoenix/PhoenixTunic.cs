@@ -74,7 +74,7 @@ namespace TRAEProject.NewContent.Items.Armor.Phoenix
             {     
                 if (!Player.HasBuff(BuffType<PhoenixRush>()))
                 {
-                    SoundEngine.PlaySound(SoundID.Item20, Player.Center);
+                    SoundEngine.PlaySound(SoundID.Item20 with { MaxInstances = 0 }, Player.Center);
                     for (int i = 0; i < 50; i++)
                     {
                         Vector2 speed = Main.rand.NextVector2CircularEdge(3.6f, 3.6f);

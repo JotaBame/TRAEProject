@@ -115,7 +115,7 @@ namespace TRAEProject
         }
         public static void DefaultExplosion(Projectile projectile)
         {
-            Terraria.Audio.SoundEngine.PlaySound(SoundID.Item14, projectile.position);
+            Terraria.Audio.SoundEngine.PlaySound(SoundID.Item14 with { MaxInstances = 0 }, projectile.position);
             for (int num731 = 0; num731 < 30; ++num731)
             {
                 int num732 = Dust.NewDust(new Vector2(projectile.position.X, projectile.position.Y), projectile.width, projectile.height, 31, 0f, 0f, 100, default, 2f);

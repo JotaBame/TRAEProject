@@ -223,7 +223,7 @@ namespace TRAEProject.Changes.Weapon.Ranged.Rockets
         public override bool OnTileCollide(Vector2 oldVelocity)
         {
             Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.position.X, Projectile.position.Y, Projectile.velocity.X, Projectile.velocity.Y, ProjectileType<LuminiteBoom>(), 0, 0f, Projectile.owner, 0f, 0f);
-            SoundEngine.PlaySound(SoundID.Item14, Projectile.position);
+            SoundEngine.PlaySound(SoundID.Item14 with { MaxInstances = 0 }, Projectile.position);
             int NPCLimit = 0;
             Player player = Main.player[Projectile.owner];
             float range = 175f;

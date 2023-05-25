@@ -100,7 +100,7 @@ namespace TRAEProject
             {
                 RoyalGelCooldown = 30 * 60;
                 modifiers.SourceDamage.Flat -= 25;
-                SoundEngine.PlaySound(SoundID.NPCDeath1);
+                SoundEngine.PlaySound(SoundID.NPCDeath1 with { MaxInstances = 0 });
                 for (int i = 0; i < 25; ++i)
                 {
                     Vector2 position10 = new Vector2(Player.position.X, Player.position.Y);
@@ -139,7 +139,7 @@ namespace TRAEProject
             {
                 RoyalGelCooldown = 30 * 60;
                 modifiers.SourceDamage.Flat -= 25;
-                SoundEngine.PlaySound(SoundID.NPCDeath1);
+                SoundEngine.PlaySound(SoundID.NPCDeath1 with { MaxInstances = 0 });
                 for (int i = 0; i < 25; ++i)
                 {
                     Vector2 position10 = new Vector2(Player.position.X, Player.position.Y);

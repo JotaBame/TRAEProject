@@ -39,7 +39,7 @@ namespace TRAEProject.NewContent.Items.BeholderItems
             {
                 if (!player.HasBuff<Wipeout>())
                 {
-                    SoundEngine.PlaySound(SoundID.Roar, player.position);
+                    SoundEngine.PlaySound(SoundID.Roar with { MaxInstances = 0 }, player.position);
 
                     return true;
                 }
@@ -117,7 +117,7 @@ namespace TRAEProject.NewContent.Items.BeholderItems
                     }
                     if (killNPCs)
                     {
-                        SoundEngine.PlaySound(SoundID.ForceRoarPitched, Player.position);
+                        SoundEngine.PlaySound(SoundID.ForceRoarPitched with { MaxInstances = 0 }, Player.position);
 
                         Player.KillMe(PlayerDeathReason.ByCustomReason(Player.name + " tried to break the rules"), 666, 0);
                     }

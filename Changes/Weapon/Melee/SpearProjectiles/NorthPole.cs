@@ -104,7 +104,7 @@ namespace TRAEProject.Changes.Weapon.Melee.SpearProjectiles
         }
         public override void Kill(int timeLeft)
         {
-            SoundEngine.PlaySound(SoundID.Item27, Projectile.position);
+            SoundEngine.PlaySound(SoundID.Item27 with { MaxInstances = 0 }, Projectile.position);
             for (int num427 = 4; num427 < 10; num427++)
             {
                 float num428 = Projectile.oldVelocity.X * (30f / (float)num427);

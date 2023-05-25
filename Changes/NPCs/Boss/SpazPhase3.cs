@@ -125,7 +125,7 @@ namespace TRAEProject.Changes.NPCs.Boss
                 if (npc.localAI[2] > 22f)
                 {
                     npc.localAI[2] = 0f;
-                    SoundEngine.PlaySound(SoundID.Item34, npc.position);
+                    SoundEngine.PlaySound(SoundID.Item34 with { MaxInstances = 0 }, npc.position);
                 }
                 if (Main.netMode != 1)
                 {
@@ -229,7 +229,7 @@ namespace TRAEProject.Changes.NPCs.Boss
         {
             if (npc.ai[1] == 1f)
             {
-                Terraria.Audio.SoundEngine.PlaySound(SoundID.Roar, npc.Center);
+                Terraria.Audio.SoundEngine.PlaySound(SoundID.Roar with { MaxInstances = 0 }, npc.Center);
                 //SoundEngine.PlaySound(15, (int)npc.position.X, (int)npc.position.Y, 0);
                 npc.TargetClosest();
                 npc.rotation = (Main.player[npc.target].Center - npc.Center).ToRotation() - (float)Math.PI/2;
@@ -389,7 +389,7 @@ namespace TRAEProject.Changes.NPCs.Boss
                     }
                     //SoundEngine.PlaySound(15, (int)npc.position.X, (int)npc.position.Y, 0);
 
-                    Terraria.Audio.SoundEngine.PlaySound(SoundID.ForceRoarPitched, npc.Center);
+                    Terraria.Audio.SoundEngine.PlaySound(SoundID.ForceRoarPitched with { MaxInstances = 0 }, npc.Center);
                 }
             }
             Dust.NewDust(npc.position, npc.width, npc.height, 5, (float)Main.rand.Next(-30, 31) * 0.2f, (float)Main.rand.Next(-30, 31) * 0.2f);

@@ -29,7 +29,7 @@ namespace TRAEProject.Changes.NPCs.Boss.Plantera
             if(projectile.type == 276 && projectile.localAI[1] == 1)
             {
 
-				SoundEngine.PlaySound(SoundID.NPCHit1, projectile.Center);
+				SoundEngine.PlaySound(SoundID.NPCHit1 with { MaxInstances = 0 }, projectile.Center);
 				Projectile.NewProjectile(projectile.GetSource_FromThis(), projectile.Center, Vector2.Zero, ProjectileType<HostileCloud>(), projectile.damage, 0);
             }
         }
@@ -41,7 +41,7 @@ namespace TRAEProject.Changes.NPCs.Boss.Plantera
 				if (projectile.ai[1] == 0f)
 				{
 					projectile.ai[1] = 1f;
-					SoundEngine.PlaySound(SoundID.Item17, projectile.position);
+					SoundEngine.PlaySound(SoundID.Item17 with { MaxInstances = 0 }, projectile.position);
 				}
 				if (projectile.alpha > 0)
 				{

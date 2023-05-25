@@ -30,7 +30,7 @@ namespace TRAEProject.Changes.Weapon.Melee.SpearProjectiles
                 Player player = Main.player[Projectile.owner];
                 Projectile p = Main.projectile[Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.Center, TRAEMethods.PolarVector(player.HeldItem.shootSpeed * player.GetModPlayer<MeleeStats>().meleeVelocity * (player.GetAttackSpeed(DamageClass.Melee)), direction), ProjectileType<SwordfishThrow>(), (int)(Projectile.damage * 0.6f), Projectile.knockBack, Projectile.owner)];
                 ((SpearThrow)p.ModProjectile).chargeAmt = 1f;
-                SoundEngine.PlaySound(SoundID.Item1, Projectile.Center);
+                SoundEngine.PlaySound(SoundID.Item1 with { MaxInstances = 0 }, Projectile.Center);
                 Projectile.Kill();
             }
         }

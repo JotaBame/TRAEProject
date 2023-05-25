@@ -173,7 +173,7 @@ namespace TRAEProject
             for (int index = 0; index < Player.hurtCooldowns.Length; ++index)
                 Player.hurtCooldowns[index] = Player.immuneTime;
             Player.AddBuff(BuffID.ParryDamageBuff, 600, false);
-            Terraria.Audio.SoundEngine.PlaySound(SoundID.Item37, Player.position);
+            Terraria.Audio.SoundEngine.PlaySound(SoundID.Item37 with { MaxInstances = 0 }, Player.position);
             for (int i = 0; i < 20; i++)
             {
                 Dust dust = Dust.NewDustDirect(Player.position, Player.width, Player.height, 57, 0f, 0f, 255, default, Main.rand.Next(20, 26) * 0.05f);

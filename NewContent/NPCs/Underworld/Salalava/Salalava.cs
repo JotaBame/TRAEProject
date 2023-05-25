@@ -86,7 +86,7 @@ namespace TRAEProject.NewContent.NPCs.Underworld.Salalava
             if (teleportTimer == teleportAt && !onlyOnce)
             {
                 NPC.velocity.Y = -6f;
-                SoundEngine.PlaySound(SoundID.MaxMana, NPC.Center);
+                SoundEngine.PlaySound(SoundID.MaxMana with { MaxInstances = 0 }, NPC.Center);
                 onlyOnce = true; 
                 for (int num70 = 0; num70 < 25; num70++)
                 {
@@ -143,7 +143,7 @@ namespace TRAEProject.NewContent.NPCs.Underworld.Salalava
                     }
 
                     NPC.position += NPC.netOffset;
-                    SoundEngine.PlaySound(SoundID.Item8, NPC.position);
+                    SoundEngine.PlaySound(SoundID.Item8 with { MaxInstances = 0 }, NPC.position);
                 }
 
             }
@@ -188,7 +188,7 @@ namespace TRAEProject.NewContent.NPCs.Underworld.Salalava
                     //NPC.FaceTarget();
                     if (attackTimer == 240f)
                     {
-                        SoundEngine.PlaySound(SoundID.DD2_DrakinBreathIn, NPC.Center);
+                        SoundEngine.PlaySound(SoundID.DD2_DrakinBreathIn with { MaxInstances = 0 }, NPC.Center);
                     }
                     NPC.velocity.X *= 0.9f;
                     for (int i = 0; i < 200; i++)
@@ -204,7 +204,7 @@ namespace TRAEProject.NewContent.NPCs.Underworld.Salalava
                         {
                             if (attackTimer % 10 == 0 && Main.netMode != NetmodeID.MultiplayerClient)
                             {
-                                SoundEngine.PlaySound(SoundID.DD2_OgreRoar, NPC.Center);
+                                SoundEngine.PlaySound(SoundID.DD2_OgreRoar with { MaxInstances = 0 }, NPC.Center);
                                 NPC npc = NPC.NewNPCDirect(NPC.GetSource_FromAI(), (int)NPC.Center.X, (int)NPC.Center.Y, NPCType<Lavalarva>());
                                 npc.velocity.X = Main.rand.NextFloat(-3f, 3f);
                                 npc.velocity.Y = Main.rand.NextFloat(-5f, -7f);
@@ -215,7 +215,7 @@ namespace TRAEProject.NewContent.NPCs.Underworld.Salalava
                         {
                             if (attackTimer % 10 == 0)
                             {
-                                SoundEngine.PlaySound(SoundID.DD2_DrakinShot, NPC.Center);
+                                SoundEngine.PlaySound(SoundID.DD2_DrakinShot with { MaxInstances = 0 }, NPC.Center);
                                 if (Main.netMode != NetmodeID.MultiplayerClient)
                                 {
                                     Vector2 vector3 = Vector2.Normalize(Main.player[NPC.target].Center - NPC.Center) * (NPC.width/* + 20*/) / 2f + NPC.Center;
@@ -405,7 +405,7 @@ namespace TRAEProject.NewContent.NPCs.Underworld.Salalava
         }
         public override void OnKill()
         {
-            SoundEngine.PlaySound(SoundID.Item10, NPC.Center);
+            SoundEngine.PlaySound(SoundID.Item10 with { MaxInstances = 0 }, NPC.Center);
             if (NPC.life <= 0)
             {
                 Vector2 center = NPC.Center;

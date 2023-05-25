@@ -478,7 +478,7 @@ namespace TRAEProject.NewContent.NPCs
 
                 NPC.soundDelay = (int)num1;
 
-                SoundEngine.PlaySound(SoundID.WormDig, NPC.position);
+                SoundEngine.PlaySound(SoundID.WormDig with { MaxInstances = 0 }, NPC.position);
             }
         }
 

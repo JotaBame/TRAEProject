@@ -289,7 +289,8 @@ else if (aiStyle == 74)
 			this.ai[1]++;
 			if (this.ai[1] >= 3f)
 			{
-				SoundEngine.PlaySound(SoundID.Item14, position);
+				SoundEngine.
+				(SoundID.Item14, position);
 				life = 0;
 				HitEffect();
 				active = false;

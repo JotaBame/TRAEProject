@@ -203,7 +203,7 @@ namespace TRAEProject.Changes.NPCs.Boss.Plantera
         {
             if (!playedCharge)
             {
-                SoundEngine.PlaySound(SoundID.Roar, npc.Center);
+                SoundEngine.PlaySound(SoundID.Roar with { MaxInstances = 0 }, npc.Center);
             }
             npc.velocity = TRAEMethods.PolarVector(16, npc.rotation - (float)Math.PI / 2);
             npc.ai[1] += expertSpeedBonus;

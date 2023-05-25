@@ -89,14 +89,14 @@ namespace TRAEProject.NewContent.Items.Weapons.Ammo
                     dust.velocity *= 2f;
                     dust.noGravity = true;
                 }
-                SoundEngine.PlaySound(SoundID.Item45, Projectile.Center);
+                SoundEngine.PlaySound(SoundID.Item45 with { MaxInstances = 0 }, Projectile.Center);
             target.AddBuff(BuffID.Daybreak, 60);
             }
         }
 
         public override void Kill(int timeLeft)    
         {
-            Terraria.Audio.SoundEngine.PlaySound(SoundID.Item10, Projectile.position);
+            Terraria.Audio.SoundEngine.PlaySound(SoundID.Item10 with { MaxInstances = 0 }, Projectile.position);
             for (int i = 0; i < 10; i++)
             {
                 Dust dust = Dust.NewDustDirect(Projectile.oldPosition, Projectile.width, Projectile.height, DustID.HeatRay, 1f);

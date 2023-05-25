@@ -28,7 +28,7 @@ namespace TRAEProject.Changes.Armor
             }
             if (frostArmorCooldown == 599)
             {
-                SoundEngine.PlaySound(SoundID.NPCHit5, Player.Center);
+                SoundEngine.PlaySound(SoundID.NPCHit5 with { MaxInstances = 0 }, Player.Center);
             }
             if (frostArmor && frostArmorCooldown >= 600)
             {
@@ -54,7 +54,7 @@ namespace TRAEProject.Changes.Armor
                         d.noGravity = true;
                     }
                     
-                    SoundEngine.PlaySound(SoundID.Item28, Player.Center);
+                    SoundEngine.PlaySound(SoundID.Item28 with { MaxInstances = 0 }, Player.Center);
                     for (int k = 0; k < 200; k++)
                     {
                         NPC nPC = Main.npc[k];

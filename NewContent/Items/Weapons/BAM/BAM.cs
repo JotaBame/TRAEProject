@@ -62,12 +62,12 @@ namespace TRAEProject.NewContent.Items.Weapons.BAM
             if (shotCount == 4)
             {
                 player.GetModPlayer<BAMAttacks>().ammoToUse = 2;
-                SoundEngine.PlaySound(SoundID.Item61, player.Center);
+                SoundEngine.PlaySound(SoundID.Item61 with { MaxInstances = 0 }, player.Center);
             }
             else if (shotCount == 7)
             {
                 player.GetModPlayer<BAMAttacks>().ammoToUse = 3;
-                SoundEngine.PlaySound(SoundID.Item11, player.Center);
+                SoundEngine.PlaySound(SoundID.Item11 with { MaxInstances = 0 }, player.Center);
             }
             else
             {
