@@ -14,6 +14,8 @@ namespace TRAEProject.NewContent.Items.Weapons.OnyxCurseDoll
 {
     class OnyxCurseDoll : ModItem
     {
+        public const int DrainManaOnHit = 3;
+        public const int DrainManaPassively = 50;
         public override void SetStaticDefaults()
         {
             Terraria.GameContent.Creative.CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
@@ -39,6 +41,8 @@ namespace TRAEProject.NewContent.Items.Weapons.OnyxCurseDoll
             Item.shoot = ProjectileType<CurseDollWeaponflame>();
             Item.useStyle = ItemUseStyleID.Shoot;
             Item.UseSound = SoundID.Item20;
+            Item.GetGlobalItem<TRAEMagicItem>().TooltipDrainManaOnHit = DrainManaOnHit;
+            Item.GetGlobalItem<TRAEMagicItem>().TooltipDrainManaPassively = DrainManaPassively;
         }
         public override Vector2? HoldoutOffset()
         {
@@ -94,8 +98,8 @@ namespace TRAEProject.NewContent.Items.Weapons.OnyxCurseDoll
             Projectile.friendly = true;
             Projectile.ignoreWater = false;
             Projectile.DamageType = DamageClass.Magic; 
-            Projectile.GetGlobalProjectile<MagicProjectile>().DrainManaPassively = 50;
-            Projectile.GetGlobalProjectile<MagicProjectile>().DrainManaOnHit = 3;
+            Projectile.GetGlobalProjectile<MagicProjectile>().DrainManaPassively = OnyxCurseDoll.DrainManaPassively;
+            Projectile.GetGlobalProjectile<MagicProjectile>().DrainManaOnHit = OnyxCurseDoll.DrainManaOnHit;
             Projectile.GetGlobalProjectile<ProjectileStats>().AddsBuff = BuffID.WitheredWeapon;
             Projectile.GetGlobalProjectile<ProjectileStats>().AddsBuffDuration = 300;
             Projectile.usesIDStaticNPCImmunity = true;

@@ -1,7 +1,7 @@
 using Terraria;
 using Microsoft.Xna.Framework;
 using Terraria.ID;
-using TRAEProject.Changes.Projectiles;
+using TRAEProject.Changes.Items;
 using static Terraria.ModLoader.ModContent;
 using Terraria.ModLoader;
 namespace TRAEProject.NewContent.Projectiles
@@ -20,7 +20,8 @@ namespace TRAEProject.NewContent.Projectiles
 			Projectile.height = 38;
             Projectile.scale = 1.15f;
             Projectile.friendly = true; 
-			Projectile.GetGlobalProjectile<MagicProjectile>().DrainManaOnHit = 5;
+			Projectile.GetGlobalProjectile<MagicProjectile>().DrainManaOnHit = TRAEMagicItem.FlaskOnHitCost;
+			Projectile.GetGlobalProjectile<MagicProjectile>().DrainManaPassively = TRAEMagicItem.FlaskPassiveCost;
 			Projectile.DamageType = DamageClass.Magic;
             Projectile.penetrate = -1;
             Projectile.timeLeft = 3600;

@@ -16,9 +16,21 @@ namespace TRAEProject.Changes.Items
 {
     public class TRAEMagicItem : GlobalItem
     {
+        public const int WeatherPainPassiveCost = 25;
+        public const int WeatherPainOnHitCost = 5;
+        public const int TyphoonPassiveCost = 24;
+        public const int TyphoonOnHitCost = 3;
+        public const int ClingerPassiveCost = 30;
+        public const int ClingerOnHitCost = 4;
+        public const int RainbowPassiveCost = 0;
+        public const int RainbowOnHitCost = 3;
+        public const int FlaskPassiveCost = 0;
+        public const int FlaskOnHitCost = 5;
         public override bool InstancePerEntity => true;
         public int disappearTimer = 0; 
         public bool rightClickSideWeapon = false;
+        public int TooltipDrainManaPassively = 0;
+        public int TooltipDrainManaOnHit = 0;
 
         public override GlobalItem Clone(Item item, Item itemClone)
         {
@@ -201,6 +213,8 @@ namespace TRAEProject.Changes.Items
                     return;
                 case ItemID.RainbowRod:
                     item.mana = 36; // up from 21
+                    TooltipDrainManaPassively = RainbowPassiveCost;
+                    TooltipDrainManaOnHit = RainbowOnHitCost;
                     return;
                 case ItemID.MagicalHarp:
                     item.mana = 8; // up from 5
@@ -276,9 +290,13 @@ namespace TRAEProject.Changes.Items
                 case ItemID.WeatherPain:
                     item.mana = 30; // up from 30
                     rightClickSideWeapon = true;
+                    TooltipDrainManaOnHit = WeatherPainOnHitCost;
+                    TooltipDrainManaPassively = WeatherPainPassiveCost;
                     break;
                 case ItemID.ClingerStaff:
                     item.mana = 80; // up from 40
+                    TooltipDrainManaPassively = ClingerPassiveCost;
+                    TooltipDrainManaOnHit = ClingerOnHitCost;
                     rightClickSideWeapon = true;
 
                     return;
@@ -301,6 +319,7 @@ namespace TRAEProject.Changes.Items
                     item.damage = 46; // down from 52
                     item.shootSpeed = 9; // down from 14
                     rightClickSideWeapon = true;
+                    TooltipDrainManaOnHit = FlaskOnHitCost;
                     break;
                 case ItemID.RazorbladeTyphoon:
                     item.damage = 60; // Vanilla value: 60
@@ -309,6 +328,8 @@ namespace TRAEProject.Changes.Items
                     item.autoReuse = false; // changed from true
                     item.mana = 50; // up from 16
                     rightClickSideWeapon = true;
+                    TooltipDrainManaPassively = TyphoonPassiveCost;
+                    TooltipDrainManaOnHit = TyphoonOnHitCost;
                     return;
 				case 2795: // lmg
                     item.mana = 9; // up from 6
@@ -571,6 +592,26 @@ namespace TRAEProject.Changes.Items
         }
         public override void ModifyTooltips(Item item, List<TooltipLine> tooltips)
         {
+            if(TooltipDrainManaOnHit > 0)
+            {
+                foreach (TooltipLine line in tooltips)
+                {
+                    if (line.Mod == "Terraria" && line.Name == "UseMana")
+                    {
+                        line.Text += "\nUses " + (int)(TooltipDrainManaOnHit * Main.LocalPlayer.manaCost) + " mana on hit";
+                    }
+                }   
+            }
+            if(TooltipDrainManaPassively > 0)
+            {
+                foreach (TooltipLine line in tooltips)
+                {
+                    if (line.Mod == "Terraria" && line.Name == "UseMana")
+                    {
+                        line.Text += "\nUses " + (int)(TooltipDrainManaPassively * Main.LocalPlayer.manaCost) + " mana per second";
+                    }
+                }
+            }
             switch (item.type)
             {
                 case ItemID.AquaScepter:
@@ -598,6 +639,10 @@ namespace TRAEProject.Changes.Items
             {
                 foreach (TooltipLine line in tooltips)
                 {
+                    if (item.type == ItemID.BlizzardStaff && line.Mod == "Terraria" && line.Name == "UseMana")
+                    {
+                        line.Text += "\nUses " + (int)(12 * Main.LocalPlayer.manaCost) + " mana per icicle created";
+                    }
                     if (line.Mod == "Terraria" && line.Name == "Tooltip0")
                     {
                         line.Text += "\nRight-click to uncast";

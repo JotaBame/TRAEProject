@@ -228,6 +228,15 @@ namespace TRAEProject.Changes.Weapons
                         }
                     }
                     return;
+                case ItemID.VenomBullet:
+                    foreach (TooltipLine line in tooltips)
+                    {
+                        if (line.Mod == "Terraria" && line.Name == "Tooltip0")
+                        {
+                            line.Text += "\nIgnores 10 defense";
+                        }
+                    }
+                    return;
                 case ItemID.PhoenixBlaster:
                     foreach (TooltipLine line in tooltips)
                     {

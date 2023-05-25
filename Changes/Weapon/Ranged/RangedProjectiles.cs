@@ -57,7 +57,7 @@ namespace TRAEProject.Changes.Projectiles
                     return;
                 case ProjectileID.CrystalShard:
                     projectile.GetGlobalProjectile<ProjectileStats>().DirectDamage = 0.5f;
-                    projectile.GetGlobalProjectile<ProjectileStats>().IgnoresDefense = true;
+                    projectile.ArmorPenetration = 50;
                     return;
                 case ProjectileID.Electrosphere:
                     projectile.usesIDStaticNPCImmunity = true;
@@ -138,6 +138,9 @@ namespace TRAEProject.Changes.Projectiles
                     return;
                 case ProjectileID.MechanicalPiranha:
                     projectile.ContinuouslyUpdateDamage = true;
+                    break;
+                case ProjectileID.VenomBullet:
+                    projectile.ArmorPenetration = 10;
                     break;
             }
         }

@@ -25,7 +25,6 @@ namespace TRAEProject.Common
         public float DamageFallon = 1f; // How much damage the projectile gains every time it hits an enemy. 
         public float DirectDamage = 1f; // how much damage the projectile deals when it hits an enemy, independent of the weapon.
         public float FirstHitDamage = 1f;
-        public bool IgnoresDefense = false; // self-explanatory
         public bool cantCrit = false; // self-explanatory
         public bool dontHitTheSameEnemyMultipleTimes = false;// self-explanatory
                                                              // Bouncing
@@ -53,8 +52,6 @@ namespace TRAEProject.Common
         public bool dontExplodeOnTiles = false;
         public bool UsesDefaultExplosion = false; // Regular rocket Explosions. Helpful if you are too lazy/don't need to create a special explosion effect.
         public bool heavyCritter = false;
-                                                  //
-        int extraAP = 0;
         public float timer = 0;
         public override void AI(Projectile projectile)
         {
@@ -221,11 +218,6 @@ namespace TRAEProject.Common
                 if (hits == maxHits)
                     projectile.damage = 0;
 
-            }
-            if(extraAP > 0)
-            {
-                Main.player[projectile.owner].GetArmorPenetration(DamageClass.Generic) -= extraAP;
-                extraAP = 0;
             }
             if (AddsBuff != 0 && Main.rand.NextBool(AddsBuffChance))
                 target.AddBuff(AddsBuff, AddsBuffDuration);

@@ -127,7 +127,7 @@ namespace TRAEProject.NewContent.Items.Armor.IceArmor
 			Main.projFrames[Projectile.type] = 1;
 			Projectile.penetrate = -1;
 			Projectile.timeLeft = 2;
-			Projectile.GetGlobalProjectile<ProjectileStats>().IgnoresDefense = true;
+			Projectile.ArmorPenetration = 80;
 			Projectile.tileCollide = false;
 			Projectile.minionSlots = 0; // is this needed? Wouldn't the default value be 0 already?
 			Projectile.timeLeft = 2;

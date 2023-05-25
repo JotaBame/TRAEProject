@@ -1,10 +1,10 @@
 {
   "version": 2,
-  "dgSpecHash": "yQsG7suFmKdqXFUFFZUFid3mlsfAiLkh6fGthwD1ucPGFzMAfv/n5jZzzThev4Yb10dvUNAwaShkXshUtPJsjw==",
+  "dgSpecHash": "Lv00gW9OTpn/D5SCBP5WRo4XWayceCrtcLoQjAcY4MHtEygfS8GzUnl5SnkbFgX+Ek9suDsp9TFHdDqWiRou7Q==",
   "success": true,
-  "projectFilePath": "C:\\Users\\lenovo\\Documents\\My Games\\Terraria\\tModLoader\\ModSources\\TRAEProject\\TRAEProject.csproj",
+  "projectFilePath": "/home/noah/.var/app/com.valvesoftware.Steam/.local/share/Terraria/tModLoader/ModSources/TRAEProject/TRAEProject.csproj",
   "expectedPackageFiles": [
-    "C:\\Users\\lenovo\\.nuget\\packages\\tmodloader.codeassist\\0.1.5\\tmodloader.codeassist.0.1.5.nupkg.sha512"
+    "/home/noah/.nuget/packages/tmodloader.codeassist/0.1.5/tmodloader.codeassist.0.1.5.nupkg.sha512"
   ],
   "logs": []
 }

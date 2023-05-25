@@ -9,7 +9,7 @@ using static Terraria.ModLoader.ModContent;
 using static Terraria.ModLoader.PlayerDrawLayer;
 using System;
 
-namespace TRAEProject.Changes.Projectiles
+namespace TRAEProject.Changes.Items
 {
     public class MagicProjectile : GlobalProjectile
     {
@@ -42,9 +42,9 @@ namespace TRAEProject.Changes.Projectiles
                     break;
                 case ProjectileID.WeatherPainShot:
                     projectile.penetrate = -1;
-                    DrainManaOnHit = 5;
+                    DrainManaOnHit = TRAEMagicItem.WeatherPainOnHitCost;
                     projectile.idStaticNPCHitCooldown = 30; // up from 25
-                    DrainManaPassively = 25;
+                    DrainManaPassively = TRAEMagicItem.WeatherPainPassiveCost;
                     projectile.timeLeft = 3600; // this is irrelevant, its duration is set through code, check AI
                     break;
                 case ProjectileID.ManaCloakStar:
@@ -62,8 +62,8 @@ namespace TRAEProject.Changes.Projectiles
                     projectile.penetrate = 5;
                     break;
                 case ProjectileID.Typhoon:
-                    DrainManaOnHit = 3;                    
-					DrainManaPassively = 10; // this has extra updates, it's 24 mana per second
+                    DrainManaOnHit = TRAEMagicItem.TyphoonOnHitCost;                    
+					DrainManaPassively = TRAEMagicItem.TyphoonPassiveCost; // this has extra updates, it's 24 mana per second
 
                     projectile.timeLeft = 1800;
                     break;
@@ -82,15 +82,16 @@ namespace TRAEProject.Changes.Projectiles
                     projectile.penetrate = 1;
                     break;     
 				case ProjectileID.ClingerStaff:
-                    DrainManaOnHit = 4;
-                    DrainManaPassively = 30;
+                    DrainManaOnHit = TRAEMagicItem.ClingerOnHitCost;
+                    DrainManaPassively = TRAEMagicItem.ClingerPassiveCost;
                     break;
 
                 case ProjectileID.RainbowFront:
                 case ProjectileID.RainbowBack:
                     projectile.usesIDStaticNPCImmunity = true;
                     projectile.idStaticNPCHitCooldown = 10;
-                    DrainManaOnHit = 3;
+                    DrainManaOnHit = TRAEMagicItem.RainbowOnHitCost;
+                    DrainManaPassively = TRAEMagicItem.RainbowPassiveCost;
                     break;
 			    case 244:
 				  case 238:
@@ -407,7 +408,7 @@ namespace TRAEProject.Changes.Projectiles
 
                 projectile.ai[0] -= 0.5f;
             }   
-            if (DrainManaPassively > 0)
+            if (DrainManaPassively > 0 && (projectile.timeLeft % (projectile.extraUpdates + 1)) == 0)
             {
                 manaDrain += (int)(DrainManaPassively * player.manaCost);
                 while(manaDrain >= 60)

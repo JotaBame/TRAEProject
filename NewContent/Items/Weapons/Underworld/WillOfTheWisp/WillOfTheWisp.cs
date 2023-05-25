@@ -13,6 +13,8 @@ namespace TRAEProject.NewContent.Items.Weapons.Underworld.WillOfTheWisp
 {
     class WillOfTheWisp : ModItem
     {
+        public const int DrainManaOnHit = 10;
+        public const int DrainManaPassively = 0;
         public override void SetStaticDefaults()
         {
             Terraria.GameContent.Creative.CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
@@ -38,6 +40,8 @@ namespace TRAEProject.NewContent.Items.Weapons.Underworld.WillOfTheWisp
             Item.shoot = ProjectileType<WillOfTheWispFlame>();
             Item.useStyle = ItemUseStyleID.HoldUp;
             Item.UseSound = SoundID.Item20;
+            Item.GetGlobalItem<TRAEMagicItem>().TooltipDrainManaOnHit = DrainManaOnHit;
+            Item.GetGlobalItem<TRAEMagicItem>().TooltipDrainManaPassively = DrainManaPassively;
         }
         public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
         {
@@ -67,7 +71,7 @@ namespace TRAEProject.NewContent.Items.Weapons.Underworld.WillOfTheWisp
             Projectile.DamageType = DamageClass.Magic; 
             Projectile.usesIDStaticNPCImmunity = true;
             Projectile.idStaticNPCHitCooldown = 10;
-            Projectile.GetGlobalProjectile<MagicProjectile>().DrainManaOnHit = 10;            
+            Projectile.GetGlobalProjectile<MagicProjectile>().DrainManaOnHit = WillOfTheWisp.DrainManaOnHit;            
             Projectile.penetrate = -1;
             Projectile.aiStyle = 1;
             AIType = ProjectileID.Bullet;
