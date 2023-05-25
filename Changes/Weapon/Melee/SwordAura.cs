@@ -122,7 +122,7 @@ public abstract class SwordAura : ModProjectile
         //remappedProgress = progress;
         //Main.NewText($"{remappedProgress}, {Utils.Remap(progress, 0f, 0.8f, 0f, 1f)}, {Utils.Remap(progress, 0.8f, 1f, 1f, 0f)}");
         float num4 = 0.975f;
-        float lightingMultiplier = Lighting.GetColor(proj.Center.ToTileCoordinates()).ToVector3().Length() / MathF.Sqrt(3.0);
+        float lightingMultiplier = Lighting.GetColor(proj.Center.ToTileCoordinates()).ToVector3().Length() / MathF.Sqrt(3);
         lightingMultiplier = 0.5f + lightingMultiplier * 0.5f;
         lightingMultiplier = Utils.Remap(lightingMultiplier, 0.2f, 1f, 0f, 1f);
         Color blue = colorArray[2];//new Color(45, 124, 205);//blue
