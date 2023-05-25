@@ -29,7 +29,7 @@ namespace TRAEProject.Changes.Projectiles
                 }
                 target.GetGlobalNPC<Freeze>().FreezeMe(target, duration);
             }
-            if (projectile.type == ProjectileType<FrozenGelP>() && Main.rand.NextBool(10))
+            if (projectile.type == ProjectileType<FrozenGelP>() && Main.rand.NextBool(5))
             {
                 target.GetGlobalNPC<Freeze>().FreezeMe(target, 60);
             }

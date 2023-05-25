@@ -38,7 +38,7 @@ namespace TRAEProject.Changes.Weapons
                     item.damage = 30; // up from 20
                     item.value = 250000; // 25 gold
                     return;
-   
+
                 case ItemID.Harpoon:
                     item.shoot = ProjectileType<Harpoon>();
                     item.shootSpeed = 22f;
@@ -60,11 +60,15 @@ namespace TRAEProject.Changes.Weapons
                     item.autoReuse = true;
                     return;
                 case ItemID.Gatligator:
-                    item.value = Item.buyPrice(gold: 70);
+                    item.damage = 18; // down from 21
+
+                    item.useTime = 7; // down from 7
+                    item.useAnimation = 7;
+                    item.value = Item.buyPrice(platinum: 1, gold: 50);
                     return;
                 case ItemID.Uzi:
-                    item.damage = 35; // up from 30
-                    item.value = Item.buyPrice(platinum: 1);
+                    item.damage = 22; // up from 30
+                    item.value = Item.buyPrice(platinum: 1, gold: 50);
                     item.shootSpeed = 5f;
                     item.useTime = 7;
                     item.useAnimation = 7;
@@ -158,26 +162,7 @@ namespace TRAEProject.Changes.Weapons
                     item.damage = 10; // down from 16
                     item.knockBack = 2f; // down from 3.5
                     return;
-                case ItemID.Xenopopper:
-                    //item.channel = true;
-                    return;
             }
-        }
-        public override bool CanConsumeAmmo(Item weapon, Item ammo, Player player)
-        {
-            if (weapon.CountsAsClass(DamageClass.Ranged) && player.ammoPotion)
-            {
-                if (weapon.type != ItemID.StarCannon && weapon.type != ItemID.Clentaminator && weapon.type != ItemID.CoinGun)
-                {
-                    return false;
-                }
-            }
-            if ((weapon.type == ItemID.Flamethrower || weapon.type == ItemID.ElfMelter))
-            {
-                return player.itemAnimation >= player.itemAnimationMax - 4;
-            }
-
-            return true;
         }
         public override void PickAmmo(Item weapon, Item ammo, Player player, ref int type, ref float speed, ref StatModifier damage, ref float knockback)
         {
@@ -225,15 +210,6 @@ namespace TRAEProject.Changes.Weapons
                         if (line.Mod == "Terraria" && line.Name == "Knockback")
                         {
                             line.Text += "\nWooden arrows turn into Holy arrows";
-                        }
-                    }
-                    return;
-                case ItemID.VenomBullet:
-                    foreach (TooltipLine line in tooltips)
-                    {
-                        if (line.Mod == "Terraria" && line.Name == "Tooltip0")
-                        {
-                            line.Text += "\nIgnores 10 defense";
                         }
                     }
                     return;

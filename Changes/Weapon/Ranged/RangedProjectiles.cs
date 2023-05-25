@@ -99,8 +99,8 @@ namespace TRAEProject.Changes.Projectiles
                     projectile.penetrate = 5;
                     projectile.scale = 1.15f;
                     projectile.GetGlobalProjectile<ProjectileStats>().explodes = true;
-                    projectile.GetGlobalProjectile<ProjectileStats>().ExplosionRadius = 180;
-                    projectile.GetGlobalProjectile<ProjectileStats>().DirectDamage = 1.8f;
+                    projectile.GetGlobalProjectile<ProjectileStats>().ExplosionRadius = 240;
+                    projectile.GetGlobalProjectile<ProjectileStats>().DirectDamage = 2f;
                     return;
                 case ProjectileID.HellfireArrow:
                     projectile.penetrate = 4;
@@ -139,9 +139,9 @@ namespace TRAEProject.Changes.Projectiles
                 case ProjectileID.MechanicalPiranha:
                     projectile.ContinuouslyUpdateDamage = true;
                     break;
-                case ProjectileID.VenomBullet:
-                    projectile.ArmorPenetration = 10;
-                    break;
+                //case ProjectileID.VenomBullet:
+                //    projectile.ArmorPenetration = 10;
+                //    break;
             }
         }
         public override bool TileCollideStyle(Projectile projectile, ref int width, ref int height, ref bool fallThrough, ref Vector2 hitboxCenterFrac)
@@ -271,7 +271,7 @@ namespace TRAEProject.Changes.Projectiles
                     Vector2 vector = new(projectile.Center.X, projectile.Center.Y);
                     float num25 = num18 - vector.X;
                     float num26 = num19 - vector.Y;
-                    float num27 = MathF.Sqrt(num25 * num25 + num26 * num26);
+                    float num27 = (float)Math.Sqrt(num25 * num25 + num26 * num26);
                     num27 = num24 / num27;
                     num25 *= num27;
                     num26 *= num27;
@@ -331,7 +331,7 @@ namespace TRAEProject.Changes.Projectiles
                     Vector2 vector = new(projectile.Center.X, projectile.Center.Y);
                     float num25 = num18 - vector.X;
                     float num26 = num19 - vector.Y;
-                    float num27 = MathF.Sqrt(num25 * num25 + num26 * num26);
+                    float num27 = (float)Math.Sqrt(num25 * num25 + num26 * num26);
                     num27 = num24 / num27;
                     num25 *= num27;
                     num26 *= num27;
@@ -371,7 +371,7 @@ namespace TRAEProject.Changes.Projectiles
                 float num = 0f;
                 if (projectile.spriteDirection == -1)
                 {
-                    num = MathF.PI;
+                    num = (float)Math.PI;
                 }
                 projectile.ai[0] += 1f;
                 int speedMultiplier = 0;
@@ -467,7 +467,7 @@ namespace TRAEProject.Changes.Projectiles
                 int num2 = 2;
                 float num3 = 0f;
                 player.SetDummyItemTime(num2);
-                player.itemRotation = MathHelper.WrapAngle(MathF.Atan2(projectile.velocity.Y * (float)projectile.direction, projectile.velocity.X * (float)projectile.direction) + num3);
+                player.itemRotation = MathHelper.WrapAngle((float)Math.Atan2(projectile.velocity.Y * (float)projectile.direction, projectile.velocity.X * (float)projectile.direction) + num3);
                 return false;
             }
             /*if (projectile.type == 615)

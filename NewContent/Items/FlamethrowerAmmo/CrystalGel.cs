@@ -24,12 +24,12 @@ namespace TRAEProject.NewContent.Items.FlamethrowerAmmo
         {
             Item.damage = 7;
             Item.DamageType = DamageClass.Ranged;
-            Item.knockBack = 2;
+            Item.knockBack = 1;
             Item.value = Item.sellPrice(0, 0, 10, 0);
             Item.rare = ItemRarityID.Pink;
             Item.width = 24;
             Item.height = 22;
-            Item.shootSpeed = 1f;
+            Item.shootSpeed = 0f;
             Item.consumable = true;
             Item.shoot = ProjectileType<CrystalGelP>();
             Item.ammo = AmmoID.Gel;
@@ -38,8 +38,8 @@ namespace TRAEProject.NewContent.Items.FlamethrowerAmmo
 
         public override void AddRecipes()
         {
-            CreateRecipe(50).AddIngredient(ItemID.GelBalloon)
-                .AddIngredient(ItemID.Gel, 10)
+            CreateRecipe(100).AddIngredient(ItemID.GelBalloon)
+                .AddIngredient(ItemID.Gel, 20)
                 .AddTile(TileID.Solidifier)
                 .Register();
         }
@@ -59,7 +59,6 @@ namespace TRAEProject.NewContent.Items.FlamethrowerAmmo
             Projectile.ArmorPenetration = 25;
             Projectile.GetGlobalProjectile<ProjectileStats>().dontHitTheSameEnemyMultipleTimes = true;
             Projectile.GetGlobalProjectile<ProjectileStats>().DamageFalloff = 0.15f;
-            dustAmount = 0;
         }
 
         public override void OnSpawn(IEntitySource source)
@@ -123,7 +122,6 @@ namespace TRAEProject.NewContent.Items.FlamethrowerAmmo
             Projectile.ArmorPenetration = 25;
             Projectile.GetGlobalProjectile<ProjectileStats>().dontHitTheSameEnemyMultipleTimes = true;
             Projectile.GetGlobalProjectile<ProjectileStats>().DamageFalloff = 0.15f;
-            dustAmount = 0;
         }
         public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
@@ -161,7 +159,6 @@ namespace TRAEProject.NewContent.Items.FlamethrowerAmmo
             Projectile.ArmorPenetration = 25;
             Projectile.GetGlobalProjectile<ProjectileStats>().dontHitTheSameEnemyMultipleTimes = true;
             Projectile.GetGlobalProjectile<ProjectileStats>().DamageFalloff = 0.15f;
-            dustAmount = 0;
         }
         public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {

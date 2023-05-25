@@ -28,15 +28,15 @@ namespace TRAEProject.NewContent.Items.Weapons.BAM
         {
             Item.width = 68;
             Item.height = 22;
-            Item.damage = 40;
-            Item.useAnimation = 48;
-            Item.useTime = 6;
+            Item.damage = 24;
+            Item.useAnimation = 56;
+            Item.useTime = 8;
             Item.autoReuse = true;
             Item.rare = ItemRarityID.Red;
-            Item.value = Item.sellPrice(gold: 5);
+            Item.value = Item.sellPrice(gold: 10);
             Item.DamageType = DamageClass.Ranged;
             Item.knockBack = 2f;
-            Item.shootSpeed = 10f;
+            Item.shootSpeed = 8f;
             Item.scale = 1.15f;
             Item.noMelee = true;
             Item.useAmmo = AmmoID.Gel;
@@ -59,6 +59,10 @@ namespace TRAEProject.NewContent.Items.Weapons.BAM
         public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
         {
             shotCount++;
+            if (Item.useAmmo == AmmoID.Gel)
+                Projectile.NewProjectile(source, position.X, position.Y, velocity.X, velocity.Y, type, (int)(damage * 0.8f), knockback, player.whoAmI);
+            if (Item.useAmmo != AmmoID.Gel)
+                Projectile.NewProjectile(source, position.X, position.Y, velocity.X, velocity.Y, previousType, (int)(damage * 0.8f), knockback, player.whoAmI);
             if (shotCount == 4)
             {
                 player.GetModPlayer<BAMAttacks>().ammoToUse = 2;
@@ -75,32 +79,32 @@ namespace TRAEProject.NewContent.Items.Weapons.BAM
             }
             if (Item.useAmmo == AmmoID.Rocket)
             {
-                Projectile.NewProjectile(source, position.X, position.Y, velocity.X, velocity.Y, previousType, damage, knockback, player.whoAmI);
-                Projectile.NewProjectile(source, position.X, position.Y, velocity.X, velocity.Y, type, (int)(damage * 2f), knockback, player.whoAmI);
+                Projectile.NewProjectile(source, position.X, position.Y, velocity.X, velocity.Y, type, (int)(damage * 1.5f), knockback, player.whoAmI);
                 return false;
 
             }
             if (Item.useAmmo == AmmoID.Dart)
             {
-                Projectile.NewProjectile(source, position.X, position.Y, velocity.X, velocity.Y, previousType, damage, knockback, player.whoAmI);
 
                 float numberProjectiles = 3;
                 float rotation = MathHelper.ToRadians(10);
-                position += Vector2.Normalize(new Vector2(velocity.X, velocity.Y)) * 10f;
+                position += Vector2.Normalize(new Vector2(velocity.X, velocity.Y)) * 5f;
                 for (int i = 0; i < numberProjectiles; i++)
                 {
                     Vector2 perturbedSpeed = new Vector2(velocity.X, velocity.Y).RotatedBy(MathHelper.Lerp(-rotation, rotation, i / (numberProjectiles - 1))) * 2f; // Watch out for dividing by 0 if there is only 1 projectile.
                     Projectile.NewProjectile(source, position.X, position.Y, perturbedSpeed.X, perturbedSpeed.Y, type, damage, knockback, player.whoAmI);
-                }
+                }              
+
                 return false;
             }
+            
             else
                 previousType = type;
             if (shotCount >= 7)
             {
                 shotCount = 0;
             }
-            return true;
+            return false;
         }
         public override bool CanConsumeAmmo(Item ammo, Player player)
         {

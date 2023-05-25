@@ -39,7 +39,7 @@ namespace TRAEProject.NewContent.Items.FlamethrowerAmmo
 
         public override void AddRecipes()
         {
-            CreateRecipe(20).AddIngredient(ItemID.Gel)
+            CreateRecipe(10).AddIngredient(ItemID.Gel)
                 .AddTile(TileID.BloodMoonMonolith)
                 .Register();
         }
@@ -58,12 +58,12 @@ namespace TRAEProject.NewContent.Items.FlamethrowerAmmo
             Projectile.aiStyle = 1;
             Projectile.width = Projectile.height = 10;
             Projectile.timeLeft = 60;
-            Projectile.penetrate = 3;
+            Projectile.penetrate = 4;
             Projectile.extraUpdates = 2;
             Projectile.ignoreWater = true;
             Projectile.DamageType = DamageClass.Ranged;
             Projectile.hostile = false;
-            Projectile.friendly = true; Projectile.GetGlobalProjectile<ProjectileStats>().DamageFalloff = 0.05f;
+            Projectile.friendly = true; Projectile.GetGlobalProjectile<ProjectileStats>().DamageFalloff = 0.1f;
 
             Projectile.usesLocalNPCImmunity = true;
             Projectile.localNPCHitCooldown = -1;

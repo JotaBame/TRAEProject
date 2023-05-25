@@ -1,3 +1,6 @@
+
+using Microsoft.Xna.Framework;
+using Terraria;
 using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.ID;
@@ -29,14 +32,14 @@ namespace TRAEProject.NewContent.Items.FlamethrowerAmmo
             Projectile.usesLocalNPCImmunity = true;
             Projectile.localNPCHitCooldown = -1;
             Projectile.penetrate = 3;
-
+            Projectile.ArmorPenetration = 4;
             Projectile.GetGlobalProjectile<ProjectileStats>().DamageFalloff = 0.15f;
 
             FlamethrowerDefaults();
         }
         public virtual void FlamethrowerDefaults()
         {
-            
+
         }
         protected Color ColorMiddle = new Color(255, 80, 20, 75);
         protected Color ColorBack = new Color(255, 255, 20, 75);
@@ -49,7 +52,7 @@ namespace TRAEProject.NewContent.Items.FlamethrowerAmmo
         protected float dustAmount = 0.25f;
         public override bool PreDraw(ref Color lightColor)
         {
-            Color[] palette = new Color[] { ColorMiddle, ColorBack, ColorLerp, ColorSmoke};
+            Color[] palette = new Color[] { ColorMiddle, ColorBack, ColorLerp, ColorSmoke };
             DrawFlamethrower(ColorMiddle, ColorBack, ColorLerp, ColorSmoke);
             return false;
         }
@@ -66,7 +69,7 @@ namespace TRAEProject.NewContent.Items.FlamethrowerAmmo
             float num4 = 0.7f;
             float num5 = 0.85f;
             float incrementForAfterImages = ((Projectile.localAI[0] > num - 10f) ? 0.175f : 0.2f);
-            if (elfMelterProjectile) 
+            if (elfMelterProjectile)
             {
                 color1 = new Color(95, 120, 255, 200);
                 color2 = new Color(50, 180, 255, 70);
@@ -95,7 +98,7 @@ namespace TRAEProject.NewContent.Items.FlamethrowerAmmo
                     Vector2 vector = Projectile.Center - Main.screenPosition + Projectile.velocity * (0f - num12) * j;
                     Color color5 = transparent * num16;
                     Color color6 = color5;
-                    if (!elfMelterProjectile) 
+                    if (!elfMelterProjectile)
                     {
                         color6.G /= 2;
                         color6.B /= 2;
@@ -109,13 +112,13 @@ namespace TRAEProject.NewContent.Items.FlamethrowerAmmo
                     switch (i)
                     {
                         case 0:
-                            Main.EntitySpriteDraw(value, 
-                                vector + Projectile.velocity * (0f - num12) * incrementForAfterImages * 0.5f, 
-                                rectangle, 
+                            Main.EntitySpriteDraw(value,
+                                vector + Projectile.velocity * (0f - num12) * incrementForAfterImages * 0.5f,
+                                rectangle,
                                 color6 * num11 * 0.25f,
                                 num19 + MathF.PI / 4f,
                                 rectangle.Size() / 2f,
-                                scale, 
+                                scale,
                                 SpriteEffects.None);
                             Main.EntitySpriteDraw(value, vector, rectangle, color6 * num11, num20, rectangle.Size() / 2f, scale, SpriteEffects.None);
                             //Main.EntitySpriteDraw(value, vector, rectangle, new Color(255,255,255,0) * num11 * num16, num20, rectangle.Size() / 2f, scale * 0.35f, SpriteEffects.None);
@@ -137,7 +140,7 @@ namespace TRAEProject.NewContent.Items.FlamethrowerAmmo
         }
         public override bool? Colliding(Rectangle projHitbox, Rectangle targetHitbox)
         {
-            
+
 
             float num = 60f;
             if (Projectile.localAI[0] > 60)
@@ -147,8 +150,8 @@ namespace TRAEProject.NewContent.Items.FlamethrowerAmmo
             float num13 = Utils.Remap(Projectile.localAI[0], 0f, fromMax, 0f, 1f);
             float scale = Utils.Remap(num13, 0.2f, 0.5f, 0.25f, 1f) * scalemodifier * 50;//visual sprite size is around 55 pixels big
 
-            bool collided = (CheckCircleCollision(scale, Projectile.Center, targetHitbox) || 
-                (CheckCircleCollision(scale, Projectile.Center - Projectile.velocity * 7, targetHitbox) && Projectile.localAI[0] >  3 * Projectile.MaxUpdates) || 
+            bool collided = (CheckCircleCollision(scale, Projectile.Center, targetHitbox) ||
+                (CheckCircleCollision(scale, Projectile.Center - Projectile.velocity * 7, targetHitbox) && Projectile.localAI[0] > 3 * Projectile.MaxUpdates) ||
                 (CheckCircleCollision(scale, Projectile.Center - Projectile.velocity * 14, targetHitbox) && Projectile.localAI[0] > 6 * Projectile.MaxUpdates));//projHitbox.Intersects(targetHitbox))
 
             return collided && Collision.CanHit(Projectile.Center, 0, 0, targetHitbox.Center.ToVector2(), 0, 0);
@@ -228,3 +231,5 @@ namespace TRAEProject.NewContent.Items.FlamethrowerAmmo
         }
     }
 }
+
+

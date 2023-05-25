@@ -28,10 +28,7 @@ namespace TRAEProject.NewContent.TRAEDebuffs
                 npc.lifeRegen = 0;
             }
             npc.lifeRegen -= BoilingBloodDMG * 2;
-            if (damage < BoilingBloodDMG / 2)
-            {
-                damage = BoilingBloodDMG / 2;
-            }
+            damage = BoilingBloodDMG;
         }
         public override void DrawEffects(NPC npc, ref Color drawColor)
         {

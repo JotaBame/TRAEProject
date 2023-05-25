@@ -1,14 +1,8 @@
-﻿using Mono.Cecil.Cil;
-using MonoMod.Cil;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
-using TRAEProject.NewContent.Buffs;
+using TRAEProject.NewContent.Items.DreadItems.BloodBoiler;
 using static Terraria.ModLoader.ModContent;
 
 namespace TRAEProject.Common.ModPlayers
@@ -41,13 +35,20 @@ namespace TRAEProject.Common.ModPlayers
             Player Player = Main.player[weapon.playerIndexTheItemIsReservedFor];
             if (Main.rand.Next(100) < chanceNotToConsumeAmmo)
                 return false;
-            if ((weapon.type == ItemID.VenusMagnum) && Main.rand.Next(3) == 0)
+            if ((weapon.type == ItemID.Flamethrower) && Main.rand.NextBool(3))
                 return false;
-            if (weapon.type == ItemID.ChainGun && Main.rand.Next(3) == 0)
+            if ((weapon.type == ItemID.ElfMelter) && Main.rand.NextBool(3))
+                return false;
+            if ((weapon.type == ItemType<BloodBoiler>()) && Main.rand.NextBool(3))
+                return false;
+            if ((weapon.type == ItemID.VenusMagnum) && Main.rand.NextBool(3))
+                return false;
+            if (weapon.type == ItemID.ChainGun && Main.rand.NextBool(3))
                 return false;
             if (weapon.CountsAsClass<RangedDamageClass>() && Player.ammoPotion)
             {
-                if (weapon.type != ItemID.StarCannon && weapon.type != ItemID.Clentaminator && weapon.type != ItemID.CoinGun)
+                
+                if (weapon.type != ItemID.StarCannon && weapon.type != ItemID.Clentaminator && weapon.type != ItemID.CoinGun && weapon.type != ItemID.SuperStarCannon && ammo.type != ItemID.PinkGel)
                 {
                     return false;
                 }

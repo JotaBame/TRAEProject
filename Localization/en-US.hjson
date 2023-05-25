@@ -1132,7 +1132,7 @@ Mods: {
 
 			FrozenGel: {
 				DisplayName: Glacial Gel
-				Tooltip: Create the coldest winds
+				Tooltip: Create the coldest flames
 			}
 
 			IchorGel: {
@@ -1507,11 +1507,6 @@ Mods: {
 					Allows auto-jump and reducing gravity
 					'''
 			}
-
-			StarfuryTempleTestItem: {
-				DisplayName: Starfury Temple Test Item
-				Tooltip: ""
-			}
 		}
 
 		NPCs: {
@@ -1552,41 +1547,42 @@ Mods: {
 
 		Configs: {
 			TRAEConfig: {
-				DisplayName: TRAEConfig
+				DisplayName: T R A E Config
+				Headers.BossChanges: Boss Changes Header
 
 				PlanteraRework: {
 					Label: Plantera Rework
-					Tooltip: Experimental Plantera Rework, buggy as hell.
+					Tooltip: Experimental plantera rework, very buggy
 				}
 
 				TwinsRework: {
 					Label: Twins Rework
-					Tooltip: Recommended when mixing multiple mods with boss changes.
+					Tooltip: ""
 				}
 
 				CultistChanges: {
 					Label: Cultist Changes
-					Tooltip: Recommended when mixing multiple mods with boss changes.
+					Tooltip: ""
 				}
 
 				DeerclopsChanges: {
 					Label: Deerclops Changes
-					Tooltip: Recommended when mixing multiple mods with boss changes.
+					Tooltip: ""
 				}
 
 				FishronChanges: {
-					Label: Fishron Changes
-					Tooltip: Recommended when mixing multiple mods with boss changes.
+					Label: Duke Fishron Changes
+					Tooltip: ""
 				}
 
 				QBChanges: {
 					Label: Queen Bee Changes
-					Tooltip: Recommended when mixing multiple mods with boss changes.
+					Tooltip: ""
 				}
 
 				SkeletronChanges: {
 					Label: Skeletron Changes
-					Tooltip: Recommended when mixing multiple mods with boss changes.
+					Tooltip: ""
 				}
 			}
 		}

@@ -55,11 +55,11 @@ namespace TRAEProject.Changes.Accesory
                     {
                         if (line.Mod == "Terraria" && line.Name == "Tooltip0")
                         {
-                            line.Text = "Releases bees and douses you in honey when damaged";
+                            line.Text = "Releases bees and douses you in honey when damaged\nMultiple combs increase efficiency and life regeneration";
                         }
                         if (line.Mod == "Terraria" && line.Name == "Tooltip1")
                         {
-                            line.Text = "Increases jump height\nMultiple combs increase efficiency and life regeneration";
+                            line.Text = "Increases jump height";
                         }
                     }
                     return;
@@ -68,11 +68,11 @@ namespace TRAEProject.Changes.Accesory
                     {
                         if (line.Mod == "Terraria" && line.Name == "Tooltip0")
                         {
-                            line.Text = "Releases bees and douses you in honey when damaged";
+                            line.Text = "Releases bees and douses you in honey when damaged\nMultiple combs increase efficiency and life regeneration";
                         }
                         if (line.Mod == "Terraria" && line.Name == "Tooltip0")
                         {
-                            line.Text = "Increases jump height, prevents fall damage and allows fast fall\nMultiple combs increase efficiency and life regeneration";
+                            line.Text = "Increases jump height, prevents fall damage and allows fast fall";
                         }
                     }
                     return;
@@ -81,7 +81,7 @@ namespace TRAEProject.Changes.Accesory
                 case ItemID.StingerNecklace:
                     foreach (TooltipLine line in tooltips)
                     {
-                        if (line.Mod == "Terraria" && line.Name == "Tooltip0")
+                        if (line.Mod == "Terraria" && line.Name == "Tooltip1")
                         {
                             line.Text += "\nMultiple combs increase efficiency and life regeneration";
                         }
@@ -107,7 +107,7 @@ namespace TRAEProject.Changes.Accesory
         public override void UpdateLifeRegen()
         {
             if (combs >= 2)
-                Player.lifeRegen += 2 * combs;
+                Player.lifeRegen += 1 * combs;
         }
 
         public override void OnHitByNPC(NPC npc, Player.HurtInfo hurtInfo)
