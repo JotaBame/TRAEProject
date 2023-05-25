@@ -140,7 +140,7 @@ namespace TRAEProject.Changes.NPCs.Boss
 									float baseVelocity = 6f;
 									float playerX2 = Main.player[npc.target].position.X + Main.player[npc.target].width * 0.5f - npc.Center.X + Main.rand.Next(-20, 21);
 									float playerY2 = Main.player[npc.target].position.Y + Main.player[npc.target].height * 0.5f - npc.Center.Y + Main.rand.Next(-20, 21);
-									float distance2 = (float)Math.Sqrt(playerX2 * playerX2 + playerY2 * playerY2);
+									float distance2 = MathF.Sqrt(playerX2 * playerX2 + playerY2 * playerY2);
 									distance2 = baseVelocity / distance2;
 									playerX2 *= distance2;
 									playerY2 *= distance2;
@@ -165,7 +165,7 @@ namespace TRAEProject.Changes.NPCs.Boss
 									}
 									float playerX2 = Main.player[npc.target].position.X + Main.player[npc.target].width * 0.5f - center3.X + Main.rand.Next(-20, 21);
 									float playerY2 = Main.player[npc.target].position.Y + Main.player[npc.target].height * 0.5f - center3.Y + Main.rand.Next(-20, 21);
-									float distance2 = (float)Math.Sqrt(playerX2 * playerX2 + playerY2 * playerY2);
+									float distance2 = MathF.Sqrt(playerX2 * playerX2 + playerY2 * playerY2);
 									distance2 = baseVelocity / distance2;
 									playerX2 *= distance2;
 									playerY2 *= distance2;
@@ -216,7 +216,7 @@ namespace TRAEProject.Changes.NPCs.Boss
 						Vector2 skeletronPosition = new Vector2(npc.position.X + npc.width * 0.5f, npc.position.Y + npc.height * 0.5f);
 						float playerX3 = Main.player[npc.target].position.X + (Main.player[npc.target].width / 2) - skeletronPosition.X;
 						float playerY3 = Main.player[npc.target].position.Y + (Main.player[npc.target].height / 2) - skeletronPosition.Y;
-						float distance3 = (float)Math.Sqrt(playerX3 * playerX3 + playerY3 * playerY3);
+						float distance3 = MathF.Sqrt(playerX3 * playerX3 + playerY3 * playerY3);
 						float spinVelocity = 6f;
                         npc.damage = npc.GetAttackDamage_LerpBetweenFinalValues(npc.defDamage, npc.defDamage * 1.3f);
 
@@ -334,7 +334,7 @@ namespace TRAEProject.Changes.NPCs.Boss
 						Vector2 skeletronPosition = new Vector2(npc.position.X + npc.width * 0.5f, npc.position.Y + npc.height * 0.5f);
 						float playerX3 = Main.player[npc.target].position.X + (Main.player[npc.target].width / 2) - skeletronPosition.X;
 						float playerY3 = Main.player[npc.target].position.Y + (Main.player[npc.target].height / 2) - skeletronPosition.Y;
-						float distance3 = (float)Math.Sqrt(playerX3 * playerX3 + playerY3 * playerY3);
+						float distance3 = MathF.Sqrt(playerX3 * playerX3 + playerY3 * playerY3);
 						float spinVelocity = 3.5f;
 
 						npc.damage = npc.GetAttackDamage_LerpBetweenFinalValues(npc.defDamage, npc.defDamage * 1.3f);
@@ -381,7 +381,7 @@ namespace TRAEProject.Changes.NPCs.Boss
 						Vector2 vector21 = new Vector2(npc.position.X + npc.width * 0.5f, npc.position.Y + npc.height * 0.5f);
 						float num177 = Main.player[npc.target].position.X + (Main.player[npc.target].width / 2) - vector21.X;
 						float num178 = Main.player[npc.target].position.Y + (Main.player[npc.target].height / 2) - vector21.Y;
-						float num179 = (float)Math.Sqrt(num177 * num177 + num178 * num178);
+						float num179 = MathF.Sqrt(num177 * num177 + num178 * num178);
 						num179 = 8f / num179;
 						npc.velocity.X = num177 * num179;
 						npc.velocity.Y = num178 * num179;
@@ -603,14 +603,14 @@ namespace TRAEProject.Changes.NPCs.Boss
 						Vector2 vector22 = new(npc.position.X + npc.width * 0.5f, npc.position.Y + npc.height * 0.5f);
 						float num182 = Main.npc[(int)npc.ai[1]].position.X + (Main.npc[(int)npc.ai[1]].width / 2) - 200f * npc.ai[0] - vector22.X;
 						float num183 = Main.npc[(int)npc.ai[1]].position.Y + 230f - vector22.Y;
-						npc.rotation = (float)Math.Atan2(num183, num182) + 1.57f;
+						npc.rotation = MathF.Atan2(num183, num182) + 1.57f;
 					}
 					else if (npc.ai[2] == 1f)
 					{
 						Vector2 vector23 = new(npc.position.X + npc.width * 0.5f, npc.position.Y + npc.height * 0.5f);
 						float num185 = Main.npc[(int)npc.ai[1]].position.X + (Main.npc[(int)npc.ai[1]].width / 2) - 200f * npc.ai[0] - vector23.X;
 						float num186 = Main.npc[(int)npc.ai[1]].position.Y + 230f - vector23.Y;
-						npc.rotation = (float)Math.Atan2(num186, num185) + 1.57f;
+						npc.rotation = MathF.Atan2(num186, num185) + 1.57f;
 						npc.velocity.X *= 0.95f;
 						npc.velocity.Y -= 0.1f;
 						if (Main.expertMode)
@@ -632,7 +632,7 @@ namespace TRAEProject.Changes.NPCs.Boss
 							vector23 = new Vector2(npc.position.X + npc.width * 0.5f, npc.position.Y + npc.height * 0.5f);
 							num185 = Main.player[npc.target].position.X + (Main.player[npc.target].width / 2) - vector23.X;
 							num186 = Main.player[npc.target].position.Y + (Main.player[npc.target].height / 2) - vector23.Y;
-							float num187 = (float)Math.Sqrt(num185 * num185 + num186 * num186);
+							float num187 = MathF.Sqrt(num185 * num185 + num186 * num186);
 							float factor = 18f;
 							if (Main.expertMode)
 							{
@@ -660,7 +660,7 @@ namespace TRAEProject.Changes.NPCs.Boss
 						Vector2 vector24 = new(npc.position.X + npc.width * 0.5f, npc.position.Y + npc.height * 0.5f);
 						float num188 = Main.npc[(int)npc.ai[1]].position.X + (Main.npc[(int)npc.ai[1]].width / 2) - 200f * npc.ai[0] - vector24.X;
 						float num189 = Main.npc[(int)npc.ai[1]].position.Y + 230f - vector24.Y;
-						npc.rotation = (float)Math.Atan2(num189, num188) + 1.57f;
+						npc.rotation = MathF.Atan2(num189, num188) + 1.57f;
 						npc.velocity.Y *= 0.95f;
 						npc.velocity.X += 0.1f * (0f - npc.ai[0]);
 						if (Main.expertMode)
@@ -690,7 +690,7 @@ namespace TRAEProject.Changes.NPCs.Boss
 							vector24 = new Vector2(npc.position.X + npc.width * 0.5f, npc.position.Y + npc.height * 0.5f);
 							num188 = Main.player[npc.target].position.X + (Main.player[npc.target].width / 2) - vector24.X;
 							num189 = Main.player[npc.target].position.Y + (Main.player[npc.target].height / 2) - vector24.Y;
-							float num190 = (float)Math.Sqrt(num188 * num188 + num189 * num189);
+							float num190 = MathF.Sqrt(num188 * num188 + num189 * num189);
 							float factor = 18f;
 							if (Main.expertMode)
 							{
@@ -803,11 +803,11 @@ namespace TRAEProject.Changes.NPCs.Boss
 		   Projectile.spriteDirection = Projectile.direction;
 			if (Projectile.direction < 0)
 			{
-				Projectile.rotation = (float)Math.Atan2(0f - Projectile.velocity.Y, 0f - Projectile.velocity.X);
+				Projectile.rotation = MathF.Atan2(0f - Projectile.velocity.Y, 0f - Projectile.velocity.X);
 			}
 			else
 			{
-				Projectile.rotation = (float)Math.Atan2(Projectile.velocity.Y, Projectile.velocity.X);
+				Projectile.rotation = MathF.Atan2(Projectile.velocity.Y, Projectile.velocity.X);
 			}
 			for (int index1 = 0; index1 < 255; index1++)
 			{

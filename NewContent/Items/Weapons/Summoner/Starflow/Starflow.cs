@@ -269,10 +269,10 @@ namespace TRAEProject.NewContent.Items.Weapons.Summoner.Starflow
 			}
 			Vector2 npcCenter = nPC.Center;
 			float DistanceToRotation = (npcCenter - ProjectileCenter).ToRotation();
-			float num10 = ((npcCenter.X > ProjectileCenter.X) ? (-(float)Math.PI) : ((float)Math.PI));
+			float num10 = ((npcCenter.X > ProjectileCenter.X) ? (-MathF.PI) : (MathF.PI));
 			float num11 = num10 + (0f - num10) * lerpValue * 2f;
 			Vector2 spinningpoint = num11.ToRotationVector2();
-			spinningpoint.Y *= (float)Math.Sin((float)Projectile.identity * 2.3f) * 0.5f;
+			spinningpoint.Y *= MathF.Sin((float)Projectile.identity * 2.3f) * 0.5f;
 			spinningpoint = spinningpoint.RotatedBy(DistanceToRotation);
 			float num12 = (npcCenter - ProjectileCenter).Length() / 2f;
 			Vector2 vector3 = (Projectile.Center = Vector2.Lerp(ProjectileCenter, npcCenter, 0.5f) + spinningpoint * num12);

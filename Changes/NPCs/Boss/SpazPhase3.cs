@@ -25,8 +25,8 @@ namespace TRAEProject.Changes.NPCs.Boss
                 npc.TargetClosest();
             }
             bool dead3 = Main.player[npc.target].dead;
-            float angVel = ((float)Math.PI / 180f) + ((float)Math.PI / 120f) * (1f -((float)npc.ai[2] / flameTime)) * (1f -((float)npc.ai[2] / flameTime));
-            npc.rotation.SlowRotation((Main.player[npc.target].Center - npc.Center).ToRotation() - (float)Math.PI/2, angVel);
+            float angVel = (MathF.PI / 180f) + (MathF.PI / 120f) * (1f -((float)npc.ai[2] / flameTime)) * (1f -((float)npc.ai[2] / flameTime));
+            npc.rotation.SlowRotation((Main.player[npc.target].Center - npc.Center).ToRotation() - MathF.PI/2, angVel);
             
             if (Main.rand.Next(5) == 0)
             {
@@ -57,7 +57,7 @@ namespace TRAEProject.Changes.NPCs.Boss
         {
             Header(npc);
             float maxSpeed = 8f;
-            float distModifier = (float)Math.Min(1000f, (Main.player[npc.target].Center - npc.Center).Length()) / 1000f;
+            float distModifier = MathF.Min(1000f, (Main.player[npc.target].Center - npc.Center).Length()) / 1000f;
             float speed = maxSpeed - maxSpeed * (npc.ai[2] / flameTime);
             speed = distModifier * (maxSpeed - speed) + speed;
             float acceleration = 0.4f - 0.3f * (npc.ai[2] / flameTime);
@@ -70,7 +70,7 @@ namespace TRAEProject.Changes.NPCs.Boss
             Vector2 vector46 = new Vector2(npc.position.X + (float)npc.width * 0.5f, npc.position.Y + (float)npc.height * 0.5f);
             float num481 = Main.player[npc.target].position.X + (float)(Main.player[npc.target].width / 2) + (float)(num480 * 180) - vector46.X;
             float num482 = Main.player[npc.target].position.Y + (float)(Main.player[npc.target].height / 2) - vector46.Y;
-            float num483 = (float)Math.Sqrt(num481 * num481 + num482 * num482);
+            float num483 = MathF.Sqrt(num481 * num481 + num482 * num482);
             
             
             num483 = speed / num483;
@@ -136,8 +136,8 @@ namespace TRAEProject.Changes.NPCs.Boss
                         int attackDamage_ForProjectiles7 = npc.GetAttackDamage_ForProjectiles(30f, 27f);
                         
                         float multiplier = 1 + 3f * (npc.ai[2] / flameTime);
-                        Vector2 shootFrom = npc.Center + TRAEMethods.PolarVector(2, npc.rotation + (float)Math.PI/2);
-                        Vector2 vel = TRAEMethods.PolarVector(6f * multiplier, npc.rotation + (float)Math.PI/2);
+                        Vector2 shootFrom = npc.Center + TRAEMethods.PolarVector(2, npc.rotation + MathF.PI/2);
+                        Vector2 vel = TRAEMethods.PolarVector(6f * multiplier, npc.rotation + MathF.PI/2);
                         int num487 = Projectile.NewProjectile(npc.GetSource_ReleaseEntity(), shootFrom, vel, 101, attackDamage_ForProjectiles7, 0f, Main.myPlayer);
 
                         //Main.projectile[num487].timeLeft += (int)(npc.ai[2] / 3f);
@@ -182,8 +182,8 @@ namespace TRAEProject.Changes.NPCs.Boss
         }
         public static void Cauldron(NPC npc)
         {
-            float angVel = ((float)Math.PI / 15f);
-            npc.rotation.SlowRotation((float)Math.PI, angVel);
+            float angVel = (MathF.PI / 15f);
+            npc.rotation.SlowRotation(MathF.PI, angVel);
             float accY = 0.2f;
             float maxVelY = 5f;
             float accX = 0.2f;
@@ -213,8 +213,8 @@ namespace TRAEProject.Changes.NPCs.Boss
             if((int)npc.ai[2] % timer == 0 && Main.netMode != NetmodeID.MultiplayerClient)
             {
                 int attackDamage_ForProjectiles7 = npc.GetAttackDamage_ForProjectiles(30f, 27f);
-                Vector2 shootFrom = npc.Center + TRAEMethods.PolarVector(6, npc.rotation + (float)Math.PI/2);
-                Vector2 vel = TRAEMethods.PolarVector(12f + npc.velocity.Y, npc.rotation + (float)Math.PI/2) + TRAEMethods.PolarVector(Main.rand.Next(-4, 5), npc.rotation); 
+                Vector2 shootFrom = npc.Center + TRAEMethods.PolarVector(6, npc.rotation + MathF.PI/2);
+                Vector2 vel = TRAEMethods.PolarVector(12f + npc.velocity.Y, npc.rotation + MathF.PI/2) + TRAEMethods.PolarVector(Main.rand.Next(-4, 5), npc.rotation); 
                 int num487 = Projectile.NewProjectile(npc.GetSource_ReleaseEntity(), shootFrom, vel, ModContent.ProjectileType<BouncingFlames>(), attackDamage_ForProjectiles7, 0f, Main.myPlayer);
             }
             if(npc.ai[2] >= 280)
@@ -232,7 +232,7 @@ namespace TRAEProject.Changes.NPCs.Boss
                 Terraria.Audio.SoundEngine.PlaySound(SoundID.Roar with { MaxInstances = 0 }, npc.Center);
                 //SoundEngine.PlaySound(15, (int)npc.position.X, (int)npc.position.Y, 0);
                 npc.TargetClosest();
-                npc.rotation = (Main.player[npc.target].Center - npc.Center).ToRotation() - (float)Math.PI/2;
+                npc.rotation = (Main.player[npc.target].Center - npc.Center).ToRotation() - MathF.PI/2;
                 float num489 = 18f;
                 if (Main.expertMode)
                 {
@@ -241,7 +241,7 @@ namespace TRAEProject.Changes.NPCs.Boss
                 Vector2 vector48 = new Vector2(npc.position.X + (float)npc.width * 0.5f, npc.position.Y + (float)npc.height * 0.5f);
                 float num490 = Main.player[npc.target].position.X + (float)(Main.player[npc.target].width / 2) - vector48.X;
                 float num491 = Main.player[npc.target].position.Y + (float)(Main.player[npc.target].height / 2) - vector48.Y;
-                float num492 = (float)Math.Sqrt(num490 * num490 + num491 * num491);
+                float num492 = MathF.Sqrt(num490 * num490 + num491 * num491);
                 num492 = num489 / num492;
                 npc.velocity.X = num490 * num492;
                 npc.velocity.Y = num491 * num492;
@@ -273,14 +273,14 @@ namespace TRAEProject.Changes.NPCs.Boss
                 }
                 else
                 {
-                    npc.rotation = (float)Math.Atan2(npc.velocity.Y, npc.velocity.X) - 1.57f;
+                    npc.rotation = MathF.Atan2(npc.velocity.Y, npc.velocity.X) - 1.57f;
                 }
                 if (npc.ai[2] >= 60f)
                 {
                     npc.ai[3] += 1f;
                     npc.ai[2] = 0f;
                     npc.target = 255;
-                    npc.rotation = (Main.player[npc.target].Center - npc.Center).ToRotation() - (float)Math.PI/2;
+                    npc.rotation = (Main.player[npc.target].Center - npc.Center).ToRotation() - MathF.PI/2;
                     if (npc.ai[3] >= 4f)
                     {
                         npc.ai[1] = 3f;
@@ -311,8 +311,8 @@ namespace TRAEProject.Changes.NPCs.Boss
                 float prog = npc.ai[1] / 100f;
                 for(int i =0; i <4; i++)
                 {
-                    float rot = ((float)i / 4f) * 2f * (float)Math.PI;
-                    rot += prog * (float)Math.PI / 2f;
+                    float rot = ((float)i / 4f) * 2f * MathF.PI;
+                    rot += prog * MathF.PI / 2f;
                     float radius = (1f-prog) * 200;
                     float c = (1f * prog) * 0.3f;
                     Color color2 = new Color(c, c, c, c);
@@ -326,7 +326,7 @@ namespace TRAEProject.Changes.NPCs.Boss
                 float prog = npc.ai[2] / 0.5f;
                 for(int i =0; i <16; i++)
                 {
-                    float rot = ((float)i / 16f) * 2f * (float)Math.PI;
+                    float rot = ((float)i / 16f) * 2f * MathF.PI;
                     float radius = (1f-prog) * 8000;
                     float c = (1f * prog) * 0.3f;
                     Color color2 = new Color(c, c, c, c);

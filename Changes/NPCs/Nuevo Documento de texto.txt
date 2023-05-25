@@ -2,13 +2,13 @@ else if (aiStyle == 74)
 		{
 			TargetClosest(faceTarget: false);
 			rotation = velocity.ToRotation();
-			if (rotation < -(float)Math.PI / 2f)
+			if (rotation < -MathF.PI / 2f)
 			{
-				rotation += (float)Math.PI;
+				rotation += MathF.PI;
 			}
-			if (rotation > (float)Math.PI / 2f)
+			if (rotation > MathF.PI / 2f)
 			{
-				rotation -= (float)Math.PI;
+				rotation -= MathF.PI;
 			}
 			if (Math.Sign(velocity.X) != 0)
 			{
@@ -111,7 +111,7 @@ else if (aiStyle == 74)
 					flag58 = true;
 				}
 				float num1100 = 8f;
-				flag58 = flag58 && vector140.ToRotation() > (float)Math.PI / num1100 && vector140.ToRotation() < (float)Math.PI - (float)Math.PI / num1100;
+				flag58 = flag58 && vector140.ToRotation() > MathF.PI / num1100 && vector140.ToRotation() < MathF.PI - MathF.PI / num1100;
 				bool flag59 = num1099 < num1082;
 				bool flag60 = num1099 > num1081;
 				if (flag59 || flag60 || !flag58)
@@ -258,7 +258,7 @@ else if (aiStyle == 74)
 				int num1104 = Dust.NewDust(position, width, height, 31, 0f, 0f, 100, default(Color), 1.5f);
 				Dust dust = Main.dust[num1104];
 				dust.velocity *= 1.4f;
-				Main.dust[num1104].position = ((float)Main.rand.NextDouble() * ((float)Math.PI * 2f)).ToRotationVector2() * ((float)Main.rand.NextDouble() * 96f) + base.Center;
+				Main.dust[num1104].position = ((float)Main.rand.NextDouble() * (MathF.PI * 2f)).ToRotationVector2() * ((float)Main.rand.NextDouble() * 96f) + base.Center;
 			}
 			for (int num1105 = 0; num1105 < 40; num1105++)
 			{
@@ -266,7 +266,7 @@ else if (aiStyle == 74)
 				Main.dust[num1106].noGravity = true;
 				Dust dust = Main.dust[num1106];
 				dust.velocity *= 2f;
-				Main.dust[num1106].position = ((float)Main.rand.NextDouble() * ((float)Math.PI * 2f)).ToRotationVector2() * ((float)Main.rand.NextDouble() * 96f) + base.Center;
+				Main.dust[num1106].position = ((float)Main.rand.NextDouble() * (MathF.PI * 2f)).ToRotationVector2() * ((float)Main.rand.NextDouble() * 96f) + base.Center;
 				Main.dust[num1106].velocity = Main.dust[num1106].velocity / 2f + Vector2.Normalize(Main.dust[num1106].position - base.Center);
 				if (Main.rand.Next(2) == 0)
 				{
@@ -274,7 +274,7 @@ else if (aiStyle == 74)
 					Main.dust[num1106].noGravity = true;
 					dust = Main.dust[num1106];
 					dust.velocity *= 1.2f;
-					Main.dust[num1106].position = ((float)Main.rand.NextDouble() * ((float)Math.PI * 2f)).ToRotationVector2() * ((float)Main.rand.NextDouble() * 96f) + base.Center;
+					Main.dust[num1106].position = ((float)Main.rand.NextDouble() * (MathF.PI * 2f)).ToRotationVector2() * ((float)Main.rand.NextDouble() * 96f) + base.Center;
 					Main.dust[num1106].velocity = Main.dust[num1106].velocity / 2f + Vector2.Normalize(Main.dust[num1106].position - base.Center);
 				}
 				if (Main.rand.Next(4) == 0)
@@ -282,7 +282,7 @@ else if (aiStyle == 74)
 					num1106 = Dust.NewDust(position, width, height, 226, 0f, 0f, 100, default(Color), 0.7f);
 					dust = Main.dust[num1106];
 					dust.velocity *= 1.2f;
-					Main.dust[num1106].position = ((float)Main.rand.NextDouble() * ((float)Math.PI * 2f)).ToRotationVector2() * ((float)Main.rand.NextDouble() * 96f) + base.Center;
+					Main.dust[num1106].position = ((float)Main.rand.NextDouble() * (MathF.PI * 2f)).ToRotationVector2() * ((float)Main.rand.NextDouble() * 96f) + base.Center;
 					Main.dust[num1106].velocity = Main.dust[num1106].velocity / 2f + Vector2.Normalize(Main.dust[num1106].position - base.Center);
 				}
 			}

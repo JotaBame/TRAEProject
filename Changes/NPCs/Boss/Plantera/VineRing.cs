@@ -56,7 +56,7 @@ namespace TRAEProject.Changes.NPCs.Boss.Plantera
 
             Texture2D vine = Request<Texture2D>("TRAEProject/Changes/NPCs/Boss/Plantera/ThornyVine").Value;
             float height = vine.Height;
-            for(float arcLength =0; arcLength < Radius * (float)Math.PI * 2f; arcLength += height)
+            for(float arcLength =0; arcLength < Radius * MathF.PI * 2f; arcLength += height)
             {
                 float theta = arcLength / Radius;
                 Vector2 pos = Projectile.Center + TRAEMethods.PolarVector(Radius, theta) ;

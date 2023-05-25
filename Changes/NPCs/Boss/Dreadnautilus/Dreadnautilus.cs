@@ -282,7 +282,7 @@ namespace TRAEProject.Changes.NPCs.Boss.Dreadnautilus
 								for (int l = 0; l < num18; l++)
 								{
 									npc.position += npc.netOffset;
-									Vector2 value4 = (Vector2.Normalize(npc.velocity) * new Vector2((float)npc.width / 2f, npc.height) * 0.75f * 0.5f).RotatedBy((float)(l - (num18 / 2 - 1)) * ((float)Math.PI * 2f) / (float)num18) + npc.Center;
+									Vector2 value4 = (Vector2.Normalize(npc.velocity) * new Vector2((float)npc.width / 2f, npc.height) * 0.75f * 0.5f).RotatedBy((float)(l - (num18 / 2 - 1)) * (MathF.PI * 2f) / (float)num18) + npc.Center;
 									Vector2 value5 = value4 - npc.Center;
 									int num19 = Dust.NewDust(value4 + value5, 0, 0, 5, value5.X * 2f, value5.Y * 2f, 100, default, 1.4f);
 									Main.dust[num19].noGravity = true;
@@ -333,7 +333,7 @@ namespace TRAEProject.Changes.NPCs.Boss.Dreadnautilus
 							float num15 = npc.Center.DirectionTo(nPCAimedTarget.Center).ToRotation() - 213f / 452f * (float)npc.spriteDirection;
 							if (npc.spriteDirection == -1)
 							{
-								num15 += (float)Math.PI;
+								num15 += MathF.PI;
 							}
 							if (npc.spriteDirection != npc.direction)
 							{
@@ -407,7 +407,7 @@ namespace TRAEProject.Changes.NPCs.Boss.Dreadnautilus
 							float num20 = npc.Center.DirectionFrom(nPCAimedTarget.Center).ToRotation() - 213f / 452f * (float)npc.spriteDirection;
 							if (npc.spriteDirection == -1)
 							{
-								num20 += (float)Math.PI;
+								num20 += MathF.PI;
 							}
 							bool flag = npc.ai[1] < chargeChargeTime;
 							if (npc.spriteDirection != npc.direction && flag)
@@ -484,7 +484,7 @@ namespace TRAEProject.Changes.NPCs.Boss.Dreadnautilus
 							float num12 = npc.Center.DirectionTo(nPCAimedTarget.Center).ToRotation() - 213f / 452f * (float)npc.spriteDirection;
 							if (npc.spriteDirection == -1)
 							{
-								num12 += (float)Math.PI;
+								num12 += MathF.PI;
 							}
 							if (npc.spriteDirection != npc.direction)
 							{
@@ -559,7 +559,7 @@ namespace TRAEProject.Changes.NPCs.Boss.Dreadnautilus
 										int attackDamage_ForProjectiles = npc.GetAttackDamage_ForProjectiles(30f, 25f);
 										for (int k = 0; k < projCount; k++)
 										{
-											Vector2 velocity = projVelocity.RotatedBy((float)Math.PI / 2 * ((float)k / (float)(projCount - 1)) - (float)Math.PI / 4f);
+											Vector2 velocity = projVelocity.RotatedBy(MathF.PI / 2 * ((float)k / (float)(projCount - 1)) - MathF.PI / 4f);
 											Projectile.NewProjectile(npc.GetSource_FromThis(), mouthPosition3 - mouthDirection3 * 5f, velocity, 814, attackDamage_ForProjectiles, 0f, Main.myPlayer);
 										}
 									}
@@ -623,7 +623,7 @@ namespace TRAEProject.Changes.NPCs.Boss.Dreadnautilus
                             float num12 = npc.Center.DirectionTo(aimLoc).ToRotation() - 213f / 452f * (float)npc.spriteDirection;
                             if (npc.spriteDirection == -1)
                             {
-                                num12 += (float)Math.PI;
+                                num12 += MathF.PI;
                             }
                             if (npc.spriteDirection != npc.direction)
                             {
@@ -728,7 +728,7 @@ namespace TRAEProject.Changes.NPCs.Boss.Dreadnautilus
 							float num12 = npc.Center.DirectionTo(nPCAimedTarget.Center).ToRotation() - 213f / 452f * (float)npc.spriteDirection;
 							if (npc.spriteDirection == -1)
 							{
-								num12 += (float)Math.PI;
+								num12 += MathF.PI;
 							}
 							if (npc.spriteDirection != npc.direction)
 							{
@@ -828,7 +828,7 @@ namespace TRAEProject.Changes.NPCs.Boss.Dreadnautilus
 							float num20 = npc.Center.DirectionFrom(nPCAimedTarget.Center).ToRotation() - 213f / 452f * (float)npc.spriteDirection;
 							if (npc.spriteDirection == -1)
 							{
-								num20 += (float)Math.PI;
+								num20 += MathF.PI;
 							}
 							bool flag = npc.ai[1] < chargeChargeTime;
 							if (npc.spriteDirection != npc.direction && flag)
@@ -839,13 +839,13 @@ namespace TRAEProject.Changes.NPCs.Boss.Dreadnautilus
 							}
 							if (npc.ai[1] % totalTime < phase3spamDuration)
 							{
-								num20 += (float)Math.PI / 2f;
+								num20 += MathF.PI / 2f;
 								float rotMore = ((phase3orbitDistance - npc.Center.Distance(nPCAimedTarget.Center)) / 300f);
 								if (Math.Abs(rotMore) > 1)
 								{
 									rotMore = Math.Sign(rotMore);
 								}
-								rotMore *= (float)Math.PI / 4;
+								rotMore *= MathF.PI / 4;
 								num20 += rotMore;
 							}
 							else if ((npc.ai[1] % totalTime < phase3spamDuration + phase3chargeStart))
@@ -871,7 +871,7 @@ namespace TRAEProject.Changes.NPCs.Boss.Dreadnautilus
 								int attackDamage_ForProjectiles = npc.GetAttackDamage_ForProjectiles(30f, 25f);
 								for (int i = 0; i < 8; i++)
 								{
-                                    Projectile projectile = Main.projectile[Projectile.NewProjectile(npc.GetSource_FromThis(), npc.Center, TRAEMethods.PolarVector(10, mouthDirection5.ToRotation() + ((float)i / 8f) * (float)Math.PI * 2f), ProjectileID.BloodShot, attackDamage_ForProjectiles, 0)];
+                                    Projectile projectile = Main.projectile[Projectile.NewProjectile(npc.GetSource_FromThis(), npc.Center, TRAEMethods.PolarVector(10, mouthDirection5.ToRotation() + ((float)i / 8f) * MathF.PI * 2f), ProjectileID.BloodShot, attackDamage_ForProjectiles, 0)];
 									projectile.ai[0] = -180;
 									projectile.netUpdate = true;
 								}
@@ -992,7 +992,7 @@ namespace TRAEProject.Changes.NPCs.Boss.Dreadnautilus
 							for (int k = 0; k < 8; k++)
 							{
 							
-								float r = aim + ((float)k / 8f) * (float)Math.PI * 2f;
+								float r = aim + ((float)k / 8f) * MathF.PI * 2f;
 									spriteBatch.Draw(drawBlood, aimLoc  - Main.screenPosition + TRAEMethods.PolarVector(subLength / 2f, r), null, color, r, drawBlood.Size() * .5f, new Vector2(subLength / 4f, 1f), SpriteEffects.None, 0f);
 								
 							}

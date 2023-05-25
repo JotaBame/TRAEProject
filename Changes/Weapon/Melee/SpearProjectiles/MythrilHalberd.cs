@@ -20,7 +20,7 @@ namespace TRAEProject.Changes.Weapon.Melee.SpearProjectiles
             spearLength = 141f;
             stabStart = 119f;
             stabEnd = 40f;
-            swingAmount = (float)Math.PI / 24;
+            swingAmount = MathF.PI / 24;
             Projectile.GetGlobalProjectile<TRAEProject.Common.ProjectileStats>().heavyCritter = true;
         }
         float origonalAim = 0;
@@ -87,7 +87,7 @@ namespace TRAEProject.Changes.Weapon.Melee.SpearProjectiles
             Player player = Main.player[Projectile.owner];
             amt = ((float)interupting / (float)player.itemAnimationMax);
             amt *= amt;
-            aimDirection = origonalAim + 5f * ((float)Math.PI / 6f) * player.direction * -1f * amt;
+            aimDirection = origonalAim + 5f * (MathF.PI / 6f) * player.direction * -1f * amt;
         }
         public override void SpearModfiyHitNPCMelee(NPC target, ref NPC.HitModifiers modifiers)
         {

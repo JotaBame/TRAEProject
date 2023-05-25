@@ -17,7 +17,7 @@ namespace TRAEProject.Changes.Weapon.Melee.SpearProjectiles
             spearLength = 99f;
             stabStart = 79;
             stabEnd = -10;
-            swingAmount = (float)Math.PI / 32;
+            swingAmount = MathF.PI / 32;
         }
         public override void SpearModfiyHitNPCMelee(NPC target, ref NPC.HitModifiers modifiers)
         {

@@ -60,7 +60,7 @@ namespace TRAEProject.Changes.NPCs.Boss.Plantera
                 }
                 else
                 {
-                    Projectile.rotation = Projectile.velocity.ToRotation() + (float)Math.PI / 2f;
+                    Projectile.rotation = Projectile.velocity.ToRotation() + MathF.PI / 2f;
                 }
             }
         }
@@ -73,7 +73,7 @@ namespace TRAEProject.Changes.NPCs.Boss.Plantera
             for (int k = 0; k < dist; k += vine.Height)
             {
                 Vector2 pos = Projectile.Center + TRAEMethods.PolarVector(k, rot);
-                Main.EntitySpriteDraw(vine, pos - Main.screenPosition, null, Lighting.GetColor((int)pos.X / 16, (int)pos.Y / 16), rot + (float)Math.PI / 2f, new Vector2(vine.Width / 2, vine.Height), 1f, SpriteEffects.None, 0);
+                Main.EntitySpriteDraw(vine, pos - Main.screenPosition, null, Lighting.GetColor((int)pos.X / 16, (int)pos.Y / 16), rot + MathF.PI / 2f, new Vector2(vine.Width / 2, vine.Height), 1f, SpriteEffects.None, 0);
             }
 
             Texture2D texture = TextureAssets.Projectile[Projectile.type].Value;

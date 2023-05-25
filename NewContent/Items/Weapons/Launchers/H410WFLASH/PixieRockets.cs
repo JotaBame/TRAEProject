@@ -17,7 +17,7 @@ namespace TRAEProject.NewContent.Items.Weapons.Launchers.H410WFLASH
         public bool PixieExplosion = false;
         public void PixieRocketAI(Projectile projectile)
         {     
-		projectile.rotation = (float)Math.Atan2(projectile.velocity.Y, projectile.velocity.X) + 1.57f;
+		projectile.rotation = MathF.Atan2(projectile.velocity.Y, projectile.velocity.X) + 1.57f;
             if (projectile.ai[0] < 25)
             {
                 ++projectile.ai[0];
@@ -31,7 +31,7 @@ namespace TRAEProject.NewContent.Items.Weapons.Launchers.H410WFLASH
                 for (int k = 0; k < 200; k++)
                 {
                     Vector2 newMove = Main.MouseWorld - projectile.Center;
-                    float distanceTo = (float)Math.Sqrt(newMove.X * newMove.X + newMove.Y * newMove.Y);
+                    float distanceTo = MathF.Sqrt(newMove.X * newMove.X + newMove.Y * newMove.Y);
                     if (distanceTo < distance)
                     {
                         move = newMove;
@@ -41,7 +41,7 @@ namespace TRAEProject.NewContent.Items.Weapons.Launchers.H410WFLASH
                 }
                 if (target)
                 {
-                    float magnitude = (float)Math.Sqrt(move.X * move.X + move.Y * move.Y);
+                    float magnitude = MathF.Sqrt(move.X * move.X + move.Y * move.Y);
                     if (magnitude > 10f)
                     {
                         move /= magnitude;
@@ -286,10 +286,10 @@ namespace TRAEProject.NewContent.Items.Weapons.Launchers.H410WFLASH
             if (Projectile.owner == Main.myPlayer)
             {
                 int Cluster = 862; // snowman cannon's projectile, doesn't damage the player
-                float num852 = ((float)Math.PI * 2f);
-                for (float c = 0f; c < 1f; c += 355f / (678f * (float)Math.PI))
+                float num852 = (MathF.PI * 2f);
+                for (float c = 0f; c < 1f; c += 355f / (678f * MathF.PI))
                 {
-                    float f2 = num852 + c * ((float)Math.PI * 2f);
+                    float f2 = num852 + c * (MathF.PI * 2f);
                     Vector2 velocity = f2.ToRotationVector2() * (4f + Main.rand.NextFloat() * 2f);
                     velocity += Vector2.UnitY * -1f;
                     int num854 = Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.Center, velocity, Cluster, Projectile.damage / 4, 0f, Projectile.owner);

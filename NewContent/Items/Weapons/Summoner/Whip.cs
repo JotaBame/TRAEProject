@@ -93,7 +93,7 @@ namespace TRAEProject.NewContent.Items.Weapons.Summoner.Whip
 					float num3 = target.Center.Y - vector.Y;
 					num2 += (float)Main.rand.Next(-50, 51) * 0.1f;
 					num3 += (float)Main.rand.Next(-50, 51) * 0.1f;
-					float num4 = (float)Math.Sqrt(num2 * num2 + num3 * num3);
+					float num4 = MathF.Sqrt(num2 * num2 + num3 * num3);
 					num4 = 24f / num4;
 					num2 *= num4;
 					num3 *= num4;
@@ -118,7 +118,7 @@ namespace TRAEProject.NewContent.Items.Weapons.Summoner.Whip
 					float num3 = target.Center.Y - vector.Y;
 					num2 += (float)Main.rand.Next(-50, 51) * 0.1f;
 					num3 += (float)Main.rand.Next(-50, 51) * 0.1f;
-					float num4 = (float)Math.Sqrt(num2 * num2 + num3 * num3);
+					float num4 = MathF.Sqrt(num2 * num2 + num3 * num3);
 					num4 = 24f / num4;
 					num2 *= num4;
 					num3 *= num4;
@@ -142,7 +142,7 @@ namespace TRAEProject.NewContent.Items.Weapons.Summoner.Whip
 				}
 			}
 			Player player = Main.player[Projectile.owner];
-			Projectile.rotation = Projectile.velocity.ToRotation() + (float)Math.PI / 2f;
+			Projectile.rotation = Projectile.velocity.ToRotation() + MathF.PI / 2f;
 			Projectile.ai[0] += 1f;
 			GetWhipSettings(Projectile, out var timeToFlyOut, out var _, out var _);
 			Projectile.Center = Main.GetPlayerArmPosition(Projectile) + Projectile.velocity * (Projectile.ai[0] - 1f);
@@ -268,7 +268,7 @@ namespace TRAEProject.NewContent.Items.Weapons.Summoner.Whip
 			float num = proj.ai[0] / timeToFlyOut;
 			float num2 = 0.5f;
 			float num3 = 1f + num2;
-			float num4 = (float)Math.PI * 10f * (1f - num * num3) * (float)(-proj.spriteDirection) / (float)segments;
+			float num4 = MathF.PI * 10f * (1f - num * num3) * (float)(-proj.spriteDirection) / (float)segments;
 			float num5 = num * num3;
 			float num6 = 0f;
 			if (num5 > 1f)
@@ -284,11 +284,11 @@ namespace TRAEProject.NewContent.Items.Weapons.Summoner.Whip
 			float num9 = 1f;
 			Vector2 playerArmPosition = Main.GetPlayerArmPosition(proj);
 			Vector2 vector = playerArmPosition;
-			float num10 = 0f - (float)Math.PI / 2f;
+			float num10 = 0f - MathF.PI / 2f;
 			Vector2 value = vector;
-			float num11 = 0f + (float)Math.PI / 2f + (float)Math.PI / 2f * (float)proj.spriteDirection;
+			float num11 = 0f + MathF.PI / 2f + MathF.PI / 2f * (float)proj.spriteDirection;
 			Vector2 value2 = vector;
-			float num12 = 0f + (float)Math.PI / 2f;
+			float num12 = 0f + MathF.PI / 2f;
 			controlPoints.Add(playerArmPosition);
 			for (int i = 0; i < segments; i++)
 			{
@@ -327,7 +327,7 @@ namespace TRAEProject.NewContent.Items.Weapons.Summoner.Whip
 			{
 				Vector2 vector = list[i];
 				Vector2 vector2 = list[i + 1] - vector;
-				float rotation = vector2.ToRotation() - (float)Math.PI / 2f;
+				float rotation = vector2.ToRotation() - MathF.PI / 2f;
 				Microsoft.Xna.Framework.Color color = Lighting.GetColor(vector.ToTileCoordinates(), originalColor);
 				Vector2 scale = new Vector2(1f, (vector2.Length() + 2f) / (float)value2.Height);
 				Main.EntitySpriteDraw(value, value3 - Main.screenPosition, value2, color, rotation, origin, scale, SpriteEffects.None, 0);
@@ -379,7 +379,7 @@ namespace TRAEProject.NewContent.Items.Weapons.Summoner.Whip
 				Vector2 vector4 = controlPoints[seg + 1] - vector3;
 				if (flag)
 				{
-					float rotation = vector4.ToRotation() - (float)Math.PI / 2f;
+					float rotation = vector4.ToRotation() - MathF.PI / 2f;
 					Microsoft.Xna.Framework.Color color = Lighting.GetColor(vector3.ToTileCoordinates());
 					Main.EntitySpriteDraw(value, vector2 - Main.screenPosition, rectangle, color, rotation, origin, scale, spriteEffects, 0);
 				}

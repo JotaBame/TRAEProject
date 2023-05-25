@@ -112,13 +112,13 @@ namespace TRAEProject.NewContent.Items.DreadItems.ShellSpinner
                     {
                         Projectile.friendly = true;
                     }
-                    float direction = (spinAround.Center - Projectile.Center).ToRotation() + (float)Math.PI / 2f;
+                    float direction = (spinAround.Center - Projectile.Center).ToRotation() + MathF.PI / 2f;
                     float rotMore = ((rotDistance - Projectile.Center.Distance(spinAround.Center)) / 300f);
                     if (Math.Abs(rotMore) > 1)
                     {
                         rotMore = Math.Sign(rotMore);
                     }
-                    rotMore *= (float)Math.PI / 4;
+                    rotMore *= MathF.PI / 4;
                     direction += rotMore;
                     if(timer < -120)
                     {

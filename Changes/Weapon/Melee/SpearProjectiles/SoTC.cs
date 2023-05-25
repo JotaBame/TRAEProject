@@ -20,7 +20,7 @@ namespace TRAEProject.Changes.Weapon.Melee.SpearProjectiles
             spearLength = 113f;//76f;
             stabStart = spearLength - 43.5f;
             stabEnd = -10;
-            swingAmount = (float)Math.PI / 24;
+            swingAmount = MathF.PI / 24;
         }
         bool spawnedEater = false;
         public override void SpearHitNPCMelee(NPC target, NPC.HitInfo hit)

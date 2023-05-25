@@ -194,12 +194,12 @@ namespace TRAEProject.Changes.Weapon.Ranged.Rockets
             if (projectile.owner == Main.myPlayer)
             {
                 int Cluster = 862; // snowman cannon's projectile, doesn't damage the player
-                float num852 = ((float)Math.PI * 2f);
+                float num852 = (MathF.PI * 2f);
                 float fragmentCount = 59.167f * 6/*Main.rand.Next(2, 3)*/;
-                for (float c = 0f; c < 1f; c += fragmentCount / (678f * (float)Math.PI))
+                for (float c = 0f; c < 1f; c += fragmentCount / (678f * MathF.PI))
                 {
 
-                    float f2 = num852 + c * ((float)Math.PI * 2f);
+                    float f2 = num852 + c * (MathF.PI * 2f);
                     Vector2 velocity = f2.ToRotationVector2() * (4f + Main.rand.NextFloat() * 2f);
                     velocity += Vector2.UnitY * -1f;
                     int num854 = Projectile.NewProjectile(projectile.GetSource_FromThis(), projectile.Center, velocity, Cluster, projectile.damage / 4, 0f, projectile.owner); Projectile pRojectile = Main.projectile[num854];
@@ -413,7 +413,7 @@ namespace TRAEProject.Changes.Weapon.Ranged.Rockets
                     Main.dust[num224].scale = 0.5f;
                 }
             }
-            float num225 = (float)Math.Sqrt(projectile.velocity.X * projectile.velocity.X + projectile.velocity.Y * projectile.velocity.Y);
+            float num225 = MathF.Sqrt(projectile.velocity.X * projectile.velocity.X + projectile.velocity.Y * projectile.velocity.Y);
             float num226 = projectile.localAI[0];
             if (num226 == 0f)
             {

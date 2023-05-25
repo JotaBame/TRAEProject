@@ -205,7 +205,7 @@ namespace TRAEProject.Changes.NPCs.Boss.Plantera
             {
                 SoundEngine.PlaySound(SoundID.Roar with { MaxInstances = 0 }, npc.Center);
             }
-            npc.velocity = TRAEMethods.PolarVector(16, npc.rotation - (float)Math.PI / 2);
+            npc.velocity = TRAEMethods.PolarVector(16, npc.rotation - MathF.PI / 2);
             npc.ai[1] += expertSpeedBonus;
             Dust(npc);
             if (npc.ai[1] > pullBackTime + 120 && (!Collision.CanHit(npc.Center + (player.Center - npc.Center).SafeNormalize(Vector2.UnitY) * 100, 1, 1, player.Center, 1, 1) && ClosedRegion(npc, npc.Center)) || (player.Center - npc.Center).Length() > 1800)
@@ -220,7 +220,7 @@ namespace TRAEProject.Changes.NPCs.Boss.Plantera
             {
                 for (int j = -50; j < 50; j += 16)
                 {
-                    Vector2 pos = npc.Center + TRAEMethods.PolarVector(i, rot) + TRAEMethods.PolarVector(j, rot + (float)Math.PI / 2f);
+                    Vector2 pos = npc.Center + TRAEMethods.PolarVector(i, rot) + TRAEMethods.PolarVector(j, rot + MathF.PI / 2f);
                     Point tileCoord = pos.ToTileCoordinates();
                     WorldGen.KillTile(tileCoord.X, tileCoord.Y, fail: true, effectOnly: true);
                 }
@@ -275,7 +275,7 @@ namespace TRAEProject.Changes.NPCs.Boss.Plantera
         {
 
             float rot = (player.Center - npc.Center).ToRotation();
-            float rotOffset = 2f * (float)Math.PI * ((float)(npc.ai[1] - thornBallStart) / (float)(thornBallHold / spins));
+            float rotOffset = 2f * MathF.PI * ((float)(npc.ai[1] - thornBallStart) / (float)(thornBallHold / spins));
             float outAmount = (npc.ai[1] - thornBallStart) * 4f;
             if (outAmount > 80)
             {
@@ -343,7 +343,7 @@ namespace TRAEProject.Changes.NPCs.Boss.Plantera
         {
 
             float rot = (player.Center - npc.Center).ToRotation();
-            float rotOffset = 2f * (float)Math.PI * ((float)(npc.ai[1] - thornBall2Start) / (float)(thornBall2Hold / spins2));
+            float rotOffset = 2f * MathF.PI * ((float)(npc.ai[1] - thornBall2Start) / (float)(thornBall2Hold / spins2));
             float outAmount = (npc.ai[1] - thornBall2Start) * 4f;
             if (outAmount > 80)
             {
@@ -454,7 +454,7 @@ namespace TRAEProject.Changes.NPCs.Boss.Plantera
                     float length = 0;
                     for (int i = 0; i < 8; i++)
                     {
-                        float rot = ((float)i / 8f) * ((float)Math.PI * 2f);
+                        float rot = ((float)i / 8f) * (MathF.PI * 2f);
                         Vector2 pos = Main.projectile[(int)npc.ai[0]].Center + TRAEMethods.PolarVector(50, rot);
                         for (int k = 0; k < 600; k++)
                         {
@@ -468,14 +468,14 @@ namespace TRAEProject.Changes.NPCs.Boss.Plantera
                     }
                     int hookCount = 3 + (int)(length / (16f * 8 * 10));
                     hooks = new Projectile[hookCount];
-                    float rotOffset = -(float)Math.PI/2f;
+                    float rotOffset = -MathF.PI/2f;
                     if(hookCount % 2 == 0)
                     {
-                        rotOffset += ((float)Math.PI) / hookCount;
+                        rotOffset += (MathF.PI) / hookCount;
                     }
                     for (int i = 0; i < hooks.Length; i++)
                     {
-                        float rot = ((float)i / hooks.Length) * ((float)Math.PI * 2f) + rotOffset;
+                        float rot = ((float)i / hooks.Length) * (MathF.PI * 2f) + rotOffset;
                         Vector2 pos = Main.projectile[(int)npc.ai[0]].Center + TRAEMethods.PolarVector(50, rot);
                         for (int k = 0; k < 600; k++)
                         {
@@ -485,7 +485,7 @@ namespace TRAEProject.Changes.NPCs.Boss.Plantera
                             }
                             pos += TRAEMethods.PolarVector(10, rot);
                         }
-                        hooks[i] = Main.projectile[Projectile.NewProjectile(npc.GetSource_FromAI(), pos, TRAEMethods.PolarVector(1f, rot + (float)Math.PI), ProjectileType<PlanteraHook2>(), npc.GetAttackDamage_ForProjectiles(26f, 22f), 0)];
+                        hooks[i] = Main.projectile[Projectile.NewProjectile(npc.GetSource_FromAI(), pos, TRAEMethods.PolarVector(1f, rot + MathF.PI), ProjectileType<PlanteraHook2>(), npc.GetAttackDamage_ForProjectiles(26f, 22f), 0)];
                     }
                 }
             }
@@ -498,7 +498,7 @@ namespace TRAEProject.Changes.NPCs.Boss.Plantera
                 attackCounter++;
                 for (int k = 0; k < 2; k++)
                 {
-                    Vector2 pos = npc.Center + TRAEMethods.PolarVector(260, rot + (float)Math.PI / 2f + k * (float)Math.PI);
+                    Vector2 pos = npc.Center + TRAEMethods.PolarVector(260, rot + MathF.PI / 2f + k * MathF.PI);
                     for (int i = 0; i < 100; i++)
                     {
                         if (!Collision.CanHit(pos, 1, 1, player.Center, 1, 1))
@@ -566,7 +566,7 @@ namespace TRAEProject.Changes.NPCs.Boss.Plantera
                     if ((float)npc.life / (float)npc.lifeMax < 0.5f && currentAtk < 3)
                     {
 
-                        npc.rotation = (player.Center - npc.Center).ToRotation() + (float)Math.PI / 2;
+                        npc.rotation = (player.Center - npc.Center).ToRotation() + MathF.PI / 2;
                         ReverseMovement(npc, player);
                         if (npc.ai[2] != -1 && Main.projectile[(int)npc.ai[2]] != null)
                         {
@@ -582,14 +582,14 @@ namespace TRAEProject.Changes.NPCs.Boss.Plantera
                         }
                         else
                         {
-                            npc.rotation = (player.Center - npc.Center).ToRotation() + (float)Math.PI / 2;
+                            npc.rotation = (player.Center - npc.Center).ToRotation() + MathF.PI / 2;
                             ReverseMovement(npc, player);
                         }
                     }
                     else
                     {
 
-                        npc.rotation = (player.Center - npc.Center).ToRotation() + (float)Math.PI / 2;
+                        npc.rotation = (player.Center - npc.Center).ToRotation() + MathF.PI / 2;
                         Movement(npc, player);
                     }
 
@@ -624,7 +624,7 @@ namespace TRAEProject.Changes.NPCs.Boss.Plantera
                         for (int k = 0; k < dist; k += vine.Height)
                         {
                             Vector2 pos = Main.projectile[(int)npc.ai[2]].Center + TRAEMethods.PolarVector(k, rot);
-                            spriteBatch.Draw(vine, pos - screenPos, null, Lighting.GetColor((int)pos.X / 16, (int)pos.Y / 16), rot + (float)Math.PI / 2f, new Vector2(vine.Width / 2, vine.Height), 1f, SpriteEffects.None, 0);
+                            spriteBatch.Draw(vine, pos - screenPos, null, Lighting.GetColor((int)pos.X / 16, (int)pos.Y / 16), rot + MathF.PI / 2f, new Vector2(vine.Width / 2, vine.Height), 1f, SpriteEffects.None, 0);
                         }
                     }
 
@@ -644,7 +644,7 @@ namespace TRAEProject.Changes.NPCs.Boss.Plantera
                                     Color color = new Color(0.3f, 0.3f, 0.3f, 0.3f);
                                     float distance = (player.Center - hooks[i].Center).Length();
                                     spriteBatch.Draw(pinkDraw, hooks[i].Center - Main.screenPosition + TRAEMethods.PolarVector(distance / 2f, rot), null, color, rot, pinkDraw.Size() * .5f, new Vector2(distance / 4f, 1f), SpriteEffects.None, 0f);
-                                    hooks[i].rotation = rot + (float)Math.PI / 2;
+                                    hooks[i].rotation = rot + MathF.PI / 2;
                                 }
                             }
                         }

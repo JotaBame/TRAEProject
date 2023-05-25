@@ -20,7 +20,7 @@ namespace TRAEProject.Changes.Weapon.Melee.SpearProjectiles
             spearLength = 184f;
             stabStart = 147f;
             stabEnd = -10;
-            swingAmount = (float)Math.PI / 24;
+            swingAmount = MathF.PI / 24;
         }
         int timer = 0;
         public override void SpearActive()

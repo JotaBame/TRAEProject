@@ -31,7 +31,7 @@ namespace TRAEProject.NewContent.Items.Armor.Joter
             spearLength = 99f;
             stabStart = 79;
             stabEnd = -10;
-            swingAmount = (float)Math.PI / 32;
+            swingAmount = MathF.PI / 32;
 
         }
         public override void SpearHitNPCMelee(NPC target, NPC.HitInfo hit) // if more on kills are ever added, make this a method in ProjectileStats

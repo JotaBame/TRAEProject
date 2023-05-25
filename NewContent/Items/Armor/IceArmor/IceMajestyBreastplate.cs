@@ -188,10 +188,10 @@ namespace TRAEProject.NewContent.Items.Armor.IceArmor
             	if (Projectile.ai[0] == 0f)
             	{
             		AI_GetMyGroupIndexAndFillBlackList(null, out var index, out var totalIndexesInGroup);
-            		float num2 = (float)Math.PI * 2f / (float)totalIndexesInGroup;
+            		float num2 = MathF.PI * 2f / (float)totalIndexesInGroup;
             		float num3 = totalIndexesInGroup * 0.66f;
             		Vector2 value = new Vector2(30f, 6f) / 5f * (totalIndexesInGroup - 1);
-            		Vector2 value2 = Vector2.UnitY.RotatedBy(num2 * (float)index + Main.GlobalTimeWrappedHourly % num3 / num3 * ((float)Math.PI * 2f));
+            		Vector2 value2 = Vector2.UnitY.RotatedBy(num2 * (float)index + Main.GlobalTimeWrappedHourly % num3 / num3 * (MathF.PI * 2f));
             		vector += value2 * value;
             		vector.Y += player.gfxOffY;
             		vector = vector.Floor();
@@ -221,10 +221,10 @@ namespace TRAEProject.NewContent.Items.Armor.IceArmor
             			Projectile.ai[1] = attackTarget;
             			Projectile.netUpdate = true;
             		}
-            		float targetAngle = Projectile.velocity.SafeNormalize(Vector2.UnitY).ToRotation() + (float)Math.PI / 2f;
+            		float targetAngle = Projectile.velocity.SafeNormalize(Vector2.UnitY).ToRotation() + MathF.PI / 2f;
             	if (velocity.Length() < 40f)
             		{
-            			targetAngle = Vector2.UnitY.ToRotation() + (float)Math.PI / 2f;
+            			targetAngle = Vector2.UnitY.ToRotation() + MathF.PI / 2f;
             		}
             		Projectile.rotation = Projectile.rotation.AngleLerp(targetAngle, 0.2f);
             	return;
@@ -284,7 +284,7 @@ namespace TRAEProject.NewContent.Items.Armor.IceArmor
                 {
                     Projectile.velocity *= num6 / Projectile.velocity.Length();
                 }
-                float targetAngle2 = Projectile.velocity.SafeNormalize(Vector2.UnitY).ToRotation() + (float)Math.PI / 2f;
+                float targetAngle2 = Projectile.velocity.SafeNormalize(Vector2.UnitY).ToRotation() + MathF.PI / 2f;
                 Projectile.rotation = Projectile.rotation.AngleLerp(targetAngle2, 0.4f);
             }
             float num7 = 0.1f;

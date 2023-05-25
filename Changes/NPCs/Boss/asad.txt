@@ -181,7 +181,7 @@
                             Vector2 NPCPos = new Vector2(npc.position.X + npc.width * 0.5f, npc.position.Y + npc.height * 0.5f);
                             float VelocityX = target.position.X + target.width / 2 - NPCPos.X;
                             float VelocityY = target.position.Y + target.height / 2 - NPCPos.Y;
-                            float Velocity = (float)Math.Sqrt(VelocityX * VelocityX + VelocityY * VelocityY);
+                            float Velocity = MathF.Sqrt(VelocityX * VelocityX + VelocityY * VelocityY);
 
                             Velocity = AttackSpeed / Velocity;
 
@@ -362,7 +362,7 @@
                     Vector2 vector77 = new Vector2(npc.position.X + npc.width * 0.5f, npc.position.Y + npc.height * 0.5f);
                     float XPosition = target.position.X + target.width / 2 - vector77.X;
                     float YPosition = target.position.Y + target.height / 2 - 200f - vector77.Y;
-                    float Position = (float)Math.Sqrt(XPosition * XPosition + YPosition * YPosition);
+                    float Position = MathF.Sqrt(XPosition * XPosition + YPosition * YPosition);
                     if (Position < 200f)
                     {
                         npc.ai[0] = 1f;
@@ -412,7 +412,7 @@
                     Vector2 vector79 = new Vector2(npc.position.X + npc.width * 0.5f, npc.position.Y + npc.height * 0.5f);
                     float num636 = target.position.X + target.width / 2 - vector79.X;
                     float num637 = target.position.Y + target.height / 2 - vector79.Y;
-                    float num638 = (float)Math.Sqrt(num636 * num636 + num637 * num637);
+                    float num638 = MathF.Sqrt(num636 * num636 + num637 * num637);
                     npc.ai[1] += 1f;
                     if (Main.expertMode)
                     {
@@ -474,7 +474,7 @@
                             vector79 = vector78;
                             num636 = target.Center.X - vector79.X;
                             num637 = target.Center.Y - vector79.Y;
-                            num638 = (float)Math.Sqrt(num636 * num636 + num637 * num637);
+                            num638 = MathF.Sqrt(num636 * num636 + num637 * num637);
                             num638 = num644 / num638;
                             if (npc.velocity.X < num636)
                             {
@@ -536,7 +536,7 @@
                         Vector2 PositionY = new Vector2(npc.position.X + npc.width * 0.5f, npc.position.Y + npc.height * 0.5f);
                         float num648 = target.Center.X - PositionY.X;
                         float num649 = target.Center.Y - 300f - PositionY.Y;
-                        float Distance = (float)Math.Sqrt(num648 * num648 + num649 * num649);
+                        float Distance = MathF.Sqrt(num648 * num648 + num649 * num649);
                         npc.ai[1] += 1f;
                         int FireRate = 40;
                         if (Main.expertMode)
@@ -563,7 +563,7 @@
                                 int velocityY = (int)(40f - 19f * Enrage);
                                 float VelocityX = target.Center.X - PositionX.X + Main.rand.Next(-velocityX, velocityX + 1);
                                 float VelocityY = target.Center.Y - PositionX.Y + Main.rand.Next(-velocityY, velocityY + 1);
-                                float num657 = (float)Math.Sqrt(VelocityX * VelocityX + VelocityY * VelocityY);
+                                float num657 = MathF.Sqrt(VelocityX * VelocityX + VelocityY * VelocityY);
                                 num657 = num652 / num657;
                                 VelocityX *= num657;
                                 VelocityY *= num657;
@@ -584,7 +584,7 @@
                             PositionY = PositionX;
                             num648 = target.Center.X - PositionY.X;
                             num649 = target.Center.Y - PositionY.Y;
-                            Distance = (float)Math.Sqrt(num648 * num648 + num649 * num649);
+                            Distance = MathF.Sqrt(num648 * num648 + num649 * num649);
                             Distance = num646 / Distance;
                             if (npc.velocity.X < num648)
                             {

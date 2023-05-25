@@ -90,7 +90,7 @@ namespace TRAEProject.Changes.NPCs.Miniboss.Santa
 						float num960 = savedShootSpot.Y - vector116.Y + Main.rand.Next(-40, 41);
 						num959 += Main.rand.Next(-40, 41);
 						num960 += Main.rand.Next(-40, 41);
-						float num961 = (float)Math.Sqrt(num959 * num959 + num960 * num960);
+						float num961 = MathF.Sqrt(num959 * num959 + num960 * num960);
 						float num962 = 15f;
 						num961 = num962 / num961;
 						num959 *= num961;
@@ -134,7 +134,7 @@ namespace TRAEProject.Changes.NPCs.Miniboss.Santa
 						Vector2 vector117 = new Vector2(npc.Center.X - (float)(npc.direction * 24), npc.Center.Y - 64f);
 						float num967 = Main.rand.Next(1, 100) * npc.direction;
 						float num968 = 1f;
-						float num969 = (float)Math.Sqrt(num967 * num967 + num968 * num968);
+						float num969 = MathF.Sqrt(num967 * num967 + num968 * num968);
 						float num970 = 1f;
 						num969 = num970 / num969;
 						num967 *= num969;
@@ -157,7 +157,7 @@ namespace TRAEProject.Changes.NPCs.Miniboss.Santa
 							float num974 = Main.player[npc.target].Center.Y - vector118.Y;
 							num973 += (float)Main.rand.Next(-50, 51);
 							num974 += (float)Main.rand.Next(-50, 51);
-							float num975 = (float)Math.Sqrt(num973 * num973 + num974 * num974);
+							float num975 = MathF.Sqrt(num973 * num973 + num974 * num974);
 							float num976 = 12.5f;
 							num975 = num976 / num975;
 							num973 *= num975;
@@ -184,7 +184,7 @@ namespace TRAEProject.Changes.NPCs.Miniboss.Santa
 							Vector2 vector119 = new Vector2(npc.Center.X - (float)(npc.direction * 24), npc.Center.Y - 64f);
 							float num979 = Main.rand.Next(-100, 101);
 							float num980 = -300f;
-							float num981 = (float)Math.Sqrt(num979 * num979 + num980 * num980);
+							float num981 = MathF.Sqrt(num979 * num979 + num980 * num980);
 							float num982 = 11f;
 							num981 = num982 / num981;
 							num979 *= num981;

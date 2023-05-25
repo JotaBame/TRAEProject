@@ -109,7 +109,7 @@ namespace TRAEProject.Changes.NPCs.Boss
                     bool dead2 = Main.player[npc.target].dead;
 
                     float shootSpeed = 10f;
-                    float rotateTowards = TRAEMethods.PredictiveAimWithOffset(npc.Center, shootSpeed * 3, Main.player[npc.target].Center, Main.player[npc.target].velocity, npc.ai[1] == 0 ? 25 * 9 : 15 * 9) - (float)Math.PI / 2;
+                    float rotateTowards = TRAEMethods.PredictiveAimWithOffset(npc.Center, shootSpeed * 3, Main.player[npc.target].Center, Main.player[npc.target].velocity, npc.ai[1] == 0 ? 25 * 9 : 15 * 9) - MathF.PI / 2;
                     rotateTowards += RetPhase3.RotateModifer(npc);
                     float rotSpeed = 0.1f;
                     if (npc.ai[1] == 0)
@@ -189,7 +189,7 @@ namespace TRAEProject.Changes.NPCs.Boss
                                     if (Main.netMode != 1)
                                     {
                                         int attackDamage_ForProjectiles3 = npc.GetAttackDamage_ForProjectiles(20f, 19f);
-                                        int num413 = Projectile.NewProjectile(npc.GetSource_ReleaseEntity(), npc.Center + TRAEMethods.PolarVector(15 * 9, npc.rotation + (float)Math.PI / 2), TRAEMethods.PolarVector(shootSpeed, npc.rotation + (float)Math.PI / 2), ProjectileID.EyeLaser, attackDamage_ForProjectiles3, 0f, Main.myPlayer);
+                                        int num413 = Projectile.NewProjectile(npc.GetSource_ReleaseEntity(), npc.Center + TRAEMethods.PolarVector(15 * 9, npc.rotation + MathF.PI / 2), TRAEMethods.PolarVector(shootSpeed, npc.rotation + MathF.PI / 2), ProjectileID.EyeLaser, attackDamage_ForProjectiles3, 0f, Main.myPlayer);
                                     }
                                 }
                             }
@@ -208,7 +208,7 @@ namespace TRAEProject.Changes.NPCs.Boss
                                 if (Main.netMode != 1)
                                 {
                                     int attackDamage_ForProjectiles3 = npc.GetAttackDamage_ForProjectiles(20f, 19f);
-                                    int num413 = Projectile.NewProjectile(npc.GetSource_ReleaseEntity(), npc.Center + TRAEMethods.PolarVector(15 * 9, npc.rotation + (float)Math.PI / 2), TRAEMethods.PolarVector(shootSpeed, npc.rotation + (float)Math.PI / 2), ProjectileID.EyeLaser, attackDamage_ForProjectiles3, 0f, Main.myPlayer);
+                                    int num413 = Projectile.NewProjectile(npc.GetSource_ReleaseEntity(), npc.Center + TRAEMethods.PolarVector(15 * 9, npc.rotation + MathF.PI / 2), TRAEMethods.PolarVector(shootSpeed, npc.rotation + MathF.PI / 2), ProjectileID.EyeLaser, attackDamage_ForProjectiles3, 0f, Main.myPlayer);
                                 }
                             }
                         }
@@ -316,7 +316,7 @@ namespace TRAEProject.Changes.NPCs.Boss
                                 if (Main.netMode != 1)
                                 {
                                     int attackDamage_ForProjectiles3 = npc.GetAttackDamage_ForProjectiles(25f, 23f);
-                                    int num413 = Projectile.NewProjectile(npc.GetSource_ReleaseEntity(), npc.Center + TRAEMethods.PolarVector(25 * 9, npc.rotation + (float)Math.PI / 2), TRAEMethods.PolarVector(shootSpeed, npc.rotation + (float)Math.PI / 2), ProjectileID.DeathLaser, attackDamage_ForProjectiles3, 0f, Main.myPlayer);
+                                    int num413 = Projectile.NewProjectile(npc.GetSource_ReleaseEntity(), npc.Center + TRAEMethods.PolarVector(25 * 9, npc.rotation + MathF.PI / 2), TRAEMethods.PolarVector(shootSpeed, npc.rotation + MathF.PI / 2), ProjectileID.DeathLaser, attackDamage_ForProjectiles3, 0f, Main.myPlayer);
                                 }
                             }
                             if (npc.ai[2] >= 660 + 120)
@@ -399,7 +399,7 @@ namespace TRAEProject.Changes.NPCs.Boss
                                 if (Main.netMode != NetmodeID.MultiplayerClient)
                                 {
                                     int attackDamage_ForProjectiles3 = npc.GetAttackDamage_ForProjectiles(25f, 23f);
-                                    int num413 = Projectile.NewProjectile(npc.GetSource_ReleaseEntity(), npc.Center + TRAEMethods.PolarVector(25 * 9, npc.rotation + (float)Math.PI / 2), TRAEMethods.PolarVector(shootSpeed, npc.rotation + (float)Math.PI / 2), ProjectileID.DeathLaser, attackDamage_ForProjectiles3, 0f, Main.myPlayer);
+                                    int num413 = Projectile.NewProjectile(npc.GetSource_ReleaseEntity(), npc.Center + TRAEMethods.PolarVector(25 * 9, npc.rotation + MathF.PI / 2), TRAEMethods.PolarVector(shootSpeed, npc.rotation + MathF.PI / 2), ProjectileID.DeathLaser, attackDamage_ForProjectiles3, 0f, Main.myPlayer);
                                 }
                             }
                         }
@@ -467,7 +467,7 @@ namespace TRAEProject.Changes.NPCs.Boss
                                 Vector2 spazposition = new Vector2(npc.position.X + (float)npc.width * 0.5f, npc.position.Y + (float)npc.height * 0.5f);
                                 float playerpositionX = Main.player[npc.target].position.X + (float)(Main.player[npc.target].width / 2) + (float)(num425 * 180) - spazposition.X;
                                 float playerpositionY = Main.player[npc.target].position.Y + (float)(Main.player[npc.target].height / 2) - spazposition.Y;
-                                float playerpositiontospaz = (float)Math.Sqrt((double)(playerpositionX * playerpositionX + playerpositionY * playerpositionY));
+                                float playerpositiontospaz = MathF.Sqrt((double)(playerpositionX * playerpositionX + playerpositionY * playerpositionY));
                                 if (Main.expertMode)
                                 {
                                     if (playerpositiontospaz > 300f)

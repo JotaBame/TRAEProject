@@ -140,7 +140,7 @@ namespace TRAEProject.NewContent.NPCs.Underworld.Beholder
             p.ai[0] = rotateDirection;
         }
         float beamDirection = 0;
-        public const float beamSweepAngle = (float)Math.PI / 6;
+        public const float beamSweepAngle = MathF.PI / 6;
         int facethisway = 0;
         float angletimer = 0;
         bool hasHeRoared = false;
@@ -365,7 +365,7 @@ namespace TRAEProject.NewContent.NPCs.Underworld.Beholder
                         float VEL = 16f;
                         float velX = posX - ActualCenter.X;
                         float velY = posY - ActualCenter.Y;
-                        float sqrRoot = (float)Math.Sqrt(velX * velX + velY * velY);
+                        float sqrRoot = MathF.Sqrt(velX * velX + velY * velY);
                         sqrRoot = VEL / sqrRoot;
                         velX *= sqrRoot;
                         velY *= sqrRoot;
@@ -462,7 +462,7 @@ namespace TRAEProject.NewContent.NPCs.Underworld.Beholder
                         NPC.takenDamageMultiplier /= 4;
                         for (int i = 0; i < 2; i++)
                         {
-                            float rot = (float)Math.PI * i + (float)Math.PI * (float)NPC.ai[2] / 10f;
+                            float rot = MathF.PI * i + MathF.PI * (float)NPC.ai[2] / 10f;
                             Dust.NewDustPerfect(shootFrom + TRAEMethods.PolarVector(30, rot), DustID.PurpleTorch, TRAEMethods.PolarVector(-3f, rot));
                         }
                     }
@@ -539,7 +539,7 @@ namespace TRAEProject.NewContent.NPCs.Underworld.Beholder
                             float posY = target.Center.Y;
                             float velX = posX - ActualCenter.X;
                             float velY = posY - ActualCenter.Y;
-                            float sqrRoot = (float)Math.Sqrt(velX * velX + velY * velY);
+                            float sqrRoot = MathF.Sqrt(velX * velX + velY * velY);
                             sqrRoot = VEL / sqrRoot;
 
                             velX *= sqrRoot;
@@ -599,7 +599,7 @@ namespace TRAEProject.NewContent.NPCs.Underworld.Beholder
                         NPC.takenDamageMultiplier /= 4;
                         for (int i = 0; i < 2; i++)
                         {
-                            float rot = (float)Math.PI * i + (float)Math.PI * (float)NPC.ai[2] / 10f;
+                            float rot = MathF.PI * i + MathF.PI * (float)NPC.ai[2] / 10f;
                             Dust.NewDustPerfect(shootFrom + TRAEMethods.PolarVector(30, rot), DustID.PurpleTorch, TRAEMethods.PolarVector(-3f, rot));
                         }
                     }
@@ -728,7 +728,7 @@ namespace TRAEProject.NewContent.NPCs.Underworld.Beholder
                      
                         float velX = posX - Projectile.Center.X;
                         float velY = posY - Projectile.Center.Y;
-                        float sqrRoot = (float)Math.Sqrt(velX * velX + velY * velY);
+                        float sqrRoot = MathF.Sqrt(velX * velX + velY * velY);
                         sqrRoot = speed / sqrRoot;
                         velX *= sqrRoot;
                         velY *= sqrRoot;
@@ -1012,11 +1012,11 @@ namespace TRAEProject.NewContent.NPCs.Underworld.Beholder
         public override bool PreDraw(ref Color lightColor)
         {
             Texture2D texture = TextureAssets.Projectile[Projectile.type].Value;
-            Main.EntitySpriteDraw(texture, Projectile.Center - Main.screenPosition, new Rectangle(0, 0, 26, 22), Color.White, Projectile.rotation - (float)Math.PI / 2f, new Vector2(13, 11), new Vector2(beamWidth / 10f, 1f), SpriteEffects.None, 0);
+            Main.EntitySpriteDraw(texture, Projectile.Center - Main.screenPosition, new Rectangle(0, 0, 26, 22), Color.White, Projectile.rotation - MathF.PI / 2f, new Vector2(13, 11), new Vector2(beamWidth / 10f, 1f), SpriteEffects.None, 0);
             float subLength = length - (11 + 22);
             int midBeamHieght = 30;
-            Main.EntitySpriteDraw(texture, Projectile.Center + TRAEMethods.PolarVector(11, Projectile.rotation) - Main.screenPosition, new Rectangle(0, 24, 26, midBeamHieght), Color.White, Projectile.rotation - (float)Math.PI / 2f, new Vector2(13, 0), new Vector2(beamWidth / 10f, subLength / (float)midBeamHieght), SpriteEffects.None, 0);
-            Main.EntitySpriteDraw(texture, Projectile.Center + TRAEMethods.PolarVector(length - 22, Projectile.rotation) - Main.screenPosition, new Rectangle(0, 56, 26, 22), Color.White, Projectile.rotation - (float)Math.PI / 2f, new Vector2(13, 0), new Vector2(beamWidth / 10f, 1f), SpriteEffects.None, 0);
+            Main.EntitySpriteDraw(texture, Projectile.Center + TRAEMethods.PolarVector(11, Projectile.rotation) - Main.screenPosition, new Rectangle(0, 24, 26, midBeamHieght), Color.White, Projectile.rotation - MathF.PI / 2f, new Vector2(13, 0), new Vector2(beamWidth / 10f, subLength / (float)midBeamHieght), SpriteEffects.None, 0);
+            Main.EntitySpriteDraw(texture, Projectile.Center + TRAEMethods.PolarVector(length - 22, Projectile.rotation) - Main.screenPosition, new Rectangle(0, 56, 26, 22), Color.White, Projectile.rotation - MathF.PI / 2f, new Vector2(13, 0), new Vector2(beamWidth / 10f, 1f), SpriteEffects.None, 0);
             return false;
         }
     }

@@ -58,7 +58,7 @@ return;
         {
             if (Player.HeldItem.type == ItemID.Megaphone && Player.itemAnimation > 0)
             {
-                float turnArmAmt = (float)Math.PI * -2f / 5f;
+                float turnArmAmt = MathF.PI * -2f / 5f;
                 Player.SetCompositeArmBack(enabled: true, Player.CompositeArmStretchAmount.Full, turnArmAmt * (float)Player.direction);
 
                 Player.bodyFrame.Y = 0;
@@ -152,12 +152,12 @@ return;
 
                 Texture2D texture = TextureAssets.Item[ItemID.Megaphone].Value;
 
-                float turnArmAmt = (float)Math.PI * -2f / 5f;
+                float turnArmAmt = MathF.PI * -2f / 5f;
                 Player.CompositeArmStretchAmount stretchAmount = Player.CompositeArmStretchAmount.Full;
-                float rotExtra = -(float)Math.PI / 4f;
+                float rotExtra = -MathF.PI / 4f;
                 if(drawPlayer.gravDir == -1)
                 {
-                    rotExtra += (float)Math.PI / 2 ;
+                    rotExtra += MathF.PI / 2 ;
                 }
 
                 Vector2 offset = drawPlayer.GetBackHandPosition(stretchAmount, turnArmAmt * (float)drawPlayer.direction) - drawPlayer.MountedCenter;

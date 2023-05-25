@@ -256,7 +256,7 @@ namespace TRAEProject.NewContent.NPCs.GraniteOvergrowth
                 NPC.ai[1]++;
                 float shootToX = player.position.X + player.width * 0.5f - NPC.Center.X;
                 float shootToY = player.position.Y + player.height * 0.5f - NPC.Center.Y;
-                float distance2 = (float)Math.Sqrt((shootToX * shootToX + shootToY * shootToY));
+                float distance2 = MathF.Sqrt((shootToX * shootToX + shootToY * shootToY));
                 if (NPC.ai[1] % 30 == 0)
                 {
                     if (distance2 < (RingRange + 25))
@@ -316,11 +316,11 @@ namespace TRAEProject.NewContent.NPCs.GraniteOvergrowth
                 Gore.NewGore(NPC.GetSource_Death(), NPC.Center, vector22, GoreID.GraniteGolemBody);
             }
             int bolt = ProjectileType<GraniteBolt>(); 
-            float num852 = ((float)Math.PI * 2f);
+            float num852 = (MathF.PI * 2f);
             float boltCount = 59.167f * 6;
-            for (float c = 0f; c < 1f; c += boltCount / (678f * (float)Math.PI))
+            for (float c = 0f; c < 1f; c += boltCount / (678f * MathF.PI))
             {
-                float f2 = num852 + c * ((float)Math.PI * 2f);
+                float f2 = num852 + c * (MathF.PI * 2f);
                 Vector2 velocity = f2.ToRotationVector2() * (4f + Main.rand.NextFloat() * 2f);
                 velocity += Vector2.UnitY * -1f;
                 Projectile.NewProjectile(NPC.GetSource_FromAI(), NPC.Center, velocity, bolt, 25, 0f);

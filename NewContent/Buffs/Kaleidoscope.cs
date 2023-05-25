@@ -60,7 +60,7 @@ namespace TRAEProject.NewContent.Buffs
 				foreach (NPC enemy in Main.npc)
 				{
 					Vector2 newMove = enemy.Center - target.Center;
-					float distanceTo = (float)Math.Sqrt(newMove.X * newMove.X + newMove.Y * newMove.Y);// could simplify this using Vector2.Length?
+					float distanceTo = MathF.Sqrt(newMove.X * newMove.X + newMove.Y * newMove.Y);// could simplify this using Vector2.Length?
 					if (!enemy.dontTakeDamage && enemy.active && !enemy.friendly && !enemy.immortal && distanceTo < distance && enemy.whoAmI != target.whoAmI)
 					{
 						Main.player[projectile.owner].ApplyDamageToNPC(enemy, damageDone, 0f, 0, crit: false);

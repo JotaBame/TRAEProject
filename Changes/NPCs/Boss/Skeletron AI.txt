@@ -65,7 +65,7 @@ if (aiStyle == 11)
 					Vector2 center3 = base.Center;
 					float num160 = Main.player[target].position.X + (float)(Main.player[target].width / 2) - center3.X;
 					float num161 = Main.player[target].position.Y + (float)(Main.player[target].height / 2) - center3.Y;
-					float num162 = (float)Math.Sqrt(num160 * num160 + num161 * num161);
+					float num162 = MathF.Sqrt(num160 * num160 + num161 * num161);
 					if (Collision.CanHit(center3, 1, 1, Main.player[target].position, Main.player[target].width, Main.player[target].height))
 					{
 						float num163 = 3f;
@@ -75,7 +75,7 @@ if (aiStyle == 11)
 						}
 						float num164 = Main.player[target].position.X + (float)Main.player[target].width * 0.5f - center3.X + (float)Main.rand.Next(-20, 21);
 						float num165 = Main.player[target].position.Y + (float)Main.player[target].height * 0.5f - center3.Y + (float)Main.rand.Next(-20, 21);
-						float num166 = (float)Math.Sqrt(num164 * num164 + num165 * num165);
+						float num166 = MathF.Sqrt(num164 * num164 + num165 * num165);
 						num166 = num163 / num166;
 						num164 *= num166;
 						num165 *= num166;
@@ -190,7 +190,7 @@ if (aiStyle == 11)
 			Vector2 vector20 = new Vector2(position.X + (float)width * 0.5f, position.Y + (float)height * 0.5f);
 			float num173 = Main.player[target].position.X + (float)(Main.player[target].width / 2) - vector20.X;
 			float num174 = Main.player[target].position.Y + (float)(Main.player[target].height / 2) - vector20.Y;
-			float num175 = (float)Math.Sqrt(num173 * num173 + num174 * num174);
+			float num175 = MathF.Sqrt(num173 * num173 + num174 * num174);
 			float num176 = 1.5f;
 			damage = GetAttackDamage_LerpBetweenFinalValues(defDamage, (float)defDamage * 1.3f);
 			if (Main.expertMode)
@@ -262,7 +262,7 @@ if (aiStyle == 11)
 			Vector2 vector21 = new Vector2(position.X + (float)width * 0.5f, position.Y + (float)height * 0.5f);
 			float num177 = Main.player[target].position.X + (float)(Main.player[target].width / 2) - vector21.X;
 			float num178 = Main.player[target].position.Y + (float)(Main.player[target].height / 2) - vector21.Y;
-			float num179 = (float)Math.Sqrt(num177 * num177 + num178 * num178);
+			float num179 = MathF.Sqrt(num177 * num177 + num178 * num178);
 			num179 = 8f / num179;
 			velocity.X = num177 * num179;
 			velocity.Y = num178 * num179;
@@ -481,16 +481,16 @@ if (aiStyle == 11)
 			Vector2 vector22 = new Vector2(position.X + (float)width * 0.5f, position.Y + (float)height * 0.5f);
 			float num182 = Main.npc[(int)this.ai[1]].position.X + (float)(Main.npc[(int)this.ai[1]].width / 2) - 200f * this.ai[0] - vector22.X;
 			float num183 = Main.npc[(int)this.ai[1]].position.Y + 230f - vector22.Y;
-			float num184 = (float)Math.Sqrt(num182 * num182 + num183 * num183);
-			rotation = (float)Math.Atan2(num183, num182) + 1.57f;
+			float num184 = MathF.Sqrt(num182 * num182 + num183 * num183);
+			rotation = MathF.Atan2(num183, num182) + 1.57f;
 		}
 		else if (this.ai[2] == 1f)
 		{
 			Vector2 vector23 = new Vector2(position.X + (float)width * 0.5f, position.Y + (float)height * 0.5f);
 			float num185 = Main.npc[(int)this.ai[1]].position.X + (float)(Main.npc[(int)this.ai[1]].width / 2) - 200f * this.ai[0] - vector23.X;
 			float num186 = Main.npc[(int)this.ai[1]].position.Y + 230f - vector23.Y;
-			float num187 = (float)Math.Sqrt(num185 * num185 + num186 * num186);
-			rotation = (float)Math.Atan2(num186, num185) + 1.57f;
+			float num187 = MathF.Sqrt(num185 * num185 + num186 * num186);
+			rotation = MathF.Atan2(num186, num185) + 1.57f;
 			velocity.X *= 0.95f;
 			velocity.Y -= 0.1f;
 			if (Main.expertMode)
@@ -512,7 +512,7 @@ if (aiStyle == 11)
 				vector23 = new Vector2(position.X + (float)width * 0.5f, position.Y + (float)height * 0.5f);
 				num185 = Main.player[target].position.X + (float)(Main.player[target].width / 2) - vector23.X;
 				num186 = Main.player[target].position.Y + (float)(Main.player[target].height / 2) - vector23.Y;
-				num187 = (float)Math.Sqrt(num185 * num185 + num186 * num186);
+				num187 = MathF.Sqrt(num185 * num185 + num186 * num186);
 				num187 = ((!Main.expertMode) ? (18f / num187) : (21f / num187));
 				velocity.X = num185 * num187;
 				velocity.Y = num186 * num187;
@@ -531,8 +531,8 @@ if (aiStyle == 11)
 			Vector2 vector24 = new Vector2(position.X + (float)width * 0.5f, position.Y + (float)height * 0.5f);
 			float num188 = Main.npc[(int)this.ai[1]].position.X + (float)(Main.npc[(int)this.ai[1]].width / 2) - 200f * this.ai[0] - vector24.X;
 			float num189 = Main.npc[(int)this.ai[1]].position.Y + 230f - vector24.Y;
-			float num190 = (float)Math.Sqrt(num188 * num188 + num189 * num189);
-			rotation = (float)Math.Atan2(num189, num188) + 1.57f;
+			float num190 = MathF.Sqrt(num188 * num188 + num189 * num189);
+			rotation = MathF.Atan2(num189, num188) + 1.57f;
 			velocity.Y *= 0.95f;
 			velocity.X += 0.1f * (0f - this.ai[0]);
 			if (Main.expertMode)
@@ -562,7 +562,7 @@ if (aiStyle == 11)
 				vector24 = new Vector2(position.X + (float)width * 0.5f, position.Y + (float)height * 0.5f);
 				num188 = Main.player[target].position.X + (float)(Main.player[target].width / 2) - vector24.X;
 				num189 = Main.player[target].position.Y + (float)(Main.player[target].height / 2) - vector24.Y;
-				num190 = (float)Math.Sqrt(num188 * num188 + num189 * num189);
+				num190 = MathF.Sqrt(num188 * num188 + num189 * num189);
 				num190 = ((!Main.expertMode) ? (17f / num190) : (22f / num190));
 				velocity.X = num188 * num190;
 				velocity.Y = num189 * num190;

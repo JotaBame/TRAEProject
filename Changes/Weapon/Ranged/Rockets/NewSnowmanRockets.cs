@@ -75,7 +75,7 @@ namespace TRAEProject.Changes.Weapon.Ranged.Rockets
 						if (dust4.dustIndex != 6000)
 						{
 							dust4 = Dust.NewDustPerfect(dust4.position, dust4.type, dust4.velocity, dust4.alpha, dust4.color, dust4.scale + 0.5f);
-							dust4.velocity = ((float)Math.PI * 2f * (projectile.timeLeft / 20f)).ToRotationVector2() * 3f;
+							dust4.velocity = (MathF.PI * 2f * (projectile.timeLeft / 20f)).ToRotationVector2() * 3f;
 							dust4.noGravity = true;
 						}
 					}
@@ -122,7 +122,7 @@ namespace TRAEProject.Changes.Weapon.Ranged.Rockets
 			Vector2 vector = new(projectile.Center.X, projectile.Center.Y);
 			float num25 = num18 - vector.X;
 			float num26 = num19 - vector.Y;
-			float num27 = (float)Math.Sqrt(num25 * num25 + num26 * num26);
+			float num27 = MathF.Sqrt(num25 * num25 + num26 * num26);
 			num27 = num24 / num27;
 			num25 *= num27;
 			num26 *= num27;

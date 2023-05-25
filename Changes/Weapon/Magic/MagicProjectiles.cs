@@ -309,7 +309,7 @@ namespace TRAEProject.Changes.Projectiles
                             vector += projectile.velocity * 4f;
                             float num10 = num3 - vector.X;
                             float num11 = num4 - vector.Y;
-                            float num12 = (float)Math.Sqrt(num10 * num10 + num11 * num11);
+                            float num12 = MathF.Sqrt(num10 * num10 + num11 * num11);
                             float num13 = num12;
                             num12 = num9 / num12;
                             num10 *= num12;

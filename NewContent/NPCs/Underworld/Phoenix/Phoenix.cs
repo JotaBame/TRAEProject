@@ -147,7 +147,7 @@ namespace TRAEProject.NewContent.NPCs.Underworld.Phoenix
 							dust8.noLight = true;
 						}
 					}
-					Vector2 spinningpoint8 = new Vector2(0f, (float)Math.Cos((float)NPC.frameCounter * ((float)Math.PI * 2f) / 40f - (float)Math.PI / 2f)) * 16f;
+					Vector2 spinningpoint8 = new Vector2(0f, MathF.Cos((float)NPC.frameCounter * (MathF.PI * 2f) / 40f - MathF.PI / 2f)) * 16f;
 					spinningpoint8 = spinningpoint8.RotatedBy(NPC.rotation);
 					Vector2 vector23 = NPC.velocity.SafeNormalize(Vector2.Zero);
 					for (int num124 = 0; num124 < 1; num124++)
@@ -194,7 +194,7 @@ namespace TRAEProject.NewContent.NPCs.Underworld.Phoenix
 						for (int num126 = 0; (float)num126 < num125; num126++)
 						{
 							Vector2 spinningpoint9 = Vector2.UnitX * 0f;
-							spinningpoint9 += -Vector2.UnitY.RotatedBy((float)num126 * ((float)Math.PI * 2f / num125)) * new Vector2(1f, 4f);
+							spinningpoint9 += -Vector2.UnitY.RotatedBy((float)num126 * (MathF.PI * 2f / num125)) * new Vector2(1f, 4f);
 							spinningpoint9 = spinningpoint9.RotatedBy(NPC.velocity.ToRotation());
 							int num127 = Dust.NewDust(NPC.Center, 0, 0, 6);
 							Main.dust[num127].scale = 1.5f;
@@ -209,13 +209,13 @@ namespace TRAEProject.NewContent.NPCs.Underworld.Phoenix
 				Utils.PlotTileLine(NPC.Center, NPC.Center + NPC.velocity * 4f, 40f, DelegateMethods.CastLightOpen);
 
 				NPC.rotation = NPC.velocity.ToRotation();
-				if (NPC.rotation < -(float)Math.PI / 2f)
+				if (NPC.rotation < -MathF.PI / 2f)
                 {
-                    NPC.rotation += (float)Math.PI;
+                    NPC.rotation += MathF.PI;
                 }
-                if (NPC.rotation > (float)Math.PI / 2f)
+                if (NPC.rotation > MathF.PI / 2f)
                 {
-                    NPC.rotation -= (float)Math.PI;
+                    NPC.rotation -= MathF.PI;
                 }
             }
 			else

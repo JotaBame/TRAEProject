@@ -168,7 +168,7 @@ namespace TRAEProject.NewContent.Items.DreadItems.Brimstone
                     float num384 = Main.rand.Next(-10, 11);
                     float num385 = Main.rand.Next(-10, 11);
                     float num386 = Main.rand.Next(9, 18);
-                    float num387 = (float)Math.Sqrt(num384 * num384 + num385 * num385);
+                    float num387 = MathF.Sqrt(num384 * num384 + num385 * num385);
                     num387 = num386 / num387;
                     num384 *= num387;
                     num385 *= num387;
@@ -232,7 +232,7 @@ namespace TRAEProject.NewContent.Items.DreadItems.Brimstone
             {
                 float num1 = Projectile.velocity.ToRotation() + (Main.rand.Next(2) == 1 ? -1.0f : 1.0f) * 1.57f;
                 float num2 = (float)(Main.rand.NextDouble() * 0.8f + 1.0f);
-                Vector2 dustVel = new Vector2((float)Math.Cos(num1) * num2, (float)Math.Sin(num1) * num2);
+                Vector2 dustVel = new Vector2(MathF.Cos(num1) * num2, MathF.Sin(num1) * num2);
                 Dust dust = Main.dust[Dust.NewDust(dustPos, 0, 0, DustID.Blood, dustVel.X, dustVel.Y)];
                 dust.noGravity = true;
                 dust.scale = 1.2f;
@@ -337,7 +337,7 @@ namespace TRAEProject.NewContent.Items.DreadItems.Brimstone
 				player.heldProj = Projectile.whoAmI; // Update player's held projectile
 				player.itemTime = 2; // Set item time to 2 frames while we are used
 				player.itemAnimation = 2; // Set item animation time to 2 frames while we are used
-				player.itemRotation = (float)Math.Atan2(Projectile.velocity.Y * dir, Projectile.velocity.X * dir); // Set the item rotation to where we are shooting
+				player.itemRotation = MathF.Atan2(Projectile.velocity.Y * dir, Projectile.velocity.X * dir); // Set the item rotation to where we are shooting
 			}
 
 			private void CastLights()

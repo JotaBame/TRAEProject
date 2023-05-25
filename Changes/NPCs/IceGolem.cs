@@ -30,7 +30,7 @@ namespace TRAEProject.Changes.NPCs
 				NPCAimedTarget targetData = npc.GetTargetData(); 
 				Vector2 newMove = npc.Center - Main.player[npc.target].Center;
 		
-				float distanceTo = (float)Math.Sqrt(newMove.X * newMove.X + newMove.Y * newMove.Y);
+				float distanceTo = MathF.Sqrt(newMove.X * newMove.X + newMove.Y * newMove.Y);
 				if (distanceTo < 500f)
 				{
 					npc.ai[1] += 1f;
@@ -87,7 +87,7 @@ namespace TRAEProject.Changes.NPCs
 			if (WorldGen.ActiveAndWalkableTile(num2, num3))
 			{
 				Vector2 vector = new Vector2(num2 * 16 + 8, num3 * 16 - 8);
-				Vector2 vector2 = new Vector2(0f, -1f).RotatedBy((float)(whichOne * dir) * 0.7f * ((float)Math.PI / 4f / (float)howMany));
+				Vector2 vector2 = new Vector2(0f, -1f).RotatedBy((float)(whichOne * dir) * 0.7f * (MathF.PI / 4f / (float)howMany));
 				Projectile.NewProjectile(npc.GetSource_FromThis(), vector, vector2, 961, num, 0f, Main.myPlayer, 0f, 0.1f + Main.rand.NextFloat() * 0.1f + (float)xOffset * 1.1f / (float)howMany);
 			}
 		}

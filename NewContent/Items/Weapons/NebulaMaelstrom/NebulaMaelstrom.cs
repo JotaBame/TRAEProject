@@ -116,7 +116,7 @@ namespace TRAEProject.NewContent.Items.Weapons.NebulaMaelstrom
 
                         float shootToX = nPC.position.X + nPC.width * 0.5f - Projectile.Center.X;
                         float shootToY = nPC.position.Y + nPC.height * 0.5f - Projectile.Center.Y;
-                        float distance2 = (float)Math.Sqrt((shootToX * shootToX + shootToY * shootToY));//Dividing the factor of 2f which is the desired velocity by distance2
+                        float distance2 = MathF.Sqrt((shootToX * shootToX + shootToY * shootToY));//Dividing the factor of 2f which is the desired velocity by distance2
                         distance2 = 1f / distance2;
 
                         //Multiplying the shoot trajectory with distance2 times a multiplier if you so choose to
@@ -227,7 +227,7 @@ namespace TRAEProject.NewContent.Items.Weapons.NebulaMaelstrom
                         Vector2 projPosition = new Vector2(Projectile.position.X + Projectile.width * 0.5f, Projectile.position.Y + Projectile.height * 0.5f);
                         float npcX = nPC.position.X + nPC.width / 2 - projPosition.X;
                         float npcY = nPC.position.Y + nPC.height / 2 - projPosition.Y;
-                        float distance = (float)Math.Sqrt(npcX * npcX + npcY * npcY);
+                        float distance = MathF.Sqrt(npcX * npcX + npcY * npcY);
                         float num176 = 9f;
                         distance = num176 / distance;
                         Projectile.velocity.X = npcX * distance;

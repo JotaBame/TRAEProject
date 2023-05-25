@@ -127,7 +127,7 @@ if (this.ai[0] == 0f)
 			}
 			if (num13 == 0)
 			{
-				float num14 = (float)Math.Ceiling((player.Center + new Vector2(0f, -100f) - center).Length() / 50f);
+				float num14 = MathF.Ceiling((player.Center + new Vector2(0f, -100f) - center).Length() / 50f);
 				if (num14 == 0f)
 				{
 					num14 = 1f;
@@ -147,7 +147,7 @@ if (this.ai[0] == 0f)
 				{
 					NPC nPC2 = Main.npc[item2];
 					Vector2 center2 = nPC2.Center;
-					float num16 = (float)((num15 + flag5.ToInt() + 1) / 2) * ((float)Math.PI * 2f) * 0.4f / (float)list2.Count;
+					float num16 = (float)((num15 + flag5.ToInt() + 1) / 2) * (MathF.PI * 2f) * 0.4f / (float)list2.Count;
 					if (num15 % 2 == 1)
 					{
 						num16 *= -1f;

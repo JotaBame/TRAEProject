@@ -78,7 +78,7 @@ namespace TRAEProject.NewContent.Projectiles
                         num954 += 0.01f;
                         float num955 = Main.rand.Next(-100, 101);
                         num954 -= 0.01f;
-                        float num956 = (float)Math.Sqrt(num954 * num954 + num955 * num955);
+                        float num956 = MathF.Sqrt(num954 * num954 + num955 * num955);
                         num956 = 8f / num956;
                         num954 *= num956;
                         num955 *= num956;
@@ -135,7 +135,7 @@ namespace TRAEProject.NewContent.Projectiles
                         num954 += 0.01f;
                         float num955 = Main.rand.Next(-100, 101);
                         num954 -= 0.01f;
-                        float num956 = (float)Math.Sqrt(num954 * num954 + num955 * num955);
+                        float num956 = MathF.Sqrt(num954 * num954 + num955 * num955);
                         num956 = 8f / num956;
                         num954 *= num956;
                         num955 *= num956;

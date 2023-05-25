@@ -678,11 +678,11 @@ namespace TRAEProject.Changes.Weapon.Summon.Minions
 
 			if (projectile.spriteDirection == -1)
 			{
-				projectile.rotation = (float)Math.Atan2(projectile.velocity.Y, projectile.velocity.X);
+				projectile.rotation = MathF.Atan2(projectile.velocity.Y, projectile.velocity.X);
 			}
 			else
 			{
-				projectile.rotation = (float)Math.Atan2(projectile.velocity.Y, projectile.velocity.X) + 3.14f;
+				projectile.rotation = MathF.Atan2(projectile.velocity.Y, projectile.velocity.X) + 3.14f;
 			}
 		}
 		static void LegacyTargetEnemies(Projectile projectile, ref bool moveLeft, ref bool moveRight)
@@ -795,7 +795,7 @@ namespace TRAEProject.Changes.Weapon.Summon.Minions
 					float minorYOffset = Math.Abs(shootTowardX) * 0.1f;
 					minorYOffset *= (float)Main.rand.Next(0, 100) * 0.001f;
 					float shootTowardY = posY - shootFrom.Y + (float)Main.rand.Next(-20, 21) - minorYOffset;
-					float distance = (float)Math.Sqrt(shootTowardX * shootTowardX + shootTowardY * shootTowardY);
+					float distance = MathF.Sqrt(shootTowardX * shootTowardX + shootTowardY * shootTowardY);
 					distance = 18f / distance;
 					shootTowardX *= distance;
 					shootTowardY *= distance;

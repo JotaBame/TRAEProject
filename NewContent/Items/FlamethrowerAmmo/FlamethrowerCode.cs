@@ -55,6 +55,7 @@ namespace TRAEProject.NewContent.Items.FlamethrowerAmmo
         }
         public void DrawFlamethrower(Color color1, Color color2, Color color3, Color color4)
         {
+            Main.NewText(Projectile.localAI[0]);
             bool elfMelterProjectile = Projectile.type == ProjectileType<FrostFlameP>();
             Main.instance.LoadProjectile(ProjectileID.Flames);
             float num = 60f;
@@ -65,7 +66,7 @@ namespace TRAEProject.NewContent.Items.FlamethrowerAmmo
             float num3 = 0.35f;
             float num4 = 0.7f;
             float num5 = 0.85f;
-            float num6 = ((Projectile.localAI[0] > num - 10f) ? 0.175f : 0.2f);
+            float incrementForAfterImages = ((Projectile.localAI[0] > num - 10f) ? 0.175f : 0.2f);
             if (elfMelterProjectile) 
             {
                 color1 = new Color(95, 120, 255, 200);
@@ -88,7 +89,7 @@ namespace TRAEProject.NewContent.Items.FlamethrowerAmmo
             }
             for (int i = 0; i < 2; i++)
             {
-                for (float j = 1f; j >= 0f; j -= num6)
+                for (float j = 1; j >= 0f; j -= incrementForAfterImages)
                 {
                     transparent = ((num13 < 0.1f) ? Color.Lerp(Color.Transparent, color1, Utils.GetLerpValue(0f, 0.1f, num13, clamped: true)) : ((num13 < 0.2f) ? Color.Lerp(color1, color2, Utils.GetLerpValue(0.1f, 0.2f, num13, clamped: true)) : ((num13 < num3) ? color2 : ((num13 < num4) ? Color.Lerp(color2, color3, Utils.GetLerpValue(num3, num4, num13, clamped: true)) : ((num13 < num5) ? Color.Lerp(color3, color4, Utils.GetLerpValue(num4, num5, num13, clamped: true)) : ((!(num13 < 1f)) ? Color.Transparent : Color.Lerp(color4, Color.Transparent, Utils.GetLerpValue(num5, 1f, num13, clamped: true))))))));
                     float num16 = (1f - j) * Utils.Remap(num13, 0f, 0.2f, 0f, 1f);
@@ -103,28 +104,31 @@ namespace TRAEProject.NewContent.Items.FlamethrowerAmmo
                         float num17 = Utils.Remap(Projectile.localAI[0], 20f, fromMax, 0f, 1f);
                         num17 *= num17;
                     }
-                    float num18 = 1f / num6 * (j + 1f);
-                    float num19 = Projectile.rotation + j * ((float)Math.PI / 2f) + Main.GlobalTimeWrappedHourly * num18 * 2f;
-                    float num20 = Projectile.rotation - j * ((float)Math.PI / 2f) - Main.GlobalTimeWrappedHourly * num18 * 2f;
+                    float num18 = 1f / incrementForAfterImages * (j + 1f);
+                    float num19 = Projectile.rotation + j * (MathF.PI / 2f) + Main.GlobalTimeWrappedHourly * num18 * 2f;
+                    float num20 = Projectile.rotation - j * (MathF.PI / 2f) - Main.GlobalTimeWrappedHourly * num18 * 2f;
                     switch (i)
                     {
                         case 0:
                             Main.EntitySpriteDraw(value, 
-                                vector + Projectile.velocity * (0f - num12) * num6 * 0.5f, 
+                                vector + Projectile.velocity * (0f - num12) * incrementForAfterImages * 0.5f, 
                                 rectangle, 
                                 color6 * num11 * 0.25f,
-                                num19 + (float)Math.PI / 4f,
+                                num19 + MathF.PI / 4f,
                                 rectangle.Size() / 2f,
                                 scale, 
                                 SpriteEffects.None);
                             Main.EntitySpriteDraw(value, vector, rectangle, color6 * num11, num20, rectangle.Size() / 2f, scale, SpriteEffects.None);
+                            //Main.EntitySpriteDraw(value, vector, rectangle, new Color(255,255,255,0) * num11 * num16, num20, rectangle.Size() / 2f, scale * 0.35f, SpriteEffects.None);
                             break;
                         case 1:
                             if (!elfMelterProjectile)
                             {
-                                Main.EntitySpriteDraw(value, vector + Projectile.velocity * (0f - num12) * num6 * 0.2f, rectangle, color5 * num11 * 0.25f, num19 + (float)Math.PI / 2f, rectangle.Size() / 2f, scale * 0.75f, SpriteEffects.None);
-                            Main.EntitySpriteDraw(value, vector, rectangle, color5 * num11, num20 + (float)Math.PI / 2f, rectangle.Size() / 2f, scale * 0.75f, SpriteEffects.None);
+                                Main.EntitySpriteDraw(value, vector + Projectile.velocity * (0f - num12) * incrementForAfterImages * 0.2f, rectangle, color5 * num11 * 0.25f, num19 + MathF.PI / 2f, rectangle.Size() / 2f, scale * 0.75f, SpriteEffects.None);
+                                Main.EntitySpriteDraw(value, vector, rectangle, color5 * num11, num20 + MathF.PI / 2f, rectangle.Size() / 2f, scale * 0.75f, SpriteEffects.None);
                             }
+                            Main.EntitySpriteDraw(value, vector, rectangle, new Color(255, 255, 255, 0) * (num11 * num11) * num16 * 0.35f, -num20 + MathF.PI / 2f, rectangle.Size() / 2f, scale * 0.75f * 0.6f, SpriteEffects.None);
+                            Main.EntitySpriteDraw(value, vector, rectangle, new Color(255, 255, 255, 0) * (num11 * num11) * num16 * 0.35f, num20 - MathF.PI / 2f, rectangle.Size() / 2f, scale * 0.75f * 0.4f, SpriteEffects.None);
                             break;
                     }
                 }
@@ -134,7 +138,11 @@ namespace TRAEProject.NewContent.Items.FlamethrowerAmmo
         }
         public override bool? Colliding(Rectangle projHitbox, Rectangle targetHitbox)
         {
+            
+
             float num = 60f;
+            if (Projectile.localAI[0] > 60)
+                return false;
             float num2 = 12f;
             float fromMax = num + num2;
             float num13 = Utils.Remap(Projectile.localAI[0], 0f, fromMax, 0f, 1f);

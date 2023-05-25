@@ -34,14 +34,14 @@ namespace TRAEProject.Changes.NPCs.Boss.Dreadnautilus
                 SoundEngine.PlaySound(SoundID.Item171 with { MaxInstances = 0 }, Projectile.Center);
                 runOnce = false;
             }
-            Projectile.rotation = Projectile.velocity.ToRotation() + (float)Math.PI / 2f;
+            Projectile.rotation = Projectile.velocity.ToRotation() + MathF.PI / 2f;
             Projectile.ai[0]--;
             if(Projectile.ai[0] <= 0)
             {
                 SoundEngine.PlaySound(SoundID.Item171 with { MaxInstances = 0 }, Projectile.Center);
                 for (int i =0; i < 8; i++)
                 {
-                    Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.Center,  TRAEMethods.PolarVector(10, Projectile.rotation + ((float)i / 8f) * (float)Math.PI * 2f), ProjectileID.BloodNautilusShot, (int)(Projectile.damage * 0.8f), 0);
+                    Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.Center,  TRAEMethods.PolarVector(10, Projectile.rotation + ((float)i / 8f) * MathF.PI * 2f), ProjectileID.BloodNautilusShot, (int)(Projectile.damage * 0.8f), 0);
                 }
                 Projectile.Kill();
             }

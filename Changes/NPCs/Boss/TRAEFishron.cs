@@ -206,7 +206,7 @@ namespace TRAEProject.Changes.NPCs.Boss
 						int phase3NadoDelay = 360;
 						float scaleFactor3 = 6f;
 						float scaleFactor4 = 20f;
-						float num15 = (float)Math.PI * 2f / (bubbleAttackDuratioPhase2 / 2);
+						float num15 = MathF.PI * 2f / (bubbleAttackDuratioPhase2 / 2);
 						int num16 = 75;
 						Vector2 center = npc.Center;
 						Player player = Main.player[npc.target];
@@ -235,18 +235,18 @@ namespace TRAEProject.Changes.NPCs.Boss
 								npc.netUpdate = true;
 							}
 						}
-						float num17 = (float)Math.Atan2(player.Center.Y - center.Y, player.Center.X - center.X);
+						float num17 = MathF.Atan2(player.Center.Y - center.Y, player.Center.X - center.X);
 						if (npc.spriteDirection == 1)
 						{
-							num17 += (float)Math.PI;
+							num17 += MathF.PI;
 						}
 						if (num17 < 0f)
 						{
-							num17 += (float)Math.PI * 2f;
+							num17 += MathF.PI * 2f;
 						}
-						if (num17 > (float)Math.PI * 2f)
+						if (num17 > MathF.PI * 2f)
 						{
-							num17 -= (float)Math.PI * 2f;
+							num17 -= MathF.PI * 2f;
 						}
 						if (npc.ai[0] == -1f)
 						{
@@ -313,11 +313,11 @@ namespace TRAEProject.Changes.NPCs.Boss
 						}
 						if (npc.rotation < 0f)
 						{
-							npc.rotation += (float)Math.PI * 2f;
+							npc.rotation += MathF.PI * 2f;
 						}
-						if (npc.rotation > (float)Math.PI * 2f)
+						if (npc.rotation > MathF.PI * 2f)
 						{
-							npc.rotation -= (float)Math.PI * 2f;
+							npc.rotation -= MathF.PI * 2f;
 						}
 						if (npc.rotation > num17 - num18 && npc.rotation < num17 + num18)
 						{
@@ -373,7 +373,7 @@ namespace TRAEProject.Changes.NPCs.Boss
 								int num20 = 36;
 								for (int i = 0; i < num20; i++)
 								{
-									Vector2 value = (Vector2.Normalize(npc.velocity) * new Vector2((float)npc.width / 2f, npc.height) * 0.75f * 0.5f).RotatedBy((float)(i - (num20 / 2 - 1)) * ((float)Math.PI * 2f) / (float)num20) + npc.Center;
+									Vector2 value = (Vector2.Normalize(npc.velocity) * new Vector2((float)npc.width / 2f, npc.height) * 0.75f * 0.5f).RotatedBy((float)(i - (num20 / 2 - 1)) * (MathF.PI * 2f) / (float)num20) + npc.Center;
 									Vector2 value2 = value - npc.Center;
 									int num21 = Dust.NewDust(value + value2, 0, 0, DustID.DungeonWater, value2.X * 2f, value2.Y * 2f, 100, default, 1.4f);
 									Main.dust[num21].noGravity = true;
@@ -435,12 +435,12 @@ namespace TRAEProject.Changes.NPCs.Boss
 							{
 								if (npc.ai[2] == 0f && num22 != npc.direction)
 								{
-									npc.rotation += (float)Math.PI;
+									npc.rotation += MathF.PI;
 								}
 								npc.direction = num22;
 								if (npc.spriteDirection != -npc.direction)
 								{
-									npc.rotation += (float)Math.PI;
+									npc.rotation += MathF.PI;
 								}
 								npc.spriteDirection = -npc.direction;
 							}
@@ -484,13 +484,13 @@ namespace TRAEProject.Changes.NPCs.Boss
 									npc.ai[1] = 0f;
 									npc.ai[2] = 0f;
 									npc.velocity = Vector2.Normalize(player.Center - center) * lungeVelocity;
-									npc.rotation = (float)Math.Atan2(npc.velocity.Y, npc.velocity.X);
+									npc.rotation = MathF.Atan2(npc.velocity.Y, npc.velocity.X);
 									if (num22 != 0)
 									{
 										npc.direction = num22;
 										if (npc.spriteDirection == 1)
 										{
-											npc.rotation += (float)Math.PI;
+											npc.rotation += MathF.PI;
 										}
 										npc.spriteDirection = -npc.direction;
 									}
@@ -519,7 +519,7 @@ namespace TRAEProject.Changes.NPCs.Boss
 							for (int j = 0; j < num24; j++)
 							{
 								Vector2 value3 = (Vector2.Normalize(npc.velocity) * new Vector2((float)(npc.width + 50) / 2f, npc.height) * 0.75f).RotatedBy((double)(j - (num24 / 2 - 1)) * Math.PI / (double)(float)num24) + center;
-								Vector2 value4 = ((float)(Main.rand.NextDouble() * 3.1415927410125732) - (float)Math.PI / 2f).ToRotationVector2() * Main.rand.Next(3, 8);
+								Vector2 value4 = ((float)(Main.rand.NextDouble() * 3.1415927410125732) - MathF.PI / 2f).ToRotationVector2() * Main.rand.Next(3, 8);
 								int num25 = Dust.NewDust(value3 + value4, 0, 0, DustID.DungeonWater, value4.X * 2f, value4.Y * 2f, 100, default, 1.4f);
 								Main.dust[num25].noGravity = true;
 								Main.dust[num25].noLight = true;
@@ -595,7 +595,7 @@ namespace TRAEProject.Changes.NPCs.Boss
 								npc.direction = num26;
 								if (npc.spriteDirection != -npc.direction)
 								{
-									npc.rotation += (float)Math.PI;
+									npc.rotation += MathF.PI;
 								}
 								npc.spriteDirection = -npc.direction;
 							}
@@ -695,12 +695,12 @@ namespace TRAEProject.Changes.NPCs.Boss
 							{
 								if (npc.ai[2] == 0f && num27 != npc.direction)
 								{
-									npc.rotation += (float)Math.PI;
+									npc.rotation += MathF.PI;
 								}
 								npc.direction = num27;
 								if (npc.spriteDirection != -npc.direction)
 								{
-									npc.rotation += (float)Math.PI;
+									npc.rotation += MathF.PI;
 								}
 								npc.spriteDirection = -npc.direction;
 							}
@@ -740,26 +740,26 @@ namespace TRAEProject.Changes.NPCs.Boss
 									npc.ai[1] = 0f;
 									npc.ai[2] = 0f;
 									npc.velocity = Vector2.Normalize(player.Center - center) * lungeVelocity;
-									npc.rotation = (float)Math.Atan2(npc.velocity.Y, npc.velocity.X);
+									npc.rotation = MathF.Atan2(npc.velocity.Y, npc.velocity.X);
 									if (num27 != 0)
 									{
 										npc.direction = num27;
 										if (npc.spriteDirection == 1)
 										{
-											npc.rotation += (float)Math.PI;
+											npc.rotation += MathF.PI;
 										}
 										npc.spriteDirection = -npc.direction;
 									}
 									break;
 								case 2:
 									npc.velocity = Vector2.Normalize(player.Center - center) * scaleFactor4;
-									npc.rotation = (float)Math.Atan2(npc.velocity.Y, npc.velocity.X);
+									npc.rotation = MathF.Atan2(npc.velocity.Y, npc.velocity.X);
 									if (num27 != 0)
 									{
 										npc.direction = num27;
 										if (npc.spriteDirection == 1)
 										{
-											npc.rotation += (float)Math.PI;
+											npc.rotation += MathF.PI;
 										}
 										npc.spriteDirection = -npc.direction;
 									}
@@ -786,7 +786,7 @@ namespace TRAEProject.Changes.NPCs.Boss
 							for (int k = 0; k < num29; k++)
 							{
 								Vector2 value5 = (Vector2.Normalize(npc.velocity) * new Vector2((float)(npc.width + 50) / 2f, npc.height) * 0.75f).RotatedBy((k - (num29 / 2 - 1)) * Math.PI / (float)num29) + center;
-								Vector2 value6 = ((float)(Main.rand.NextDouble() * 3.1415927410125732) - (float)Math.PI / 2f).ToRotationVector2() * Main.rand.Next(3, 8);
+								Vector2 value6 = ((float)(Main.rand.NextDouble() * 3.1415927410125732) - MathF.PI / 2f).ToRotationVector2() * Main.rand.Next(3, 8);
 								int num30 = Dust.NewDust(value5 + value6, 0, 0, DustID.DungeonWater, value6.X * 2f, value6.Y * 2f, 100, default, 1.4f);
 								Main.dust[num30].noGravity = true;
 								Main.dust[num30].noLight = true;
@@ -818,7 +818,7 @@ namespace TRAEProject.Changes.NPCs.Boss
 									Vector2 vector6 = Vector2.Normalize(npc.velocity) * (npc.width + 20) / 2f + center;
 									int num31 = NPC.NewNPC(NPC.GetBossSpawnSource(npc.target), (int)vector6.X, (int)vector6.Y + 45, 371);
 									Main.npc[num31].target = npc.target;
-									Main.npc[num31].velocity = Vector2.Normalize(npc.velocity).RotatedBy((float)Math.PI / 2f * (float)npc.direction) * scaleFactor3;
+									Main.npc[num31].velocity = Vector2.Normalize(npc.velocity).RotatedBy(MathF.PI / 2f * (float)npc.direction) * scaleFactor3;
 									Main.npc[num31].netUpdate = true;
 									Main.npc[num31].ai[3] = (float)Main.rand.Next(80, 121) / 100f;
 								}
@@ -932,7 +932,7 @@ namespace TRAEProject.Changes.NPCs.Boss
 							{
 								if (npc.ai[2] == 0f && num32 != npc.direction)
 								{
-									npc.rotation += (float)Math.PI;
+									npc.rotation += MathF.PI;
 									for (int l = 0; l < npc.oldPos.Length; l++)
 									{
 										npc.oldPos[l] = Vector2.Zero;
@@ -941,7 +941,7 @@ namespace TRAEProject.Changes.NPCs.Boss
 								npc.direction = num32;
 								if (npc.spriteDirection != -npc.direction)
 								{
-									npc.rotation += (float)Math.PI;
+									npc.rotation += MathF.PI;
 								}
 								npc.spriteDirection = -npc.direction;
 							}
@@ -974,13 +974,13 @@ namespace TRAEProject.Changes.NPCs.Boss
 									npc.ai[1] = 0f;
 									npc.ai[2] = 0f;
 									npc.velocity = Vector2.Normalize(player.Center - center) * lungeVelocity;
-									npc.rotation = (float)Math.Atan2(npc.velocity.Y, npc.velocity.X);
+									npc.rotation = MathF.Atan2(npc.velocity.Y, npc.velocity.X);
 									if (num32 != 0)
 									{
 										npc.direction = num32;
 										if (npc.spriteDirection == 1)
 										{
-											npc.rotation += (float)Math.PI;
+											npc.rotation += MathF.PI;
 										}
 										npc.spriteDirection = -npc.direction;
 									}
@@ -1011,7 +1011,7 @@ namespace TRAEProject.Changes.NPCs.Boss
 							for (int m = 0; m < num34; m++)
 							{
 								Vector2 value7 = (Vector2.Normalize(npc.velocity) * new Vector2((float)(npc.width + 50) / 2f, npc.height) * 0.75f).RotatedBy((double)(m - (num34 / 2 - 1)) * Math.PI / (double)(float)num34) + center;
-								Vector2 value8 = ((float)(Main.rand.NextDouble() * 3.1415927410125732) - (float)Math.PI / 2f).ToRotationVector2() * Main.rand.Next(3, 8);
+								Vector2 value8 = ((float)(Main.rand.NextDouble() * 3.1415927410125732) - MathF.PI / 2f).ToRotationVector2() * Main.rand.Next(3, 8);
 								int num35 = Dust.NewDust(value7 + value8, 0, 0, DustID.DungeonWater, value8.X * 2f, value8.Y * 2f, 100, default, 1.4f);
 								Main.dust[num35].noGravity = true;
 								Main.dust[num35].noLight = true;
@@ -1060,7 +1060,7 @@ namespace TRAEProject.Changes.NPCs.Boss
 								{
 									if (npc.ai[2] == 0f && num36 != npc.direction)
 									{
-										npc.rotation += (float)Math.PI;
+										npc.rotation += MathF.PI;
 										for (int n = 0; n < npc.oldPos.Length; n++)
 										{
 											npc.oldPos[n] = Vector2.Zero;
@@ -1069,7 +1069,7 @@ namespace TRAEProject.Changes.NPCs.Boss
 									npc.direction = num36;
 									if (npc.spriteDirection != -npc.direction)
 									{
-										npc.rotation += (float)Math.PI;
+										npc.rotation += MathF.PI;
 									}
 									npc.spriteDirection = -npc.direction;
 								}
