@@ -54,7 +54,7 @@ namespace TRAEProject.NewContent.Items.Weapons.Launchers.CryoCannon
         }
         public void FrostExplosion(Projectile projectile)
         {
-            SoundEngine.PlaySound(SoundID.Item14, projectile.position);
+            SoundEngine.PlaySound(SoundID.Item14 with { MaxInstances = 0 }, projectile.position);
             float num846 = 3f;
             for (int num847 = 0; num847 < 40; num847++)
             {
@@ -64,7 +64,7 @@ namespace TRAEProject.NewContent.Items.Weapons.Launchers.CryoCannon
                 dust.velocity *= 2f + (float)Main.rand.Next(5) * 0.1f;
                 dust53.velocity.Y -= num846 * 0.5f;
                 dust53.color = Color.Black * 0.9f;
-                if (Main.rand.Next(2) == 0)
+                if (Main.rand.NextBool(2))
                 {
                     dust53.scale = 0.5f;
                     dust53.fadeIn = 1f + (float)Main.rand.Next(10) * 0.1f;

@@ -72,7 +72,7 @@ namespace TRAEProject.NewContent.Items.Weapons.Ammo
 
             if (Main.rand.NextBool(3))
             {
-                Terraria.Audio.SoundEngine.PlaySound(SoundID.Item89, Projectile.position);
+                Terraria.Audio.SoundEngine.PlaySound(SoundID.Item89 with { MaxInstances = 0 }, Projectile.position);
 
                 modifiers.FinalDamage *= 3;
                 target.GetGlobalNPC<Stun>().StunMe(target, 45);
@@ -85,7 +85,7 @@ namespace TRAEProject.NewContent.Items.Weapons.Ammo
         }
         public override void Kill(int timeLeft)
         {
-            Terraria.Audio.SoundEngine.PlaySound(SoundID.Item10, Projectile.position);
+            Terraria.Audio.SoundEngine.PlaySound(SoundID.Item10 with { MaxInstances = 0 }, Projectile.position);
             for (int i = 0; i < 4; i++)
             {
                 Dust dust = Dust.NewDustDirect(Projectile.oldPosition, Projectile.width, Projectile.height, DustID.PurpleMoss, 1f);

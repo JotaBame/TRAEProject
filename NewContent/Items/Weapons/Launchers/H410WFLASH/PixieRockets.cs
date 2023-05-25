@@ -93,7 +93,7 @@ namespace TRAEProject.NewContent.Items.Weapons.Launchers.H410WFLASH
         }
         public void HallowExplosion(Projectile projectile)
         {
-                SoundEngine.PlaySound(SoundID.Item14, projectile.position);
+                SoundEngine.PlaySound(SoundID.Item14 with { MaxInstances = 0 }, projectile.position);
                 float num846 = 3f;
                 for (int num847 = 0; num847 < 30; num847++)
                 {

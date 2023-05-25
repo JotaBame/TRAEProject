@@ -127,9 +127,9 @@ namespace TRAEProject.NewContent.NPCs.BomberBones
 				}
 			if (NPC.ai[3] < (float)num55 && NPC.DespawnEncouragement_AIStyle3_Fighters_NotDiscouraged(NPC.type, NPC.position, NPC))
 			{
-				if (Main.rand.Next(1000) == 0)
+				if (Main.rand.NextBool(1000))
 				{
-					SoundEngine.PlaySound(SoundID.ZombieMoan, NPC.Center);
+					SoundEngine.PlaySound(SoundID.ZombieMoan with { MaxInstances = 0 }, NPC.Center);
 				}
 				NPC.TargetClosest();
 				if (NPC.directionY > 0 && Main.player[NPC.target].Center.Y <= NPC.Bottom.Y)

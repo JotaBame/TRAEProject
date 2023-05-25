@@ -257,7 +257,7 @@ namespace TRAEProject.Changes.Weapon.Melee
                             dust.velocity *= 0.5f;
                         }
                         Projectile.NewProjectile(player.GetSource_ItemUse(item), position, velocity * 1.8f, ProjectileType<Star1>(), damage, knockback, player.whoAmI);
-                        Terraria.Audio.SoundEngine.PlaySound(SoundID.Item25);
+                        Terraria.Audio.SoundEngine.PlaySound(SoundID.Item25 with { MaxInstances = 0 });
                         return false;
                     }
             }

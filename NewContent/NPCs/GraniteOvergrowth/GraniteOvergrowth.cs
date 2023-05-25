@@ -209,7 +209,7 @@ namespace TRAEProject.NewContent.NPCs.GraniteOvergrowth
                 }
                 if (NPC.ai[1] == 1000)
                 {
-                    SoundEngine.PlaySound(SoundID.Item93);
+                    SoundEngine.PlaySound(SoundID.Item93 with { MaxInstances = 0 });
                 }
                 if (NPC.ai[1] > 1000 && NPC.ai[1] < 1500)
                 {
@@ -228,7 +228,7 @@ namespace TRAEProject.NewContent.NPCs.GraniteOvergrowth
                 }
                 if (NPC.ai[1] > 1500)
                 {
-                    SoundEngine.PlaySound(SoundID.Item14, NPC.position);
+                    SoundEngine.PlaySound(SoundID.Item14 with { MaxInstances = 0 }, NPC.position);
                     NPC.ai[1] = 0;
                     Projectile.NewProjectile(NPC.GetSource_FromAI(), NPC.Center, new Vector2(0, 0), ProjectileType<GraniteBoom>(), 100, 0f);
                 }
@@ -263,7 +263,7 @@ namespace TRAEProject.NewContent.NPCs.GraniteOvergrowth
                     {
                         if (Collision.CanHit(NPC.Center, 0, 0, player.Center, 0, 0))
                         {
-                            SoundEngine.PlaySound(SoundID.Item93, NPC.position);
+                            SoundEngine.PlaySound(SoundID.Item93 with { MaxInstances = 0 }, NPC.position);
                             //Dividing the factor of 2f which is the desired velocity by distance2
                             distance2 = 1f / distance2;
 

@@ -62,7 +62,7 @@ namespace TRAEProject.NewContent.TRAEDebuffs
                             }
                         }
                     }
-                    SoundEngine.PlaySound(SoundID.Item93, npc.position);            
+                    SoundEngine.PlaySound(SoundID.Item93 with { MaxInstances = 0 }, npc.position);            
 
                 }
                 for (int i = 0; i < dusts; i++)

@@ -215,7 +215,7 @@ namespace TRAEProject.NPCs.Boss
 								npc.velocity.X = num623 * num625;
 								npc.velocity.Y = num624 * num625;
 								npc.spriteDirection = npc.direction;
-								SoundEngine.PlaySound(SoundID.Roar, npc.position);
+								SoundEngine.PlaySound(SoundID.Roar with { MaxInstances = 0 }, npc.position);
 								return false;
 							}
 							npc.localAI[0] = 0f;
@@ -488,7 +488,7 @@ namespace TRAEProject.NPCs.Boss
 						}
 						if (Collision.CanHit(vector78, 1, 1, Main.player[npc.target].position, Main.player[npc.target].width, Main.player[npc.target].height) && flag36)
 						{
-							SoundEngine.PlaySound(SoundID.NPCHit1, npc.position);
+							SoundEngine.PlaySound(SoundID.NPCHit1 with { MaxInstances = 0 }, npc.position);
 							if (Main.netMode != 1)
 							{
 								int num642 = Main.rand.Next(210, 212);
@@ -633,7 +633,7 @@ namespace TRAEProject.NPCs.Boss
 								}
 								if (stingercounter >= 4)
 								{
-									SoundEngine.PlaySound(SoundID.Item97, npc.position);
+									SoundEngine.PlaySound(SoundID.Item97 with { MaxInstances = 0 }, npc.position);
 									stingercounter = 0;
 									float numberProjectiles = 3;
 									float rotation = MathHelper.ToRadians(16 / bonus);
@@ -646,7 +646,7 @@ namespace TRAEProject.NPCs.Boss
 								}
 								else
 								{
-									SoundEngine.PlaySound(SoundID.Item17, npc.position);
+									SoundEngine.PlaySound(SoundID.Item17 with { MaxInstances = 0 }, npc.position);
 									Projectile.NewProjectile(npc.GetSource_FromThis(), vector80.X, vector80.Y, num655, num656, num659, num658, 0f, Main.myPlayer);
 								}
 

@@ -272,11 +272,11 @@ namespace TRAEProject.NPCs.Boss
 								npc.ai[1] += 1f;
 								if (npc.ai[1] == (float)(num9 - 20))
 								{
-									SoundEngine.PlaySound(SoundID.DeerclopsScream, npc.Center);
+									SoundEngine.PlaySound(SoundID.DeerclopsScream with { MaxInstances = 0 }, npc.Center);
 								}
 								if (npc.ai[1] == (float)num9)
 								{
-									SoundEngine.PlaySound(SoundID.DeerclopsRubbleAttack, npc.Center);
+									SoundEngine.PlaySound(SoundID.DeerclopsRubbleAttack with { MaxInstances = 0 }, npc.Center);
 								}
 								haltMovement = true;
 								if (Main.netMode != 1 && npc.ai[1] >= (float)num9)
@@ -316,7 +316,7 @@ namespace TRAEProject.NPCs.Boss
 						case 3:
 							if (npc.ai[1] == 30f)
 							{
-								SoundEngine.PlaySound(SoundID.DeerclopsScream, npc.Center);
+								SoundEngine.PlaySound(SoundID.DeerclopsScream with { MaxInstances = 0 }, npc.Center);
 							}
 							npc.ai[1] += 1f;
 							haltMovement = true;
@@ -365,7 +365,7 @@ namespace TRAEProject.NPCs.Boss
 						case 7:
 							if (npc.ai[1] == 30f)
 							{
-								SoundEngine.PlaySound(SoundID.DeerclopsScream, npc.Center);
+								SoundEngine.PlaySound(SoundID.DeerclopsScream with { MaxInstances = 0 }, npc.Center);
 							}
 							npc.ai[1] += 1f;
 							haltMovement = true;
@@ -393,7 +393,7 @@ namespace TRAEProject.NPCs.Boss
 						case 8:
 							if (npc.ai[1] == 30f)
 							{
-								SoundEngine.PlaySound(SoundID.DeerclopsScream, npc.Center);
+								SoundEngine.PlaySound(SoundID.DeerclopsScream with { MaxInstances = 0 }, npc.Center);
 							}
 							npc.ai[1] += 1f;
 							haltMovement = true;
@@ -417,7 +417,7 @@ namespace TRAEProject.NPCs.Boss
 						case 5:
 							if (npc.ai[1] == 30f)
 							{
-								SoundEngine.PlaySound(SoundID.DeerclopsScream, npc.Center);
+								SoundEngine.PlaySound(SoundID.DeerclopsScream with { MaxInstances = 0 }, npc.Center);
 							}
 							npc.ai[1] += 1f;
 							haltMovement = true;

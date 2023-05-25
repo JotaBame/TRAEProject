@@ -71,7 +71,7 @@ namespace TRAEProject.NewContent.Items.Weapons.Ammo
         }
         public override void Kill(int timeLeft)
         {
-            SoundEngine.PlaySound(SoundID.Dig, Projectile.Center);
+            SoundEngine.PlaySound(SoundID.Dig with { MaxInstances = 0 }, Projectile.Center);
             if (Main.myPlayer == Main.player[Projectile.owner].whoAmI && Main.rand.NextBool(2))
             {
                 float num602 = (0f - Projectile.velocity.X) * Main.rand.Next(40, 70) * 0.01f + Main.rand.Next(-20, 21) * 0.4f;

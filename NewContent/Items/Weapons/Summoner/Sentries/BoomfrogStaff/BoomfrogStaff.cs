@@ -149,7 +149,7 @@ namespace TRAEProject.NewContent.Items.Weapons.Summoner.Sentries.BoomfrogStaff
                         if (Collision.CanHit(Projectile.Center, 0, 0, target.Center, 0, 0))
                         {
                             target.TargetClosest(true);
-                            SoundEngine.PlaySound(SoundID.Item17, Projectile.position);
+                            SoundEngine.PlaySound(SoundID.Item17 with { MaxInstances = 0 }, Projectile.position);
                             int type = ProjectileType<Froggy>();
                             //Dividing the factor of 2f which is the desired velocity by distance
                             distance = 1f / distance;

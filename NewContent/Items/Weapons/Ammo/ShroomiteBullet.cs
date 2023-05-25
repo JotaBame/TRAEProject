@@ -72,7 +72,7 @@ namespace TRAEProject.NewContent.Items.Weapons.Ammo
         }
         public override void Kill(int timeLeft)
         {
-            Terraria.Audio.SoundEngine.PlaySound(SoundID.Item10, Projectile.position);
+            Terraria.Audio.SoundEngine.PlaySound(SoundID.Item10 with { MaxInstances = 0 }, Projectile.position);
         }
     }
 }

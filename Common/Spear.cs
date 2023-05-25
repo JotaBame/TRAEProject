@@ -484,7 +484,7 @@ namespace TRAEProject.Common
                             }
                             else
                             {
-                                SoundEngine.PlaySound(SoundID.MaxMana, player.Center);
+                                SoundEngine.PlaySound(SoundID.MaxMana with { MaxInstances = 0 }, player.Center);
                             }
 
                             justCharged = true;
@@ -529,7 +529,7 @@ namespace TRAEProject.Common
                 floatTime = (int)(floatTime * chargeAmt);
             }
             Projectile.velocity = PolarVector(player.HeldItem.shootSpeed * player.GetModPlayer<MeleeStats>().meleeVelocity * (player.GetAttackSpeed(DamageClass.Melee)) * (chargeAmt == 1 ? 1 : 0.6f), dir);
-            SoundEngine.PlaySound(SoundID.Item1, Projectile.Center);
+            SoundEngine.PlaySound(SoundID.Item1 with { MaxInstances = 0 }, Projectile.Center);
             player.itemAnimationMax += chargeTime;
             player.itemAnimation = player.itemAnimationMax - 1;
             player.itemTime = player.itemAnimation + 1;
@@ -695,7 +695,7 @@ namespace TRAEProject.Common
         public int DustOnDeathCount = 20;
         public override void Kill(int timeLeft)
         {
-            SoundEngine.PlaySound(SoundID.Dig, Projectile.Center); // Play a death sound
+            SoundEngine.PlaySound(SoundID.Dig with { MaxInstances = 0 }, Projectile.Center); // Play a death sound
             Vector2 usePos = Projectile.position; // Position to use for dusts
 
             // Please note the usage of MathHelper, please use this!

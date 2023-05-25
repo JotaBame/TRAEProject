@@ -75,7 +75,7 @@ namespace TRAEProject.Common.AIs
 				{
 					Collision.HitTiles(Projectile.position, velocity, Projectile.width, Projectile.height);
 				}
-				SoundEngine.PlaySound(SoundID.Dig, Projectile.Center);
+				SoundEngine.PlaySound(SoundID.Dig with { MaxInstances = 0 }, Projectile.Center);
 			}
 			if (Projectile.ai[0] != 3f && Projectile.ai[0] != 0f && Projectile.ai[0] != 5f && Projectile.ai[0] != 6f && Projectile.localAI[0] >= 10f)
 			{

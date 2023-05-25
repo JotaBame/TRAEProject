@@ -169,7 +169,7 @@ namespace TRAEProject.Changes.NPCs.Boss.Dreadnautilus
 			//Gore.NewGore(npc.position, npc.velocity, num67 + 6, npc.scale);
 			phase = 2;
 			npc.ai[3] = 0;
-			SoundEngine.PlaySound((SoundStyle)npc.DeathSound, npc.Center);
+			SoundEngine.PlaySound((SoundStyle)npc.DeathSound with { MaxInstances = 0 }, npc.Center);
 		}
 		static float snipeVelocity = 32;
 		static float snipePullbackTime = 10;
@@ -365,17 +365,17 @@ namespace TRAEProject.Changes.NPCs.Boss.Dreadnautilus
 										}
 										else if (attackCount % 2 == 0)
 										{
-											SoundEngine.PlaySound(SoundID.Item170, npc.Center);
+											SoundEngine.PlaySound(SoundID.Item170 with { MaxInstances = 0 }, npc.Center);
 											nextAttack = 2;
 										}
 										else
 										{
-											SoundEngine.PlaySound(SoundID.Item170, npc.Center);
+											SoundEngine.PlaySound(SoundID.Item170 with { MaxInstances = 0 }, npc.Center);
 											nextAttack = 1;
 										}
 										break;
 									case 2:
-										SoundEngine.PlaySound(SoundID.Item170, npc.Center);
+										SoundEngine.PlaySound(SoundID.Item170 with { MaxInstances = 0 }, npc.Center);
 										switch (attackCount % 5)
                                         {
 											case 0:
@@ -420,7 +420,7 @@ namespace TRAEProject.Changes.NPCs.Boss.Dreadnautilus
 							{
 								if (npc.ai[1] == chargeChargeTime - 1f)
 								{
-									SoundEngine.PlaySound(SoundID.Item172, npc.Center);
+									SoundEngine.PlaySound(SoundID.Item172 with { MaxInstances = 0 }, npc.Center);
 								}
 								npc.velocity *= 0.95f;
 								npc.rotation = npc.rotation.AngleLerp(num20, 0.02f);
@@ -852,7 +852,7 @@ namespace TRAEProject.Changes.NPCs.Boss.Dreadnautilus
 							{
 								if((npc.ai[1] % totalTime == phase3spamDuration))
                                 {
-									SoundEngine.PlaySound(SoundID.Item172, npc.Center);
+									SoundEngine.PlaySound(SoundID.Item172 with { MaxInstances = 0 }, npc.Center);
 								}
 							}
 							else
@@ -900,7 +900,7 @@ namespace TRAEProject.Changes.NPCs.Boss.Dreadnautilus
 							npc.ai[1] += 1f;
 							if (npc.ai[1] >= phaseTransitionTime)
 							{
-								SoundEngine.PlaySound(SoundID.Roar, npc.Center);
+								SoundEngine.PlaySound(SoundID.Roar with { MaxInstances = 0 }, npc.Center);
 								nextAttack = 7;
 							}
 							break;

@@ -304,7 +304,7 @@ namespace TRAEProject.NewContent.Items.DreadItems.Brimstone
 				if (Charge == MAX_CHARGE && !dontDoItAgain)
 				{
 					dontDoItAgain = true;
-					SoundEngine.PlaySound(SoundID.NPCDeath13, Projectile.Center);
+					SoundEngine.PlaySound(SoundID.NPCDeath13 with { MaxInstances = 0 }, Projectile.Center);
 				}
 				int chargeFact = (int)(Charge / 20f);
 				Vector2 dustVelocity = Vector2.UnitX * 18f;

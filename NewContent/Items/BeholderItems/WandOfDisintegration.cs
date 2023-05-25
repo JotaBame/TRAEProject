@@ -360,7 +360,7 @@ namespace TRAEProject.NewContent.Items.BeholderItems
                 if (Charge == MAX_CHARGE && !dontDoItAgain)
                 {
                     dontDoItAgain = true;
-                    SoundEngine.PlaySound(SoundID.Zombie104, Projectile.position);
+                    SoundEngine.PlaySound(SoundID.Zombie104 with { MaxInstances = 0 }, Projectile.position);
                 }
                 int chargeFact = (int)(Charge / 20f);
                 Vector2 dustVelocity = Vector2.UnitX * 18f;

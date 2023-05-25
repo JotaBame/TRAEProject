@@ -85,7 +85,7 @@ namespace TRAEProject.Changes.NPCs.Boss.LunaticCultist
                                 sound = SoundID.Zombie91;
                                 break;
                         }
-                        SoundEngine.PlaySound(sound, npc.Center);
+                        SoundEngine.PlaySound(sound with { MaxInstances = 0 }, npc.Center);
                     }
                     bool master = Main.masterMode;
                     bool belowHalf = npc.life <= npc.lifeMax / 2;
@@ -182,7 +182,7 @@ namespace TRAEProject.Changes.NPCs.Boss.LunaticCultist
                     float attackTally = npc.ai[3];
                     if (npc.localAI[0] == 0f)
                     {
-                        SoundEngine.PlaySound(SoundID.Zombie89, npc.Center);
+                        SoundEngine.PlaySound(SoundID.Zombie89 with { MaxInstances = 0 }, npc.Center);
                         npc.localAI[0] = 1f;
                         npc.alpha = 255;
                         npc.rotation = 0f;
@@ -323,7 +323,7 @@ namespace TRAEProject.Changes.NPCs.Boss.LunaticCultist
                         {
                             if (npc.ai[1] == 0f)
                             {
-                                SoundEngine.PlaySound(SoundID.Item45, npc.Center);
+                                SoundEngine.PlaySound(SoundID.Item45 with { MaxInstances = 0 }, npc.Center);
                             }
                             npc.ai[1] += 1f;
 
@@ -988,7 +988,7 @@ namespace TRAEProject.Changes.NPCs.Boss.LunaticCultist
                 npc.velocity *= 0.95f;
                 if (npc.localAI[2] != 13f)
                 {
-                    SoundEngine.PlaySound(SoundID.Zombie105, npc.Center);
+                    SoundEngine.PlaySound(SoundID.Zombie105 with { MaxInstances = 0 }, npc.Center);
                 }
                 npc.localAI[2] = 13f;
             }

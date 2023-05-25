@@ -109,7 +109,7 @@ namespace TRAEProject.NewContent.Items.Weapons.DoubleHaxor
 			if (Projectile.soundDelay == 0)
 			{
 				Projectile.soundDelay = 8;
-				SoundEngine.PlaySound(SoundID.Item7, Projectile.position);
+				SoundEngine.PlaySound(SoundID.Item7 with { MaxInstances = 0 }, Projectile.position);
 			}
 			if (Projectile.ai[0] == 0f)
 			{

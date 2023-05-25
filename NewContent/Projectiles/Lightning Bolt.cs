@@ -48,7 +48,7 @@ namespace TRAEProject.NewContent.Projectiles
         }
         public override void Kill(int timeLeft)
         {
-            Terraria.Audio.SoundEngine.PlaySound(SoundID.Item10, Projectile.Center); 
+            Terraria.Audio.SoundEngine.PlaySound(SoundID.Item10 with { MaxInstances = 0 }, Projectile.Center); 
             const int NUM_DUSTS = 36;
             Dust.NewDust(Projectile.oldPosition, 1, 1, 226, 0f, 0f, 0, default, 1f);
             for (int i = 0; i < NUM_DUSTS; i++) 

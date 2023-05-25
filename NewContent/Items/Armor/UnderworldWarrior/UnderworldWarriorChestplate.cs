@@ -90,7 +90,7 @@ namespace TRAEProject.NewContent.Items.Armor.UnderworldWarrior
                             d.noGravity = true;
                         }
 
-                        SoundEngine.PlaySound(SoundID.Item8, Player.Center);
+                        SoundEngine.PlaySound(SoundID.Item8 with { MaxInstances = 0 }, Player.Center);
                         Player.AddBuff(BuffType<BurntOut>(), 24 * 60);
 
                     }
