@@ -285,7 +285,7 @@ namespace TRAEProject.Common
              
                 case ProjectileID.StarCloakStar:
                     {
-                        Terraria.Audio.SoundEngine.PlaySound(SoundID.Item10, projectile.position);
+                        Terraria.Audio.SoundEngine.PlaySound(SoundID.Item10 with { MaxInstances = 0 }, projectile.position);
                         int DustCount = 30;
                         int[] DustTypes = { 15, 57, 58 };
                         for (int i = 0; i < DustCount; ++i)

@@ -233,11 +233,11 @@ namespace TRAEProject.NewContent.Items.Armor.IceArmor
             	{
             		if (Projectile.ai[1] == 0f)
             	{
-            			SoundEngine.PlaySound(SoundID.Dig, Projectile.Center);
+            			SoundEngine.PlaySound(SoundID.Dig with { MaxInstances = 0 }, Projectile.Center);
             			for (int i = 0; i < 2; i++)
             			{
             				Dust dust = Dust.NewDustDirect(Projectile.position, Projectile.width, Projectile.height, 15, Projectile.oldVelocity.X * 0.2f, Projectile.oldVelocity.Y * 0.2f, 0, default, 1.4f);
-            				if (Main.rand.Next(3) != 0)
+            				if (!Main.rand.NextBool(3))
                         {
                             dust.scale *= 1.3f;
                             dust.velocity *= 1.1f;

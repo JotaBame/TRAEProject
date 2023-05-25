@@ -511,7 +511,7 @@ namespace TRAEProject.Changes.Items
                 }
                 if (removedProjectiles > 1)
                 {
-                    SoundEngine.PlaySound(SoundID.Item44, player.Center);
+                    SoundEngine.PlaySound(SoundID.Item44 with { MaxInstances = 0 }, player.Center);
                 }
                 return false;
                 
@@ -555,7 +555,7 @@ namespace TRAEProject.Changes.Items
             // based off Qwerty's code for Recovery from his mod.
             if (item.type == ItemID.Star || item.type == ItemID.SoulCake || item.type == ItemID.SugarPlum)
             {
-                Terraria.Audio.SoundEngine.PlaySound(SoundID.Grab, player.Center);
+                Terraria.Audio.SoundEngine.PlaySound(SoundID.Grab with { MaxInstances = 0 }, player.Center);
                 if(player.GetModPlayer<Mana>().celestialCuffsOverload)
                 {
                     player.GetModPlayer<Mana>().GiveManaOverloadable(10);
@@ -576,7 +576,7 @@ namespace TRAEProject.Changes.Items
             }
             if (item.type == ItemID.ManaCloakStar)
             {
-                Terraria.Audio.SoundEngine.PlaySound(SoundID.Grab, player.Center);
+                Terraria.Audio.SoundEngine.PlaySound(SoundID.Grab with { MaxInstances = 0 }, player.Center);
                 player.statMana += 10;
                 if (Main.myPlayer == player.whoAmI)
                 {

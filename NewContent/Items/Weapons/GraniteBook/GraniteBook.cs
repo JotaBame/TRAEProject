@@ -121,7 +121,7 @@ namespace TRAEProject.NewContent.Items.Weapons.GraniteBook
                         {
 							++NPCLimit;
                             player.ApplyDamageToNPC(nPC, damage, Projectile.knockBack, nPC.direction * -1, crit: false);
-                            SoundEngine.PlaySound(SoundID.Item93, nPC.position);
+                            SoundEngine.PlaySound(SoundID.Item93 with { MaxInstances = 0 }, nPC.position);
                         }
                     }
                 }

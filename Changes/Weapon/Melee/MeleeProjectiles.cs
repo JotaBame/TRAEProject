@@ -340,7 +340,7 @@ namespace TRAEProject.Changes.Weapon.Melee
                         {
                             mult += 1;
                             projectile.damage += projectile.damage / mult;
-                            Terraria.Audio.SoundEngine.PlaySound(SoundID.DD2_MonkStaffGroundImpact, projectile.Center);
+                            Terraria.Audio.SoundEngine.PlaySound(SoundID.DD2_MonkStaffGroundImpact with { MaxInstances = 0 }, projectile.Center);
                             for (int i = 0; i < 25; i++)
                             {
                                 // Create a new dust

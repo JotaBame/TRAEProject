@@ -230,7 +230,7 @@ namespace TRAEProject
                     {
                         Player.velocity.X /= 2f;
                     }
-					SoundEngine.PlaySound(SoundID.DoubleJump, Player.Center);
+					SoundEngine.PlaySound(SoundID.DoubleJump with { MaxInstances = 0 }, Player.Center);
                 }
             }
             if (Player.dashType != 2)
@@ -526,7 +526,7 @@ namespace TRAEProject
             }
             if (Player.runSoundDelay == 0 && Player.velocity.Y == 0f)
             {
-                SoundEngine.PlaySound(Player.hermesStepSound.Style, Player.position);
+                SoundEngine.PlaySound(Player.hermesStepSound.Style.GetValueOrDefault() with { MaxInstances = 0 }, Player.position);
                 Player.runSoundDelay = Player.hermesStepSound.IntendedCooldown;
             }
             if (Player.wings == 3)

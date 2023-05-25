@@ -105,7 +105,7 @@ namespace TRAEProject.Changes.Items
         void RuneThorns(int damage) 
         {
 			runeCooldown = 120;
-            Terraria.Audio.SoundEngine.PlaySound(SoundID.Item8, Player.position);
+            Terraria.Audio.SoundEngine.PlaySound(SoundID.Item8 with { MaxInstances = 0 }, Player.position);
             for (int i = 0; i < 50; ++i)
             {
                 Vector2 position10 = new Vector2(Player.position.X, Player.position.Y);

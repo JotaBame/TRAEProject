@@ -150,7 +150,7 @@ namespace TRAEProject.Changes.Weapon.Ranged.Rockets
         }
         public void ClusterRocketExplosion(Projectile projectile)
         {
-            SoundEngine.PlaySound(SoundID.Item14, projectile.position);
+            SoundEngine.PlaySound(SoundID.Item14 with { MaxInstances = 0 }, projectile.position);
 
             Color transparent7 = Color.Transparent;
             for (int i = 0; i < 30; i++)
@@ -211,7 +211,7 @@ namespace TRAEProject.Changes.Weapon.Ranged.Rockets
         public void LiquidRocket(Projectile projectile)
         {
 
-            SoundEngine.PlaySound(SoundID.Item14, projectile.position);
+            SoundEngine.PlaySound(SoundID.Item14 with { MaxInstances = 0 }, projectile.position);
 
             Color transparent5 = Color.Transparent;
             int num840 = 31;
@@ -306,7 +306,7 @@ namespace TRAEProject.Changes.Weapon.Ranged.Rockets
             if (LuminiteRocket)
             {
                 Projectile.NewProjectile(projectile.GetSource_OnHit(target), projectile.Center, projectile.velocity, ProjectileType<LuminiteBoom>(), projectile.damage, projectile.knockBack);
-                SoundEngine.PlaySound(SoundID.Item14, projectile.position);                   
+                SoundEngine.PlaySound(SoundID.Item14 with { MaxInstances = 0 }, projectile.position);                   
        
             }
         }
@@ -433,7 +433,7 @@ namespace TRAEProject.Changes.Weapon.Ranged.Rockets
         {
             if (LuminiteRocket)
             {
-                SoundEngine.PlaySound(SoundID.Item14, projectile.position);
+                SoundEngine.PlaySound(SoundID.Item14 with { MaxInstances = 0 }, projectile.position);
                 projectile.position = projectile.Center;
                 projectile.width = (projectile.height = 144);
                 projectile.position.X -= projectile.width / 2;

@@ -56,7 +56,7 @@ namespace TRAEProject.Changes.Armor
             {
                 modifiers.GetDamage(6969, false);
                 Main.NewText("Nice!");
-                SoundEngine.PlaySound(new SoundStyle("TRAEProject/Assets/Sounds/noice"));
+                SoundEngine.PlaySound(new SoundStyle("TRAEProject/Assets/Sounds/noice") with { MaxInstances = 0 });
             }
         }
         public override void ModifyHitNPCWithProj(Projectile proj, NPC target, ref NPC.HitModifiers modifiers)
@@ -65,7 +65,7 @@ namespace TRAEProject.Changes.Armor
             {
                 modifiers.GetDamage(6969, false);
                 Main.NewText("Nice!");
-                SoundEngine.PlaySound(new SoundStyle("TRAEProject/Assets/Sounds/noice"));
+                SoundEngine.PlaySound(new SoundStyle("TRAEProject/Assets/Sounds/noice") with { MaxInstances = 0 });
             }
         }
 

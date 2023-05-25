@@ -59,7 +59,7 @@ namespace TRAEProject.Changes.Accesory
                     ++beesStored;
                     beetimer = 0;
                     Dust.NewDustDirect(Player.oldPosition, Player.width, Player.height, DustID.Honey, 1, 1, 0, default, 0.8f);
-                    Terraria.Audio.SoundEngine.PlaySound(SoundID.Item10, Player.Center);
+                    Terraria.Audio.SoundEngine.PlaySound(SoundID.Item10 with { MaxInstances = 0 }, Player.Center);
                 }
                 if (Player.velocity.Y < -0.1 || Player.velocity.Y > 0.1)
                 {

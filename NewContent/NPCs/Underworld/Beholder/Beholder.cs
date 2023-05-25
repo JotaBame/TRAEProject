@@ -133,7 +133,7 @@ namespace TRAEProject.NewContent.NPCs.Underworld.Beholder
         {
             facethisway = NPC.spriteDirection;
             beamDirection = (target.Center - shootFrom).ToRotation();
-            SoundEngine.PlaySound(SoundID.Zombie104, NPC.position);
+            SoundEngine.PlaySound(SoundID.Zombie104 with { MaxInstances = 0 }, NPC.position);
             float rotateDirection = (target.Center.Y > shootFrom.Y ? 1 : -1) * (target.Center.X > shootFrom.X ? 1 : -1); 
             float rotation = beamDirection + rotateDirection * beamSweepAngle / 2f;
             Projectile p = Main.projectile[Projectile.NewProjectile(new EntitySource_Misc(""), shootFrom, TRAEMethods.PolarVector(1f, rotation), ProjectileType<DeathgazeBeam>(), 80, 0, 0)];
@@ -238,7 +238,7 @@ namespace TRAEProject.NewContent.NPCs.Underworld.Beholder
                 attackDelay = 90;
                 if (!hasHeRoared)
                 {
-                    SoundEngine.PlaySound(SoundID.NPCDeath10, NPC.Center);
+                    SoundEngine.PlaySound(SoundID.NPCDeath10 with { MaxInstances = 0 }, NPC.Center);
                     hasHeRoared = true;
                 }
             }
@@ -260,11 +260,11 @@ namespace TRAEProject.NewContent.NPCs.Underworld.Beholder
                     }
                     NPC.ai[0] = 0;
                     NPC.ai[2] = 0;
-                    SoundEngine.PlaySound(SoundID.NPCDeath10, NPC.Center);
+                    SoundEngine.PlaySound(SoundID.NPCDeath10 with { MaxInstances = 0 }, NPC.Center);
                 }
                 NPC.ai[1] = 10;
 
-                if (Main.rand.Next(3) == 0)
+                if (Main.rand.NextBool(3))
                 {
                     int num117 = Dust.NewDust(new Vector2(NPC.position.X, NPC.position.Y + 2f), NPC.width, NPC.height, DustID.GreenTorch, NPC.velocity.X * 0.2f, NPC.velocity.Y * 0.2f, 100, default, 2f);
                     Main.dust[num117].noGravity = true;
@@ -293,13 +293,13 @@ namespace TRAEProject.NewContent.NPCs.Underworld.Beholder
                             VEL = 3f;
                             break;
                         case 4:
-                            SoundEngine.PlaySound(SoundID.NPCDeath10, NPC.Center); // make him roar that's actually cool
+                            SoundEngine.PlaySound(SoundID.NPCDeath10 with { MaxInstances = 0 }, NPC.Center); // make him roar that's actually cool
                             ScytheToShoot = ProjectileType<OrangeScythe>();
                             break;
 
                     }
 
-                    SoundEngine.PlaySound(SoundID.Item8, NPC.position);
+                    SoundEngine.PlaySound(SoundID.Item8 with { MaxInstances = 0 }, NPC.position);
                     if (Main.netMode != NetmodeID.MultiplayerClient)
                     { 
                     for (int i = 0; i < 6; i++)
@@ -344,7 +344,7 @@ namespace TRAEProject.NewContent.NPCs.Underworld.Beholder
                     if (NPC.ai[2] % delay == 0)
                     {
                         
-                        SoundEngine.PlaySound(SoundID.Item8, NPC.position);
+                        SoundEngine.PlaySound(SoundID.Item8 with { MaxInstances = 0 }, NPC.position);
                         float velocityY = -30 + 15 * NPC.ai[2] / delay;
                         float velocityX = NPC.ai[2] == delay * 2 ? -15 * NPC.direction : 0;
                         float numberProjectiles = 3;
@@ -411,7 +411,7 @@ namespace TRAEProject.NewContent.NPCs.Underworld.Beholder
                     int scythes = 32;
                     if (NPC.ai[2] % delay == 0)
                     {
-                        SoundEngine.PlaySound(SoundID.Item8, NPC.position);
+                        SoundEngine.PlaySound(SoundID.Item8 with { MaxInstances = 0 }, NPC.position);
                         Vector2 direction = Vector2.One.RotatedBy(angletimer);
                         Vector2 position = ActualCenter + 60 * direction;
                         float velocity = 0.25f;
@@ -443,7 +443,7 @@ namespace TRAEProject.NewContent.NPCs.Underworld.Beholder
 
                     if (NPC.ai[2] == 0)
                     {
-                        SoundEngine.PlaySound(SoundID.Zombie99, NPC.position);
+                        SoundEngine.PlaySound(SoundID.Zombie99 with { MaxInstances = 0 }, NPC.position);
                        
                     }
                     NPC.ai[2] += 1f;
@@ -480,7 +480,7 @@ namespace TRAEProject.NewContent.NPCs.Underworld.Beholder
                     NPC.ai[2]++;
                     if (NPC.ai[2] % 35 == 0 && Main.netMode != NetmodeID.MultiplayerClient)
                     {
-                        SoundEngine.PlaySound(SoundID.Item8, NPC.position);
+                        SoundEngine.PlaySound(SoundID.Item8 with { MaxInstances = 0 }, NPC.position);
 
                         for (int i = 0; i < 6; i++)
                         {
@@ -534,7 +534,7 @@ namespace TRAEProject.NewContent.NPCs.Underworld.Beholder
                                     break;
 
                             }
-                            SoundEngine.PlaySound(SoundID.Item8, NPC.position);
+                            SoundEngine.PlaySound(SoundID.Item8 with { MaxInstances = 0 }, NPC.position);
                             float posX = target.Center.X;
                             float posY = target.Center.Y;
                             float velX = posX - ActualCenter.X;
@@ -579,7 +579,7 @@ namespace TRAEProject.NewContent.NPCs.Underworld.Beholder
 
                     if (NPC.ai[2] == 0)
                     {
-                        SoundEngine.PlaySound(SoundID.Zombie99, NPC.position);
+                        SoundEngine.PlaySound(SoundID.Zombie99 with { MaxInstances = 0 }, NPC.position);
 
                     }
 
@@ -747,7 +747,7 @@ namespace TRAEProject.NewContent.NPCs.Underworld.Beholder
         }
         public override void Kill(int timeLeft)
         {
-            SoundEngine.PlaySound(SoundID.Item10, Projectile.position);
+            SoundEngine.PlaySound(SoundID.Item10 with { MaxInstances = 0 }, Projectile.position);
             for (int num729 = 0; num729 < 30; num729++)
             {
                 int num730 = Dust.NewDust(new Vector2(Projectile.position.X, Projectile.position.Y), Projectile.width, Projectile.height, DustID.GreenTorch, Projectile.velocity.X, Projectile.velocity.Y, 100, default(Color), 1.7f);
@@ -803,7 +803,7 @@ namespace TRAEProject.NewContent.NPCs.Underworld.Beholder
         }
         public override void Kill(int timeLeft)
         {
-            SoundEngine.PlaySound(SoundID.Item10, Projectile.position);
+            SoundEngine.PlaySound(SoundID.Item10 with { MaxInstances = 0 }, Projectile.position);
             for (int num729 = 0; num729 < 20; num729++)
             {
                 int num730 = Dust.NewDust(new Vector2(Projectile.position.X, Projectile.position.Y), Projectile.width, Projectile.height, DustID.YellowTorch, Projectile.velocity.X, Projectile.velocity.Y, 100, default(Color), 1.7f);
@@ -860,7 +860,7 @@ namespace TRAEProject.NewContent.NPCs.Underworld.Beholder
         }
         public override void Kill(int timeLeft)
         {
-            SoundEngine.PlaySound(SoundID.Item10, Projectile.position);
+            SoundEngine.PlaySound(SoundID.Item10 with { MaxInstances = 0 }, Projectile.position);
             for (int num729 = 0; num729 < 30; num729++)
             {
                 int num730 = Dust.NewDust(new Vector2(Projectile.position.X, Projectile.position.Y), Projectile.width, Projectile.height, DustID.OrangeTorch, Projectile.velocity.X, Projectile.velocity.Y, 100, default(Color), 1.7f);
@@ -912,7 +912,7 @@ namespace TRAEProject.NewContent.NPCs.Underworld.Beholder
 
                     if (rectangle.Intersects(player.Hitbox))
                     {
-                        SoundEngine.PlaySound(SoundID.NPCDeath6, Projectile.position);
+                        SoundEngine.PlaySound(SoundID.NPCDeath6 with { MaxInstances = 0 }, Projectile.position);
                         if (Main.expertMode)
                         {
                             player.AddBuff(BuffID.WitheredWeapon, Main.rand.Next(7, 9) * 60); 
@@ -940,7 +940,7 @@ namespace TRAEProject.NewContent.NPCs.Underworld.Beholder
         }
         public override void Kill(int timeLeft)
         {
-            SoundEngine.PlaySound(SoundID.Item10, Projectile.position);
+            SoundEngine.PlaySound(SoundID.Item10 with { MaxInstances = 0 }, Projectile.position);
 
             for (int num729 = 0; num729 < 30; num729++)
             {

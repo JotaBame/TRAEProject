@@ -117,7 +117,7 @@ namespace TRAEProject.Changes.Accesory
         {
             if (gelStored > 0)
             {
-                SoundEngine.PlaySound(SoundID.NPCDeath1);
+                SoundEngine.PlaySound(SoundID.NPCDeath1 with { MaxInstances = 0 });
                 int GelID = ProjectileID.VolatileGelatinBall;
                 float num852 = ((float)Math.PI * 2f);
                 float gelCount = 59.167f * 6;
@@ -139,7 +139,7 @@ namespace TRAEProject.Changes.Accesory
         {
             if (gelStored > 0)
             {
-                SoundEngine.PlaySound(SoundID.NPCDeath1); int GelID = ProjectileID.VolatileGelatinBall;
+                SoundEngine.PlaySound(SoundID.NPCDeath1 with { MaxInstances = 0 }); int GelID = ProjectileID.VolatileGelatinBall;
                 float num852 = ((float)Math.PI * 2f);
                 float gelCount = 59.167f * 6;
                 for (float c = 0f; c < 1f; c += gelCount / (678f * (float)Math.PI))

@@ -49,7 +49,7 @@ namespace TRAEProject.Changes.Weapon.Melee.SpearProjectiles
                     if (!soundPlayed)
                     {
 
-                        SoundEngine.PlaySound(SoundID.MaxMana, player.Center);
+                        SoundEngine.PlaySound(SoundID.MaxMana with { MaxInstances = 0 }, player.Center);
                         soundPlayed = true;
                     }
                 }

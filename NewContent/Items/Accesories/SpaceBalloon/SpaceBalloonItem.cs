@@ -62,7 +62,7 @@ namespace TRAEProject.NewContent.Items.Accesories.SpaceBalloon
                 {
                     Player.RefreshMovementAbilities(true);
                     Player.GetModPlayer<TRAEJumps>().RestoreJumps();
-                    Terraria.Audio.SoundEngine.PlaySound(SoundID.Item112);
+                    Terraria.Audio.SoundEngine.PlaySound(SoundID.Item112 with { MaxInstances = 0 });
                     for (int i = 0; i < 30; ++i)
                     {
                         Vector2 position10 = new Vector2(Player.position.X, Player.position.Y);

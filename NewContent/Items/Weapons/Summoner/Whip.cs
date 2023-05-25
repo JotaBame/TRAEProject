@@ -160,7 +160,7 @@ namespace TRAEProject.NewContent.Items.Weapons.Summoner.Whip
 				Projectile.WhipPointsForCollision.Clear();
 				FillWhipControlPoints(Projectile, Projectile.WhipPointsForCollision);
 				Vector2 position = Projectile.WhipPointsForCollision[Projectile.WhipPointsForCollision.Count - 1];
-				SoundEngine.PlaySound(SoundID.Item153, position);
+				SoundEngine.PlaySound(SoundID.Item153 with { MaxInstances = 0 }, position);
 			}
 			if (Projectile.type == ProjectileType<AbsoluteZeroP>())
 			{

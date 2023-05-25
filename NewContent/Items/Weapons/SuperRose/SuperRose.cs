@@ -123,7 +123,7 @@ namespace TRAEProject.NewContent.Items.Weapons.SuperRose
         }
         public override void Kill(int timeLeft)
         {
-            SoundEngine.PlaySound(SoundID.Item20, Projectile.Center);
+            SoundEngine.PlaySound(SoundID.Item20 with { MaxInstances = 0 }, Projectile.Center);
         }
     }
     public class PetalFriendly : ModProjectile

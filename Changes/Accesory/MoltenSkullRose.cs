@@ -216,7 +216,7 @@ namespace TRAEProject.Changes.Accesory
                 {
                     if (!target.HasBuff(BuffID.Daybreak))
                     {
-                        SoundEngine.PlaySound(SoundID.Item45);
+                        SoundEngine.PlaySound(SoundID.Item45 with { MaxInstances = 0 });
                     }
                     for (int i = 0; i < 20; i++)
                     {
@@ -250,7 +250,7 @@ namespace TRAEProject.Changes.Accesory
                     {
                         if (!target.HasBuff(BuffID.Daybreak))
                         {
-                            SoundEngine.PlaySound(SoundID.Item45);
+                            SoundEngine.PlaySound(SoundID.Item45 with { MaxInstances = 0 });
                         }
                         for (int i = 0; i < 20; i++)
                         {
@@ -289,7 +289,7 @@ namespace TRAEProject.Changes.Accesory
                                 Vector2 speed = Main.rand.NextVector2CircularEdge(3f, 3f);
                                 Dust d = Dust.NewDustPerfect(target.Center, DustID.Torch, speed * 3, Scale: 1.5f);
                                 d.noGravity = true;
-                                SoundEngine.PlaySound(SoundID.Item45, target.position);
+                                SoundEngine.PlaySound(SoundID.Item45 with { MaxInstances = 0 }, target.position);
                             }
                         }
                         int duration = 180;

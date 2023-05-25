@@ -37,7 +37,7 @@ namespace TRAEProject.NewContent.Projectiles
         {
             if (!dontDoThisAgain)
             {
-                SoundEngine.PlaySound(SoundID.Item14, Projectile.position);
+                SoundEngine.PlaySound(SoundID.Item14 with { MaxInstances = 0 }, Projectile.position);
                 for (int num947 = 0; num947 < 10; num947++)
                 {
                     int num948 = Dust.NewDust(new Vector2(Projectile.position.X, Projectile.position.Y), Projectile.width, Projectile.height, 31, 0f, 0f, 100, default(Color), 1.5f);
@@ -94,7 +94,7 @@ namespace TRAEProject.NewContent.Projectiles
 
             if (!dontDoThisAgain)
             {
-                SoundEngine.PlaySound(SoundID.Item14, Projectile.position);
+                SoundEngine.PlaySound(SoundID.Item14 with { MaxInstances = 0 }, Projectile.position);
                 for (int num947 = 0; num947 < 10; num947++)
                 {
                     int num948 = Dust.NewDust(new Vector2(Projectile.position.X, Projectile.position.Y), Projectile.width, Projectile.height, 31, 0f, 0f, 100, default(Color), 1.5f);

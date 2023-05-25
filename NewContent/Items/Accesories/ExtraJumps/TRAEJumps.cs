@@ -376,7 +376,7 @@ namespace TRAEProject.NewContent.Items.Accesories.ExtraJumps
 						Player.velocity.Y = (0f - Player.jumpSpeed) * Player.gravDir;
 						Player.jump = Player.jumpHeight * 8;
 						isLevitating = true;
-						SoundEngine.PlaySound(SoundID.DoubleJump, Player.Center);
+						SoundEngine.PlaySound(SoundID.DoubleJump with { MaxInstances = 0 }, Player.Center);
 					}
 				}
 				else if(canFaeJump)
@@ -407,7 +407,7 @@ namespace TRAEProject.NewContent.Items.Accesories.ExtraJumps
 							Player.brainOfConfusionDodgeAnimationCounter = 300;
 						}
 						faejumpTime = 180;
-						SoundEngine.PlaySound(SoundID.DoubleJump, Player.Center);
+						SoundEngine.PlaySound(SoundID.DoubleJump with { MaxInstances = 0 }, Player.Center);
 					}
 				}
 				else if(Player.releaseJump && doVanillaJumps && advJumpStorage[0] == null)
@@ -469,7 +469,7 @@ namespace TRAEProject.NewContent.Items.Accesories.ExtraJumps
 				Dust d = Dust.NewDustPerfect(pos, DustID.Smoke);
 				d.frame.Y = 0;
             }
-			SoundEngine.PlaySound(SoundID.DoubleJump, Player.Center);
+			SoundEngine.PlaySound(SoundID.DoubleJump with { MaxInstances = 0 }, Player.Center);
 		}
 		Dust FairyQueenDust(Player player, Vector2 pos, Vector2 vel)
 		{

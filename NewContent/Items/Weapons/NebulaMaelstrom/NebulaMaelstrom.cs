@@ -112,7 +112,7 @@ namespace TRAEProject.NewContent.Items.Weapons.NebulaMaelstrom
                     if (zaptimer >= 25 && Projectile.ai[0] >= BeforeItStartsAttacking)
                     {
                         zaptimer = 0;
-                        SoundEngine.PlaySound(SoundID.Item93, Projectile.position);
+                        SoundEngine.PlaySound(SoundID.Item93 with { MaxInstances = 0 }, Projectile.position);
 
                         float shootToX = nPC.position.X + nPC.width * 0.5f - Projectile.Center.X;
                         float shootToY = nPC.position.Y + nPC.height * 0.5f - Projectile.Center.Y;
@@ -147,7 +147,7 @@ namespace TRAEProject.NewContent.Items.Weapons.NebulaMaelstrom
             {
                 if (lasertimer >= 75)
                 {
-                    SoundEngine.PlaySound(SoundID.Item12, Projectile.Center);
+                    SoundEngine.PlaySound(SoundID.Item12 with { MaxInstances = 0 }, Projectile.Center);
 
                     lasertimer = 0;
                     for (int i = 0; i < 6; i++)
@@ -158,7 +158,7 @@ namespace TRAEProject.NewContent.Items.Weapons.NebulaMaelstrom
                 }
                 if (Projectile.ai[0] >= BeforeItStartsAttacking + attacktimer)
                 {
-                    SoundEngine.PlaySound(SoundID.Item9, Projectile.Center);
+                    SoundEngine.PlaySound(SoundID.Item9 with { MaxInstances = 0 }, Projectile.Center);
                     Projectile.ai[0] = BeforeItStartsAttacking;
                     Vector2 direction = Vector2.One.RotatedBy(angletimer);
                     for (int i = 0; i < 2; i++)
@@ -176,7 +176,7 @@ namespace TRAEProject.NewContent.Items.Weapons.NebulaMaelstrom
         }
         public override bool PreKill(int timeLeft)
         {
-            SoundEngine.PlaySound(SoundID.Item20, Projectile.Center);
+            SoundEngine.PlaySound(SoundID.Item20 with { MaxInstances = 0 }, Projectile.Center);
             for (int num368 = 0; num368 < 10; num368++)
             {
                 int num369 = Dust.NewDust(new Vector2(Projectile.position.X, Projectile.position.Y), Projectile.width, Projectile.height, 242, 0f, 0f, 200, default, 2.5f);

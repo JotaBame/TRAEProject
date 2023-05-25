@@ -380,7 +380,7 @@ namespace TRAEProject.Changes.NPCs.Boss
 									Main.dust[num21].noLight = true;
 									Main.dust[num21].velocity = Vector2.Normalize(value2) * 3f;
 								}
-								Terraria.Audio.SoundEngine.PlaySound(SoundID.Zombie20, npc.Center);
+								Terraria.Audio.SoundEngine.PlaySound(SoundID.Zombie20 with { MaxInstances = 0 }, npc.Center);
 							}
 							npc.ai[2] += 1f;
 							if (npc.ai[2] >= (float)num16)
@@ -578,11 +578,11 @@ namespace TRAEProject.Changes.NPCs.Boss
 							// SPAWNS DETONATING BUBBLES
 							if (npc.ai[2] == 0f)
 							{
-								Terraria.Audio.SoundEngine.PlaySound(SoundID.Zombie20, npc.Center);
+								Terraria.Audio.SoundEngine.PlaySound(SoundID.Zombie20 with { MaxInstances = 0 }, npc.Center);
 							}
 							if (npc.ai[2] % BubbleDelay == 0f)
 							{
-								Terraria.Audio.SoundEngine.PlaySound(SoundID.NPCDeath19, npc.Center);
+								Terraria.Audio.SoundEngine.PlaySound(SoundID.NPCDeath19 with { MaxInstances = 0 }, npc.Center);
 								if (Main.netMode != NetmodeID.MultiplayerClient)
 								{
 									Vector2 vector3 = Vector2.Normalize(player.Center - center) * (npc.width + 20) / 2f + center;
@@ -615,7 +615,7 @@ namespace TRAEProject.Changes.NPCs.Boss
 							npc.velocity.Y = MathHelper.Lerp(npc.velocity.Y, 0f, 0.02f);
 							if (npc.ai[2] == (num9 - 30))
 							{
-								Terraria.Audio.SoundEngine.PlaySound(SoundID.Zombie9, npc.Center);
+								Terraria.Audio.SoundEngine.PlaySound(SoundID.Zombie9 with { MaxInstances = 0 }, npc.Center);
 							}
 							if (Main.netMode != NetmodeID.MultiplayerClient && npc.ai[2] == (num9 - 30))
 							{
@@ -638,7 +638,7 @@ namespace TRAEProject.Changes.NPCs.Boss
 							npc.velocity.Y = MathHelper.Lerp(npc.velocity.Y, 0f, 0.02f);
 							if (npc.ai[2] == (num10 - 60))
 							{
-								Terraria.Audio.SoundEngine.PlaySound(SoundID.Zombie20, npc.Center);
+								Terraria.Audio.SoundEngine.PlaySound(SoundID.Zombie20 with { MaxInstances = 0 }, npc.Center);
 							}
 							npc.ai[2] += 1f;
 							if (npc.ai[2] >= (float)num10)
@@ -808,11 +808,11 @@ namespace TRAEProject.Changes.NPCs.Boss
 						{
 							if (npc.ai[2] == 0f)
 							{
-								Terraria.Audio.SoundEngine.PlaySound(SoundID.Zombie20, npc.Center);
+								Terraria.Audio.SoundEngine.PlaySound(SoundID.Zombie20 with { MaxInstances = 0 }, npc.Center);
 							}
 							if (npc.ai[2] % bubbledelayPhase2 == 0f)
 							{
-								Terraria.Audio.SoundEngine.PlaySound(SoundID.NPCDeath19, npc.Center);
+								Terraria.Audio.SoundEngine.PlaySound(SoundID.NPCDeath19 with { MaxInstances = 0 }, npc.Center);
 								if (Main.netMode != NetmodeID.MultiplayerClient)
 								{
 									Vector2 vector6 = Vector2.Normalize(npc.velocity) * (npc.width + 20) / 2f + center;
@@ -841,7 +841,7 @@ namespace TRAEProject.Changes.NPCs.Boss
 							npc.velocity.Y = MathHelper.Lerp(npc.velocity.Y, 0f, 0.02f);
 							if (npc.ai[2] == (float)(num9 - 30))
 							{
-								Terraria.Audio.SoundEngine.PlaySound(SoundID.Zombie20, npc.Center);
+								Terraria.Audio.SoundEngine.PlaySound(SoundID.Zombie20 with { MaxInstances = 0 }, npc.Center);
 							}
 							if (Main.netMode != NetmodeID.MultiplayerClient && npc.ai[2] == (float)(num9 - 30))
 							{
@@ -890,7 +890,7 @@ namespace TRAEProject.Changes.NPCs.Boss
 							npc.velocity.Y = MathHelper.Lerp(npc.velocity.Y, 0f, 0.02f);
 							if (npc.ai[2] == (num11 - 30))
 							{
-								Terraria.Audio.SoundEngine.PlaySound(SoundID.Zombie20, npc.Center);
+								Terraria.Audio.SoundEngine.PlaySound(SoundID.Zombie20 with { MaxInstances = 0 }, npc.Center);
 							}
 							npc.ai[2] += 1f;
 							if (npc.ai[2] >= num11)
@@ -1044,7 +1044,7 @@ namespace TRAEProject.Changes.NPCs.Boss
 							npc.velocity.Y = MathHelper.Lerp(npc.velocity.Y, 0f, 0.02f);
 							if (npc.ai[2] == (float)(num12 / 2))
 							{
-								Terraria.Audio.SoundEngine.PlaySound(SoundID.Zombie20, npc.Center);
+								Terraria.Audio.SoundEngine.PlaySound(SoundID.Zombie20 with { MaxInstances = 0 }, npc.Center);
 							}
 							if (Main.netMode != NetmodeID.MultiplayerClient && npc.ai[2] == (float)(num12 / 2))
 							{
@@ -1092,7 +1092,7 @@ namespace TRAEProject.Changes.NPCs.Boss
 						{
 							if (npc.ai[2] == 0f)
 							{
-								Terraria.Audio.SoundEngine.PlaySound(SoundID.Zombie20, npc.Center);
+								Terraria.Audio.SoundEngine.PlaySound(SoundID.Zombie20 with { MaxInstances = 0 }, npc.Center);
 							}
 							npc.velocity = npc.velocity.RotatedBy((0f - num15) * (float)npc.direction);
 							npc.rotation -= num15 * (float)npc.direction;

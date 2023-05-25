@@ -123,7 +123,7 @@ namespace TRAEProject.Changes
                         timer++;
                         if (timer == 439) // almost exactly 6.66 seconds after the drop starts floating
                         {
-                            SoundEngine.PlaySound(SoundID.ScaryScream, item.Center);
+                            SoundEngine.PlaySound(SoundID.ScaryScream with { MaxInstances = 0 }, item.Center);
                         }
                         if (timer >= 439)
                         {
@@ -150,7 +150,7 @@ namespace TRAEProject.Changes
                                 d.noGravity = true;
                             }
                             timer = 889;
-                            SoundEngine.PlaySound(SoundID.NPCDeath10, item.Center);
+                            SoundEngine.PlaySound(SoundID.NPCDeath10 with { MaxInstances = 0 }, item.Center);
 
                             int spawnPositionX = (int)(player.Center.X) + Main.rand.Next(-100, 100) * 16;
                             int spawnPositionY = (int)(player.Center.Y) + 80 * 16;

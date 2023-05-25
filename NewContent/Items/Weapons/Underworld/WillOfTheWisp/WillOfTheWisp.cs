@@ -119,7 +119,7 @@ namespace TRAEProject.NewContent.Items.Weapons.Underworld.WillOfTheWisp
         }
         public override void Kill(int timeLeft)
         {
-            Terraria.Audio.SoundEngine.PlaySound(SoundID.Item10, Projectile.Center);
+            Terraria.Audio.SoundEngine.PlaySound(SoundID.Item10 with { MaxInstances = 0 }, Projectile.Center);
             for (int i = 0; i < 15; i++)
             {
                 Dust dust = Dust.NewDustDirect(Projectile.oldPosition, Projectile.width, Projectile.height, DustID.Torch, 1f);

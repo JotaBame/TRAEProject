@@ -108,7 +108,7 @@ namespace TRAEProject.NewContent.NPCs.Underworld.Phoenix
 							dust7.noLight = true;
 						}
 					}
-					SoundEngine.PlaySound(SoundID.Item73, NPC.Center);
+					SoundEngine.PlaySound(SoundID.Item73 with { MaxInstances = 0 }, NPC.Center);
 					dustTimer += 1f;
 					for (int num122 = 0; num122 < 15; num122++)
 					{
@@ -223,7 +223,7 @@ namespace TRAEProject.NewContent.NPCs.Underworld.Phoenix
 				dustTimer = 0;
 				if (Main.rand.NextBool(500))
 				{
-					SoundEngine.PlaySound(SoundID.DD2_WyvernScream, NPC.Center);
+					SoundEngine.PlaySound(SoundID.DD2_WyvernScream with { MaxInstances = 0 }, NPC.Center);
 				}
 				if (Main.rand.NextBool(4))
 				{
@@ -406,7 +406,7 @@ namespace TRAEProject.NewContent.NPCs.Underworld.Phoenix
 
 			if (NPC.ai[0] % (timeTillRevive / 6) == 0)
             {
-				SoundEngine.PlaySound(SoundID.Item34, NPC.Center);
+				SoundEngine.PlaySound(SoundID.Item34 with { MaxInstances = 0 }, NPC.Center);
 				for (int i = 0; i < 25; i++)
 				{
 					Vector2 speed = Main.rand.NextVector2CircularEdge(3f, 3f);
@@ -417,7 +417,7 @@ namespace TRAEProject.NewContent.NPCs.Underworld.Phoenix
 			if (NPC.ai[0] == timeTillRevive	&& Main.netMode != NetmodeID.MultiplayerClient)
             {
 				NPC.life = 0;
-				SoundEngine.PlaySound(SoundID.DD2_WyvernScream, NPC.Center);
+				SoundEngine.PlaySound(SoundID.DD2_WyvernScream with { MaxInstances = 0 }, NPC.Center);
 				NPC phoenix = NPC.NewNPCDirect(NPC.GetSource_Death(), (int)NPC.Center.X, (int)NPC.Center.Y, NPCType<PhoenixNPC>());
 				phoenix.life = phoenix.lifeMax / 2;
 				for (int i = 0; i < 100; i++)

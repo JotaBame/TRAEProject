@@ -51,7 +51,7 @@ namespace TRAEProject.NewContent.Items.Armor.Joter
             player.AddBuff(BuffID.HeartyMeal, duration);
             if (target.type == NPCID.MoonLordHead)
                 player.QuickSpawnItem(target.GetSource_FromThis(), ItemType<FinalBoss>());
-            SoundEngine.PlaySound(SoundID.Item2, Projectile.position);
+            SoundEngine.PlaySound(SoundID.Item2 with { MaxInstances = 0 }, Projectile.position);
             int JottieCount = target.lifeMax / 50;
             if (JottieCount > 25)
                 JottieCount = 25;
@@ -87,7 +87,7 @@ namespace TRAEProject.NewContent.Items.Armor.Joter
                 player.AddBuff(BuffID.HeartyMeal, duration);
                 if (target.type == NPCID.MoonLordHead)
                     player.QuickSpawnItem(target.GetSource_FromThis(), ItemType<FinalBoss>());
-                SoundEngine.PlaySound(SoundID.Item2, Projectile.position);
+                SoundEngine.PlaySound(SoundID.Item2 with { MaxInstances = 0 }, Projectile.position);
                 int JottieCount = target.lifeMax / 50;
                 if (JottieCount > 25)
                     JottieCount = 25;
@@ -101,7 +101,7 @@ namespace TRAEProject.NewContent.Items.Armor.Joter
         }
         public override void Kill(int timeLeft)
         {
-            SoundEngine.PlaySound(SoundID.NPCDeath1, Projectile.position);
+            SoundEngine.PlaySound(SoundID.NPCDeath1 with { MaxInstances = 0 }, Projectile.position);
             Vector2 usePos = Projectile.position; // Position to use for dusts
 
             // Please note the usage of MathHelper, please use this!
@@ -150,7 +150,7 @@ namespace TRAEProject.NewContent.Items.Armor.Joter
                 player.AddBuff(BuffID.HeartyMeal, duration);
                 if (target.type == NPCID.MoonLordHead)
                     player.QuickSpawnItem(target.GetSource_FromThis(), ItemType<FinalBoss>());
-                SoundEngine.PlaySound(SoundID.Item2, Projectile.position);
+                SoundEngine.PlaySound(SoundID.Item2 with { MaxInstances = 0 }, Projectile.position);
                 int JottieCount = target.lifeMax / 100;
                 if (JottieCount > 25)
                     JottieCount = 25;
