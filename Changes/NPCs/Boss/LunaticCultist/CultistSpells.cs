@@ -114,7 +114,7 @@ namespace TRAEProject.Changes.NPCs.Boss.LunaticCultist
                 Vector2 spinningpoint13 = value38 * scaleFactor3;
                 for (int num725 = 0; num725 < 6; num725++)
                 {
-                    Vector2 vector52 = projectile.Center + spinningpoint13.RotatedBy((float)num725 * ((float)Math.PI * 2f) / 6f);
+                    Vector2 vector52 = projectile.Center + spinningpoint13.RotatedBy((float)num725 * (MathF.PI * 2f) / 6f);
                     Lighting.AddLight(vector52, 0.3f, 0.75f, 0.9f);
                     for (int num726 = 0; num726 < 2; num726++)
                     {
@@ -135,7 +135,7 @@ namespace TRAEProject.Changes.NPCs.Boss.LunaticCultist
                 Vector2 spinningpoint = value9 * scaleFactor5;
                 for (int num12 = 0; num12 < 6; num12++)
                 {
-                    float num13 = (float)num12 * ((float)Math.PI * 2f) / 6f;
+                    float num13 = (float)num12 * (MathF.PI * 2f) / 6f;
                     if (Utils.CenteredRectangle(projectile.Center + spinningpoint.RotatedBy(num13), new Vector2(30f, 30f)).Intersects(targetHitbox))
                     {
                         return true;
@@ -165,9 +165,9 @@ namespace TRAEProject.Changes.NPCs.Boss.LunaticCultist
                 Vector2 spinningpoint7 = value115 * scaleFactor3;
                 for (int num304 = 0; num304 < 6; num304++)
                 {
-                    float num305 = (float)num304 * ((float)Math.PI * 2f) / 6f;
+                    float num305 = (float)num304 * (MathF.PI * 2f) / 6f;
                     Vector2 value116 = projectile.Center + spinningpoint7.RotatedBy(num305);
-                    Main.EntitySpriteDraw(value108, value116 - Main.screenPosition, rectangle20, color70, num305 + projectile.velocity.ToRotation() + (float)Math.PI, origin18, projectile.scale, SpriteEffects.None, 0);
+                    Main.EntitySpriteDraw(value108, value116 - Main.screenPosition, rectangle20, color70, num305 + projectile.velocity.ToRotation() + MathF.PI, origin18, projectile.scale, SpriteEffects.None, 0);
                     rectangle20.Y += rectangle20.Height;
                     if (rectangle20.Y >= value108.Height)
                     {

@@ -75,7 +75,7 @@ namespace TRAEProject.Changes.Weapon
                         stretch = Player.CompositeArmStretchAmount.ThreeQuarters;
                     }
                     
-                    float rotation = player.itemRotation - (((float)player.itemAnimation / player.itemAnimationMax) * (float)Math.PI / 8f - (float)Math.PI / 16f) * player.direction;
+                    float rotation = player.itemRotation - (((float)player.itemAnimation / player.itemAnimationMax) * MathF.PI / 8f - MathF.PI / 16f) * player.direction;
                     player.SetCompositeArmFront(enabled: true, stretch, rotation);
                 }
                 else
@@ -99,7 +99,7 @@ namespace TRAEProject.Changes.Weapon
                 if (player.altFunctionUse == 2)
                 {
                     Vector2 pointPoisition = player.RotatedRelativePoint(player.MountedCenter, reverseRotation: true);
-                    player.itemRotation = (Main.MouseWorld - pointPoisition).ToRotation() - (float)Math.PI / 2f;
+                    player.itemRotation = (Main.MouseWorld - pointPoisition).ToRotation() - MathF.PI / 2f;
                 }
                 else
                 {
@@ -114,7 +114,7 @@ namespace TRAEProject.Changes.Weapon
         public static void PositionArm(Player player)
         {
             Player.CompositeArmStretchAmount stretchAmount = Player.CompositeArmStretchAmount.Quarter;
-            player.SetCompositeArmBack(enabled: true, stretchAmount, ((float)Math.PI / -2f) * (float)player.direction);
+            player.SetCompositeArmBack(enabled: true, stretchAmount, (MathF.PI / -2f) * (float)player.direction);
         }
         public override void SetStaticDefaults()
         {
@@ -134,20 +134,20 @@ namespace TRAEProject.Changes.Weapon
                 if(sItem.isSickle && (drawPlayer.altFunctionUse == 2 || drawPlayer.itemAnimation == 0))
                 {
                     Player.CompositeArmStretchAmount stretchAmount = Player.CompositeArmStretchAmount.Quarter;
-                    Vector2 offset = drawPlayer.GetBackHandPosition(stretchAmount, ((float)Math.PI / -2f)  * (float)drawPlayer.direction) - drawPlayer.MountedCenter;
+                    Vector2 offset = drawPlayer.GetBackHandPosition(stretchAmount, (MathF.PI / -2f)  * (float)drawPlayer.direction) - drawPlayer.MountedCenter;
                     Vector2 drawAt = drawInfo.Position + new Vector2(drawPlayer.width * 0.5f, drawPlayer.height * 0.5f) + offset;
-                    float rotation = drawPlayer.bodyRotation + (float)Math.PI * -7f /4f;
+                    float rotation = drawPlayer.bodyRotation + MathF.PI * -7f /4f;
                     if(drawPlayer.direction == -1)
                     {
-                        rotation += -(float)Math.PI/2;
+                        rotation += -MathF.PI/2;
                         if(drawPlayer.gravDir == -1)
                         {
-                            rotation += -(float)Math.PI/2;
+                            rotation += -MathF.PI/2;
                         }
                     }
                     else if(drawPlayer.gravDir == -1)
                     {
-                        rotation += (float)Math.PI/2;
+                        rotation += MathF.PI/2;
                     }
                     Vector2 origin = new Vector2(drawPlayer.direction * drawPlayer.gravDir == 1 ? sItem.sickleSize.X - sItem.sickleHoldOrigin.X: sItem.sickleHoldOrigin.X, drawPlayer.gravDir == -1 ? sItem.sickleHoldOrigin.Y : sItem.sickleHoldOrigin.Y);
                     int fHeight = 56;
@@ -174,7 +174,7 @@ namespace TRAEProject.Changes.Weapon
         public static void PositionArm(Player player)
         {
             Player.CompositeArmStretchAmount stretchAmount = Player.CompositeArmStretchAmount.Quarter;
-            player.SetCompositeArmBack(enabled: true, stretchAmount, ((float)Math.PI / -2f) * (float)player.direction);
+            player.SetCompositeArmBack(enabled: true, stretchAmount, (MathF.PI / -2f) * (float)player.direction);
         }
         public override void SetStaticDefaults()
         {
@@ -194,20 +194,20 @@ namespace TRAEProject.Changes.Weapon
                 if(sItem.isSickle && (drawPlayer.altFunctionUse != 2 && drawPlayer.itemAnimation > 0))
                 {
                     Player.CompositeArmStretchAmount stretchAmount = Player.CompositeArmStretchAmount.Quarter;
-                    Vector2 offset = drawPlayer.GetBackHandPosition(stretchAmount, ((float)Math.PI / -2f)  * (float)drawPlayer.direction) - drawPlayer.MountedCenter;
+                    Vector2 offset = drawPlayer.GetBackHandPosition(stretchAmount, (MathF.PI / -2f)  * (float)drawPlayer.direction) - drawPlayer.MountedCenter;
                     Vector2 drawAt = drawInfo.Position + new Vector2(drawPlayer.width * 0.5f, drawPlayer.height * 0.5f) + offset;
-                    float rotation = drawPlayer.bodyRotation + (float)Math.PI * -7f /4f;
+                    float rotation = drawPlayer.bodyRotation + MathF.PI * -7f /4f;
                     if(drawPlayer.direction == -1)
                     {
-                        rotation += -(float)Math.PI/2;
+                        rotation += -MathF.PI/2;
                         if(drawPlayer.gravDir == -1)
                         {
-                            rotation += -(float)Math.PI/2;
+                            rotation += -MathF.PI/2;
                         }
                     }
                     else if(drawPlayer.gravDir == -1)
                     {
-                        rotation += (float)Math.PI/2;
+                        rotation += MathF.PI/2;
                     }
                     Vector2 origin = new Vector2(drawPlayer.direction * drawPlayer.gravDir == 1 ? sItem.sickleSize.X - sItem.sickleHoldOrigin.X: sItem.sickleHoldOrigin.X, drawPlayer.gravDir == -1 ? sItem.sickleHoldOrigin.Y : sItem.sickleHoldOrigin.Y);
                     int fHeight = 56;

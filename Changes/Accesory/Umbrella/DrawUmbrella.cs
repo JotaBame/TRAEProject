@@ -83,10 +83,10 @@ namespace TRAEProject
                     {
                         holdingUp = false;
                     }
-                    float turnArmAmt = (float)Math.PI * -3f / 5f;
+                    float turnArmAmt = MathF.PI * -3f / 5f;
                     if(!holdingUp)
                     {
-                        turnArmAmt = (float)Math.PI * -1f / 5f;
+                        turnArmAmt = MathF.PI * -1f / 5f;
                     }
                     if (!top)
                     {
@@ -101,7 +101,7 @@ namespace TRAEProject
                     float rotation = drawPlayer.bodyRotation;
                     if(!holdingUp)
                     {
-                        rotation += (float)Math.PI * 0.2f * drawPlayer.direction * -1 * drawPlayer.gravDir;
+                        rotation += MathF.PI * 0.2f * drawPlayer.direction * -1 * drawPlayer.gravDir;
                     }
 
                     Vector2 origin = new Vector2(texture.Width * 0.5f, drawPlayer.gravDir == -1 ? 10 : texture.Height-10);

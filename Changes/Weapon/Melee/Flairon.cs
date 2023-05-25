@@ -71,7 +71,7 @@ namespace TRAEProject.Changes.Weapon.Melee.Flairon
             {
                 HeavyFlail.AI(projectile, 35, 25, 30, 30, 15);
                 Player player = Main.player[projectile.owner];
-                projectile.rotation = (player.Center - projectile.Center).ToRotation() - (float)Math.PI / 2;
+                projectile.rotation = (player.Center - projectile.Center).ToRotation() - MathF.PI / 2;
 
                 projectile.ai[1]++;
                 if (projectile.ai[1] > 5f)

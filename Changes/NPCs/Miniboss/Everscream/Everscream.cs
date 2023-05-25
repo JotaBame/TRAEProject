@@ -83,7 +83,7 @@ namespace TRAEProject.Changes.NPCs.Miniboss.Everscream
 						num870 += (float)Main.rand.Next(-50, 51);
 						num871 += (float)Main.rand.Next(-50, 51);
 						num871 -= Math.Abs(num870) * ((float)Main.rand.Next(0, 21) * 0.01f);
-						float num872 = (float)Math.Sqrt(num870 * num870 + num871 * num871);
+						float num872 = MathF.Sqrt(num870 * num870 + num871 * num871);
 						float num873 = 12.5f;
 						num872 = num873 / num872;
 						num870 *= num872;

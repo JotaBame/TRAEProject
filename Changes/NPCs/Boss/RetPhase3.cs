@@ -105,7 +105,7 @@ namespace TRAEProject.Changes.NPCs.Boss
                         timer = (shotTime * shotCount);
                     }
                     float ratio = (float)timer / (shotTime * shotCount);
-                    float spread = (float)Math.PI;
+                    float spread = MathF.PI;
                     float angle = spread * ratio - spread / 2f;
                     return angle;
                 }
@@ -132,7 +132,7 @@ namespace TRAEProject.Changes.NPCs.Boss
             SoundEngine.PlaySound(SoundID.Item8 with { MaxInstances = 0 });
             npc.TargetClosest(false);
             Player player = Main.player[npc.target];
-            npc.rotation = (player.Center - npc.Center).ToRotation() - (float)Math.PI /2;
+            npc.rotation = (player.Center - npc.Center).ToRotation() - MathF.PI /2;
 
             npc.ai[1] = npc.ai[3] = -1;
         }
@@ -142,7 +142,7 @@ namespace TRAEProject.Changes.NPCs.Boss
             {
                 npc.TargetClosest(false);
                 Player player = Main.player[npc.target];
-                float r = Main.rand.NextFloat() * (float)Math.PI * 2;
+                float r = Main.rand.NextFloat() * MathF.PI * 2;
                 Vector2 offset = TRAEMethods.PolarVector(400, r);
                 offset.X *= 1.4f;
                 Vector2 teleToHere = player.Center + offset;
@@ -155,7 +155,7 @@ namespace TRAEProject.Changes.NPCs.Boss
         {
             for (int i = 0; i < 100; i++)
             {
-                float theta = Main.rand.NextFloat(-(float)Math.PI, (float)Math.PI);
+                float theta = Main.rand.NextFloat(-MathF.PI, MathF.PI);
                 float radius = 160;
                 Dust dust = Dust.NewDustPerfect(center + (pullIn ? TRAEMethods.PolarVector(radius , theta): Vector2.Zero), DustID.SilverFlame, TRAEMethods.PolarVector( (pullIn ? -1 : 1) * radius / 10f, theta));
                 dust.color = Color.Red;
@@ -168,7 +168,7 @@ namespace TRAEProject.Changes.NPCs.Boss
             {
 				float shootSpeed = 10f;
                 int attackDamage_ForProjectiles3 = npc.GetAttackDamage_ForProjectiles(35f, 30f);
-                int num413 = Projectile.NewProjectile(npc.GetSource_ReleaseEntity(), npc.Center + TRAEMethods.PolarVector(25 * 9, npc.rotation + (float)Math.PI /2), TRAEMethods.PolarVector(shootSpeed, npc.rotation + (float)Math.PI/2), ProjectileID.DeathLaser, attackDamage_ForProjectiles3, 0f, Main.myPlayer);
+                int num413 = Projectile.NewProjectile(npc.GetSource_ReleaseEntity(), npc.Center + TRAEMethods.PolarVector(25 * 9, npc.rotation + MathF.PI /2), TRAEMethods.PolarVector(shootSpeed, npc.rotation + MathF.PI/2), ProjectileID.DeathLaser, attackDamage_ForProjectiles3, 0f, Main.myPlayer);
             }
         }
         public static void Start(NPC npc)
@@ -242,8 +242,8 @@ namespace TRAEProject.Changes.NPCs.Boss
                 float prog = npc.ai[2] / 0.5f;
                 for(int i =0; i <4; i++)
                 {
-                    float rot = ((float)i / 4f) * 2f * (float)Math.PI;
-                    rot += prog * (float)Math.PI / 2f;
+                    float rot = ((float)i / 4f) * 2f * MathF.PI;
+                    rot += prog * MathF.PI / 2f;
                     float radius = (1f-prog) * 200;
                     float c = (1f * prog) * 0.3f;
                     Color color2 = new Color(c, c, c, c);
@@ -257,7 +257,7 @@ namespace TRAEProject.Changes.NPCs.Boss
                 float prog = npc.ai[2] / 0.5f;
                 for(int i =0; i <16; i++)
                 {
-                    float rot = ((float)i / 16f) * 2f * (float)Math.PI;
+                    float rot = ((float)i / 16f) * 2f * MathF.PI;
                     float radius = (1f-prog) * 8000;
                     float c = (1f * prog) * 0.3f;
                     Color color2 = new Color(c, c, c, c);
@@ -309,7 +309,7 @@ namespace TRAEProject.Changes.NPCs.Boss
             SoundEngine.PlaySound(SoundID.Item62 with { MaxInstances = 0 }, Projectile.position);
             for (int i = 0; i < 200; i++)
             {
-                float theta = Main.rand.NextFloat(-(float)Math.PI, (float)Math.PI);
+                float theta = Main.rand.NextFloat(-MathF.PI, MathF.PI);
                 float radius = 250;
                 Dust dust = Dust.NewDustPerfect(projectile.Center, DustID.SilverFlame, TRAEMethods.PolarVector(radius / 10f, theta), Scale: 1.5f);
                 dust.color = Color.Red;
@@ -351,8 +351,8 @@ namespace TRAEProject.Changes.NPCs.Boss
                 }
                 float flytowards = (player.Center - Projectile.Center).ToRotation();
                 float speedBonus = (player.Center - Projectile.Center).Length() / 80f;
-                Projectile.rotation.SlowRotation( flytowards- (float)Math.PI/2, (float)Math.PI/60f);
-                Projectile.velocity = TRAEMethods.PolarVector(4f + speedBonus, Projectile.rotation + (float)Math.PI/2f);
+                Projectile.rotation.SlowRotation( flytowards- MathF.PI/2, MathF.PI/60f);
+                Projectile.velocity = TRAEMethods.PolarVector(4f + speedBonus, Projectile.rotation + MathF.PI/2f);
             }
         }
 

@@ -176,7 +176,7 @@ namespace TRAEProject.NewContent.Items.Weapons.SuperRose
                     float speed = 8f;
                     float velX = posX - Projectile.Center.X;
                     float velY = posY - Projectile.Center.Y;
-                    float sqrRoot = (float)Math.Sqrt(velX * velX + velY * velY);
+                    float sqrRoot = MathF.Sqrt(velX * velX + velY * velY);
                     sqrRoot = speed / sqrRoot;
                     velX *= sqrRoot;
                     velY *= sqrRoot;
@@ -246,7 +246,7 @@ namespace TRAEProject.NewContent.Items.Weapons.SuperRose
                     float speed = 12f;
                     float velX = posX - Projectile.Center.X;
                     float velY = posY - Projectile.Center.Y;
-                    float sqrRoot = (float)Math.Sqrt(velX * velX + velY * velY);
+                    float sqrRoot = MathF.Sqrt(velX * velX + velY * velY);
                     sqrRoot = speed / sqrRoot;
                     velX *= sqrRoot;
                     velY *= sqrRoot;

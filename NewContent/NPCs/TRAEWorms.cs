@@ -409,7 +409,7 @@ namespace TRAEProject.NewContent.NPCs
             float dirX = targetRoundedPosX - npcCenter.X;
             float dirY = targetRoundedPosY - npcCenter.Y;
 
-            float length = (float)Math.Sqrt(dirX * dirX + dirY * dirY);
+            float length = MathF.Sqrt(dirX * dirX + dirY * dirY);
 
             // If we do not have any type of collision, we want the NPC to fall down and de-accelerate along the X axis.
             if (!collision && !CanFly)
@@ -621,9 +621,9 @@ namespace TRAEProject.NewContent.NPCs
                 float dirY = following.Center.Y - worm.NPC.Center.Y;
                 // We then use Atan2 to get a correct rotation towards that parent NPC.
                 // Assumes the sprite for the NPC points upward.  You might have to modify this line to properly account for your NPC's orientation
-                worm.NPC.rotation = (float)Math.Atan2(dirY, dirX) + MathHelper.PiOver2;
+                worm.NPC.rotation = MathF.Atan2(dirY, dirX) + MathHelper.PiOver2;
                 // We also get the length of the direction vector.
-                float length = (float)Math.Sqrt(dirX * dirX + dirY * dirY);
+                float length = MathF.Sqrt(dirX * dirX + dirY * dirY);
                 // We calculate a new, correct distance.
                 float dist = (length - worm.NPC.width) / length;
                 float posX = dirX * dist;

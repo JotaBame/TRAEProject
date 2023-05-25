@@ -16,7 +16,7 @@ namespace TRAEProject.Changes.Weapon.Melee.SpearProjectiles
             spearLength = 76f;
             stabStart = 54f;
             stabEnd = -10;
-            swingAmount = (float)Math.PI / 32;
+            swingAmount = MathF.PI / 32;
         }
     }
     public class BasicSpearThrow : SpearThrow

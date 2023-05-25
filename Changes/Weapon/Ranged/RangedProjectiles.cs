@@ -271,7 +271,7 @@ namespace TRAEProject.Changes.Projectiles
                     Vector2 vector = new(projectile.Center.X, projectile.Center.Y);
                     float num25 = num18 - vector.X;
                     float num26 = num19 - vector.Y;
-                    float num27 = (float)Math.Sqrt(num25 * num25 + num26 * num26);
+                    float num27 = MathF.Sqrt(num25 * num25 + num26 * num26);
                     num27 = num24 / num27;
                     num25 *= num27;
                     num26 *= num27;
@@ -331,7 +331,7 @@ namespace TRAEProject.Changes.Projectiles
                     Vector2 vector = new(projectile.Center.X, projectile.Center.Y);
                     float num25 = num18 - vector.X;
                     float num26 = num19 - vector.Y;
-                    float num27 = (float)Math.Sqrt(num25 * num25 + num26 * num26);
+                    float num27 = MathF.Sqrt(num25 * num25 + num26 * num26);
                     num27 = num24 / num27;
                     num25 *= num27;
                     num26 *= num27;
@@ -371,7 +371,7 @@ namespace TRAEProject.Changes.Projectiles
                 float num = 0f;
                 if (projectile.spriteDirection == -1)
                 {
-                    num = (float)Math.PI;
+                    num = MathF.PI;
                 }
                 projectile.ai[0] += 1f;
                 int speedMultiplier = 0;
@@ -467,7 +467,7 @@ namespace TRAEProject.Changes.Projectiles
                 int num2 = 2;
                 float num3 = 0f;
                 player.SetDummyItemTime(num2);
-                player.itemRotation = MathHelper.WrapAngle((float)Math.Atan2(projectile.velocity.Y * (float)projectile.direction, projectile.velocity.X * (float)projectile.direction) + num3);
+                player.itemRotation = MathHelper.WrapAngle(MathF.Atan2(projectile.velocity.Y * (float)projectile.direction, projectile.velocity.X * (float)projectile.direction) + num3);
                 return false;
             }
             /*if (projectile.type == 615)

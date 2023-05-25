@@ -322,7 +322,7 @@ namespace TRAEProject.NPCs.Boss
 							haltMovement = true;
 							if ((int)npc.ai[1] % 4 == 0 && npc.ai[1] >= 28f)
 							{
-								PunchCameraModifier modifier5 = new PunchCameraModifier(npc.Center, (Main.rand.NextFloat() * ((float)Math.PI * 2f)).ToRotationVector2(), 20f, 6f, 20, 1000f, "Deerclops");
+								PunchCameraModifier modifier5 = new PunchCameraModifier(npc.Center, (Main.rand.NextFloat() * (MathF.PI * 2f)).ToRotationVector2(), 20f, 6f, 20, 1000f, "Deerclops");
 								Main.instance.CameraModifiers.Add(modifier5);
 								if (Main.netMode != 2)
 								{
@@ -371,7 +371,7 @@ namespace TRAEProject.NPCs.Boss
 							haltMovement = true;
 							if ((int)npc.ai[1] % 4 == 0 && npc.ai[1] >= 28f)
 							{
-								PunchCameraModifier modifier3 = new PunchCameraModifier(npc.Center, (Main.rand.NextFloat() * ((float)Math.PI * 2f)).ToRotationVector2(), 20f, 6f, 20, 1000f, "Deerclops");
+								PunchCameraModifier modifier3 = new PunchCameraModifier(npc.Center, (Main.rand.NextFloat() * (MathF.PI * 2f)).ToRotationVector2(), 20f, 6f, 20, 1000f, "Deerclops");
 								Main.instance.CameraModifiers.Add(modifier3);
 							}
 							if (npc.ai[1] == 40f)
@@ -399,7 +399,7 @@ namespace TRAEProject.NPCs.Boss
 							haltMovement = true;
 							if ((int)npc.ai[1] % 4 == 0 && npc.ai[1] >= 28f)
 							{
-								PunchCameraModifier modifier2 = new PunchCameraModifier(npc.Center, (Main.rand.NextFloat() * ((float)Math.PI * 2f)).ToRotationVector2(), 20f, 6f, 20, 1000f, "Deerclops");
+								PunchCameraModifier modifier2 = new PunchCameraModifier(npc.Center, (Main.rand.NextFloat() * (MathF.PI * 2f)).ToRotationVector2(), 20f, 6f, 20, 1000f, "Deerclops");
 								Main.instance.CameraModifiers.Add(modifier2);
 							}
 							if (npc.ai[1] >= 40f)
@@ -423,7 +423,7 @@ namespace TRAEProject.NPCs.Boss
 							haltMovement = true;
 							if ((int)npc.ai[1] % 4 == 0 && npc.ai[1] >= 28f)
 							{
-								PunchCameraModifier modifier = new PunchCameraModifier(npc.Center, (Main.rand.NextFloat() * ((float)Math.PI * 2f)).ToRotationVector2(), 20f, 6f, 20, 1000f, "Deerclops");
+								PunchCameraModifier modifier = new PunchCameraModifier(npc.Center, (Main.rand.NextFloat() * (MathF.PI * 2f)).ToRotationVector2(), 20f, 6f, 20, 1000f, "Deerclops");
 								Main.instance.CameraModifiers.Add(modifier);
 							}
 							if (npc.ai[1] == 30f)
@@ -612,7 +612,7 @@ namespace TRAEProject.NPCs.Boss
 			if (WorldGen.ActiveAndWalkableTile(num2, num3))
 			{
 				Vector2 vector = new Vector2(num2 * 16 + 8, num3 * 16 - 8);
-				Vector2 vector2 = new Vector2(0f, -1f).RotatedBy((float)(whichOne * dir) * 0.7f * ((float)Math.PI / 4f / (float)howMany));
+				Vector2 vector2 = new Vector2(0f, -1f).RotatedBy((float)(whichOne * dir) * 0.7f * (MathF.PI / 4f / (float)howMany));
 				Projectile.NewProjectile(npc.GetSource_FromThis(), vector, vector2, 961, num, 0f, Main.myPlayer, 0f, 0.1f + Main.rand.NextFloat() * 0.1f + (float)xOffset * 1.1f / (float)howMany);
 			}
 		}
@@ -730,7 +730,7 @@ namespace TRAEProject.NPCs.Boss
             float num3 = (isHostile ? 250f : 100f);
             float num4 = (isHostile ? 30 : 20);
             float num5 = (isHostile ? 30 : 0);
-            float num6 = Main.rand.NextFloatDirection() * (float)Math.PI * 0.125f;
+            float num6 = Main.rand.NextFloatDirection() * MathF.PI * 0.125f;
             if (isHostile && targetEntity.velocity.X * (float)num > 0f)
             {
                 num *= -1;
@@ -745,15 +745,15 @@ namespace TRAEProject.NPCs.Boss
             ai1 = 0f;
             if (AttackStyle == 0)
             {
-                float num7 = (float)Math.PI * 2f * 0.5f/*Main.rand.NextFloat()*/;
+                float num7 = MathF.PI * 2f * 0.5f/*Main.rand.NextFloat()*/;
                 spawnposition = targetEntity.Center - num7.ToRotationVector2() * (isHostile ? num3 : (num3 * 0.5f));
                 ai0 = 180f;
-                ai1 = num7 - (float)Math.PI / 2f;
+                ai1 = num7 - MathF.PI / 2f;
                 spawnvelocity = num7.ToRotationVector2() * (isHostile ? 4 : 2);
             }
             if (AttackStyle == 3)
             {
-                float num8 = (float)Math.PI * 2f * Main.rand.NextFloat();
+                float num8 = MathF.PI * 2f * Main.rand.NextFloat();
                 spawnposition = targetEntity.Center - num8.ToRotationVector2() * num3;
                 ai0 = 300f;
                 ai1 = num8;
@@ -761,9 +761,9 @@ namespace TRAEProject.NPCs.Boss
             }
             if (AttackStyle == 1)
             {
-                float f = (float)Math.PI * 2f * 0.5f/*Main.rand.NextFloat(0, 0.8f)*/;
+                float f = MathF.PI * 2f * 0.5f/*Main.rand.NextFloat(0, 0.8f)*/;
                 float num9 = (isHostile ? 60 : 30);
-                float num10 = (float)Math.PI / 2f / num9 * Main.rand.NextFloatDirection();
+                float num10 = MathF.PI / 2f / num9 * Main.rand.NextFloatDirection();
                 spawnposition = targetEntity.Center + targetEntity.velocity * num9;
                 Vector2 vector = f.ToRotationVector2() * (isHostile ? 8 : 3);
                 for (int i = 0; (float)i < num9; i++)
@@ -789,7 +789,7 @@ namespace TRAEProject.NPCs.Boss
 					Vector2 vector = targetData.Center + new Vector2(num2 * npc.direction * 20, (0f - upBiasPerSpike) * (float)howMany + (float)num2 * upBiasPerSpike / (float)distancedByThisManyTiles);
 					Vector2 vector2 = new Vector2(num3 * 16 + 8, num4 * 16 + 8);
 					Vector2 vector3 = (vector - vector2).SafeNormalize(-Vector2.UnitY);
-					vector3 = new Vector2(0f, -1f).RotatedBy((float)(whichOne * npc.direction) * 0.7f * ((float)Math.PI / 4f / (float)howMany));
+					vector3 = new Vector2(0f, -1f).RotatedBy((float)(whichOne * npc.direction) * 0.7f * (MathF.PI / 4f / (float)howMany));
 					int num5 = Main.rand.Next(Main.projFrames[962] * 4);
 					num5 = 6 + Main.rand.Next(6);
 					Projectile.NewProjectile(npc.GetSource_FromThis(), new Vector2(num3 * 16 + 8, num4 * 16 - 8), vector3 * (8f + Main.rand.NextFloat() * 8f), 962, num, 0f, Main.myPlayer, 0f, num5);

@@ -97,7 +97,7 @@ namespace TRAEProject.NewContent.Items.Weapons.BAM
                         if (dust4.dustIndex != 6000)
                         {
                             dust4 = Dust.NewDustPerfect(dust4.position, dust4.type, dust4.velocity, dust4.alpha, dust4.color, dust4.scale + 0.5f);
-                            dust4.velocity = ((float)Math.PI * 2f * (projectile.timeLeft / 20f)).ToRotationVector2() * 3f;
+                            dust4.velocity = (MathF.PI * 2f * (projectile.timeLeft / 20f)).ToRotationVector2() * 3f;
                             dust4.noGravity = true;
                         }
                     }
@@ -143,7 +143,7 @@ namespace TRAEProject.NewContent.Items.Weapons.BAM
             Vector2 vector = new Vector2(projectile.position.X + (float)projectile.width * 0.5f, projectile.position.Y + (float)projectile.height * 0.5f);
             float num25 = num18 - vector.X;
             float num26 = num19 - vector.Y;
-            float num27 = (float)Math.Sqrt(num25 * num25 + num26 * num26);
+            float num27 = MathF.Sqrt(num25 * num25 + num26 * num26);
             num27 = num24 / num27;
             num25 *= num27;
             num26 *= num27;
@@ -281,12 +281,12 @@ namespace TRAEProject.NewContent.Items.Weapons.BAM
             if (Projectile.owner == Main.myPlayer)
             {
                 int Cluster = 862; // snowman cannon's projectile, doesn't damage the player
-                float num852 = ((float)Math.PI * 2f);
+                float num852 = (MathF.PI * 2f);
                 float fragmentCount = 59.167f * 6/*Main.rand.Next(2, 3)*/;
-                for (float c = 0f; c < 1f; c += fragmentCount / (678f * (float)Math.PI))
+                for (float c = 0f; c < 1f; c += fragmentCount / (678f * MathF.PI))
                 {
 
-                    float f2 = num852 + c * ((float)Math.PI * 2f);
+                    float f2 = num852 + c * (MathF.PI * 2f);
                     Vector2 velocity = f2.ToRotationVector2() * (4f + Main.rand.NextFloat() * 2f);
                     velocity += Vector2.UnitY * -1f;
                     int num854 = Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.Center, velocity, Cluster, Projectile.damage / 4, 0f, Projectile.owner); Projectile pRojectile = Main.projectile[num854];

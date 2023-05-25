@@ -410,7 +410,7 @@ namespace TRAEProject.Changes.NPCs.Boss.LunaticCultist
                                 float[] array2 = new float[num30];
                                 for (int num31 = 0; num31 < array2.Length; num31++)
                                 {
-                                    array2[num31] = Vector2.Distance(npc.Center + spinningpoint.RotatedBy((float)num31 * ((float)Math.PI * 2f) / (float)num30 - (float)Math.PI / 2f), player.Center);
+                                    array2[num31] = Vector2.Distance(npc.Center + spinningpoint.RotatedBy((float)num31 * (MathF.PI * 2f) / (float)num30 - MathF.PI / 2f), player.Center);
                                 }
                                 int num32 = 0;
                                 for (int num33 = 1; num33 < array2.Length; num33++)
@@ -426,7 +426,7 @@ namespace TRAEProject.Changes.NPCs.Boss.LunaticCultist
                                 {
                                     if (num32 != num35)
                                     {
-                                        Vector2 center6 = npc.Center + spinningpoint.RotatedBy((float)num35 * ((float)Math.PI * 2f) / (float)num30 - (float)Math.PI / 2f);
+                                        Vector2 center6 = npc.Center + spinningpoint.RotatedBy((float)num35 * (MathF.PI * 2f) / (float)num30 - MathF.PI / 2f);
                                         if (num34-- > 0)
                                         {
                                             int num36 = NPC.NewNPC(npc.GetSource_FromAI(), (int)center6.X, (int)center6.Y + npc.height / 2, 440, npc.whoAmI);
@@ -443,7 +443,7 @@ namespace TRAEProject.Changes.NPCs.Boss.LunaticCultist
                                     }
                                 }
                                 npc.ai[2] = Projectile.NewProjectile(npc.GetSource_FromThis(), npc.Center.X, npc.Center.Y, 0f, 0f, 490, 0, 0f, Main.myPlayer, 0f, npc.whoAmI);
-                                npc.Center += spinningpoint.RotatedBy((float)num32 * ((float)Math.PI * 2f) / (float)num30 - (float)Math.PI / 2f);
+                                npc.Center += spinningpoint.RotatedBy((float)num32 * (MathF.PI * 2f) / (float)num30 - MathF.PI / 2f);
                                 npc.netUpdate = true;
                                 list6.Clear();
                             }
@@ -634,8 +634,8 @@ namespace TRAEProject.Changes.NPCs.Boss.LunaticCultist
                                 for (int num48 = 0; (float)num48 < 5f; num48++)
                                 {
                                     Vector2 spinningpoint2 = vec4 * scaleFactor;
-                                    spinningpoint2 = spinningpoint2.RotatedBy((num48 / 5f) * 2f * (float)Math.PI + (float)Math.PI / 5f);
-                                    float ai = (Main.rand.NextFloat() - 0.5f) * 0.3f * ((float)Math.PI * 2f) / 60f;
+                                    spinningpoint2 = spinningpoint2.RotatedBy((num48 / 5f) * 2f * MathF.PI + MathF.PI / 5f);
+                                    float ai = (Main.rand.NextFloat() - 0.5f) * 0.3f * (MathF.PI * 2f) / 60f;
                                     int num49 = NPC.NewNPC(npc.GetSource_FromAI(), (int)vector8.X, (int)vector8.Y + 7, 522, 0, 0f, ai, spinningpoint2.X, spinningpoint2.Y);
                                     Main.npc[num49].velocity = spinningpoint2;
                                 }
@@ -895,7 +895,7 @@ namespace TRAEProject.Changes.NPCs.Boss.LunaticCultist
             }
             if (num14 == 0)
             {
-                float num15 = (float)Math.Ceiling((player.Center + new Vector2(0f, -100f) - center).Length() / 50f);
+                float num15 = MathF.Ceiling((player.Center + new Vector2(0f, -100f) - center).Length() / 50f);
                 if (num15 == 0f)
                 {
                     num15 = 1f;
@@ -915,7 +915,7 @@ namespace TRAEProject.Changes.NPCs.Boss.LunaticCultist
                 {
                     NPC nPC2 = Main.npc[item2];
                     Vector2 center2 = nPC2.Center;
-                    float num17 = (float)((num16 + flag4.ToInt() + 1) / 2) * ((float)Math.PI * 2f) * 0.4f / (float)list2.Count;
+                    float num17 = (float)((num16 + flag4.ToInt() + 1) / 2) * (MathF.PI * 2f) * 0.4f / (float)list2.Count;
                     if (num16 % 2 == 1)
                     {
                         num17 *= -1f;

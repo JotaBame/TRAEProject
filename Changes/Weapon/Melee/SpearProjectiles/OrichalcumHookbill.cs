@@ -20,7 +20,7 @@ namespace TRAEProject.Changes.Weapon.Melee.SpearProjectiles
             spearLength = 141f;
             stabStart = 119f;
             stabEnd = 40;
-            swingAmount = (float)Math.PI / 24;
+            swingAmount = MathF.PI / 24;
         }
         float origonalAim = 0;
         public override void OnStart()
@@ -86,7 +86,7 @@ namespace TRAEProject.Changes.Weapon.Melee.SpearProjectiles
             Player player = Main.player[Projectile.owner];
             amt = ((float)interupting / (float)player.itemAnimationMax);
             amt *= amt;
-            aimDirection = origonalAim + 5f * ((float)Math.PI / 6f) * player.direction * -1f * amt;
+            aimDirection = origonalAim + 5f * (MathF.PI / 6f) * player.direction * -1f * amt;
         }
         public override void SpearModfiyHitNPCMelee(NPC target, ref NPC.HitModifiers modifiers)
         {
@@ -116,7 +116,7 @@ namespace TRAEProject.Changes.Weapon.Melee.SpearProjectiles
                 float num3 = target.Center.Y - vector.Y;
                 num2 += (float)Main.rand.Next(-50, 51) * 0.1f;
                 num3 += (float)Main.rand.Next(-50, 51) * 0.1f;
-                float num4 = (float)Math.Sqrt(num2 * num2 + num3 * num3);
+                float num4 = MathF.Sqrt(num2 * num2 + num3 * num3);
                 num4 = 24f / num4;
                 num2 *= num4;
                 num3 *= num4;
@@ -155,7 +155,7 @@ namespace TRAEProject.Changes.Weapon.Melee.SpearProjectiles
                 float num3 = target.Center.Y - vector.Y;
                 num2 += (float)Main.rand.Next(-50, 51) * 0.1f;
                 num3 += (float)Main.rand.Next(-50, 51) * 0.1f;
-                float num4 = (float)Math.Sqrt(num2 * num2 + num3 * num3);
+                float num4 = MathF.Sqrt(num2 * num2 + num3 * num3);
                 num4 = 24f / num4;
                 num2 *= num4;
                 num3 *= num4;

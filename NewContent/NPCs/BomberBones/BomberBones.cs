@@ -204,7 +204,7 @@ namespace TRAEProject.NewContent.NPCs.BomberBones
 
 					float num148 = Main.player[NPC.target].position.Y + (float)Main.player[NPC.target].height * 0.5f - vector34.Y - num147;
 
-					float num149 = (float)Math.Sqrt(num146 * num146 + num148 * num148);
+					float num149 = MathF.Sqrt(num146 * num146 + num148 * num148);
 					NPC.netUpdate = true;
 					num149 = num145 / num149;
 					num146 *= num149;
@@ -271,7 +271,7 @@ namespace TRAEProject.NewContent.NPCs.BomberBones
 					float num158 = Main.player[NPC.target].position.Y + (float)Main.player[NPC.target].height * 0.5f - vector35.Y - num157;
 					num156 += (float)Main.rand.Next(-40, 41);
 					num158 += (float)Main.rand.Next(-40, 41);
-					float num159 = (float)Math.Sqrt(num156 * num156 + num158 * num158);
+					float num159 = MathF.Sqrt(num156 * num156 + num158 * num158);
 					float num160 = 700f;
 
 					if (num159 < num160)

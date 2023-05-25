@@ -412,7 +412,7 @@ namespace TRAEProject.NewContent.NPCs.Underworld.Salalava
                 for (int num267 = 0; num267 < 60; num267++)
                 {
                     int num268 = 25;
-                    Vector2 vector24 = ((float)Main.rand.NextDouble() * ((float)Math.PI * 2f)).ToRotationVector2() * Main.rand.Next(24, 41) / 8f;
+                    Vector2 vector24 = ((float)Main.rand.NextDouble() * (MathF.PI * 2f)).ToRotationVector2() * Main.rand.Next(24, 41) / 8f;
                     int num269 = Dust.NewDust(NPC.Center - Vector2.One * num268, num268 * 2, num268 * 2, DustID.Lava);
                     Dust dust61 = Main.dust[num269];
                     Vector2 vector25 = Vector2.Normalize(dust61.position - NPC.Center);

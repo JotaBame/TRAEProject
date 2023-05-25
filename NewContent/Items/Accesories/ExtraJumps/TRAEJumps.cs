@@ -322,26 +322,26 @@ namespace TRAEProject.NewContent.Items.Accesories.ExtraJumps
 							isBoosting = true;
 							Puff();
 						}
-						float dir = -(float)Math.PI / 2f;
+						float dir = -MathF.PI / 2f;
 						if (Player.controlRight && Player.controlUp)
 						{
-							dir = -(float)Math.PI / 4f;
+							dir = -MathF.PI / 4f;
 						}
 						else if (Player.controlUp && Player.controlLeft)
 						{
-							dir = -3 * (float)Math.PI / 4f;
+							dir = -3 * MathF.PI / 4f;
 						}
 						else if (Player.controlDown && Player.controlLeft)
 						{
-							dir = 3 * (float)Math.PI / 4f;
+							dir = 3 * MathF.PI / 4f;
 						}
 						else if (Player.controlDown && Player.controlRight)
 						{
-							dir = (float)Math.PI / 4f;
+							dir = MathF.PI / 4f;
 						}
 						else if (Player.controlDown)
 						{
-							dir = (float)Math.PI / 2f;
+							dir = MathF.PI / 2f;
 						}
 						else if (Player.controlRight && !Player.controlLeft)
 						{
@@ -349,7 +349,7 @@ namespace TRAEProject.NewContent.Items.Accesories.ExtraJumps
 						}
 						else if (!Player.controlRight && Player.controlLeft)
 						{
-							dir = (float)Math.PI;
+							dir = MathF.PI;
 						}
 						Player.velocity = TRAEMethods.PolarVector(Terraria.Player.jumpSpeed * boosterSpeedMultiplier, dir);
 						Player.velocity.Y += 1E-06f;
@@ -399,7 +399,7 @@ namespace TRAEProject.NewContent.Items.Accesories.ExtraJumps
 							{
 								d = 1;
 							}
-							FairyQueenDust(Player, Player.Center, TRAEMethods.PolarVector(d * 2, rot + 2 * (float)Math.PI * ((float)i / 30f)));
+							FairyQueenDust(Player, Player.Center, TRAEMethods.PolarVector(d * 2, rot + 2 * MathF.PI * ((float)i / 30f)));
 						}
 						if(faejumpTime <= 0)
 						{
@@ -438,12 +438,12 @@ namespace TRAEProject.NewContent.Items.Accesories.ExtraJumps
 			else if(isLevitating)
 			{
 				{
-					Player.fullRotation += Player.direction * Player.gravDir * (float)Math.PI / 15f;
+					Player.fullRotation += Player.direction * Player.gravDir * MathF.PI / 15f;
 					Player.fullRotationOrigin = Player.Size * 0.5f;
 				}
 				for(int i = 0; i < 30; i++)
 				{
-					Dust d = Dust.NewDustPerfect(Player.Center + TRAEMethods.PolarVector(30, (float)Math.PI * 2f * ((float)i / 3f) + Player.fullRotation), DustID.SilverFlame, Vector2.UnitY * Player.gravDir * -6);
+					Dust d = Dust.NewDustPerfect(Player.Center + TRAEMethods.PolarVector(30, MathF.PI * 2f * ((float)i / 3f) + Player.fullRotation), DustID.SilverFlame, Vector2.UnitY * Player.gravDir * -6);
 				}
 			}
 			if(faejumpTime > 0)
@@ -465,7 +465,7 @@ namespace TRAEProject.NewContent.Items.Accesories.ExtraJumps
         {
 			for (int i = 0; i < 8; i++)
             {
-				Vector2 pos = Player.Center + TRAEMethods.PolarVector(5, ((float)i / 8f) * 2 * (float)Math.PI);
+				Vector2 pos = Player.Center + TRAEMethods.PolarVector(5, ((float)i / 8f) * 2 * MathF.PI);
 				Dust d = Dust.NewDustPerfect(pos, DustID.Smoke);
 				d.frame.Y = 0;
             }
@@ -544,7 +544,7 @@ namespace TRAEProject.NewContent.Items.Accesories.ExtraJumps
 				case "Antithesis":
 				{
 					num2 = 0.51f;
-					float amount14 = (float)Math.Cos(num * ((float)Math.PI * 2f)) * 0.5f + 0.5f;
+					float amount14 = MathF.Cos(num * (MathF.PI * 2f)) * 0.5f + 0.5f;
 					luminosity = MathHelper.Lerp(0f, 0.5f, amount14);
 					break;
 				}
@@ -574,21 +574,21 @@ namespace TRAEProject.NewContent.Items.Accesories.ExtraJumps
 				case "Darthkitten":
 				{
 					num2 = 1f;
-					float amount11 = (float)Math.Cos(num * ((float)Math.PI * 2f)) * 0.5f + 0.5f;
+					float amount11 = MathF.Cos(num * (MathF.PI * 2f)) * 0.5f + 0.5f;
 					luminosity = MathHelper.Lerp(1f, 0.4f, amount11);
 					break;
 				}
 				case "darthmorf":
 				{
 					num2 = 0f;
-					float amount10 = (float)Math.Cos(num * ((float)Math.PI * 2f)) * 0.5f + 0.5f;
+					float amount10 = MathF.Cos(num * (MathF.PI * 2f)) * 0.5f + 0.5f;
 					luminosity = MathHelper.Lerp(0f, 0.2f, amount10);
 					break;
 				}
 				case "Discipile":
 				{
 					num2 = 0.53f;
-					float amount9 = (float)Math.Cos(num * ((float)Math.PI * 2f)) * 0.5f + 0.5f;
+					float amount9 = MathF.Cos(num * (MathF.PI * 2f)) * 0.5f + 0.5f;
 					luminosity = MathHelper.Lerp(0.05f, 0.5f, amount9);
 					break;
 				}
@@ -600,7 +600,7 @@ namespace TRAEProject.NewContent.Items.Accesories.ExtraJumps
 				case "Ghostar":
 				{
 					num2 = 0.66f;
-					float amount8 = (float)Math.Cos(num * ((float)Math.PI * 2f)) * 0.5f + 0.5f;
+					float amount8 = MathF.Cos(num * (MathF.PI * 2f)) * 0.5f + 0.5f;
 					luminosity = MathHelper.Lerp(0.15f, 0.85f, amount8);
 					break;
 				}
@@ -612,21 +612,21 @@ namespace TRAEProject.NewContent.Items.Accesories.ExtraJumps
 				case "Kazzymodus":
 				{
 					num2 = 0.33f;
-					float amount7 = (float)Math.Cos(num * ((float)Math.PI * 2f)) * 0.5f + 0.5f;
+					float amount7 = MathF.Cos(num * (MathF.PI * 2f)) * 0.5f + 0.5f;
 					luminosity = MathHelper.Lerp(0.15f, 0.4f, amount7);
 					break;
 				}
 				case "Khaios":
 				{
 					num2 = 0.33f;
-					float amount6 = (float)Math.Cos(num * ((float)Math.PI * 2f)) * 0.5f + 0.5f;
+					float amount6 = MathF.Cos(num * (MathF.PI * 2f)) * 0.5f + 0.5f;
 					luminosity = MathHelper.Lerp(0f, 0.2f, amount6);
 					break;
 				}
 				case "Loki":
 				{
 					num2 = 0f;
-					float amount5 = (float)Math.Cos(num * ((float)Math.PI * 2f)) * 0.5f + 0.5f;
+					float amount5 = MathF.Cos(num * (MathF.PI * 2f)) * 0.5f + 0.5f;
 					luminosity = MathHelper.Lerp(0f, 0.25f, amount5);
 					break;
 				}
@@ -637,7 +637,7 @@ namespace TRAEProject.NewContent.Items.Accesories.ExtraJumps
 				case "Mid":
 				{
 					num2 = 0f;
-					float amount4 = (float)Math.Cos(num * ((float)Math.PI * 2f)) * 0.5f + 0.5f;
+					float amount4 = MathF.Cos(num * (MathF.PI * 2f)) * 0.5f + 0.5f;
 					luminosity = MathHelper.Lerp(0f, 0.9f, amount4);
 					break;
 				}
@@ -668,7 +668,7 @@ namespace TRAEProject.NewContent.Items.Accesories.ExtraJumps
 				case "Serenity":
 				{
 					num2 = 0.85f;
-					float amount3 = (float)Math.Cos(num * ((float)Math.PI * 2f)) * 0.5f + 0.5f;
+					float amount3 = MathF.Cos(num * (MathF.PI * 2f)) * 0.5f + 0.5f;
 					luminosity = MathHelper.Lerp(1f, 0.5f, amount3);
 					break;
 				}
@@ -706,7 +706,7 @@ namespace TRAEProject.NewContent.Items.Accesories.ExtraJumps
 				case "Xman101":
 				{
 					num2 = 0.06f;
-					float amount = (float)Math.Cos(num * ((float)Math.PI * 2f)) * 0.5f + 0.5f;
+					float amount = MathF.Cos(num * (MathF.PI * 2f)) * 0.5f + 0.5f;
 					luminosity = MathHelper.Lerp(0f, 0.5f, amount);
 					break;
 				}

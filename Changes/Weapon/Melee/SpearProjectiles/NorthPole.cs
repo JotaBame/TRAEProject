@@ -21,14 +21,14 @@ namespace TRAEProject.Changes.Weapon.Melee.SpearProjectiles
             spearLength = 164f;
             stabStart = 147f;
             stabEnd = -10;
-            swingAmount = (float)Math.PI / 24;
+            swingAmount = MathF.PI / 24;
         }
         public override void OnMaxReach(float direction)
         {
             Vector2 center = Projectile.Center + TRAEMethods.PolarVector(-28.3f * Projectile.scale, direction);
             for(int i =0; i < 5; i++)
             {
-                float rot = (float)Math.PI * (i / 4f) - (float)Math.PI / 2f + direction;
+                float rot = MathF.PI * (i / 4f) - MathF.PI / 2f + direction;
                 Projectile.NewProjectile(Projectile.GetSource_FromThis(), center, TRAEMethods.PolarVector(10, rot), ProjectileType<NorthStar>(), (int)(Projectile.damage * 0.2f), 0f, Projectile.owner);
             }
         }
@@ -85,8 +85,8 @@ namespace TRAEProject.Changes.Weapon.Melee.SpearProjectiles
                 else
                 {
                 }
-                projectile.rotation += projectile.velocity.Y * projectile.velocity.X * (float)Math.PI / 120f;
-                //projectile.rotation = (float)Math.Atan2(projectile.velocity.Y, projectile.velocity.X) + 1.57f;
+                projectile.rotation += projectile.velocity.Y * projectile.velocity.X * MathF.PI / 120f;
+                //projectile.rotation = MathF.Atan2(projectile.velocity.Y, projectile.velocity.X) + 1.57f;
             }
         }
     }

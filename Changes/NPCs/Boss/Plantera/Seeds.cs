@@ -59,10 +59,10 @@ namespace TRAEProject.Changes.NPCs.Boss.Plantera
                 }
 				Vector2 target = Main.player[Player.FindClosest(projectile.Center, 1, 1)].Center;
 				float angularDiff = TRAEMethods.AngularDifference(projectile.velocity.ToRotation(), (target - projectile.Center).ToRotation());
-				if(angularDiff < (float)Math.PI / 2)
+				if(angularDiff < MathF.PI / 2)
                 {
 					float direction = projectile.velocity.ToRotation();
-					direction.SlowRotation((target - projectile.Center).ToRotation(), (float)Math.PI / down);
+					direction.SlowRotation((target - projectile.Center).ToRotation(), MathF.PI / down);
 					projectile.velocity = TRAEMethods.PolarVector(projectile.velocity.Length(), direction);
 				}
 				*/
@@ -90,7 +90,7 @@ namespace TRAEProject.Changes.NPCs.Boss.Plantera
 					projectile.timeLeft = 180;
 				}
 				*/
-				projectile.rotation = projectile.velocity.ToRotation() + (float)Math.PI / 2;
+				projectile.rotation = projectile.velocity.ToRotation() + MathF.PI / 2;
 				return false;
 			}
 			return base.PreAI(projectile);

@@ -259,7 +259,7 @@ private void AI_123_Deerclops()
 		haltMovement = true;
 		if ((int)this.ai[1] % 4 == 0 && this.ai[1] >= 28f)
 		{
-			PunchCameraModifier modifier5 = new PunchCameraModifier(base.Center, (Main.rand.NextFloat() * ((float)Math.PI * 2f)).ToRotationVector2(), 20f, 6f, 20, 1000f, "Deerclops");
+			PunchCameraModifier modifier5 = new PunchCameraModifier(base.Center, (Main.rand.NextFloat() * (MathF.PI * 2f)).ToRotationVector2(), 20f, 6f, 20, 1000f, "Deerclops");
 			Main.instance.CameraModifiers.Add(modifier5);
 			if (Main.netMode != 2)
 			{
@@ -293,7 +293,7 @@ private void AI_123_Deerclops()
 		haltMovement = true;
 		if ((int)this.ai[1] % 4 == 0 && this.ai[1] >= 28f)
 		{
-			PunchCameraModifier modifier3 = new PunchCameraModifier(base.Center, (Main.rand.NextFloat() * ((float)Math.PI * 2f)).ToRotationVector2(), 20f, 6f, 20, 1000f, "Deerclops");
+			PunchCameraModifier modifier3 = new PunchCameraModifier(base.Center, (Main.rand.NextFloat() * (MathF.PI * 2f)).ToRotationVector2(), 20f, 6f, 20, 1000f, "Deerclops");
 			Main.instance.CameraModifiers.Add(modifier3);
 		}
 		if (this.ai[1] == 40f)
@@ -321,7 +321,7 @@ private void AI_123_Deerclops()
 		haltMovement = true;
 		if ((int)this.ai[1] % 4 == 0 && this.ai[1] >= 28f)
 		{
-			PunchCameraModifier modifier2 = new PunchCameraModifier(base.Center, (Main.rand.NextFloat() * ((float)Math.PI * 2f)).ToRotationVector2(), 20f, 6f, 20, 1000f, "Deerclops");
+			PunchCameraModifier modifier2 = new PunchCameraModifier(base.Center, (Main.rand.NextFloat() * (MathF.PI * 2f)).ToRotationVector2(), 20f, 6f, 20, 1000f, "Deerclops");
 			Main.instance.CameraModifiers.Add(modifier2);
 		}
 		if (this.ai[1] >= 40f)
@@ -345,7 +345,7 @@ private void AI_123_Deerclops()
 		haltMovement = true;
 		if ((int)this.ai[1] % 4 == 0 && this.ai[1] >= 28f)
 		{
-			PunchCameraModifier modifier = new PunchCameraModifier(base.Center, (Main.rand.NextFloat() * ((float)Math.PI * 2f)).ToRotationVector2(), 20f, 6f, 20, 1000f, "Deerclops");
+			PunchCameraModifier modifier = new PunchCameraModifier(base.Center, (Main.rand.NextFloat() * (MathF.PI * 2f)).ToRotationVector2(), 20f, 6f, 20, 1000f, "Deerclops");
 			Main.instance.CameraModifiers.Add(modifier);
 		}
 		if (this.ai[1] == 30f)
@@ -392,7 +392,7 @@ private void AI_123_Deerclops_FindSpotToSpawnSpike(int howMany, int whichOne, re
 		y = num4;
 		return;
 	}
-	y = (int)MathHelper.Lerp(num2, y, (float)Math.Abs(num - x) * 0.1f);
+	y = (int)MathHelper.Lerp(num2, y, MathF.Abs(num - x) * 0.1f);
 	for (int j = 0; j < 4; j++)
 	{
 		int num6 = y + j;
@@ -479,7 +479,7 @@ private void AI_123_Deerclops_TryMakingSpike(ref Point sourceTileCoords, int dir
 	if (WorldGen.ActiveAndWalkableTile(num2, num3))
 	{
 		Vector2 vector = new Vector2(num2 * 16 + 8, num3 * 16 - 8);
-		Vector2 vector2 = new Vector2(0f, -1f).RotatedBy((float)(whichOne * dir) * 0.7f * ((float)Math.PI / 4f / (float)howMany));
+		Vector2 vector2 = new Vector2(0f, -1f).RotatedBy((float)(whichOne * dir) * 0.7f * (MathF.PI / 4f / (float)howMany));
 		Projectile.NewProjectile(GetSpawnSource_ForProjectile(), vector, vector2, 961, num, 0f, Main.myPlayer, 0f, 0.1f + Main.rand.NextFloat() * 0.1f + (float)xOffset * 1.1f / (float)howMany);
 	}
 }

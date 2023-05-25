@@ -199,11 +199,11 @@ namespace TRAEProject.Changes.Weapon.Summon.Minions
 				{
 					if (flag24)
 					{
-						projectile.rotation = (vector30 - projectile.Center).ToRotation() + (float)Math.PI;
+						projectile.rotation = (vector30 - projectile.Center).ToRotation() + MathF.PI;
 					}
 					else
 					{
-						projectile.rotation = projectile.velocity.ToRotation() + (float)Math.PI;
+						projectile.rotation = projectile.velocity.ToRotation() + MathF.PI;
 					}
 				}
 				if (projectile.type == 387)

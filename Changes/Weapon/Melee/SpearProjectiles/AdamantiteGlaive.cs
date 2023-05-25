@@ -16,7 +16,7 @@ namespace TRAEProject.Changes.Weapon.Melee.SpearProjectiles
             spearLength = 155.5f;
             stabStart = 123f;
             stabEnd = -10;
-            swingAmount = (float)Math.PI / 16;
+            swingAmount = MathF.PI / 16;
         }
     }
     public class AdamantiteGlaiveThrow : SpearThrow

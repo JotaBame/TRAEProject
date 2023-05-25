@@ -119,11 +119,11 @@ namespace TRAEProject.Changes.Accesory
             {
                 SoundEngine.PlaySound(SoundID.NPCDeath1 with { MaxInstances = 0 });
                 int GelID = ProjectileID.VolatileGelatinBall;
-                float num852 = ((float)Math.PI * 2f);
+                float num852 = (MathF.PI * 2f);
                 float gelCount = 59.167f * 6;
-                for (float c = 0f; c < 1f; c += gelCount / (678f * (float)Math.PI))
+                for (float c = 0f; c < 1f; c += gelCount / (678f * MathF.PI))
                 {
-                    float f2 = num852 + c * ((float)Math.PI * 2f);
+                    float f2 = num852 + c * (MathF.PI * 2f);
                     Vector2 velocity = f2.ToRotationVector2() * (8f + Main.rand.NextFloat() * 3f);
                     velocity += Vector2.UnitY * -1f;
                     int num854 = Projectile.NewProjectile(Player.GetSource_FromThis(), Player.Center, velocity, GelID, 50, 0f, Player.whoAmI);
@@ -140,11 +140,11 @@ namespace TRAEProject.Changes.Accesory
             if (gelStored > 0)
             {
                 SoundEngine.PlaySound(SoundID.NPCDeath1 with { MaxInstances = 0 }); int GelID = ProjectileID.VolatileGelatinBall;
-                float num852 = ((float)Math.PI * 2f);
+                float num852 = (MathF.PI * 2f);
                 float gelCount = 59.167f * 6;
-                for (float c = 0f; c < 1f; c += gelCount / (678f * (float)Math.PI))
+                for (float c = 0f; c < 1f; c += gelCount / (678f * MathF.PI))
                 {
-                    float f2 = num852 + c * ((float)Math.PI * 2f);
+                    float f2 = num852 + c * (MathF.PI * 2f);
                     Vector2 velocity = f2.ToRotationVector2() * (4f + Main.rand.NextFloat() * 2f);
                     velocity += Vector2.UnitY * -1f;
                     int num854 = Projectile.NewProjectile(Player.GetSource_FromThis(), Player.Center, velocity, GelID, 50, 0f, Player.whoAmI);

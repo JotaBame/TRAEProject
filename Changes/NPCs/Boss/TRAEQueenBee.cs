@@ -210,7 +210,7 @@ namespace TRAEProject.NPCs.Boss
 								Vector2 vector76 = new Vector2(npc.position.X + (float)npc.width * 0.5f, npc.position.Y + (float)npc.height * 0.5f);
 								float num623 = Main.player[npc.target].position.X + (float)(Main.player[npc.target].width / 2) - vector76.X;
 								float num624 = Main.player[npc.target].position.Y + (float)(Main.player[npc.target].height / 2) - vector76.Y;
-								float num625 = (float)Math.Sqrt(num623 * num623 + num624 * num624);
+								float num625 = MathF.Sqrt(num623 * num623 + num624 * num624);
 								num625 = num622 / num625;
 								npc.velocity.X = num623 * num625;
 								npc.velocity.Y = num624 * num625;
@@ -396,7 +396,7 @@ namespace TRAEProject.NPCs.Boss
 						Vector2 vector77 = new Vector2(npc.position.X + (float)npc.width * 0.5f, npc.position.Y + (float)npc.height * 0.5f);
 						float num633 = Main.player[npc.target].position.X + (float)(Main.player[npc.target].width / 2) - vector77.X;
 						float num634 = Main.player[npc.target].position.Y + (float)(Main.player[npc.target].height / 2) - 200f - vector77.Y;
-						float num635 = (float)Math.Sqrt(num633 * num633 + num634 * num634);
+						float num635 = MathF.Sqrt(num633 * num633 + num634 * num634);
 						if (num635 < 200f)
 						{
 							npc.ai[0] = 1f;
@@ -446,7 +446,7 @@ namespace TRAEProject.NPCs.Boss
 						Vector2 vector79 = new Vector2(npc.position.X + (float)npc.width * 0.5f, npc.position.Y + (float)npc.height * 0.5f);
 						float num636 = Main.player[npc.target].position.X + (float)(Main.player[npc.target].width / 2) - vector79.X;
 						float num637 = Main.player[npc.target].position.Y + (float)(Main.player[npc.target].height / 2) - vector79.Y;
-						float num638 = (float)Math.Sqrt(num636 * num636 + num637 * num637);
+						float num638 = MathF.Sqrt(num636 * num636 + num637 * num637);
 						npc.ai[1] += 1f;
 						if (Main.expertMode)
 						{
@@ -508,7 +508,7 @@ namespace TRAEProject.NPCs.Boss
 							vector79 = vector78;
 							num636 = Main.player[npc.target].position.X + (float)(Main.player[npc.target].width / 2) - vector79.X;
 							num637 = Main.player[npc.target].position.Y + (float)(Main.player[npc.target].height / 2) - vector79.Y;
-							num638 = (float)Math.Sqrt(num636 * num636 + num637 * num637);
+							num638 = MathF.Sqrt(num636 * num636 + num637 * num637);
 							num638 = num644 / num638;
 							if (npc.velocity.X < num636)
 							{
@@ -558,7 +558,7 @@ namespace TRAEProject.NPCs.Boss
 								num652 += 7f * EnrageBonus;
 								float num655 = Main.player[npc.target].position.X + Main.player[npc.target].width * 0.5f - vector80.X;
 								float num656 = Main.player[npc.target].position.Y + Main.player[npc.target].height * 0.5f - vector80.Y;
-								float num657 = (float)Math.Sqrt(num655 * num655 + num656 * num656);
+								float num657 = MathF.Sqrt(num655 * num655 + num656 * num656);
 								num657 = num652 / num657;
 								num655 *= num657;
 								num656 *= num657;
@@ -594,7 +594,7 @@ namespace TRAEProject.NPCs.Boss
 						Vector2 vector81 = new Vector2(npc.position.X + (float)npc.width * 0.5f, npc.position.Y + (float)npc.height * 0.5f);
 						float num648 = Main.player[npc.target].position.X + (float)(Main.player[npc.target].width / 2) - vector81.X;
 						float num649 = Main.player[npc.target].position.Y + (float)(Main.player[npc.target].height / 2) - 300f - vector81.Y;
-						float num650 = (float)Math.Sqrt(num648 * num648 + num649 * num649);
+						float num650 = MathF.Sqrt(num648 * num648 + num649 * num649);
 						npc.ai[1] += 1f;
 						int max = 40;
 						if (Main.expertMode)
@@ -621,7 +621,7 @@ namespace TRAEProject.NPCs.Boss
 								int num654 = (int)(40f - 19f * EnrageBonus);
 								float num655 = Main.player[npc.target].position.X + (float)Main.player[npc.target].width * 0.5f - vector80.X + (float)Main.rand.Next(-num653, num653 + 1);
 								float num656 = Main.player[npc.target].position.Y + (float)Main.player[npc.target].height * 0.5f - vector80.Y + (float)Main.rand.Next(-num654, num654 + 1);
-								float num657 = (float)Math.Sqrt(num655 * num655 + num656 * num656);
+								float num657 = MathF.Sqrt(num655 * num655 + num656 * num656);
 								num657 = num652 / num657;
 								num655 *= num657;
 								num656 *= num657;
@@ -663,7 +663,7 @@ namespace TRAEProject.NPCs.Boss
 							vector81 = vector80;
 							num648 = Main.player[npc.target].position.X + (float)(Main.player[npc.target].width / 2) - vector81.X;
 							num649 = Main.player[npc.target].position.Y + (float)(Main.player[npc.target].height / 2) - vector81.Y;
-							num650 = (float)Math.Sqrt(num648 * num648 + num649 * num649);
+							num650 = MathF.Sqrt(num648 * num648 + num649 * num649);
 							num650 = num646 / num650;
 							if (npc.velocity.X < num648)
 							{

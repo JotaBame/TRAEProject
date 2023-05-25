@@ -117,7 +117,7 @@ namespace TRAEProject.Changes.Items
             {
                 float distance = 300f;
                 Vector2 newMove = enemy.Center - Player.Center;
-                float distanceTo = (float)Math.Sqrt(newMove.X * newMove.X + newMove.Y * newMove.Y);
+                float distanceTo = MathF.Sqrt(newMove.X * newMove.X + newMove.Y * newMove.Y);
                 int direction = -1;
                 if (enemy.position.X + (enemy.width / 2) < Player.position.X + (enemy.width / 2))
                 {
@@ -151,7 +151,7 @@ namespace TRAEProject.Changes.Items
             {
                 float distance = 500f;
                 Vector2 newMove = enemy.Center - Player.Center;
-                float distanceTo = (float)Math.Sqrt(newMove.X * newMove.X + newMove.Y * newMove.Y);
+                float distanceTo = MathF.Sqrt(newMove.X * newMove.X + newMove.Y * newMove.Y);
                 int direction = -1;
                 if (enemy.position.X + (enemy.width / 2) < Player.position.X + (enemy.width / 2))
                 {

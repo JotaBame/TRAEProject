@@ -104,7 +104,7 @@ namespace TRAEProject.Changes
 				{
 					stretch = Player.CompositeArmStretchAmount.Full;
 				}
-				float rotation = (rubAt - Player.MountedCenter).ToRotation() - (float)Math.PI / 2f;
+				float rotation = (rubAt - Player.MountedCenter).ToRotation() - MathF.PI / 2f;
 				Player.SetCompositeArmBack(enabled: true, stretch, rotation);
                 if(Player.GetModPlayer<PermaBuffs>().speedWish)
                 {
@@ -119,7 +119,7 @@ namespace TRAEProject.Changes
                 {
                     for(int i =0; i < 50; i++)
                     {
-                        float r = (float)Math.PI / -2f + Main.rand.NextFloat()*(float)Math.PI / 4f * (Main.rand.NextBool() ? -1 : 1);
+                        float r = MathF.PI / -2f + Main.rand.NextFloat()*MathF.PI / 4f * (Main.rand.NextBool() ? -1 : 1);
                         Dust c = Dust.NewDustPerfect(nozzle, 6, TRAEMethods.PolarVector(Main.rand.NextFloat()*8f, r));
                         c.noGravity = true;
                         c.color = Color.SkyBlue;

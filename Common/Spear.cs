@@ -163,7 +163,7 @@ namespace TRAEProject.Common
 
             }
 
-            stabDirection = aimDirection + swingAmount * (Math.Abs((float)Math.Sin((float)Math.PI * outAmount))) * swivelDir;
+            stabDirection = aimDirection + swingAmount * (Math.Abs(MathF.Sin(MathF.PI * outAmount))) * swivelDir;
             Projectile.Center = ownerMountedCenter + PolarVector((outAmount * (stabStart - stabEnd) + (spearLength - stabStart)) * Projectile.scale, stabDirection);
 
 
@@ -171,12 +171,12 @@ namespace TRAEProject.Common
             if (player.direction == 1)
             {
                 effects = SpriteEffects.FlipVertically;
-                Projectile.rotation = stabDirection + 5f * (float)Math.PI / 4f;
+                Projectile.rotation = stabDirection + 5f * MathF.PI / 4f;
             }
             else
             {
                 effects = SpriteEffects.None;
-                Projectile.rotation = stabDirection + 3f * (float)Math.PI / 4f;
+                Projectile.rotation = stabDirection + 3f * MathF.PI / 4f;
             }
             if (player.itemAnimation == 0 || player.itemAnimation == 1)
             {
@@ -196,10 +196,10 @@ namespace TRAEProject.Common
             Vector2 pointPoisition = player.RotatedRelativePoint(player.MountedCenter, reverseRotation: true);
             float num2 = Projectile.Center.X - pointPoisition.X;
             float num3 = Projectile.Center.Y  - pointPoisition.Y;
-            float num4 = (float)Math.Sqrt(num2 * num2 + num3 * num3);
+            float num4 = MathF.Sqrt(num2 * num2 + num3 * num3);
             num2 *= num4;
             num3 *= num4;
-            float itemRotation = (float)Math.Atan2(num3 * (float)player.direction, num2 * (float)player.direction) - player.fullRotation;
+            float itemRotation = MathF.Atan2(num3 * (float)player.direction, num2 * (float)player.direction) - player.fullRotation;
 
             float num19 = itemRotation * player.direction;
             player.bodyFrame.Y = player.bodyFrame.Height * 3;
@@ -234,9 +234,9 @@ namespace TRAEProject.Common
             Vector2 pointPoisition = player.RotatedRelativePoint(player.MountedCenter, reverseRotation: true);
             float num2 = (float)Projectile.Center.X - pointPoisition.X;
             float num3 = (float)Projectile.Center.Y - pointPoisition.Y;
-            float itemRotation = (float)Math.Atan2(num3 * (float)player.direction, num2 * (float)player.direction) - player.fullRotation;
+            float itemRotation = MathF.Atan2(num3 * (float)player.direction, num2 * (float)player.direction) - player.fullRotation;
 
-            Vector2 SpearStabPos = Projectile.Center + PolarVector((spearLength - stabStart) * Projectile.scale, stabDirection + (float)Math.PI);
+            Vector2 SpearStabPos = Projectile.Center + PolarVector((spearLength - stabStart) * Projectile.scale, stabDirection + MathF.PI);
             float distance = (SpearStabPos - pointPoisition).Length();
 
             Player.CompositeArmStretchAmount stretch = Player.CompositeArmStretchAmount.Quarter;
@@ -248,13 +248,13 @@ namespace TRAEProject.Common
             {
                 stretch = Player.CompositeArmStretchAmount.Full;
             }
-            float rotation = itemRotation - (float)Math.PI / 2f * (float)player.direction;
+            float rotation = itemRotation - MathF.PI / 2f * (float)player.direction;
             player.SetCompositeArmFront(enabled: true, stretch, rotation);
         }
         public override bool? Colliding(Rectangle projHitbox, Rectangle targetHitbox)
         {
             float point = 0;
-            return Collision.CheckAABBvLineCollision(targetHitbox.TopLeft(), targetHitbox.Size(), Projectile.Center + PolarVector((spearLength - stabStart) * Projectile.scale, stabDirection + (float)Math.PI), Projectile.Center, spearLength - stabStart, ref point);
+            return Collision.CheckAABBvLineCollision(targetHitbox.TopLeft(), targetHitbox.Size(), Projectile.Center + PolarVector((spearLength - stabStart) * Projectile.scale, stabDirection + MathF.PI), Projectile.Center, spearLength - stabStart, ref point);
         }
         public override void ModifyHitNPC(NPC target, ref NPC.HitModifiers modifiers)
         {
@@ -300,14 +300,14 @@ namespace TRAEProject.Common
             if (debug)
             {
                 //spearLength
-                Main.EntitySpriteDraw(TRAEProj.debugCross, Projectile.Center + PolarVector(spearLength * Projectile.scale, stabDirection + (float)Math.PI) - Main.screenPosition, null, Color.Green, 0, TRAEProj.debugCross.Size() * 0.5f, 1f, SpriteEffects.None, 0);
+                Main.EntitySpriteDraw(TRAEProj.debugCross, Projectile.Center + PolarVector(spearLength * Projectile.scale, stabDirection + MathF.PI) - Main.screenPosition, null, Color.Green, 0, TRAEProj.debugCross.Size() * 0.5f, 1f, SpriteEffects.None, 0);
                 Main.EntitySpriteDraw(TRAEProj.debugCross, Projectile.Center - Main.screenPosition, null, Color.Green, 0, TRAEProj.debugCross.Size() * 0.5f, 1f, SpriteEffects.None, 0);
 
                 //stabStart
-                Main.EntitySpriteDraw(TRAEProj.debugCross, Projectile.Center + PolarVector((spearLength - stabStart) * Projectile.scale, stabDirection + (float)Math.PI) - Main.screenPosition, null, Color.Red, 0, TRAEProj.debugCross.Size() * 0.5f, 1f, SpriteEffects.None, 0);
+                Main.EntitySpriteDraw(TRAEProj.debugCross, Projectile.Center + PolarVector((spearLength - stabStart) * Projectile.scale, stabDirection + MathF.PI) - Main.screenPosition, null, Color.Red, 0, TRAEProj.debugCross.Size() * 0.5f, 1f, SpriteEffects.None, 0);
 
                 //stabEnd
-                Main.EntitySpriteDraw(TRAEProj.debugCross, Projectile.Center + PolarVector((spearLength - stabEnd) * Projectile.scale, stabDirection + (float)Math.PI) - Main.screenPosition, null, Color.Blue, 0, TRAEProj.debugCross.Size() * 0.5f, 1f, SpriteEffects.None, 0);
+                Main.EntitySpriteDraw(TRAEProj.debugCross, Projectile.Center + PolarVector((spearLength - stabEnd) * Projectile.scale, stabDirection + MathF.PI) - Main.screenPosition, null, Color.Blue, 0, TRAEProj.debugCross.Size() * 0.5f, 1f, SpriteEffects.None, 0);
 
 
                 Player player = Main.player[Projectile.owner];
@@ -320,7 +320,7 @@ namespace TRAEProject.Common
 
         public static Vector2 PolarVector(float radius, float theta)
         {
-            return new Vector2((float)Math.Cos(theta), (float)Math.Sin(theta)) * radius;
+            return new Vector2(MathF.Cos(theta), MathF.Sin(theta)) * radius;
         }
     }
     public abstract class SpearThrow : ModProjectile
@@ -424,11 +424,11 @@ namespace TRAEProject.Common
                     Projectile.ai[0] = Projectile.velocity.ToRotation();
                     if (effects == SpriteEffects.FlipVertically)
                     {
-                        Projectile.rotation = Projectile.velocity.ToRotation() + 5f * (float)Math.PI / 4f;
+                        Projectile.rotation = Projectile.velocity.ToRotation() + 5f * MathF.PI / 4f;
                     }
                     else
                     {
-                        Projectile.rotation = Projectile.velocity.ToRotation() + 3f * (float)Math.PI / 4f;
+                        Projectile.rotation = Projectile.velocity.ToRotation() + 3f * MathF.PI / 4f;
                     }
                     ThrownUpdate();
                 }
@@ -470,7 +470,7 @@ namespace TRAEProject.Common
                         Projectile.netUpdate = true;
                     }
                     Projectile.Center = holdPos + PolarVector((spearLength - holdAt) * Projectile.scale, Projectile.ai[0]);
-                    Projectile.rotation = Projectile.ai[0] + 3f * (float)Math.PI / 4f;
+                    Projectile.rotation = Projectile.ai[0] + 3f * MathF.PI / 4f;
                     if (chargeAmt >= 1)
                     {
                         chargeAmt = 1f;
@@ -498,12 +498,12 @@ namespace TRAEProject.Common
                     if (player.direction == 1)
                     {
                         effects = SpriteEffects.FlipVertically;
-                        Projectile.rotation = Projectile.ai[0] + 5f * (float)Math.PI / 4f;
+                        Projectile.rotation = Projectile.ai[0] + 5f * MathF.PI / 4f;
                     }
                     else
                     {
                         effects = SpriteEffects.None;
-                        Projectile.rotation = Projectile.ai[0] + 3f * (float)Math.PI / 4f;
+                        Projectile.rotation = Projectile.ai[0] + 3f * MathF.PI / 4f;
                     }
                     if (!Main.mouseRight && Projectile.owner == Main.myPlayer)
                     {
@@ -683,13 +683,13 @@ namespace TRAEProject.Common
             if (Projectile.velocity.Length() > 4f)
             {
                 float point = 0;
-                return Collision.CheckAABBvLineCollision(targetHitbox.TopLeft(), targetHitbox.Size(), Projectile.Center + PolarVector((6) * Projectile.scale + Projectile.velocity.Length() + 2f, Projectile.ai[0] + (float)Math.PI), Projectile.Center + PolarVector((6) * Projectile.scale, Projectile.ai[0] + (float)Math.PI), 18 * Projectile.scale, ref point);
+                return Collision.CheckAABBvLineCollision(targetHitbox.TopLeft(), targetHitbox.Size(), Projectile.Center + PolarVector((6) * Projectile.scale + Projectile.velocity.Length() + 2f, Projectile.ai[0] + MathF.PI), Projectile.Center + PolarVector((6) * Projectile.scale, Projectile.ai[0] + MathF.PI), 18 * Projectile.scale, ref point);
             }
             return null;
         }
         public static Vector2 PolarVector(float radius, float theta)
         {
-            return new Vector2((float)Math.Cos(theta), (float)Math.Sin(theta)) * radius;
+            return new Vector2(MathF.Cos(theta), MathF.Sin(theta)) * radius;
         }
         public int DustOnDeath = 81;
         public int DustOnDeathCount = 20;

@@ -465,14 +465,14 @@ namespace TRAEProject
                         Player.legFrame.Y = Player.legFrame.Height * 13;
                     }
 
-                    float rot = (float)Math.PI / 8f;
+                    float rot = MathF.PI / 8f;
                     if(skateCounter % (slideTime+slideTrans) >=  slideTime)
                     {
                         rot = 0;
                     }
                     else if(skateCounter % ((slideTime+slideTrans)*2) > (slideTime+slideTrans))
                     {
-                        rot = (float)Math.PI / -8f;
+                        rot = MathF.PI / -8f;
                     }
                     Player.SetCompositeArmBack(true, Player.CompositeArmStretchAmount.Full, -Player.direction * rot);
                     

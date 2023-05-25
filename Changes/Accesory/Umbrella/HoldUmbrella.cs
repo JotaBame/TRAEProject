@@ -40,10 +40,10 @@ namespace TRAEProject
                     {
                         holdingUp = false;
                     }
-                    float turnArmAmt = (float)Math.PI * -3f / 5f;
+                    float turnArmAmt = MathF.PI * -3f / 5f;
                     if (!holdingUp)
                     {
-                        turnArmAmt = (float)Math.PI * -1f / 5f;
+                        turnArmAmt = MathF.PI * -1f / 5f;
                     }
                     Player.SetCompositeArmBack(enabled: true, Player.CompositeArmStretchAmount.ThreeQuarters, turnArmAmt * (float)Player.direction);
                 }

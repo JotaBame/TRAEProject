@@ -317,7 +317,7 @@ if (aiStyle == 8)
 								num96 -= Main.player[target].velocity.X * 10f;
 								num97 -= Main.player[target].velocity.Y * 10f;
 							}
-							float num98 = (float)Math.Sqrt(num96 * num96 + num97 * num97);
+							float num98 = MathF.Sqrt(num96 * num96 + num97 * num97);
 							num98 = num95 / num98;
 							num96 *= num98;
 							num97 *= num98;
@@ -371,7 +371,7 @@ if (aiStyle == 8)
 								Vector2 vector14 = new Vector2(position.X + (float)width * 0.5f, position.Y + (float)height * 0.5f);
 								float num103 = Main.player[target].position.X + (float)Main.player[target].width * 0.5f - vector14.X + (float)Main.rand.Next(-10, 11);
 								float num104 = Main.player[target].position.Y + (float)Main.player[target].height * 0.5f - vector14.Y + (float)Main.rand.Next(-10, 11);
-								float num105 = (float)Math.Sqrt(num103 * num103 + num104 * num104);
+								float num105 = MathF.Sqrt(num103 * num103 + num104 * num104);
 								num105 = num102 / num105;
 								num103 *= num105;
 								num104 *= num105;

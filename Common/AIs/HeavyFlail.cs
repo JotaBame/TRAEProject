@@ -153,7 +153,7 @@ namespace TRAEProject.Common.AIs
 							}
 						}
 						Projectile.localAI[1] += 1f;
-						Vector2 value4 = new Vector2(player.direction).RotatedBy((float)Math.PI * 10f * (Projectile.localAI[1] / 60f) * (float)player.direction);
+						Vector2 value4 = new Vector2(player.direction).RotatedBy(MathF.PI * 10f * (Projectile.localAI[1] / 60f) * (float)player.direction);
 						value4.Y *= 0.8f;
 						if (value4.Y * player.gravDir > 0f)
 						{
@@ -325,7 +325,7 @@ namespace TRAEProject.Common.AIs
 			player.itemRotation = Projectile.DirectionFrom(playerCenter).ToRotation();
 			if (Projectile.Center.X < playerCenter.X)
 			{
-				player.itemRotation += (float)Math.PI;
+				player.itemRotation += MathF.PI;
 			}
 			player.itemRotation = MathHelper.WrapAngle(player.itemRotation);
 		}
@@ -383,7 +383,7 @@ namespace TRAEProject.Common.AIs
 			Vector2 value2 = velocityBeforeCollision.SafeNormalize(Vector2.Zero);
 			for (float num = 0f; num < 8f; num += 1f)
 			{
-				Vector2 value3 = spinningpoint.RotatedBy(num * ((float)Math.PI * 2f) / 8f) * value;
+				Vector2 value3 = spinningpoint.RotatedBy(num * (MathF.PI * 2f) / 8f) * value;
 				Dust dust = Dust.NewDustDirect(Projectile.position, Projectile.width, Projectile.height, DustID.Smoke);
 				dust.alpha = 0;
 				if (!causedShockwaves)
@@ -403,7 +403,7 @@ namespace TRAEProject.Common.AIs
 			{
 				for (float num2 = 0f; num2 < 8f; num2 += 1f)
 				{
-					Vector2 value4 = spinningpoint.RotatedBy(num2 * ((float)Math.PI * 2f) / 8f) * value;
+					Vector2 value4 = spinningpoint.RotatedBy(num2 * (MathF.PI * 2f) / 8f) * value;
 					Dust dust2 = Dust.NewDustDirect(Projectile.position, Projectile.width, Projectile.height, DustID.Smoke);
 					dust2.alpha = 100;
 					dust2.color = color;

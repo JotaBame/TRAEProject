@@ -89,7 +89,7 @@ namespace TRAEProject.Changes.Weapon.Summon.Minions
                         num130 = 0.0001f;
                         num130 = 0.0001f;
                     }
-                    float num131 = (float)Math.Sqrt(x9 * x9 + num130 * num130);
+                    float num131 = MathF.Sqrt(x9 * x9 + num130 * num130);
                     num131 = 20f / num131;
                     if (projectile.ai[0] == 0f)
                     {
@@ -104,11 +104,11 @@ namespace TRAEProject.Changes.Weapon.Summon.Minions
                     Vector2 vector26 = new Vector2(num128, num129);
                     x9 = mountedCenter.X - vector26.X;
                     num130 = mountedCenter.Y - vector26.Y;
-                    float rotation22 = (float)Math.Atan2(num130, x9) - 1.57f;
+                    float rotation22 = MathF.Atan2(num130, x9) - 1.57f;
                     bool flag24 = true;
                     while (flag24)
                     {
-                        float num133 = (float)Math.Sqrt(x9 * x9 + num130 * num130);
+                        float num133 = MathF.Sqrt(x9 * x9 + num130 * num130);
                         if (num133 < 25f)
                         {
                             flag24 = false;
@@ -166,7 +166,7 @@ namespace TRAEProject.Changes.Weapon.Summon.Minions
                 if (target != null && target.active)
                 {
                     Projectile.velocity = (target.Center - Projectile.Center).SafeNormalize(-Vector2.UnitY) * 14f;
-                    Projectile.rotation = Projectile.velocity.ToRotation() + (float)Math.PI / 2f;
+                    Projectile.rotation = Projectile.velocity.ToRotation() + MathF.PI / 2f;
                 }
                 else
                 {

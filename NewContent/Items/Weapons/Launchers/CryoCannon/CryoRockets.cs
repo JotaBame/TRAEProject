@@ -18,7 +18,7 @@ namespace TRAEProject.NewContent.Items.Weapons.Launchers.CryoCannon
         public bool CryoExplosion = false;
         public void CryoRocketAI(Projectile projectile)
         {     
-		     projectile.rotation = (float)Math.Atan2(projectile.velocity.Y, projectile.velocity.X);
+		     projectile.rotation = MathF.Atan2(projectile.velocity.Y, projectile.velocity.X);
             /// Dusts
             if (Math.Abs(projectile.velocity.X) >= 8f || Math.Abs(projectile.velocity.Y) >= 8f)
             {
@@ -252,10 +252,10 @@ namespace TRAEProject.NewContent.Items.Weapons.Launchers.CryoCannon
             if (Projectile.owner == Main.myPlayer)
             {
                 int Cluster = 862; // snowman cannon's projectile, doesn't damage the player
-                float num852 = ((float)Math.PI * 2f);
-                for (float c = 0f; c < 1f; c += 355f / (678f * (float)Math.PI))
+                float num852 = (MathF.PI * 2f);
+                for (float c = 0f; c < 1f; c += 355f / (678f * MathF.PI))
                 {
-                    float f2 = num852 + c * ((float)Math.PI * 2f);
+                    float f2 = num852 + c * (MathF.PI * 2f);
                     Vector2 velocity = f2.ToRotationVector2() * (4f + Main.rand.NextFloat() * 2f);
                     velocity += Vector2.UnitY * -1f;
                     int num854 = Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.Center, velocity, Cluster, Projectile.damage / 4, 0f, Projectile.owner);

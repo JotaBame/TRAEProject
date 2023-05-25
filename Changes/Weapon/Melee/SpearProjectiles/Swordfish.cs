@@ -21,7 +21,7 @@ namespace TRAEProject.Changes.Weapon.Melee.SpearProjectiles
             spearLength = 88f;
             stabStart = 55f;
             stabEnd = -10;
-            swingAmount = (float)Math.PI / 32;
+            swingAmount = MathF.PI / 32;
         }
         public override void OnMaxReach(float direction)
         {
@@ -57,7 +57,7 @@ namespace TRAEProject.Changes.Weapon.Melee.SpearProjectiles
                 {
                     float vel = Projectile.velocity.Length();
                     float dir = Projectile.velocity.ToRotation();
-                    dir = dir.AngleLerp((target.Center - Projectile.Center).ToRotation(), (float)Math.PI / 60);
+                    dir = dir.AngleLerp((target.Center - Projectile.Center).ToRotation(), MathF.PI / 60);
                     Projectile.velocity = TRAEMethods.PolarVector(vel, dir);
                     float length = Projectile.velocity.Length();
                     Projectile.velocity += (target.Center - Projectile.Center).SafeNormalize(Vector2.UnitY) * 2f;

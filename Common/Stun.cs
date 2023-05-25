@@ -111,29 +111,29 @@ namespace TRAEProject.Common
                 float heightofStunned = (npc.height / 2) * 1.2f;
                 stunTime += (int)Math.PI / 60;
                 Texture2D texture = Request<Texture2D>("TRAEProject/Common/Stun").Value;
-                //Main.NewText((float)Math.Sin(stunTime));
-                if ((float)Math.Cos(stunTime) > 0)
+                //Main.NewText(MathF.Sin(stunTime));
+                if (MathF.Cos(stunTime) > 0)
                 {
-                    Vector2 CenterOfStunned = new Vector2(npc.Center.X + (float)Math.Sin(stunTime) * stunnedHorizontalMovement, npc.Center.Y - heightofStunned);
+                    Vector2 CenterOfStunned = new Vector2(npc.Center.X + MathF.Sin(stunTime) * stunnedHorizontalMovement, npc.Center.Y - heightofStunned);
 
                     spriteBatch.Draw(texture, new Vector2(CenterOfStunned.X - Main.screenPosition.X, CenterOfStunned.Y - Main.screenPosition.Y),
                             new Rectangle(0, 0, texture.Width, texture.Height), drawColor, stunTime,
                             new Vector2(texture.Width * 0.5f, texture.Height * 0.5f), scale, SpriteEffects.None, 0f);
 
-                    CenterOfStunned = new Vector2(npc.Center.X - (float)Math.Sin(stunTime) * stunnedHorizontalMovement, npc.Center.Y - heightofStunned);
+                    CenterOfStunned = new Vector2(npc.Center.X - MathF.Sin(stunTime) * stunnedHorizontalMovement, npc.Center.Y - heightofStunned);
                     spriteBatch.Draw(texture, new Vector2(CenterOfStunned.X - Main.screenPosition.X, CenterOfStunned.Y - Main.screenPosition.Y),
                             new Rectangle(0, 0, texture.Width, texture.Height), drawColor, stunTime,
                             new Vector2(texture.Width * 0.5f, texture.Height * 0.5f), scale, SpriteEffects.None, 0f);
                 }
                 else
                 {
-                    Vector2 CenterOfStunned = new Vector2(npc.Center.X - (float)Math.Sin(stunTime) * stunnedHorizontalMovement, npc.Center.Y - heightofStunned);
+                    Vector2 CenterOfStunned = new Vector2(npc.Center.X - MathF.Sin(stunTime) * stunnedHorizontalMovement, npc.Center.Y - heightofStunned);
 
                     spriteBatch.Draw(texture, new Vector2(CenterOfStunned.X - Main.screenPosition.X, CenterOfStunned.Y - Main.screenPosition.Y),
                             new Rectangle(0, 0, texture.Width, texture.Height), drawColor, stunTime,
                             new Vector2(texture.Width * 0.5f, texture.Height * 0.5f), scale, SpriteEffects.None, 0f);
 
-                    CenterOfStunned = new Vector2(npc.Center.X + (float)Math.Sin(stunTime) * stunnedHorizontalMovement, npc.Center.Y - heightofStunned);
+                    CenterOfStunned = new Vector2(npc.Center.X + MathF.Sin(stunTime) * stunnedHorizontalMovement, npc.Center.Y - heightofStunned);
                     spriteBatch.Draw(texture, new Vector2(CenterOfStunned.X - Main.screenPosition.X, CenterOfStunned.Y - Main.screenPosition.Y),
                             new Rectangle(0, 0, texture.Width, texture.Height), drawColor, stunTime,
                             new Vector2(texture.Width * 0.5f, texture.Height * 0.5f), scale, SpriteEffects.None, 0f);

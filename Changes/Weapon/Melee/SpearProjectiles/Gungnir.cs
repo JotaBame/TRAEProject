@@ -16,7 +16,7 @@ namespace TRAEProject.Changes.Weapon.Melee.SpearProjectiles
             spearLength = 164f;
             stabStart = 123f;
             stabEnd = -10;
-            swingAmount = (float)Math.PI / 32;
+            swingAmount = MathF.PI / 32;
         }
     }
     public class GungnirThrow : SpearThrow
@@ -37,7 +37,7 @@ namespace TRAEProject.Changes.Weapon.Melee.SpearProjectiles
             {
                 float vel = Projectile.velocity.Length();
                 float dir = Projectile.velocity.ToRotation();
-                dir = dir.AngleLerp((target.Center - Projectile.Center).ToRotation(), (float)Math.PI / 15);
+                dir = dir.AngleLerp((target.Center - Projectile.Center).ToRotation(), MathF.PI / 15);
                 Projectile.velocity = TRAEMethods.PolarVector(vel, dir);
                 float length = Projectile.velocity.Length();
                 Projectile.velocity += (target.Center - Projectile.Center).SafeNormalize(Vector2.UnitY) * 2f;

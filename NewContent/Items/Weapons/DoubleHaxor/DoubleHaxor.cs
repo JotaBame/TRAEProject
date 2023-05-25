@@ -130,7 +130,7 @@ namespace TRAEProject.NewContent.Items.Weapons.DoubleHaxor
 				Vector2 vector6 = new Vector2(Projectile.position.X + (float)Projectile.width * 0.5f, Projectile.position.Y + (float)Projectile.height * 0.5f);
 				float num65 = player.position.X + (float)(player.width / 2) - vector6.X;
 				float num66 = player.position.Y + (float)(player.height / 2) - vector6.Y;
-				float num67 = (float)Math.Sqrt(num65 * num65 + num66 * num66);
+				float num67 = MathF.Sqrt(num65 * num65 + num66 * num66);
 				if (num67 > 3000f)
 				{
 					Projectile.Kill();
@@ -194,7 +194,7 @@ namespace TRAEProject.NewContent.Items.Weapons.DoubleHaxor
 
 			if (Projectile.ai[0] == 0f)
 			{
-				Projectile.rotation = Projectile.velocity.ToRotation() + (float)Math.PI / 4f;
+				Projectile.rotation = Projectile.velocity.ToRotation() + MathF.PI / 4f;
 				if (Main.rand.Next(2) == 0)
 				{
 					int num69 = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, DustID.Electric, Projectile.velocity.X * 0.2f, Projectile.velocity.Y * 0.2f, 200, default(Color), 1.2f);

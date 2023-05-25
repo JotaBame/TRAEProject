@@ -136,7 +136,7 @@ namespace TRAEProject.Changes.Weapon.Melee
             //    float num = (float)(Math.PI / 2f);
             //    if (Main.netMode != 2 && projectile.localAI[0] == 0f)
             //    {
-            //        projectile.ai[1] = (Main.rand.NextFloat() - 0.5f) * ((float)Math.PI / 3f);
+            //        projectile.ai[1] = (Main.rand.NextFloat() - 0.5f) * (MathF.PI / 3f);
             //        SoundEngine.PlaySound(SoundID.Item116, projectile.Center);
             //    }
             //    if (projectile.localAI[1] > 0f)
@@ -157,8 +157,8 @@ namespace TRAEProject.Changes.Weapon.Melee
             //    {
             //        num50 *= -1f;
             //    }
-            //    Vector2 spinningpoint5 = (num50 * (projectile.ai[0] / 30f * ((float)Math.PI * 2f) - (float)Math.PI / 2f)).ToRotationVector2();
-            //    spinningpoint5.Y *= (float)Math.Sin(projectile.ai[1]);
+            //    Vector2 spinningpoint5 = (num50 * (projectile.ai[0] / 30f * (MathF.PI * 2f) - MathF.PI / 2f)).ToRotationVector2();
+            //    spinningpoint5.Y *= MathF.Sin(projectile.ai[1]);
             //    if (projectile.ai[1] <= 0f)
             //    {
             //        spinningpoint5.Y *= -1f;
@@ -182,7 +182,7 @@ namespace TRAEProject.Changes.Weapon.Melee
             //    player.ChangeDir(projectile.direction);
             //    player.heldProj = projectile.whoAmI;
             //    player.SetDummyItemTime(num2);
-            //    player.itemRotation = MathHelper.WrapAngle((float)Math.Atan2(projectile.velocity.Y * (float)projectile.direction, projectile.velocity.X * (float)projectile.direction) + num3);
+            //    player.itemRotation = MathHelper.WrapAngle(MathF.Atan2(projectile.velocity.Y * (float)projectile.direction, projectile.velocity.X * (float)projectile.direction) + num3);
             //    Vector2 vector38 = Main.OffsetsPlayerOnhand[player.bodyFrame.Y / 56] * 2f;
             //    if (player.direction != 1)
             //    {
@@ -275,7 +275,7 @@ namespace TRAEProject.Changes.Weapon.Melee
                             Vector2 vector19 = new Vector2(projectile.position.X + projectile.width * 0.5f, projectile.position.Y + projectile.height * 0.5f);
                             float velX = PosX - vector19.X;
                             float velY = PosY - vector19.Y;
-                            float sqrRoot = (float)Math.Sqrt(velX * velX + velY * velY);
+                            float sqrRoot = MathF.Sqrt(velX * velX + velY * velY);
                             sqrRoot = num229 / sqrRoot;
                             velX *= sqrRoot;
                             velY *= sqrRoot;
@@ -322,7 +322,7 @@ namespace TRAEProject.Changes.Weapon.Melee
                             Vector2 vector19 = new Vector2(projectile.position.X + projectile.width * 0.5f, projectile.position.Y + projectile.height * 0.5f);
                             float velX = PosX - vector19.X;
                             float velY = PosY - vector19.Y;
-                            float sqrRoot = (float)Math.Sqrt(velX * velX + velY * velY);
+                            float sqrRoot = MathF.Sqrt(velX * velX + velY * velY);
                             sqrRoot = num229 / sqrRoot;
                             velX *= sqrRoot;
                             velY *= sqrRoot;

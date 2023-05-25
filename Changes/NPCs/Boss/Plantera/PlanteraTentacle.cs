@@ -80,7 +80,7 @@ namespace TRAEProject.Changes.NPCs.Boss.Plantera
                     }
                     npc.Center = ((player.Center - (Vector2)anchor) * ((float)outAmount / reachTime)) + (Vector2)anchor;
 
-                    npc.rotation = (player.Center - npc.Center).ToRotation() + (float)Math.PI;
+                    npc.rotation = (player.Center - npc.Center).ToRotation() + MathF.PI;
                 }
                 return false;
             }
@@ -98,7 +98,7 @@ namespace TRAEProject.Changes.NPCs.Boss.Plantera
                     for (int k = 0; k < dist; k += vine.Height)
                     {
                         Vector2 pos = npc.Center + TRAEMethods.PolarVector(k, rot);
-                        spriteBatch.Draw(vine, pos - screenPos, null, Lighting.GetColor((int)pos.X / 16, (int)pos.Y / 16), rot + (float)Math.PI / 2f, new Vector2(vine.Width / 2, vine.Height), 1f, SpriteEffects.None, 0);
+                        spriteBatch.Draw(vine, pos - screenPos, null, Lighting.GetColor((int)pos.X / 16, (int)pos.Y / 16), rot + MathF.PI / 2f, new Vector2(vine.Width / 2, vine.Height), 1f, SpriteEffects.None, 0);
                     }
                 }
             }

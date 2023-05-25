@@ -133,7 +133,7 @@ namespace TRAEProject.Changes.NPCs.Miniboss.IceQueen
 							vector113.X += npc.velocity.X * 7f;
 							float num939 = Main.player[npc.target].position.X + (float)Main.player[npc.target].width * 0.5f - vector113.X;
 							float num940 = Main.player[npc.target].Center.Y - vector113.Y;
-							float num941 = (float)Math.Sqrt(num939 * num939 + num940 * num940);
+							float num941 = MathF.Sqrt(num939 * num939 + num940 * num940);
 							float num942 = 6f;
 							if ((double)npc.life < (double)npc.lifeMax * 0.75)
 							{
@@ -279,10 +279,10 @@ namespace TRAEProject.Changes.NPCs.Miniboss.IceQueen
 				{
 					npc.TargetClosest();
 					Vector2 vector115 = new Vector2(npc.Center.X, npc.Center.Y - 20f);
-					Vector2 shootOut = TRAEMethods.PolarVector(500, npc.ai[1] * ((float)Math.PI / 6f + (0.05f)));
+					Vector2 shootOut = TRAEMethods.PolarVector(500, npc.ai[1] * (MathF.PI / 6f + (0.05f)));
 					float num950 = shootOut.X;
 					float num951 = shootOut.Y;
-					float num952 = (float)Math.Sqrt(num950 * num950 + num951 * num951);
+					float num952 = MathF.Sqrt(num950 * num950 + num951 * num951);
 					float num953 = 15f;
 					npc.velocity *= 0.95f;
 					num952 = num953 / num952;

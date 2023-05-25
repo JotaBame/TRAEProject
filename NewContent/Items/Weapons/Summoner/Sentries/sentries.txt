@@ -211,7 +211,7 @@ else if (aiStyle == 53)
 						}
 						float num453 = num445 - vector38.X;
 						float num454 = num446 - vector38.Y;
-						float num455 = (float)Math.Sqrt(num453 * num453 + num454 * num454);
+						float num455 = MathF.Sqrt(num453 * num453 + num454 * num454);
 						float num456 = num455;
 						num455 = num451 / num455;
 						num453 *= num455;

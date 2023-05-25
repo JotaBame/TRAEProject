@@ -17,7 +17,7 @@ namespace TRAEProject.Changes.Weapon.Melee.SpearProjectiles
             spearLength = 141.4f;
             stabStart = 93.3f;
             stabEnd = -10;
-            swingAmount = (float)Math.PI / 16;
+            swingAmount = MathF.PI / 16;
         }
     }
     public class CobaltNaginataThrow : SpearThrow

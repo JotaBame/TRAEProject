@@ -95,7 +95,7 @@ namespace TRAEProject.NewContent.Items.Accesories.ShadowflameCharm
                         float num3 = target.Center.Y - vector.Y;
                         num2 += (float)Main.rand.Next(-50, 51) * 0.1f;
                         num3 += (float)Main.rand.Next(-50, 51) * 0.1f;
-                        float num4 = (float)Math.Sqrt(num2 * num2 + num3 * num3);
+                        float num4 = MathF.Sqrt(num2 * num2 + num3 * num3);
                         num4 = 24f / num4;
                         num2 *= num4;
                         num3 *= num4;
@@ -121,7 +121,7 @@ namespace TRAEProject.NewContent.Items.Accesories.ShadowflameCharm
                         float num3 = target.Center.Y - vector.Y;
                         num2 += (float)Main.rand.Next(-50, 51) * 0.1f;
                         num3 += (float)Main.rand.Next(-50, 51) * 0.1f;
-                        float num4 = (float)Math.Sqrt(num2 * num2 + num3 * num3);
+                        float num4 = MathF.Sqrt(num2 * num2 + num3 * num3);
                         num4 = 24f / num4;
                         num2 *= num4;
                         num3 *= num4;
