@@ -16,6 +16,7 @@ namespace TRAEProject.Changes.NPCs.Boss
 {
     public static class RetPhase3
     {
+        static int tpAnimTime = 8;
         static int tpTime = 60;
         static int tpCount = 3;
         static int shotTime = 10;
@@ -37,13 +38,13 @@ namespace TRAEProject.Changes.NPCs.Boss
             int periodCount = (int)npc.ai[2] / periodTime;
             if(periodicTimer < tpCount * tpTime)
             {
-                if(periodicTimer % tpTime < 8)
+                if(periodicTimer % tpTime < tpAnimTime)
                 {
-                    npc.scale = ((periodicTimer % tpTime) / 8f);
+                    npc.scale = ((periodicTimer % tpTime) / (float)tpAnimTime);
                 }
-                else if(periodicTimer % tpTime > 32 && periodicTimer < (tpCount - 1) * tpTime)
+                else if(periodicTimer % tpTime > (tpTime - tpAnimTime) && periodicTimer < (tpCount - 1) * tpTime)
                 {
-                    npc.scale = (tpTime - (periodicTimer % tpTime)) / 8f;
+                    npc.scale = (tpTime - (periodicTimer % tpTime)) / (float)tpAnimTime;
                 }
                 else
                 {
@@ -89,7 +90,6 @@ namespace TRAEProject.Changes.NPCs.Boss
                     }
                 }
             }
-            
         }
         public static float RotateModifer(NPC npc)
         {
