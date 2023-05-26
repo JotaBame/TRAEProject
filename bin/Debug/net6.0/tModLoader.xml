@@ -7769,22 +7769,64 @@
             This attribute hints that changing the value of the annotated property or field will put the config in a state that requires a reload. An overridden ModConfig.NeedsReload can further validate if more complex logic is needed.
             </summary>
         </member>
-        <member name="T:Terraria.ModLoader.Config.LabelAttribute">
+        <member name="T:Terraria.ModLoader.Config.LabelKeyAttribute">
             <summary>
-            This attribute sets a label for the property, field, or class for use in the ModConfig UI.
-            Starting the label with $ means the label should be interpreted as a Localization key.
+            A label is the text shown to the user in the ModConfig UI. <br/>
+            This attribute sets a custom localization key for the label of the annotated property, field, or class. <br/>
+            The provided localization key must start with "$". <br/>
+            Without this attribute, the localization key "Mods.{ModName}.Configs.{ConfigName}.{MemberName}.Label" will be assumed for members of ModConfig classes. <br/>
+            Annotations on members of non-ModConfig classes need to supply a custom localization key using this attribute to be localized, otherwise they will appear as the member name directly. <br/>
+            If the translation value of a property or field that is an object is an empty string, the label of the class will be used instead. <br/>
+            Values can be interpolated into the resulting label text using <see cref="T:Terraria.ModLoader.Config.LabelArgsAttribute"/>. <br/>
             </summary>
         </member>
-        <member name="T:Terraria.ModLoader.Config.TooltipAttribute">
+        <member name="T:Terraria.ModLoader.Config.LabelArgsAttribute">
             <summary>
-            This attribute sets a hover tooltip for the annotated property or field to be shown in the ModConfig UI. This can be longer and more descriptive than Label.
-            Starting the tooltip with $ means the tooltip should be interpreted as a Localization key.
+            Use to provide values to be interpolated into the label of the annotated property or field.<br/>
+            string arguments starting with "$" are interpreted as localization keys.<br/>
+            Interpolating values can be useful for reusing common labels to keep localization files clean and organized.<br/>
+            For example, if a mod provides toggles for several features, a common label could be used for each with only the provided value being different.<br/>
+            The <see href="https://github.com/tModLoader/tModLoader/wiki/Localization#string-formatting">string formatting section of the Localization wiki page</see> explains this concept further.<br/>
+            <see href="https://github.com/tModLoader/tModLoader/wiki/Localization#scope-simplification">Scope simplification</see> can be used to shorten localization keys passed in.<br/>
+            </summary>
+        </member>
+        <member name="T:Terraria.ModLoader.Config.TooltipKeyAttribute">
+            <summary>
+            A tooltip is the text shown to the user in the ModConfig UI next to the cursor when they hover over the annotated member (property, field, or class). This can be longer and more descriptive than the Label. <br/>
+            This attribute sets a custom localization key for the tooltip of the annotated property, field, or class. <br/>
+            The provided localization key must start with "$". <br/>
+            Without this attribute, the localization key "Mods.{ModName}.Configs.{ConfigName}.{MemberName}.Tooltip" will be assumed for members of ModConfig classes. <br/>
+            Annotations on members of non-ModConfig classes need to supply a custom localization key using this attribute to be localized, no localization key is assumed.
+            If the translation value of a property or field that is an object is an empty string, the tooltip of the class will be used instead.
+            Passing in just "$" will result in no tooltip entry being added to the localization files.<br/>
+            Values can be interpolated into the resulting label text using <see cref="T:Terraria.ModLoader.Config.TooltipArgsAttribute"/>. <br/>
+            </summary>
+        </member>
+        <member name="T:Terraria.ModLoader.Config.TooltipArgsAttribute">
+            <summary>
+            Use to provide values to be interpolated into the tooltip of the annotated property or field.<br/>
+            string arguments starting with "$" are interpreted as localization keys.<br/>
+            Interpolating values can be useful for reusing common tooltips to keep localization files clean and organized.<br/>
+            For example, if a mod provides toggles for several features, a common tooltip could be used for each with only the provided value being different.<br/>
+            The <see href="https://github.com/tModLoader/tModLoader/wiki/Localization#string-formatting">string formatting section of the Localization wiki page</see> explains this concept further.<br/>
+            <see href="https://github.com/tModLoader/tModLoader/wiki/Localization#scope-simplification">Scope simplification</see> can be used to shorten localization keys passed in.<br/>
+            </summary>
+        </member>
+        <member name="T:Terraria.ModLoader.Config.ShowDespiteJsonIgnoreAttribute">
+            <summary>
+            This attribute indicates that the field or property should be shown in the ModConfig UI despite having a <see cref="T:Newtonsoft.Json.JsonIgnoreAttribute"/> annotation.
             </summary>
         </member>
         <member name="T:Terraria.ModLoader.Config.HeaderAttribute">
             <summary>
-            This attribute adds a label above this property or field in the ModConfig UI that acts as a header. Use this to delineate sections within your config.
-            Note that fields will be in order, and properties will be in order, but fields and properties will not be interleaved together in the source code order.
+            This attribute adds a label above this property or field in the ModConfig UI that acts as a header. Use this to delineate sections within your config. <br/>
+            Note that fields will be in order, and properties will be in order, but fields and properties will not be interleaved together in the source code order. <br/>
+            <br/>
+            Header accept either a translation key or an identifier. <br/>
+            To use a translation key, the value passed in must start with "$". <br/>
+            A value passed in that does not start with "$" is interpreted as an identifier. The identifier is used to construct the localization key "Mods.{ModName}.Configs.{ConfigName}.Headers.{Identifier}" <br/>
+            No spaces are allowed in translation keys, so avoid spaces <br/>
+            Annotations on members of non-ModConfig classes need to supply a localization key using this attribute to be localized, no localization key can be correctly assumed using just an identifier. <br/>
             </summary>
         </member>
         <member name="T:Terraria.ModLoader.Config.CustomModConfigItemAttribute">
@@ -20240,6 +20282,12 @@
             The final scale of the item, after the Titan Glove effect and all modded calculations.
             </returns>
         </member>
+        <member name="M:Terraria.Player.UpdateMaxTurrets">
+            <summary>
+            Kills <see cref="F:Terraria.Projectile.sentry"/> projectiles exceeding the players current <see cref="F:Terraria.Player.maxTurrets"/>. The oldest projectiles, determined by <see cref="F:Terraria.Projectile.timeLeft"/>, are killed. <br/>
+            Call this method immediately after spawning a <see cref="F:Terraria.Projectile.sentry"/> projectile.<br/>
+            </summary>
+        </member>
         <member name="M:Terraria.Player.HasAmmo(Terraria.Item)">
             <summary>
             Whether or not the player has ammunition available for the given weapon.
@@ -21045,6 +21093,14 @@
             <br/> <see href="https://github.com/tModLoader/tModLoader/blob/1.4.4/ExampleMod/Content/Projectiles/ExampleBullet.cs">ExampleBullet</see> sets this to 255, and the projectile aiStyle of <see cref="F:Terraria.ID.ProjAIStyleID.Arrow"/> automatically decreases alpha each tick, letting the projectile fade in quickly after being spawned. Useful for projectiles that look odd when initially spawned on the weapon because of texture overlap.
             <br/> The <see href="https://github.com/tModLoader/tModLoader/wiki/Basic-Projectile#fade-inout">Basic Projectile Guide</see> teaches more about projectile fade in and out.
             <br/> Defaults to 0.
+            </summary>
+        </member>
+        <member name="F:Terraria.Projectile.sentry">
+            <summary>
+            Indicates that this projectile is a sentry
+            <br/> Defaults to <see langword="false"/>.
+            <br/> All sentries should set <see cref="F:Terraria.Projectile.timeLeft"/> to <see cref="F:Terraria.Projectile.SentryLifeTime"/>.
+            <br/> When a sentry is spawned, <see cref="M:Terraria.Player.UpdateMaxTurrets"/> should be called immediately after.
             </summary>
         </member>
         <member name="F:Terraria.Projectile.owner">

@@ -58,8 +58,8 @@ namespace TRAEProject.NewContent.Items.FlamethrowerAmmo
             dustID = DustID.HeatRay;
             scalemodifier = 0.67f;
 
-            ColorMiddle = new Color(222, 83, 43, 100);
-            ColorBack = new Color(250, 247, 86, 100);
+            ColorMiddle = new Color(222, 83, 43, 150);
+            ColorBack = new Color(250, 247, 86, 150);
             ColorLerp = Color.Lerp(ColorMiddle, ColorBack, 0.25f);
             ColorSmoke = new Color(150, 55, 27, 100);
             dustScale = 0.67f; 
