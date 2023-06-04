@@ -78,7 +78,7 @@ namespace TRAEProject.NewContent.SummonReforges
         {
             if(projectile.DamageType == DamageClass.Summon)
             {
-
+                //check player held item type and if so set the modifiers
             }
         }
 
@@ -91,6 +91,7 @@ namespace TRAEProject.NewContent.SummonReforges
                     prefixAttackRate = Main.MouseWorld.X - Main.player[projectile.owner].Center.X > 0 ? 1 : 1.9f;
                     prefixAttackVelocity = Main.MouseWorld.X - Main.player[projectile.owner].Center.X > 0 ? 1 : 3f;
                     prefixMoveSpeed = Main.MouseWorld.X - Main.player[projectile.owner].Center.X > 0 ? 1 : 3;
+                    prefixMoveAcceleration = Main.MouseWorld.X - Main.player[projectile.owner].Center.X > 0 ? 1 : 3;
                     AI_062(projectile);
                     return false;
                 case ProjectileID.MiniSharkron:
@@ -98,7 +99,7 @@ namespace TRAEProject.NewContent.SummonReforges
                     projectile.velocity = projectile.velocity.ToRotation().AngleTowards(targetAngle, 0.01f).ToRotationVector2() * projectile.velocity.Length();
                     return true;
             }
-            return base.PreAI(projectile);
+            return true;
         }
         public override bool InstancePerEntity => true;
         float prefixAttackRate = 1;
@@ -109,7 +110,7 @@ namespace TRAEProject.NewContent.SummonReforges
         //TODO: MAKE THESE ACCOUNT FOR PLAYER EQUIPMENT AND BUFFS(which currently exist none of so this is why they are like this
         float GetInertia() 
         {
-            return 1 / prefixMoveAcceleration;
+            return 1 / MathHelper.Clamp(prefixMoveAcceleration, float.Epsilon, float.MaxValue);
         }
         float GetMoveSpeed()
         {
@@ -133,8 +134,8 @@ namespace TRAEProject.NewContent.SummonReforges
         }
 		private void AI_062(Projectile projectile)
         {
-            //Main.NewText($"ai0:{projectile.ai[0]}, ai1:{projectile.ai[1]}, ai2:{projectile.ai[2]}", Main.hslToRgb((float)Main.timeForVisualEffects / 10 % 1, 1, 0.65f));
-            //Main.NewText($"localai0:{projectile.localAI[0]}, localai1:{projectile.localAI[1]}, localai2:{projectile.localAI[2]}", Main.hslToRgb((float)Main.timeForVisualEffects / 10 % 1, 1, 0.65f));
+            Main.NewText($"ai0:{projectile.ai[0]}, ai1:{projectile.ai[1]}, ai2:{projectile.ai[2]}", Main.hslToRgb((float)Main.timeForVisualEffects / 10 % 1, 1, 0.65f));
+            Main.NewText($"localai0:{projectile.localAI[0]}, localai1:{projectile.localAI[1]}, localai2:{projectile.localAI[2]}", Main.hslToRgb((float)Main.timeForVisualEffects / 10 % 1, 1, 0.65f));
             #region AnnoyingRefVars
             //can't be bothered to do it for the rest
             ref int spriteDirection = ref projectile.spriteDirection;
@@ -156,13 +157,13 @@ namespace TRAEProject.NewContent.SummonReforges
             float anotherAbigailSpeedThing = 0f;
             float abigailSpeedThing = 0f;
             float abigailInertia = 20f;
-            float num4 = 40f;
+            float resetAttackThreshHold = 40f;
             float abigailVelMultWHileAttacking = 0.69f;
             if (projectile.type == ProjectileID.UFOMinion)
             {
-                num4 = 5f;
+                resetAttackThreshHold = 5f;
             }
-            SustainTimeLeftWhilePlayerIsAliveAndAlsoSomeOtherAbigailThingsIdk(ref projectile, ref projoriginalDamage, ref projlocalAI, ref anotherAbigailSpeedThing, ref abigailSpeedThing, ref abigailInertia, ref num4, ref abigailVelMultWHileAttacking);
+            SustainTimeLeftWhilePlayerIsAliveAndAlsoSomeOtherAbigailThingsIdk(ref projectile, ref projoriginalDamage, ref projlocalAI, ref anotherAbigailSpeedThing, ref abigailSpeedThing, ref abigailInertia, ref resetAttackThreshHold, ref abigailVelMultWHileAttacking);
             bool shouldReturn = UFOTeleportDustEffectAndUpdateTeleportTimer(ref projectile) || StardustCellTeleport(ref projectile);
             if (shouldReturn)//workaround for having to put the teleports into methods
                 return;
@@ -225,13 +226,13 @@ namespace TRAEProject.NewContent.SummonReforges
                 ai[0] += 1f;
                 if (isAbigailMinion)
                 {
-                    projlocalAI[1] = ai[0] / num4;
+                    projlocalAI[1] = ai[0] / resetAttackThreshHold;
                 }
                 if (!hasTarget)
                 {
                     ai[0] += 1f;
                 }
-                if (ai[0] > num4)
+                if (ai[0] > resetAttackThreshHold * (1 / GetAttackRate()))
                 {
                     ai[0] = 0f;
                     netUpdate = true;
@@ -240,9 +241,9 @@ namespace TRAEProject.NewContent.SummonReforges
                         ai[0] = 2f;
                     }
                 }
-                projectile.velocity *= abigailVelMultWHileAttacking;
+                //projectile.velocity *= abigailVelMultWHileAttacking;
             }
-            else if (hasTarget && (isUFOOrTempestMinion || ai[0] == 0f))
+            if ((hasTarget && (isUFOOrTempestMinion || ai[0] == 0f) && ai[0] < 2f) || (hasTarget && isAbigailMinion))
             {
                 
                 Vector2 toTargetNormalized = targetNPCPosition - projectile.Center;
@@ -259,8 +260,7 @@ namespace TRAEProject.NewContent.SummonReforges
                 {
                     if (distToTarget > 400f)
                     {
-                        float maxSpeed = 10;//base move speed is 10, idk if this is move speed 
-                        maxSpeed *= GetMoveSpeed();
+                        float maxSpeed = 3 * GetMoveSpeed();//base move speed is 3, idk if this is move speed 
                         toTargetNormalized *= maxSpeed;
                         float inertia = GetInertia() * 20;//base is 20 idk if this is acceleration
                         projectile.velocity = (projectile.velocity * inertia + toTargetNormalized) / (inertia + 1);
@@ -277,19 +277,30 @@ namespace TRAEProject.NewContent.SummonReforges
                     float inertia = abigailInertia * 2f * GetInertia();
                     projectile.velocity = (projectile.velocity * inertia + toTargetNormalized) / (inertia + 1f);
                 }
-                else if (projectile.type == ProjectileID.AbigailMinion)
+                else if (projectile.type == ProjectileID.AbigailMinion )
                 {
-                    if (distToTarget < 50f)
+                    if (distToTarget < 10f)
                     {
+
                         //projectile.velocity *= 0.5f;//THIS MADE ABIGAIL FREEZE WHEN ATTACKING
-                        ai[0] = 2f;
-                        netUpdate = true;
+                        if (ai[0] < 2f)
+                        {
+                            ai[0] = 2f;
+                            netUpdate = true;
+                        }
                     }
                     else
                     {
-                        float finalAbigailMaxSpeed = 4f + abigailSpeedThing * anotherAbigailSpeedThing;
+                        float finalAbigailMaxSpeed = 8f + abigailSpeedThing * anotherAbigailSpeedThing;
                         toTargetNormalized *= finalAbigailMaxSpeed * GetMoveSpeed();
                         projectile.velocity = (projectile.velocity * abigailInertia + toTargetNormalized) / (abigailInertia + 1f);
+                    }
+                    Rectangle hitboxToCheck = Main.npc[targetIndex].Hitbox;
+                    hitboxToCheck.Inflate(Main.npc[targetIndex].width/2, Main.npc[targetIndex].Hitbox.Height/2);//deflate actually
+                    //if (projectile.Hitbox.Intersects(hitboxToCheck))
+                    {
+                        
+                        projectile.velocity.MoveTowards(Main.npc[targetIndex].velocity * projectile.Center.Distance(Main.npc[targetIndex].Hitbox.ClosestPointInRect(projectile.Center)), 1);
                     }
                 }
                 else if (projectile.type == ProjectileID.UFOMinion || projectile.type == ProjectileID.StardustCellMinion)
@@ -495,7 +506,6 @@ namespace TRAEProject.NewContent.SummonReforges
                 StardustCellShootProjectile(targetNPCPosition, ref projectile, projTypeToShoot, shotVelLength, targetIndex);
             else if (ai[1] == 0f)
                 HornetTempestImpShootProjectile(ref projectile, targetNPCPosition, shotVelLength, projTypeToShoot, targetIndex);
-            Main.NewText(projectile.velocity.Length());
         }
 
         private void AbigailHornetImpFindTarget(Projectile projectile, ref Vector2 targetNPCPosition, ref float aggroRangeAndAlsoDistToTarget, ref bool hasTarget, ref int targetIndex)

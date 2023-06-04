@@ -507,6 +507,13 @@
     </VariousTextOptionsSummary>
             </summary>
         </member>
+        <member name="T:Terraria.DataStructures.AEntitySource_Tile">
+            <summary>
+            Abstract base class for entities which come from a tile. <br/><br/>
+            
+            If the entity comes from a Player/NPC/Projectile, and a tile is only incidentally involved, consider making your own subclass of <see cref="T:Terraria.DataStructures.EntitySource_Parent"/> instead
+            </summary>
+        </member>
         <member name="T:Terraria.DataStructures.BossBarDrawParams">
             <summary>
             Holds data required for boss bar drawing.
@@ -608,56 +615,277 @@
             Color used to draw the buff. Use Main.buffAlpha[buffIndex] accordingly if you change it.
             </summary>
         </member>
-        <member name="T:Terraria.DataStructures.EntitySource_CatchEntity">
+        <member name="T:Terraria.DataStructures.EntitySource_BossSpawn">
             <summary>
-            Used for when NPCs or other entities are caught by things like bug nets.
+            Used for most vanilla bosses, conveys their initial target, which is normally the closest player.
             </summary>
         </member>
-        <member name="F:Terraria.DataStructures.EntitySource_CatchEntity.Entity">
+        <member name="P:Terraria.DataStructures.EntitySource_BossSpawn.Target">
             <summary>
-            The entity which performed the act of catching the <see cref="F:Terraria.DataStructures.EntitySource_CatchEntity.CaughtEntity"/>.<br></br>
-            In the vast majority of cases, this will be a <see cref="T:Terraria.Player"/>.
+            The entity which this boss spawn on. <br/><br/>
+            In the vast majority of cases, this will be a <see cref="T:Terraria.Player"/>. Often <see cref="F:Terraria.NPC.target"/> will be set to <c>Player.whoAmI</c>
             </summary>
         </member>
-        <member name="F:Terraria.DataStructures.EntitySource_CatchEntity.CaughtEntity">
+        <member name="T:Terraria.DataStructures.EntitySource_Buff">
+             <summary>
+             Intended for mods to use when spawning projectiles periodically from buffs. <br/><br/>
+            
+             Note that this can be used for both NPCs and Players
+             </summary>
+        </member>
+        <member name="P:Terraria.DataStructures.EntitySource_Buff.BuffId">
             <summary>
-            The entity which was caught by the <see cref="F:Terraria.DataStructures.EntitySource_CatchEntity.Entity"/>.<br></br>
-            In the vast majority of cases, this will be an <see cref="T:Terraria.NPC"/>.
+            The type of the buff (<see cref="T:Terraria.ID.BuffID"/> or <see cref="M:Terraria.ModLoader.ModContent.BuffType``1"/>)
             </summary>
         </member>
-        <member name="T:Terraria.DataStructures.EntitySource_HitEffect">
+        <member name="P:Terraria.DataStructures.EntitySource_Buff.BuffIndex">
             <summary>
-            Added by TML.
-            <br/> To be used in not always authoritative contexts, like <see cref="M:Terraria.NPC.HitEffect(System.Int32,System.Double,System.Nullable{System.Boolean})"/>'s,
-            <br/> where the method may be called from a network packet, and not everything about the entity hit can be retrieved.
+            The index of the buff in the entity's <c>buffType</c> and <c>buffTime</c> arrays.
             </summary>
         </member>
-        <member name="M:Terraria.DataStructures.EntitySource_HitEffect.#ctor(Terraria.Entity,System.String)">
+        <member name="T:Terraria.DataStructures.EntitySource_Caught">
             <summary>
-            Added by TML.
-            <br/> To be used in not always authoritative contexts, like <see cref="M:Terraria.NPC.HitEffect(System.Int32,System.Double,System.Nullable{System.Boolean})"/>'s,
-            <br/> where the method may be called from a network packet, and not everything about the entity hit can be retrieved.
+            Used when NPCs or other entities are caught by things like bug nets. Normally converting the caught entity into an item.
+            </summary>
+        </member>
+        <member name="P:Terraria.DataStructures.EntitySource_Caught.Catcher">
+            <summary>
+            The entity which performed the act of catching.<br/><br/>
+            In vanilla, this is a <see cref="T:Terraria.Player"/>.
+            </summary>
+        </member>
+        <member name="T:Terraria.DataStructures.EntitySource_Death">
+            <summary>
+            Used when dropping coins and items when a player dies. <br/>
+            Recommended for use by mods when spawning gore.
+            </summary>
+        </member>
+        <member name="T:Terraria.DataStructures.EntitySource_DropAsItem">
+            <summary>
+            Used when projectiles convert themselves to items in the world as a result of hitting a block.
+            </summary>
+        </member>
+        <member name="T:Terraria.DataStructures.EntitySource_FishedOut">
+            <summary>
+            Used when an NPC spawns as a result of fishing.
+            </summary>
+        </member>
+        <member name="P:Terraria.DataStructures.EntitySource_FishedOut.Fisher">
+            <summary>
+            The entity which was fishing. Normally a <see cref="T:Terraria.Player"/>
+            </summary>
+        </member>
+        <member name="T:Terraria.DataStructures.EntitySource_Gift">
+            <summary>
+            Used when NPCs or pets/minions give gifts or rewards to a player.
+            </summary>
+        </member>
+        <member name="T:Terraria.DataStructures.EntitySource_ItemOpen">
+            <summary>
+            Used when opening bags or gifts. Passed to <see cref="M:Terraria.Player.QuickSpawnItem(Terraria.DataStructures.IEntitySource,Terraria.Item,System.Int32)"/>
+            </summary>
+        </member>
+        <member name="P:Terraria.DataStructures.EntitySource_ItemOpen.Player">
+            <summary>
+            The player opening the item
+            </summary>
+        </member>
+        <member name="P:Terraria.DataStructures.EntitySource_ItemOpen.ItemType">
+            <summary>
+            The type of item being opened
+            </summary>
+        </member>
+        <member name="T:Terraria.DataStructures.IEntitySource_WithStatsFromItem">
+            <summary>
+            Used along with <see cref="T:Terraria.DataStructures.EntitySource_Parent"/> to indicate that stats from the item should be transferred to spawned entities. <br/>
+            When used to spawn projectiles, a snapshot of the Player and Item stats will be stored on the projectile. See <see cref="M:Terraria.Projectile.ApplyStatsFromSource(Terraria.DataStructures.IEntitySource)"/> for implementation
+            </summary>
+        </member>
+        <member name="P:Terraria.DataStructures.IEntitySource_WithStatsFromItem.Player">
+            <summary>
+            The Player using the Item. Equal to <see cref="P:Terraria.DataStructures.EntitySource_Parent.Entity"/>
+            </summary>
+        </member>
+        <member name="P:Terraria.DataStructures.IEntitySource_WithStatsFromItem.Item">
+            <summary>
+            The item being used
+            </summary>
+        </member>
+        <member name="T:Terraria.DataStructures.EntitySource_ItemUse">
+            <summary>
+            Use the interface, <see cref="T:Terraria.DataStructures.IEntitySource_WithStatsFromItem"/> instead when checking entity sources in <c>OnSpawn</c> <br/><br/>
+            
+            Used when a player uses an item or an accessory.
+            </summary>
+        </member>
+        <member name="T:Terraria.DataStructures.EntitySource_ItemUse_OnHurt">
+             <summary>
+             Combination of <see cref="T:Terraria.DataStructures.IEntitySource_OnHurt"/> and <see cref="T:Terraria.DataStructures.IEntitySource_WithStatsFromItem"/> <br/><br/>
+            
+             Used for on-hurt accessories in vanilla (Star Cloak, Brain of Confusion etc). <br/>
+             Modders should be aware that it is <b>not</b> necessary to use this instead of <see cref="T:Terraria.DataStructures.EntitySource_OnHurt"/> <br/>
+             The combination with <see cref="T:Terraria.DataStructures.IEntitySource_WithStatsFromItem"/> will only have an effect if the item has damage/crit/armor pen stats which vanilla accessories do not <br/>
+             Some mods may wish to transfer other accessory bonuses from the item to spawned projectiles.
+             </summary>
+        </member>
+        <member name="P:Terraria.DataStructures.EntitySource_ItemUse_WithAmmo.AmmoItemIdUsed">
+            <summary>
+            A <see cref="T:Terraria.ID.ItemID"/> or <see cref="M:Terraria.ModLoader.ModContent.ItemType``1"/>
+            </summary>
+        </member>
+        <member name="T:Terraria.DataStructures.EntitySource_Loot">
+            <summary>
+            Used when an NPC or Projectile is killed and drops loot. <br/>
+            Vanilla projectile examples are geodes and life crystal boulders
             </summary>
         </member>
         <member name="T:Terraria.DataStructures.EntitySource_Misc">
             <summary>
-            To be used in cases where no entity is present.<para/>
-            <b>NOTE:</b> Unlike most other entity sources, this one requires <b>context</b> to be specified.
+            To be used in cases where no entity is present. See <see cref="T:Terraria.ID.ItemSourceID"/> and <see cref="T:Terraria.ID.ProjectileSourceID"/> for vanilla values<para/>
+            <b>NOTE:</b> Unlike most other entity sources, this one requires <see cref="P:Terraria.DataStructures.EntitySource_Misc.Context"/> to be specified.
+            </summary>
+        </member>
+        <member name="T:Terraria.DataStructures.EntitySource_Mount">
+            <summary>
+            Used for a effects from a mounted player
+            </summary>
+        </member>
+        <member name="P:Terraria.DataStructures.EntitySource_Mount.MountId">
+            <summary>
+            A <see cref="T:Terraria.ID.MountID"/> or <see cref="M:Terraria.ModLoader.ModContent.MountType``1"/>
+            </summary>
+        </member>
+        <member name="T:Terraria.DataStructures.IEntitySource_OnHit">
+            <summary>
+            Used along with <see cref="T:Terraria.DataStructures.EntitySource_Parent"/>. The <see cref="P:Terraria.DataStructures.IEntitySource_OnHit.Attacker"/> is also the <see cref="P:Terraria.DataStructures.EntitySource_Parent.Entity"/> (owner of the effect)
+            </summary>
+        </member>
+        <member name="P:Terraria.DataStructures.IEntitySource_OnHit.Attacker">
+            <summary>
+            The attacking entity. Note that this may be a <see cref="T:Terraria.Projectile"/> (possibly owned by a player), a <see cref="T:Terraria.Player"/> or even a <see cref="T:Terraria.NPC"/>
+            </summary>
+        </member>
+        <member name="P:Terraria.DataStructures.IEntitySource_OnHit.Victim">
+            <summary>
+            The entity being attacked. Normally an NPC, but could be an Player if a mod decides to use this source in such a way
+            </summary>
+        </member>
+        <member name="T:Terraria.DataStructures.EntitySource_OnHit">
+             <summary>
+             Use the interface, <see cref="T:Terraria.DataStructures.IEntitySource_OnHit"/> instead when checking entity sources in <c>OnSpawn</c> <br/><br/>
+            
+             Recommend setting <see cref="P:Terraria.DataStructures.IEntitySource.Context"/> to indicate the effect. Many vanilla set bonuses or accessories use this source.
+             </summary>
+        </member>
+        <member name="T:Terraria.DataStructures.IEntitySource_OnHurt">
+            <summary>
+            Used along with <see cref="T:Terraria.DataStructures.EntitySource_Parent"/>. The <see cref="P:Terraria.DataStructures.IEntitySource_OnHurt.Victim"/> is also the <see cref="P:Terraria.DataStructures.EntitySource_Parent.Entity"/> (owner of the effect)
+            </summary>
+        </member>
+        <member name="P:Terraria.DataStructures.IEntitySource_OnHurt.Attacker">
+            <summary>
+            The attacking entity. Note that this may be a <see cref="T:Terraria.Projectile"/> (possibly owned by a player), a <see cref="T:Terraria.Player"/> or even a <see cref="T:Terraria.NPC"/>
+            </summary>
+        </member>
+        <member name="P:Terraria.DataStructures.IEntitySource_OnHurt.Victim">
+            <summary>
+            The entity being attacked. Nnormally a Player, but could be an NPC if a mod decides to use this source in such a way
+            </summary>
+        </member>
+        <member name="T:Terraria.DataStructures.EntitySource_OnHurt">
+            <summary>
+            Use the interface, <see cref="T:Terraria.DataStructures.IEntitySource_OnHurt"/> instead when checking entity sources in <c>OnSpawn</c> <br/><br/>
+            
+            Recommend setting <see cref="P:Terraria.DataStructures.IEntitySource.Context"/> to indicate the effect.
+            </summary>
+        </member>
+        <member name="T:Terraria.DataStructures.EntitySource_OverfullChest">
+            <summary>
+            Used when attempting to add an item to a chest, but the chest is full so it spills into the world. <br/>
+            Only vanilla use is the gas trap.
+            </summary>
+        </member>
+        <member name="T:Terraria.DataStructures.EntitySource_OverfullInventory">
+            <summary>
+            Used when attempting to add an item to the player's inventory, but it cannot fit so it spawns in the world instead. <br/>
+            Used in vanilla when a fished item can't fit in the player's inventory.
+            </summary>
+        </member>
+        <member name="T:Terraria.DataStructures.EntitySource_Parent">
+            <summary>
+            Use when the parent can be considered the 'owner' or 'responsible for' the effect. <br/>
+            This is the <b>most important</b> entity source. If in doubt, use it.
+            </summary>
+        </member>
+        <member name="P:Terraria.DataStructures.EntitySource_Parent.Entity">
+            <summary>
+            The entity which is the source of the effect or action.
+            In many cases, it makes sense to consider buffs or effects applied to the parent entity, and make changes to the spawned entity.
+            </summary>
+        </member>
+        <member name="T:Terraria.DataStructures.EntitySource_RevengeSystem">
+            <summary>
+            Used when an NPC is respawned from the <see cref="T:Terraria.GameContent.CoinLossRevengeSystem"/>
+            </summary>
+        </member>
+        <member name="T:Terraria.DataStructures.EntitySource_ShakeTree">
+            <summary>
+            Used when items/bomb projectiles/npcs fall out of trees being cut down
+            </summary>
+        </member>
+        <member name="T:Terraria.DataStructures.EntitySource_SpawnNPC">
+            <summary>
+            Used when an NPC is spawned from <see cref="M:Terraria.NPC.SpawnNPC"/> as part of natural biome/event based spawning. <br/><br/>
+            Note that some bosses incorrectly use this source to spawn minions, and remix world pots use it to spawn slimes. (to be fixed in 1.4.5)
+            </summary>
+        </member>
+        <member name="T:Terraria.DataStructures.EntitySource_Sync">
+            <summary>
+            Used when an <see cref="T:Terraria.Item"/> is spawned on the server as a result of <see cref="F:Terraria.ID.MessageID.SyncItemCannotBeTakenByEnemies"/> <br/>
+            Only used by vanilla for lucky coin. Note that the item is spawned client-side with <see cref="P:Terraria.DataStructures.IEntitySource.Context"/> = <see cref="F:Terraria.ID.ItemSourceID.LuckyCoin"/>
+            </summary>
+        </member>
+        <member name="T:Terraria.DataStructures.EntitySource_TileBreak">
+            <summary>
+            Used when a tile or wall is broken
+            </summary>
+        </member>
+        <member name="T:Terraria.DataStructures.EntitySource_TileEntity">
+            <summary>
+            Used by vanilla for training dummies
+            </summary>
+        </member>
+        <member name="T:Terraria.DataStructures.EntitySource_TileInteraction">
+            <summary>
+            Used when an entity interacts with a tile. <br/>
+            Used by vanilla when players activate mechanisms like cannons and fireworks
+            </summary>
+        </member>
+        <member name="P:Terraria.DataStructures.EntitySource_TileInteraction.Entity">
+            <summary>
+            The entity interacting with the tile. <br/>
+            Normally a <see cref="T:Terraria.Player"/>
             </summary>
         </member>
         <member name="T:Terraria.DataStructures.EntitySource_TileUpdate">
             <summary>
-            Added by TML. Derives from <see cref="T:Terraria.DataStructures.AEntitySource_Tile"/>.
+            Intended for mods to use when a tile spawns an entity due to periodic/random updating, rather than in response to a specific trigger.
             </summary>
         </member>
-        <member name="T:Terraria.DataStructures.EntitySource_TorchGod">
+        <member name="T:Terraria.DataStructures.EntitySource_Wiring">
             <summary>
-            Added by TML. Used during TorchGod-related projectile and item spawning.
+            Used when wiring activates an effect like a cannon or fireworks
             </summary>
         </member>
-        <member name="M:Terraria.DataStructures.EntitySource_TorchGod.#ctor(Terraria.Entity,System.String)">
+        <member name="T:Terraria.DataStructures.EntitySource_WorldEvent">
             <summary>
-            Added by TML. Used during TorchGod-related projectile and item spawning.
+            Inconsistently used by vanilla when spawning more exotic things like the lunatic pillars, cultist ritual, fairies etc. <br/>
+            Don't expect this to distinguish between NPCs spawned due to an event/invasion. Most of those use <see cref="T:Terraria.DataStructures.EntitySource_SpawnNPC"/>
+            </summary>
+        </member>
+        <member name="T:Terraria.DataStructures.EntitySource_WorldGen">
+            <summary>
+            Used when spawning Town NPCs during world generation
             </summary>
         </member>
         <member name="F:Terraria.DataStructures.FishingAttempt.X">
@@ -807,6 +1035,11 @@
             <summary>
             This object encapsulates context information about the source of a particular spawning event of an Item/Projectile/NPC/etc. Aids in facilitating many modding situations and used in various OnSpawn hooks.<br/>
             The <see href="https://github.com/tModLoader/tModLoader/wiki/IEntitySource">IEntitySource Guide</see> teaches how and why to use this.
+            </summary>
+        </member>
+        <member name="P:Terraria.DataStructures.IEntitySource.Context">
+            <summary>
+            Additional context identifier, particularly useful for set bonuses or accessory affects. See <see cref="T:Terraria.ID.ItemSourceID"/> and <see cref="T:Terraria.ID.ProjectileSourceID"/> for vanilla uses
             </summary>
         </member>
         <member name="T:Terraria.DataStructures.BuyItemCreationContext">
@@ -1499,6 +1732,39 @@
             Locks the vanilla scrollbar for the upcoming cycle when called. Autoclears in Player.
             Takes a string to denote that your UI has registered to lock vanilla scrolling. String does not need to be unique.
             </summary>
+        </member>
+        <member name="M:Terraria.Gore.NewGorePerfect(Terraria.DataStructures.IEntitySource,Microsoft.Xna.Framework.Vector2,Microsoft.Xna.Framework.Vector2,System.Int32,System.Single)">
+            <summary>
+            Spawns a gore with an exact position and velocity, no randomization
+            </summary>
+            <param name="source">Recommend using <see cref="M:Terraria.Entity.GetSource_Death(System.String)"/> or <see cref="M:Terraria.Entity.GetSource_FromThis(System.String)"/>" as the spawn source</param>
+            <param name="Position"></param>
+            <param name="Velocity"></param>
+            <param name="Type"></param>
+            <param name="Scale"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Terraria.Gore.NewGoreDirect(Terraria.DataStructures.IEntitySource,Microsoft.Xna.Framework.Vector2,Microsoft.Xna.Framework.Vector2,System.Int32,System.Single)">
+            <summary>
+            Spawns a gore with given properties
+            </summary>
+            <param name="source">Recommend using <see cref="M:Terraria.Entity.GetSource_Death(System.String)"/> or <see cref="M:Terraria.Entity.GetSource_FromThis(System.String)"/>" as the spawn source</param>
+            <param name="Position"></param>
+            <param name="Velocity"></param>
+            <param name="Type"></param>
+            <param name="Scale"></param>
+            <returns>A reference to the gore</returns>
+        </member>
+        <member name="M:Terraria.Gore.NewGore(Terraria.DataStructures.IEntitySource,Microsoft.Xna.Framework.Vector2,Microsoft.Xna.Framework.Vector2,System.Int32,System.Single)">
+            <summary>
+            Spawns a gore with given properties
+            </summary>
+            <param name="source">Recommend using <see cref="M:Terraria.Entity.GetSource_Death(System.String)"/> or <see cref="M:Terraria.Entity.GetSource_FromThis(System.String)"/>" as the spawn source</param>
+            <param name="Position"></param>
+            <param name="Velocity"></param>
+            <param name="Type"></param>
+            <param name="Scale"></param>
+            <returns>The index of the gore in the <see cref="F:Terraria.Main.gore"/> array</returns>
         </member>
         <member name="T:Terraria.ID.AmmoID">
             <summary>
@@ -10881,7 +11147,16 @@
             </summary>
             <param name="shop">A <seealso cref="T:Terraria.ModLoader.NPCShop"/> instance.</param>
         </member>
-        <!-- Badly formed XML comment ignored for member "M:Terraria.ModLoader.GlobalNPC.ModifyActiveShop(Terraria.NPC,System.String,Terraria.Item[])" -->
+        <member name="M:Terraria.ModLoader.GlobalNPC.ModifyActiveShop(Terraria.NPC,System.String,Terraria.Item[])">
+            <summary>
+            Allows you to modify the contents of a shop whenever player opens it. <br/>
+            If possible, use <see cref="M:Terraria.ModLoader.GlobalNPC.ModifyShop(Terraria.ModLoader.NPCShop)"/> instead, to reduce mod conflicts and improve compatibility.
+            Note that for special shops like travelling merchant, the <paramref name="shopName"/> may not correspond to a <see cref="T:Terraria.ModLoader.NPCShop"/> in the <see cref="T:Terraria.ModLoader.NPCShopDatabase"/>
+            </summary>
+            <param name="npc">An instance of <seealso cref="T:Terraria.NPC"/> that currently player talks to.</param>
+            <param name="shopName">The full name of the shop being opened. See <see cref="M:Terraria.ModLoader.NPCShopDatabase.GetShopName(System.Int32,System.String)"/> for the format. </param>
+            <param name="items">Items in the shop including 'air' items in empty slots.</param>
+        </member>
         <member name="M:Terraria.ModLoader.GlobalNPC.SetupTravelShop(System.Int32[],System.Int32@)">
             <summary>
             Allows you to add items to the traveling merchant's shop. Add an item by setting shop[nextSlot] to the ID of the item you are adding then incrementing nextSlot. In the end, nextSlot must have a value of 1 greater than the highest index in shop that represents an item ID. If you want to remove an item, you will have to be familiar with programming.
@@ -11617,7 +11892,11 @@
             <param name="tileTypeBeingPlaced"></param>
             <returns></returns>
         </member>
-        <!-- Badly formed XML comment ignored for member "M:Terraria.ModLoader.GlobalTile.PostSetupTileMerge" -->
+        <member name="M:Terraria.ModLoader.GlobalTile.PostSetupTileMerge">
+            <summary>
+            Can be used to adjust tile merge related things that are not possible to do in <see cref="M:Terraria.ModLoader.ModBlockType.SetStaticDefaults"/> due to timing.
+            </summary>
+        </member>
         <member name="P:Terraria.ModLoader.GlobalType`1.StaticIndex">
             <summary>
             Index of this global in the list of all globals of the same type, in registration order
@@ -19491,19 +19770,22 @@
         </member>
         <member name="M:Terraria.NPC.NewNPC(Terraria.DataStructures.IEntitySource,System.Int32,System.Int32,System.Int32,System.Int32,System.Single,System.Single,System.Single,System.Single,System.Int32)">
             <summary>
-            Spawns an NPC into the game world with the given type. This method should not be called on multiplayer clients. The X and Y parameters dictate the centered spawn position. ai0, ai1, ai2, and ai3 will initialize the NPC.ai[] array with the supplied values. This can be used to pass in information to the NPC. The NPC AI code will have to be written to utilize those values. Target can be set to a Player.whoAmI to have the NPC targetting a specific Player immediately on spawn. Start can be used to ensure that an NPC spawns in a slot after an existing NPC. This can be used to ensure that the spawned NPC draws behind an existing NPC. This is useful for bosses that spawn minions. The return value is the index of the spawned NPC within the <see cref="F:Terraria.Main.npc"/> array.
+            Spawns an NPC into the game world with the given type. <br/>
+            This method should not be called on multiplayer clients. <br/>
+            The X and Y parameters dictate the centered spawn position. <br/>
+            <c>>ai0, ai1, ai2, ai3</c> will initialize the NPC.ai[] array with the supplied values. This can be used to pass in information to the NPC. The NPC AI code will have to be written to utilize those values. <br/>
             </summary>
             <param name="source"></param>
             <param name="X"></param>
             <param name="Y"></param>
-            <param name="Type">Either an <see cref="T:Terraria.ID.NPCID"/> entry or <see cref="M:Terraria.ModLoader.ModContent.NPCType``1"/>, for example <see cref="F:Terraria.ID.NPCID.BabySlime"/> or ModContent.NPCType&lt;MyModNPC&gt;()</param>
-            <param name="Start"></param>
+            <param name="Type">Either an <see cref="T:Terraria.ID.NPCID"/> entry or <see cref="M:Terraria.ModLoader.ModContent.NPCType``1"/>, for example <see cref="F:Terraria.ID.NPCID.BabySlime"/> or <c>ModContent.NPCType&lt;MyModNPC&gt;()</c></param>
+            <param name="Start">The lowest slot in which this NPC can spawn. This can be used to ensure that the spawned NPC draws behind an existing NPC. This is useful for bosses that spawn minions. </param>
             <param name="ai0"></param>
             <param name="ai1"></param>
             <param name="ai2"></param>
             <param name="ai3"></param>
-            <param name="Target"></param>
-            <returns></returns>
+            <param name="Target">Optionally, provide a <c>Player.whoAmI</c> to set <see cref="F:Terraria.NPC.target"/> to a specific Player immediately on spawn.</param>
+            <returns>The index of the spawned NPC within the <see cref="F:Terraria.Main.npc"/> array</returns>
         </member>
         <member name="M:Terraria.NPC.GetIncomingStrikeModifiers(Terraria.ModLoader.DamageClass,System.Int32,System.Boolean)">
             <summary>
@@ -21536,11 +21818,35 @@
             On spawn, if this projectile was fired from a weapon, this value has the total critical strike chance of the weapon that made the projectile added to itself.
             </summary>
         </member>
-        <member name="P:Terraria.Projectile.ContinuouslyUpdateDamage">
+        <member name="P:Terraria.Projectile.OriginalCritChance">
             <summary>
-            If set, Projectile.damage will be recalculated based on Projectile.originalDamage, Projectile.DamageType and the owning player, just like minions and sentries.
-            This has no effect if Projectile.minion or Projectile.sentry is set.
+            The crit chance of this projectile, without any player bonuses, similar to <see cref="F:Terraria.Projectile.originalDamage"/><br/>
+            Used by <see cref="P:Terraria.Projectile.ContinuouslyUpdateDamageStats"/> to recalculate <see cref="P:Terraria.Projectile.CritChance"/> in combination with <see cref="M:Terraria.Player.GetTotalCritChance(Terraria.ModLoader.DamageClass)"/>
             </summary>
+        </member>
+        <member name="P:Terraria.Projectile.OriginalArmorPenetration">
+            <summary>
+            The crit chance of this projectile, without any player bonuses, similar to <see cref="F:Terraria.Projectile.originalDamage"/><br/>
+            Used by <see cref="P:Terraria.Projectile.ContinuouslyUpdateDamageStats"/> to recalculate <see cref="P:Terraria.Projectile.ArmorPenetration"/> in combination with <see cref="M:Terraria.Player.GetTotalArmorPenetration(Terraria.ModLoader.DamageClass)"/>
+            </summary>
+        </member>
+        <member name="P:Terraria.Projectile.ContinuouslyUpdateDamageStats">
+            <summary>
+            If set <see cref="F:Terraria.Projectile.damage"/> will be recalculated based on <see cref="F:Terraria.Projectile.originalDamage"/>, <see cref="P:Terraria.Projectile.DamageType"/> and the <see cref="F:Terraria.Projectile.owner"/> player, just like minions and sentries. <br/>
+            Similarly for <see cref="P:Terraria.Projectile.CritChance"/> and <see cref="P:Terraria.Projectile.ArmorPenetration"/>.
+            
+            No need to set this if <see cref="F:Terraria.Projectile.minion"/> or <see cref="F:Terraria.Projectile.sentry"/> is set.
+            </summary>
+        </member>
+        <member name="M:Terraria.Projectile.ApplyStatsFromSource(Terraria.DataStructures.IEntitySource)">
+            <summary>
+            Transfers stat modifiers from the spawn source to the projectile. <br/>
+            Adds <see cref="P:Terraria.Projectile.CritChance"/> and <see cref="P:Terraria.Projectile.ArmorPenetration"/> bonuses from players (<see cref="T:Terraria.DataStructures.EntitySource_Parent"/>), weapons (<see cref="T:Terraria.DataStructures.EntitySource_ItemUse"/>)<br/>
+            If the source is a <see cref="T:Terraria.DataStructures.EntitySource_Parent"/> projectile, <c>CritChance</c> and <c>ArmorPenetration</c> from the parent will be added, in order to transfer the original item/player bonus values.<br/><br/>
+            <br/>
+            To support minions, sentries and <see cref="P:Terraria.Projectile.ContinuouslyUpdateDamageStats"/>, <see cref="P:Terraria.Projectile.OriginalCritChance"/> and <see cref="P:Terraria.Projectile.OriginalArmorPenetration"/> are also copied from item sources and parent projectiles.
+            </summary>
+            <param name="spawnSource"></param>
         </member>
         <member name="M:Terraria.Projectile.DropGeodeLoot(Terraria.Entity)">
             <summary>
