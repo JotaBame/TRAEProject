@@ -199,7 +199,7 @@ namespace TRAEProject.Changes.Weapon.Summon.Minions
                 case ProjectileID.SoulscourgePirate:
                     return Pirate.AI(projectile);
                 case ProjectileID.Tempest:
-                    Tempest.AI(projectile);
+                    //Tempest.AI(projectile);
                     return false;
                 case ProjectileID.VampireFrog:
                     //Main.NewText(projectile.ai[0] + ", " + projectile.ai[1] + ", " + projectile.localAI[0] + ", " + projectile.localAI[1]);

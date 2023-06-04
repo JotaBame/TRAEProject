@@ -30,11 +30,11 @@ namespace TRAEProject.Changes.Weapon.Summon.Minions
             float disturbanceVelocity = 0.1f;
             float disturbanceDistance = projectile.width;
             disturbanceDistance *= 2f;
-            for (int m = 0; m < 1000; m++)
+            for (int i = 0; i < 1000; i++)
             {
-                if (m != projectile.whoAmI && Main.projectile[m].active && Main.projectile[m].owner == projectile.owner && Main.projectile[m].type == projectile.type && Math.Abs(projectile.position.X - Main.projectile[m].position.X) + Math.Abs(projectile.position.Y - Main.projectile[m].position.Y) < disturbanceDistance)
+                if (i != projectile.whoAmI && Main.projectile[i].active && Main.projectile[i].owner == projectile.owner && Main.projectile[i].type == projectile.type && Math.Abs(projectile.position.X - Main.projectile[i].position.X) + Math.Abs(projectile.position.Y - Main.projectile[i].position.Y) < disturbanceDistance)
                 {
-                    if (projectile.position.X < Main.projectile[m].position.X)
+                    if (projectile.position.X < Main.projectile[i].position.X)
                     {
                         projectile.velocity.X -= disturbanceVelocity;
                     }
@@ -42,7 +42,7 @@ namespace TRAEProject.Changes.Weapon.Summon.Minions
                     {
                         projectile.velocity.X += disturbanceVelocity;
                     }
-                    if (projectile.position.Y < Main.projectile[m].position.Y)
+                    if (projectile.position.Y < Main.projectile[i].position.Y)
                     {
                         projectile.velocity.Y -= disturbanceVelocity;
                     }

@@ -7185,6 +7185,81 @@
             <br/> <b>NOTE:</b> The accessed values are stored per item type, not per item instance. You're recommended to only use the setter in load-time hooks, like <see cref="M:Terraria.ModLoader.ModType.SetStaticDefaults"/>.
             </summary>
         </member>
+        <member name="M:Terraria.Lang.CreateDialogFilter(System.String,System.Object)">
+            <summary>
+            Filters LocalizedText objects by checking if their key starts with the provided <paramref name="startsWith"/> parameter and if the conditions embedded into the LocalizedText are all satisfied by the data in <paramref name="substitutions"/>. See <see cref="M:Terraria.Localization.LocalizedText.CanFormatWith(System.Object)"/> for more information about conditions embedded in localization text. <br/><br/>
+            When passed into <see cref="M:Terraria.Localization.Language.FindAll(Terraria.Localization.LanguageSearchFilter)"/>, all LocalizedText with keys starting with <paramref name="startsWith"/> that satisfy <paramref name="substitutions"/> will be returned. When passed into <see cref="M:Terraria.Localization.Language.SelectRandom(Terraria.Localization.LanguageSearchFilter,Terraria.Utilities.UnifiedRandom)"/>, a single random LocalizedText with key starting with <paramref name="startsWith"/> that satisfies <paramref name="substitutions"/> will be returned.<br/><br/>
+            </summary>
+            <param name="startsWith"></param>
+            <param name="substitutions"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Terraria.Lang.CreateDialogFilter(System.String)">
+            <summary>
+            Filters LocalizedText objects by checking if their key starts with the provided <paramref name="startsWith"/> parameter.<br/><br/>
+            When passed into <see cref="M:Terraria.Localization.Language.FindAll(Terraria.Localization.LanguageSearchFilter)"/>, all LocalizedText with keys starting with <paramref name="startsWith"/> will be returned. When passed into <see cref="M:Terraria.Localization.Language.SelectRandom(Terraria.Localization.LanguageSearchFilter,Terraria.Utilities.UnifiedRandom)"/>, a single random LocalizedText with key starting with <paramref name="startsWith"/> will be returned.<br/><br/>
+            </summary>
+            <param name="startsWith"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Terraria.Localization.Language">
+            <summary>
+            Contains methods to access or retrieve localization values. The <see href="https://github.com/tModLoader/tModLoader/wiki/Localization">Localization Guide</see> teaches more about localization.
+            </summary>
+        </member>
+        <member name="M:Terraria.Localization.Language.GetText(System.String)">
+            <summary>
+            Retrieves a LocalizedText object for a specified localization key. The actual text value can be retrieved from LocalizedText by accessing the <see cref="P:Terraria.Localization.LocalizedText.Value"/> property or by using the <see cref="M:Terraria.Localization.Language.GetTextValue(System.String)"/> method directly.<br/><br/>
+            Using LocalizedText instead of string is prefered when the value is stored. If the user switches languages or if resource packs or mods change text, the LocalizedText will automatically receive the new value. In turn, mods using those LocalizedText will also start displaying the updated values.<br/><br/>
+            
+            </summary>
+            <param name="key"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Terraria.Localization.Language.GetTextValue(System.String)">
+            <summary>
+            Retrieves the text value for a specified localization key. The text returned will be for the currently selected language.
+            </summary>
+            <param name="key"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Terraria.Localization.Language.GetTextValue(System.String,System.Object)">
+            <inheritdoc cref="M:Terraria.Localization.LocalizedText.Format(System.Object[])"/>
+        </member>
+        <member name="M:Terraria.Localization.Language.GetTextValue(System.String,System.Object,System.Object)">
+            <inheritdoc cref="M:Terraria.Localization.LocalizedText.Format(System.Object[])"/>
+        </member>
+        <member name="M:Terraria.Localization.Language.GetTextValue(System.String,System.Object,System.Object,System.Object)">
+            <inheritdoc cref="M:Terraria.Localization.LocalizedText.Format(System.Object[])"/>
+        </member>
+        <member name="M:Terraria.Localization.Language.GetTextValue(System.String,System.Object[])">
+            <inheritdoc cref="M:Terraria.Localization.LocalizedText.Format(System.Object[])"/>
+        </member>
+        <member name="M:Terraria.Localization.Language.GetTextValueWith(System.String,System.Object)">
+            <inheritdoc cref="M:Terraria.Localization.LocalizedText.FormatWith(System.Object)"/>
+        </member>
+        <member name="M:Terraria.Localization.Language.Exists(System.String)">
+            <summary>
+            Checks if a LocalizedText with the provided key has been registered or not. This can be used to avoid retrieving dummy values from <see cref="M:Terraria.Localization.Language.GetText(System.String)"/> and <see cref="M:Terraria.Localization.Language.GetTextValue(System.String)"/> and instead load a fallback value or do other logic. If the key should be created if it doesn't exist, <see cref="M:Terraria.Localization.Language.GetOrRegister(System.String,System.Func{System.String})"/> can be used instead.
+            </summary>
+            <param name="key"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Terraria.Localization.Language.FindAll(Terraria.Localization.LanguageSearchFilter)">
+            <summary>
+            Finds all LocalizedText that satisfy the <paramref name="filter"/> parameter. Typically used with <see cref="M:Terraria.Lang.CreateDialogFilter(System.String)"/> or <see cref="M:Terraria.Lang.CreateDialogFilter(System.String,System.Object)"/> as the <paramref name="filter"/> argument to find all LocalizedText that have a specific key prefix and satisfy provided conditions.
+            </summary>
+            <param name="filter"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Terraria.Localization.Language.SelectRandom(Terraria.Localization.LanguageSearchFilter,Terraria.Utilities.UnifiedRandom)">
+            <summary>
+            Selects a single random LocalizedText that satisfies the <paramref name="filter"/> parameter. Typically used with <see cref="M:Terraria.Lang.CreateDialogFilter(System.String)"/> or <see cref="M:Terraria.Lang.CreateDialogFilter(System.String,System.Object)"/> as the <paramref name="filter"/> argument to find a random LocalizedText that has a specific key prefix and satisfies the provided conditions.
+            </summary>
+            <param name="filter"></param>
+            <param name="random"></param>
+            <returns></returns>
+        </member>
         <member name="M:Terraria.Localization.Language.GetOrRegister(System.String,System.Func{System.String})">
             <summary>
             Returns a LocalizedText for a given key.
@@ -7192,6 +7267,43 @@
             </summary>
             <param name="key">The localization key</param>
             <param name="makeDefaultValue">A factory method for creating the default value, used to update localization files with missing entries</param>
+            <returns></returns>
+        </member>
+        <member name="T:Terraria.Localization.LocalizedText">
+            <summary>
+            Contains the localization value corresponding to a key for the current game language. Automatically updates as language, mods, and resource packs change. The <see href="https://github.com/tModLoader/tModLoader/wiki/Localization">Localization Guide</see> teaches more about localization.
+            </summary>
+        </member>
+        <member name="P:Terraria.Localization.LocalizedText.Value">
+            <summary>
+            Retrieves the text value. This is the actual text the user should see.
+            </summary>
+        </member>
+        <member name="M:Terraria.Localization.LocalizedText.FormatWith(System.Object)">
+            <summary>
+            Creates a string from this LocalizedText populated with data from the provided <paramref name="obj"/> parameter. The properties of the provided object are substituted by name into the placeholders of the original text. For example, when used with <see cref="M:Terraria.Lang.CreateDialogSubstitutionObject(Terraria.NPC)"/>, the text "{Nurse}" will be replaced with the first name of the Nurse in the world. Modded substitutions are not currently supported. <br/><br/>
+            When used in conjuction with <see cref="M:Terraria.Localization.Language.SelectRandom(Terraria.Localization.LanguageSearchFilter,Terraria.Utilities.UnifiedRandom)"/> and <see cref="M:Terraria.Lang.CreateDialogFilter(System.String,System.Object)"/>, simple boolean conditions expressed in each LocalizedText can be used to filter a collection of LocalizedText.  <br/><br/>
+            <see cref="M:Terraria.Localization.LocalizedText.Format(System.Object[])"/> is more commonly used to format LocalizedText placeholders. That method replaces placeholders such as "{0}", "{1}", etc with the string representation of the corresponding objects provided.
+            </summary>
+            <param name="obj"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Terraria.Localization.LocalizedText.CanFormatWith(System.Object)">
+            <summary>
+            Checks if the conditions embedded in this LocalizedText are satisfied by the <paramref name="obj"/> argument.
+            For example when used with <see cref="M:Terraria.Lang.CreateDialogSubstitutionObject(Terraria.NPC)"/> as the <paramref name="obj"/> argument, "{?Rain}" at the start of a LocalizedText value will cause false to be returned if it is not raining. "{?!Rain}" would do the opposite. If all conditions are satisfied, true is returned.<br/>
+            The method is typically used indirectly by using <see cref="M:Terraria.Lang.CreateDialogFilter(System.String,System.Object)"/>.
+            </summary>
+            <param name="obj"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Terraria.Localization.LocalizedText.Format(System.Object[])">
+            <summary>
+            Creates a string from this LocalizedText populated with data from the provided <paramref name="args"/> arguments. Formats the string in the same manner as <see href="https://learn.microsoft.com/en-us/dotnet/api/system.string.format?view=net-6.0">string.Format</see>. Placeholders such as "{0}", "{1}", etc will be replaced with the string representation of the corresponding objects provided.<br/>
+            Additionally, pluralization is supported as well. The <see href="https://github.com/tModLoader/tModLoader/wiki/Contributing-Localization#placeholders">Contributing Localization Guide</see> teaches more about placeholders and plural support.
+            
+            </summary>
+            <param name="args"></param>
             <returns></returns>
         </member>
         <member name="M:Terraria.Localization.LocalizedText.WithFormatArgs(System.Object[])">
@@ -12410,7 +12522,8 @@
         </member>
         <member name="M:Terraria.ModLoader.Mod.Load">
             <summary>
-            Override this method to add most of your content to your mod. Here you will call other methods such as AddItem. This is guaranteed to be called after all content has been autoloaded.
+            Override this method to run code after all content has been autoloaded. Here additional content can be manually loaded and Mod-wide tasks and setup can be done. For organization, it may be more suitable to split some things into various <see cref="M:Terraria.ModLoader.ModType.Load"/> methods, such as in <see cref="T:Terraria.ModLoader.ModSystem"/> classes, instead of doing everything here. <br/>
+            Beware that mod content has not finished loading here, things like ModContent lookup tables or ID Sets are not fully populated. Use <see cref="M:Terraria.ModLoader.Mod.PostSetupContent"/> for any logic that needs to act on all content being fully loaded.
             </summary>
         </member>
         <member name="M:Terraria.ModLoader.Mod.PostSetupContent">
@@ -18570,7 +18683,7 @@
         </member>
         <member name="T:Terraria.ModLoader.RecipeLoader">
             <summary>
-            This is where all Recipe and GlobalRecipe hooks are gathered and called.
+            This is where all Recipe hooks are gathered and called.
             </summary>
         </member>
         <member name="F:Terraria.ModLoader.RecipeLoader.ConsumedItems">
@@ -21595,7 +21708,7 @@
         </member>
         <member name="M:Terraria.Recipe.ApplyConditionsAsDecraftConditions">
             <summary>
-            Adds every condition from Recipie.Condtions to Recipie.DecraftContions, checking for duplicates.
+            Adds every condition from Recipe.Condtions to Recipe.DecraftContions, checking for duplicates.
             </summary>
         </member>
         <member name="M:Terraria.Recipe.DisableDecraft">
