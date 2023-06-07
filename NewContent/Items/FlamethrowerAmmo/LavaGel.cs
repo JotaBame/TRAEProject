@@ -51,10 +51,10 @@ namespace TRAEProject.NewContent.Items.FlamethrowerAmmo
         public override string Texture => "Terraria/Images/Item_0";
         public override void FlamethrowerDefaults()
         {
-            ColorMiddle = new Color(255, 50, 50, 200);
-            ColorBack = new Color(240, 170, 23, 200);
+            ColorMiddle = new Color(255, 50, 50, 150);
+            ColorBack = new Color(240, 170, 23, 150);
             ColorLerp = Color.Lerp(ColorMiddle, ColorBack, 0.25f);
-            ColorSmoke = new Color(65, 65, 65, 100);
+            ColorSmoke = new Color(65, 65, 65, 75);
             dustID = DustID.RedTorch;
             dustScale = 0.8f;
             Projectile.ArmorPenetration = 3;
