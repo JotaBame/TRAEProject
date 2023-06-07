@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
+using TRAEProject.NewContent.Items.Materials;
 
 namespace TRAEProject.Changes.Recipes
 {
@@ -92,6 +93,19 @@ namespace TRAEProject.Changes.Recipes
             TentacleSpike.AddIngredient(ItemID.Leather, 2);
             TentacleSpike.AddTile(TileID.Anvils);
             TentacleSpike.Register();
+
+            Recipe Yelets = Recipe.Create(ItemID.Yelets, 1);
+            Yelets.AddIngredient(ItemID.ChlorophyteBar, 12);
+            Yelets.AddTile(TileID.MythrilAnvil);
+            Yelets.Register();
+
+            Recipe HelFire = Recipe.Create(ItemID.HelFire, 1);
+            HelFire.AddIngredient(ModContent.ItemType<DriedRose>(), 3);
+            HelFire.AddIngredient(ModContent.ItemType<MagicalAsh>(), 3);
+            HelFire.AddIngredient(ModContent.ItemType<ObsidianScale>(), 3);
+            HelFire.AddIngredient(ModContent.ItemType<SalamanderTail>(), 3);
+            HelFire.AddTile(TileID.MythrilAnvil);
+            HelFire.Register();
         }
         public static void Modify(Recipe recipe)
         {

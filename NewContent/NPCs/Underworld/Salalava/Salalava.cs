@@ -69,6 +69,7 @@ namespace TRAEProject.NewContent.NPCs.Underworld.Salalava
         {
             npcLoot.Add(ItemDropRule.Common(ItemType<SalamanderTail>(), 1));
             npcLoot.Add(ItemDropRule.Common(ItemID.Hotdog, 33));
+            npcLoot.Add(ItemDropRule.Common(ItemID.HelFire, 10));
         }
 
         float jump = 0;

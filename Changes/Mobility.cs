@@ -366,7 +366,7 @@ namespace TRAEProject
                     Projectile.NewProjectile(Player.GetSource_ItemUse(Player.HeldItem), Player.Center, Vector2.UnitY * 2, ProjectileID.OrnamentFriendly, 50, 0, Player.whoAmI, -1);
                 }
             }
-            if (Player.slowFall || Player.GetModPlayer<TRAEProject.NewContent.Items.Accesories.ExtraJumps.TRAEJumps>().isBoosting)
+            if (Player.GetModPlayer<TRAEProject.NewContent.Items.Accesories.ExtraJumps.TRAEJumps>().isBoosting)
             {
                 Player.gravControl = false;
                 Player.gravControl2 = false;
@@ -387,7 +387,7 @@ namespace TRAEProject
 
             if(ankletAcc)
             {
-                Player.runAcceleration *= 1.75f;
+                Player.runAcceleration *= 2.5f;
             }
 
             if (Player.wingsLogic == 30 && Player.TryingToHoverDown) // vortex booster

@@ -137,11 +137,12 @@ namespace TRAEProject.Changes.Projectiles
                     projectile.GetGlobalProjectile<ProjectileStats>().DamageFalloff = 0.25f;
                     return;
                 case ProjectileID.MechanicalPiranha:
-                    projectile.ContinuouslyUpdateDamage = true;
+
+                    //projectile.ContinuouslyUpdateDamageStats = true;
                     break;
-                //case ProjectileID.VenomBullet:
-                //    projectile.ArmorPenetration = 10;
-                //    break;
+                case ProjectileID.VenomBullet:
+                    projectile.ArmorPenetration = 10;
+                    break;
             }
         }
         public override bool TileCollideStyle(Projectile projectile, ref int width, ref int height, ref bool fallThrough, ref Vector2 hitboxCenterFrac)

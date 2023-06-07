@@ -15,6 +15,7 @@ using TRAEProject.NewContent.Items.Weapons.Ammo;
 using TRAEProject.NewContent.Items.Weapons.HeadHarvester;
 using TRAEProject.NewContent.Items.Weapons.SharpLament;
 using TRAEProject.NewContent.Items.Accesories.ExtraJumps;
+using TRAEProject.NewContent.NPCs.Underworld;
 
 namespace TRAEProject.Changes.NPCs
 {
@@ -26,7 +27,19 @@ namespace TRAEProject.Changes.NPCs
       
         public override void ModifyNPCLoot(NPC npc, NPCLoot npcLoot)
         {
-
+            npcLoot.RemoveWhere(rule =>
+            {
+                if (rule is not CommonDrop drop) // Type of drop you expect here
+                    return false;
+                return drop.itemId == ItemID.Yelets; 
+            });
+            npcLoot.RemoveWhere(rule =>
+            {
+                if (rule is not CommonDrop drop) // Type of drop you expect here
+                    return false;
+                return drop.itemId == ItemID.HelFire; 
+            });
+            
             switch (npc.type)
             {
                 case NPCID.DD2DarkMageT1:

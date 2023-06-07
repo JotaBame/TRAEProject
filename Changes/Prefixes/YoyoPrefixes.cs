@@ -314,8 +314,8 @@ namespace TRAEProject.Changes.Prefixes
 				{
 					num7 = num7 * 1.25f + 30f;
 				}
-				num7 /= (1f + Main.player[projectile.owner].GetAttackSpeed(DamageClass.Melee) * 3f) / 4f;
-				num8 /= (1f + Main.player[projectile.owner].GetAttackSpeed(DamageClass.Melee) * 3f) / 4f;
+				num7 *= (1f + Main.player[projectile.owner].GetAttackSpeed(DamageClass.Melee) * 3f) / 4f;
+				num8 *= (1f + Main.player[projectile.owner].GetAttackSpeed(DamageClass.Melee) * 3f) / 4f;
 				float num11 = 14f - num8 / 2f;
 				if (num11 < 1f)
 				{

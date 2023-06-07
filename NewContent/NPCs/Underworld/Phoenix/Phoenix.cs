@@ -355,6 +355,7 @@ namespace TRAEProject.NewContent.NPCs.Underworld.Phoenix
 			npcLoot.Add(ItemDropRule.Common(ItemID.ChickenNugget, 5));
 			npcLoot.Add(ItemDropRule.Common(ItemID.FireFeather, 10));
 			npcLoot.Add(ItemDropRule.Common(ItemType<MagicalAsh>(), 1, 1, 2));
+            npcLoot.Add(ItemDropRule.Common(ItemID.HelFire, 10));
 		}
         public override void HitEffect(NPC.HitInfo hit)
 		{

@@ -13,7 +13,6 @@ using Microsoft.Xna.Framework.Graphics;
 using System;
 using Terraria.GameContent;
 using TRAEProject.Changes.Weapons.Ranged;
-using System.Collections.Generic;
 
 namespace TRAEProject.NewContent.Items.FlamethrowerAmmo
 {
@@ -41,15 +40,16 @@ namespace TRAEProject.NewContent.Items.FlamethrowerAmmo
         {
 
         }
-        protected Color ColorMiddle = new Color(255, 80, 20, 75);
-        protected Color ColorBack = new Color(255, 255, 20, 75);
-        protected Color ColorLerp = Color.Lerp(new Color(80, 255, 20, 75), new Color(255, 255, 20, 70), 0.25f);
-        protected Color ColorSmoke = new Color(80, 80, 80, 75);
+        protected Color ColorMiddle = new Color(255, 80, 20, 200);
+        protected Color ColorBack = new Color(255, 255, 20, 70);
+        protected Color ColorLerp = Color.Lerp(new Color(80, 255, 20, 100), new Color(255, 255, 20, 70), 0.25f);
+        protected Color ColorSmoke = new Color(80, 80, 80, 100);
         protected short dustID = DustID.Torch;
         protected float dustScale = 1;
         protected bool dieInWater = false;
         protected float scalemodifier = 1f;
         protected float dustAmount = 0.25f;
+
         public override bool PreDraw(ref Color lightColor)
         {
             Color[] palette = new Color[] { ColorMiddle, ColorBack, ColorLerp, ColorSmoke };
@@ -209,7 +209,6 @@ namespace TRAEProject.NewContent.Items.FlamethrowerAmmo
                 dust.velocity *= 1.2f;
                 dust.velocity += Projectile.velocity * 1f * Utils.Remap(Projectile.localAI[0], 0f, timeBeforeItSlowsDown * 0.75f, 1f, 0.1f) * Utils.Remap(Projectile.localAI[0], 0f, (float)timeBeforeItSlowsDown * 0.1f, 0.1f, 1f);
                 dust.customData = 1;
-
             }
             if (dustTimer > 0 && Projectile.localAI[0] >= dustTimer && Main.rand.NextFloat() < dustAmount)
             {
@@ -225,7 +224,6 @@ namespace TRAEProject.NewContent.Items.FlamethrowerAmmo
         }
         public override void ModifyDamageHitbox(ref Rectangle hitbox)
         {
-
             int num = (int)(Utils.Remap(Projectile.localAI[0], 0f, 72f, 10f, 40f) * scalemodifier);
             hitbox.Inflate(num, num);
         }

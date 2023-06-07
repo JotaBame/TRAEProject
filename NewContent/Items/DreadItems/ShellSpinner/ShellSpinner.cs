@@ -26,7 +26,8 @@ namespace TRAEProject.NewContent.Items.DreadItems.ShellSpinner
         {
             Item.width = 38;
             Item.height = 32;
-            Item.damage = 106;
+            Item.damage = 110;
+            Item.crit = 15;
             Item.useTime = Item.useAnimation = 30;
             Item.autoReuse = true;
             Item.rare = ItemRarityID.LightPurple;
@@ -34,7 +35,7 @@ namespace TRAEProject.NewContent.Items.DreadItems.ShellSpinner
             Item.DamageType = DamageClass.Melee;
             Item.shoot = ProjectileType<ShellSpinnerP>();
             Item.knockBack = 2f;
-            Item.shootSpeed = 10;
+            Item.shootSpeed = 16;
             Item.noMelee = true;
             Item.noUseGraphic = true;
             Item.useStyle = 1;
@@ -56,7 +57,7 @@ namespace TRAEProject.NewContent.Items.DreadItems.ShellSpinner
         private float speed;
         private float maxSpeed;
         private bool runOnce = true;
-        private float decceleration = 1f / 4f;
+        private float decceleration = 1f / 3f;
         private int spinDirection;
         private bool returnToPlayer;
 

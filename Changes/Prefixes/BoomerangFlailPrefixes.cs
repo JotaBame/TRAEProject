@@ -236,19 +236,19 @@ namespace TRAEProject.Changes.Prefixes
                         int pre = Player.HeldItem.prefix;
                         if (pre == PrefixType<Kinetic>() || pre == PrefixType<Aerodynamic>())
                         {
-                            Player.GetAttackSpeed(DamageClass.Melee) *= 1.35f;
+                            Player.GetAttackSpeed(DamageClass.Melee) /= 1.35f;
                         }
                         if (pre == PrefixType<Devastating>() || pre == PrefixType<Enchanted>())
                         {
-                            Player.GetAttackSpeed(DamageClass.Melee) *= 1.2f;
+                            Player.GetAttackSpeed(DamageClass.Melee) /= 1.2f;
                         }
                         if (pre == PrefixType<Brutal>())
                         {
-                            Player.GetAttackSpeed(DamageClass.Melee) *= 1.1f;
+                            Player.GetAttackSpeed(DamageClass.Melee) /= 1.1f;
                         }
                         if (pre == PrefixType<Dense>() || pre == PrefixType<Pathetic>())
                         {
-                            Player.GetAttackSpeed(DamageClass.Melee) *= 0.65f;
+                            Player.GetAttackSpeed(DamageClass.Melee) /= 0.65f;
                         }
                         break;
                 }

@@ -119,6 +119,21 @@ namespace TRAEProject.Changes.Weapon.Melee
                     item.autoReuse = true;
                     item.useTurn = false;
                     break;
+                case ItemID.ChlorophyteSaber:
+                    //item.damage = 50;
+                    item.useTime = 20;
+                    item.useAnimation = 20;
+                    item.shootsEveryUse = true;
+                    item.noMelee = true;
+                    item.useTurn = false;
+                    item.shoot = ProjectileType<SaberAura>();
+                    break;
+                case ItemID.ChlorophyteClaymore:
+                    aura = ProjectileType<ClaymoreAura>();
+                    item.noMelee = true;
+                    item.useTurn = false;
+                    item.useTime = 30;
+                    break;
                 case ItemID.Seedler:
                     item.useTime = 27;
                     item.useAnimation = 27;
@@ -181,6 +196,14 @@ namespace TRAEProject.Changes.Weapon.Melee
                     return;
                 case 3063: // meowmere
                     return;
+
+
+                case ItemID.EnchantedSword:
+                    aura = ModContent.ProjectileType<EnchantedAura>();
+                    item.damage = 24;
+                    item.useAnimation = 18;
+                    item.noMelee = true;
+                    break;
      
 
             }
@@ -223,6 +246,7 @@ namespace TRAEProject.Changes.Weapon.Melee
                 case ItemID.FetidBaghnakhs:
                 case ItemID.PsychoKnife:
                 case ItemID.PearlwoodSword:
+                case ItemID.ChlorophyteSaber:
 
                     if (player.whoAmI == Main.myPlayer)
                     {
@@ -292,7 +316,10 @@ namespace TRAEProject.Changes.Weapon.Melee
             }    
         }
 
-
+        public override void OnHitNPC(Item item, Player player, NPC target, NPC.HitInfo hit, int damageDone)
+        {
+            
+        }
         public override void HoldItem(Item item, Player player)
         {
             switch (item.type)

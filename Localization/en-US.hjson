@@ -255,7 +255,10 @@ Mods: {
 			BloodFlameP.DisplayName: Blood Flame P
 			CrystalGelSplitPink.DisplayName: Crystal Gel Split Pink
 			CrystalGelSplitPurple.DisplayName: Crystal Gel Split Purple
-			BezierCurveProjThing.DisplayName: Bezier Curve Proj Thing
+			HelAura.DisplayName: Hel Aura
+			SaberAura.DisplayName: Saber Aura
+			ClaymoreAura.DisplayName: Claymore Aura
+			EnchantedAura.DisplayName: Enchanted Aura
 		}
 
 		Prefixes: {
@@ -1507,11 +1510,6 @@ Mods: {
 					Greatly increases jump speed and fall resistance
 					Allows auto-jump and reducing gravity
 					'''
-			}
-
-			StarfuryTempleTestItem: {
-				DisplayName: Starfury Temple Test Item
-				Tooltip: ""
 			}
 		}
 

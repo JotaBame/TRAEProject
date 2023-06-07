@@ -140,7 +140,7 @@ namespace TRAEProject.Changes.Weapon.Melee
                     item.useAnimation = 24;
                     item.shoot = 0;
                     item.useTurn = false;
- item.shootSpeed = 11f;
+                    item.shootSpeed = 11f;
                     break;
                    
 

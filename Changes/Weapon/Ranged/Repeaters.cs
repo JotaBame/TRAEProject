@@ -39,8 +39,8 @@ namespace TRAEProject.Changes.Weapon.Ranged
                     item.SetNameOverride("Mythril Ballista");
                     break;
                 case ItemID.OrichalcumRepeater:
-                    item.damage = 29;
-                    item.useTime = item.useAnimation = 24;
+                    item.damage = 36;
+                    item.useTime = item.useAnimation = 19;
                     item.SetNameOverride("Orichalcum Crossbow");
                     break;
                 case ItemID.TitaniumRepeater:
@@ -51,6 +51,7 @@ namespace TRAEProject.Changes.Weapon.Ranged
                 case ItemID.HallowedRepeater:
                     item.damage = 53;
                     item.useTime = item.useAnimation = 16;
+                    item.SetNameOverride("Sharanga");
                     break;
                 case ItemID.ChlorophyteShotbow:
                     item.useTime = item.useAnimation = 24;

@@ -330,6 +330,7 @@ namespace ChangesWeapons.Changes
                 case ItemID.ReconScope:
                 case ItemID.MushroomSpear:
                 case ItemID.FrogGear:
+                case ItemID.HelFire:
                     item.rare = ItemRarityID.Yellow;
                     break;
                 case ItemID.BetsyWings:

@@ -69,6 +69,7 @@ namespace TRAEProject.NewContent.NPCs.Underworld.ObsidianBasilisk
         {
             npcLoot.Add(ItemDropRule.Common(ItemType<ObsidianScale>(), 1, 2, 3));
             npcLoot.Add(ItemDropRule.Common(ItemID.Spaghetti, 33));
+            npcLoot.Add(ItemDropRule.Common(ItemID.HelFire, 10));
         }
 
         public override void SetBestiary(BestiaryDatabase database, BestiaryEntry bestiaryEntry) {

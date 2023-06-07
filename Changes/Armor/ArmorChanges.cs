@@ -333,6 +333,7 @@ namespace ChangesArmor
                 player.setBonus = "Summons a powerful leaf crystal to shoot at nearby enemies";
                 player.endurance -= 0.05f;
             }
+            /*
             if (armorSet == "HallowedSetSummon")
             {
                 player.setBonus = "You gain immunity to the next attack after taking a hit\nIncreases your maximum number of minions by 2";
@@ -345,7 +346,7 @@ namespace ChangesArmor
                 player.GetModPlayer<SetBonuses>().HolyProtection = true;
                 player.onHitDodge = false;
             }
-
+            */
             if (armorSet == "PirateSet")
             {
                 player.setBonus = "All whips gain a stackable 2% minion crit tag";

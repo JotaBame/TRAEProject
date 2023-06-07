@@ -79,6 +79,7 @@ namespace TRAEProject.Common
             if (!item.IsAir)
             {
                 float bonusSize = 1f;
+                /*
                 switch (item.prefix)
                 {
                     case PrefixID.Large:
@@ -94,7 +95,8 @@ namespace TRAEProject.Common
                         bonusSize = (1.2f / 1.1f);
                         break;
                 }
-                projectile.scale = bonusSize * item.scale * (player.meleeScaleGlove ? 1.1f : 1f) * player.GetModPlayer<MeleeStats>().weaponSize;
+                */
+                projectile.scale = bonusSize * item.scale * (player.meleeScaleGlove ? 1.1f : 1f) ;
             }
         }
 

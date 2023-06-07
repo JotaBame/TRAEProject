@@ -16,6 +16,7 @@ using TRAEProject.NewContent.NPCs.Underworld.Phoenix;
 using TRAEProject.NewContent.NPCs.Underworld.Salalava;
 using static Terraria.GameContent.Bestiary.IL_BestiaryDatabaseNPCsPopulator.CommonTags.SpawnConditions;
 using Mono.CompilerServices.SymbolWriter;
+using Terraria.GameContent.Bestiary;
 
 namespace TRAEProject.Changes
 {
@@ -57,6 +58,14 @@ namespace TRAEProject.Changes
         }
         public override void ModifyShop(NPCShop shop)
         {
+            if(shop.NpcType == NPCID.BestiaryGirl)
+            {
+                BestiaryUnlockProgressReport bestiaryProgressReport = Main.GetBestiaryProgressReport();
+                if (bestiaryProgressReport.CompletionPercent < 0.6f)
+                {
+                    shop.Add(ItemID.DiggingMoleMinecart);
+                }
+            }
             if (shop.NpcType == NPCID.Wizard)
                 shop.Add(ItemID.FastClock);
             if (shop.NpcType == NPCID.ArmsDealer)

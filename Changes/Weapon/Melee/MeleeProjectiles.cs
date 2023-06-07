@@ -12,6 +12,11 @@ using TRAEProject.Common;
 using TRAEProject.Common.ModPlayers;
 using TRAEProject.NewContent.TRAEDebuffs;
 using TRAEProject.NewContent.NPCs;
+using Terraria.Net;
+using Terraria.Chat;
+using Terraria.DataStructures;
+using System.Collections.Generic;
+using Terraria.Localization;
 
 namespace TRAEProject.Changes.Weapon.Melee
 {
@@ -44,12 +49,21 @@ namespace TRAEProject.Changes.Weapon.Melee
             // Terrarian: -4f lifetime, 400f range, 17.5f top speed
             // 
             //
-            ProjectileID.Sets.YoyosMaximumRange[ProjectileID.Kraken] = 175f; // 
-            ProjectileID.Sets.YoyosLifeTimeMultiplier[ProjectileID.Kraken] = 6f;
-            ProjectileID.Sets.YoyosTopSpeed[ProjectileID.Kraken] = 6f;
+            ProjectileID.Sets.YoyosTopSpeed[ProjectileID.Chik] = 20f;
+            ProjectileID.Sets.YoyosMaximumRange[ProjectileID.Chik] = 300f;
+
+
+            ProjectileID.Sets.YoyosTopSpeed[ProjectileID.HelFire] = 20f;
+            ProjectileID.Sets.YoyosMaximumRange[ProjectileID.HelFire] = 370f;
+            ProjectileID.Sets.YoyosLifeTimeMultiplier[ProjectileID.HelFire] = -1f;
+
+            ProjectileID.Sets.YoyosMaximumRange[ProjectileID.TheEyeOfCthulhu] = 500f; // 
+
+            ProjectileID.Sets.YoyosMaximumRange[ProjectileID.Kraken] = 300f; //
+            ProjectileID.Sets.YoyosTopSpeed[ProjectileID.Kraken] = 28f;
+
             ProjectileID.Sets.YoyosLifeTimeMultiplier[ProjectileID.Code1] = -1f;
-            ProjectileID.Sets.YoyosLifeTimeMultiplier[ProjectileID.Chik] = 3f;
-            ProjectileID.Sets.YoyosMaximumRange[ProjectileID.Chik] = 220f;
+
             ProjectileID.Sets.YoyosMaximumRange[ProjectileID.HelFire] = 330f; // up from 275f
             //
             if (projectile.aiStyle == 99)
@@ -57,7 +71,10 @@ namespace TRAEProject.Changes.Weapon.Melee
                 projectile.usesIDStaticNPCImmunity = true;
                 projectile.idStaticNPCHitCooldown = 10;
             }
-            //
+            if(projectile.type == ProjectileID.Kraken)
+            {
+                projectile.idStaticNPCHitCooldown = 6;
+            }
             switch (projectile.type)
             {
  
@@ -95,7 +112,12 @@ namespace TRAEProject.Changes.Weapon.Melee
                     projectile.idStaticNPCHitCooldown = 10;
                     break;
                 case ProjectileID.ChlorophyteOrb: // Revisit
-                    projectile.penetrate = 6;
+                    projectile.penetrate = 5;
+                    projectile.usesLocalNPCImmunity = true;
+                    projectile.localNPCHitCooldown = 30;
+                    projectile.timeLeft = 4 * 60;
+                    //projectile.aiStyle = 32;
+                    
                     break;
                 case ProjectileID.PaladinsHammerFriendly:
                     projectile.tileCollide = false;
@@ -126,9 +148,173 @@ namespace TRAEProject.Changes.Weapon.Melee
 
             }
         }
+        public override bool OnTileCollide(Projectile projectile, Vector2 oldVelocity)
+        {
+            if(projectile.type == ProjectileID.ChlorophyteOrb)
+            {
+                /*
+                if (projectile.ai[1] > 10f) {
+                    NetworkText networkText = NetworkText.FromKey("Game.BallBounceResult", NetworkText.FromKey(Lang.GetProjectileName(projectile.type).Key), projectile.ai[1]);
+                    if (Main.netMode == 0)
+                        Main.NewText(networkText.ToString(), byte.MaxValue, 240, 20);
+                    else if (Main.netMode == 2)
+                        ChatHelper.BroadcastChatMessage(networkText, new Color(255, 240, 20));
+                }
+                */
+
+                projectile.ai[1] = 0f;
+                if (projectile.velocity.X != oldVelocity.X)
+                    projectile.velocity.X = oldVelocity.X * -0.6f;
+
+                if (projectile.velocity.Y != oldVelocity.Y && oldVelocity.Y > 2f)
+                    projectile.velocity.Y = oldVelocity.Y * -0.6f;
+                return false;
+            }
+            /*
+            if(projectile.type == ProjectileID.ChlorophyteOrb)
+            {
+                if(projectile.velocity.Length() < 2)
+                {
+                    return true;
+                }
+                NPC target = null;
+                if(TRAEMethods.ClosestNPC(ref target, 300, projectile.Center, false, -1, delegate (NPC possibleTarget) { return projectile.localNPCImmunity[possibleTarget.whoAmI] == 0; }))
+                {
+                    projectile.velocity = (target.Center - projectile.Center).SafeNormalize(-Vector2.UnitY) * projectile.velocity.Length();
+                }
+                else
+                {
+                    if (projectile.velocity.X != oldVelocity.X)
+                    {
+                        projectile.velocity.X = -oldVelocity.X;
+                    }
+                    if (projectile.velocity.Y != oldVelocity.Y)
+                    {
+                        projectile.velocity.Y = -oldVelocity.Y * 0.8f;
+                    }
+                }
+                return false;
+            }
+            */
+            return base.OnTileCollide(projectile, oldVelocity);
+        }
         int timer = 0;
         public override bool PreAI(Projectile projectile)
         {
+            if(projectile.type == ProjectileID.ChlorophyteOrb)
+            {
+                projectile.frameCounter++;
+                if(projectile.frameCounter % 10 == 0)
+                {
+                    projectile.frame++;
+                    if(projectile.frame >= Main.projFrames[projectile.type])
+                    {
+                        projectile.frame = 0;
+                    }
+                }
+                projectile.penetrate = 5;
+                projectile.usesLocalNPCImmunity = true;
+                projectile.localNPCHitCooldown = 30;
+				projectile.ai[0] += 1f;
+				if (projectile.ai[0] >= 20f) 
+                {
+					projectile.ai[0] = 18f;
+					Rectangle rectangle3 = new Rectangle((int)projectile.position.X, (int)projectile.position.Y, projectile.width, projectile.height);
+					for (int num264 = 0; num264 < 255; num264++) {
+						Entity entity = Main.player[num264];
+						if (entity.active && rectangle3.Intersects(entity.Hitbox)) {
+							projectile.ai[0] = 0f;
+							projectile.velocity.Y = -4.5f;
+							if (projectile.velocity.X > 2f)
+								projectile.velocity.X = 2f;
+
+							if (projectile.velocity.X < -2f)
+								projectile.velocity.X = -2f;
+
+							projectile.velocity.X = (projectile.velocity.X + (float)entity.direction * 1.75f) / 2f;
+							projectile.velocity.X += entity.velocity.X * 3f;
+							projectile.velocity.Y += entity.velocity.Y;
+							if (projectile.velocity.X > 6f)
+								projectile.velocity.X = 6f;
+
+							if (projectile.velocity.X < -6f)
+								projectile.velocity.X = -6f;
+
+							if (projectile.velocity.Length() > 16f)
+								projectile.velocity = projectile.velocity.SafeNormalize(Vector2.Zero) * 16f;
+
+							projectile.netUpdate = true;
+							projectile.ai[1] += 1f;
+						}
+					}
+
+					for (int num265 = 0; num265 < 1000; num265++) 
+                    {
+						if (num265 == projectile.whoAmI)
+							continue;
+
+						Entity entity = Main.projectile[num265];
+						if (entity.active && rectangle3.Intersects(entity.Hitbox)) {
+							projectile.ai[0] = 0f;
+							projectile.velocity.Y = -4.5f;
+							if (projectile.velocity.X > 2f)
+								projectile.velocity.X = 2f;
+
+							if (projectile.velocity.X < -2f)
+								projectile.velocity.X = -2f;
+
+							projectile.velocity.X = (projectile.velocity.X + (float)entity.direction * 1.75f) / 2f;
+							projectile.velocity.X += entity.velocity.X * 3f;
+							projectile.velocity.Y += entity.velocity.Y;
+							if (projectile.velocity.X > 6f)
+								projectile.velocity.X = 6f;
+
+							if (projectile.velocity.X < -6f)
+								projectile.velocity.X = -6f;
+
+							if (projectile.velocity.Length() > 16f)
+								projectile.velocity = projectile.velocity.SafeNormalize(Vector2.Zero) * 16f;
+
+							projectile.netUpdate = true;
+							projectile.ai[1] += 1f;
+						}
+					}
+				}
+
+				if (projectile.velocity.X == 0f && projectile.velocity.Y == 0f)
+					projectile.Kill();
+
+				projectile.rotation += 0.02f * projectile.velocity.X;
+				if (projectile.velocity.Y == 0f)
+					projectile.velocity.X *= 0.98f;
+				else if (projectile.wet)
+					projectile.velocity.X *= 0.99f;
+				else
+					projectile.velocity.X *= 0.995f;
+
+				if ((double)projectile.velocity.X > -0.03 && (double)projectile.velocity.X < 0.03)
+					projectile.velocity.X = 0f;
+
+				if (projectile.wet) {
+					projectile.ai[1] = 0f;
+					if (projectile.velocity.Y > 0f)
+						projectile.velocity.Y *= 0.95f;
+
+					projectile.velocity.Y -= 0.1f;
+					if (projectile.velocity.Y < -4f)
+						projectile.velocity.Y = -4f;
+
+					if (projectile.velocity.X == 0f)
+						projectile.Kill();
+				}
+				else {
+					projectile.velocity.Y += 0.1f;
+				}
+
+				if (projectile.velocity.Y > 10f)
+					projectile.velocity.Y = 10f;
+                return false;
+            }
             //if (projectile.type == ProjectileID.SolarWhipSword)
             //{
             //    Player player = Main.player[projectile.owner];
@@ -221,6 +407,11 @@ namespace TRAEProject.Changes.Weapon.Melee
         }
         public override void AI(Projectile projectile)
         {
+            if(projectile.type == ProjectileID.HelFire && projectile.ai[2] == 0)
+            {
+                projectile.ai[2] = 1;
+                Projectile.NewProjectile(projectile.GetSource_FromThis(), projectile.Center, Vector2.Zero, ModContent.ProjectileType<HelAura>(), projectile.damage / 2, 0, projectile.owner, projectile.whoAmI);
+            }
             Player player = Main.player[projectile.owner];
             if (projectile.counterweight)
             {
@@ -286,6 +477,7 @@ namespace TRAEProject.Changes.Weapon.Melee
                     }
                 case ProjectileID.Kraken:
                     {
+                        /*
                         float PosX = projectile.position.X;
                         float PosY = projectile.position.Y;
                         float Range = 500f;
@@ -328,6 +520,7 @@ namespace TRAEProject.Changes.Weapon.Melee
                             velY *= sqrRoot;
                             Projectile.NewProjectile(projectile.GetSource_FromThis(), vector19.X, vector19.Y, velX, velY, ProjectileType<PhantomTentacle>(), projectile.damage, projectile.knockBack, Main.myPlayer, 0f, 0f);
                         }
+                        */
                         return;
                     }
                 case ProjectileID.FormatC:
@@ -363,6 +556,16 @@ namespace TRAEProject.Changes.Weapon.Melee
         public int HitCount = 0;
         public override void OnHitNPC(Projectile projectile, NPC target, NPC.HitInfo hit, int damageDone)
         {
+            if(projectile.type == ProjectileID.ChlorophyteOrb)
+            {
+                projectile.localNPCImmunity[target.whoAmI] = 30;
+                projectile.ai[1] = 0f;
+                Vector2 oldVelocity = projectile.velocity;
+                    projectile.velocity.X = oldVelocity.X * -0.6f;
+
+                if (oldVelocity.Y > 2f)
+                    projectile.velocity.Y = oldVelocity.Y * -0.6f;
+            }
             if(projectile.type == ProjectileID.FlamingMace)
             {
                 target.AddBuff(BuffID.OnFire, 4 * 60);
@@ -379,18 +582,6 @@ namespace TRAEProject.Changes.Weapon.Melee
             }
             switch (projectile.type)
             {
-                // melee
-                case ProjectileID.Chik:
-                    {
-                        int shards = damageDone / 10;
-                        for (int i = 0; i < shards; i++)
-                        {
-                            float velX = (0f - projectile.velocity.X) * Main.rand.Next(40, 70) * 0.01f + Main.rand.Next(-20, 21) * 0.5f;
-                            float velY = (0f - projectile.velocity.Y) * Main.rand.Next(40, 70) * 0.01f + Main.rand.Next(-20, 21) * 0.5f;
-                            Projectile.NewProjectile(projectile.GetSource_FromThis(), projectile.position.X + velX, projectile.position.Y + velY, velX, velY, ProjectileID.CrystalShard, 1, 0, projectile.owner, 0f, 0f);
-                        }
-                        break;
-                    }
                 case ProjectileID.Cascade:
                     {
                         ++HitCount;

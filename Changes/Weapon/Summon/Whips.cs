@@ -26,6 +26,9 @@ namespace TRAEProject.Changes.Weapon.Summon
                     item.damage = 250; // up from 180
                     item.autoReuse = true;
                     break;
+                case ItemID.SwordWhip:
+                    item.damage = 75; // up from 55
+                    break;
 
             }
         }

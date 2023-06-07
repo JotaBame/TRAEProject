@@ -61,7 +61,7 @@ namespace TRAEProject.NewContent.Items.FlamethrowerAmmo
             Projectile.GetGlobalProjectile<ProjectileStats>().SmartBouncesOffEnemies = true;
             Projectile.GetGlobalProjectile<ProjectileStats>().SmartBouncesOffTiles = true;
             Projectile.usesLocalNPCImmunity = true;
-            Projectile.GetGlobalProjectile<ProjectileStats>().dontHitTheSameEnemyMultipleTimes = true;
+Projectile.GetGlobalProjectile<ProjectileStats>().dontHitTheSameEnemyMultipleTimes = true;
             Projectile.GetGlobalProjectile<ProjectileStats>().DamageFalloff = 0.2f;
         }
         public override void AI()

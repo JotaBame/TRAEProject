@@ -21,7 +21,7 @@ namespace TRAEProject.Changes.Armor
     {
         public int shadowArmorDodgeChance = 0;
         public bool PirateSet = false;
-        public bool HolyProtection = false;
+        //public bool HolyProtection = false;
         public bool TitaniumArmorOn = false;
         public bool whenHitDodge = false;
         public bool secretPearlwoodSetBonus = false;
@@ -30,7 +30,7 @@ namespace TRAEProject.Changes.Armor
             TitaniumArmorOn = false;
             PirateSet = false;
             shadowArmorDodgeChance = 0;
-            HolyProtection = false;
+            //HolyProtection = false;
             whenHitDodge = false;
             secretPearlwoodSetBonus = false;
         }
@@ -39,7 +39,7 @@ namespace TRAEProject.Changes.Armor
             TitaniumArmorOn = false;
             PirateSet = false;
             shadowArmorDodgeChance = 0;
-            HolyProtection = false;
+            //HolyProtection = false;
             whenHitDodge = false;
             secretPearlwoodSetBonus = false;
         }
@@ -47,25 +47,7 @@ namespace TRAEProject.Changes.Armor
         {
             if (info.Damage > 1)
             {
-                Shadowdodge();
-            }
-        }
-        public override void ModifyHitNPCWithItem(Item item, NPC target, ref NPC.HitModifiers modifiers)
-        {
-            if(secretPearlwoodSetBonus && Main.rand.NextBool(1000))
-            {
-                modifiers.GetDamage(6969, false);
-                Main.NewText("Nice!");
-                SoundEngine.PlaySound(new SoundStyle("TRAEProject/Assets/Sounds/noice") with { MaxInstances = 0 });
-            }
-        }
-        public override void ModifyHitNPCWithProj(Projectile proj, NPC target, ref NPC.HitModifiers modifiers)
-        {
-            if(secretPearlwoodSetBonus && Main.rand.NextBool(1000))
-            {
-                modifiers.GetDamage(6969, false);
-                Main.NewText("Nice!");
-                SoundEngine.PlaySound(new SoundStyle("TRAEProject/Assets/Sounds/noice") with { MaxInstances = 0 });
+                //Shadowdodge();
             }
         }
 
@@ -106,7 +88,7 @@ namespace TRAEProject.Changes.Armor
                 NetMessage.SendData(MessageID.Dodge, -1, -1, null, Player.whoAmI, 1f);
             }
         }
-
+        /*
         void Shadowdodge()
         {
             if (HolyProtection && !whenHitDodge)
@@ -118,5 +100,6 @@ namespace TRAEProject.Changes.Armor
                 }
             }
         }
+        */
     }
 }

@@ -121,18 +121,9 @@ namespace TRAEProject.Changes.Recipes
                 recipe.AddIngredient(ItemID.RocketBoots, 1);
                 recipe.AddIngredient(ItemID.LuckyHorseshoe, 1);
             }
-            if (recipe.HasResult(ItemID.LavaWaders))
+            if (recipe.HasResult(ItemID.LavaWaders) && recipe.HasTile(TileID.TinkerersWorkbench))
             {
-                recipe.TryGetIngredient(ItemID.ObsidianWaterWalkingBoots, out ingredientToRemove);
-                recipe.RemoveIngredient(ingredientToRemove);
-                recipe.TryGetIngredient(ItemID.ObsidianRose, out ingredientToRemove);
-                recipe.RemoveIngredient(ingredientToRemove); 
-                recipe.TryGetIngredient(ItemID.MoltenCharm, out ingredientToRemove);
-                recipe.RemoveIngredient(ingredientToRemove);
-                recipe.TryGetIngredient(ItemID.MoltenSkullRose, out ingredientToRemove);
-                recipe.RemoveIngredient(ingredientToRemove);
                 recipe.DisableRecipe();
-           
             }
             if (recipe.HasResult(ItemID.MoonShell))
             {

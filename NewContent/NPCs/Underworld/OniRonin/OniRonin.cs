@@ -69,6 +69,7 @@ namespace TRAEProject.NewContent.NPCs.Underworld.OniRonin
             npcLoot.Add(ItemDropRule.Common(ItemID.Sake, 1, 1, 2));
             npcLoot.Add(ItemDropRule.Common(ItemType<DriedRose>(), 2));
             npcLoot.Add(ItemDropRule.Common(ItemID.ObsidianRose, 15));
+            npcLoot.Add(ItemDropRule.Common(ItemID.HelFire, 10));
         }
         SmearTeleportEffect teleportEffect;
         public override void AI()

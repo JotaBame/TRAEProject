@@ -14,7 +14,11 @@ namespace TRAEProject.Changes.Prefixes
 	//thic class determines which weapon can get what prefix
     public class GiveWeaponsPrefixes : GlobalItem
     {
-
+		public static List<int> otherModBoomeragLikes = new List<int>();
+		public override void SetStaticDefaults()
+		{
+			//otherModBoomeragLikes = new List<int>();
+		}
 		public override bool InstancePerEntity => true;
 		public override GlobalItem Clone(Item item, Item itemClone)
 		{
@@ -56,6 +60,7 @@ namespace TRAEProject.Changes.Prefixes
 				case ItemID.PaladinsHammer:
 				case ItemID.PossessedHatchet:
 				case ItemID.SolarEruption:
+				case ItemID.Bananarang:
 					canGetMeleeOtherModifers = true;
 					break;
 			}
@@ -63,6 +68,10 @@ namespace TRAEProject.Changes.Prefixes
             {
 				canGetYoyoModifers = true;
             }
+			if(otherModBoomeragLikes.Contains(item.type))
+			{
+				canGetMeleeOtherModifers = true;
+			}
 			
         }
 		public override void PreReforge(Item item)

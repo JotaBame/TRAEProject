@@ -13,6 +13,19 @@ namespace TRAEProject
 {
     public class PlayerBuffChanges : GlobalBuff
     {
+        public override void SetStaticDefaults()
+        {
+            Main.buffNoSave[BuffID.Bewitched] = false;
+            Main.persistentBuff[BuffID.Bewitched] = true;
+            Main.buffNoSave[BuffID.AmmoBox] = false;
+            Main.persistentBuff[BuffID.AmmoBox] = true;
+            Main.buffNoSave[BuffID.Sharpened] = false;
+            Main.persistentBuff[BuffID.Sharpened] = true;
+            Main.buffNoSave[BuffID.Clairvoyance] = false;
+            Main.persistentBuff[BuffID.Clairvoyance] = true;
+            Main.buffNoSave[BuffID.WarTable] = false;
+            Main.persistentBuff[BuffID.WarTable] = true;
+        }
         public override void Update(int type, Player player, ref int buffIndex)
         {
             switch (type)
@@ -164,6 +177,10 @@ namespace TRAEProject
                     RingDamage = 1;
                 }
                 int dustsToMake = 5 + damageDone / 10;
+                if(dustsToMake > 600)
+                {
+                    dustsToMake = 600;
+                }
                 for (int i = 0; i < dustsToMake; i++)
                 {
                     float radius = range / 62.5f;

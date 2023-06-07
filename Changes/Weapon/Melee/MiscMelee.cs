@@ -8,6 +8,7 @@ using Terraria.ID;
 using Terraria.ModLoader;
 using static Terraria.ModLoader.ModContent;
 using Terraria.DataStructures;
+using TRAEProject.Changes.Prefixes;
 
 namespace TRAEProject.Changes.Weapon.Melee
 {
@@ -42,7 +43,7 @@ namespace TRAEProject.Changes.Weapon.Melee
                     item.crit = 12; // up from 6%
                     return;
                 case ItemID.LightDisc:
-                    item.damage = 100; // up from 57
+                    item.damage = 80; 
                     return;
                 case ItemID.PaladinsHammer:
                     item.damage = 102; // up from 90
@@ -69,8 +70,8 @@ namespace TRAEProject.Changes.Weapon.Melee
                     item.value = Item.buyPrice(gold: 5);
                     return;
                 case ItemID.HelFire:
-                    item.damage = 39;
-                    item.knockBack = 7f;
+                    item.damage = 90;
+                    item.knockBack = 3f;
                     return;
                 case ItemID.Cascade:
                     item.damage = 27; // up from 27
@@ -80,12 +81,25 @@ namespace TRAEProject.Changes.Weapon.Melee
                     item.knockBack = 6f;
                     return;
                 case ItemID.Chik:
-                    item.damage = 39;
-                    item.knockBack = 1f;
+                    item.damage = 49;
+                    item.knockBack = 0.5f;
+                    return;
+                case ItemID.Amarok:
+                    item.damage = 52;
+                    item.knockBack = 5f;
+                    return;
+                case ItemID.Yelets:
+                    item.damage = 70;
+                    return;
+                case ItemID.Code2:
+                    item.damage = 67;
                     return;
                 case ItemID.Kraken:
-                    item.damage = 88; // vanilla value = 95
+                    item.damage = 70; // vanilla value = 95
                     return;
+                case ItemID.TheEyeOfCthulhu:
+                    item.damage = 150; //vanilla value = 115
+                    break;
     
          
             }
@@ -112,6 +126,52 @@ namespace TRAEProject.Changes.Weapon.Melee
 
         public override void ModifyTooltips(Item item, List<TooltipLine> tooltips)
         {
+            if(ItemID.Sets.Yoyo[item.type])
+            {
+                foreach (TooltipLine line in tooltips)
+                {
+                    if (line.Mod == "Terraria" && line.Name == "Speed")
+                    {
+                        float speed = ProjectileID.Sets.YoyosTopSpeed[item.shoot] * item.GetGlobalItem<YoyoStats>().speed;
+                        float range = ProjectileID.Sets.YoyosMaximumRange[item.shoot] * item.GetGlobalItem<YoyoStats>().range; 
+                        if(Main.LocalPlayer.yoyoString)
+                        {
+                            range = range * 1.25f + 30f;
+                        }
+                        range *= (1f + Main.LocalPlayer.GetAttackSpeed(DamageClass.Melee) * 3f) / 4f;
+                        speed *= (1f + Main.LocalPlayer.GetAttackSpeed(DamageClass.Melee) * 3f) / 4f;
+                        string speedText = "";
+                        if(speed < 10f)
+                        {
+                            speedText = "Very slow maneuvering";
+                        }
+                        if(speed >= 10f && speed < 13f)
+                        {
+                            speedText = "Slow maneuvering";
+                        }
+                        if(speed >= 13f && speed < 16f)
+                        {
+                            speedText = "Average maneuvering";
+                        }
+                        if(speed >= 16f && speed < 20f)
+                        {
+                            speedText = "Fast maneuvering";
+                        }
+                        if(speed >= 20f && speed < 24f)
+                        {
+                            speedText = "Very fast maneuvering";
+                        }
+                        if(speed >= 24f)
+                        {
+                            speedText = "Insanely fast maneuvering";
+                        }
+
+
+                        line.Text = speedText + "\n" + (int)range + " string length";
+                    }
+                }
+
+            }
             switch (item.type)
             {
                 case ItemID.Cutlass:
@@ -122,7 +182,7 @@ namespace TRAEProject.Changes.Weapon.Melee
                             line.Text += "\nCreates money on enemy hits";
                         }
                     }
-                    return;
+                    break;
                 case ItemID.PalladiumPike:
                     foreach (TooltipLine line in tooltips)
                     {
@@ -131,7 +191,7 @@ namespace TRAEProject.Changes.Weapon.Melee
                             line.Text += "\nIncreases health regeneration after striking an enemy";
                         }
                     }
-                    return;
+                    break;
                 case ItemID.OrichalcumHalberd:
                     foreach (TooltipLine line in tooltips)
                     {
@@ -140,7 +200,7 @@ namespace TRAEProject.Changes.Weapon.Melee
                             line.Text += "\nCreates damaging petals on contact";
                         }
                     }
-                    return;
+                    break;
                 case ItemID.ChristmasTreeSword:
                     foreach (TooltipLine line in tooltips)
                     {
@@ -149,16 +209,9 @@ namespace TRAEProject.Changes.Weapon.Melee
                             line.Text = "Shoots christmas decorations";
                         }
                     }
-                    return;
+                    break;
                 case ItemID.Chik:
-                    foreach (TooltipLine line in tooltips)
-                    {
-                        if (line.Mod == "Terraria" && line.Name == "Knockback")
-                        {
-                            line.Text += "\nCauses an explosion of crystal shards on hit";
-                        }
-                    }
-                    return;
+                    break;
                 case ItemID.FormatC:
                     foreach (TooltipLine line in tooltips)
                     {
@@ -167,7 +220,7 @@ namespace TRAEProject.Changes.Weapon.Melee
                             line.Text += "\nCharges power as it is held out";
                         }
                     }
-                    return;
+                    break;
                 case ItemID.Gradient:
                     foreach (TooltipLine line in tooltips)
                     {
@@ -176,16 +229,16 @@ namespace TRAEProject.Changes.Weapon.Melee
                             line.Text += "\nFires Bones at enemies";
                         }
                     }
-                    return;
+                    break;
                 case ItemID.Kraken:
                     foreach (TooltipLine line in tooltips)
                     {
                         if (line.Mod == "Terraria" && line.Name == "Knockback")
                         {
-                            line.Text += "\nReleases a tentacle made out of lost souls while held out";
+                            line.Text += "\nMuch faster than other yoyos";
                         }
                     }
-                    return;
+                    break;
                 case ItemID.Cascade:
                     foreach (TooltipLine line in tooltips)
                     {
@@ -194,7 +247,7 @@ namespace TRAEProject.Changes.Weapon.Melee
                             line.Text += "\nHighly Volatile";
                         }
                     }
-                    return;
+                    break;
                 case ItemID.Sunfury:
                     foreach (TooltipLine line in tooltips)
                     {
@@ -203,7 +256,7 @@ namespace TRAEProject.Changes.Weapon.Melee
                             line.Text += "\nInflicts a heavy burn on enemies";
                         }
                     }
-                    return;               
+                    break;               
                 case ItemID.VampireKnives:
                     foreach (TooltipLine line in tooltips)
                     {
@@ -212,8 +265,7 @@ namespace TRAEProject.Changes.Weapon.Melee
                             line.Text = "Throw life stealing daggers";
                         }
                     }
-                    return;
-   
+                    break;   
             }
         }
     }

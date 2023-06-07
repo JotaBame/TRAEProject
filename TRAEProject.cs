@@ -15,6 +15,9 @@ using TRAEProject.Changes.Recipes;
 using Terraria.DataStructures;
 using MonoMod.Cil;
 using Mono.Cecil.Cil;
+using System.IO;
+using System;
+using TRAEProject.Changes.Prefixes;
 
 namespace TRAEProject
 {
@@ -217,5 +220,28 @@ namespace TRAEProject
                 ArmorRecipes.Modify(recipe);
             }
         }
+        public override object Call(params object[] args) 
+        {
+			try 
+            {
+				// Where should other mods call? They could call at end of Load?
+				string message = args[0] as string;
+				if (message == "BoomerangPrefix") 
+                {
+					int type = Convert.ToInt32(args[1]);
+                    GiveWeaponsPrefixes.otherModBoomeragLikes.Add(type);
+					return "Success";
+				}
+				else 
+                {
+					Logger.Error("TRAE Call Error: Unknown Message: " + message);
+				}
+			}
+			catch (Exception e) 
+            {
+				Logger.Error("TRAE Call Error: " + e.StackTrace + e.Message);
+			}
+			return "Failure";
+		}
     }
 }

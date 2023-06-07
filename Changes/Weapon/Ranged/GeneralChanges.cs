@@ -60,10 +60,10 @@ namespace TRAEProject.Changes.Weapons
                     item.autoReuse = true;
                     return;
                 case ItemID.Gatligator:
-                    item.damage = 18; // down from 21
+                    item.damage = 21; // down from 21
 
-                    item.useTime = 7; // down from 7
-                    item.useAnimation = 7;
+                    item.useTime = 5; // down from 7
+                    item.useAnimation = 5;
                     item.value = Item.buyPrice(platinum: 1, gold: 50);
                     return;
                 case ItemID.Uzi:
@@ -246,6 +246,15 @@ namespace TRAEProject.Changes.Weapons
                         if (line.Mod == "Terraria" && line.Name == "Tooltip0")
                         {
                             line.Text += "\nConverts Musket Balls into homing rockets";
+                        }
+                    }
+                    return;
+                case ItemID.VenomBullet:
+                    foreach (TooltipLine line in tooltips)
+                    {
+                        if (line.Mod == "Terraria" && line.Name == "Tooltip0")
+                        {
+                            line.Text += "\nIgnores 10 defense";
                         }
                     }
                     return;
