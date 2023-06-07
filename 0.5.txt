@@ -44,7 +44,7 @@ Twins
 
 * Dune Splicer body damage reduced from 54 to 30
 
-* Ghouls and Hallow Ghouls drop desert spirit lamp with a 1.25% chance
+* Ghouls and Lamias drop desert spirit lamp with a 1.25% chance
 ** desert spirit lamp now has a new effect when placed.
 
 * Lava slime damage 80 -> 50
@@ -77,16 +77,16 @@ Twins
 * Malaise inflicts poison instead of weak
 
 * Bone sword scale increased to 1.1
-
+* Flaming mace change to inflict on fire increased to 100%
 * Reverted Light's Bane, Blood Butcherer, Blade of Grass, Katana, Phaseblade, Muramasa, Volcano, and Night's Edge TRAE changes
 
 * Bat bat:
 ** Damage reduced from 36 to 24
 ** Use Time reduced from 45 to 30
 
-* Reverted Gladius buffs
+* Reverted Gladius TRAE buffs
 
-* Mandible blade damage reduced from 16 to 14
+* Mandible blade damage reduced from 16 to 14 (remember TRAE changes to it)
 
 * Beekeeper 
 ** Damage down from 30 to 26
@@ -98,6 +98,22 @@ Twins
 
 * Reverted Breaker Blade's TRAE changes. Breaker Blade Swing now has an aura for increased range and coverage.
 
+* Pearlwood Sword now has a new sprite and an aura for extended coverage
+
+* Pearlwood Hammer
+** Damage increased from 10 to 36
+** Use Time lowered from 29 to 26
+** Tool speed lowered from 19 to 14
+** Hammer power increased from 55% to 70%
+** Now has a new sprite
+
+* Pearlwood Bow
+** Damage increased from 12 to 25
+** Use Time lowered from 20 to 17
+** Now autofires
+** Now turns wooden arrows into holy arrows
+** Now has a new sprite
+
 Redone HM ore sword changes:
 * Reverted all previous stat changes (but not the special effects or name changes)
 
@@ -108,7 +124,6 @@ Redone HM ore sword changes:
 * If the player has palladium armor and is holding a palladium weapon, rapid healing is 3 hp/s instead of 2
 * Orichalcum sword now only makes 1 petal per swing
 * titanium storm shards deal 50% more damage if the player is holding the Titanium Sword and has the titanium armor set bonus
-* reverted other titanium armor changes
 
 * Phasesaber crit chance increased from 4% to 24%
 
@@ -122,10 +137,8 @@ Redone HM ore sword changes:
 
 * Terra blade:
 ** wave damage reduced by 35%
-** wave is now 40% smaller
 ** wave can only hit 3 enemies
 ** removed melee speed penalty
-** Aura is 15% bigger
 
 * Horsemans' blade aura is now 20% bigger
 
@@ -163,10 +176,10 @@ Redone HM ore sword changes:
 * Reverted Handgun and Phoenix Blaster TRAE changes
 ** Phoenix Blaster can now shoot flares with right click
 
-* Updated visuals for the new gel types to match 1.4.4 flamethrowers
+* Overhauled the flamethrower expansion to adjust to the 1.4.4 flamethrowers
 
 * flamethrower:
-** use time increased from 6 to 8
+** use time increased from 6 to 9
 ** damage falloff increased from 15% to 20%
 ** removed armor penetration
 ** pierce reduced from 4 to 3
@@ -184,18 +197,6 @@ Redone HM ore sword changes:
 
 * Tactical shotgun damage 38 -> 35
 
-* Uzi 
-** damage 30 -> 22
-** now sold by arms dealer at any time in hardmode while not in a graveyard
-** buy price increased to 1 platinum and 50 gold
-
-Gatligator
-** damage 21 -> 18
-** use time 7 -> 5
-** now sold by arms dealer at any time in hardmode while in a graveyard
-** buy price increased to 1 platinum and 50 gold
-
-**
 * Stynger 
 ** direct hit damage increased from 2x to 2.25x 
 ** rocket pierce reduced from infinite to 5
@@ -235,13 +236,21 @@ Shroomite Bullets
 ** Mana cost decreased from 18 to 13
 ** Now has a 20% chance to shoot an extra Big Bee on every attack.
 
-* Meteor Staff mana cost 9 -> 13
-* Shadowflame hex doll damage 32 -> 37
-* Magical Harp knockback 5 -> 2 (reverted TRAE buff)
+* Cursed Flames
+** Now only bounces or pierces, but not both
+** Damage decreased from 55 to 50
 
-Wasp gun
-* Use time decreased from 22 to 20
-* mana cost decreased from 15 to 13
+* Golden Shower
+** Damage decreased from 30 to 20
+** mana cost increased from 7 to 12
+** pierce reduced from 4 to 3
+** now uses local immunity
+** no longer deals 25% less damage to the Destroyer and its probes on Expert and Master mode
+
+* Meteor Staff mana cost 9 -> 13
+* Shadowflame hex doll damage 32 -> 34
+
+* Magical Harp knockback 5 -> 2 (reverted TRAE buff)
 
 * Inferno Fork
 ** Damage increased from 70 to 80
@@ -266,13 +275,13 @@ Note: Dread is tiered later in progression than in vanilla
 
 * Flameburst:
 ** T1 damage 17 -> 25	
-** T2 damage 42 -> 58	
+** T2 damage 4r2 -> 58	
 ** T3 damage 88 -> 114, inflicts Daybroken as well as Hellfire
 
 * Stardust[Lunar] Portal damage 100 -> 33
 
 ==== Magic Side Weapons
-All of them have been reworked to drain mana over time instead of having an insane mana cost. 
+All of them have been reworked to drain mana over time instead of having an insane mana cost. Their mana drain is displayed in their tooltips.
 Additionally, all of them can now be unsummoned by right clicking while holding the weapon.
 
 Projectiles that drain mana on hit wont be able to deal damage if there is not enough mana to do so.
@@ -285,7 +294,7 @@ Some weapons, like Magnet Sphere or Nimbus Rod, drain mana when they use their p
 ** Now hits twice a second instead of 2.4 times a second
 ** However, it can hit infinite times.
 
-* Crimson rod and Nimbus Rod drain 3 mana per each water drop coming out of them
+* Crimson rod and Nimbus Rod drain 4 mana per each water drop coming out of them
 ** Nimbus Rod damage 30 -> 36
 
 * Clinger Staff drains 30 mana per second and 4 mana per hit
@@ -299,9 +308,9 @@ Some weapons, like Magnet Sphere or Nimbus Rod, drain mana when they use their p
 
 * Toxic Flask drains 5 mana per hit
 
-* Rainbow Gun drains 4 mana per hit
+* Rainbow Gun drains 3 mana per hit
 
-* Razorblade Typhoon drains 24 mana per second, and 4 per hit
+* Razorblade Typhoon drains 24 mana per second, and 3 per hit
 
 * Blizzard Staff drains 12 mana per 4 projectiles spawned.
 
@@ -311,11 +320,11 @@ Some weapons, like Magnet Sphere or Nimbus Rod, drain mana when they use their p
 * Titan glove size/velocity bonuses reduced from 25/50% to 20/20%
 
 * Honey Comb
-** Amount of bees now equal to 10% of damage taken, with a maximum 16 bees
+** Amount of bees is now equal to 10% of damage taken, with a maximum 16 bees
 ** Bee damage increased from 13 to 18
 ** Each bee has a 20% chance of being a hive pack bee
 ** Honey on hit duration is now 10% of damage taken, with minimum of 2.5 seconds. After 25 damage it's the same duration as vanilla, gets better from there.
-** Stacking the accessory increases bees and honey's duration by 50% and grants 1 hp/s per comb 
+** Stacking the accessory increases bees and honey's duration by 50% and grants 0.5 hp/s per comb 
 
 * Bee Cloak
 ** Now only spawns 1 star for every 33 damage.
@@ -331,6 +340,8 @@ Some weapons, like Magnet Sphere or Nimbus Rod, drain mana when they use their p
 ** Molten charm max charge and cost increased from 2400 and 600 to 3000 and 750
 ** Doubled Explosion radius, pierce reduced to 5
 
+* Bloodfin Wings duration is now 0.067 seconds per point of damage taken, maxes out at 5 seconds at 75 damage
+
 ==== Prefixes
 * Intense Damage 20% -> 18%
 * Now increases crit chance by 3%
@@ -338,6 +349,7 @@ Some weapons, like Magnet Sphere or Nimbus Rod, drain mana when they use their p
 * Furious Damage 20% -> 18%
 * Now increases crit chance by 10%
 
+* Taboo is now +15% damage, +7% crit chance, +12% speed, +10% knockback and +10% mana cost
 * Relentless no longer increases crit, yoyo speed reduced from 30% to 20%
 
 * Bad is now -15% damage and knockback, -10% speed and range
@@ -346,10 +358,21 @@ Some weapons, like Magnet Sphere or Nimbus Rod, drain mana when they use their p
 * Brisk and Fleeting are now +4% and +8% movement speed respectively. 
 
 ==== Armor
+* Removed movement speed increase on adamantite helmet's set bonus
+
 * Shroomite armor's set bonus max damage bonus reduced from 35% to 25%
 * Desert spirits drop spirit flame instead of Desert Spirit Lamp
 * Shinobi headgear summon damage and melee speed reduced back to 20%. Nerfed movement speed to 15%.
 * Crimson armor now quadruples natural regen rate instead of doubling it
+* reverted hallowed armor's TRAE change
+* reverted Titanium armor's TRAE changes
+
+Pearlwood Armor
+* Defense increased from 2/3/2 to 6/8/6
+* Helmet now increases jump speed by 20%
+* Greaves now increase movement speed by 15%
+* Breastplate now slightly increases jump duration
+* Set bonus is now Crystal assassin's dash
 
 =================== Misc
 * reverted treasure magnet chest loot and recipe change
@@ -361,12 +384,15 @@ Some weapons, like Magnet Sphere or Nimbus Rod, drain mana when they use their p
 
 * tentacle spike can be crafted with 12 rotten tooth and 2 leather
 
-* reverted minishark price increase
-* gatligator price decreased to 70 gold
-* reverted strange brew change
+* Red wrench, Wire Cutters and Wire can now be crafted with Copper or Tin Bars.
 
+
+* Restoration potions now grant 90 HP over 30 seconds
+** added greater restoration potions
+
+* Added config options for all boss reworks. Plantera's rework is off by default.
 credits: 
 charley#0571: almost every sprite for the hell expansion, glacial armor resprite, adamantite and titanium launcher resprites, and im probably forgetting some
 frogpage#2186: mechanical eye, eye of the destroyer, spiked whip, skull cannon, onyx curse doll resprites
 Photonic0#1438: Lots of help with code and Oni Ronin's whole behavior
-
+SkyanUltra#5765: Ideas and sprites for the Pearlwood buffs.

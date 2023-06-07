@@ -58,8 +58,6 @@ namespace TRAEProject.NewContent.Items.Accesories.MagicalCarpet
             if (inUse && player.TryingToHoverDown && player.wingTime > 0)
             {
                 player.runAcceleration *= 3;
-                player.moveSpeed += 0.25f;
-
 				player.velocity.Y = 0.00001f;
 				return false;
             }

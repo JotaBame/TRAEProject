@@ -3,12 +3,11 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System;
 using System.IO;
-using System.Linq;
+using static Terraria.ModLoader.ModContent;
 using Terraria;
 using Terraria.Audio;
 using Terraria.DataStructures;
-using Terraria.GameContent.Bestiary;
-using Terraria.GameContent.ItemDropRules;
+
 using Terraria.ID;
 using Terraria.ModLoader;
 
@@ -610,12 +609,13 @@ namespace TRAEProject.NewContent.NPCs
                     worm.NPC.life = 0;
                     worm.NPC.HitEffect(0, 10);
                     worm.NPC.active = false;
+
                 }
             }
 
             if (following is not null)
             {
-                // Follow behind the segment "in front" of this NPC
+                // Follow behind the segment "in front" of this worm
                 // Use the current NPC.Center to calculate the direction towards the "parent NPC" of this NPC.
                 float dirX = following.Center.X - worm.NPC.Center.X;
                 float dirY = following.Center.Y - worm.NPC.Center.Y;

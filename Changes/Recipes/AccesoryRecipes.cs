@@ -26,7 +26,7 @@ namespace TRAEProject.Changes.Recipes
             HermesBoots.Register(); 
             Recipe Mantra = Recipe.Create(ItemID.CountercurseMantra).AddIngredient(ItemID.Nazar, 1).AddIngredient(ItemID.AnkhCharm, 1).AddTile(TileID.TinkerersWorkbench);
             Mantra.Register();
-            Recipe Waders = Recipe.Create(ItemID.LavaWaders).AddIngredient(ItemID.WaterWalkingBoots, 1).AddIngredient(ItemID.LavaCharm, 1).AddTile(TileID.Loom);
+            Recipe Waders = Recipe.Create(ItemID.LavaWaders).AddIngredient(ItemID.WaterWalkingBoots, 1).AddIngredient(ItemID.LavaCharm, 1).AddTile(TileID.TinkerersWorkbench);
             Waders.Register();
             Recipe BoBrecipe = Recipe.Create(ItemID.BundleofBalloons);
             BoBrecipe.AddRecipeGroup("CloudBalloon");
@@ -71,7 +71,10 @@ namespace TRAEProject.Changes.Recipes
         public static void Modify(Recipe recipe)
         {
             Item ingredientToRemove;
-
+            if (recipe.HasResult(ItemID.HorseshoeBundle))
+            {
+                recipe.DisableRecipe();
+            }
             if (recipe.HasResult(ItemID.MechanicalGlove))
             {
                 recipe.TryGetIngredient(ItemID.PowerGlove, out ingredientToRemove);
@@ -121,7 +124,8 @@ namespace TRAEProject.Changes.Recipes
                 recipe.AddIngredient(ItemID.RocketBoots, 1);
                 recipe.AddIngredient(ItemID.LuckyHorseshoe, 1);
             }
-            if (recipe.HasResult(ItemID.LavaWaders))
+            if (recipe.HasResult(ItemID.LavaWaders) && recipe.HasIngredient(ItemID.ObsidianRose) || recipe.HasIngredient(ItemID.MoltenCharm) || recipe.HasIngredient(ItemID.MoltenSkullRose) || recipe.HasIngredient(ItemID.ObsidianWaterWalkingBoots))
+
             {
                 recipe.TryGetIngredient(ItemID.ObsidianWaterWalkingBoots, out ingredientToRemove);
                 recipe.RemoveIngredient(ingredientToRemove);
@@ -130,9 +134,14 @@ namespace TRAEProject.Changes.Recipes
                 recipe.TryGetIngredient(ItemID.MoltenCharm, out ingredientToRemove);
                 recipe.RemoveIngredient(ingredientToRemove);
                 recipe.TryGetIngredient(ItemID.MoltenSkullRose, out ingredientToRemove);
+                recipe.RemoveIngredient(ingredientToRemove); 
+                recipe.TryGetIngredient(ItemID.WaterWalkingBoots, out ingredientToRemove);
                 recipe.RemoveIngredient(ingredientToRemove);
+                recipe.TryGetIngredient(ItemID.LavaCharm, out ingredientToRemove);
+                recipe.RemoveIngredient(ingredientToRemove);
+
                 recipe.DisableRecipe();
-           
+
             }
             if (recipe.HasResult(ItemID.MoonShell))
             {

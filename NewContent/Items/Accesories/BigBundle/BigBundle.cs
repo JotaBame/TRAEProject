@@ -45,6 +45,11 @@ namespace TRAEProject.NewContent.Items.Accesories.BigBundle
                .AddIngredient(ItemType<BundleOfWeirdBalloons>())
                .AddIngredient(ItemType<SpaceBalloonItem>())
                .AddTile(TileID.TinkerersWorkbench)
+               .Register(); 
+            CreateRecipe().AddIngredient(ItemID.HorseshoeBundle)
+               .AddIngredient(ItemType<BundleOfWeirdBalloons>())
+               .AddIngredient(ItemType<SpaceBalloonItem>())
+               .AddTile(TileID.TinkerersWorkbench)
                .Register();
         }
         

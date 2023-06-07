@@ -31,7 +31,8 @@ public abstract class SwordAura : ModProjectile
         Projectile.aiStyle = 190;
         Projectile.friendly = true;
         Projectile.DamageType = DamageClass.Melee;
-        Projectile.penetrate = 3;
+        Projectile.GetGlobalProjectile<ProjectileStats>().maxHits = 3;
+        Projectile.penetrate = -1;
         Projectile.usesLocalNPCImmunity = true;
         Projectile.tileCollide = false;
         Projectile.ignoreWater = true;

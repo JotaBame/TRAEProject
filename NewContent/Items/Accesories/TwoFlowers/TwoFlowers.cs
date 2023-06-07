@@ -22,7 +22,7 @@ namespace TRAEProject.NewContent.Items.Accesories.TwoFlowers
         public override void UpdateAccessory(Player player, bool hideVisual)
         {
             player.lavaRose = true;
-            player.GetModPlayer<CritDamage>().magicCritDamage += 0.11f;
+            player.GetModPlayer<CritDamage>().magicCritDamage += 0.1f;
             player.manaFlower = true;
             player.GetModPlayer<Mana>().newManaFlower = true;
         }

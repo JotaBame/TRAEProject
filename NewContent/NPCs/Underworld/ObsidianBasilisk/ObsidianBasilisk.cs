@@ -68,7 +68,7 @@ namespace TRAEProject.NewContent.NPCs.Underworld.ObsidianBasilisk
         public override void ModifyNPCLoot(NPCLoot npcLoot)
         {
             npcLoot.Add(ItemDropRule.Common(ItemType<ObsidianScale>(), 1, 2, 3));
-            npcLoot.Add(ItemDropRule.Common(ItemID.Spaghetti, 33));
+            npcLoot.Add(ItemDropRule.Common(ItemID.Spaghetti, 10));
         }
 
         public override void SetBestiary(BestiaryDatabase database, BestiaryEntry bestiaryEntry) {
@@ -163,11 +163,19 @@ namespace TRAEProject.NewContent.NPCs.Underworld.ObsidianBasilisk
         {
             ObsidianBasiliskHead.CommonWormInit(this);
         }
-        public override bool PreKill()
+        public override void PostAI()
         {
-            Gore.NewGore(NPC.GetSource_Death(), NPC.Center, NPC.velocity, Mod.Find<ModGore>("ObsidianBasiliskBody_Gore").Type, 1f);
+            if (Main.netMode != NetmodeID.MultiplayerClient)
+            {
+                // Some of these conditions are possble if the body/tail segment was spawned individually
+                // Kill the segment if the segment NPC it's following is no longer valid
+                if (NPC.life == 0 && !NPC.active)
+                {
+                    Gore.NewGore(NPC.GetSource_Death(), NPC.Center, NPC.velocity, Mod.Find<ModGore>("ObsidianBasiliskBody_Gore").Type, 1f);
 
-            return base.PreKill();
+                }
+            }
+
         }
 
     }
@@ -202,12 +210,21 @@ namespace TRAEProject.NewContent.NPCs.Underworld.ObsidianBasilisk
             NPC.GetGlobalNPC<Stun>().stunImmune = true;
 
         }
-
-        public override bool PreKill()
+        public override void PostAI()
         {
-            Gore.NewGore(NPC.GetSource_Death(), NPC.Center, NPC.velocity, Mod.Find<ModGore>("ObsidianBasiliskTail_Gore").Type, 1f);
-            return base.PreKill();
+            if (Main.netMode != NetmodeID.MultiplayerClient)
+            {
+                // Some of these conditions are possble if the body/tail segment was spawned individually
+                // Kill the segment if the segment NPC it's following is no longer valid
+                if (NPC.life == 0 && !NPC.active)
+                {
+                    Gore.NewGore(NPC.GetSource_Death(), NPC.Center, NPC.velocity, Mod.Find<ModGore>("ObsidianBasiliskTail_Gore").Type, 1f);
+
+                }
+            }
+
         }
+
 
         public override void Init() {
 			ObsidianBasiliskHead.CommonWormInit(this);

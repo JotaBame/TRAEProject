@@ -25,7 +25,7 @@ namespace TRAEProject.Changes.NPCs.Boss
                 npc.TargetClosest();
             }
             bool dead3 = Main.player[npc.target].dead;
-            float angVel = (MathF.PI / 180f) + (MathF.PI / 120f) * (1f -((float)npc.ai[2] / flameTime)) * (1f -((float)npc.ai[2] / flameTime));
+            float angVel = (MathF.PI / 180f) + (MathF.PI / 150f) * (1f -((float)npc.ai[2] / flameTime)) * (1f -((float)npc.ai[2] / flameTime));
             npc.rotation.SlowRotation((Main.player[npc.target].Center - npc.Center).ToRotation() - MathF.PI/2, angVel);
             
             if (Main.rand.Next(5) == 0)
@@ -182,12 +182,12 @@ namespace TRAEProject.Changes.NPCs.Boss
         }
         public static void Cauldron(NPC npc)
         {
-            float angVel = (MathF.PI / 15f);
+            float angVel = (MathF.PI / 12f);
             npc.rotation.SlowRotation(MathF.PI, angVel);
             float accY = 0.2f;
             float maxVelY = 5f;
             float accX = 0.2f;
-            float maxVelX = 24f;
+            float maxVelX = 20f;
             
             npc.TargetClosest(false);
             Player player = Main.player[npc.target];
@@ -233,11 +233,11 @@ namespace TRAEProject.Changes.NPCs.Boss
                 //SoundEngine.PlaySound(15, (int)npc.position.X, (int)npc.position.Y, 0);
                 npc.TargetClosest();
                 npc.rotation = (Main.player[npc.target].Center - npc.Center).ToRotation() - MathF.PI/2;
-                float num489 = 18f;
-                if (Main.expertMode)
-                {
-                    num489 += 4.5f;
-                }
+                float num489 = 24f;
+                //if (Main.masterMode)
+                //{
+                //    num489 += 5f;
+                //}
                 Vector2 vector48 = new Vector2(npc.position.X + (float)npc.width * 0.5f, npc.position.Y + (float)npc.height * 0.5f);
                 float num490 = Main.player[npc.target].position.X + (float)(Main.player[npc.target].width / 2) - vector48.X;
                 float num491 = Main.player[npc.target].position.Y + (float)(Main.player[npc.target].height / 2) - vector48.Y;
@@ -254,9 +254,9 @@ namespace TRAEProject.Changes.NPCs.Boss
                     return;
                 }
                 npc.ai[2] += 1f;
-                if (Main.expertMode)
+                if (Main.masterMode)
                 {
-                    npc.ai[2] += 0.33f; // make it 0.5 on master
+                    npc.ai[2] += 0.5f; // make it 0.5 on master
                 }
                 if (npc.ai[2] >= 30f)
                 {

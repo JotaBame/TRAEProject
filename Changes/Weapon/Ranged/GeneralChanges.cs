@@ -60,18 +60,19 @@ namespace TRAEProject.Changes.Weapons
                     item.autoReuse = true;
                     return;
                 case ItemID.Gatligator:
-                    item.damage = 18; // down from 21
+                //    item.damage = 18; // down from 21
 
-                    item.useTime = 7; // down from 7
-                    item.useAnimation = 7;
-                    item.value = Item.buyPrice(platinum: 1, gold: 50);
-                    return;
+                //    item.useTime = 7; // down from 7
+                //    item.useAnimation = 7;
+                //    item.value = Item.buyPrice(platinum: 1, gold: 50);
+                //    return;
                 case ItemID.Uzi:
-                    item.damage = 22; // up from 30
-                    item.value = Item.buyPrice(platinum: 1, gold: 50);
-                    item.shootSpeed = 5f;
-                    item.useTime = 7;
-                    item.useAnimation = 7;
+                    //    item.damage = 22; // up from 30
+                    item.value = Item.buyPrice(gold: 75);
+                    //item.value = Item.buyPrice(platinum: 1, gold: 50);
+                    //    item.shootSpeed = 5f;
+                    //    item.useTime = 7;
+                    //    item.useAnimation = 7;
                     return;
                 case ItemID.Toxikarp:
                     item.useTime = 14;
@@ -219,6 +220,15 @@ namespace TRAEProject.Changes.Weapons
                         if (line.Mod == "Terraria" && line.Name == "Knockback")
                         {
                             line.Text += "\nRight Click to shoot flares";
+                        }
+                    }
+                    return;   
+				case ItemID.Stynger:
+                    foreach (TooltipLine line in tooltips)
+                    {
+                        if (line.Mod == "Terraria" && line.Name == "Tooltip1")
+                        {
+                            line.Text = "Deals 125% bonus damage on a direct hit";
                         }
                     }
                     return;

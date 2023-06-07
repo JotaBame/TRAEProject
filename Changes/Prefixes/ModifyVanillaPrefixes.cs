@@ -33,7 +33,7 @@ namespace TRAEProject.Changes.Prefixes
             damageBonus += newDamageBonus - damageBonus;
         }
         public override void ModifyWeaponDamage(Item item, ref StatModifier damage)
-        {        
+        {
             switch (item.prefix)
             {
                 case PrefixID.Sighted:
@@ -49,10 +49,13 @@ namespace TRAEProject.Changes.Prefixes
                     damage *= 1.25f / 1.05f;
                     break;
                 case PrefixID.Intense:
-                    damage *= 1.2f / 1.1f;
+                    damage *= 1.18f / 1.1f;
                     break;
                 case PrefixID.Furious:
-                    damage *= 1.2f / 1.15f;
+                    damage *= 1.18f / 1.15f;
+                    break;
+                case PrefixID.Taboo:
+                    damage *= 1.15f / 1f;
                     break;
                 case PrefixID.Frenzying:
                     damage *= 0.95f / 0.85f;
@@ -77,7 +80,11 @@ namespace TRAEProject.Changes.Prefixes
         #region speed
         public override float UseSpeedMultiplier(Item item)
         {
-            if(item.prefix == PrefixID.Savage)
+            if (item.prefix == PrefixID.Taboo)
+            {
+                return (1.1f / 1.12f);
+            }
+            if (item.prefix == PrefixID.Savage)
             {
                 return (1f / 1.1f);
             }
@@ -102,7 +109,15 @@ namespace TRAEProject.Changes.Prefixes
                 case PrefixID.Powerful:
                     crit += 2; // 1% crit -> 3% crit
                     break;
-
+                case PrefixID.Taboo:
+                    crit += 7; // 0% crit -> 10% crit
+                    break;
+                case PrefixID.Furious:
+                    crit += 10; // 0% crit -> 10% crit
+                    break;
+                case PrefixID.Intense:
+                    crit += 3; // 0% crit -> 3% crit
+                    break;
                 case PrefixID.Unpleasant:
                     crit += 5; // 0% crit -> 5% crit
                     break;
@@ -153,6 +168,14 @@ namespace TRAEProject.Changes.Prefixes
                 velocity *= (1.35f / 1.15f);
             }
             base.ModifyShootStats(item, ref position, ref velocity, ref type, ref damage, ref knockback);
+        }
+        public override void ModifyManaCost(Item item, ref float reduce, ref float mult)
+        {
+            if (item.prefix == PrefixID.Taboo)
+            {
+                mult *= 1.15f / 1.1f;
+            }
+            base.ModifyManaCost(item, ref reduce, ref mult);
         }
         #endregion
 
@@ -236,10 +259,10 @@ namespace TRAEProject.Changes.Prefixes
                         line.Text = ModifyDamage(item, 1.05f, ModifyVanillaPrefixes.T7Damage);
                         break;
                     case PrefixID.Intense:
-                        line.Text = ModifyDamage(item, 1.1f, ModifyVanillaPrefixes.T6Damage);
+                        line.Text = ModifyDamage(item, 1.1f, ModifyVanillaPrefixes.T5Damage);
                         break;
                     case PrefixID.Furious:
-                        line.Text = ModifyDamage(item, 1.15f, ModifyVanillaPrefixes.T6Damage);
+                        line.Text = ModifyDamage(item, 1.15f, ModifyVanillaPrefixes.T5Damage);
                         break;
 
                     case PrefixID.Frenzying:
@@ -257,7 +280,7 @@ namespace TRAEProject.Changes.Prefixes
                 case PrefixID.Large:
                     int sizeIndex = tooltips.FindIndex(TL => TL.Name == "PrefixSize");
 
-                    line = new TooltipLine(TRAEProj.Instance, "TRAEDamage", "+"+ (int)((ModifyVanillaPrefixes.T1Damage - 1f) * 100f) + "% damage");
+                    line = new TooltipLine(TRAEProj.Instance, "TRAEDamage", "+" + (int)((ModifyVanillaPrefixes.T1Damage - 1f) * 100f) + "% damage");
                     line.IsModifier = true;
                     tooltips.Insert(sizeIndex, line);
                     break;
@@ -285,6 +308,7 @@ namespace TRAEProject.Changes.Prefixes
             }
             #endregion
 
+
             #region speed
 
             if (item.prefix == PrefixID.Savage)
@@ -294,6 +318,16 @@ namespace TRAEProject.Changes.Prefixes
                 line = new TooltipLine(TRAEProj.Instance, "TRAESpeed", "+10% speed");
                 line.IsModifier = true;
                 tooltips.Insert(damageIndex + 1, line);
+            }
+            line = tooltips.FirstOrDefault(x => x.Name == "PrefixSpeed" && x.Mod == "Terraria");
+            if (line != null)
+            {
+                switch (item.prefix)
+                {
+                    case PrefixID.Taboo:
+                        line.Text = "+15% damage\n+12% speed";
+                        break;
+                }
             }
             #endregion
 
@@ -334,6 +368,30 @@ namespace TRAEProject.Changes.Prefixes
                 line = new TooltipLine(TRAEProj.Instance, "TRAECrit", "+5% critical strike chance");
                 line.IsModifier = true;
                 tooltips.Insert(kbIndex, line);
+            }
+            if (item.prefix == PrefixID.Intense)
+            {
+                int damageIndex = tooltips.FindIndex(TL => TL.Name == "PrefixDamage");
+
+                line = new TooltipLine(TRAEProj.Instance, "TRAECrit", "+3% critical strike chance");
+                line.IsModifier = true;
+                tooltips.Insert(damageIndex + 1, line);
+            }
+            if (item.prefix == PrefixID.Furious)
+            {
+                int damageIndex = tooltips.FindIndex(TL => TL.Name == "PrefixDamage");
+
+                line = new TooltipLine(TRAEProj.Instance, "TRAECrit", "+10% critical strike chance");
+                line.IsModifier = true;
+                tooltips.Insert(damageIndex + 1, line);
+            }
+            if (item.prefix == PrefixID.Taboo)
+            {
+                int damageIndex = tooltips.FindIndex(TL => TL.Name == "PrefixSpeed");
+
+                line = new TooltipLine(TRAEProj.Instance, "TRAECrit", "+7% critical strike chance");
+                line.IsModifier = true;
+                tooltips.Insert(damageIndex + 1, line);
             }
             #endregion
 

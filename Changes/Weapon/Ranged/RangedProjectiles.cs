@@ -59,10 +59,6 @@ namespace TRAEProject.Changes.Projectiles
                     projectile.GetGlobalProjectile<ProjectileStats>().DirectDamage = 0.5f;
                     projectile.ArmorPenetration = 50;
                     return;
-                case ProjectileID.Electrosphere:
-                    projectile.usesIDStaticNPCImmunity = true;
-                    projectile.idStaticNPCHitCooldown = 10;
-                    return;
                 case ProjectileID.BoneArrowFromMerchant:
                     projectile.penetrate = 1;
                     return;
@@ -137,7 +133,7 @@ namespace TRAEProject.Changes.Projectiles
                     projectile.GetGlobalProjectile<ProjectileStats>().DamageFalloff = 0.25f;
                     return;
                 case ProjectileID.MechanicalPiranha:
-                    projectile.ContinuouslyUpdateDamage = true;
+                    projectile.ContinuouslyUpdateDamageStats = true;
                     break;
                 //case ProjectileID.VenomBullet:
                 //    projectile.ArmorPenetration = 10;

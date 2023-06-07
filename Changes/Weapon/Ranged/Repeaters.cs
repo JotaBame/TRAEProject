@@ -39,7 +39,6 @@ namespace TRAEProject.Changes.Weapon.Ranged
                     item.SetNameOverride("Mythril Ballista");
                     break;
                 case ItemID.OrichalcumRepeater:
-                    item.damage = 29;
                     item.useTime = item.useAnimation = 24;
                     item.SetNameOverride("Orichalcum Crossbow");
                     break;

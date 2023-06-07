@@ -271,6 +271,13 @@ namespace TRAEProject
             }
         }
 
+        public override void ModifyHitByNPC(NPC npc, ref Player.HurtModifiers modifiers)
+        {
+            if (npc.HasBuff(BuffID.WitheredWeapon))
+            {
+                modifiers.FinalDamage *= 0.84f;
+            }    
+        }
         public override bool PreKill(double damage, int hitDirection, bool pvp, ref bool playSound, ref bool genGore, ref PlayerDeathReason damageSource)
         {
             if (Celled && hitDirection == 0 && damageSource.SourceOtherIndex == 8)

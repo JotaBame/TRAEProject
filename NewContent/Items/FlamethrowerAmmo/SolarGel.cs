@@ -8,6 +8,8 @@ using TRAEProject.Common;
 using TRAEProject.NewContent.TRAEDebuffs;
 using Microsoft.Xna.Framework;
 using TRAEProject.Changes.Weapon.Ranged;
+using TRAEProject.NewContent.NPCs.Underworld.Phoenix;
+using TRAEProject.NewContent.Items.Materials;
 
 namespace TRAEProject.NewContent.Items.FlamethrowerAmmo
 {
@@ -39,8 +41,8 @@ namespace TRAEProject.NewContent.Items.FlamethrowerAmmo
 
         public override void AddRecipes()
         {
-            CreateRecipe(100).AddIngredient(ItemID.LunarTabletFragment)
-                .AddIngredient(ItemID.Gel, 20)
+            CreateRecipe(250).AddIngredient(ItemType<MagicalAsh>())
+                .AddIngredient(ItemID.Gel, 50)
                 .AddTile(TileID.Solidifier)
                 .Register();
         }

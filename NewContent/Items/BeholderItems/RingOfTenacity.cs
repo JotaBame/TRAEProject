@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
+using static Terraria.ModLoader.ModContent;
 
 namespace TRAEProject.NewContent.Items.BeholderItems
 {
@@ -16,6 +17,7 @@ namespace TRAEProject.NewContent.Items.BeholderItems
         public override void SetStaticDefaults()
         {
             Terraria.GameContent.Creative.CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
+            ItemID.Sets.ShimmerTransformToItem[Type] = ItemType<RingOfFuror>();
 
             // DisplayName.SetDefault("Ring of Tenacity");
             // Tooltip.SetDefault("18% increased maximum hp\n6% reduced total damage");

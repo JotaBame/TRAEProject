@@ -13,7 +13,7 @@ namespace TRAEProject.NewContent.TRAEDebuffs
     {
         public override void Update(NPC npc)
         {
-            npc.GetGlobalNPC<Tag>().Crit += 2;
+            npc.GetGlobalNPC<Tag>().Crit += 4;
         }
     }
 }

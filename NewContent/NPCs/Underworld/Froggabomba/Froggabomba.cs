@@ -97,7 +97,9 @@ namespace TRAEProject.NewContent.NPCs.Underworld.Froggabomba
                 for (int i = 0; i < smallBoomxiesToSpawn; i++)
                 {
                     damagestored -= 30;
+                    NPC.life -= 30;
                     NPC.NewNPC(NPC.GetSource_FromAI(), (int)NPC.Center.X, (int)NPC.Center.Y, NPCType<FroggabombaClone>());
+                    frogsSpawned++;
                 }
             }
         }

@@ -67,6 +67,10 @@ namespace TRAEProject.Changes.Recipes
                 recipe.AddIngredient(ItemID.Waterleaf, 1);
                 recipe.AddIngredient(ItemID.PrincessFish, 1);
             }
+            if (recipe.HasResult(ItemID.RestorationPotion))
+            {
+                recipe.ReplaceResult(ItemID.RestorationPotion, 2);
+            }
             if (recipe.HasResult(ItemID.WormFood))
             {
                 recipe.TryGetIngredient(ItemID.RottenChunk, out ingredientToRemove);

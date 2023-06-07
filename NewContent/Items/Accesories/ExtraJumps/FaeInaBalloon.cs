@@ -30,7 +30,8 @@ namespace TRAEProject.NewContent.Items.Accesories.ExtraJumps
         public override void UpdateAccessory(Player player, bool hideVisual)
         {
             player.GetModPlayer<TRAEJumps>().faeJump = true;
-            player.jumpBoost = true;
+            player.jumpBoost = true; player.noFallDmg = true;
+
             player.GetModPlayer<SpaceBalloonPlayer>().SpaceBalloon += 1;
         }
         public override void AddRecipes()

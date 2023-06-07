@@ -149,16 +149,6 @@ namespace TRAEProject.NewContent.Items.Accesories.EvilEye
         {
             Main.debuff[BuffID.ShadowFlame] = true;
         }
-        public override void Update(int type, NPC npc, ref int buffIndex)
-        {
-            switch (type)
-            {
-       
-                case BuffID.WitheredWeapon:
-                    npc.damage = (int)(npc.defDamage * 0.86f);
-                    return;
-            }
-        }
         public override void Update(int type, Player player, ref int buffIndex)
         {
             switch (type)

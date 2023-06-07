@@ -3,12 +3,13 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
+using static Terraria.ModLoader.ModContent;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 using TRAEProject.Changes.Weapon.Summon.Minions;
 using TRAEProject.Common;
+using TRAEProject.NewContent.Items.Weapons.Summoner.TailWhip;
 
 namespace TRAEProject.Common
 {
@@ -59,7 +60,6 @@ namespace TRAEProject.Common
             }
             if (npc.HasBuff(BuffID.WitheredArmor))
             {
-                npc.defense -= 18;
                 if (Main.rand.Next(5) < 1)
                 {
                     int dust = Dust.NewDust(npc.position - new Vector2(2f, 2f), npc.width, npc.height, 21, npc.velocity.X * 0.4f, npc.velocity.Y * 0.4f, 100, default, 2f);
@@ -72,6 +72,17 @@ namespace TRAEProject.Common
                         Main.dust[dust].scale *= 0.5f;
                     }
                 }
+            }
+        }
+        public override void ModifyIncomingHit(NPC npc, ref NPC.HitModifiers modifiers)
+        {
+            if (npc.HasBuff(BuffID.WitheredArmor))
+            {
+                modifiers.ArmorPenetration += 18;
+            }
+            if (npc.HasBuff(BuffType<TailWhipTag>()))
+            {
+                modifiers.ArmorPenetration += 16;
             }
         }
 

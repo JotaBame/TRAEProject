@@ -41,9 +41,7 @@ namespace TRAEProject.Changes.Weapon.Melee
                     item.damage = 22; // up from 16
                     item.crit = 12; // up from 6%
                     return;
-                case ItemID.LightDisc:
-                    item.damage = 100; // up from 57
-                    return;
+
                 case ItemID.PaladinsHammer:
                     item.damage = 102; // up from 90
                     return;
