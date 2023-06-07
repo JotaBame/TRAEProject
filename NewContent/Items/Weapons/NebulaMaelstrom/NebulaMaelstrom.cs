@@ -8,6 +8,7 @@ using TRAEProject.NewContent.Items.Materials;
 using System;
 using static Terraria.ModLoader.ModContent;
 using Terraria.Audio;
+using System.Collections.Generic;
 
 namespace TRAEProject.NewContent.Items.Weapons.NebulaMaelstrom
 {
@@ -60,6 +61,16 @@ namespace TRAEProject.NewContent.Items.Weapons.NebulaMaelstrom
                 .AddTile(TileID.LunarCraftingStation)
                 .Register();
         }
+        public override void ModifyTooltips(List<TooltipLine> tooltips)
+        {
+            foreach (TooltipLine line in tooltips)
+            {
+                if (line.Mod == "Terraria" && line.Name == "UseMana")
+                {
+                    line.Text += "\nUses " + (int)(75 * Main.LocalPlayer.manaCost) + " mana per second while attacking";
+                }
+            }
+        }
     }
     public class MaelstromBall : ModProjectile
     {
@@ -84,7 +95,6 @@ namespace TRAEProject.NewContent.Items.Weapons.NebulaMaelstrom
             Projectile.tileCollide = false;
         }
         public float angletimer = 0;
-        public int manaDrain = 0;
         public int BeforeItStartsAttacking = 30;
         public int attacktimer = 8;
         public int lasertimer = 0;
@@ -111,6 +121,7 @@ namespace TRAEProject.NewContent.Items.Weapons.NebulaMaelstrom
                     zaptimer++;
                     if (zaptimer >= 25 && Projectile.ai[0] >= BeforeItStartsAttacking)
                     {
+                        
                         zaptimer = 0;
                         SoundEngine.PlaySound(SoundID.Item93 with { MaxInstances = 0 }, Projectile.position);
 

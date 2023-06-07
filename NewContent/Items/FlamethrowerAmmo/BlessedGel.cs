@@ -53,9 +53,11 @@ namespace TRAEProject.NewContent.Items.FlamethrowerAmmo
             Projectile.CloneDefaults(ProjectileID.WaterStream);
             AIType = ProjectileID.WaterStream; 
             Projectile.timeLeft = 210;
-            Projectile.penetrate = 5;
+            Projectile.penetrate = 3;
             Projectile.extraUpdates = 2;
-            Projectile.ignoreWater = true;
+            Projectile.ignoreWater = true; 
+            Projectile.ArmorPenetration = 3;
+
             Projectile.DamageType = DamageClass.Ranged;
             Projectile.friendly = true;
             Projectile.GetGlobalProjectile<ProjectileStats>().SmartBouncesOffEnemies = true;

@@ -62,10 +62,7 @@ namespace TRAEProject.Changes.NPCs
                     });
                     npcLoot.Remove(ItemDropRule.Common(ItemID.FireFeather));
                     break;
-                case NPCID.DesertGhoul:
-                case NPCID.DesertGhoulHallow:
-                    npcLoot.Add(ItemDropRule.Common(ItemID.DjinnLamp, 80));
-                    break;
+          
                 case NPCID.DesertDjinn:
                     npcLoot.RemoveWhere(rule =>
                     {
@@ -110,7 +107,15 @@ namespace TRAEProject.Changes.NPCs
                     }
                 case NPCID.DesertLamiaDark:
                 case NPCID.DesertLamiaLight:
+                    npcLoot.Add(ItemDropRule.Common(ItemID.DjinnLamp, 80));
+
                     npcLoot.Add(ItemDropRule.Common(ItemID.AncientCloth, 8));
+                    break;
+                case NPCID.DesertGhoul:
+                case NPCID.DesertGhoulHallow:
+                case NPCID.DesertGhoulCorruption:
+                case NPCID.DesertGhoulCrimson:
+                    npcLoot.Add(ItemDropRule.Common(ItemID.DjinnLamp, 80));
                     break;
                 case NPCID.Tim:
                     npcLoot.Add(ItemDropRule.Common(ItemID.BookofSkulls, 2));

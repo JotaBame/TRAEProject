@@ -86,7 +86,6 @@ namespace TRAEProject.NewContent.Items.Weapons.Summoner.TailWhip
         public override void Update(NPC npc, ref int buffIndex)
         {
             npc.GetGlobalNPC<Tag>().Damage += 11;
-            npc.defense -= 16;
         }
     }
 }

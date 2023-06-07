@@ -114,7 +114,6 @@ namespace TRAEProject.Changes.Weapon.Melee
                 case ItemID.RedPhasesaber:
                 case ItemID.OrangePhasesaber:
                 case ItemID.WhitePhasesaber:
-                    item.damage = 48;
                     item.crit = 24;
                     item.autoReuse = true;
                     item.useTurn = false;

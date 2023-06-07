@@ -88,8 +88,6 @@ namespace TRAEProject.Changes.Items
 
                 case ProjectileID.RainbowFront:
                 case ProjectileID.RainbowBack:
-                    projectile.usesIDStaticNPCImmunity = true;
-                    projectile.idStaticNPCHitCooldown = 10;
                     DrainManaOnHit = TRAEMagicItem.RainbowOnHitCost;
                     DrainManaPassively = TRAEMagicItem.RainbowPassiveCost;
                     break;
@@ -215,6 +213,17 @@ namespace TRAEProject.Changes.Items
                 player.UseManaOverloadable((int)(DrainManaOnHit * player.manaCost));
 
             }
+        }
+        public override void ModifyHitNPC(Projectile projectile, NPC target, ref NPC.HitModifiers modifiers)
+        {
+            if (Main.expertMode && projectile.type == ProjectileID.GoldenShowerFriendly)
+            {
+                if (target.type == NPCID.TheDestroyer || target.type == NPCID.TheDestroyerBody || target.type == NPCID.TheDestroyerTail || target.type == NPCID.Probe)
+                {
+                    modifiers.FinalDamage /= 0.75f;
+                }
+            }
+
         }
         public override bool PreAI(Projectile projectile)
         {
@@ -354,7 +363,7 @@ namespace TRAEProject.Changes.Items
                     projectile.ai[0] = 0f;
                     if (projectile.owner == Main.myPlayer && player.statMana >= 6)
                     {
-                        player.statMana -= 3;
+                        player.statMana -= (int)(4 * player.manaCost);
                         PosX += Main.rand.Next(-14, 15);
                         Projectile.NewProjectile(projectile.GetSource_FromThis(), PosX, PosY, 0f, 5f, ProjectileID.BloodRain, projectile.damage, 0f, projectile.owner);
                     }
@@ -396,7 +405,7 @@ namespace TRAEProject.Changes.Items
                     projectile.ai[0] = 0f;
                     if (projectile.owner == Main.myPlayer && player.statMana >= 4)
                     {
-                        player.statMana -= 2;
+                        player.statMana -= (int)(4 * player.manaCost);
                         var += Main.rand.Next(-14, 15);
                         Projectile.NewProjectile(projectile.GetSource_FromThis(), var, projectile.Center.Y, 0f, 5f, 239, projectile.damage, 0f, projectile.owner);
                     }

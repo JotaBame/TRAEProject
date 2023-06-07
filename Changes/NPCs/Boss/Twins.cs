@@ -19,11 +19,32 @@ namespace TRAEProject.Changes.NPCs.Boss
             {
                 if (npc.type == NPCID.Retinazer)
                 {
-                    npc.lifeMax = (int)(npc.lifeMax * ((float)14000 / 20000));
+                  
+                    npc.lifeMax = (int)(npc.lifeMax * ((float)14000 / 20000)); 
                 }
                 else if (npc.type == NPCID.Spazmatism)
                 {
                     npc.lifeMax = (int)(npc.lifeMax * ((float)23000 / 23000));
+                }
+            }
+        }
+        public override void ApplyDifficultyAndPlayerScaling(NPC npc, int numPlayers, float balance, float bossAdjustment)
+        {
+            if (GetInstance<TRAEConfig>().TwinsRework && !Main.masterMode)
+            {
+
+                switch (npc.type)
+                {
+                    case NPCID.Retinazer:
+                        npc.lifeMax = (int)(npc.lifeMax * 20000 / 21000 * bossAdjustment);
+
+                        break;
+                    case NPCID.Spazmatism:
+                        if (Main.expertMode)
+                        {
+                            npc.lifeMax = (int)(npc.lifeMax * 30000 / 34500 * bossAdjustment);
+                        }
+                        break;
                 }
             }
         }
@@ -45,8 +66,8 @@ namespace TRAEProject.Changes.NPCs.Boss
             acceleration *= 2f;
 			if(phase2)
 			{
-				topSpeed *= 2;
-				acceleration *= 16;
+				topSpeed *= 1.25f;
+                acceleration *= 24;
 				npc.damage = 0;
 				if((goHere - npc.Center).Length() < acceleration)
 				{
@@ -349,7 +370,7 @@ namespace TRAEProject.Changes.NPCs.Boss
                                 npc.ai[3] = -1;
                             }
                             */
-                            if (npc.ai[2] % 60 == 0 && npc.ai[2] % 120 != 0)
+                            if (npc.ai[2] % 80 == 0 && npc.ai[2] % 160 != 0)
                             {
                                 if (Main.netMode != NetmodeID.MultiplayerClient)
                                 {
@@ -457,7 +478,7 @@ namespace TRAEProject.Changes.NPCs.Boss
                             npc.defense = 28;
                             if (npc.ai[1] == 0f)
                             {
-                                float speed = 2.7f;
+                                float speed = 2.4f;
                                 float tenpercent = 0.2f;
                                 int num425 = 1;
                                 if (npc.position.X + (float)(npc.width / 2) < Main.player[npc.target].position.X + (float)Main.player[npc.target].width)
@@ -629,12 +650,12 @@ namespace TRAEProject.Changes.NPCs.Boss
                 if (npc.type == NPCID.Retinazer && npc.ai[0] >= 4f)
                 {
                     RetPhase3.Phase3Draw(npc, spriteBatch, screenPos, drawColor);
-                    return false;
+                    return true;
                 }
                 if (npc.type == NPCID.Spazmatism && npc.ai[0] >= 4f)
                 {
                     SpazPhase3.Phase3Draw(npc, spriteBatch, screenPos, drawColor);
-                    return false;
+                    return true;
                 }
             }
             

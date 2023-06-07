@@ -26,7 +26,9 @@ namespace TRAEProject.Changes
         {
             switch (item.type)
             {
-                
+                case ItemID.GravityGlobe:
+                    item.value = Item.sellPrice(gold: 4);
+                    break;
                 case ItemID.GingerBeard:
                     item.value = Item.sellPrice(gold: 8);
                     break;
@@ -58,10 +60,6 @@ namespace TRAEProject.Changes
                     item.useTime = 5;
                     item.useAnimation = 5;
                     item.tileBoost = 6;
-                    break;
-                case ItemID.StrangeBrew:
-                    item.healMana = 0;
-                    item.healLife = 80;
                     break;
                 case ItemID.BottledHoney:
                     item.healLife = 70;
@@ -298,7 +296,7 @@ namespace TRAEProject.Changes
                         return;
                     }
                 case ItemID.BottledHoney:
-                    player.AddBuff(BuffID.Honey, 2400, false);
+                    player.AddBuff(BuffID.Honey, 1800, false);
                     return;
             }
             return;
@@ -386,7 +384,7 @@ namespace TRAEProject.Changes
                     {
                         if (line.Mod == "Terraria" && line.Name == "Tooltip0" && NPC.downedPlantBoss)
                         {
-                            line.Text += "\nRespected by powerful underworld foes";
+                            line.Text += "\nFeared by powerful underworld foes";
                         }
                     }
                     break;

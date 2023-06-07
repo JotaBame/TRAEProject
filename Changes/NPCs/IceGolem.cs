@@ -33,8 +33,16 @@ namespace TRAEProject.Changes.NPCs
 				float distanceTo = MathF.Sqrt(newMove.X * newMove.X + newMove.Y * newMove.Y);
 				if (distanceTo < 500f)
 				{
-					npc.ai[1] += 1f;
-					if (npc.ai[1] > 15)
+					if (npc.velocity.Y == 0)
+					{
+						npc.ai[1] += 1f;
+					}
+					if (npc.ai[1] == 15)
+					{
+						npc.velocity.Y = -8f;
+						npc.ai[1]++;
+					}
+                    if (npc.ai[1] > 15 && npc.velocity.Y == 0)
 					{
 						MakeSpikesForward(npc, 1, targetData);
 						npc.netUpdate = true;

@@ -121,8 +121,8 @@ namespace TRAEProject.NewContent.Items.BeholderItems
 
                         Player.KillMe(PlayerDeathReason.ByCustomReason(Player.name + " tried to break the rules"), 666, 0);
                     }
-                    Player.AddBuff(BuffType<Wipeout>(), 8 * 60 * 60);
-                    Player.GetModPlayer<WipeoutCooldown>().wipeoutCooldown = 8 * 60 * 60; // 8 minutes
+                    Player.AddBuff(BuffType<Wipeout>(), 5 * 60 * 60);
+                    Player.GetModPlayer<WipeoutCooldown>().wipeoutCooldown = 5 * 60 * 60; // 8 minutes
                     for (int l = 0; l < 70; l++)
                     {
                         Dust.NewDust(Player.position, Player.width, Player.height, DustID.Blood, Player.velocity.X * 0.5f, Player.velocity.Y * 0.5f, 150, default(Color), 1.5f);

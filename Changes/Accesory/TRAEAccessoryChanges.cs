@@ -216,17 +216,17 @@ namespace TRAEProject.Changes.Accesory
                 case ItemID.ApprenticeScarf:
                     ++player.maxTurrets;
                     player.GetDamage<SummonDamageClass>() -= 0.1f;
-                    player.GetDamage<MagicDamageClass>() += 0.07f;
+                    player.GetDamage<MagicDamageClass>() += 0.1f;
                     player.dd2Accessory = false;
                     break;
                 case ItemID.MonkBelt:
                     ++player.maxTurrets;
-                    player.GetDamage<SummonDamageClass>() += 0.07f;
+                    player.GetDamage<SummonDamageClass>() += 0.1f;
                     player.dd2Accessory = false;
                     break;
                 case ItemID.HuntressBuckler:
                     ++player.maxTurrets;
-                    player.GetDamage<RangedDamageClass>() += 0.07f;
+                    player.GetDamage<RangedDamageClass>() += 0.1f;
                     player.dd2Accessory = false;
                     break;
                 case ItemID.RifleScope:
@@ -263,7 +263,7 @@ namespace TRAEProject.Changes.Accesory
                     {
                         if (line.Mod == "Terraria" && line.Name == "Tooltip1")
                         {
-                            line.Text = "7% increased melee damage";
+                            line.Text = "10% increased melee damage";
                         }
                     }
                     break;
@@ -272,7 +272,7 @@ namespace TRAEProject.Changes.Accesory
                     {
                         if (line.Mod == "Terraria" && line.Name == "Tooltip1")
                         {
-                            line.Text = "7% increased magic damage";
+                            line.Text = "10% increased magic damage";
                         }
                     }
                     break;
@@ -281,7 +281,7 @@ namespace TRAEProject.Changes.Accesory
                     {
                         if (line.Mod == "Terraria" && line.Name == "Tooltip1")
                         {
-                            line.Text = "7% increased ranged damage";
+                            line.Text = "10% increased ranged damage";
                         }
                     }
                     break;
@@ -290,7 +290,7 @@ namespace TRAEProject.Changes.Accesory
                     {
                         if (line.Mod == "Terraria" && line.Name == "Tooltip1")
                         {
-                            line.Text = "7% increased summon damage";
+                            line.Text = "10% increased summon damage";
                         }
                     }
                     break;

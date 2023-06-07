@@ -70,8 +70,10 @@ namespace TRAEProject.Changes
                 shop.Add(ItemID.FastClock);
             if (shop.NpcType == NPCID.ArmsDealer)
             {
-                shop.Add(ItemID.Gatligator, Condition.InGraveyard, Condition.Hardmode);
-                shop.Add(ItemID.Uzi, Condition.Hardmode, Condition.NotInGraveyard);
+                shop.Add(ItemID.Gatligator, /*Condition.InGraveyard,*/ Condition.Hardmode);
+                shop.Add(ItemID.Uzi, Condition.DownedPlantera/*, Condition.NotInGraveyard*/);
+
+                //shop.Add(ItemID.Uzi, Condition.Hardmode, Condition.NotInGraveyard);
             }
             if (shop.NpcType == NPCID.SkeletonMerchant)
             {
@@ -103,18 +105,21 @@ namespace TRAEProject.Changes
                 shop.Add(ItemID.TrifoldMap);
                 shop.Add(ItemID.ThePlan);
             }
-            //if (shop.NpcType == NPCID.Steampunker)
-            //{
-            //    if (!TRAEWorld.downedAMech)
-            //    {
-            //        shop.TryGetEntry(ItemID.StaticHook, out var entry);
-            //        entry.Disable();
-            //        shop.TryGetEntry(ItemID.Jetpack, out entry);
-            //        entry.Disable();
-            //        shop.TryGetEntry(ItemID.Cog, out entry);
-            //        entry.Disable();
-            //    }
-            //}
+            var mechDowned = new Condition("DownedAMech", () => TRAEWorld.downedAMech);
+            if (shop.NpcType == NPCID.Steampunker)
+            {
+
+                    shop.TryGetEntry(ItemID.StaticHook, out var entry);
+                    entry.Disable();
+                    shop.TryGetEntry(ItemID.Jetpack, out entry);
+                    entry.Disable();
+                    shop.TryGetEntry(ItemID.Cog, out entry);
+                    entry.Disable();
+                shop.InsertAfter(ItemID.Clentaminator, ItemID.Jetpack, mechDowned);
+                shop.InsertAfter(ItemID.SteampunkMinecart, ItemID.Cog, mechDowned);
+                shop.InsertAfter(ItemID.LogicGateLamp_Faulty, ItemID.StaticHook, mechDowned);
+
+            }
         }
 
         public override void ModifyActiveShop(NPC npc, string shopName, Item[] items)

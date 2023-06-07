@@ -63,7 +63,7 @@ namespace TRAEProject.NewContent.Items.Weapons.SuperRose
         {
             CreateRecipe().AddIngredient(ItemID.ObsidianRose, 1)
                 .AddIngredient(ItemType<DriedRose>(), 2)
-                .AddTile(TileID.TinkerersWorkbench)
+                .AddTile(TileID.MythrilAnvil)
                 .Register();
         }
 
@@ -93,7 +93,6 @@ namespace TRAEProject.NewContent.Items.Weapons.SuperRose
         {
             return false;
         }
-        // Note, this Texture is actually just a blank texture, FYI.
 
         readonly int fireRate = 20; 
 

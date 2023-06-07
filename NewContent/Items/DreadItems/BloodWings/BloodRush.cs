@@ -17,8 +17,8 @@ namespace TRAEProject.NewContent.Items.DreadItems.BloodWings
         }
         public override void Update(Player player, ref int buffIndex)
         {
-            player.runAcceleration *= 2;
-            player.jumpSpeedBoost += 2f;
+            player.runAcceleration *= 1.5f;
+            player.jumpSpeedBoost += 1f;
             player.moveSpeed += 0.5f;
         }
     }

@@ -384,7 +384,7 @@ Mods: {
 
 			Wipeout: {
 				DisplayName: Wiped Out
-				Description: The scroll needs to recharge
+				Description: The scroll needs to recharge.
 			}
 
 			BloodSquidBuff: {
@@ -399,7 +399,7 @@ Mods: {
 
 			LavamanderBuff: {
 				DisplayName: Lavamander
-				Description: Dont get cold feet again
+				Description: Don't get cold feet again
 			}
 
 			Power: {
@@ -517,7 +517,7 @@ Mods: {
 				DisplayName: Adv. Flight boots
 				Tooltip:
 					'''
-					Rocket boots and wings are activated by pushing UP instead of jump
+					Rocket boots and wings are activated by pressing UP instead of jump
 					40% increased flight time
 					Provides extended rocket boot flight
 					'''
@@ -527,7 +527,7 @@ Mods: {
 				DisplayName: Adv. Flight System
 				Tooltip:
 					'''
-					Rocket boots and wings are activated by pushing UP instead of jump
+					Rocket boots and wings are activated by pressing UP instead of jump
 					40% increased flight time
 					'''
 			}
@@ -565,7 +565,7 @@ Mods: {
 				DisplayName: Flight Forecast
 				Tooltip:
 					'''
-					Rocket boots and wings are activated by pushing UP instead of jump
+					Rocket boots and wings are activated by pressing UP instead of jump
 					20% increased flight time and jump speed
 					Provides a double jump
 					'''
@@ -575,7 +575,7 @@ Mods: {
 				DisplayName: Jet boots
 				Tooltip:
 					'''
-					Rocket boots and wings are activated by pushing UP instead of jump
+					Rocket boots and wings are activated by pressing UP instead of jump
 					40% increased flight time
 					Provides rocket boot flight
 					Provides an omnidirectional booster
@@ -583,7 +583,7 @@ Mods: {
 			}
 
 			LevitatingSoles: {
-				DisplayName: Magical Soles
+				DisplayName: Levitating Soles
 				Tooltip:
 					'''
 					Provides a long lasting double jump
@@ -774,7 +774,7 @@ Mods: {
 				DisplayName: Two Flowers
 				Tooltip:
 					'''
-					Magic critical strikes deal 11% increased damage and have a chance to spawn a mana star
+					Magic critical strikes deal 10% increased damage and have a chance to spawn a mana star
 					Automatically uses mana potions when needed
 
 					'''
@@ -835,7 +835,7 @@ Mods: {
 
 			JoterTrident: {
 				DisplayName: Joter Trident
-				Tooltip: Feed the Joter
+				Tooltip: Joter Eat
 			}
 
 			LeatherHat: {
@@ -1150,8 +1150,8 @@ Mods: {
 			}
 
 			SolarGel: {
-				DisplayName: Sun Gel
-				Tooltip: Shoots a concentrated solar flare
+				DisplayName: Cremator Gel
+				Tooltip: Shoots a concentrated flare
 			}
 
 			DriedRose: {
@@ -1176,17 +1176,17 @@ Mods: {
 
 			MagicalAsh: {
 				DisplayName: Magical Ash
-				Tooltip: Let's hope a Phoenix isnt born from these
+				Tooltip: Let's hope a Phoenix isn't born from these
 			}
 
 			ObsidianScale: {
 				DisplayName: Obsidian Scales
-				Tooltip: Very Tough
+				Tooltip: Very hard to crack
 			}
 
 			SalamanderTail: {
 				DisplayName: Salamander Tail
-				Tooltip: It's still moving
+				Tooltip: It's still moving...
 			}
 
 			HeatproofSaddle: {
@@ -1199,7 +1199,7 @@ Mods: {
 				Tooltip:
 					'''
 					Permanently increases movement speed by 15%
-					You have 1 wish... as long as its 15% movement speed.
+					"You can have any 1 wish... as long as it's 15% more movement speed."
 					'''
 			}
 
@@ -1305,11 +1305,7 @@ Mods: {
 
 			GraniteBook: {
 				DisplayName: Electro Shield
-				Tooltip:
-					'''
-					Summons an electric ring around you
-					Drains 30 mana per second, affected by gear
-					'''
+				Tooltip: Summons an electric ring around you
 			}
 
 			HeadHarvester: {
@@ -1365,7 +1361,6 @@ Mods: {
 				Tooltip:
 					'''
 					Summons 3 fireballs to circle around you
-					The fireballs will drain 50 mana per second, affected by gear
 					They will curse nearby enemies, causing damage over time, lower damage or defense
 					Right-click to uncast 
 					'''

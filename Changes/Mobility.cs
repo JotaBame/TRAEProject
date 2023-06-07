@@ -220,7 +220,7 @@ namespace TRAEProject
                         Player.GetModPlayer<TRAEJumps>().SpendBlizzardJump();
                     }
                     Player.GetModPlayer<TRAEJumps>().usedBlizzardDash = true;
-                    Player.velocity.X = 18f * (float)dir;
+                    Player.velocity.X = 16f * (float)dir;
                     Player.dashDelay = -1;
                     performingBlizzardDash = true;
                     Player.canJumpAgain_Blizzard = false;
@@ -261,9 +261,9 @@ namespace TRAEProject
                         case 99: //ice skates
                             if(performingBlizzardDash)
                             {
-                                Player.moveSpeed += 0.4f;
+                                Player.moveSpeed += 0.2f;
                             }
-                            Player.moveSpeed += 0.4f;
+                            Player.moveSpeed += 0.33f;
                             skating = true;
                             Player.armorEffectDrawShadow = false;
                             if(Player.velocity.Y == 0 && ((Math.Sign(Player.velocity.X) == -1 && Player.controlLeft) || (Math.Sign(Player.velocity.X) == 1 && Player.controlRight)))
@@ -399,12 +399,12 @@ namespace TRAEProject
             if (Player.wingsLogic == 37 && Player.TryingToHoverDown)
             {
                 Player.runAcceleration /= 3;
-                Player.moveSpeed += 0.44f;
+                Player.moveSpeed += 0.45f;
             }
             else if (Player.wingsLogic == 22 && Player.TryingToHoverDown)
             {
                 Player.runAcceleration /= 3;
-                Player.moveSpeed += 0.44f;
+                Player.moveSpeed += 0.45f;
             }
             else if (Player.wingsLogic == 45 && Player.TryingToHoverDown)
             {
@@ -417,7 +417,7 @@ namespace TRAEProject
                 Player.wingTime += 0.5f;
                 Player.runAcceleration /= 2;
                 //Player.runSlowdown *= 2;
-                Player.moveSpeed += 0.44f;
+                Player.moveSpeed += 0.45f;
                 Player.velocity.Y = Player.velocity.Y * 0.9f;
                 if (Player.velocity.Y > -2f && Player.velocity.Y < 1f)
                 {

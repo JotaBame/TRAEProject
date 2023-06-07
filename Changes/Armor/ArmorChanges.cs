@@ -205,7 +205,7 @@ namespace ChangesArmor
             if (head.type == ItemID.TurtleHelmet && body.type == ItemID.TurtleScaleMail && legs.type == ItemID.TurtleLeggings)
                 return "TurtleSet";
          
-            if (head.type == ItemID.AdamantiteMask && body.type == ItemID.AdamantiteBreastplate && legs.type == ItemID.AdamantiteLeggings)
+            if (head.type == ItemID.AdamantiteHelmet && body.type == ItemID.AdamantiteBreastplate && legs.type == ItemID.AdamantiteLeggings)
                 return "AdamantiteSet";
 
             if (head.type == ItemID.CobaltMask && body.type == ItemID.CobaltBreastplate && legs.type == ItemID.CobaltLeggings)
@@ -333,24 +333,34 @@ namespace ChangesArmor
                 player.setBonus = "Summons a powerful leaf crystal to shoot at nearby enemies";
                 player.endurance -= 0.05f;
             }
-            /*
-            if (armorSet == "HallowedSetSummon")
+            if (armorSet == "AdamantiteSet")
             {
-                player.setBonus = "You gain immunity to the next attack after taking a hit\nIncreases your maximum number of minions by 2";
-                player.GetModPlayer<SetBonuses>().HolyProtection = true;
-                player.onHitDodge = false;
+                player.setBonus = "20% increased melee speed";
+                player.moveSpeed -= 0.2f;
             }
-            if (armorSet == "HallowedSet")
-            {
-                player.setBonus = "You gain immunity to the next attack after taking a hit";
-                player.GetModPlayer<SetBonuses>().HolyProtection = true;
-                player.onHitDodge = false;
-            }
-            */
+
+            //if (armorSet == "HallowedSetSummon")
+            //{
+            //    player.setBonus = "You gain immunity to the next attack after taking a hit\nIncreases your maximum number of minions by 2";
+            //    player.GetModPlayer<SetBonuses>().HolyProtection = true;
+            //    player.onHitDodge = false;
+            //}
+            //if (armorSet == "HallowedSet")
+            //{
+            //    player.setBonus = "You gain immunity to the next attack after taking a hit";
+            //    player.GetModPlayer<SetBonuses>().HolyProtection = true;
+            //    player.onHitDodge = false;
+            //}
+
             if (armorSet == "PirateSet")
             {
-                player.setBonus = "All whips gain a stackable 2% minion crit tag";
+                player.setBonus = "Increases your maximum number of minions by 1\nAll whips gain a stackable 4% minion crit tag";
 				player.GetModPlayer<SetBonuses>().PirateSet = true;
+				player.maxMinions++;
+            }
+            if (armorSet == "ShroomiteSet")
+            {
+                player.setBonus = "Enter a stealth mode while on the ground, significantly increasing ranged abilities";
             }
             if (armorSet == "SpectreHoodSet")
             {

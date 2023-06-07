@@ -497,7 +497,6 @@ namespace TRAEProject.Changes.Weapon
 
 				if (num9 == 39)
 				{
-					Main.NewText("Legendary");
 					return PrefixID.Legendary;
 				}
 				#endregion

@@ -128,8 +128,9 @@ namespace TRAEProject.Changes.Weapon.Melee
 					projectile.penetrate = 3;
                     break;
 
-                case ProjectileID.FrostBoltSword:
-                    projectile.penetrate = 3;
+                case ProjectileID.CorruptYoyo:
+                    projectile.GetGlobalProjectile<ProjectileStats>().AddsBuff = BuffID.Poisoned;
+                    projectile.GetGlobalProjectile<ProjectileStats>().AddsBuffDuration = 180;
                     break;
                 case ProjectileID.StarWrath:
                     projectile.penetrate = 1;

@@ -5,6 +5,7 @@ using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
 using TRAEProject.Common;
+using TRAEProject.NewContent.Items.BeholderItems;
 using TRAEProject.NewContent.Projectiles;
 using TRAEProject.NewContent.TRAEDebuffs;
 using static Terraria.ModLoader.ModContent;
@@ -18,29 +19,30 @@ namespace TRAEProject.Changes.Weapon.Melee
         {
             return base.Clone(item, itemClone);
         }
+        public override void SetStaticDefaults()
+        {
+            ItemID.Sets.ShimmerTransformToItem[ItemID.GoldBroadsword] = ItemID.EnchantedSword;
+            ItemID.Sets.ShimmerTransformToItem[ItemID.PlatinumBroadsword] = ItemID.EnchantedSword;
+
+        }
         public override void SetDefaults(Item item)
         {
             switch (item.type)
             {
                 // WOODEN 
                 case ItemID.WoodenSword:
-                    item.damage = 9; // up from 7
-                    item.scale = 1.15f; // up from 1
-                    item.useTime = 22; // down from 25
-                    item.useAnimation = 22;
+                    item.scale = 1.1f; // up from 1
+
                     break;
                 case ItemID.BorealWoodSword:
                 case ItemID.PalmWoodSword:
-                    item.damage = 10; // up from 8
-                    item.scale = 1.15f; // up from 1
-                    item.useTime = 22; // down from 23
-                    item.useAnimation = 22;
+                    item.scale = 1.1f; // up from 1
+
                     break;
                 case ItemID.RichMahoganySword:
                 case ItemID.EbonwoodSword:
                 case ItemID.ShadewoodSword:
-                    item.damage = 12; // up from 10
-                    item.scale = 1.15f; // up from 1
+                    item.scale = 1.1f; // up from 1
                     break;
                 case ItemID.CactusSword:
                     item.damage = 9; // up from 8

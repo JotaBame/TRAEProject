@@ -27,7 +27,8 @@ namespace TRAEProject.NewContent.Items.Accesories.SpaceBalloon
         }
         public override void UpdateAccessory(Player player, bool hideVisual)
         {
-            player.jumpBoost = true;
+            player.jumpBoost = true; player.noFallDmg = true;
+
             player.GetModPlayer<SpaceBalloonPlayer>().SpaceBalloon += 1;
         }
     }

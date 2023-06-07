@@ -149,13 +149,14 @@ namespace TRAEProject.Changes.Items
                     item.damage = 33;
                     return;
                 case ItemID.CursedFlames:
+                    item.damage = 50; // down from 55
                     item.mana = 12; // up from 9
                     item.useTime = 18; // up from 15
                     item.useAnimation = 18;
 					return;
                 case ItemID.GoldenShower:
-                    item.damage = 24; // down from 30
-                    item.mana = 12; // up from 7
+                    item.damage = 20; // down from 30
+                    item.mana = 15; // up from 7
                     item.useTime = 8; // up from 15
                     item.useAnimation = 24;
                     return;
@@ -174,7 +175,7 @@ namespace TRAEProject.Changes.Items
                     item.mana = 37; // up from 17
                     return;
                 case ItemID.SpiritFlame:
-                    item.useTime = 24; // down from 22
+                    item.useTime = 24; // up from 22
                     item.useAnimation = 24;
                     return;
           
@@ -196,7 +197,7 @@ namespace TRAEProject.Changes.Items
                     item.shootSpeed = 12.5f; // up from 10f
                     return;
                 case ItemID.ShadowFlameHexDoll:
-                    item.damage = 37; // up from 32
+                    item.damage = 34; // up from 32
                     item.mana = 30; // up from 6
                     return;
   
@@ -205,9 +206,9 @@ namespace TRAEProject.Changes.Items
                     return;
                 case ItemID.WaspGun:
                     item.damage = 19; // base value: 31
-					item.useTime = 20; // up from 18
-                    item.useAnimation = 20; // up from 18
-					item.mana = 13; // up from 10 
+					item.useTime = 22; // up from 18
+                    item.useAnimation = 22; // up from 18
+					item.mana = 15; // up from 10 
                     item.shootSpeed = 12f;
 					item.knockBack = 1f;					
                     return;
@@ -275,6 +276,7 @@ namespace TRAEProject.Changes.Items
                     item.mana = 180; // up from 20
                     item.useAnimation = 15; // down from 40
                     item.useTime = 15;
+                    TooltipDrainManaOnHit = RainbowOnHitCost;
                     rightClickSideWeapon = true;
                     break;
                 case ItemID.CrimsonRod:
@@ -630,7 +632,7 @@ namespace TRAEProject.Changes.Items
                     {
                         if (line.Mod == "Terraria" && line.Name == "Knockback")
                         {
-                            line.Text = "Right-click to uncast";
+                            line.Text += "\nRight-click to uncast";
                         }
                     }
                     return;
@@ -639,9 +641,21 @@ namespace TRAEProject.Changes.Items
             {
                 foreach (TooltipLine line in tooltips)
                 {
+                    if (item.type == ItemID.CrimsonRod && line.Mod == "Terraria" && line.Name == "UseMana")
+                    {
+                        line.Text += "\nUses " + (int)(4 * Main.LocalPlayer.manaCost) + " mana per raindrop";
+                    }
+                    if (item.type == ItemID.NimbusRod && line.Mod == "Terraria" && line.Name == "UseMana")
+                    {
+                        line.Text += "\nUses " + (int)(4 * Main.LocalPlayer.manaCost) + " mana per raindrop";
+                    }
+                    if (item.type == ItemID.MagnetSphere && line.Mod == "Terraria" && line.Name == "UseMana")
+                    {
+                        line.Text += "\nUses " + (int)(8 * Main.LocalPlayer.manaCost) + " per shock";
+                    }
                     if (item.type == ItemID.BlizzardStaff && line.Mod == "Terraria" && line.Name == "UseMana")
                     {
-                        line.Text += "\nUses " + (int)(12 * Main.LocalPlayer.manaCost) + " mana per icicle created";
+                        line.Text += "\nUses " + (int)(12 * Main.LocalPlayer.manaCost) + " mana per icicles created";
                     }
                     if (line.Mod == "Terraria" && line.Name == "Tooltip0")
                     {

@@ -1,5 +1,6 @@
 using Microsoft.Xna.Framework;
 using System;
+using System.Collections.Generic;
 using Terraria;
 using Terraria.Audio;
 using Terraria.DataStructures;
@@ -38,6 +39,7 @@ namespace TRAEProject.NewContent.Items.Weapons.GraniteBook
             Item.useStyle = ItemUseStyleID.Shoot;
             Item.UseSound = SoundID.Item20; 
             Item.GetGlobalItem<TRAEMagicItem>().rightClickSideWeapon = true;
+            Item.GetGlobalItem<TRAEMagicItem>().TooltipDrainManaPassively = 30;
 
         }
         public override Vector2? HoldoutOffset()
@@ -56,6 +58,7 @@ namespace TRAEProject.NewContent.Items.Weapons.GraniteBook
             }
             return true;
         }
+
         public override void AddRecipes()
         {
             CreateRecipe(1).AddIngredient(ItemID.SpellTome, 1)

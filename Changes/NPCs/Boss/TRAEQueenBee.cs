@@ -215,7 +215,7 @@ namespace TRAEProject.NPCs.Boss
 								npc.velocity.X = num623 * num625;
 								npc.velocity.Y = num624 * num625;
 								npc.spriteDirection = npc.direction;
-								SoundEngine.PlaySound(SoundID.Roar with { MaxInstances = 0 }, npc.position);
+								SoundEngine.PlaySound(SoundID.Zombie125, npc.position);
 								return false;
 							}
 							npc.localAI[0] = 0f;

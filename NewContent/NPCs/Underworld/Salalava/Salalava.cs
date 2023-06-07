@@ -68,8 +68,7 @@ namespace TRAEProject.NewContent.NPCs.Underworld.Salalava
         public override void ModifyNPCLoot(NPCLoot npcLoot)
         {
             npcLoot.Add(ItemDropRule.Common(ItemType<SalamanderTail>(), 1));
-            npcLoot.Add(ItemDropRule.Common(ItemID.Hotdog, 33));
-            npcLoot.Add(ItemDropRule.Common(ItemID.HelFire, 10));
+            npcLoot.Add(ItemDropRule.Common(ItemID.Hotdog, 10));
         }
 
         float jump = 0;

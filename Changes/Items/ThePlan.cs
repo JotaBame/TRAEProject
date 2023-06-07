@@ -50,7 +50,7 @@ namespace TRAEProject.Changes.Items
                         {
                             if ((Main.tile[i, j].TileType == TileID.Containers || Main.tile[i, j].TileType == TileID.Containers2))
                             {
-                                Main.Map.Update(i, j, 100);
+                                Main.Map.Update(i, j, 255);
 
                             }
                         }
