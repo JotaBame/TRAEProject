@@ -9,6 +9,43 @@ using TRAEProject.Changes;
 using Microsoft.Xna.Framework.Graphics;
 namespace TRAEProject
 {
+    public static class Debug
+    {
+        public static Vector2 GetPointInRectPerimeterStartingFromTopLeft(Rectangle rectangle, float whereInRect)
+        {
+            whereInRect %= rectangle.Width * 2 + rectangle.Height * 2;
+            float progressInEdge = (float)whereInRect / (float)rectangle.Width;
+            if ((whereInRect > rectangle.Width && whereInRect < rectangle.Width + rectangle.Height) || whereInRect > rectangle.Width * 2 + rectangle.Height)
+                progressInEdge = (float)whereInRect / (float)rectangle.Height;
+            progressInEdge %= 1;
+            if (whereInRect <  rectangle.Width)
+                return new Vector2(rectangle.Width * progressInEdge, 0) + new Vector2(rectangle.X, rectangle.Y);
+            if (whereInRect < rectangle.Width + rectangle.Height)
+                return new Vector2(rectangle.Width, rectangle.Height * progressInEdge) + new Vector2(rectangle.X, rectangle.Y);
+
+            if (whereInRect < rectangle.Width  * 2 + rectangle.Height)
+                return new Vector2(rectangle.Width - progressInEdge * (float)rectangle.Width, rectangle.Height) + new Vector2(rectangle.X, rectangle.Y);
+
+            return new Vector2(0, progressInEdge * (float)rectangle.Height) + new Vector2(rectangle.X, rectangle.Y);
+
+        }
+        public static void RectangleDustVisualizer(Rectangle rectangle)
+        {
+            for (float i = 0; i < rectangle.Width * 2 + rectangle.Height * 2; i+= 1)
+            {
+                Vector2 dustPos = GetPointInRectPerimeterStartingFromTopLeft(rectangle, i);
+                Dust.NewDustPerfect(dustPos, DustID.MagnetSphere, Vector2.Zero, Scale: 1);
+            }
+        }
+        public static void CircleDustVIsualizer(Vector2 circleOrigin, float circleRadius)
+        {
+            float amountOfDust = circleRadius * MathF.Tau;//circumference length
+            for (float i = 0; i < 1; i+= 1/amountOfDust)
+            {
+                Dust.NewDustPerfect(circleOrigin + new Vector2(circleRadius, 0).RotatedBy(i * MathF.Tau), DustID.MagnetSphere, Vector2.Zero, 0, default, 1);
+            }
+        }
+    }
     public static class TRAEMethods
     {
         /// <summary>
