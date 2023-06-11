@@ -125,7 +125,7 @@ namespace TRAEProject.NewContent.SummonReforges
                 }
                 if (flag51)
                 {
-                    Dust dust45 = Main.dust[Dust.NewDust(vec, 0, 0, 267, 0f, 0f, 127, myColor)];
+                    Dust dust45 = Main.dust[Dust.NewDust(vec, 0, 0, DustID.RainbowMk2, 0f, 0f, 127, myColor)];
                     dust45.noGravity = true;
                     dust45.position = vec;
                     dust45.velocity = -Vector2.UnitY * dustVelLength * (Main.rand.NextFloat() * 0.9f + 1.6f);
@@ -136,7 +136,7 @@ namespace TRAEProject.NewContent.SummonReforges
                     {
                         Dust dust46 = Dust.CloneDust(dust45);
                         Dust dust2 = dust46;
-                        dust2.scale *= 0.65f;
+                        dust2.scale *= 0.75f;
                         dust2 = dust46;
                         dust2.fadeIn *= 0.65f;
                         dust46.color = new Color(255, 255, 255, 255);

@@ -11,6 +11,27 @@ namespace TRAEProject
 {
     public static class Debug
     {
+
+        /// <summary>
+        /// leave color as null for Main.DiscoColor
+        /// </summary>
+        public static void PrintAISlots(this Projectile projectile, bool printLocalAI = false, Color? color = null)
+        {
+            color ??= Main.DiscoColor;//if it's null, assign value of disco color(rainbow)
+            Main.NewText($"ai0:{projectile.ai[0]}, ai1:{projectile.ai[1]}, ai2:{projectile.ai[2]}", color);
+            if (printLocalAI)
+                Main.NewText($"ai0:{projectile.localAI[0]}, ai1:{projectile.localAI[1]}, ai2:{projectile.localAI[2]}");
+        }
+        /// <summary>
+        /// leave color as null for Main.DiscoColor
+        /// </summary>
+        public static void PrintAISlots(this NPC npc, bool printLocalAI = false, Color? color = null)
+        {
+            color ??= Main.DiscoColor;//if it's null, assign value of disco color(rainbow)
+            Main.NewText($"ai0:{npc.ai[0]}, ai1:{npc.ai[1]}, ai2:{npc.ai[2]}, ai3:{npc.ai[3]}", color);
+            if (printLocalAI)
+                Main.NewText($"ai0:{npc.localAI[0]}, ai1:{npc.localAI[1]}, ai2:{npc.localAI[2]}, ai3:{npc.localAI[3]}");
+        }
         public static Vector2 GetPointInRectPerimeterStartingFromTopLeft(Rectangle rectangle, float whereInRect)
         {
             whereInRect %= rectangle.Width * 2 + rectangle.Height * 2;
@@ -37,13 +58,25 @@ namespace TRAEProject
                 Dust.NewDustPerfect(dustPos, DustID.MagnetSphere, Vector2.Zero, Scale: 1);
             }
         }
-        public static void CircleDustVIsualizer(Vector2 circleOrigin, float circleRadius)
+        public static void CircleDustVisualizer(Vector2 circleOrigin, float circleRadius)
         {
             float amountOfDust = circleRadius * MathF.Tau;//circumference length
             for (float i = 0; i < 1; i+= 1/amountOfDust)
             {
                 Dust.NewDustPerfect(circleOrigin + new Vector2(circleRadius, 0).RotatedBy(i * MathF.Tau), DustID.MagnetSphere, Vector2.Zero, 0, default, 1);
             }
+        }
+        /// <summary>
+        /// this should be called in PreDraw!!!
+        /// </summary>
+        /// <param name="lineStart"></param>
+        /// <param name="lineEnd"></param>
+        /// <param name="lineWidth"></param>
+        public static void AABBLineVisualizer(Vector2 lineStart, Vector2 lineEnd, float lineWidth)
+        {
+            Texture2D blankTexture = Terraria.GameContent.TextureAssets.Extra[195].Value;
+            Vector2 texScale = new Vector2((lineStart - lineEnd).Length(), lineWidth) * 0.00390625f;//1/256, texture is 256x256
+            Main.EntitySpriteDraw(blankTexture, (lineStart) - Main.screenPosition, null, Color.Red, (lineEnd - lineStart).ToRotation(), new Vector2(0, 128), texScale, SpriteEffects.None);
         }
     }
     public static class TRAEMethods
