@@ -99,11 +99,11 @@ namespace TRAEProject.NewContent.SummonReforges
 
         public override bool PreAI(Projectile projectile)
         {
-            prefixAttackRate = Main.MouseWorld.X - Main.player[projectile.owner].Center.X > 0 ? 1 : 1.9f;//DEBUG STUFF, REMOVE LATER
-            prefixAttackVelocity = Main.MouseWorld.X - Main.player[projectile.owner].Center.X > 0 ? 1 : 3f;
-            prefixMoveSpeed = Main.MouseWorld.X - Main.player[projectile.owner].Center.X > 0 ? 1 : 3;
-            prefixMoveAcceleration = Main.MouseWorld.X - Main.player[projectile.owner].Center.X > 0 ? 1 : 3;
-            prefixAggroRangeBoost = Main.MouseWorld.X - Main.player[projectile.owner].Center.X > 0 ? 1 : 3;
+            //prefixAttackRate = Main.MouseWorld.X - Main.player[projectile.owner].Center.X > 0 ? 1 : 1.9f;//DEBUG STUFF, REMOVE LATER
+            //prefixAttackVelocity = Main.MouseWorld.X - Main.player[projectile.owner].Center.X > 0 ? 1 : 3f;
+            //prefixMoveSpeed = Main.MouseWorld.X - Main.player[projectile.owner].Center.X > 0 ? 1 : 3;
+            //prefixMoveAcceleration = Main.MouseWorld.X - Main.player[projectile.owner].Center.X > 0 ? 1 : 3;
+            //prefixAggroRangeBoost = Main.MouseWorld.X - Main.player[projectile.owner].Center.X > 0 ? 1 : 3;
             switch (projectile.type)
             {
                 
@@ -174,9 +174,9 @@ namespace TRAEProject.NewContent.SummonReforges
         }
 		private void AI_062(Projectile projectile)
         {
-            Main.NewText($"ai0:{projectile.ai[0]}, ai1:{projectile.ai[1]}, ai2:{projectile.ai[2]}", Main.hslToRgb((float)Main.timeForVisualEffects / 10 % 1, 1, 0.65f));
-            Main.NewText($"localai0:{projectile.localAI[0]}, localai1:{projectile.localAI[1]}, localai2:{projectile.localAI[2]}", Main.hslToRgb((float)Main.timeForVisualEffects / 10 % 1, 1, 0.65f));
-            #region AnnoyingRefVars
+            //Main.NewText($"ai0:{projectile.ai[0]}, ai1:{projectile.ai[1]}, ai2:{projectile.ai[2]}", Main.hslToRgb((float)Main.timeForVisualEffects / 10 % 1, 1, 0.65f));
+            //Main.NewText($"localai0:{projectile.localAI[0]}, localai1:{projectile.localAI[1]}, localai2:{projectile.localAI[2]}", Main.hslToRgb((float)Main.timeForVisualEffects / 10 % 1, 1, 0.65f));
+            //#region AnnoyingRefVars
             //can't be bothered to do it for the rest
             ref int spriteDirection = ref projectile.spriteDirection;
             ref float scale = ref projectile.scale;
@@ -193,7 +193,7 @@ namespace TRAEProject.NewContent.SummonReforges
             ref int projdirection = ref projectile.direction;
             ref int projalpha = ref projectile.alpha;
 
-            #endregion
+            //#endregion
             float anotherAbigailSpeedThing = 0f;
             float abigailSpeedThing = 0f;
             float abigailInertia = 20f;

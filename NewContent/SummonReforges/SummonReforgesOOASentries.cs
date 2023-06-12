@@ -391,7 +391,7 @@ namespace TRAEProject.NewContent.SummonReforges
 					projectile.ai[1] = num8;
 				}
 			}
-			Main.NewText(projectile.ai[1]);
+			//Main.NewText(projectile.ai[1]);
 
 			projectile.spriteDirection = projectile.direction;
 			projectile.tileCollide = true;

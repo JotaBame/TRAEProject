@@ -15,23 +15,23 @@ namespace TRAEProject
         /// <summary>
         /// leave color as null for Main.DiscoColor
         /// </summary>
-        public static void PrintAISlots(this Projectile projectile, bool printLocalAI = false, Color? color = null)
-        {
-            color ??= Main.DiscoColor;//if it's null, assign value of disco color(rainbow)
-            Main.NewText($"ai0:{projectile.ai[0]}, ai1:{projectile.ai[1]}, ai2:{projectile.ai[2]}", color);
-            if (printLocalAI)
-                Main.NewText($"ai0:{projectile.localAI[0]}, ai1:{projectile.localAI[1]}, ai2:{projectile.localAI[2]}");
-        }
+        //public static void PrintAISlots(this Projectile projectile, bool printLocalAI = false, Color? color = null)
+        //{
+        //    color ??= Main.DiscoColor;//if it's null, assign value of disco color(rainbow)
+        //    Main.NewText($"ai0:{projectile.ai[0]}, ai1:{projectile.ai[1]}, ai2:{projectile.ai[2]}", color);
+        //    if (printLocalAI)
+        //        Main.NewText($"ai0:{projectile.localAI[0]}, ai1:{projectile.localAI[1]}, ai2:{projectile.localAI[2]}");
+        //}
         /// <summary>
         /// leave color as null for Main.DiscoColor
         /// </summary>
-        public static void PrintAISlots(this NPC npc, bool printLocalAI = false, Color? color = null)
-        {
-            color ??= Main.DiscoColor;//if it's null, assign value of disco color(rainbow)
-            Main.NewText($"ai0:{npc.ai[0]}, ai1:{npc.ai[1]}, ai2:{npc.ai[2]}, ai3:{npc.ai[3]}", color);
-            if (printLocalAI)
-                Main.NewText($"ai0:{npc.localAI[0]}, ai1:{npc.localAI[1]}, ai2:{npc.localAI[2]}, ai3:{npc.localAI[3]}");
-        }
+        //public static void PrintAISlots(this NPC npc, bool printLocalAI = false, Color? color = null)
+        //{
+        //    color ??= Main.DiscoColor;//if it's null, assign value of disco color(rainbow)
+        //    Main.NewText($"ai0:{npc.ai[0]}, ai1:{npc.ai[1]}, ai2:{npc.ai[2]}, ai3:{npc.ai[3]}", color);
+        //    if (printLocalAI)
+        //        Main.NewText($"ai0:{npc.localAI[0]}, ai1:{npc.localAI[1]}, ai2:{npc.localAI[2]}, ai3:{npc.localAI[3]}");
+        //}
         public static Vector2 GetPointInRectPerimeterStartingFromTopLeft(Rectangle rectangle, float whereInRect)
         {
             whereInRect %= rectangle.Width * 2 + rectangle.Height * 2;
