@@ -7,7 +7,7 @@ using Terraria.GameContent;
 using System;
 namespace TRAEProject.Changes.Projectiles
 {
-    public class BezierCurveProjThing : ModProjectile
+    public class StardustPortalProj : ModProjectile
     {
         public bool ValidHomingTarget(int targetIndex)
         {
@@ -43,6 +43,7 @@ namespace TRAEProject.Changes.Projectiles
             ProjectileID.Sets.TrailCacheLength[Projectile.type] = 30;
             ProjectileID.Sets.TrailingMode[Projectile.type] = 2;
         }
+        static int baseTimeLeft = 1500;
         public override void SetDefaults()
         {
             Projectile.penetrate = 3;
@@ -54,7 +55,7 @@ namespace TRAEProject.Changes.Projectiles
             Projectile.friendly = true;
             Projectile.hostile = false;
             Projectile.tileCollide = false;
-            Projectile.timeLeft = 360;
+            Projectile.timeLeft = baseTimeLeft;
             Projectile.alpha = 0;
         }
         public override void AI()
@@ -65,13 +66,14 @@ namespace TRAEProject.Changes.Projectiles
         {
             bool shouldCurve = false;
             bool chaseTargets = false;
-            float curveTime = 180f;
+            float curveTime = baseTimeLeft - 180;
             float homingTime = 20f;
+
             float decelerationAmount = 0.98f;
             float minSmoothStepAmount = 0.075f;
             float maxSmoothStepAmount = 0.125f;
-            float maxVel = 26f;//931 is nightglow proj
-            if (Projectile.timeLeft == 357)
+            float maxVel = 26f;
+            if (Projectile.timeLeft == baseTimeLeft - 3)
             {
                 int alpha = Projectile.alpha;
                 Projectile.alpha = 0;
@@ -93,12 +95,14 @@ namespace TRAEProject.Changes.Projectiles
             {
                 chaseTargets = true;
             }
+            if ((int)Projectile.ai[0] == -1 || shouldCurve)
+                Projectile.velocity *= decelerationAmount;
             if (shouldCurve)
             {
                 float amountToCurve = (float)Math.Cos(Projectile.whoAmI % 6f / 6f + Projectile.position.X / 320f + Projectile.position.Y / 160f);
                 amountToCurve *= Utils.GetLerpValue(curveTime, curveTime + 120, Projectile.timeLeft, true);
-                Projectile.velocity *= decelerationAmount;
-                Projectile.velocity = Projectile.velocity.RotatedBy(amountToCurve * MathF.PI * 0.5f * 1f / 30f);
+                if(Projectile.velocity.LengthSquared() > 0.1f)
+                    Projectile.velocity = Projectile.velocity.RotatedBy(amountToCurve * MathF.PI * 0.5f * 1f / 30f);
             }
 
             int targetIndex = (int)Projectile.ai[0];
@@ -108,9 +112,9 @@ namespace TRAEProject.Changes.Projectiles
                 Projectile.ai[0] = -1f;
                 Projectile.netUpdate = true;
             }
-            if (targetIndex == -1)
+            if (targetIndex == -1 && Projectile.timeLeft % 9 == 0)//only search for a target every 9th update(projectile has 2 extra updates) to improve performance
             {
-                int newTargetIndex = FindTargetWithLineOfSight(8000);
+                int newTargetIndex = FindTargetWithLineOfSight(1000);//TODO: TEST THIS
                 if (newTargetIndex != -1)
                 {
                     Projectile.ai[0] = newTargetIndex;
@@ -131,17 +135,12 @@ namespace TRAEProject.Changes.Projectiles
                     NPC nPC = Main.npc[targetIndexAGAIN];
                     targetVelocityOrSomething = Projectile.DirectionTo(nPC.Center) * maxVel;
                 }
-                //else
-                //{
-                //    Projectile.timeLeft--;
-                //}
-                float amount = MathHelper.Lerp(minSmoothStepAmount, maxSmoothStepAmount, Utils.GetLerpValue(curveTime, 30f, Projectile.timeLeft, clamped: true));
+                float amount = MathHelper.Lerp(minSmoothStepAmount, maxSmoothStepAmount, Utils.GetLerpValue(curveTime, 30f, Projectile.timeLeft, true));
                 Projectile.velocity = Vector2.SmoothStep(Projectile.velocity, targetVelocityOrSomething, amount);
-                Projectile.velocity *= MathHelper.Lerp(0.85f, 1f, Utils.GetLerpValue(0, 90f, Projectile.timeLeft, clamped: true));
-
+                Projectile.velocity *= MathHelper.Lerp(0.85f, 1f, Utils.GetLerpValue(0, 90f, Projectile.timeLeft, true));
             }
             Projectile.Opacity = Utils.GetLerpValue(-3, 30, Projectile.timeLeft, clamped: true);
-            Projectile.rotation = Projectile.velocity.ToRotation() + (float)Math.PI / 2f;
+            Projectile.rotation = Projectile.velocity.ToRotation() + MathHelper.PiOver2;
         }
 
         public override bool PreDraw(ref Color lightColor)
@@ -152,11 +151,12 @@ namespace TRAEProject.Changes.Projectiles
             afterImgColor *= Projectile.Opacity;
             Main.instance.LoadProjectile(ProjectileID.FairyQueenMagicItemShot);
             Texture2D texture = TextureAssets.Projectile[ProjectileID.FairyQueenMagicItemShot].Value;
-            Vector2 scale = Vector2.Clamp(new Vector2(1, MathF.Abs(Projectile.oldVelocity.Y)), Vector2.One, Vector2.One * 2.5f);
             for (int i = Projectile.oldPos.Length - 1; i >= 0; i--)
             {
                 float opacity = 1 - (float)i / Projectile.oldPos.Length;
-                Main.EntitySpriteDraw(texture, Projectile.oldPos[i] + Projectile.Size * 0.5f - Main.screenPosition, null, afterImgColor * opacity, Projectile.oldRot[i], texture.Size() / 2, scale, SpriteEffects.None);
+                int oldPosIndex = (int)MathHelper.Clamp(i - 1, 0, 100000);
+                Vector2 oldScale = Vector2.Clamp(new Vector2(1, MathF.Abs((Projectile.oldPos[i] - Projectile.oldPos[oldPosIndex]).Length())), Vector2.One, Vector2.One * 2.5f);
+                Main.EntitySpriteDraw(texture, Projectile.oldPos[i] + Projectile.Size * 0.5f - Main.screenPosition, null, afterImgColor * opacity, Projectile.oldRot[i], texture.Size() / 2, oldScale, SpriteEffects.None);
             }
             
             Texture2D sparkleTexture = TextureAssets.Extra[98].Value;
@@ -182,7 +182,7 @@ namespace TRAEProject.Changes.Projectiles
         }
     }
 
-    public class StupidStardustPortalThingAAAA : GlobalProjectile
+    public class StardustPortal : GlobalProjectile
     {
         static Color[] goldPortalColors = new Color[6] { Color.White, new Color(250, 234, 192), new Color(250, 216, 124), new Color(250, 176, 0), new Color(183, 106, 3), new Color(91, 57, 29) };
         static Color[] bluePortalColors = new Color[6] { Color.White, new Color(115, 223, 255), new Color(35, 200, 255), new Color(104, 214, 255), new Color(0, 174, 238), new Color(0, 106, 185) };
@@ -254,16 +254,7 @@ namespace TRAEProject.Changes.Projectiles
             return true;
         }
         public override bool InstancePerEntity => true;
-        public static Vector2 CubicBezier(Vector2 start, Vector2 controlPoint1, Vector2 controlPoint2, Vector2 end, float t)
-        {
-            float tSquared = t * t;
-            float tCubed = t * t * t;
-            return
-                start * (-tCubed + 3 * tSquared - 3 * t - 1) +
-                controlPoint1 * (3 * tCubed - 6 * tSquared + 3 * t) +
-                controlPoint2 * (-3 * tCubed + 3 * tSquared) +
-                end * tCubed;
-        }//DELETE THIS LATER
+        public override bool AppliesToEntity(Projectile entity, bool lateInstantiation) => entity.type == ProjectileID.MoonlordTurret;
         public override bool PreAI(Projectile projectile)
         {
             if (projectile.type == ProjectileID.MoonlordTurret)
@@ -293,7 +284,7 @@ namespace TRAEProject.Changes.Projectiles
                 if (projectile.ai[0] % 17 == 0 && projectile.ai[0] > 20)
                 {
                     float color = Main.rand.Next(0, 2) * 0.5f + 0.09f + Main.rand.NextFloat() / 20;
-                    Projectile.NewProjectileDirect(projectile.GetSource_FromThis(), projectile.Center, new Vector2(Main.rand.NextFloat() + 3).RotatedByRandom(MathF.Tau), ModContent.ProjectileType<BezierCurveProjThing>(), projectile.damage, 3, Main.myPlayer, 0, color).netUpdate = true;
+                    Projectile.NewProjectileDirect(projectile.GetSource_FromThis(), projectile.Center, new Vector2(Main.rand.NextFloat() + 3).RotatedByRandom(MathF.Tau) * 1.4f, ModContent.ProjectileType<StardustPortalProj>(), projectile.damage, 3, Main.myPlayer,-1, color).netUpdate = true;
                 }
                 projectile.ai[0]++;
                 projectile.ai[1] = MathHelper.Lerp(projectile.ai[1], 1, 0.1f);

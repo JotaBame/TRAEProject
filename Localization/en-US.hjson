@@ -256,6 +256,7 @@ Mods: {
 			CrystalGelSplitPink.DisplayName: Crystal Gel Split Pink
 			CrystalGelSplitPurple.DisplayName: Crystal Gel Split Purple
 			BezierCurveProjThing.DisplayName: Bezier Curve Proj Thing
+			StardustPortalProj.DisplayName: Stardust Portal Proj
 		}
 
 		Prefixes: {

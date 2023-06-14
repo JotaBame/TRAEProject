@@ -176,11 +176,11 @@ namespace TRAEProject.NewContent.SummonReforges
 				projectile.ai[0] += GetAttackRateAsTimerIncrease();
 
 			if (projectile.ai[0] == 0)         
-                if(RainbowCrystalFindTarget(projectile, aggroRange))
-                return;           
-            if (projectile.ai[0] <= 0f)			
-				return;		
-			int targetIndex = (int)projectile.ai[1];
+                if(RainbowCrystalFindTarget(projectile, aggroRange))//todo: make it only detect if there is any possible taget,
+                    return;                                         //then actually search for them when it's going to shoot
+            if (projectile.ai[0] <= 0f)			                    //use an out int[] for the targets
+				return;		                                        //use an afterimage register-like system with a reverse for loop ending at 1 and not 0
+			int targetIndex = (int)projectile.ai[1];                //initialize array as -1
 			if (!Main.npc[targetIndex].CanBeChasedBy(this))
 			{
 				projectile.ai[0] = 0f;
@@ -206,24 +206,79 @@ namespace TRAEProject.NewContent.SummonReforges
 			{
 				return;
 			}
-			NPC npc = Main.npc[targetIndex];
-			Vector2 toTarget = (npc.Center - projectile.Center);
-			for (int i = 0; i < 3; i++)
+            NPC npc = Main.npc[targetIndex];
+            Vector2 toTarget = (npc.Center - projectile.Center);
+            for (int i = 0; i < 3; i++)
 			{
-				Vector2 explosionSpawnPos = projectile.Center + toTarget;
+
+                Vector2 explosionSpawnPos = projectile.Center + toTarget;
 				Vector2 predictiveOffset = npc.velocity * 30f * GetAttackRateAsTimerThresholdMultiplier();
 				explosionSpawnPos += predictiveOffset;
-				if (i > 0)
-				{
-					Vector2 randomVec = Main.rand.NextVector2Circular(210, 210);//THIS IS THE ACCURACY
-					explosionSpawnPos = projectile.Center + randomVec + toTarget + predictiveOffset;
-				}
-				float explosionColor = Main.rgbToHsl(Main.DiscoColor).X;
-				Projectile.NewProjectileDirect(projectile.GetSource_FromThis(), explosionSpawnPos, Vector2.Zero, 644, projectile.damage, projectile.knockBack, projectile.owner, explosionColor, projectile.whoAmI);
+                if (i > 0)
+                {
+                    Vector2 randomVec = Main.rand.NextVector2Circular(210, 210);//THIS IS THE ACCURACY
+                    explosionSpawnPos = projectile.Center + randomVec + toTarget + predictiveOffset;
+                }
+                //if (Main.tile[explosionSpawnPos.ToTileCoordinates()].HasUnactuatedTile) 
+                //{
+                //    Vector2 retractionDir = Vector2.Normalize(toTarget);
+                //    for (int j = 0; j < 1000000; j += 8)//UNTESTED
+                //    {
+                //        explosionSpawnPos -= retractionDir;
+                //        if (!Main.tile[explosionSpawnPos.ToTileCoordinates()].HasUnactuatedTile)
+                //            break;
+                //    }
+                //}
+                float explosionColor = Main.rgbToHsl(Main.DiscoColor).X;
+				Projectile.NewProjectileDirect(projectile.GetSource_FromThis(), explosionSpawnPos, Vector2.Zero, ProjectileID.RainbowCrystalExplosion, projectile.damage, projectile.knockBack, projectile.owner, explosionColor, projectile.whoAmI);
 			}
 
 		}
-
+        //THIS IWN'T WORKING I THINK
+        void RainbowCrystalFindTargets(Projectile projectile, float aggroRange, out int[] targetsFound)//attempt at multiple target search, test later
+        {
+            targetsFound = new int[]{ -1, -1, -1 };
+            float distToClosestSQ = aggroRange * aggroRange;
+            NPC ownerMinionAttackTarget = projectile.OwnerMinionAttackTargetNPC;
+            if (ownerMinionAttackTarget != null && ownerMinionAttackTarget.CanBeChasedBy(this))
+            {
+                float distToTargetSQ = projectile.DistanceSQ(ownerMinionAttackTarget.Center);
+                if (distToTargetSQ < distToClosestSQ && Collision.CanHitLine(projectile.Center, 0, 0, ownerMinionAttackTarget.Center, 0, 0))
+                {
+                    distToClosestSQ = distToTargetSQ;
+                    targetsFound = new int[] { ownerMinionAttackTarget.whoAmI, ownerMinionAttackTarget.whoAmI, ownerMinionAttackTarget.whoAmI };
+                }
+            }
+            if (targetsFound[0] < 0)
+            {
+                for (int i = 0; i < Main.maxNPCs; i++)
+                {
+                    NPC npc = Main.npc[i];
+                    if (npc.CanBeChasedBy(this))
+                    {
+                        float distToTarget = projectile.DistanceSQ(npc.Center);
+                        if (distToTarget < distToClosestSQ && Collision.CanHitLine(projectile.Center, 0, 0, npc.Center, 0, 0))
+                        {
+                            distToClosestSQ = distToTarget;
+                            PushIntsDownAndUpdateFirst(ref targetsFound, i);
+                        }
+                    }
+                }
+            }
+            for (int i = 0; i < targetsFound.Length; i++)
+            {
+                if (targetsFound[i] == -1)
+                    targetsFound[i] = targetsFound[0];
+            }
+        }
+        static void PushIntsDownAndUpdateFirst(ref int[]  array, int newFirst)
+        {
+            for (int i = array.Length - 1; i >= 1; i--)
+            {
+                array[i] = array[i - 1];
+            }
+            array[0] = newFirst;
+        }
         private bool RainbowCrystalFindTarget(Projectile projectile, float aggroRange)
         {
             int potentialTargetIndex = -1;
