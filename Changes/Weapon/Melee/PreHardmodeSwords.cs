@@ -146,8 +146,32 @@ namespace TRAEProject.Changes.Weapon.Melee
 
             }
         }
-        
 
+        public override bool? UseItem(Item item, Player player)
+        {
+            if (item.useStyle == ItemUseStyleID.Swing && item.useTurn == false)
+            {
+                Vector2 pointPoisition = default(Vector2);
+                pointPoisition.X = (float)Main.mouseX + Main.screenPosition.X;
+                if (player.gravDir == 1f)
+                {
+                    pointPoisition.Y = (float)Main.mouseY + Main.screenPosition.Y - (float)player.height;
+                }
+                else
+                {
+                    pointPoisition.Y = Main.screenPosition.Y + (float)Main.screenHeight - (float)Main.mouseY;
+                }
+                if (player.DirectionTo(pointPoisition).X >= 0f)
+                {
+                    player.direction = 1;
+                }
+                else
+                {
+                    player.direction = -1;
+                }
+            }
+            return null;
+        }
         /// SHOOT STUFF
         public override bool Shoot(Item item, Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
         {

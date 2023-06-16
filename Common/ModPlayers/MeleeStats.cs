@@ -1,4 +1,5 @@
-﻿using Mono.Cecil.Cil;
+﻿using Microsoft.Xna.Framework;
+using Mono.Cecil.Cil;
 using MonoMod.Cil;
 using System;
 using System.Collections.Generic;
@@ -34,6 +35,7 @@ namespace TRAEProject.Common.ModPlayers
             }
 
         }
+
         #region Sword Size
         public override void SetStaticDefaults()
         {

@@ -5,6 +5,8 @@ using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.GameContent;
 using System;
+using TRAEProject.Common;
+
 namespace TRAEProject.Changes.Projectiles
 {
     public class StardustPortalProj : ModProjectile
@@ -40,13 +42,15 @@ namespace TRAEProject.Changes.Projectiles
         public override string Texture => "Terraria/Images/Projectile_" + ProjectileID.FairyQueenMagicItemShot;
         public override void SetStaticDefaults()
         {
-            ProjectileID.Sets.TrailCacheLength[Projectile.type] = 30;
+            ProjectileID.Sets.TrailCacheLength[Projectile.type] = 24;
             ProjectileID.Sets.TrailingMode[Projectile.type] = 2;
+            ProjectileID.Sets.SentryShot[Projectile.type] = true;
         }
         static int baseTimeLeft = 1500;
         public override void SetDefaults()
         {
             Projectile.penetrate = 3;
+            Projectile.GetGlobalProjectile<ProjectileStats>().DamageFalloff = 0.15f;
             Projectile.usesLocalNPCImmunity = true;
             Projectile.localNPCHitCooldown = 30;
             Projectile.extraUpdates = 2;
@@ -112,7 +116,7 @@ namespace TRAEProject.Changes.Projectiles
                 Projectile.ai[0] = -1f;
                 Projectile.netUpdate = true;
             }
-            if (targetIndex == -1 && Projectile.timeLeft % 9 == 0)//only search for a target every 9th update(projectile has 2 extra updates) to improve performance
+            if (targetIndex == -1 && Projectile.timeLeft % 10 == 0)//only search for a target every 10th update(projectile has 2 extra updates) to improve performance
             {
                 int newTargetIndex = FindTargetWithLineOfSight(1000);//TODO: TEST THIS
                 if (newTargetIndex != -1)
@@ -280,8 +284,9 @@ namespace TRAEProject.Changes.Projectiles
                         spawnedDust.scale = 0.5f + Main.rand.NextFloat() * projectile.scale * 1.6f;
                         spawnedDust.fadeIn = 0.5f * projectile.scale;
                     }
-                }//FIRERATE is 17
-                if (projectile.ai[0] % 17 == 0 && projectile.ai[0] > 20)
+                }
+                int fireRate = 35;
+                if (projectile.ai[0] % fireRate == 0 && projectile.ai[0] > 20)
                 {
                     float color = Main.rand.Next(0, 2) * 0.5f + 0.09f + Main.rand.NextFloat() / 20;
                     Projectile.NewProjectileDirect(projectile.GetSource_FromThis(), projectile.Center, new Vector2(Main.rand.NextFloat() + 3).RotatedByRandom(MathF.Tau) * 1.4f, ModContent.ProjectileType<StardustPortalProj>(), projectile.damage, 3, Main.myPlayer,-1, color).netUpdate = true;
