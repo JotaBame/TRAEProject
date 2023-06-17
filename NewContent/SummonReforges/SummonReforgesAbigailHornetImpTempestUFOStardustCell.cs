@@ -89,13 +89,7 @@ namespace TRAEProject.NewContent.SummonReforges
             }
             return null;
         }
-        public override void OnSpawn(Projectile projectile, IEntitySource source)
-        {
-            if(projectile.DamageType == DamageClass.Summon)
-            {
-                //check player held item type and if so set the modifiers
-            }
-        }
+
 
         public override bool PreAI(Projectile projectile)
         {
@@ -137,6 +131,7 @@ namespace TRAEProject.NewContent.SummonReforges
             }
             return true;
         }
+        public override bool AppliesToEntity(Projectile entity, bool lateInstantiation) => entity.DamageType == DamageClass.Summon;
         public override bool InstancePerEntity => true;
         float prefixAttackRate = 1;
 		float prefixMoveSpeed = 1;
@@ -144,33 +139,33 @@ namespace TRAEProject.NewContent.SummonReforges
 		float prefixAttackVelocity = 1;
 		float prefixAggroRangeBoost = 1;
         //TODO: MAKE THESE ACCOUNT FOR PLAYER EQUIPMENT AND BUFFS(which currently exist none of so this is why they are like this
-        float GetInertia() 
+        public float GetInertia(int owner) 
         {
-            return 1 / MathHelper.Clamp(prefixMoveAcceleration, float.Epsilon, float.MaxValue);
+            return 1 / MathHelper.Clamp(prefixMoveAcceleration + GetPlayerMinionMoveAccelerationEquipStats(Main.player[owner]), float.Epsilon, float.MaxValue);
         }
-        float GetMoveSpeed()
+        public float GetMoveSpeed(int owner)
         {
-            return prefixMoveSpeed;
+            return prefixMoveSpeed + GetPlayerMinionMoveSpeedEquipStats(Main.player[owner]);
         } 
-        float GetMoveAcceleration()
+        public float GetMoveAcceleration(int owner)
         {
-            return prefixMoveAcceleration;
+            return prefixMoveAcceleration + GetPlayerMinionMoveAccelerationEquipStats(Main.player[owner]);
         }
-        float GetAttackVelocity()
+        public float GetAttackVelocity(int owner)
         {
-            return prefixAttackVelocity;
+            return prefixAttackVelocity + GetPlayerMinionAttackVelocityEquipStats(Main.player[owner]);
         }
-        float GetAttackRateAsTimerIncrease()
+        public float GetAttackRateAsTimerIncrease(int owner)
         {
-            return prefixAttackRate;
+            return prefixAttackRate + GetPlayerMinionAttackRateEquipStats(Main.player[owner]);
         }
-        float GetAttackRateAsTimerThresholdMultiplier()
+        public float GetAttackRateAsTimerThresholdMultiplier(int owner)
         {
-            return 1 / MathHelper.Clamp(prefixAttackRate, float.Epsilon, float.MaxValue);
+            return 1 / MathHelper.Clamp(prefixAttackRate + GetPlayerMinionAttackRateEquipStats(Main.player[owner]), float.Epsilon, float.MaxValue);
         }
-        float GetAggroRangeBoost()
+        public float GetAggroRangeBoost(int owner)
         {
-            return prefixAggroRangeBoost;
+            return prefixAggroRangeBoost + GetPlayerMinionAggroRangeEquipStats(Main.player[owner]);
         }
 		private void AI_062(Projectile projectile)
         {
@@ -272,7 +267,7 @@ namespace TRAEProject.NewContent.SummonReforges
                 {
                     ai[0] += 1f;
                 }
-                if (ai[0] > resetAttackThreshHold * (1 / GetAttackRateAsTimerIncrease()))
+                if (ai[0] > resetAttackThreshHold * (1 / GetAttackRateAsTimerIncrease(projectile.owner)))
                 {
                     ai[0] = 0f;
                     netUpdate = true;
@@ -300,9 +295,9 @@ namespace TRAEProject.NewContent.SummonReforges
                 {
                     if (distToTarget > 400f)
                     {
-                        float maxSpeed = 3 * GetMoveSpeed();//base move speed is 3, idk if this is move speed 
+                        float maxSpeed = 3 * GetMoveSpeed(projectile.owner);//base move speed is 3, idk if this is move speed 
                         toTargetNormalized *= maxSpeed;
-                        float inertia = GetInertia() * 20;//base is 20 idk if this is acceleration
+                        float inertia = GetInertia(projectile.owner) * 20;//base is 20 idk if this is acceleration
                         projectile.velocity = (projectile.velocity * inertia + toTargetNormalized) / (inertia + 1);
                     }
                     else
@@ -313,8 +308,8 @@ namespace TRAEProject.NewContent.SummonReforges
                 if (distToTarget > 200f)
                 {
                     float baseInertia = 6f + abigailSpeedThing * anotherAbigailSpeedThing;//these are 1 except for abigail
-                    toTargetNormalized *= baseInertia * GetMoveSpeed();
-                    float inertia = abigailInertia * 2f * GetInertia();
+                    toTargetNormalized *= baseInertia * GetMoveSpeed(projectile.owner);
+                    float inertia = abigailInertia * 2f * GetInertia(projectile.owner);
                     projectile.velocity = (projectile.velocity * inertia + toTargetNormalized) / (inertia + 1f);
                 }
                 else if (projectile.type == ProjectileID.AbigailMinion )
@@ -332,7 +327,7 @@ namespace TRAEProject.NewContent.SummonReforges
                     else
                     {
                         float finalAbigailMaxSpeed = 8f + abigailSpeedThing * anotherAbigailSpeedThing;
-                        toTargetNormalized *= finalAbigailMaxSpeed * GetMoveSpeed();
+                        toTargetNormalized *= finalAbigailMaxSpeed * GetMoveSpeed(projectile.owner);
                         projectile.velocity = (projectile.velocity * abigailInertia + toTargetNormalized) / (abigailInertia + 1f);
                     }
                     Rectangle hitboxToCheck = Main.npc[targetIndex].Hitbox;
@@ -352,13 +347,13 @@ namespace TRAEProject.NewContent.SummonReforges
                         {
                             baseMoveSpeed = -3f;
                         }
-                        toTargetNormalized *= baseMoveSpeed * GetMoveSpeed();
-                        float inertia = 20 * GetInertia();//base move speed naming is inconsistent as I am really confused by this
+                        toTargetNormalized *= baseMoveSpeed * GetMoveSpeed(projectile.owner);
+                        float inertia = 20 * GetInertia(projectile.owner);//base move speed naming is inconsistent as I am really confused by this
                         projectile.velocity = (projectile.velocity * inertia + toTargetNormalized) / (inertia + 1);
                         if (Math.Abs(toTargetNormalized.X) > Math.Abs(toTargetNormalized.Y))//so they prefer to stay vertically alligned I think
                         {
                             float xInertia = 10;
-                            xInertia *= GetMoveSpeed();
+                            xInertia *= GetMoveSpeed(projectile.owner);
                             projectile.velocity.X = (projectile.velocity.X * xInertia + toTargetNormalized.X) / (xInertia + 1);
                         }
                     }
@@ -371,10 +366,10 @@ namespace TRAEProject.NewContent.SummonReforges
                 {
                     if (distToTarget < 150f)
                     {
-                        float impMoveSpeed = 4f * GetMoveSpeed();
+                        float impMoveSpeed = 4f * GetMoveSpeed(projectile.owner);
                         toTargetNormalized *= - impMoveSpeed;
                         float inertia = 40;
-                        inertia *= GetInertia();
+                        inertia *= GetInertia(projectile.owner);
                         projectile.velocity = (projectile.velocity * inertia + toTargetNormalized) / (inertia + 1);
                     }
                     else
@@ -406,7 +401,7 @@ namespace TRAEProject.NewContent.SummonReforges
                 {
                     maxSpeed *= 0.8f;
                 }
-                maxSpeed *= GetMoveSpeed();
+                maxSpeed *= GetMoveSpeed(projectile.owner);
                 Vector2 projCenter = projectile.Center;
                 Vector2 dirToIdlePosVecNormalized = player.Center - projCenter + new Vector2(0f, -60f);
                 if (projectile.type == ProjectileID.Tempest)
@@ -435,13 +430,13 @@ namespace TRAEProject.NewContent.SummonReforges
                     dirToIdlePosVecNormalized.Y -= 10f;
                 }
                 float distToIdlePosLength = dirToIdlePosVecNormalized.Length();
-                if (distToIdlePosLength > 200f && maxSpeed < 9f * GetMoveSpeed())
+                if (distToIdlePosLength > 200f && maxSpeed < 9f * GetMoveSpeed(projectile.owner))
                 {
-                    maxSpeed = 9f * GetMoveSpeed();
+                    maxSpeed = 9f * GetMoveSpeed(projectile.owner);
                 }
-                if ((projectile.type == ProjectileID.UFOMinion || projectile.type == ProjectileID.Tempest) && distToIdlePosLength > 300f && maxSpeed < 12f * GetMoveSpeed())
+                if ((projectile.type == ProjectileID.UFOMinion || projectile.type == ProjectileID.Tempest) && distToIdlePosLength > 300f && maxSpeed < 12f * GetMoveSpeed(projectile.owner))
                 {
-                    maxSpeed = 12f * GetMoveSpeed();
+                    maxSpeed = 12f * GetMoveSpeed(projectile.owner);
                 }
                 //if (projectile.type == ProjectileID.FlyingImp)
                 //{
@@ -466,7 +461,7 @@ namespace TRAEProject.NewContent.SummonReforges
                             maxSpeed /= 2f;
                         }
                         dirToIdlePosVecNormalized *= maxSpeed;
-                        float inertia = 20 * GetInertia();
+                        float inertia = 20 * GetInertia(projectile.owner);
                         projectile.velocity = (projectile.velocity * inertia + dirToIdlePosVecNormalized) / (inertia + 1);
                     }
                     else
@@ -482,7 +477,7 @@ namespace TRAEProject.NewContent.SummonReforges
                         dirToIdlePosVecNormalized = dirToIdlePosVecNormalized.SafeNormalize(Vector2.Zero);
                         dirToIdlePosVecNormalized *= maxSpeed;
                         dirToIdlePosVecNormalized *= new Vector2(1.25f, 0.65f);
-                        float inertia = 20 * GetInertia();
+                        float inertia = 20 * GetInertia(projectile.owner);
                         projectile.velocity = (projectile.velocity * inertia + dirToIdlePosVecNormalized) / (inertia + 1);
                     }
                     else

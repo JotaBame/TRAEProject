@@ -34,13 +34,13 @@ namespace TRAEProject.NewContent.SummonReforges
                 projectile.direction = ((Main.rand.Next(2) > 0) ? 1 : (-1));
             }
             projectile.rotation = projectile.localAI[1] / 40f * MathF.Tau * (float)projectile.direction;
-            projectile.alpha = projectile.alpha > 0 ? projectile.alpha - (int)MathF.Round(8f * GetAttackRateAsTimerIncrease()) : 0;
+            projectile.alpha = projectile.alpha > 0 ? projectile.alpha - (int)MathF.Round(8f * GetAttackRateAsTimerIncrease(projectile.owner)) : 0;
             if (projectile.alpha == 0)
                 Lighting.AddLight(projectile.Center, myColor.ToVector3() * 0.5f);
             RainbowCrystalExplosionPassiveDustEffects(projectile, myColor);
             projectile.scale = projectile.Opacity / 2f * projectile.localAI[0];
             projectile.velocity = Vector2.Zero;
-            projectile.localAI[1] += GetAttackRateAsTimerIncrease();
+            projectile.localAI[1] += GetAttackRateAsTimerIncrease(projectile.owner);
 
             if (projectile.localAI[1] >= 30 && projectile.localAI[2] == 0 || projectile.localAI[1] >= 60)
             {
@@ -52,7 +52,7 @@ namespace TRAEProject.NewContent.SummonReforges
                     int projHeightBuffer = projectile.height;
                     int projPierceBuffer = projectile.penetrate;
                     projectile.position = projectile.Center;
-                    projectile.width = (projectile.height = (int)(62 * GetAttackVelocity()));//EXPLOSION SIZE, TODO: LIST IN TOOLTIP THAT VELOCITY INCREASES EXPLOSION SIZE
+                    projectile.width = (projectile.height = (int)(62 * GetAttackVelocity(projectile.owner)));//EXPLOSION SIZE, TODO: LIST IN TOOLTIP THAT VELOCITY INCREASES EXPLOSION SIZE
                     projectile.Center = projectile.position;
                     projectile.penetrate = -1;
                     projectile.maxPenetrate = -1;
@@ -148,9 +148,9 @@ namespace TRAEProject.NewContent.SummonReforges
         void RainbowCrystalStaffAI(Projectile projectile)
 		{
 
-			float aggroRange = 1000f * GetAggroRangeBoost();
+			float aggroRange = 1000f * GetAggroRangeBoost(projectile.owner);
 			projectile.velocity = Vector2.Zero;
-			projectile.alpha = projectile.alpha <= 0 ? 0 : projectile.alpha - (int)MathF.Ceiling(5f * GetAttackRateAsTimerIncrease());
+			projectile.alpha = projectile.alpha <= 0 ? 0 : projectile.alpha - (int)MathF.Ceiling(5f * GetAttackRateAsTimerIncrease(projectile.owner));
 			if (projectile.direction == 0)
 			{
 				projectile.direction = Main.player[projectile.owner].direction;
@@ -173,7 +173,7 @@ namespace TRAEProject.NewContent.SummonReforges
 			}
 
 			if (projectile.ai[0] < 0f)
-				projectile.ai[0] += GetAttackRateAsTimerIncrease();
+				projectile.ai[0] += GetAttackRateAsTimerIncrease(projectile.owner);
 
 			if (projectile.ai[0] == 0)         
                 if(RainbowCrystalFindTarget(projectile, aggroRange))//todo: make it only detect if there is any possible taget,
@@ -212,11 +212,11 @@ namespace TRAEProject.NewContent.SummonReforges
 			{
 
                 Vector2 explosionSpawnPos = projectile.Center + toTarget;
-				Vector2 predictiveOffset = npc.velocity * 30f * GetAttackRateAsTimerThresholdMultiplier();
+				Vector2 predictiveOffset = npc.velocity * 30f * GetAttackRateAsTimerThresholdMultiplier(projectile.owner);
 				explosionSpawnPos += predictiveOffset;
                 if (i > 0)
                 {
-                    Vector2 randomVec = Main.rand.NextVector2Circular(210, 210);//THIS IS THE ACCURACY
+                    Vector2 randomVec = Main.rand.NextVector2Circular(210 + npc.width, 210 + npc.height);//THIS IS THE ACCURACY
                     explosionSpawnPos = projectile.Center + randomVec + toTarget + predictiveOffset;
                 }
                 //if (Main.tile[explosionSpawnPos.ToTileCoordinates()].HasUnactuatedTile) 
@@ -322,8 +322,8 @@ namespace TRAEProject.NewContent.SummonReforges
         private void DoRainbowCrystalStaffExplosionDust(Projectile projectile)//TODO: EDIT DUST TO FIT EXPLOSION SIZE ALSO MAYBE JUST CHANGE THE DUST PATTERN
 		{
 			Vector2 spinningpoint = new Vector2(0f, -3f).RotatedByRandom(MathF.PI);
-			float dustAmount = Main.rand.Next(7, 13) * GetAttackVelocity() * GetAttackVelocity();
-			Vector2 dustVel = new Vector2(2.1f, 2f) * GetAttackVelocity();
+			float dustAmount = Main.rand.Next(7, 13) * GetAttackVelocity(projectile.owner) * GetAttackVelocity(projectile.owner);
+			Vector2 dustVel = new Vector2(2.1f, 2f) * GetAttackVelocity(projectile.owner);
 			Color newColor = Main.hslToRgb(projectile.ai[0], 1f, 0.5f);
 			newColor.A = byte.MaxValue;
 			for (float i = 0f; i < dustAmount; i += 1f)
@@ -367,7 +367,7 @@ namespace TRAEProject.NewContent.SummonReforges
 			Rectangle frame = texture.Frame(1, Main.projFrames[projectile.type], 0, projectile.frame);
 			Color whiteColor = projectile.GetAlpha(Lighting.GetColor(projectile.Center.ToTileCoordinates()));
 			Color drawColor = Main.hslToRgb(projectile.ai[0], 1f, 0.5f).MultiplyRGBA(new Color(255, 255, 255, 0));
-            float drawScale = projectile.scale * GetAttackVelocity();
+            float drawScale = projectile.scale * GetAttackVelocity(projectile.owner);
 			if (projectile.localAI[0] != 0)//solve a weird 1 frame fulbright draw call issue
 			{
 				Main.EntitySpriteDraw(texture, drawPos, frame, drawColor, projectile.rotation, texture.Size() / 2, drawScale * 2f, SpriteEffects.None);

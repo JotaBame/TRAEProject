@@ -18,7 +18,7 @@ namespace TRAEProject.NewContent.SummonReforges
 		private static Conditions.NotNull _cachedConditions_notNull = new Conditions.NotNull();//needed for lightning aura idk why
 		private void AI_134_Ballista(Projectile projectile)
 		{
-			float shot_range = 900f * GetAggroRangeBoost();
+			float shot_range = 900f * GetAggroRangeBoost(projectile.owner);
 			float deadBottomAngle = 0.75f;
 			Vector2 visualCenter = projectile.Center;
 			int num2;
@@ -61,7 +61,7 @@ namespace TRAEProject.NewContent.SummonReforges
 				}
 				if (projectile.ai[1] > 0f)
 				{
-					projectile.ai[1] -= 1f * GetAttackRateAsTimerIncrease();
+					projectile.ai[1] -= 1f * GetAttackRateAsTimerIncrease(projectile.owner);
 				}
 				int targetIndex = AI_134_Ballista_FindTarget(shot_range, deadBottomAngle, visualCenter, projectile);
 				if (targetIndex != -1)
@@ -101,7 +101,7 @@ namespace TRAEProject.NewContent.SummonReforges
 					}
 					projectile.rotation = dirToTargetVector.ToRotation();
 					projectile.direction = (projectile.rotation > MathF.PI / 2f || projectile.rotation < -MathF.PI / 2f) ? -1 : 1;
-					Vector2 shotVel = dirToTargetVector * shotVelLength * GetAttackVelocity();
+					Vector2 shotVel = dirToTargetVector * shotVelLength * GetAttackVelocity(projectile.owner);
 					if (projectile.owner == Main.myPlayer)
 					{
 						Projectile.NewProjectile(projectile.GetSource_FromThis(), visualCenter, shotVel, ProjectileID.DD2BallistraProj, projectile.damage, projectile.knockBack, projectile.owner);
@@ -165,7 +165,7 @@ namespace TRAEProject.NewContent.SummonReforges
 		}
 		private void AI_130_FlameBurstTower(Projectile projectile)
 		{
-			float aggroRange = 900f * GetAggroRangeBoost();
+			float aggroRange = 900f * GetAggroRangeBoost(projectile.owner);
 			float angleRatioMax = 1f;
 			Vector2 projShootPos = projectile.Center;
 			int projTypeToShoot = 664;
@@ -349,7 +349,7 @@ namespace TRAEProject.NewContent.SummonReforges
 				bool flag = false;
 				if (projectile.ai[1] > 0f)
 				{
-					projectile.ai[1] -= 1f * GetAttackRateAsTimerIncrease();
+					projectile.ai[1] -= 1f * GetAttackRateAsTimerIncrease(projectile.owner);
 				}
 				else
 				{
@@ -378,7 +378,7 @@ namespace TRAEProject.NewContent.SummonReforges
 					{
 						dirToTargetNormalized = (Main.npc[num10].Center - projShootPos).SafeNormalize(Vector2.UnitX * projectile.direction);
 					}
-					Vector2 shotVel = dirToTargetNormalized * shotVelLength * GetAttackVelocity();
+					Vector2 shotVel = dirToTargetNormalized * shotVelLength * GetAttackVelocity(projectile.owner);
 					if (projectile.owner == Main.myPlayer)
 					{
 
@@ -469,13 +469,13 @@ namespace TRAEProject.NewContent.SummonReforges
 			}
 			if (projectile.localAI[0] > 0f)
 			{
-				projectile.localAI[0] -= 1f * GetAttackRateAsTimerIncrease();
+				projectile.localAI[0] -= 1f * GetAttackRateAsTimerIncrease(projectile.owner);
 			}
 			if (projectile.localAI[0] <= 0f && projectile.owner == Main.myPlayer)
 			{
 				projectile.localAI[0] = 3f;
 				bool hasTarget = false;
-				Rectangle rectangle = Utils.CenteredRectangle(projectile.Center + new Vector2(0f, -verticalExplosionOffset * GetAggroRangeBoost()), new Vector2(verticalExplosionOffset * 3 * GetAggroRangeBoost()));
+				Rectangle rectangle = Utils.CenteredRectangle(projectile.Center + new Vector2(0f, -verticalExplosionOffset * GetAggroRangeBoost(projectile.owner)), new Vector2(verticalExplosionOffset * 3 * GetAggroRangeBoost(projectile.owner)));
 				for (int i = 0; i < Main.maxNPCs; i++)
 				{
 					NPC nPC = Main.npc[i];
@@ -490,9 +490,9 @@ namespace TRAEProject.NewContent.SummonReforges
 					SoundEngine.PlaySound(SoundID.DD2_ExplosiveTrapExplode, projectile.Center);
 					projectile.localAI[0] = explosiveTrapCooldown;
 					Projectile spawnedExplosion = Projectile.NewProjectileDirect(projectile.GetSource_FromThis(), projectile.Center + new Vector2(0f, -verticalExplosionOffset), Vector2.Zero, explosionProjID, projectile.damage, projectile.knockBack, projectile.owner);
-					spawnedExplosion.Center -= new Vector2(0.5f * (GetAggroRangeBoost() * spawnedExplosion.Size.X - spawnedExplosion.Size.X), GetAggroRangeBoost() * spawnedExplosion.Size.Y - spawnedExplosion.Size.Y);
-					spawnedExplosion.Size *= GetAggroRangeBoost();
-					spawnedExplosion.scale *= GetAggroRangeBoost();//mght cause multiplayer badness but I have no clue I am just paranoid
+					spawnedExplosion.Center -= new Vector2(0.5f * (GetAggroRangeBoost(projectile.owner) * spawnedExplosion.Size.X - spawnedExplosion.Size.X), GetAggroRangeBoost(projectile.owner) * spawnedExplosion.Size.Y - spawnedExplosion.Size.Y);
+					spawnedExplosion.Size *= GetAggroRangeBoost(projectile.owner);
+					spawnedExplosion.scale *= GetAggroRangeBoost(projectile.owner);//mght cause multiplayer badness but I have no clue I am just paranoid
 				}
 			}
 			projectile.tileCollide = true;
@@ -517,9 +517,9 @@ namespace TRAEProject.NewContent.SummonReforges
                 whatEvenIsTHisAAAAAA = 14;
 				likeActualRangeInTilesThisIsStupid = 12;
             }
-			likeActualRangeInTilesThisIsStupid = (int)(likeActualRangeInTilesThisIsStupid * GetAggroRangeBoost());
+			likeActualRangeInTilesThisIsStupid = (int)(likeActualRangeInTilesThisIsStupid * GetAggroRangeBoost(projectile.owner));
 			reachInTilesMinusTwoWeirdlyCodedToHave8MinSize = likeActualRangeInTilesThisIsStupid + 2;
-            projectile.ai[0] += 1f * GetAttackRateAsTimerIncrease();
+            projectile.ai[0] += 1f * GetAttackRateAsTimerIncrease(projectile.owner);
             if (projectile.ai[0] >= hitDelay)
             {
                 projectile.ai[0] = 0f;

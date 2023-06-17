@@ -6,6 +6,7 @@ using Terraria.ModLoader;
 using Terraria.GameContent;
 using System;
 using TRAEProject.Common;
+using TRAEProject.NewContent.SummonReforges;
 
 namespace TRAEProject.Changes.Projectiles
 {
@@ -46,9 +47,11 @@ namespace TRAEProject.Changes.Projectiles
             ProjectileID.Sets.TrailingMode[Projectile.type] = 2;
             ProjectileID.Sets.SentryShot[Projectile.type] = true;
         }
-        static int baseTimeLeft = 1500;
+        static int baseTimeLeft = 4000;
+        TestForSummonReforgesMinionChanges reforgeStats;
         public override void SetDefaults()
         {
+            reforgeStats = Projectile.GetGlobalProjectile<TestForSummonReforgesMinionChanges>();
             Projectile.penetrate = 3;
             Projectile.GetGlobalProjectile<ProjectileStats>().DamageFalloff = 0.15f;
             Projectile.usesLocalNPCImmunity = true;
@@ -72,11 +75,11 @@ namespace TRAEProject.Changes.Projectiles
             bool chaseTargets = false;
             float curveTime = baseTimeLeft - 180;
             float homingTime = 20f;
-
+            float aggroRange = 1000 * reforgeStats.GetAggroRangeBoost(Projectile.owner);
             float decelerationAmount = 0.98f;
-            float minSmoothStepAmount = 0.075f;
-            float maxSmoothStepAmount = 0.125f;
-            float maxVel = 26f;
+            float minSmoothStepAmount = 0.075f * reforgeStats.GetMoveAcceleration(Projectile.owner);
+            float maxSmoothStepAmount = 0.125f * reforgeStats.GetMoveAcceleration(Projectile.owner);
+            float maxVel = 26f * reforgeStats.GetMoveSpeed(Projectile.owner);
             if (Projectile.timeLeft == baseTimeLeft - 3)
             {
                 int alpha = Projectile.alpha;
@@ -118,7 +121,7 @@ namespace TRAEProject.Changes.Projectiles
             }
             if (targetIndex == -1 && Projectile.timeLeft % 10 == 0)//only search for a target every 10th update(projectile has 2 extra updates) to improve performance
             {
-                int newTargetIndex = FindTargetWithLineOfSight(1000);//TODO: TEST THIS
+                int newTargetIndex = FindTargetWithLineOfSight(aggroRange);//TODO: TEST THIS
                 if (newTargetIndex != -1)
                 {
                     Projectile.ai[0] = newTargetIndex;
@@ -176,18 +179,24 @@ namespace TRAEProject.Changes.Projectiles
             Main.EntitySpriteDraw(sparkleTexture, Projectile.Center - Main.screenPosition, null, afterImgColor, MathF.PI / 2f, sparkleOrigin, scaleX, SpriteEffects.None,0);
             Main.EntitySpriteDraw(sparkleTexture, Projectile.Center - Main.screenPosition, null, afterImgColor, 0f, sparkleOrigin, scaleY, SpriteEffects.None,0);
             Main.EntitySpriteDraw(sparkleTexture, Projectile.Center - Main.screenPosition, null, afterImgColor * 0.5f, MathF.PI / 2f, sparkleOrigin, scaleX * 0.6f, SpriteEffects.None,0);
-            Main.EntitySpriteDraw(sparkleTexture, Projectile.Center - Main.screenPosition, null, afterImgColor * 0.5f, 0f, sparkleOrigin, scaleY * 0.6f, SpriteEffects.None,0);
-            
-            
+            Main.EntitySpriteDraw(sparkleTexture, Projectile.Center - Main.screenPosition, null, afterImgColor * 0.5f, 0f, sparkleOrigin, scaleY * 0.6f, SpriteEffects.None,0);           
+      
             Main.EntitySpriteDraw(texture, Projectile.Center - Main.screenPosition, null, Color.White * Projectile.Opacity, Projectile.rotation, texture.Size() / 2, 1, SpriteEffects.None, 0);
-            Main.EntitySpriteDraw(texture, Projectile.Center - Main.screenPosition, null, new Color(255,255,255,0) * Projectile.Opacity, Projectile.rotation, texture.Size() / 2, 1, SpriteEffects.None, 0);
-            
+            Main.EntitySpriteDraw(texture, Projectile.Center - Main.screenPosition, null, new Color(255,255,255,0) * Projectile.Opacity, Projectile.rotation, texture.Size() / 2, 1, SpriteEffects.None, 0);      
             return false;
         }
     }
 
     public class StardustPortal : GlobalProjectile
     {
+        TestForSummonReforgesMinionChanges reforgeStats;
+        public override void SetDefaults(Projectile entity)
+        {
+            if(entity.type == ProjectileID.MoonlordTurret)
+            {
+                reforgeStats = entity.GetGlobalProjectile<TestForSummonReforgesMinionChanges>();
+            }
+        }
         static Color[] goldPortalColors = new Color[6] { Color.White, new Color(250, 234, 192), new Color(250, 216, 124), new Color(250, 176, 0), new Color(183, 106, 3), new Color(91, 57, 29) };
         static Color[] bluePortalColors = new Color[6] { Color.White, new Color(115, 223, 255), new Color(35, 200, 255), new Color(104, 214, 255), new Color(0, 174, 238), new Color(0, 106, 185) };
 
@@ -245,7 +254,7 @@ namespace TRAEProject.Changes.Projectiles
                 Main.spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.NonPremultiplied, Main.DefaultSamplerState, DepthStencilState.None, Main.Rasterizer, null, Main.Transform);
                 Texture2D texture = ModContent.Request<Texture2D>("TRAEProject/Assets/SpecialTextures/GoldenShine").Value;
                 Color shineColor = Color.White;
-                float waveAmplitude = 100;
+                const float waveAmplitude = 100;
                 float triangleWave = (float)(1 / Math.PI * Math.Asin(Math.Sin(2 * Math.PI / waveAmplitude * Main.timeForVisualEffects)) + 0.5);
                 shineColor.A = (byte)(255 * triangleWave);
                 Color altShineColor = shineColor;
@@ -285,8 +294,8 @@ namespace TRAEProject.Changes.Projectiles
                         spawnedDust.fadeIn = 0.5f * projectile.scale;
                     }
                 }
-                int fireRate = 35;
-                if (projectile.ai[0] % fireRate == 0 && projectile.ai[0] > 20)
+                int fireRate = (int)(35 * reforgeStats.GetAttackRateAsTimerThresholdMultiplier(projectile.owner));
+                if ((int)projectile.ai[0] % fireRate == 0 && projectile.ai[0] > 20)
                 {
                     float color = Main.rand.Next(0, 2) * 0.5f + 0.09f + Main.rand.NextFloat() / 20;
                     Projectile.NewProjectileDirect(projectile.GetSource_FromThis(), projectile.Center, new Vector2(Main.rand.NextFloat() + 3).RotatedByRandom(MathF.Tau) * 1.4f, ModContent.ProjectileType<StardustPortalProj>(), projectile.damage, 3, Main.myPlayer,-1, color).netUpdate = true;
