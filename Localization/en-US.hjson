@@ -477,7 +477,7 @@ Mods: {
 				DisplayName: Chain Shield
 				Tooltip:
 					'''
-					Increases max life by 40
+					Increases max life by 50
 					Temporarily increases defense when damaged
 					'''
 			}
@@ -651,8 +651,8 @@ Mods: {
 				DisplayName: Mirror Shield
 				Tooltip:
 					'''
-					Increases max life by 40
-					Reduces damage taken from projectiles by 12%
+					Increases max life by 50
+					Reduces damage taken from projectiles by 14%
 					'''
 			}
 
@@ -668,7 +668,7 @@ Mods: {
 
 			PalladiumShield: {
 				DisplayName: Palladium Shield
-				Tooltip: Increases max life by 40
+				Tooltip: Increases max life by 50
 			}
 
 			PutridToothNecklace: {

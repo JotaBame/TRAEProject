@@ -100,6 +100,7 @@ namespace TRAEProject.Changes
             if (Player.statMana < Player.statManaMax2)
             {
                 newManaRegen += Player.statManaMax2 * 0.1f * manaRegenBoost;
+                newManaRegen += Player.usedArcaneCrystal ? 0.02f : 0f;
                 if (newManaRegen >= reachThisNumberAndThenIncreaseManaBy1)
                 {
                     newManaRegen -= 60;

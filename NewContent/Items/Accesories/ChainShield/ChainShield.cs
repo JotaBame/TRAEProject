@@ -29,7 +29,7 @@ namespace TRAEProject.NewContent.Items.Accesories.ChainShield
         }
         public override void UpdateAccessory(Player player, bool hideVisual)
         {
-            player.statLifeMax2 += 40;
+            player.statLifeMax2 += 50;
             player.GetModPlayer<ShackleEffects>().cuffs += 1;
         }
         public override void AddRecipes()

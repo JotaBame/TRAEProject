@@ -307,6 +307,15 @@ namespace TRAEProject.Changes
         {
             switch (item.type)
             {
+                case ItemID.CatBast:
+                    foreach (TooltipLine line in tooltips)
+                    {
+                        if (line.Mod == "Terraria" && line.Name == "Tooltip0")
+                        {
+                            line.Text = "Reduces damage taken by 5 when placed nearby";
+                        }
+                    }
+                    break;
                 case ItemID.VineRope:
                     foreach (TooltipLine line in tooltips)
                     {
@@ -375,7 +384,16 @@ namespace TRAEProject.Changes
                     {
                         if (line.Mod == "Terraria" && line.Name == "Tooltip0")
                         {
-                            line.Text = "Increases maximum mana by 20 when near it";
+                            line.Text = "Increases maximum mana by 20 when placed nearby";
+                        }
+                    }
+                    break;
+                case ItemID.ArcaneCrystal:
+                    foreach (TooltipLine line in tooltips)
+                    {
+                        if (line.Mod == "Terraria" && line.Name == "Tooltip0")
+                        {
+                            line.Text = "Permanently increases mana regeneration by 2%";
                         }
                     }
                     break;

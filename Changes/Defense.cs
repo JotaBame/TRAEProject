@@ -16,6 +16,7 @@ namespace TRAEProject
     public class Defense : ModPlayer
     {
         public int DamageAfterDefenseAndDR = 0;
+        public bool reflectiveShades = false;
 
         public bool WormScarf = false;
         public bool newBrain = false;
@@ -36,10 +37,11 @@ namespace TRAEProject
             WormScarf = false;
             pocketMirror = false;
             FlatDamageReduction = 0;
-
+            reflectiveShades = false;
         }
         public override void UpdateDead()
         {
+            reflectiveShades = false;
             RoyalGelCooldown = 0;
             RoyalGel = false;
             DamageAfterDefenseAndDR = 0;
@@ -52,7 +54,6 @@ namespace TRAEProject
         }
         public override void PostUpdate()
         {
-            Player.endurance = 0;
             if (RoyalGelCooldown > 0)
             {
                 Player.drippingSlime = true;
@@ -61,7 +62,6 @@ namespace TRAEProject
         }
         public override void PostUpdateEquips()
         {
-            Player.endurance = 0;
         }
         public override bool FreeDodge(Player.HurtInfo info)
         {
@@ -162,7 +162,11 @@ namespace TRAEProject
             }
             if (pocketMirror)
             {
-                modifiers.FinalDamage *= 0.88f;
+                modifiers.FinalDamage *= 0.86f;
+            }
+            if (reflectiveShades)
+            {
+                modifiers.FinalDamage *= 0.79f;
             }
             if (Player.beetleDefense)
             {
@@ -188,6 +192,9 @@ namespace TRAEProject
                     return;
                 case ItemID.PocketMirror:
                     player.GetModPlayer<Defense>().pocketMirror = true;
+                    return;
+                case ItemID.ReflectiveShades:
+                    player.GetModPlayer<Defense>().reflectiveShades = true;
                     return;
                 case ItemID.RoyalGel:
                     player.GetModPlayer<Defense>().RoyalGel = true;
@@ -232,7 +239,16 @@ namespace TRAEProject
                     {
                         if (line.Mod == "Terraria" && line.Name == "Tooltip0")
                         {
-                            line.Text = "12% reduced damage from projectiles\nGrants immunity to Petrified";
+                            line.Text = "Reduced damage taken from projectiles by 14%\nGrants immunity to Petrified";
+                        }
+                    }
+                    return;
+                case ItemID.ReflectiveShades:
+                    foreach (TooltipLine line in tooltips)
+                    {
+                        if (line.Mod == "Terraria" && line.Name == "Tooltip0")
+                        {
+                            line.Text = "Reduced damage taken from projectiles by 21%\nGrants immunity to Petrified and Darkness";
                         }
                     }
                     return;
@@ -279,9 +295,7 @@ namespace TRAEProject
         {
             switch (type)
             {
-                case BuffID.IceBarrier:
-                    tip = "Reduces damage taken by 20%";
-                    return;
+
                 case BuffID.CatBast:
                     tip = "Damage Reduced by 5";
                     return;

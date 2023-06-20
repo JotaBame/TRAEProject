@@ -10,7 +10,6 @@ using Terraria.ID;
 using Terraria.ModLoader;
 using TRAEProject.NewContent.Items.Materials;
 using TRAEProject.NewContent.NPCs.Banners;
-using Microsoft.Xna.Framework.Graphics;
 using static Terraria.ModLoader.ModContent;
 using Rectangle = Microsoft.Xna.Framework.Rectangle;
 
@@ -28,6 +27,14 @@ namespace TRAEProject.NewContent.NPCs.Underworld.OniRonin
                     BuffID.Confused // Most NPCs have this
 				}
             };
+            var drawModifier = new NPCID.Sets.NPCBestiaryDrawModifiers(0)
+            { // Influences how the NPC looks in the Bestiary
+                CustomTexturePath = "TRAEProject/NewContent/NPCs/Underworld/OniRonin/OniRoninBestiary", // If the NPC is multiple parts like a worm, a custom texture for the Bestiary is encouraged.
+                //Position = new Vector2(40f, 24f),
+                //PortraitPositionXOverride = 0f,
+                //PortraitPositionYOverride = 12f
+            };
+            NPCID.Sets.NPCBestiaryDrawOffset.Add(NPC.type, drawModifier);
             NPCID.Sets.DebuffImmunitySets.Add(Type, debuffData);
             // DisplayName.SetDefault("Oni Ronin");
             Main.npcFrameCount[NPC.type] = 3;
@@ -60,7 +67,7 @@ namespace TRAEProject.NewContent.NPCs.Underworld.OniRonin
             bestiaryEntry.Info.AddRange(new List<IBestiaryInfoElement>
             {
                 BestiaryDatabaseNPCsPopulator.CommonTags.SpawnConditions.Biomes.TheUnderworld,
-                new FlavorTextBestiaryInfoElement("Mysterious Demon that brings out the magical powers of world's flowers to attack its enemies.")
+                new FlavorTextBestiaryInfoElement("Mysterious Demon that brings out the magical powers of the world's flowers to attack its enemies.")
             });
         }
         

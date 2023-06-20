@@ -61,18 +61,18 @@ namespace TRAEProject.NewContent.Items.Accesories.SoaringCarpet
 			if (soaringCarpet)
 			{
 		
-				if (soaringCarpetTime < 240 && Player.controlUp && Player.gravDir != -1)
+				if (soaringCarpetTime < 240 && Player.controlUp && Player.gravDir != -1 && Player.velocity.Y != 0f && !Player.mount.Active)
 				{
 					Player.moveSpeed += 0.3f;
 					Player.runAcceleration *= 1.5f;
 			        Player.wingRunAccelerationMult *= 1.5f;
 					if (Player.velocity.Y < 0)
 					{
-						Player.velocity.Y += 0.7f;
+						Player.velocity.Y += 0.99f;
 					}
 					if (Player.velocity.Y > 0)
 					{
-						Player.velocity.Y -= 0.7f;
+						Player.velocity.Y -= 0.99f;
 					}
 					++soaringCarpetTime;
 					for (int i = 0; i < 5; i++)

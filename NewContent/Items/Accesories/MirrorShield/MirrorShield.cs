@@ -35,7 +35,7 @@ namespace TRAEProject.NewContent.Items.Accesories.MirrorShield
         }
         public override void UpdateAccessory(Player player, bool hideVisual)
         {
-            player.statLifeMax2 += 40;
+            player.statLifeMax2 += 50;
             player.GetModPlayer<Defense>().pocketMirror = true;
         }
 

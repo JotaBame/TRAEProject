@@ -71,6 +71,13 @@ namespace TRAEProject.Changes.Recipes
         public static void Modify(Recipe recipe)
         {
             Item ingredientToRemove;
+            if (recipe.HasResult(ItemID.ReflectiveShades))
+            {
+                recipe.TryGetIngredient(ItemID.Blindfold, out ingredientToRemove);
+                recipe.RemoveIngredient(ingredientToRemove);
+                recipe.AddIngredient(ItemID.Goggles, 1);
+
+            }
             if (recipe.HasResult(ItemID.HorseshoeBundle))
             {
                 recipe.DisableRecipe();
@@ -227,12 +234,6 @@ namespace TRAEProject.Changes.Recipes
             if (recipe.HasResult(ItemID.MoltenSkullRose) && recipe.HasIngredient(ItemID.ObsidianSkullRose) && !recipe.HasIngredient(3999))
             {
                 recipe.AddIngredient(ItemID.MagmaStone);
-            }
-            if (recipe.HasResult(ItemID.HeroShield))
-            {
-                recipe.TryGetIngredient(ItemID.PaladinsShield, out ingredientToRemove);
-                recipe.RemoveIngredient(ingredientToRemove);
-                recipe.AddIngredient(ItemID.CobaltShield, 1);
             }
             if (recipe.HasResult(ItemID.FrogGear))
             {
