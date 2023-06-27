@@ -14,40 +14,41 @@ namespace TRAEProject.NewContent.SummonReforges
 {
 	public partial class TestForSummonReforgesMinionChanges : GlobalProjectile
 	{
+      
         //THESE ARE FOR THE STATS THAT CHANGE IN REAL TIME
         float GetPlayerMinionAggroRangeEquipStats(Player player)
         {
-            float totalAggro = 1;
+            float totalAggro = 0;
             if (HasAccEquiped(ItemID.LongRainbowTrailWings, player))
-                totalAggro += 1.5f;
+                totalAggro += 2.5f;
             return totalAggro;
         }
         float GetPlayerMinionAttackRateEquipStats(Player player)
         {
-            float totalAttackRate = 1;
+            float totalAttackRate = 0;
             if (HasAccEquiped(ItemID.LongRainbowTrailWings, player))
-                totalAttackRate += 1.5f;
+                totalAttackRate += 2;
             return totalAttackRate;
         }
         float GetPlayerMinionAttackVelocityEquipStats(Player player)
         {
-            float totalAttackVelocity = 1;
+            float totalAttackVelocity = 0;
             if (HasAccEquiped(ItemID.LongRainbowTrailWings, player))
                 totalAttackVelocity += 1.5f;
             return totalAttackVelocity;
         }
         float GetPlayerMinionMoveAccelerationEquipStats(Player player)
         {
-            float totalAccel = 1;
+            float totalAccel = 0;
             if (HasAccEquiped(ItemID.LongRainbowTrailWings, player))
                 totalAccel += 1.5f;
             return totalAccel;
         }
         float GetPlayerMinionMoveSpeedEquipStats(Player player)
         {
-            float totalMoveSpeed = 1;
+            float totalMoveSpeed = 0;
             if (HasAccEquiped(ItemID.LongRainbowTrailWings, player))
-                totalMoveSpeed += 1.5f;
+                totalMoveSpeed += 0.3f;
             return totalMoveSpeed;
         }
         static bool HasAccEquiped(int type, Player player)

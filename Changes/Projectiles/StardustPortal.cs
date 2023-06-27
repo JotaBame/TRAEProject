@@ -31,7 +31,7 @@ namespace TRAEProject.Changes.Projectiles
                 if (ValidHomingTarget(i))
                 {
                     float distanceSquaredToTarget = Projectile.DistanceSQ(npc.Center);
-                    if (distanceSquaredToTarget < maxRangeSquared && Collision.CanHit(Projectile.position, Projectile.width, Projectile.height, npc.position, npc.width, npc.height))
+                    if (distanceSquaredToTarget < maxRangeSquared)
                     {
                         maxRangeSquared = distanceSquaredToTarget;
                         finalTargetIndex = i;
@@ -51,13 +51,19 @@ namespace TRAEProject.Changes.Projectiles
         TestForSummonReforgesMinionChanges reforgeStats;
         public override void SetDefaults()
         {
-            reforgeStats = Projectile.GetGlobalProjectile<TestForSummonReforgesMinionChanges>();
+            Projectile.DamageType = DamageClass.Summon;
+            try//maybe bad idea
+            {
+                reforgeStats = Projectile.GetGlobalProjectile<TestForSummonReforgesMinionChanges>();//ok so basically the mod throws an error on loading.
+            }//so I used try catch to circumvent it
+            catch (Exception)
+            {
+            }
             Projectile.penetrate = 3;
             Projectile.GetGlobalProjectile<ProjectileStats>().DamageFalloff = 0.15f;
             Projectile.usesLocalNPCImmunity = true;
             Projectile.localNPCHitCooldown = 30;
             Projectile.extraUpdates = 2;
-            Projectile.DamageType = DamageClass.Summon;
             Projectile.Size = new Vector2(20, 20);
             Projectile.friendly = true;
             Projectile.hostile = false;
@@ -154,7 +160,7 @@ namespace TRAEProject.Changes.Projectiles
         {
             Color afterImgColor = Main.hslToRgb(Projectile.ai[1], 1, 0.5f);
             float opacityForSparkles = Utils.GetLerpValue(0, 40, Projectile.timeLeft, true);
-            afterImgColor.A = (byte)(Main.dayTime ? 128 : 0);
+            afterImgColor.A = (byte)(Main.dayTime ? 0 : 0);
             afterImgColor *= Projectile.Opacity;
             Main.instance.LoadProjectile(ProjectileID.FairyQueenMagicItemShot);
             Texture2D texture = TextureAssets.Projectile[ProjectileID.FairyQueenMagicItemShot].Value;
@@ -162,7 +168,7 @@ namespace TRAEProject.Changes.Projectiles
             {
                 float opacity = 1 - (float)i / Projectile.oldPos.Length;
                 int oldPosIndex = (int)MathHelper.Clamp(i - 1, 0, 100000);
-                Vector2 oldScale = Vector2.Clamp(new Vector2(1, MathF.Abs((Projectile.oldPos[i] - Projectile.oldPos[oldPosIndex]).Length())), Vector2.One, Vector2.One * 2.5f);
+                Vector2 oldScale = Vector2.Clamp(new Vector2(1, MathF.Abs((Projectile.oldPos[i] - Projectile.oldPos[oldPosIndex]).Length() * 0.3f)), Vector2.One, Vector2.One * 4000f);
                 Main.EntitySpriteDraw(texture, Projectile.oldPos[i] + Projectile.Size * 0.5f - Main.screenPosition, null, afterImgColor * opacity, Projectile.oldRot[i], texture.Size() / 2, oldScale, SpriteEffects.None);
             }
             

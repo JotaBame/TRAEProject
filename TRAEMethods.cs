@@ -52,10 +52,10 @@ namespace TRAEProject
         }
         public static void RectangleDustVisualizer(Rectangle rectangle)
         {
-            for (float i = 0; i < rectangle.Width * 2 + rectangle.Height * 2; i+= 1)
+            for (float i = 0; i < rectangle.Width * 2 + rectangle.Height * 2; i+= 3)
             {
-                Vector2 dustPos = GetPointInRectPerimeterStartingFromTopLeft(rectangle, i);
-                Dust.NewDustPerfect(dustPos, DustID.MagnetSphere, Vector2.Zero, Scale: 1);
+                Vector2 dustPos = GetPointInRectPerimeterStartingFromTopLeft(rectangle, i + Main.rand.NextFloat());
+                Dust.NewDustPerfect(dustPos, DustID.MagnetSphere, Vector2.Zero, Scale: 0.4f);//magnet sphere because it lasts little time
             }
         }
         public static void CircleDustVisualizer(Vector2 circleOrigin, float circleRadius)

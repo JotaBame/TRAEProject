@@ -127,7 +127,6 @@ namespace TRAEProject.NewContent.SummonReforges
                 case ProjectileID.RainbowCrystalExplosion://ai 112
                     RainbowCrystalStaffAIExplosion(projectile);
                     return false;
-
             }
             return true;
         }
