@@ -70,8 +70,8 @@ namespace TRAEProject.Changes
                 shop.Add(ItemID.FastClock);
             if (shop.NpcType == NPCID.ArmsDealer)
             {
-                shop.Add(ItemID.Gatligator, /*Condition.InGraveyard,*/ Condition.Hardmode);
-                shop.Add(ItemID.Uzi, Condition.DownedPlantera/*, Condition.NotInGraveyard*/);
+                shop.Add(ItemID.Gatligator, Condition.InGraveyard, Condition.Hardmode);
+                shop.Add(ItemID.Uzi, Condition.DownedPlantera, Condition.NotInGraveyard);
 
                 //shop.Add(ItemID.Uzi, Condition.Hardmode, Condition.NotInGraveyard);
             }
