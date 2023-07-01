@@ -255,6 +255,7 @@ Mods: {
 			BloodFlameP.DisplayName: Blood Flame P
 			CrystalGelSplitPink.DisplayName: Crystal Gel Split Pink
 			CrystalGelSplitPurple.DisplayName: Crystal Gel Split Purple
+			EchoStalkerSonicWave.DisplayName: Echo Stalker Sonic Wave
 		}
 
 		Prefixes: {
@@ -1507,6 +1508,11 @@ Mods: {
 					Allows auto-jump and reducing gravity
 					'''
 			}
+
+			StarfuryTempleTestItem: {
+				DisplayName: Starfury Temple Test Item
+				Tooltip: ""
+			}
 		}
 
 		NPCs: {
@@ -1530,6 +1536,7 @@ Mods: {
 			SalalavaNPC.DisplayName: Salalava
 			BomberBonesNPC.DisplayName: Bomber Bones
 			GraniteOvergrowthNPC.DisplayName: Granite Overgrowth
+			EchoStalker.DisplayName: Echo Stalker
 		}
 
 		Tiles: {

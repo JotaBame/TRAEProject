@@ -178,11 +178,3 @@ C:\Users\User\Documents\My Games\Terraria\tModLoader\ModSources\TRAEProject\obj\
 C:\Users\User\Documents\My Games\Terraria\tModLoader\ModSources\TRAEProject\obj\Debug\net6.0\TRAEProject.dll
 C:\Users\User\Documents\My Games\Terraria\tModLoader\ModSources\TRAEProject\obj\Debug\net6.0\ref\TRAEProject.dll
 C:\Users\User\Documents\My Games\Terraria\tModLoader\ModSources\TRAEProject\obj\Debug\net6.0\TRAEProject.pdb
-C:\Users\lenovo\Documents\My Games\Terraria\tModLoader\ModSources\TRAEProject\obj\Debug\net6.0\TRAEProject.csproj.AssemblyReference.cache
-C:\Users\lenovo\Documents\My Games\Terraria\tModLoader\ModSources\TRAEProject\obj\Debug\net6.0\TRAEProject.GeneratedMSBuildEditorConfig.editorconfig
-C:\Users\lenovo\Documents\My Games\Terraria\tModLoader\ModSources\TRAEProject\obj\Debug\net6.0\TRAEProject.AssemblyInfoInputs.cache
-C:\Users\lenovo\Documents\My Games\Terraria\tModLoader\ModSources\TRAEProject\obj\Debug\net6.0\TRAEProject.AssemblyInfo.cs
-C:\Users\lenovo\Documents\My Games\Terraria\tModLoader\ModSources\TRAEProject\obj\Debug\net6.0\TRAEProject.csproj.CoreCompileInputs.cache
-C:\Users\lenovo\Documents\My Games\Terraria\tModLoader\ModSources\TRAEProject\obj\Debug\net6.0\TRAEProject.dll
-C:\Users\lenovo\Documents\My Games\Terraria\tModLoader\ModSources\TRAEProject\obj\Debug\net6.0\refint\TRAEProject.dll
-C:\Users\lenovo\Documents\My Games\Terraria\tModLoader\ModSources\TRAEProject\obj\Debug\net6.0\TRAEProject.pdb

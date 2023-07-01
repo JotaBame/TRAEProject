@@ -137,7 +137,7 @@ namespace TRAEProject.Changes.Projectiles
                     projectile.GetGlobalProjectile<ProjectileStats>().DamageFalloff = 0.25f;
                     return;
                 case ProjectileID.MechanicalPiranha:
-                    projectile.ContinuouslyUpdateDamage = true;
+                    projectile.ContinuouslyUpdateDamageStats = true;
                     break;
                 //case ProjectileID.VenomBullet:
                 //    projectile.ArmorPenetration = 10;

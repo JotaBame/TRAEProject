@@ -8,16 +8,153 @@ using System.Threading.Tasks;
 
 namespace TRAEProject.NewContent.StarfuryTemple
 {
-	public static class StarfuryTempleGen
+	public static partial class StarfuryTempleGen
     {
+		static bool HasTileAbove(Point point) => Main.tile[point - new Point(0, 1)].HasTile;
+		static bool HasTileBelow(Point point) => Main.tile[point + new Point(0, 1)].HasTile;
+		static bool HasTileRight(Point point) => Main.tile[point + new Point(1, 0)].HasTile;
+		static bool HasTileLeft(Point point) => Main.tile[point - new Point(1, 0)].HasTile;
+		static bool CanBeHammeredLikeThis(BlockType blockType, Point tileCoord)
+        {
+            switch (blockType)
+            {
+                case BlockType.HalfBlock:
+                    return !HasTileAbove(tileCoord) && HasTileBelow(tileCoord);
+                case BlockType.SlopeDownLeft:
+                    return !HasTileRight(tileCoord) && !HasTileAbove(tileCoord) && HasTileBelow(tileCoord) && HasTileLeft(tileCoord);
+                case BlockType.SlopeDownRight:
+					return !HasTileLeft(tileCoord) && !HasTileAbove(tileCoord) && HasTileRight(tileCoord) && HasTileBelow(tileCoord);
+				case BlockType.SlopeUpLeft:
+					return !HasTileRight(tileCoord) && !HasTileBelow(tileCoord) && HasTileAbove(tileCoord) && HasTileLeft(tileCoord);
+				case BlockType.SlopeUpRight:
+					return !HasTileLeft(tileCoord) && !HasTileBelow(tileCoord) && HasTileAbove(tileCoord) && HasTileRight(tileCoord);
+			}
+			return true;
+		}
+		static BlockType RandomBlockType(Point coord)
+        {
+			BlockType blockTypeGenerated = (BlockType)Main.rand.Next(1, 6);
+			if (CanBeHammeredLikeThis(blockTypeGenerated, coord))
+				return blockTypeGenerated;
+			return BlockType.Solid;
+        }
+		static void RandomlyHammerTilesFromList(List<Point> tilePositions)
+        {
+            for (int i = 0; i < tilePositions.Count; i++)
+            {
+				Point point = tilePositions[i];
+				Tile tile = Main.tile[point];
+				tile.BlockType = RandomBlockType(point);
+            }
+        }
+		public static void RLERainCloudLine2(ref List<Point> tilePositions, Point start, params int[] rleData)//CHANGE RLE STUFF TO INCLUDE A REF POINT LIST
+		{
+			for (int i = 0; i < rleData.Length; i++)
+			{
+				for (int j = i == 0 ? 0 : rleData[i - 1]; j < rleData[i]; j++)
+				{
+					if (i % 2 == 1)
+					{
+						WorldGen.PlaceTile(start.X + j, start.Y, TileID.RainCloud);
+						tilePositions.Add(new Point(start.X + j, start.Y));
+					}
+				}
+			}
+		}
+		/// <summary>
+		/// length based on the start and not where it previously stopped
+		/// </summary>
+		/// <param name="start"></param>
+		/// <param name="rleData"></param>
+		public static void RLECloudLine2(ref List<Point> tilePositions, Point start, params int[] rleData)
+		{
+			for (int i = 0; i < rleData.Length; i++)
+			{
+				for (int j = i == 0 ? 0 : rleData[i - 1] ; j < rleData[i]; j++)
+				{
+					if (i % 2 == 1)
+					{
+						WorldGen.PlaceTile(start.X + j, start.Y, TileID.Cloud);
+						tilePositions.Add(new Point(start.X + j, start.Y));
+					}
+				}
+			}
+		}       
+		/// <summary>
+		/// rleData is first how many tiles to skip ahead, ad then how many tiles to place, how many tiles to skip ahead, how many tiles to place and so on
+		/// </summary>
+		/// <param name="start"></param>
+		/// <param name="rleData"></param>
+		public static void RLECloudLine(ref List<Point> tilePositions, Point start, params int[] rleData)
+        {
+			int xOffset = 0;
+            for (int i = 0; i < rleData.Length; i++)
+            {
+                for (int j = 0;j < rleData[i]; j++)
+                {
+					if(i % 2 == 1)
+                    {
+						Point coord = new(start.X + xOffset, start.Y);
+						WorldGen.PlaceTile(coord.X, coord.Y, TileID.Cloud);
+						tilePositions.Add(coord);
+                    }
+					xOffset++;
+                }
+            }
+        }
+		public static void CloudForSundialIsland(ref List<Point> tilePositions, Point topLeft)
+        {
+			RLECloudLine(ref tilePositions, topLeft, 1, 6);
+			RLECloudLine(ref tilePositions, topLeft + new Point(0, 1), 0, 9);
+			RLECloudLine(ref tilePositions, topLeft + new Point(0, 2), 1, 10, 20, 5);
+			RLECloudLine(ref tilePositions, topLeft + new Point(0, 3), 0, 15, 10, 13);
+			RLECloudLine(ref tilePositions, topLeft + new Point(0, 4), 0, 38);
+			RLECloudLine(ref tilePositions, topLeft + new Point(0, 5), 1, 38);
+			RLECloudLine(ref tilePositions, topLeft + new Point(0, 6), 2, 39);
+			RLECloudLine(ref tilePositions, topLeft + new Point(0, 7), 3, 38);
+			RLECloudLine(ref tilePositions, topLeft + new Point(0, 8), 3, 37);
+			RLECloudLine(ref tilePositions, topLeft + new Point(0, 9), 6, 34);
+			RLECloudLine(ref tilePositions, topLeft + new Point(0, 10), 9, 31);
+			RLECloudLine(ref tilePositions, topLeft + new Point(0, 11), 10, 28);
+			RLECloudLine(ref tilePositions, topLeft + new Point(0, 12), 10, 27);
+			RLECloudLine(ref tilePositions, topLeft + new Point(0, 13), 13, 34 - 13);
+			RLECloudLine(ref tilePositions, topLeft + new Point(0, 14), 15, 31 - 15);
+		}
 
+		static void RainCloudForMediumLakeIsland(ref List<Point> tilePositions, Point start)
+        {
+			RLERainCloudLine2(ref tilePositions, start, 1, 6);
+			RLERainCloudLine2(ref tilePositions, start + new Point(0, 1), 0, 10, 53, 54);
+			RLERainCloudLine2(ref tilePositions, start + new Point(0, 2), 0, 12, 51, 54);
+			RLERainCloudLine2(ref tilePositions, start + new Point(0, 3), 2, 14, 18, 22, 27, 32, 48, 53);
+			RLERainCloudLine2(ref tilePositions, start + new Point(0, 4), 1, 34, 42, 54);
+			RLERainCloudLine2(ref tilePositions, start + new Point(0, 5), 1, 52);
+			RLERainCloudLine2(ref tilePositions, start + new Point(0, 6), 2, 53);
+			RLERainCloudLine2(ref tilePositions, start + new Point(0, 7), 4, 52);
+			RLERainCloudLine2(ref tilePositions, start + new Point(0, 8), 6, 52);
+			RLERainCloudLine2(ref tilePositions, start + new Point(0, 9), 7, 51);
+			RLERainCloudLine2(ref tilePositions, start + new Point(0, 10), 9, 50);
+			RLERainCloudLine2(ref tilePositions, start + new Point(0, 11), 11, 12, 13, 16, 17, 20, 22, 50);
+			RLERainCloudLine2(ref tilePositions, start + new Point(0, 12), 23, 24, 26, 48);
+			RLERainCloudLine2(ref tilePositions, start + new Point(0, 13), 27, 43, 44, 46);
+			RLERainCloudLine2(ref tilePositions, start + new Point(0, 14), 30, 42);
+			RLERainCloudLine2(ref tilePositions, start + new Point(0, 15), 33, 35, 37, 41);
+
+
+		}
 		public  static void MainGeneration()
 		{
+			//List<Point> tilePositionsToBeHammered = new();
 			Point center = Main.MouseWorld.ToTileCoordinates();
 			Vector2 start = Main.MouseWorld.ToTileCoordinates().ToWorldCoordinates();
+			//CloudForSundialIsland(center);
+			//RainCloudForMediumLakeIsland(ref tilePositionsToBeHammered, center);
+			//RandomlyHammerTilesFromList(tilePositionsToBeHammered);
+			CloudIsland(center.X, center.Y);
+			return;
 			PlaceRectangle(start - new Vector2(16, -16), TileID.Sunplate, 3, 10);
 			PlaceRectangle(start - new Vector2(9 * 16, -64), TileID.Sunplate, 19, 7);
-			WorldGen.PlaceTile(center.X, center.Y, 187, true, true, -1, 17);//ENCHANTED SWORD
+			WorldGen.PlaceTile(center.X, center.Y, 187, true, true, -1, 17);//ENCHANTED SWORD, CHANGE TO STARFURY IN STONE LATER
 			for (int i = -1; i < 2; i += 1)
 			{
 				for (int j = -4; j < 2; j++)
@@ -35,7 +172,7 @@ namespace TRAEProject.NewContent.StarfuryTemple
 			}
 			WorldGen.PlaceTile(center.X, center.Y - 4, TileID.Torches, true, true, -1, 14);//Rainbow torch
 			WorldGen.PlaceTile(center.X, center.Y - 22, TileID.Platforms, style: 22);
-			WorldGen.PlaceObject(center.X, center.Y - 21, TileID.SoulBottles, true, style: 3);
+			WorldGen.PlaceObject(center.X, center.Y - 21, TileID.SoulBottles, true, style: 3);//soul of flight in a bottle
 			WorldGen.PlaceTile(center.X, center.Y - 23, TileID.PeaceCandle);
 
 			return;
