@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -21,9 +17,11 @@ namespace TRAEProject.NewContent.Items.Accesories.PalladiumShield
         }
         public override void SetDefaults()
         {
+            Item.width = 26;
+            Item.height = 32;
+            Item.value = Item.sellPrice(gold: 3);
             Item.accessory = true;
             Item.rare = ItemRarityID.Orange;
-            Item.value = 75000;
             Item.defense = 1;
         }
         public override void UpdateAccessory(Player player, bool hideVisual)

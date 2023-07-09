@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -24,7 +20,9 @@ namespace TRAEProject.NewContent.Items.Accesories.LifeCuffs
         {
             Item.accessory = true;
             Item.rare = ItemRarityID.Green;
-            Item.value = 20000;
+            Item.width = 48;
+            Item.height = 48;
+            Item.value = Item.sellPrice(gold: 2);
         }
         public override void UpdateAccessory(Player player, bool hideVisual)
         {

@@ -401,7 +401,7 @@ namespace TRAEProject.NewContent.NPCs.Underworld.Salalava
                 onlyonce = false;
             }
            
-            NPC.velocity *= 0.98f;
+            //NPC.velocity *= 0.98f;
         }
         public override void OnKill()
         {

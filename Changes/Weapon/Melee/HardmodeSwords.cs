@@ -322,11 +322,31 @@ namespace TRAEProject.Changes.Weapon.Melee
         {
             switch (item.type)
             {
+                case ItemID.TitaniumSword:
+                    foreach (TooltipLine line in tooltips)
+                    {
+                        if (line.Mod == "Terraria" && line.Name == "Knockback")
+                        {
+                            line.Text += "\nAttacking generates a defensive barrier of titanium shards\nDeals more damage with Titanium Armor equipped";
+                        }
+                    }
+                    break;
+                case ItemID.PalladiumSword:
+                    foreach (TooltipLine line in tooltips)
+                    {
+                        if (line.Mod == "Terraria" && line.Name == "Knockback")
+                        {
+                            line.Text += "\nGreatly increases life regeneration after striking an enemy\nMore effective with Palladium armor equipped";
+
+                        }
+                    }
+                    break;
                 case ItemID.MythrilSword:
                     foreach (TooltipLine line in tooltips)
                     {
                         if (line.Mod == "Terraria" && line.Name == "Knockback")
                         {
+
                             line.Text += "\nDeals 25% more damage on critical hits";
                         }
                     }

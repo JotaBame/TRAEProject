@@ -1,10 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿
 using Terraria;
-using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
 
@@ -23,7 +18,9 @@ namespace TRAEProject.NewContent.Items.Accesories.TheBlackCross
         {
             Item.accessory = true;
             Item.rare = ItemRarityID.Yellow;
-            Item.value = 75000;
+            Item.width = 26;
+            Item.height = 38;
+            Item.value = Item.sellPrice(gold:5);
         }
         public override void UpdateAccessory(Player player, bool hideVisual)
         {

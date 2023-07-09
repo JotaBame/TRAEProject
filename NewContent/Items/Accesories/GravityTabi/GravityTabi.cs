@@ -1,8 +1,4 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -23,7 +19,9 @@ namespace TRAEProject.NewContent.Items.Accesories.GravityTabi
         {
             Item.accessory = true;
             Item.rare = ItemRarityID.Pink;
-            Item.value = 37500;
+            Item.width = 26;
+            Item.height = 34;
+            Item.value = Item.sellPrice(gold: 7);
         }
         public override void UpdateAccessory(Player player, bool hideVisual)
         {

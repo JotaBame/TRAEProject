@@ -1,8 +1,4 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -18,9 +14,11 @@ namespace TRAEProject.NewContent.Items.Accesories.ExtraJumps
         }
         public override void SetDefaults()
         {
+            Item.width = 34;
+            Item.height = 40; 
+            Item.value = Item.sellPrice(gold: 15);
             Item.accessory = true;
-            Item.rare = ItemRarityID.Yellow;
-			Item.value = Item.buyPrice(0, 40);
+            Item.rare = ItemRarityID.Cyan;
         }
         public override void UpdateAccessory(Player player, bool hideVisual)
         {

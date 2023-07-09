@@ -149,6 +149,17 @@ namespace TRAEProject.Changes
             timer = 0;
             return true;
         }
+        public override void UseAnimation(Item item, Player player)
+        {
+            if (!item.useTurn && item.CountsAsClass(DamageClass.Melee) && player.itemAnimation == player.itemAnimationMax && item.shoot == 0 || item.type == ItemID.BeamSword)
+            {
+                Vector2 mousePosition = Main.screenPosition + new Vector2(Main.mouseX, Main.mouseY);
+                if (player.position.X - mousePosition.X > 0)
+                    player.direction = -1;
+                else
+                    player.direction = 1;
+            }
+        }
         public override void Update(Item item, ref float gravity, ref float maxFallSpeed)
         {
             if (item.type == ItemID.GuideVoodooDoll && NPC.downedPlantBoss)

@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -22,8 +18,9 @@ namespace TRAEProject.NewContent.Items.Accesories.SandstormBoots
         public override void SetDefaults()
         {
             Item.accessory = true;
-            Item.rare = ItemRarityID.Orange;
-            Item.value = Item.sellPrice(gold: 3);
+            Item.rare = ItemRarityID.Orange; Item.width = 38;
+            Item.height = 28;
+            Item.value = Item.sellPrice(gold: 2);
         }
         public override void UpdateAccessory(Player player, bool hideVisual)
         {
