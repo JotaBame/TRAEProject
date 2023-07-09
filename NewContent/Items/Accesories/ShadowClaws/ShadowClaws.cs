@@ -1,11 +1,9 @@
-﻿using System;
-using Microsoft.Xna.Framework;
+﻿
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.GameContent.Creative;
 using TRAEProject.NewContent.Items.Accesories.ShadowflameCharm;
-using TRAEProject.NewContent.Buffs;
 using static Terraria.ModLoader.ModContent;
 using TRAEProject.Common.ModPlayers;
 
@@ -23,7 +21,9 @@ namespace TRAEProject.NewContent.Items.Accesories.ShadowClaws
         {
             Item.accessory = true;
             Item.rare = ItemRarityID.Pink;
-            Item.value = 50000;
+            Item.width = 28;
+            Item.height = 28;
+            Item.value = Item.sellPrice(gold: 5);
         }
         public override void UpdateAccessory(Player player, bool hideVisual)
         {

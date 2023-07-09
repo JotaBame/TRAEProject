@@ -157,7 +157,7 @@ namespace TRAEProject.Changes.Accesory
                     break;
                 case ItemID.CelestialCuffs:
                     player.statManaMax2 -= 20;
-                    player.GetModPlayer<OnHitItems>().magicCuffsCount += 1;
+                    player.GetModPlayer<OnHitItems>().magicCuffsCount += 2;
                     player.magicCuffs = false;
                     player.GetModPlayer<Mana>().celestialCuffsOverload = true;
                     break;
@@ -436,7 +436,7 @@ namespace TRAEProject.Changes.Accesory
                     {
                         if (line.Mod == "Terraria" && line.Name == "Tooltip0")
                         {
-                            line.Text = "Restores mana when damaged, can go over maximum mana";
+                            line.Text = "Restores a great amount of mana when damaged";
                         }
                         if (line.Mod == "Terraria" && line.Name == "Tooltip1")
                         {
@@ -444,7 +444,7 @@ namespace TRAEProject.Changes.Accesory
                         }
                         if (line.Mod == "Terraria" && line.Name == "Tooltip2")
                         {
-                            line.Text = "";
+                            line.Text = "Mana restored from taking damage and from mana stars can go over maximum mana";
                         }
                     }
                     break;
@@ -507,15 +507,15 @@ namespace TRAEProject.Changes.Accesory
                         }
                         if (line.Mod == "Terraria" && line.Name == "Tooltip1")
                         {
-                            line.Text = "Stars restore mana when collected";
+                            line.Text = "Causes stars to fall after taking damage";
                         }
                         if (line.Mod == "Terraria" && line.Name == "Tooltip2")
                         {
-                            line.Text = "Automatically uses mana potions when needed";
+                            line.Text = "Stars restore mana when collected";
                         }
                         if (line.Mod == "Terraria" && line.Name == "Tooltip3")
                         {
-                            line.Text = "";
+                            line.Text = "Automatically uses mana potions when needed";
                         }
                     }
                     break;

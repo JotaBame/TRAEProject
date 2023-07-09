@@ -61,11 +61,11 @@ namespace TRAEProject.Changes
         }
         public override void PostUpdateEquips()
         {
-            //Main.NewText("PUE: " + Player.statManaMax2);
             maxManaOverride = Player.statManaMax2;
             if (Player.statMana > 400)
             {
                 manaOver400 = Player.statMana - 400;
+
             }
             else
             {
@@ -87,7 +87,6 @@ namespace TRAEProject.Changes
 
             //Main.NewText("PU: " + Player.statManaMax2);
             Player.statManaMax2 = maxManaOverride;
-            Player.statMana += manaOver400;
             if (overloadedMana > Player.statManaMax2 * 2)
             {
                 overloadedMana = Player.statManaMax2 * 2;

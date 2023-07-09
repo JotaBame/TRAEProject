@@ -249,7 +249,11 @@ namespace TRAEProject.Changes.Items
 				}
 				//itemLoot.Add(ItemDropRule.OneFromOptionsNotScalingWithLuck(1, ItemID.ThunderSpear, ItemID.ThunderStaff, ItemID.AncientChisel, ItemID.SandstorminaBottle, ItemID.AnkhCharm, ItemID.MagicConch));
 				break;
-			}
+                case ItemID.FloatingIslandFishingCrate:
+                case ItemID.FloatingIslandFishingCrateHard:
+
+                    break;
+            }
             base.ModifyItemLoot(item, itemLoot);
         }
 		public static readonly int[] ShadowChestLoot = new int[] { ItemID.HellwingBow, ItemID.Flamelash, ItemID.FlowerofFire, ItemID.Sunfury };

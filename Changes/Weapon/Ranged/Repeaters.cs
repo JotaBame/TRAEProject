@@ -84,6 +84,15 @@ namespace TRAEProject.Changes.Weapon.Ranged
         {
             switch (item.type)
             {
+                case ItemID.PalladiumRepeater:
+                    foreach (TooltipLine line in tooltips)
+                    {
+                        if (line.Mod == "Terraria" && line.Name == "Knockback")
+                        {
+                            line.Text += "\nGreatly increases life regeneration after striking an enemy\nMore effective with Palladium armor equipped";
+                        }
+                    }
+                    break;
                 case ItemID.MythrilRepeater:
                     foreach (TooltipLine line in tooltips)
                     {

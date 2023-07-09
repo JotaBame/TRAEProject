@@ -30,11 +30,7 @@ namespace TRAEProject.Changes.NPCs.Boss
 				{
 					case NPCID.DukeFishron:
 						{
-							if (Main.rand.Next(3) == 0)
-							{
-								int length = Main.rand.Next(1, 2) * 600;
-								target.AddBuff(BuffID.Rabies, length, false);
-							}
+							target.ClearBuff(BuffID.Rabies);
 							return;
 						}
 				}
@@ -135,8 +131,10 @@ namespace TRAEProject.Changes.NPCs.Boss
 						return false;
 					}
 				case NPCID.DukeFishron:
-					{
-						bool expertMode = Main.expertMode;
+                        {
+                            npc.dontTakeDamage = false;
+
+                            bool expertMode = Main.expertMode;
 						bool MasterMode = Main.masterMode;
 						float num = expertMode ? 1.1f : 1f;
 						bool flag = expertMode ? npc.life <= npc.lifeMax * 0.65 : npc.life <= npc.lifeMax * 0.5;
@@ -183,7 +181,7 @@ namespace TRAEProject.Changes.NPCs.Boss
 						if (PhaseThree && MasterMode)
 						{
 							lungeLength = 38;
-							lungeVelocity = 20f;
+							lungeVelocity = 24f;
 						}
 						else if (flag5 && flag3)
 						{
@@ -198,8 +196,8 @@ namespace TRAEProject.Changes.NPCs.Boss
 						float num8 = 0.3f;
 						float scaleFactor2 = 5f;
 						int num9 = 90;
-						int num10 = 180; // transition to phase 2
-						int num11 = 90; // transition to phase 3
+						int Phase2Transition = 180; // transition to phase 2
+						int Phase3Transition = MasterMode ? 90 : 180; // transition to phase 3
 						int num12 = 30;
 						int bubbleAttackDuratioPhase2 = MasterMode ? 240 : 120; // up from 120
 						int bubbledelayPhase2 = MasterMode ? 8 : 4; // vanilla value = 4
@@ -210,12 +208,17 @@ namespace TRAEProject.Changes.NPCs.Boss
 						int num16 = 75;
 						Vector2 center = npc.Center;
 						Player player = Main.player[npc.target];
+						
 						if (npc.target < 0 || npc.target == 255 || player.dead || !player.active || Vector2.Distance(player.Center, center) > 5600f)
 						{
 							npc.TargetClosest();
 							player = Main.player[npc.target];
 							npc.netUpdate = true;
 						}
+						if (player.dead)
+							{
+								npc.EncourageDespawn(180);
+							}
 						if (player.position.Y < 800f || player.position.Y > Main.worldSurface * 16.0 || (player.position.X > 6400f && player.position.X < (Main.maxTilesX * 16 - 6400)))
 						{
 							num2 = 20;
@@ -634,14 +637,15 @@ namespace TRAEProject.Changes.NPCs.Boss
 						}
 						else if (npc.ai[0] == 4f)
 						{
+								npc.dontTakeDamage = true;
 							npc.velocity *= 0.98f;
 							npc.velocity.Y = MathHelper.Lerp(npc.velocity.Y, 0f, 0.02f);
-							if (npc.ai[2] == (num10 - 60))
+							if (npc.ai[2] == (Phase2Transition - 60))
 							{
 								Terraria.Audio.SoundEngine.PlaySound(SoundID.Zombie20 with { MaxInstances = 0 }, npc.Center);
 							}
 							npc.ai[2] += 1f;
-							if (npc.ai[2] >= (float)num10)
+							if (npc.ai[2] >= (float)Phase2Transition)
 							{
 								npc.ai[0] = 5f;
 								npc.ai[1] = 0f;
@@ -859,7 +863,8 @@ namespace TRAEProject.Changes.NPCs.Boss
 						// phase 3 transition
 						else if (npc.ai[0] == 9f)
 						{
-							if (npc.ai[2] < (float)(num11 - 45))
+							npc.dontTakeDamage = true;
+							if (npc.ai[2] < (float)(Phase3Transition - 45))
 							{
 								if (Collision.SolidCollision(npc.position, npc.width, npc.height))
 								{
@@ -888,12 +893,12 @@ namespace TRAEProject.Changes.NPCs.Boss
 							}
 							npc.velocity *= 0.98f;
 							npc.velocity.Y = MathHelper.Lerp(npc.velocity.Y, 0f, 0.02f);
-							if (npc.ai[2] == (num11 - 30))
+							if (npc.ai[2] == (Phase3Transition - 30))
 							{
 								Terraria.Audio.SoundEngine.PlaySound(SoundID.Zombie20 with { MaxInstances = 0 }, npc.Center);
 							}
 							npc.ai[2] += 1f;
-							if (npc.ai[2] >= num11)
+							if (npc.ai[2] >= Phase3Transition)
 							{
 								npc.ai[0] = 10f;
 								npc.ai[1] = 0f;

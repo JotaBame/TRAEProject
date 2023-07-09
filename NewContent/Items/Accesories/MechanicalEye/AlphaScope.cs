@@ -19,7 +19,9 @@ namespace TRAEProject.NewContent.Items.Accesories.MechanicalEye
         {
             Item.accessory = true;
             Item.rare = ItemRarityID.Yellow;
-            Item.value = 100000;
+            Item.width = 32;
+            Item.height = 32;
+            Item.value = Item.sellPrice(gold:12);
         }
         public override void UpdateAccessory(Player player, bool hideVisual)
         {

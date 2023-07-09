@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -23,7 +19,9 @@ namespace TRAEProject.NewContent.Items.Accesories.MirrorShield
         {
             Item.accessory = true;
             Item.rare = ItemRarityID.Orange;
-            Item.value = 75000;
+            Item.width = 30;
+            Item.height = 36;
+            Item.value = Item.sellPrice(gold: 4);
             Item.defense = 2;
         }
         public override void AddRecipes()

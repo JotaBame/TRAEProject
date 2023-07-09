@@ -105,9 +105,14 @@ namespace TRAEProject.Changes.Weapon.Melee
                 case ItemID.PlatinumShortsword:
                     item.autoReuse = true;
                     break;
-                    
-                    // OTHER
-               
+
+                // OTHER
+                case ItemID.Cutlass:
+                case ItemID.Muramasa:
+                case ItemID.Katana:
+                case ItemID.ChlorophyteSaber:
+                    item.useTurn = false;
+                    break;
                                
                 case ItemID.AntlionClaw:
                     item.damage = 14;// down from 16

@@ -1,4 +1,5 @@
-﻿using Mono.Cecil.Cil;
+﻿using Microsoft.Xna.Framework;
+using Mono.Cecil.Cil;
 using MonoMod.Cil;
 using System;
 using System.Collections.Generic;
@@ -33,6 +34,17 @@ namespace TRAEProject.Common.ModPlayers
                 Player.autoReuseGlove = true;
             }
 
+        }
+        public override void PostItemCheck()
+        {
+            if (!Player.HeldItem.useTurn && Player.HeldItem.CountsAsClass(DamageClass.Melee) && Player.itemAnimation == Player.itemAnimationMax && Player.HeldItem.shoot == 0 || Player.HeldItem.type == ItemID.BeamSword)
+            { 
+                Vector2 mousePosition = Main.screenPosition + new Vector2(Main.mouseX, Main.mouseY);
+                if (Player.position.X - mousePosition.X > 0)
+                    Player.direction = -1;
+                else
+                    Player.direction = 1;
+            }
         }
         #region Sword Size
         public override void SetStaticDefaults()

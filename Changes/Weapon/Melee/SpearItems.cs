@@ -507,6 +507,16 @@ namespace TRAEProject.Changes.Weapon
         {
             switch (item.type)
             {
+                case ItemID.PalladiumPike:
+                    foreach (TooltipLine line in tooltips)
+                    {
+                        if (line.Mod == "Terraria" && line.Name == "Knockback")
+                        {
+                            line.Text += "\nGreatly increases life regeneration after striking an enemy\nMore effective with Palladium armor equipped";
+                        }
+                    }
+                    break; 
+
                 case ItemID.MythrilHalberd:
                     foreach (TooltipLine line in tooltips)
                     {

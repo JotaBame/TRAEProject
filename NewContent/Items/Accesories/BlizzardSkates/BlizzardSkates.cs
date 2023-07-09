@@ -1,8 +1,4 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -18,6 +14,8 @@ namespace TRAEProject.NewContent.Items.Accesories.BlizzardSkates
         }
         public override void SetDefaults()
         {
+            Item.width = 34;
+            Item.height = 30;
             Item.accessory = true;
             Item.rare = ItemRarityID.Pink;
             Item.value = 37500;

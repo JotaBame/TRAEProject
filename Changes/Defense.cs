@@ -124,7 +124,8 @@ namespace TRAEProject
             if (Player.beetleDefense)
             {
                 float beetleEndurance = (1 - 0.15f * Player.beetleOrbs) / (1 - 0.10f * Player.beetleOrbs);
-                modifiers.FinalDamage /= (int)beetleEndurance;
+
+                modifiers.FinalDamage *= beetleEndurance;
             }
             DamageAfterDefenseAndDR += (int)(modifiers.FinalDamage.Flat);
         }
@@ -170,8 +171,9 @@ namespace TRAEProject
             }
             if (Player.beetleDefense)
             {
-                float beetleEndurance = (1 - 0.15f * Player.beetleOrbs) / (1 - 0.10f * Player.beetleOrbs);
-                modifiers.FinalDamage /= (int)beetleEndurance;
+                float beetleEndurance = (1 - 0.15f * Player.beetleOrbs) / (1 - 0.10f * Player.beetleOrbs); 
+
+                modifiers.FinalDamage *= beetleEndurance;
             }
             DamageAfterDefenseAndDR += (int)(modifiers.FinalDamage.Flat);
         }

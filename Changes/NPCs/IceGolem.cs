@@ -16,6 +16,10 @@ namespace TRAEProject.Changes.NPCs
 		public override bool InstancePerEntity => true;
 		public override void SetDefaults(NPC npc)
 		{
+			if (npc.type == NPCID.IceGolem)
+			{
+				npc.knockBackResist = 0f;
+			}
 		}
         public override void OnHitPlayer(NPC npc, Player target, Player.HurtInfo hurtInfo)
 		{
@@ -167,14 +171,6 @@ namespace TRAEProject.Changes.NPCs
 				projectile.tileCollide = false;
             }
         }
-        public override void OnHitPlayer(Projectile projectile, Player target, Player.HurtInfo info)
-        {
-			if(projectile.type == ProjectileID.FrostBeam)
-			{
-				target.ClearBuff(BuffID.Chilled);
-				target.AddBuff(BuffID.Chilled, 240);
-				target.AddBuff(BuffID.Frozen, 30);
-			}
-		}
+
     }
 }

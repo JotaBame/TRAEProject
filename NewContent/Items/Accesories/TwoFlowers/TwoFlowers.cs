@@ -17,7 +17,9 @@ namespace TRAEProject.NewContent.Items.Accesories.TwoFlowers
         {
             Item.accessory = true;
             Item.rare = ItemRarityID.Orange;
-            Item.value = 50000;
+            Item.width = 40;
+            Item.height = 40;
+            Item.value = Item.sellPrice(gold:3);
         }
         public override void UpdateAccessory(Player player, bool hideVisual)
         {

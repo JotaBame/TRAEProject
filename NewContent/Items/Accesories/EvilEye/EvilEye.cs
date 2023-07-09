@@ -17,9 +17,12 @@ namespace TRAEProject.NewContent.Items.Accesories.EvilEye
         }
         public override void SetDefaults()
         {
+            Item.width = 40;
+            Item.height = 40;
             Item.accessory = true;
             Item.rare = ItemRarityID.LightRed;
-            Item.value = 35000;
+
+            Item.value = Item.sellPrice(gold: 4);
         }
         public override void UpdateAccessory(Player player, bool hideVisual)
         {

@@ -3,8 +3,7 @@ using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.GameContent.Creative;
-using static Terraria.ModLoader.ModContent;
-using TRAEProject.NewContent.Items.Accesories.WeirdBundle;
+
 using TRAEProject.NewContent.Items.Accesories.ExtraJumps;
 
 namespace TRAEProject.NewContent.Items.Accesories.SpaceBalloon
@@ -23,7 +22,9 @@ namespace TRAEProject.NewContent.Items.Accesories.SpaceBalloon
         {
             Item.accessory = true;
             Item.rare = ItemRarityID.Yellow;
-            Item.value = 50000;
+            Item.width = 24;
+            Item.height = 44;
+            Item.value = Item.sellPrice(gold: 3);
         }
         public override void UpdateAccessory(Player player, bool hideVisual)
         {
