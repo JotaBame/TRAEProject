@@ -55,10 +55,6 @@ namespace ChangesArmor
                 case ItemID.PharaohsRobe:
                     player.moveSpeed += 0.05f;
                     break;
-                case ItemID.CrimsonHelmet:
-                case ItemID.CrimsonGreaves:
-                    player.GetDamage<GenericDamageClass>() -= 0.01f;
-                    break;
                 case ItemID.MeteorHelmet:
                 case ItemID.MeteorSuit:
                 case ItemID.MeteorLeggings:
@@ -164,6 +160,14 @@ namespace ChangesArmor
                     player.statManaMax2 += 100;
                     player.manaCost -= 0.20f;
                     break;
+                case ItemID.CrimsonHelmet:
+                case ItemID.CrimsonScalemail:
+                case ItemID.CrimsonGreaves:                    
+                    player.GetDamage<GenericDamageClass>() += 0.02f;
+                    break;
+                case ItemID.Goggles:
+                    player.GetCritChance<GenericDamageClass>() += 8;
+                    break;
             }
         }
         public override string IsArmorSet(Item head, Item body, Item legs)
@@ -219,8 +223,6 @@ namespace ChangesArmor
 
             if (head.type == ItemID.SpectreHood && body.type == ItemID.SpectreRobe && legs.type == ItemID.SpectrePants)
                 return "SpectreHoodSet";
-            if ((head.type == ItemID.ShroomiteHeadgear || head.type == ItemID.ShroomiteHelmet || head.type == ItemID.ShroomiteMask) && body.type == ItemID.ShroomiteBreastplate && legs.type == ItemID.ShroomiteLeggings)
-                return "ShroomiteSet";
 
             if (head.type == ItemID.PirateHat && body.type == ItemID.PirateShirt && legs.type == ItemID.PiratePants)
                 return "PirateSet"; 
@@ -228,8 +230,10 @@ namespace ChangesArmor
                 return "GladiatorSet"; 
             if (head.type == ItemID.FossilHelm && body.type == ItemID.FossilShirt && legs.type == ItemID.FossilPants)
                 return "FossilSet";
-            if (head.type == ItemID.CrimsonHelmet&& body.type == ItemID.CrimsonScalemail && legs.type == ItemID.CrimsonGreaves)
+            if (head.type == ItemID.CrimsonHelmet && body.type == ItemID.CrimsonScalemail && legs.type == ItemID.CrimsonGreaves)
                 return "CrimsonSet";
+                if ((head.type == ItemID.ShadowHelmet || head.type == ItemID.AncientShadowHelmet) && (body.type == ItemID.ShadowScalemail || body.type == ItemID.AncientShadowScalemail) && (legs.type == ItemID.ShadowGreaves || legs.type == ItemID.AncientShadowGreaves))
+                return "ShadowSet";
             if (head.type == ItemID.FrostHelmet && body.type == ItemID.FrostBreastplate && legs.type == ItemID.FrostLeggings)
                 return "FrostSet";
             if (head.type == ItemID.CrystalNinjaHelmet && body.type == ItemID.CrystalNinjaChestplate && legs.type == ItemID.CrystalNinjaLeggings)
@@ -309,11 +313,14 @@ namespace ChangesArmor
                 player.setBonus = "Return quintuple damage taken to near enemies";
                 player.GetModPlayer<OnHitItems>().runethorns += 5f;
             }
-
+            if (armorSet == "ShadowSet")
+            {
+                player.setBonus = "Increases Movement speed by 20%\nGreatly increases acceleration";
+            }
             if (armorSet == "CrimsonSet")
             {
                 player.lifeRegenTime += 2; 
-                player.setBonus = "Dramatically increases natural healing rate";
+                player.setBonus = "Greatly increases natural healing rate";
             }
             if (armorSet == "AncientSet")
             {
@@ -358,10 +365,6 @@ namespace ChangesArmor
 				player.GetModPlayer<SetBonuses>().PirateSet = true;
 				player.maxMinions++;
             }
-            if (armorSet == "ShroomiteSet")
-            {
-                player.setBonus = "Enter a stealth mode while on the ground, significantly increasing ranged abilities";
-            }
             if (armorSet == "SpectreHoodSet")
             {
                 player.setBonus = "Magic attacks heal the player and allies";
@@ -397,6 +400,15 @@ namespace ChangesArmor
         {
             switch (item.type)
             {
+                case ItemID.Goggles:
+                    foreach (TooltipLine line in tooltips)
+                    {
+                        if (line.Mod == "Terraria" && line.Name == "Defense")
+                        {
+                            line.Text += "\n8% increased critical strike chance";
+                        }
+                    }
+                    break;
                 case ItemID.GladiatorHelmet:
                 case ItemID.GladiatorBreastplate:
                 case ItemID.GladiatorLeggings:
@@ -765,6 +777,17 @@ namespace ChangesArmor
                         }
                     }
                     return;
+                case ItemID.CrimsonHelmet:
+                case ItemID.CrimsonScalemail:
+                case ItemID.CrimsonGreaves:
+				     foreach (TooltipLine line in tooltips)
+                    {
+                        if (line.Mod == "Terraria" && line.Name == "Tooltip0")
+                        {
+                            line.Text = "5% increased damage";
+                        }
+                    }
+                    break;
             }
         }
     }

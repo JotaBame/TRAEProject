@@ -51,17 +51,19 @@ namespace TRAEProject.NewContent.Items.Accesories.LifeCuffs
         {
             if(cuffs > 0)
             {
-                Player.AddBuff(BuffType<HeartAttack>(), cuffs * ((int)info.Damage * 3 + 300));
+                if(Player.HasBuff(ModContent.BuffType<HeartAttack>()))
+                {
+                    Player.buffTime[Player.FindBuffIndex(BuffType<HeartAttack>())] += cuffs * ((int)info.Damage * 6);
+                }
+                else
+                {
+                    Player.AddBuff(BuffType<HeartAttack>(), cuffs * ((int)info.Damage * 6));
+                }
             }
         }
     }
     class HeartAttack : ModBuff
     {
-        public override void SetStaticDefaults()
-        {
-            // DisplayName.SetDefault("Heart Attack!");
-            // Description.SetDefault("Damage increased by 20%");
-        }
         public override void Update(Player player, ref int buffIndex)
         {
             player.GetDamage(DamageClass.Generic) += 0.2f;

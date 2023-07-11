@@ -110,8 +110,8 @@ namespace TRAEProject.Changes.Weapons
                     return;
                 case ItemID.TacticalShotgun:
                     item.damage = 38; // up from 29
-                    item.useTime = 29; // down from 34
-                    item.useAnimation = 29; // down from 34
+                    item.useTime = 34; // down from 34
+                    item.useAnimation = 34; // down from 34
                     return;
                 case ItemID.NailGun:
                     item.damage = 115; // up from 85
@@ -121,6 +121,11 @@ namespace TRAEProject.Changes.Weapons
                     item.damage = 79;
                     item.useTime = 40;
                     item.useAnimation = 40;
+                    return;
+                case ItemID.DD2BetsyBow:
+                    item.damage = 19; //down from 39
+                    item.useTime = 22; // down from 30
+                    item.useAnimation = 22;
                     return;
                 case ItemID.Phantasm:
                     item.damage = 60;

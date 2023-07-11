@@ -58,22 +58,22 @@ namespace TRAEProject.Changes
         }
         public override void ModifyShop(NPCShop shop)
         {
+            if(shop.NpcType == NPCID.Demolitionist)
+            {
+                shop.TryGetEntry(ItemID.Grenade, out var entry);
+                entry.Disable();
+                shop.Add(ItemID.Grenade, Condition.DownedEyeOfCthulhu);
+            }
             if(shop.NpcType == NPCID.BestiaryGirl)
             {
-                BestiaryUnlockProgressReport bestiaryProgressReport = Main.GetBestiaryProgressReport();
-                if (bestiaryProgressReport.CompletionPercent < 0.6f)
-                {
-                    shop.Add(ItemID.DiggingMoleMinecart);
-                }
+                shop.Add(ItemID.DiggingMoleMinecart, new Condition("noCart", () => Main.GetBestiaryProgressReport().CompletionPercent < 0.6f));
             }
             if (shop.NpcType == NPCID.Wizard)
                 shop.Add(ItemID.FastClock);
             if (shop.NpcType == NPCID.ArmsDealer)
             {
-                shop.Add(ItemID.Gatligator, /*Condition.InGraveyard,*/ Condition.Hardmode);
-                shop.Add(ItemID.Uzi, Condition.DownedPlantera/*, Condition.NotInGraveyard*/);
-
-                //shop.Add(ItemID.Uzi, Condition.Hardmode, Condition.NotInGraveyard);
+                shop.Add(ItemID.Gatligator,  Condition.Hardmode);
+                shop.Add(ItemID.Uzi, Condition.DownedPlantera);
             }
             if (shop.NpcType == NPCID.SkeletonMerchant)
             {
@@ -124,26 +124,6 @@ namespace TRAEProject.Changes
 
         public override void ModifyActiveShop(NPC npc, string shopName, Item[] items)
         {
-            //if (shopName == NPCShopDatabase.GetShopName(NPCID.Steampunker) && TRAEWorld.downedAMech)
-            //{
-
-            //    int slot = 0;
-            //    do
-            //    {
-            //        if (++slot >= items.Length)
-            //        {
-            //            Main.NewText(slot);
-            //            return;
-
-            //        }
-            //    }
-            //    while (!items[slot].IsAir);
-            //    Main.NewText(slot);
-            //    //    items[slot].SetDefaults(ItemID.Cog);
-            //    //    items[slot + 1].SetDefaults(ItemID.StaticHook);
-            //    //    items[slot + 2].SetDefaults(ItemID.Jetpack);
-
-            //}
             if (shopName == NPCShopDatabase.GetShopName(NPCID.DD2Bartender))
             {
                 

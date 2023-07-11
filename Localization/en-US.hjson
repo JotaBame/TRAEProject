@@ -259,6 +259,11 @@ Mods: {
 			SaberAura.DisplayName: Saber Aura
 			ClaymoreAura.DisplayName: Claymore Aura
 			EnchantedAura.DisplayName: Enchanted Aura
+			BezierCurveProjThing.DisplayName: Bezier Curve Proj Thing
+			PhaseSwordProjectile.DisplayName: Phase Sword Projectile
+			PhaseBladeProjectile.DisplayName: Phase Blade Projectile
+			PhaseSaberProjectile.DisplayName: Phase Saber Projectile
+			PalProjectile.DisplayName: Pal Projectile
 		}
 
 		Prefixes: {
@@ -344,7 +349,7 @@ Mods: {
 
 			HeartAttack: {
 				DisplayName: Heart Attack!
-				Description: Damage increased by 20%
+				Description: Damage increased by a multiplicative 20%
 			}
 
 			MadFlockos: {
@@ -426,6 +431,11 @@ Mods: {
 				DisplayName: TailWhipTag
 				Description: I wanted the crit tag on this to be equal to pokemon's normal critical strike chance, but that's 6.25% and it was way too low
 			}
+
+			Surge: {
+				Description: Mods.TRAEProject.Buffs.Surge.Description
+				DisplayName: Surge
+			}
 		}
 
 		Items: {
@@ -451,7 +461,11 @@ Mods: {
 
 			BalanceCuffs: {
 				DisplayName: Balance Cuffs
-				Tooltip: Temporarily increases damage by 20% and restore mana when damaged
+				Tooltip:
+					'''
+					When hit grants a 20% damage buff for damage/10 seconds
+					When hit restores 3 mana for every point of damage taken
+					'''
 			}
 
 			BigBundle: {
@@ -608,7 +622,7 @@ Mods: {
 
 			LifeCuffs: {
 				DisplayName: Life Cuffs
-				Tooltip: Getting hit will temporarily increase damage by 20%
+				Tooltip: When hit grants a 20% damage buff for damage/10 seconds
 			}
 
 			MagicalCarpet: {
@@ -1505,6 +1519,25 @@ Mods: {
 					Greatly increases jump speed and fall resistance
 					Allows auto-jump and reducing gravity
 					'''
+			}
+
+			StarfuryTempleTestItem: {
+				Tooltip: ""
+				DisplayName: Starfury Temple Test Item
+			}
+
+			ClericVeil: {
+				DisplayName: Clerical Veil
+				Tooltip:
+					'''
+					Increases life regeneration by 1hp/s
+					Hase a set bonus with wizard robes
+					'''
+			}
+
+			ManaSurgePotion: {
+				Tooltip: Grants 100% mana reduction for 5 seconds
+				DisplayName: Mana Surge Potion
 			}
 		}
 

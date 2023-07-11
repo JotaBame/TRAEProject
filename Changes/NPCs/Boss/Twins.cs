@@ -28,6 +28,7 @@ namespace TRAEProject.Changes.NPCs.Boss
                 }
             }
         }
+        /*
         public override void ApplyDifficultyAndPlayerScaling(NPC npc, int numPlayers, float balance, float bossAdjustment)
         {
             if (GetInstance<TRAEConfig>().TwinsRework && !Main.masterMode)
@@ -48,6 +49,7 @@ namespace TRAEProject.Changes.NPCs.Boss
                 }
             }
         }
+        */
         public static void FlyTo(NPC npc, Vector2 goHere, bool phase2 = false)
         {
             float topSpeed = 7f;

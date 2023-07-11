@@ -18,6 +18,11 @@ namespace TRAEProject.Changes.NPCs
     {
         public override void EditSpawnRate(Player player, ref int spawnRate, ref int maxSpawns)
         {
+            if(Main.CurrentFrameFlags.AnyActiveBossNPC)
+            {
+                spawnRate = 0;
+                maxSpawns = 0;
+            }
             if(NPC.AnyNPCs(NPCID.BloodNautilus) || NPC.AnyNPCs(ModContent.NPCType<BeholderNPC>()))
             {
                 spawnRate = 0;

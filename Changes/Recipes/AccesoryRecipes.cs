@@ -228,12 +228,6 @@ namespace TRAEProject.Changes.Recipes
             {
                 recipe.AddIngredient(ItemID.MagmaStone);
             }
-            if (recipe.HasResult(ItemID.HeroShield))
-            {
-                recipe.TryGetIngredient(ItemID.PaladinsShield, out ingredientToRemove);
-                recipe.RemoveIngredient(ingredientToRemove);
-                recipe.AddIngredient(ItemID.CobaltShield, 1);
-            }
             if (recipe.HasResult(ItemID.FrogGear))
             {
                 recipe.TryGetIngredient(ItemID.FrogWebbing, out ingredientToRemove);

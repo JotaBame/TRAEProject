@@ -26,6 +26,11 @@ namespace TRAEProject.Changes.Items
         public const int RainbowOnHitCost = 3;
         public const int FlaskPassiveCost = 0;
         public const int FlaskOnHitCost = 5;
+		public static List<int> otherModSidearmItem = new List<int>();
+		public static List<int> otherModSidearmProjectile = new List<int>();
+		public static List<int> otherModSidearmCast = new List<int>();
+		public static List<int> otherModSidearmPassive = new List<int>();
+		public static List<int> otherModSidearmOnHit = new List<int>();
         public override bool InstancePerEntity => true;
         public int disappearTimer = 0; 
         public bool rightClickSideWeapon = false;
@@ -38,6 +43,14 @@ namespace TRAEProject.Changes.Items
         }
         public override void SetDefaults(Item item)
         {
+            if(otherModSidearmItem.Contains(item.type))
+            {
+                int index = otherModSidearmItem.IndexOf(item.type);
+                item.mana = otherModSidearmCast[index];
+                TooltipDrainManaPassively = otherModSidearmPassive[index];
+                TooltipDrainManaOnHit = otherModSidearmOnHit[index];
+                rightClickSideWeapon = true;
+            }
 
             switch (item.type)
             {
@@ -49,29 +62,48 @@ namespace TRAEProject.Changes.Items
                     item.useTime = 40; // up from 37
                     item.useAnimation = 40; // up from 37
                     item.mana = 20; // up from 3
+					item.SetNameOverride("Confuse Staff");
                     return;
                 case ItemID.TopazStaff:
                     item.damage = 22; // up from 15
                     item.useTime = 38; // up from 36
                     item.useAnimation = 38; // up from 36
-                    item.mana = 19; // up from 4
+                    item.mana = 20; // up from 4
+					item.SetNameOverride("Wealth Staff");
                     return; 
                 case ItemID.SapphireStaff:
                     item.damage = 23; // up from 17
-                    item.mana = 17; // up from 5
+                    item.mana = 9; // up from 5
+                    item.useTime = item.useAnimation = 22;
+                    item.crit = 10;
+                    item.knockBack = 1f;
+					item.SetNameOverride("Efficency Staff");
                     return;
                 case ItemID.EmeraldStaff:
                     item.damage = 24; // up from 14
-                    item.mana = 16; // up from 3
+                    item.mana = 24; // up from 3
+                    item.useTime = item.useAnimation = 26;
+					item.SetNameOverride("Life Staff");
                     return;
-		         case ItemID.RubyStaff:
-             case ItemID.AmberStaff:
-			     item.damage = 25; // up from 21
+		        case ItemID.RubyStaff:
+			        item.damage = 25; // up from 21
                     item.mana = 14; // up from 7
+                    item.useTime = item.useAnimation = 25;
+					item.SetNameOverride("Blast Staff");
+                    item.knockBack = 8f;
+                    break;
+                case ItemID.AmberStaff:
+			        item.damage = 20; // up from 21
+                    item.mana = 18; // up from 7
+                    item.useTime = item.useAnimation = 30;
+					item.SetNameOverride("Fractal Staff");
+                    item.shootSpeed = 6;
                     return;
                 case ItemID.DiamondStaff:
                     item.damage = 26; // up from 23
                     item.mana = 13; // up from 8
+                    item.useTime = item.useAnimation = 26;
+					item.SetNameOverride("Pierce Staff");
                     return;
                 case ItemID.FrostStaff:
                     item.damage = 27; // down from 46
@@ -101,9 +133,8 @@ namespace TRAEProject.Changes.Items
                     return;
                 case ItemID.SpaceGun:
                     item.damage = 22; // up from 17
-					item.mana = 10; // up from 6
-                    item.useTime = 20; // up from 17
-                    item.useAnimation = 20;
+                    item.useTime = 14; // down from 17
+                    item.useAnimation = 14;
 					return;
 		        case ItemID.PoisonStaff:
                     item.damage = 16; // down from 48
@@ -235,6 +266,9 @@ namespace TRAEProject.Changes.Items
                 case ItemID.NettleBurst:
                     item.mana = 24; // up from 12
                     return;
+				case ItemID.LeafBlower:
+				    item.damage = 60; //  up from 48
+					return;
 				case ItemID.HeatRay:
 				    item.damage = 88; //  up from 80
                     item.mana = 12; // up from 8
@@ -271,6 +305,7 @@ namespace TRAEProject.Changes.Items
          
                 case ItemID.FairyQueenMagicItem:
                     item.mana = 45;
+                    item.damage = 60; //up from 50
                     return;
                 case ItemID.RainbowGun:
                     item.mana = 180; // up from 20
@@ -636,6 +671,76 @@ namespace TRAEProject.Changes.Items
                         }
                     }
                     return;
+                case ItemID.AmethystStaff:
+
+                    foreach (TooltipLine line in tooltips)
+                    {
+                        if (line.Mod == "Terraria" && line.Name == "Knockback")
+                        {
+                            line.Text += "\nInflicts confused";
+                        }
+                    }
+                    break;
+                case ItemID.TopazStaff:
+
+                    foreach (TooltipLine line in tooltips)
+                    {
+                        if (line.Mod == "Terraria" && line.Name == "Knockback")
+                        {
+                            line.Text += "\nInflicts Midas";
+                        }
+                    }
+                    break;
+                case ItemID.SapphireStaff:
+
+                    foreach (TooltipLine line in tooltips)
+                    {
+                        if (line.Mod == "Terraria" && line.Name == "Knockback")
+                        {
+                            line.Text += "\nGood on your mana supply";
+                        }
+                    }
+                    break;
+                case ItemID.EmeraldStaff:
+
+                    foreach (TooltipLine line in tooltips)
+                    {
+                        if (line.Mod == "Terraria" && line.Name == "Knockback")
+                        {
+                            line.Text += "\nRestores health on hit";
+                        }
+                    }
+                    break;
+                case ItemID.RubyStaff:
+
+                    foreach (TooltipLine line in tooltips)
+                    {
+                        if (line.Mod == "Terraria" && line.Name == "Knockback")
+                        {
+                            line.Text += "\nHigh knockback explosion on hit";
+                        }
+                    }
+                    break;
+                case ItemID.AmberStaff:
+
+                    foreach (TooltipLine line in tooltips)
+                    {
+                        if (line.Mod == "Terraria" && line.Name == "Knockback")
+                        {
+                            line.Text += "\nA piercing projectile that multi hits large enemies";
+                        }
+                    }
+                    break;
+                case ItemID.DiamondStaff:
+
+                    foreach (TooltipLine line in tooltips)
+                    {
+                        if (line.Mod == "Terraria" && line.Name == "Knockback")
+                        {
+                            line.Text += "\nHigh velocity bolt that pierces an enemy";
+                        }
+                    }
+                    break;
             }
             if (rightClickSideWeapon)
             {

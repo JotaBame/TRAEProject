@@ -50,8 +50,6 @@ namespace TRAEProject.Changes.Items
                             if (WorldGen.InWorld(i, j))
                             {
                                 Main.Map.Update(i, j, 255);
-                                    
-
                             }
                         }
                     }
@@ -67,8 +65,6 @@ namespace TRAEProject.Changes.Items
                             if (WorldGen.InWorld(i, j))
                             {
                                 Main.Map.Update(i, j, 255);
-
-
                             }
                         }
                     }

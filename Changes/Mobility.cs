@@ -65,7 +65,7 @@ namespace TRAEProject
         }
         public override void PreUpdate()
         {
-            Player.rocketTimeMax = 0;       
+            Player.rocketTimeMax = 0;
    
         }
         public override void PreUpdateMovement()
@@ -134,6 +134,12 @@ namespace TRAEProject
             {
                 Player.fireWalk = true;
             }
+            if(Player.shadowArmor)
+            {
+                Player.shadowArmor = false;
+                ankletAcc = true;
+                Player.moveSpeed += 0.2f;
+            }
             Player.wingTimeMax = (int)(Player.wingTimeMax * flightTimeBonus);
             Player.rocketTimeMax = (int)(Player.rocketTimeMax * flightTimeBonus);
             Player.jumpSpeedBoost += 1.4f;
@@ -145,6 +151,7 @@ namespace TRAEProject
             {
                 Player.moveSpeed *= 1.15f;
             }
+
             if (Player.accRunSpeed >= 4.8f)
             {
                 if (Player.controlLeft && Player.velocity.X <= 0f - Player.accRunSpeed && Player.dashDelay >= 0)
@@ -384,10 +391,9 @@ namespace TRAEProject
             //{
             //    Player.extraFall += Math.Abs(num39) - (Player.extraFall + 25 + (Player.statLifeMax2 / 20));
             //}
-
             if(ankletAcc)
             {
-                Player.runAcceleration *= 2.5f;
+                Player.runAcceleration *= 3f;
             }
 
             if (Player.wingsLogic == 30 && Player.TryingToHoverDown) // vortex booster
@@ -425,6 +431,9 @@ namespace TRAEProject
                     //Player.position.Y += .1f;
                 }
             }
+
+            //Main.NewText("Speed: " + Player.moveSpeed + ", Acceleration: " + Player.runAcceleration);
+            //Main.NewText(Player.rocketTimeMax);
         }
         public override void PostUpdateRunSpeeds()
         {

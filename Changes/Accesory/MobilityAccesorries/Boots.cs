@@ -74,13 +74,18 @@ namespace TRAEProject.Changes.Accesory
                 case ItemID.ObsidianWaterWalkingBoots:
                     player.waterWalk2 = false;
                     player.rocketBoots = 1;
-                    player.rocketTimeMax += 10; player.rocketBoots = player.vanityRocketBoots = 1;
+                    player.rocketTimeMax += 10; 
+                    player.rocketBoots = player.vanityRocketBoots = 1;
 
                     player.GetModPlayer<AccesoryEffects>().FastFall = true;
                     player.noFallDmg = true;
                     player.fireWalk = false;
                     break;
                 case ItemID.FairyBoots:
+                    player.accRunSpeed = 4.8f;
+                    player.moveSpeed += Mobility.bootSpeed * 0.01f;
+                    player.rocketTimeMax += 10;
+                    break;
                 case ItemID.SpectreBoots:
                     player.accRunSpeed = 4.8f;
                     player.moveSpeed += Mobility.bootSpeed * 0.01f;
@@ -151,10 +156,22 @@ namespace TRAEProject.Changes.Accesory
                     }
                     break;
                 case ItemID.FairyBoots:
+                    foreach (TooltipLine line in tooltips)
+                    {   
+                        if (line.Mod == "Terraria" && line.Name == "Tooltip1")
+                        {
+                            line.Text = Mobility.bootSpeed + "% increased movement speed";
+                        }
+                        if (line.Mod == "Terraria" && line.Name == "Tooltip0")
+                        {
+                            line.Text = "Provides extended rocket boot flight";
+                        }
+                    }
+                    break;
                 case ItemID.SpectreBoots:
                     foreach (TooltipLine line in tooltips)
                     {   
-					if (line.Mod == "Terraria" && line.Name == "Tooltip1")
+                        if (line.Mod == "Terraria" && line.Name == "Tooltip1")
                         {
                             line.Text = Mobility.bootSpeed + "% increased movement speed";
                         }
@@ -162,7 +179,6 @@ namespace TRAEProject.Changes.Accesory
                         {
                             line.Text = "Provides rocket boot flight";
                         }
-                     
                     }
                     break;
                 case ItemID.FrostsparkBoots:

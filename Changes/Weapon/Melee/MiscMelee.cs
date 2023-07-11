@@ -81,11 +81,11 @@ namespace TRAEProject.Changes.Weapon.Melee
                     item.knockBack = 6f;
                     return;
                 case ItemID.Chik:
-                    item.damage = 49;
+                    //item.damage = 49;
                     item.knockBack = 0.5f;
                     return;
                 case ItemID.Amarok:
-                    item.damage = 52;
+                    //item.damage = 52;
                     item.knockBack = 5f;
                     return;
                 case ItemID.Yelets:

@@ -87,7 +87,7 @@ namespace TRAEProject.Changes
 
             //Main.NewText("PU: " + Player.statManaMax2);
             Player.statManaMax2 = maxManaOverride;
-            Player.statMana += manaOver400;
+            //Player.statMana += manaOver400;
             if (overloadedMana > Player.statManaMax2 * 2)
             {
                 overloadedMana = Player.statManaMax2 * 2;

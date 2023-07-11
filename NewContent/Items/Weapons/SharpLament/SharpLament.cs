@@ -19,12 +19,10 @@ namespace TRAEProject.NewContent.Items.Weapons.SharpLament
         {
             Terraria.GameContent.Creative.CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
             Item.staff[Item.type] = true;
-            // DisplayName.SetDefault("Sharp Tears");
-            // Tooltip.SetDefault("Shoots flaming wood");
         }
         public override void SetDefaults()
         {
-            Item.DefaultToStaff(ProjectileType<FlamingWood>(), 12, 15, 19);
+            Item.DefaultToStaff(ProjectileType<FlamingWood>(), 12, 12, 19);
             Item.width = 38;
             Item.height = 32;
             Item.damage = 135;
@@ -56,6 +54,7 @@ namespace TRAEProject.NewContent.Items.Weapons.SharpLament
 			Projectile.tileCollide = true;
             Projectile.usesLocalNPCImmunity = true;
             Projectile.localNPCHitCooldown = 15;
+            Projectile.GetGlobalProjectile<Common.ProjectileStats>().DamageFalloff = 0.15f;
            
         }
         

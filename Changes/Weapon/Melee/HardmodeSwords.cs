@@ -105,19 +105,6 @@ namespace TRAEProject.Changes.Weapon.Melee
                     item.shoot = ProjectileType<TitaniumAura>();
                     item.SetNameOverride("Titanium Falchion");
                     break;
-
-                //phasesabers
-                case ItemID.PurplePhasesaber:
-                case ItemID.YellowPhasesaber:
-                case ItemID.BluePhasesaber:
-                case ItemID.GreenPhasesaber:
-                case ItemID.RedPhasesaber:
-                case ItemID.OrangePhasesaber:
-                case ItemID.WhitePhasesaber:
-                    item.crit = 24;
-                    item.autoReuse = true;
-                    item.useTurn = false;
-                    break;
                 case ItemID.ChlorophyteSaber:
                     //item.damage = 50;
                     item.useTime = 20;

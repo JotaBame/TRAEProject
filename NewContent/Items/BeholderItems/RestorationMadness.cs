@@ -67,10 +67,9 @@ namespace TRAEProject.NewContent.Items.BeholderItems
         }
         public override void AddRecipes()
         {
-            CreateRecipe(1).AddIngredient(4986, 2)
+            CreateRecipe(1).AddIngredient(ItemID.GelBalloon, 2)
                 .AddIngredient(ItemID.BottledWater, 1)
                 .AddIngredient(ItemID.CrystalShard, 1)
-
                 .AddTile(TileID.Bottles)
                 .Register();
         }

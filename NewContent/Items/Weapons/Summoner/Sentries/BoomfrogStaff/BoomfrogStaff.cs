@@ -222,6 +222,8 @@ namespace TRAEProject.NewContent.Items.Weapons.Summoner.Sentries.BoomfrogStaff
             Projectile.height = 20;
             Projectile.timeLeft = 120;
             Projectile.penetrate = 3;
+            Projectile.usesLocalNPCImmunity = true;
+            Projectile.localNPCHitCooldown = 30;
             Projectile.friendly = true;
             Projectile.aiStyle = 63;
             AIType = ProjectileID.BabySpider; 
@@ -240,6 +242,26 @@ namespace TRAEProject.NewContent.Items.Weapons.Summoner.Sentries.BoomfrogStaff
                 Projectile.frame = (Projectile.frame + 1) % 4;
             }
 
+        }
+        public override bool TileCollideStyle(ref int width, ref int height, ref bool fallThrough, ref Vector2 hitboxCenterFrac)
+        {
+            Vector2 vector29 = Projectile.position;
+            float num529 = 2000f;
+            for (int num530 = 0; num530 < 200; num530++) 
+            {
+                NPC nPC = Main.npc[num530];
+                if (nPC.CanBeChasedBy(this)) 
+                {
+                    float num531 = Vector2.Distance(nPC.Center, Projectile.Center);
+                    if (!(num531 >= num529) && Collision.CanHit(Projectile.position, Projectile.width, Projectile.height, nPC.position, nPC.width, nPC.height)) 
+                    {
+                        num529 = num531;
+                        vector29 = nPC.Center;
+                    }
+                }
+            }
+            fallThrough = vector29.Y > Projectile.Bottom.Y;
+            return base.TileCollideStyle(ref width, ref height, ref fallThrough, ref hitboxCenterFrac);
         }
         public override bool OnTileCollide(Vector2 oldVelocity)
         {

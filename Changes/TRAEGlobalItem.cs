@@ -24,6 +24,11 @@ namespace TRAEProject.Changes
         }
         public override void SetDefaults(Item item)
         {
+            if(item.createTile >= 0 && item.damage <=0)
+            {
+                item.useTime = 7; // down from 15
+                //item.useAnimation = 7;
+            }
             switch (item.type)
             {
                 case ItemID.GravityGlobe:
@@ -90,6 +95,51 @@ namespace TRAEProject.Changes
                     break;
                 case ItemID.WitchBroom:
                     item.rare = ItemRarityID.Yellow;
+                    break;
+                case ItemID.Furnace:
+                    item.value = Item.buyPrice(silver: 10);
+                    break;
+                case ItemID.Bomb:
+                    item.value = Item.buyPrice(silver: 10);
+                    break;
+                case ItemID.Dynamite:
+                    item.value = Item.buyPrice(gold: 1);
+                    break;
+                case ItemID.Minishark:
+                case ItemID.QuadBarrelShotgun:
+                    item.value = Item.buyPrice(gold: 75);
+                    break;
+                case ItemID.TinkerersWorkshop:
+                    item.value = Item.buyPrice(gold: 50);
+                    break;
+                case ItemID.SharpeningStation:
+                case ItemID.BewitchingTable:
+                case ItemID.CrystalBall:
+                    item.value = Item.buyPrice(gold: 50);
+                    break;
+                case ItemID.TeleportationPylonDesert:
+                case ItemID.TeleportationPylonHallow:
+                case ItemID.TeleportationPylonJungle:
+                case ItemID.TeleportationPylonMushroom:
+                case ItemID.TeleportationPylonOcean:
+                case ItemID.TeleportationPylonPurity:
+                case ItemID.TeleportationPylonSnow:
+                case ItemID.TeleportationPylonUnderground:
+                case ItemID.TeleportationPylonVictory:
+                    item.value = Item.buyPrice(gold: 50);
+                    break;
+                case ItemID.ImbuingStation:
+                    item.value = Item.buyPrice(gold: 50);
+                    break;
+                case ItemID.Bell:
+                case ItemID.Harp:
+                case ItemID.SpellTome:
+                    item.value = Item.buyPrice(platinum: 1);
+                    break;
+                case ItemID.PirateHat:
+                case ItemID.PirateShirt:
+                case ItemID.PiratePants:
+                    item.value = Item.buyPrice(gold: 50);
                     break;
             }
         }

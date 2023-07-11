@@ -29,13 +29,13 @@ namespace TRAEProject.Changes.NPCs
         {
             npcLoot.RemoveWhere(rule =>
             {
-                if (rule is not CommonDrop drop) // Type of drop you expect here
+                if (rule is not ItemDropWithConditionRule drop) // Type of drop you expect here
                     return false;
                 return drop.itemId == ItemID.Yelets; 
             });
             npcLoot.RemoveWhere(rule =>
             {
-                if (rule is not CommonDrop drop) // Type of drop you expect here
+                if (rule is not ItemDropWithConditionRule drop) // Type of drop you expect here
                     return false;
                 return drop.itemId == ItemID.HelFire; 
             });

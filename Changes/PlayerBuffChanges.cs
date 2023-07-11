@@ -8,6 +8,7 @@ using TRAEProject.Changes;
 using Terraria.DataStructures;
 using Microsoft.Xna.Framework;
 using TRAEProject.Changes.Accesory;
+using System.Collections.Generic;
 
 namespace TRAEProject
 {
@@ -133,7 +134,6 @@ namespace TRAEProject
                     return;
                 case BuffID.Swiftness:
                     tip = Mobility.swiftSpeed + "% increased movement speed";
-
                     return;
                 case BuffID.StarInBottle:
                     tip = "Increased max mana by 20";
@@ -141,6 +141,9 @@ namespace TRAEProject
                 case BuffID.SugarRush:
                     tip = "10% increased movement speed and 20% increased mining speed";
                     return;
+                case BuffID.Mining:
+                    tip = "15% increased mining speed";
+                    break;
             }
         }
     }
@@ -266,6 +269,10 @@ namespace TRAEProject
 
         public override void UpdateLifeRegen()
         {
+            if (Player.HasBuff(BuffID.Mining))
+            {
+                Player.pickSpeed += 0.1f;
+            }
             if (Player.HasBuff(BuffID.Regeneration))
             {
                 if (Player.lifeRegen > 0)
@@ -308,6 +315,25 @@ namespace TRAEProject
                 return true;
             }
             return true;
+        }
+    }
+    public class PotionChanges : GlobalItem
+    {
+
+        public override void ModifyTooltips(Item item, List<TooltipLine> tooltips)
+        {
+            switch (item.type)
+            {
+                case ItemID.MiningPotion:
+                    foreach (TooltipLine line in tooltips)
+                    {
+                        if (line.Mod == "Terraria" && line.Name == "Tooltip0")
+                        {
+                            line.Text = "15% increased mining speed";
+                        }
+                    }
+                    break;
+            }
         }
     }
 }

@@ -80,7 +80,7 @@ namespace TRAEProject
             }
             if (Player.mount.Type == MountID.Wolf)
             {
-                Player.accRunSpeed = 6f * mountSpeedBonus; 
+                Player.accRunSpeed = 7f * mountSpeedBonus; 
                 if (Math.Abs(Player.velocity.X) > Player.accRunSpeed)
                 {
                     Player.velocity.X = Math.Sign(Player.velocity.X) * (Player.accRunSpeed - Player.runAcceleration - 0.2f);

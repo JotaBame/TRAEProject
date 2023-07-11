@@ -257,7 +257,16 @@ namespace TRAEProject.Changes.Accesory
         {
             switch (item.type)
             {
-                
+                case ItemID.HandOfCreation:
+                case ItemID.AncientChisel:
+                    foreach (TooltipLine line in tooltips)
+                    {
+                        if (line.Mod == "Terraria" && line.Name == "Tooltip0")
+                        {
+                            line.Text = "15% increased mining speed";
+                        }
+                    }
+                    break;
                 case ItemID.SquireShield:
                     foreach (TooltipLine line in tooltips)
                     {
@@ -423,7 +432,7 @@ namespace TRAEProject.Changes.Accesory
                     {
                         if (line.Mod == "Terraria" && line.Name == "Tooltip0")
                         {
-                            line.Text = "Restores mana when damaged";
+                                line.Text = "When hit restores 3 mana for every point of damage taken";
                         }
                         if (line.Mod == "Terraria" && line.Name == "Tooltip1")
                         {
@@ -436,7 +445,7 @@ namespace TRAEProject.Changes.Accesory
                     {
                         if (line.Mod == "Terraria" && line.Name == "Tooltip0")
                         {
-                            line.Text = "Restores mana when damaged, can go over maximum mana";
+                            line.Text = "When hit restores 3 mana for every point of damage taken";
                         }
                         if (line.Mod == "Terraria" && line.Name == "Tooltip1")
                         {
@@ -444,7 +453,7 @@ namespace TRAEProject.Changes.Accesory
                         }
                         if (line.Mod == "Terraria" && line.Name == "Tooltip2")
                         {
-                            line.Text = "";
+                            line.Text = "On damage and on pickup mana restores can temporarily go over maximum mana";
                         }
                     }
                     break;
@@ -788,6 +797,16 @@ namespace TRAEProject.Changes.Accesory
                         }
                     }
                     return;
+            }
+        }
+    }
+    public class PlayerAccesoryChanges : ModPlayer
+    {
+        public override void PostUpdateEquips()
+        {
+            if(Player.chiselSpeed)
+            {
+                Player.pickSpeed += 0.1f;
             }
         }
     }

@@ -72,7 +72,7 @@ namespace TRAEProject.Changes.Items
                 }
 				if (magicCuffsCount > 0)
                 {
-                    int manaRestored = info.Damage * magicCuffsCount;
+                    int manaRestored = info.Damage * magicCuffsCount * 3;
                     Player.GetModPlayer<Mana>().GiveManaOverloadable(manaRestored);
                 }
                 int[] spread = { 1, 2 };

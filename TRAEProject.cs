@@ -18,6 +18,7 @@ using Mono.Cecil.Cil;
 using System.IO;
 using System;
 using TRAEProject.Changes.Prefixes;
+using TRAEProject.Changes.Items;
 
 namespace TRAEProject
 {
@@ -151,7 +152,6 @@ namespace TRAEProject
                 QwertyFlexOnBame.CreateDolphin();
                 if (!Main.dedServ)
                 {
-                    TRAEProject.Changes.Resprites.Resprites.LoadSprites();
                     debugCross = Request<Texture2D>("TRAEProject/DebugCross", AssetRequestMode.ImmediateLoad).Value;
                 }
 
@@ -198,7 +198,6 @@ namespace TRAEProject
             {
                 if (!Main.dedServ)
                 {
-                    TRAEProject.Changes.Resprites.Resprites.UnloadSprites();
                 }
 
             });
@@ -232,6 +231,20 @@ namespace TRAEProject
                     GiveWeaponsPrefixes.otherModBoomeragLikes.Add(type);
 					return "Success";
 				}
+                else if(message == "RegisterSidearm")
+                {
+                    int itemID = Convert.ToInt32(args[1]);
+                    int projectileID = Convert.ToInt32(args[2]);
+                    int castMana = Convert.ToInt32(args[3]);
+                    int passiveMana = Convert.ToInt32(args[4]);
+                    int onHitMana = Convert.ToInt32(args[5]);
+                    TRAEMagicItem.otherModSidearmCast.Add(castMana);
+                    TRAEMagicItem.otherModSidearmItem.Add(itemID);
+                    TRAEMagicItem.otherModSidearmOnHit.Add(onHitMana);
+                    TRAEMagicItem.otherModSidearmPassive.Add(passiveMana);
+                    TRAEMagicItem.otherModSidearmProjectile.Add(projectileID);
+
+                }
 				else 
                 {
 					Logger.Error("TRAE Call Error: Unknown Message: " + message);
