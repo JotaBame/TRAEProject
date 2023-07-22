@@ -41,9 +41,9 @@ namespace TRAEProject.Changes
         }
         public override void ModifyHitNPCWithProj(Projectile proj, NPC target, ref NPC.HitModifiers modifiers)
         {
-            if(effect && Main.rand.NextBool(100))
+            if(effect && Main.rand.NextBool(1000))
             {
-                modifiers.FinalDamage += 696969 - modifiers.FinalDamage.Base;
+                modifiers.FinalDamage += 6969 - modifiers.FinalDamage.Base;
                 modifiers.DisableCrit();
                 modifiers.DamageVariationScale *= 0;
                 modifiers.ArmorPenetration += 500;

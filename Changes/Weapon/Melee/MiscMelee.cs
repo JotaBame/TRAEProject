@@ -32,9 +32,6 @@ namespace TRAEProject.Changes.Weapon.Melee
                 case ItemID.HiveFive:
                     item.damage = 21; // down from 24 
                     return;
-                case ItemID.VampireKnives:
-                    item.damage = 29; // up from 29
-                    return;
 					case ItemID.EnchantedBoomerang:
                     item.damage = 20; // up from 17
                     return;
@@ -48,6 +45,11 @@ namespace TRAEProject.Changes.Weapon.Melee
                 case ItemID.PaladinsHammer:
                     item.damage = 102; // up from 90
                     return;
+                case ItemID.VampireKnives:
+                    item.damage = 29; // up from 29
+                    item.useTime = 19; // up from 16
+                    item.useAnimation = 19; // up from 19
+                    break;
                 case ItemID.PossessedHatchet:
                     item.damage = 102; // up from 80
                     return;
@@ -138,36 +140,36 @@ namespace TRAEProject.Changes.Weapon.Melee
                         {
                             range = range * 1.25f + 30f;
                         }
-                        range *= (1f + Main.LocalPlayer.GetAttackSpeed(DamageClass.Melee) * 3f) / 4f;
+                        range *= (1f + Main.LocalPlayer.GetAttackSpeed(DamageClass.Melee) * 3f) / 4f / 16f;
                         speed *= (1f + Main.LocalPlayer.GetAttackSpeed(DamageClass.Melee) * 3f) / 4f;
                         string speedText = "";
                         if(speed < 10f)
                         {
-                            speedText = "Very slow maneuvering";
+                            speedText = "Very slow maneuvering speed";
                         }
                         if(speed >= 10f && speed < 13f)
                         {
-                            speedText = "Slow maneuvering";
+                            speedText = "Slow maneuvering speed";
                         }
                         if(speed >= 13f && speed < 16f)
                         {
-                            speedText = "Average maneuvering";
+                            speedText = "Average maneuvering speed";
                         }
                         if(speed >= 16f && speed < 20f)
                         {
-                            speedText = "Fast maneuvering";
+                            speedText = "Fast maneuvering speed";
                         }
                         if(speed >= 20f && speed < 24f)
                         {
-                            speedText = "Very fast maneuvering";
+                            speedText = "Very fast maneuvering speed";
                         }
                         if(speed >= 24f)
                         {
-                            speedText = "Insanely fast maneuvering";
+                            speedText = "Insanely fast maneuvering speed";
                         }
 
 
-                        line.Text = speedText + "\n" + (int)range + " string length";
+                        line.Text = speedText + "\n" + range + " tiles range";
                     }
                 }
 
