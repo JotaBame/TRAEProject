@@ -198,7 +198,7 @@ namespace TRAEProject.Changes.Weapon.Melee
         public override void UseAnimation(Item item, Player player)
         {
 
-            if (aura != 0)
+            if (aura != 0 && player.itemAnimation == player.itemAnimationMax)
             {
                 Vector2 mousePosition = Main.screenPosition + new Vector2(Main.mouseX, Main.mouseY);
 

@@ -103,14 +103,14 @@ namespace TRAEProject.Changes
                     item.value = Item.buyPrice(silver: 10);
                     break;
                 case ItemID.Dynamite:
-                    item.value = Item.buyPrice(gold: 1);
+                    item.value = Item.buyPrice(silver: 65);
                     break;
                 case ItemID.Minishark:
                 case ItemID.QuadBarrelShotgun:
                     item.value = Item.buyPrice(gold: 75);
                     break;
                 case ItemID.TinkerersWorkshop:
-                    item.value = Item.buyPrice(gold: 50);
+                    item.value = Item.buyPrice(gold: 30);
                     break;
                 case ItemID.SharpeningStation:
                 case ItemID.BewitchingTable:
@@ -126,7 +126,7 @@ namespace TRAEProject.Changes
                 case ItemID.TeleportationPylonSnow:
                 case ItemID.TeleportationPylonUnderground:
                 case ItemID.TeleportationPylonVictory:
-                    item.value = Item.buyPrice(gold: 50);
+                    item.value = Item.buyPrice(gold: 20);
                     break;
                 case ItemID.ImbuingStation:
                     item.value = Item.buyPrice(gold: 50);
@@ -134,7 +134,7 @@ namespace TRAEProject.Changes
                 case ItemID.Bell:
                 case ItemID.Harp:
                 case ItemID.SpellTome:
-                    item.value = Item.buyPrice(platinum: 1);
+                    item.value = Item.buyPrice(gold: 70);
                     break;
                 case ItemID.PirateHat:
                 case ItemID.PirateShirt:

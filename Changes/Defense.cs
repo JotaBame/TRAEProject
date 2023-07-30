@@ -270,25 +270,11 @@ namespace TRAEProject
                 case BuffID.IceBarrier:
                     player.GetModPlayer<Defense>().IceBarrier = true; player.endurance -= 0.25f;
                     return;
-                case BuffID.CatBast:
-                    player.GetModPlayer<Defense>().FlatDamageReduction += 5;
-                    player.statDefense -= 5;
-                    return;
+   
             }
             return;
         }
-        public override void ModifyBuffText(int type, ref string buffName, ref string tip, ref int rare)
-        {
-            switch (type)
-            {
-                case BuffID.IceBarrier:
-                    tip = "Reduces damage taken by 20%";
-                    return;
-                case BuffID.CatBast:
-                    tip = "Damage Reduced by 5";
-                    return;
-            }
-        }
+
     }
 }
     

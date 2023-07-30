@@ -1616,6 +1616,11 @@ Mods: {
 					Label: Skeletron Changes
 					Tooltip: ""
 				}
+
+				EOCChanges: {
+					Tooltip: ""
+					Label: E O C Changes
+				}
 			}
 		}
 	}
