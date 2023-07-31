@@ -14,6 +14,7 @@ using Terraria.GameContent;
 using Terraria.Graphics.Shaders;
 using TRAEProject.NewContent.Items.Accesories.ExtraJumps;
 using TRAEProject.NewContent.Items.Accesories.MagicalCarpet;
+using static Terraria.ModLoader.PlayerDrawLayer;
 
 namespace TRAEProject
 {
@@ -594,6 +595,15 @@ namespace TRAEProject
                     Main.dust[num5].noLightEmittence = true;
                     Main.dust[num5].shader = GameShaders.Armor.GetSecondaryShader(Player.cShoe, Player);
                 }
+            }
+            else if (Player.hellfireTreads)
+            {
+                int num6 = Dust.NewDust(new Vector2(Player.position.X - 4f, Player.position.Y + (float)Player.height + (float)num), Player.width + 8, 4, 6, (0f - Player.velocity.X) * 0.5f, Player.velocity.Y * 0.5f, 50, default(Color), 2f);
+                Main.dust[num6].velocity.X = Main.dust[num6].velocity.X * 0.2f;
+                Main.dust[num6].velocity.Y = -1.5f - Main.rand.NextFloat() * 0.5f;
+                Main.dust[num6].fadeIn = 0.5f;
+                Main.dust[num6].noGravity = true;
+                Main.dust[num6].shader = GameShaders.Armor.GetSecondaryShader(Player.cShoe, Player);
             }
             else
             {

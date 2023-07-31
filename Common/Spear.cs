@@ -259,6 +259,7 @@ namespace TRAEProject.Common
         public override void ModifyHitNPC(NPC target, ref NPC.HitModifiers modifiers)
         {
             int direction = Math.Sign(target.Center.X - Main.player[Projectile.owner].Center.X);
+            modifiers.HitDirectionOverride = direction;
             SpearModfiyHitNPCMelee(target, ref modifiers);
         }
         public int[] hitCount = new int[Main.npc.Length];

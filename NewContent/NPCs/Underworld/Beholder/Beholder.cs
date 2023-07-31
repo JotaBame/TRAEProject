@@ -419,16 +419,18 @@ namespace TRAEProject.NewContent.NPCs.Underworld.Beholder
 
 
                     }
-                    if (NPC.ai[2] >= scythes * delay && Main.netMode != NetmodeID.MultiplayerClient && Main.expertMode)
+                    if (NPC.ai[2] >= scythes * delay)
                     {
-                        for (int i = 0; i < Main.rand.Next(7, 9); i++)
+                        if (Main.netMode != NetmodeID.MultiplayerClient && Main.expertMode)
                         {
-                            Vector2 vector22 = new(Main.rand.Next(-100, 101), Main.rand.Next(-100, 101));
-                            vector22.Normalize();
-                            vector22 *= Main.rand.Next(10, 101) * 0.2f;
-                            Projectile.NewProjectile(NPC.GetSource_FromThis(), NPC.Center.X, NPC.Center.Y, vector22.X, vector22.Y, ProjectileType<GreenScythe>(), 40, 1f);
+                            for (int i = 0; i < Main.rand.Next(7, 9); i++)
+                            {
+                                Vector2 vector22 = new(Main.rand.Next(-100, 101), Main.rand.Next(-100, 101));
+                                vector22.Normalize();
+                                vector22 *= Main.rand.Next(10, 101) * 0.2f;
+                                Projectile.NewProjectile(NPC.GetSource_FromThis(), NPC.Center.X, NPC.Center.Y, vector22.X, vector22.Y, ProjectileType<GreenScythe>(), 40, 1f);
+                            }
                         }
-
                         NPC.ai[0] = 0;
                         NPC.ai[2] = 0;
 
