@@ -15,32 +15,32 @@ namespace TRAEProject.NewContent.SummonReforges
 	public partial class TestForSummonReforgesMinionChanges : GlobalProjectile
 	{
       
-        //THESE ARE FOR THE STATS THAT CHANGE IN REAL TIME
+        //THESE ARE FOR THE STATS THAT CHANGE IN REAL TIME, NEED TO REFACTOR THESE LATER
         float GetPlayerMinionAggroRangeEquipStats(Player player)
         {
             float totalAggro = 0;
-            if (HasAccEquiped(ItemID.LongRainbowTrailWings, player))
+            if (HasAccEquiped(ItemID.DiamondRing, player))
                 totalAggro += 2.5f;
             return totalAggro;
         }
         float GetPlayerMinionAttackRateEquipStats(Player player)
         {
             float totalAttackRate = 0;
-            if (HasAccEquiped(ItemID.LongRainbowTrailWings, player))
+            if (HasAccEquiped(ItemID.DiamondRing, player))
                 totalAttackRate += 2;
             return totalAttackRate;
         }
         float GetPlayerMinionAttackVelocityEquipStats(Player player)
         {
             float totalAttackVelocity = 0;
-            if (HasAccEquiped(ItemID.LongRainbowTrailWings, player))
+            if (HasAccEquiped(ItemID.DiamondRing, player))
                 totalAttackVelocity += 1.5f;
             return totalAttackVelocity;
         }
         float GetPlayerMinionMoveAccelerationEquipStats(Player player)
         {
             float totalAccel = 0;
-            if (HasAccEquiped(ItemID.LongRainbowTrailWings, player))
+            if (HasAccEquiped(ItemID.DiamondRing, player))
                 totalAccel += 1.5f;
             return totalAccel;
         }
@@ -64,15 +64,13 @@ namespace TRAEProject.NewContent.SummonReforges
         public override void SendExtraAI(Projectile projectile, BitWriter bitWriter, BinaryWriter binaryWriter)
         {
             if (projectile.DamageType == DamageClass.Summon && !ProjectileID.Sets.IsAWhip[projectile.type])
-            {
-                
+            {               
                 binaryWriter.Write((ushort)((prefixAggroRangeBoost) * 32768));//honestly I don't know if this will work or help at all
                 binaryWriter.Write((ushort)((prefixAttackRate) * 32768));//but what I'm trying to do is halving the amount of data that
                 binaryWriter.Write((ushort)((prefixMoveAcceleration) * 32768));//needs to be sent, from 20 bytes to 10 bytes
                 binaryWriter.Write((ushort)((prefixAttackVelocity) * 32768));
                 binaryWriter.Write((ushort)((prefixMoveSpeed) * 32768));
             }
-
         }
         //HONESTLY IDK IF YOU NEED TO SYNC THEM LIKE THIS I'M JUST PARANOID
         public override void ReceiveExtraAI(Projectile projectile, BitReader bitReader, BinaryReader binaryReader)

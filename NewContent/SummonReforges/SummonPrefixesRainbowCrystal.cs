@@ -1,19 +1,17 @@
-﻿using System;
-using Terraria;
-using Microsoft.Xna.Framework;
-using Terraria.ModLoader;
-using Terraria.Audio;
-using Terraria.ID;
-using Terraria.DataStructures;
-using Terraria.GameContent;
+﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using System;
+using Terraria;
+using Terraria.GameContent;
+using Terraria.ID;
+using Terraria.ModLoader;
 
 namespace TRAEProject.NewContent.SummonReforges
 {
-	public partial class TestForSummonReforgesMinionChanges : GlobalProjectile
-	{
+    public partial class TestForSummonReforgesMinionChanges : GlobalProjectile
+    {
 
-		void RainbowCrystalStaffAIExplosion(Projectile projectile)
+        void RainbowCrystalStaffAIExplosion(Projectile projectile)
         {
             if (projectile.damage <= 0)
                 projectile.damage = 1;
@@ -146,74 +144,74 @@ namespace TRAEProject.NewContent.SummonReforges
         }
 
         void RainbowCrystalStaffAI(Projectile projectile)
-		{
+        {
 
-			float aggroRange = 1000f * GetAggroRangeBoost(projectile.owner);
-			projectile.velocity = Vector2.Zero;
-			projectile.alpha = projectile.alpha <= 0 ? 0 : projectile.alpha - (int)MathF.Ceiling(5f * GetAttackRateAsTimerIncrease(projectile.owner));
-			if (projectile.direction == 0)
-			{
-				projectile.direction = Main.player[projectile.owner].direction;
-			}
-			projectile.frameCounter++;
-			projectile.frame = projectile.frameCounter / 3 % Main.projFrames[projectile.type];
-			if (projectile.alpha == 0 && Main.rand.NextBool(15))
-			{
-				Dust dust = Main.dust[Dust.NewDust(projectile.Top, 0, 0, DustID.AncientLight, 0f, 0f, 100)];
-				dust.velocity.X = 0f;
-				dust.noGravity = true;
-				dust.fadeIn = 1f;
-				dust.position = projectile.Center + Vector2.UnitY.RotatedByRandom(6.2831854820251465) * (4f * Main.rand.NextFloat() + 26f);
-				dust.scale = 0.5f;
-			}
-			projectile.localAI[0] += 0;//???
-			if (projectile.localAI[0] >= 60f)
-			{
-				projectile.localAI[0] = 0f;
-			}
+            float aggroRange = 1000f * GetAggroRangeBoost(projectile.owner);
+            projectile.velocity = Vector2.Zero;
+            projectile.alpha = projectile.alpha <= 0 ? 0 : projectile.alpha - (int)MathF.Ceiling(5f * GetAttackRateAsTimerIncrease(projectile.owner));
+            if (projectile.direction == 0)
+            {
+                projectile.direction = Main.player[projectile.owner].direction;
+            }
+            projectile.frameCounter++;
+            projectile.frame = projectile.frameCounter / 3 % Main.projFrames[projectile.type];
+            if (projectile.alpha == 0 && Main.rand.NextBool(15))
+            {
+                Dust dust = Main.dust[Dust.NewDust(projectile.Top, 0, 0, DustID.AncientLight, 0f, 0f, 100)];
+                dust.velocity.X = 0f;
+                dust.noGravity = true;
+                dust.fadeIn = 1f;
+                dust.position = projectile.Center + Vector2.UnitY.RotatedByRandom(6.2831854820251465) * (4f * Main.rand.NextFloat() + 26f);
+                dust.scale = 0.5f;
+            }
+            projectile.localAI[0] += 0;//???
+            if (projectile.localAI[0] >= 60f)
+            {
+                projectile.localAI[0] = 0f;
+            }
 
-			if (projectile.ai[0] < 0f)
-				projectile.ai[0] += GetAttackRateAsTimerIncrease(projectile.owner);
+            if (projectile.ai[0] < 0f)
+                projectile.ai[0] += GetAttackRateAsTimerIncrease(projectile.owner);
 
-			if (projectile.ai[0] == 0)         
-                if(RainbowCrystalFindTarget(projectile, aggroRange))//todo: make it only detect if there is any possible taget,
+            if (projectile.ai[0] == 0)
+                if (RainbowCrystalFindTarget(projectile, aggroRange))//todo: make it only detect if there is any possible taget,
                     return;                                         //then actually search for them when it's going to shoot
-            if (projectile.ai[0] <= 0f)			                    //use an out int[] for the targets
-				return;		                                        //use an afterimage register-like system with a reverse for loop ending at 1 and not 0
-			int targetIndex = (int)projectile.ai[1];                //initialize array as -1
-			if (!Main.npc[targetIndex].CanBeChasedBy(this))
-			{
-				projectile.ai[0] = 0f;
-				projectile.ai[1] = 0f;
-				projectile.netUpdate = true;
-				return;
-			}
-			projectile.ai[0]++;
-			float num959 = 5f;
-			if (projectile.ai[0] < num959)	
-				return;
-			
-			Vector2 directionToTargetVec = projectile.DirectionTo(Main.npc[targetIndex].Center);
-			if (directionToTargetVec.HasNaNs())
-			{
-				directionToTargetVec = Vector2.UnitY;
-			}
-			int projDir = ((directionToTargetVec.X > 0f) ? 1 : (-1));
-			projectile.direction = projDir;
-			projectile.ai[0] = -20f;
-			projectile.netUpdate = true;
-			if (projectile.owner != Main.myPlayer)
-			{
-				return;
-			}
+            if (projectile.ai[0] <= 0f)                             //use an out int[] for the targets
+                return;                                             //use an afterimage register-like system with a reverse for loop ending at 1 and not 0
+            int targetIndex = (int)projectile.ai[1];                //initialize array as -1
+            if (!Main.npc[targetIndex].CanBeChasedBy(this))
+            {
+                projectile.ai[0] = 0f;
+                projectile.ai[1] = 0f;
+                projectile.netUpdate = true;
+                return;
+            }
+            projectile.ai[0]++;
+            float num959 = 5f;
+            if (projectile.ai[0] < num959)
+                return;
+
+            Vector2 directionToTargetVec = projectile.DirectionTo(Main.npc[targetIndex].Center);
+            if (directionToTargetVec.HasNaNs())
+            {
+                directionToTargetVec = Vector2.UnitY;
+            }
+            int projDir = ((directionToTargetVec.X > 0f) ? 1 : (-1));
+            projectile.direction = projDir;
+            projectile.ai[0] = -20f;
+            projectile.netUpdate = true;
+            if (projectile.owner != Main.myPlayer)
+            {
+                return;
+            }
             NPC npc = Main.npc[targetIndex];
             Vector2 toTarget = (npc.Center - projectile.Center);
             for (int i = 0; i < 3; i++)
-			{
+            {
 
                 Vector2 explosionSpawnPos = projectile.Center + toTarget;
-				Vector2 predictiveOffset = npc.velocity * 30f * GetAttackRateAsTimerThresholdMultiplier(projectile.owner);
-				explosionSpawnPos += predictiveOffset;
+                Vector2 predictiveOffset = npc.velocity * 30f * GetAttackRateAsTimerThresholdMultiplier(projectile.owner);
+                explosionSpawnPos += predictiveOffset;
                 if (i > 0)
                 {
                     Vector2 randomVec = Main.rand.NextVector2Circular(210 + npc.width, 210 + npc.height);//THIS IS THE ACCURACY
@@ -230,14 +228,14 @@ namespace TRAEProject.NewContent.SummonReforges
                 //    }
                 //}
                 float explosionColor = Main.rgbToHsl(Main.DiscoColor).X;
-				Projectile.NewProjectileDirect(projectile.GetSource_FromThis(), explosionSpawnPos, Vector2.Zero, ProjectileID.RainbowCrystalExplosion, projectile.damage, projectile.knockBack, projectile.owner, explosionColor, projectile.whoAmI);
-			}
+                Projectile.NewProjectileDirect(projectile.GetSource_FromThis(), explosionSpawnPos, Vector2.Zero, ProjectileID.RainbowCrystalExplosion, projectile.damage, projectile.knockBack, projectile.owner, explosionColor, projectile.whoAmI);
+            }
 
-		}
-        //THIS IWN'T WORKING I THINK
+        }
+        //THIS IWN'T WORKING I THINK AND WAS JUST EXPERIMENTAL
         void RainbowCrystalFindTargets(Projectile projectile, float aggroRange, out int[] targetsFound)//attempt at multiple target search, test later
         {
-            targetsFound = new int[]{ -1, -1, -1 };
+            targetsFound = new int[] { -1, -1, -1 };
             float distToClosestSQ = aggroRange * aggroRange;
             NPC ownerMinionAttackTarget = projectile.OwnerMinionAttackTargetNPC;
             if (ownerMinionAttackTarget != null && ownerMinionAttackTarget.CanBeChasedBy(this))
@@ -271,7 +269,7 @@ namespace TRAEProject.NewContent.SummonReforges
                     targetsFound[i] = targetsFound[0];
             }
         }
-        static void PushIntsDownAndUpdateFirst(ref int[]  array, int newFirst)
+        static void PushIntsDownAndUpdateFirst(ref int[] array, int newFirst)
         {
             for (int i = array.Length - 1; i >= 1; i--)
             {
@@ -320,80 +318,76 @@ namespace TRAEProject.NewContent.SummonReforges
         }
 
         private void DoRainbowCrystalStaffExplosionDust(Projectile projectile)//TODO: EDIT DUST TO FIT EXPLOSION SIZE ALSO MAYBE JUST CHANGE THE DUST PATTERN
-		{
-			Vector2 spinningpoint = new Vector2(0f, -3f).RotatedByRandom(MathF.PI);
-			float dustAmount = Main.rand.Next(7, 13) * GetAttackVelocity(projectile.owner) * GetAttackVelocity(projectile.owner);
-			Vector2 dustVel = new Vector2(2.1f, 2f) * GetAttackVelocity(projectile.owner);
-			Color newColor = Main.hslToRgb(projectile.ai[0], 1f, 0.5f);
-			newColor.A = byte.MaxValue;
-			for (float i = 0f; i < dustAmount; i += 1f)
-			{
-				int num3 = Dust.NewDust(projectile.Center, 0, 0, DustID.RainbowMk2, 0f, 0f, 0, newColor);
-				Main.dust[num3].position = projectile.Center;
-				Main.dust[num3].velocity = spinningpoint.RotatedBy(MathF.Tau * i / dustAmount) * dustVel * (0.8f + Main.rand.NextFloat() * 0.4f);
-				Main.dust[num3].noGravity = true;
-				Main.dust[num3].scale = 2f;
-				Main.dust[num3].fadeIn = Main.rand.NextFloat() * 2f;
-				if (num3 != 6000)
-				{
-					Dust dust = Dust.CloneDust(num3);
-					dust.scale /= 2f;
-					dust.fadeIn /= 2f;
-					dust.color = new Color(255, 255, 255, 255);
-				}
-			}
-			for (float i = 0f; i < dustAmount; i += 1f)
-			{
-				int dustIndex = Dust.NewDust(projectile.Center, 0, 0, DustID.RainbowMk2, 0f, 0f, 0, newColor);
-				Main.dust[dustIndex].position = projectile.Center;
-				Main.dust[dustIndex].velocity = spinningpoint.RotatedBy((float)Math.PI * 2f * i / dustAmount) * dustVel * (0.8f + Main.rand.NextFloat() * 0.4f);
-				Main.dust[dustIndex].velocity *= Main.rand.NextFloat() * 0.8f;
-				Main.dust[dustIndex].noGravity = true;
-				Main.dust[dustIndex].scale = Main.rand.NextFloat() * 1f;
-				Main.dust[dustIndex].fadeIn = Main.rand.NextFloat() * 2f;
-				if (dustIndex != 6000)
-				{
-					Dust dust2 = Dust.CloneDust(dustIndex);
-					dust2.scale /= 2f;
-					dust2.fadeIn /= 2f;
-					dust2.color = new Color(255, 255, 255, 255);
-				}
-			}
-		}
-		void DrawRainbowCrystalExplosion(Projectile projectile)
         {
-			Vector2 drawPos = projectile.position + projectile.Size / 2 + Vector2.UnitY * projectile.gfxOffY - Main.screenPosition;
-			Texture2D texture = TextureAssets.Projectile[projectile.type].Value;
-			Rectangle frame = texture.Frame(1, Main.projFrames[projectile.type], 0, projectile.frame);
-			Color whiteColor = projectile.GetAlpha(Lighting.GetColor(projectile.Center.ToTileCoordinates()));
-			Color drawColor = Main.hslToRgb(projectile.ai[0], 1f, 0.5f).MultiplyRGBA(new Color(255, 255, 255, 0));
+            Vector2 spinningpoint = new Vector2(0f, -3f).RotatedByRandom(MathF.PI);
+            float dustAmount = Main.rand.Next(7, 13) * GetAttackVelocity(projectile.owner) * GetAttackVelocity(projectile.owner);
+            Vector2 dustVel = new Vector2(2.1f, 2f) * GetAttackVelocity(projectile.owner);
+            Color newColor = Main.hslToRgb(projectile.ai[0], 1f, 0.5f);
+            newColor.A = byte.MaxValue;
+            for (float i = 0f; i < dustAmount; i += 1f)
+            {
+                int dustIndex = Dust.NewDust(projectile.Center, 0, 0, DustID.RainbowMk2, 0f, 0f, 0, newColor);
+                Main.dust[dustIndex].position = projectile.Center;
+                Main.dust[dustIndex].velocity = spinningpoint.RotatedBy(MathF.Tau * i / dustAmount) * dustVel * (0.8f + Main.rand.NextFloat() * 0.4f);
+                Main.dust[dustIndex].noGravity = true;
+                Main.dust[dustIndex].scale = 2f;
+                Main.dust[dustIndex].fadeIn = Main.rand.NextFloat() * 2f;
+                if (dustIndex != 6000)
+                {
+                    Dust dust = Dust.CloneDust(dustIndex);
+                    dust.scale /= 2f;
+                    dust.fadeIn /= 2f;
+                    dust.color = new Color(255, 255, 255, 255);
+                }
+            }
+            for (float i = 0f; i < dustAmount; i += 1f)
+            {
+                int dustIndex = Dust.NewDust(projectile.Center, 0, 0, DustID.RainbowMk2, 0f, 0f, 0, newColor);
+                Main.dust[dustIndex].position = projectile.Center;
+                Main.dust[dustIndex].velocity = spinningpoint.RotatedBy((float)Math.PI * 2f * i / dustAmount) * dustVel * (0.8f + Main.rand.NextFloat() * 0.4f);
+                Main.dust[dustIndex].velocity *= Main.rand.NextFloat() * 0.8f;
+                Main.dust[dustIndex].noGravity = true;
+                Main.dust[dustIndex].scale = Main.rand.NextFloat() * 1f;
+                Main.dust[dustIndex].fadeIn = Main.rand.NextFloat() * 2f;
+                if (dustIndex != 6000)
+                {
+                    Dust dust2 = Dust.CloneDust(dustIndex);
+                    dust2.scale /= 2f;
+                    dust2.fadeIn /= 2f;
+                    dust2.color = new Color(255, 255, 255, 255);
+                }
+            }
+        }
+        void DrawRainbowCrystalExplosion(Projectile projectile)
+        {
+            Vector2 drawPos = projectile.position + projectile.Size / 2 + Vector2.UnitY * projectile.gfxOffY - Main.screenPosition;
+            Texture2D texture = TextureAssets.Projectile[projectile.type].Value;
+            Rectangle frame = texture.Frame(1, Main.projFrames[projectile.type], 0, projectile.frame);
+            Color whiteColor = projectile.GetAlpha(Lighting.GetColor(projectile.Center.ToTileCoordinates()));
+            Color drawColor = Main.hslToRgb(projectile.ai[0], 1f, 0.5f).MultiplyRGBA(new Color(255, 255, 255, 0));
             float drawScale = projectile.scale * GetAttackVelocity(projectile.owner);
-			if (projectile.localAI[0] != 0)//solve a weird 1 frame fulbright draw call issue
-			{
-				Main.EntitySpriteDraw(texture, drawPos, frame, drawColor, projectile.rotation, texture.Size() / 2, drawScale * 2f, SpriteEffects.None);
-				Main.EntitySpriteDraw(texture, drawPos, frame, drawColor, 0f, texture.Size() / 2, drawScale * 2f, SpriteEffects.None);
-				Main.EntitySpriteDraw(texture, drawPos, frame, whiteColor, projectile.rotation, texture.Size() / 2, drawScale, SpriteEffects.None);
-				Main.EntitySpriteDraw(texture, drawPos, frame, whiteColor, 0f, texture.Size() / 2, drawScale, SpriteEffects.None);
-			}
-		
-			if (projectile.ai[1] != -1f && projectile.Opacity > 0.3f)
-			{
-				Vector2 toParentCrystlNormalized = Main.projectile[(int)projectile.ai[1]].Center.DirectionTo(projectile.Center);
-				Vector2 toParentCrystal = Main.projectile[(int)projectile.ai[1]].Center - projectile.Center;
-				Vector2 scale = new Vector2(1.6f, (toParentCrystal.Length() - 64) / (float)(texture.Height * 0.6f));
-				float projRotation = toParentCrystal.ToRotation() + (float)Math.PI / 2f;
-				float brightness = MathHelper.Distance(30f, projectile.localAI[1]) / 20f;
-				brightness = MathHelper.Clamp(brightness, 0f, 1f);
-				if (brightness > 0f)
-				{
-					Main.EntitySpriteDraw(texture, drawPos + toParentCrystal / 2f + toParentCrystlNormalized * 8, frame, drawColor * brightness, projRotation, texture.Size() / 2, scale, SpriteEffects.None);
-					Main.EntitySpriteDraw(texture, drawPos + toParentCrystal / 2f + toParentCrystlNormalized * 8, frame, whiteColor * brightness, projRotation, texture.Size() / 2, scale / 2f, SpriteEffects.None);
-				}
-			}
+            if (projectile.localAI[0] != 0)//solve a weird 1 frame fulbright draw call issue
+            {
+                Main.EntitySpriteDraw(texture, drawPos, frame, drawColor, projectile.rotation, texture.Size() / 2, drawScale * 2f, SpriteEffects.None);
+                Main.EntitySpriteDraw(texture, drawPos, frame, drawColor, 0f, texture.Size() / 2, drawScale * 2f, SpriteEffects.None);
+                Main.EntitySpriteDraw(texture, drawPos, frame, whiteColor, projectile.rotation, texture.Size() / 2, drawScale, SpriteEffects.None);
+                Main.EntitySpriteDraw(texture, drawPos, frame, whiteColor, 0f, texture.Size() / 2, drawScale, SpriteEffects.None);
+            }
 
-		}
-
-		
-
-	}
+            if (projectile.ai[1] != -1f && projectile.Opacity > 0.3f)
+            {
+                Vector2 toParentCrystlNormalized = Main.projectile[(int)projectile.ai[1]].Center.DirectionTo(projectile.Center);
+                Vector2 toParentCrystal = Main.projectile[(int)projectile.ai[1]].Center - projectile.Center;
+                Vector2 scale = new(1.6f, (toParentCrystal.Length() - 64) / (float)(texture.Height * 0.6f));
+                float projRotation = toParentCrystal.ToRotation() + (float)Math.PI / 2f;
+                float brightness = MathHelper.Distance(30f, projectile.localAI[1]) / 20f;
+                brightness = MathHelper.Clamp(brightness, 0f, 1f);
+                if (brightness > 0f)
+                {
+                    Main.EntitySpriteDraw(texture, drawPos + toParentCrystal / 2f + toParentCrystlNormalized * 8, frame, drawColor * brightness, projRotation, texture.Size() / 2, scale, SpriteEffects.None);
+                    Main.EntitySpriteDraw(texture, drawPos + toParentCrystal / 2f + toParentCrystlNormalized * 8, frame, whiteColor * brightness, projRotation, texture.Size() / 2, scale / 2f, SpriteEffects.None);
+                }
+            }
+        }
+    }
 }
