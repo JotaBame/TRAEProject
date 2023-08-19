@@ -87,6 +87,7 @@ namespace TRAEProject.NewContent.Items.Accesories.ExtraJumps
 			player.velocity = TRAEMethods.PolarVector(Terraria.Player.jumpSpeed * boosterSpeedMultiplier, dir);
 			player.velocity.Y += 1E-06f;
 			player.velocity.Y *= player.gravDir;
+			player.GetModPlayer<TRAEJumps>().isBoosting = true;
 			
 		}
 	}
@@ -136,7 +137,6 @@ namespace TRAEProject.NewContent.Items.Accesories.ExtraJumps
 			{
 				Dust d = Dust.NewDustPerfect(player.Center + TRAEMethods.PolarVector(30, MathF.PI * 2f * ((float)i / 3f) + player.fullRotation), DustID.SilverFlame, Vector2.UnitY * player.gravDir * -6);
 			}
-			player.GetModPlayer<TRAEJumps>().isBoosting = true;
 		}
 	}
 	public class FaeJump : ExtraJump
@@ -276,8 +276,6 @@ namespace TRAEProject.NewContent.Items.Accesories.ExtraJumps
 		}
 
 		public bool isBoosting = false;
-		
-		public bool doVanillaJumps = false;
 		public bool advFlight = false;
 		float? advFlightStorage = null;
 		int? advBootStorage = null;
