@@ -34,7 +34,8 @@ namespace TRAEProject.NewContent.Items.Accesories.SandstormBoots
             player.coldDash = false;
             player.desertDash = true;
             player.GetModPlayer<AccesoryEffects>().sandRunning = true;
-            player.hasJumpOption_Sandstorm = true;
+
+            player.GetJumpState(ExtraJump.SandstormInABottle).Enable();
         }
         public override void AddRecipes()
         {

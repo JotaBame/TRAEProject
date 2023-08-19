@@ -146,6 +146,10 @@ namespace TRAEProject.Changes.Weapon.Melee
                     projectile.usesLocalNPCImmunity = true;
                     projectile.localNPCHitCooldown = 10;
                     break;
+                case ProjectileID.FlyingKnife:
+                    projectile.usesLocalNPCImmunity = true;
+                    projectile.localNPCHitCooldown = 10;
+                    break;
 
             }
         }

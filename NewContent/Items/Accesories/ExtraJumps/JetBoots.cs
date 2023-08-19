@@ -28,7 +28,8 @@ namespace TRAEProject.NewContent.Items.Accesories.ExtraJumps
         {
             player.GetModPlayer<TRAEJumps>().advFlight = true;
             player.rocketTimeMax += 10;
-            player.GetModPlayer<TRAEJumps>().boosterFlightTimeMax += 40;
+            player.GetModPlayer<TRAEJumps>().boosterCount++;
+            player.GetJumpState<JetJump>().Enable();
             player.GetModPlayer<Mobility>().flightTimeBonus += 0.4f;
             player.rocketBoots = player.vanityRocketBoots = 1;
         }

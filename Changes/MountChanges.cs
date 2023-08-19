@@ -249,7 +249,7 @@ namespace TRAEProject
         {
             if(Player.mount.Type == MountID.Bunny)
             {
-                Player.hasJumpOption_Cloud = true;
+                Player.GetJumpState(ExtraJump.CloudInABottle).Enable();
             }
         }
     }

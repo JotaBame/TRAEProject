@@ -8,9 +8,10 @@ namespace TRAEProject.NewContent.Buffs
 {
 	public class KaleidoscopeSecondTag: ModBuff
 	{
-		public override void SetStaticDefaults() {
+		public override void SetStaticDefaults() 
+		{
 			Main.debuff[Type] = true;
-			BuffID.Sets.IsAnNPCWhipDebuff[Type] = true;
+			BuffID.Sets.IsATagBuff[Type] = true;
 			Main.buffNoSave[Type] = true;
 			// DisplayName.SetDefault("KaleidoscopeNewDebuff");
 			// Description.SetDefault(""); 

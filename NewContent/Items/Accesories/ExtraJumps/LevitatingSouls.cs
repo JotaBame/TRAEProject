@@ -26,7 +26,7 @@ namespace TRAEProject.NewContent.Items.Accesories.ExtraJumps
         }
         public override void UpdateAccessory(Player player, bool hideVisual)
         {
-            player.GetModPlayer<TRAEJumps>().levitation = true;
+            player.GetJumpState<LevitationJump>().Enable();
             player.moveSpeed += 0.20f;
             player.jumpSpeedBoost += Mobility.JSV(0.24f);
         }

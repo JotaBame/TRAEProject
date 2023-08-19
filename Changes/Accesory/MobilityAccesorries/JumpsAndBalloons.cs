@@ -18,24 +18,20 @@ namespace TRAEProject.Changes.Accesory
             {
                 Player.moveSpeed *= 0.5f;
             }
-            if(Player.isPerformingJump_Sandstorm)
+            if(Player.GetJumpState(ExtraJump.SandstormInABottle).Active)
             {
                 Player.moveSpeed *= 1.5f;
             }
 
-            if (Player.isPerformingJump_Fart)
+            if (Player.GetJumpState(ExtraJump.FartInAJar).Active)
             {
                 Player.moveSpeed *= (1.5f / 1.75f);
             }
-            if (Player.isPerformingJump_Sail)
+            if (Player.GetJumpState(ExtraJump.TsunamiInABottle).Active)
             {
                 Player.moveSpeed *= (1.5f / 1.25f);
             }
-            if (Player.isPerformingJump_Cloud)
-            {
-                Player.moveSpeed *= 1.5f;
-            }
-            if(Player.GetModPlayer<TRAEJumps>().isLevitating)
+            if (Player.GetJumpState(ExtraJump.CloudInABottle).Active)
             {
                 Player.moveSpeed *= 1.5f;
             }

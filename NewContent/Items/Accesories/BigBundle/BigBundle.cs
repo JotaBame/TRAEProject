@@ -28,11 +28,11 @@ namespace TRAEProject.NewContent.Items.Accesories.BigBundle
         }
         public override void UpdateAccessory(Player player, bool hideVisual)
         {
-            player.hasJumpOption_Sandstorm = true;
-            player.hasJumpOption_Blizzard = true;
-            player.hasJumpOption_Cloud = true;
-            player.hasJumpOption_Fart = true;
-            player.hasJumpOption_Sail = true;
+            player.GetJumpState(ExtraJump.SandstormInABottle).Enable();
+            player.GetJumpState(ExtraJump.BlizzardInABottle).Enable();
+            player.GetJumpState(ExtraJump.CloudInABottle).Enable();
+            player.GetJumpState(ExtraJump.FartInAJar).Enable();
+            player.GetJumpState(ExtraJump.TsunamiInABottle).Enable();
             player.jumpBoost = true;
             player.GetModPlayer<HoneyCombPlayer>().combs += 1;
             player.noFallDmg = true;

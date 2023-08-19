@@ -10,6 +10,7 @@ using Terraria.ModLoader;
 using TRAEProject;
 using TRAEProject.Changes.Prefixes;
 using static Terraria.ModLoader.ModContent;
+using TRAEProject.NewContent.Items.Accesories.AngelicStone;
 
 namespace TRAEProject.NewContent.Items.Misc.Potions
 {
@@ -36,6 +37,8 @@ namespace TRAEProject.NewContent.Items.Misc.Potions
         }
         public override void OnConsumeItem(Player player)
         {
+            int maxTime = 3600 / (1 + player.GetModPlayer<AngelicStoneEffects>().stones);
+            player.AddBuff(BuffID.ManaSickness, maxTime);
             player.AddBuff(BuffType<Surge>(), 5 * 60);
         }
         public override void AddRecipes()

@@ -24,9 +24,10 @@ namespace TRAEProject.NewContent.Items.Accesories.ExtraJumps
         }
         public override void UpdateAccessory(Player player, bool hideVisual)
         {
-            player.GetModPlayer<TRAEJumps>().boosterFlightTimeMax += 40;
-            player.GetModPlayer<TRAEJumps>().levitation = true;
-            player.GetModPlayer<TRAEJumps>().faeJump = true;
+            player.GetModPlayer<TRAEJumps>().boosterCount++;
+            player.GetJumpState<JetJump>().Enable();
+            player.GetJumpState<LevitationJump>().Enable();
+            player.GetJumpState<FaeJump>().Enable();
         }
         public override void AddRecipes()
         {

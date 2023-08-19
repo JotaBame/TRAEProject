@@ -194,7 +194,7 @@ namespace TRAEProject.NewContent.Items.Weapons.Summoner.Sentries.GraniteShockerS
 
                             Projectile.NewProjectile(Projectile.GetSource_FromThis(), new Vector2(Projectile.Center.X, Projectile.Top.Y + 14), new Vector2(perturbedSpeed.X, perturbedSpeed.Y), ModContent.ProjectileType<GraniteShock>(), Projectile.damage, Projectile.knockBack, Projectile.owner);
 
-                            SoundEngine.PlaySound(SoundID.Item92 with { MaxInstances = 0 }, Projectile.Center);
+                            SoundEngine.PlaySound(SoundID.Item92 with { MaxInstances = 0, Volume = 0.2f }, Projectile.Center);
                             shoottime = 0;
                         }
                     }
@@ -256,7 +256,7 @@ namespace TRAEProject.NewContent.Items.Weapons.Summoner.Sentries.GraniteShockerS
         }
         public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {            
-            SoundEngine.PlaySound(SoundID.Item93 with { MaxInstances = 0 }, Projectile.position);
+            SoundEngine.PlaySound(SoundID.Item93 with { MaxInstances = 0, Volume = 0.2f }, Projectile.position);
             for (int n = 0; n < 8; n++)
             {
                 int Dust = Terraria.Dust.NewDust(new Vector2(Projectile.position.X, Projectile.position.Y), Projectile.width, Projectile.height, DustID.Electric, 0f, 0f, 200, default, 1f);
@@ -305,7 +305,7 @@ namespace TRAEProject.NewContent.Items.Weapons.Summoner.Sentries.GraniteShockerS
                     Projectile.extraUpdates = 100;
                     Projectile.alpha = 255;
                     Projectile.ai[1] = 1;
-                    SoundEngine.PlaySound(SoundID.Item93 with { MaxInstances = 0 }, Projectile.position);
+                    SoundEngine.PlaySound(SoundID.Item93 with { MaxInstances = 0, Volume = 0.2f}, Projectile.position);
 
                 }
                 return;
