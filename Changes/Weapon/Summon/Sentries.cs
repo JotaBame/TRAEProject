@@ -75,12 +75,11 @@ namespace TRAEProject.Changes.Weapon.Summon
         {
             switch(projectile.type)
             {
-
                 case ProjectileID.FrostBlastFriendly:
                     projectile.usesLocalNPCImmunity = true;
                     projectile.localNPCHitCooldown = -1;
-                    projectile.penetrate = 1;
-                    projectile.extraUpdates = 100;
+                    //projectile.penetrate = 1;
+                    //projectile.extraUpdates = 100;
                     break;
             }
         }
@@ -98,8 +97,12 @@ namespace TRAEProject.Changes.Weapon.Summon
                     };
                     return;
                 }
+                case ProjectileID.FrostBlastFriendly:
+                    projectile.localNPCImmunity[target.whoAmI] = -1;
+                break;
             }
         }
+        /*
         public override bool PreAI(Projectile projectile)
         {
             if (projectile.type == ProjectileID.FrostHydra) 
@@ -268,5 +271,7 @@ namespace TRAEProject.Changes.Weapon.Summon
 			}
             return base.PreAI(projectile);
         }
+        */
     }
+    
 }

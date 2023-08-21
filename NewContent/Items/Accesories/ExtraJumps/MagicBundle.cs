@@ -25,11 +25,12 @@ namespace TRAEProject.NewContent.Items.Accesories.ExtraJumps
         }
         public override void UpdateAccessory(Player player, bool hideVisual)
         {
-            player.hasJumpOption_Sail = true;
+
+            player.GetJumpState(ExtraJump.TsunamiInABottle).Enable();
             player.extraFall += 50;
             player.autoJump = true;
             player.jumpSpeedBoost += Mobility.JSV(0.24f); 
-            player.GetModPlayer<TRAEJumps>().faeJump = true;
+            player.GetJumpState<FaeJump>().Enable();
             player.jumpBoost = true;
             player.GetModPlayer<SpaceBalloonPlayer>().SpaceBalloon += 1;
         }

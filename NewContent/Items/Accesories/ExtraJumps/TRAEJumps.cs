@@ -11,38 +11,244 @@ using Terraria.ModLoader;
 
 namespace TRAEProject.NewContent.Items.Accesories.ExtraJumps
 {
+	public class JetJump : ExtraJump
+	{
+		public const float boosterSpeedMultiplier = 1.6f;
+		public override Position GetDefaultPosition() => new Before(SandstormInABottle);
+		
+		public override IEnumerable<Position> GetModdedConstraints() 
+		{
+			// By default, modded extra jumps set to be between two vanilla extra jumps (via After and Before) are ordered in load order.
+			// This hook allows you to organize where this extra jump is located relative to other modded extra jumps that are also
+			// placed between the same two vanila extra jumps.
+			yield return new Before(ModContent.GetInstance<LevitationJump>());
+		}
+		
+
+		public override float GetDurationMultiplier(Player player) 
+		{
+			// Use this hook to set the duration of the extra jump
+			// The XML summary for this hook mentions the values used by the vanilla extra jumps
+			return player.GetModPlayer<TRAEJumps>().boosterCount * 5f + 2f;
+		}
+
+		public override void OnStarted(Player player, ref bool playSound) 
+		{
+			playSound = false;
+			// Use this hook to trigger effects that should appear at the start of the extra jump
+			// This example mimicks the logic for spawning the puff of smoke from the Cloud in a Bottle
+		}
+		void Puff(Player player)
+        {
+			for (int i = 0; i < 8; i++)
+            {
+				Vector2 pos = player.Center + TRAEMethods.PolarVector(5, ((float)i / 8f) * 2 * MathF.PI);
+				Dust d = Dust.NewDustPerfect(pos, DustID.Smoke);
+				d.frame.Y = 0;
+            }
+			SoundEngine.PlaySound(SoundID.DoubleJump with { MaxInstances = 0 }, player.Center);
+		}
+
+		public override void ShowVisuals(Player player) 
+		{
+			if(player.GetModPlayer<TRAEJumps>().colorCounter % 4 == 0)
+			{
+				Puff(player);
+			}
+			float dir = -MathF.PI / 2f;
+			if (player.controlRight && player.controlUp)
+			{
+				dir = -MathF.PI / 4f;
+			}
+			else if (player.controlUp && player.controlLeft)
+			{
+				dir = -3 * MathF.PI / 4f;
+			}
+			else if (player.controlDown && player.controlLeft)
+			{
+				dir = 3 * MathF.PI / 4f;
+			}
+			else if (player.controlDown && player.controlRight)
+			{
+				dir = MathF.PI / 4f;
+			}
+			else if (player.controlDown)
+			{
+				dir = MathF.PI / 2f;
+			}
+			else if (player.controlRight && !player.controlLeft)
+			{
+				dir = 0;
+			}
+			else if (!player.controlRight && player.controlLeft)
+			{
+				dir = MathF.PI;
+			}
+			player.velocity = TRAEMethods.PolarVector(Terraria.Player.jumpSpeed * boosterSpeedMultiplier, dir);
+			player.velocity.Y += 1E-06f;
+			player.velocity.Y *= player.gravDir;
+			player.GetModPlayer<TRAEJumps>().isBoosting = true;
+			
+		}
+	}
+	public class LevitationJump : ExtraJump
+	{
+		public override Position GetDefaultPosition() => new Before(SandstormInABottle);
+		
+		public override IEnumerable<Position> GetModdedConstraints() 
+		{
+			// By default, modded extra jumps set to be between two vanilla extra jumps (via After and Before) are ordered in load order.
+			// This hook allows you to organize where this extra jump is located relative to other modded extra jumps that are also
+			// placed between the same two vanila extra jumps.
+			yield return new Before(ModContent.GetInstance<FaeJump>());
+		}
+		
+
+		public override float GetDurationMultiplier(Player player) 
+		{
+			// Use this hook to set the duration of the extra jump
+			// The XML summary for this hook mentions the values used by the vanilla extra jumps
+			return 10f;
+		}
+
+		public override void UpdateHorizontalSpeeds(Player player) 
+		{
+			// Use this hook to modify "player.runAcceleration" and "player.maxRunSpeed"
+			// The XML summary for this hook mentions the values used by the vanilla extra jumps
+			player.moveSpeed *= 1.5f;
+		}
+
+		public override void OnStarted(Player player, ref bool playSound) 
+		{
+			// Use this hook to trigger effects that should appear at the start of the extra jump
+			// This example mimicks the logic for spawning the puff of smoke from the Cloud in a Bottle
+		}
+
+		public override void ShowVisuals(Player player) 
+		{
+			// Use this hook to trigger effects that should appear throughout the duration of the extra jump
+			// This example mimics the logic for spawning the dust from the Blizzard in a Bottle
+			player.GetModPlayer<TRAEJumps>().levitationResetCounter = 3;
+			
+			player.fullRotation += player.direction * player.gravDir * MathF.PI / 15f;
+			player.fullRotationOrigin = player.Size * 0.5f;
+			
+			for(int i = 0; i < 30; i++)
+			{
+				Dust d = Dust.NewDustPerfect(player.Center + TRAEMethods.PolarVector(30, MathF.PI * 2f * ((float)i / 3f) + player.fullRotation), DustID.SilverFlame, Vector2.UnitY * player.gravDir * -6);
+			}
+		}
+	}
+	public class FaeJump : ExtraJump
+	{
+		public override Position GetDefaultPosition() => new Before(SandstormInABottle);
+		/*
+		public override IEnumerable<Position> GetModdedConstraints() 
+		{
+			// By default, modded extra jumps set to be between two vanilla extra jumps (via After and Before) are ordered in load order.
+			// This hook allows you to organize where this extra jump is located relative to other modded extra jumps that are also
+			// placed between the same two vanila extra jumps.
+			yield return new Before(ModContent.GetInstance<MultipleUseExtraJump>());
+		}
+		*/
+
+		public override float GetDurationMultiplier(Player player) 
+		{
+			// Use this hook to set the duration of the extra jump
+			// The XML summary for this hook mentions the values used by the vanilla extra jumps
+			return 1f;
+		}
+
+		public override void UpdateHorizontalSpeeds(Player player) 
+		{
+			// Use this hook to modify "player.runAcceleration" and "player.maxRunSpeed"
+			// The XML summary for this hook mentions the values used by the vanilla extra jumps
+			player.moveSpeed *= 1.5f;
+		}
+
+		public override void OnStarted(Player player, ref bool playSound) 
+		{
+			// Use this hook to trigger effects that should appear at the start of the extra jump
+			// This example mimicks the logic for spawning the puff of smoke from the Cloud in a Bottle
+			float rot = player.velocity.ToRotation();
+			for(int i =0; i < 30; i++)
+			{
+				int d = i % 6;
+				if(d == 4)
+				{
+					d = 2;
+				}
+				if(d == 5)
+				{
+					d = 1;
+				}
+				FairyQueenDust(player, player.Center, TRAEMethods.PolarVector(d * 2, rot + 2 * MathF.PI * ((float)i / 30f)));
+			}
+			if(player.GetModPlayer<TRAEJumps>().faejumpTime <= 0)
+			{
+				player.SetImmuneTimeForAllTypes(40);
+				player.brainOfConfusionDodgeAnimationCounter = 300;
+			}
+			player.GetModPlayer<TRAEJumps>().faejumpTime = 180;
+		}
+
+		public override void ShowVisuals(Player player) 
+		{
+			// Use this hook to trigger effects that should appear throughout the duration of the extra jump
+			// This example mimics the logic for spawning the dust from the Blizzard in a Bottle
+			FairyQueenDust(player, player.position + new Vector2(Main.rand.Next(player.width), Main.rand.Next(player.height)), Vector2.Zero);
+		}
+
+		Dust FairyQueenDust(Player player, Vector2 pos, Vector2 vel)
+		{
+			Color fairyQueenWeaponsColor = player.GetModPlayer<TRAEJumps>().GetFairyQueenWeaponsColor(player, 1f, Main.rand.NextFloat() * 0.4f); //this method never uses any information from the projectile it needs to be called from
+			Dust d = Dust.NewDustPerfect(pos, 267, vel, newColor: fairyQueenWeaponsColor);
+			d.noGravity = true;
+			return d;
+		}
+	}
     public class TRAEJumps : ModPlayer
     {
-        public int boosterFlightTimeMax = 0;
-        public int boosterFlightTime = 0;
-        public const int boosterStartCost = 0;
-        public const float boosterSpeedMultiplier = 1.6f;
-		public bool isBoosting = false;
-		bool canStartBoosting = false;
-		public bool levitation = false;
-		bool canLevitate = false;
-		public bool doVanillaJumps = false;
-		public bool isLevitating = true;
-		public bool faeJump = false;
-		bool canFaeJump = false;
-		int faejumpTime = 0;
-		int colorCounter = 0;
-		public bool advFlight = false;
-		
-		bool?[] advJumpStorage = new bool?[] {null, null, null, null, null, null, null, null, null, null, null};
-		int? advboosterstorage = null;
-		float? advFlightStorage = null;
-		int? advBootStorage = null;
-		int advFlyAttempt = 0;
-		public bool allowBlizzardDash = false;
-		public bool usedBlizzardDash = false;
-		public bool BlizzardStored()
+		public int levitationResetCounter = 0;
+		public int faejumpTime = 0;
+		public int colorCounter = 0;
+		public int boosterCount = 0;
+		bool blockJumps = false;
+
+        public override void PreUpdateMovement()
 		{
-			return advJumpStorage[1] != null && (bool)advJumpStorage[1];
-		}
-		public void SpendBlizzardJump()
-		{
-			advJumpStorage[1] = false;
+			blockJumps = false;
+			if(advFlight && !Player.TryingToHoverDown)
+            {
+                //Player.gravControl = false;
+                //Player.gravControl2 = false;
+				if(Player.controlJump && advFlyAttempt <=0)
+				{
+					AdvFlightFreeze();
+				}
+				else if(Player.controlUp)
+				{
+					blockJumps = true;
+					AdvRecoverFlight();
+					advFlyAttempt = 2;
+					Player.controlJump = true;
+				}
+			}
+			if(levitationResetCounter > 0)
+			{
+				levitationResetCounter--;
+				if(levitationResetCounter == 0)
+				{
+					Player.fullRotation = 0;
+					Player.fullRotationOrigin = Player.Size * 0.5f;
+				}
+			}
+			if(faejumpTime > 0)
+			{
+				faejumpTime--;
+			}
+			colorCounter++;
+			isBoosting = false;
 		}
 		void AdvFlightFreeze()
 		{
@@ -54,51 +260,6 @@ namespace TRAEProject.NewContent.Items.Accesories.ExtraJumps
 			Player.wingTime = 0;
 			Player.rocketTime = 0;
 		}
-		void AdvJumpFreeze()
-		{
-			if(advJumpStorage[0] == null)
-			{
-				advJumpStorage[9] = canLevitate;
-				advJumpStorage[10] = canFaeJump;
-				advboosterstorage = boosterFlightTime;
-				if(canFaeJump || canLevitate || boosterFlightTime > 0)
-				{
-					advJumpStorage[0] = Player.hasJumpOption_Basilisk;
-					advJumpStorage[1] = Player.hasJumpOption_Blizzard;
-					advJumpStorage[2] = Player.hasJumpOption_Cloud;
-					advJumpStorage[3] = Player.hasJumpOption_Fart;
-					advJumpStorage[4] = Player.hasJumpOption_Sail;
-					advJumpStorage[5] = Player.hasJumpOption_Sandstorm;
-					advJumpStorage[6] = Player.hasJumpOption_Unicorn;
-					advJumpStorage[7] = Player.hasJumpOption_WallOfFleshGoat;
-					advJumpStorage[8] = Player.hasJumpOption_Santank;
-				}
-				else
-				{
-					advJumpStorage[0] = Player.canJumpAgain_Basilisk;
-					advJumpStorage[1] = Player.canJumpAgain_Blizzard;
-					advJumpStorage[2] = Player.canJumpAgain_Cloud;
-					advJumpStorage[3] = Player.canJumpAgain_Fart;
-					advJumpStorage[4] = Player.canJumpAgain_Sail;
-					advJumpStorage[5] = Player.canJumpAgain_Sandstorm;
-					advJumpStorage[6] = Player.canJumpAgain_Unicorn;
-					advJumpStorage[7] = Player.canJumpAgain_WallOfFleshGoat;
-					advJumpStorage[8] = Player.canJumpAgain_Santank;
-				}
-			}
-			Player.canJumpAgain_Basilisk = false;
-			Player.canJumpAgain_Blizzard = false;
-			Player.canJumpAgain_Cloud = false;
-			Player.canJumpAgain_Fart = false;
-			Player.canJumpAgain_Sail = false;
-			Player.canJumpAgain_Sandstorm = false;
-			Player.canJumpAgain_Unicorn = false;
-			Player.canJumpAgain_WallOfFleshGoat = false;
-			Player.canJumpAgain_Santank = false;
-			canLevitate = false;
-			canFaeJump = false;
-			boosterFlightTime = 0;
-		}
 		void AdvRecoverFlight()
 		{
 			if(advFlightStorage != null)
@@ -109,59 +270,28 @@ namespace TRAEProject.NewContent.Items.Accesories.ExtraJumps
 				advBootStorage = null;
 			}
 		}
-		void AdvRecoverJump()
+		public override void PostUpdateBuffs()
 		{
-			if(advJumpStorage[0] != null)
-			{
-				Player.canJumpAgain_Basilisk = (bool)advJumpStorage[0];
-				Player.canJumpAgain_Blizzard = (bool)advJumpStorage[1];
-				Player.canJumpAgain_Cloud = (bool)advJumpStorage[2];
-				Player.canJumpAgain_Fart = (bool)advJumpStorage[3];
-				Player.canJumpAgain_Sail = (bool)advJumpStorage[4];
-				Player.canJumpAgain_Sandstorm = (bool)advJumpStorage[5];
-				Player.canJumpAgain_Unicorn = (bool)advJumpStorage[6];
-				Player.canJumpAgain_WallOfFleshGoat = (bool)advJumpStorage[7];
-				Player.canJumpAgain_Santank = (bool)advJumpStorage[8];
-				canLevitate = (bool)advJumpStorage[9];
-				canFaeJump = (bool)advJumpStorage[10];
-				boosterFlightTime = (int)advboosterstorage;
-
-				advboosterstorage = null;
-				for(int i = 0; i < 11; i++)
-				{
-					advJumpStorage[i] = null;
-				}
-				if(canFaeJump || canLevitate || boosterFlightTime > 0)
-				{
-					BlockVanillaJumps();
-				}
-
-				Player.releaseJump = true;
-			}
-
-		}
-		void AdvReset()
-		{
-			advboosterstorage = null;
-			for(int i = 0; i < 11; i++)
-			{
-				advJumpStorage[i] = null;
-			}
-			if(advFlightStorage != null)
-			{
-				Player.wingTime = (float)advFlightStorage;
-				Player.rocketTime = (int)advBootStorage;
-				advFlightStorage = null;
-				advBootStorage = null;
-			}
+			Player.blockExtraJumps = Player.blockExtraJumps || blockJumps;
 		}
 
-		public override void ResetEffects()
+		public bool isBoosting = false;
+		public bool advFlight = false;
+		float? advFlightStorage = null;
+		int? advBootStorage = null;
+		int advFlyAttempt = 0;
+		public bool allowBlizzardDash = false;
+		public bool usedBlizzardDash = false;
+
+        public void RestoreJumps()
         {
-            boosterFlightTimeMax = 0;
-			levitation = false;
-			faeJump = false;
+			Player.RefreshExtraJumps();
+		}
+		public override void ResetEffects()
+		{
 			advFlight = false;
+			boosterCount = 0;
+
 			if(advFlyAttempt > 0)
 			{
 				advFlyAttempt--;
@@ -170,313 +300,6 @@ namespace TRAEProject.NewContent.Items.Accesories.ExtraJumps
 					Player.controlJump = true;
 				}
 			}
-        }
-        public void RestoreJumps()
-        {
-            boosterFlightTime = boosterFlightTimeMax;
-			isBoosting = false;
-			canStartBoosting = false;
-			canLevitate = levitation;
-			doVanillaJumps = true;
-			canFaeJump = faeJump;
-			usedBlizzardDash = false;
-		}
-        void BlockVanillaJumps()
-        {
-            Player.canJumpAgain_Basilisk = false;
-            Player.canJumpAgain_Blizzard = false;
-			if(Player.GetModPlayer<Mobility>().blizzardDash)
-			{
-				allowBlizzardDash = true;
-			}
-            Player.canJumpAgain_Cloud = false;
-            Player.canJumpAgain_Fart = false;
-            Player.canJumpAgain_Sail = false;
-            Player.canJumpAgain_Sandstorm = false;
-            Player.canJumpAgain_Unicorn = false;
-            Player.canJumpAgain_WallOfFleshGoat = false;
-			Player.canJumpAgain_Santank = false;
-			if(!advFlight)
-			{
-				Player.rocketTime = 0;
-			}
-        }
-		void RefreshVanillaJumps()
-		{
-			if (Player.hasJumpOption_Cloud)
-			{
-				Player.canJumpAgain_Cloud = true;
-			}
-			if (Player.hasJumpOption_Sandstorm)
-			{
-				Player.canJumpAgain_Sandstorm = true;
-			}
-			if (Player.hasJumpOption_Blizzard && !usedBlizzardDash)
-			{
-				Player.canJumpAgain_Blizzard = true;
-			}
-			if (Player.hasJumpOption_Fart)
-			{
-				Player.canJumpAgain_Fart = true;
-			}
-			if (Player.hasJumpOption_Sail)
-			{
-				Player.canJumpAgain_Sail = true;
-			}
-			if (Player.hasJumpOption_Unicorn)
-			{
-				Player.canJumpAgain_Unicorn = true;
-			}
-			if (Player.hasJumpOption_Santank)
-			{
-				Player.canJumpAgain_Santank = true;
-			}
-			if (Player.hasJumpOption_WallOfFleshGoat)
-			{
-				Player.canJumpAgain_WallOfFleshGoat = true;
-			}
-			if (Player.hasJumpOption_Basilisk)
-			{
-				Player.canJumpAgain_Basilisk = true;
-			}
-			Player.rocketTime = Player.rocketTimeMax;
-			Player.wingTime = Player.wingTimeMax;
-			
-			if(advFlight)
-			{
-				AdvReset();
-			}
-
-		}
-		public override void PostUpdateEquips()
-		{
-			if (advFlight)
-			{
-				Player.gravControl = false;
-				Player.gravControl2 = false;
-			}
-		}
-
-        public override void PreUpdateMovement()
-        {
-
-			if(Player.grappling[0] != -1)
-			{
-				RestoreJumps();
-			}
-			if(advFlight && !Player.TryingToHoverDown)
-            {
-                Player.gravControl = false;
-                Player.gravControl2 = false;
-                if (Player.oldVelocity.Y == 0 || Player.grappling[0] != -1)
-				{
-					AdvReset();
-				}
-				{
-					if(Player.controlJump && advFlyAttempt <= 0)
-					{
-						AdvFlightFreeze();
-						AdvRecoverJump();
-					}
-					else if(Player.controlUp)
-					{
-						advFlyAttempt = 2;
-						AdvJumpFreeze();
-						AdvRecoverFlight();
-						Player.controlJump = true;
-					}
-				}
-			}
-			else
-			{
-				AdvReset();
-			}
-			if (Player.jump <= 0)
-			{
-				if (!Player.controlJump)
-                {
-					canStartBoosting = true;
-                }
-				//Main.NewText(boosterFlightTime + "/" + boosterFlightTimeMax);
-				if (boosterFlightTime > 0)
-				{
-					BlockVanillaJumps();
-					if (Player.controlJump && (canStartBoosting || boosterFlightTime < boosterFlightTimeMax))
-					{
-						if (isBoosting)
-						{
-							boosterFlightTime--;
-							if(boosterFlightTime == 0)
-							{
-								canStartBoosting = false;
-								isBoosting = false;
-							}
-							if(boosterFlightTime % 6 == 0)
-                            {
-								Puff();
-                            }
-						}
-						else
-						{
-							boosterFlightTime -= boosterStartCost;
-							isBoosting = true;
-							Puff();
-						}
-						float dir = -MathF.PI / 2f;
-						if (Player.controlRight && Player.controlUp)
-						{
-							dir = -MathF.PI / 4f;
-						}
-						else if (Player.controlUp && Player.controlLeft)
-						{
-							dir = -3 * MathF.PI / 4f;
-						}
-						else if (Player.controlDown && Player.controlLeft)
-						{
-							dir = 3 * MathF.PI / 4f;
-						}
-						else if (Player.controlDown && Player.controlRight)
-						{
-							dir = MathF.PI / 4f;
-						}
-						else if (Player.controlDown)
-						{
-							dir = MathF.PI / 2f;
-						}
-						else if (Player.controlRight && !Player.controlLeft)
-						{
-							dir = 0;
-						}
-						else if (!Player.controlRight && Player.controlLeft)
-						{
-							dir = MathF.PI;
-						}
-						Player.velocity = TRAEMethods.PolarVector(Terraria.Player.jumpSpeed * boosterSpeedMultiplier, dir);
-						Player.velocity.Y += 1E-06f;
-						Player.velocity.Y *= Player.gravDir;
-						//Player.controlUp = false;
-						//Player.gravControl = Player.gravControl2 = false;
-					}
-					else
-					{
-						if(isBoosting)
-						{
-							boosterFlightTime = 0;
-							canStartBoosting = false;
-							isBoosting = false;
-						}
-					}
-				}
-				else if(canLevitate)
-				{
-					BlockVanillaJumps();
-					if(Player.controlJump && canStartBoosting)
-					{
-						canLevitate = false;
-						Player.velocity.Y = (0f - Player.jumpSpeed) * Player.gravDir;
-						Player.jump = Player.jumpHeight * 8;
-						isLevitating = true;
-						SoundEngine.PlaySound(SoundID.DoubleJump with { MaxInstances = 0 }, Player.Center);
-					}
-				}
-				else if(canFaeJump)
-				{
-					BlockVanillaJumps();
-					if(Player.controlJump && canStartBoosting)
-					{
-						canFaeJump = false;
-						Player.velocity.Y = (0f - Player.jumpSpeed) * Player.gravDir;
-						Player.jump = Player.jumpHeight;
-						float rot = Player.velocity.ToRotation();
-						for(int i =0; i < 30; i++)
-						{
-							int d = i % 6;
-							if(d == 4)
-							{
-								d = 2;
-							}
-							if(d == 5)
-							{
-								d = 1;
-							}
-							FairyQueenDust(Player, Player.Center, TRAEMethods.PolarVector(d * 2, rot + 2 * MathF.PI * ((float)i / 30f)));
-						}
-						if(faejumpTime <= 0)
-						{
-							Player.SetImmuneTimeForAllTypes(40);
-							Player.brainOfConfusionDodgeAnimationCounter = 300;
-						}
-						faejumpTime = 180;
-						SoundEngine.PlaySound(SoundID.DoubleJump with { MaxInstances = 0 }, Player.Center);
-					}
-				}
-				else if(Player.releaseJump && doVanillaJumps && advJumpStorage[0] == null)
-				{
-					doVanillaJumps = false;
-					RefreshVanillaJumps();
-				}
-			}
-			else 
-            {
-				canStartBoosting = false;
-            }
-			if(Player.jump == 0)
-			{
-				if(isLevitating)
-				{
-					isLevitating = false;
-					if(Player.mount.Active && Player.mount.BlockExtraJumps)
-					{
-
-					}
-					else
-					{
-						Player.fullRotation = 0;
-					}
-				}
-			}
-			else if(isLevitating)
-			{
-				{
-					Player.fullRotation += Player.direction * Player.gravDir * MathF.PI / 15f;
-					Player.fullRotationOrigin = Player.Size * 0.5f;
-				}
-				for(int i = 0; i < 30; i++)
-				{
-					Dust d = Dust.NewDustPerfect(Player.Center + TRAEMethods.PolarVector(30, MathF.PI * 2f * ((float)i / 3f) + Player.fullRotation), DustID.SilverFlame, Vector2.UnitY * Player.gravDir * -6);
-				}
-			}
-			if(faejumpTime > 0)
-			{
-				faejumpTime--;
-				FairyQueenDust(Player, Player.position + new Vector2(Main.rand.Next(Player.width), Main.rand.Next(Player.height)), Vector2.Zero);
-			}
-			colorCounter++;
-			base.PreUpdateMovement();
-        }
-        public override void PostUpdate()
-		{
-			if (Player.velocity.Y == 0 || Player.sliding)
-			{
-				RestoreJumps();
-			}
-		}
-		void Puff()
-        {
-			for (int i = 0; i < 8; i++)
-            {
-				Vector2 pos = Player.Center + TRAEMethods.PolarVector(5, ((float)i / 8f) * 2 * MathF.PI);
-				Dust d = Dust.NewDustPerfect(pos, DustID.Smoke);
-				d.frame.Y = 0;
-            }
-			SoundEngine.PlaySound(SoundID.DoubleJump with { MaxInstances = 0 }, Player.Center);
-		}
-		Dust FairyQueenDust(Player player, Vector2 pos, Vector2 vel)
-		{
-			Color fairyQueenWeaponsColor = GetFairyQueenWeaponsColor(player, 1f, Main.rand.NextFloat() * 0.4f); //this method never uses any information from the projectile it needs to be called from
-			Dust d = Dust.NewDustPerfect(pos, 267, vel, newColor: fairyQueenWeaponsColor);
-			d.noGravity = true;
-			return d;
 		}
 		public Color GetFairyQueenWeaponsColor(Player player, float alphaChannelMultiplier = 1f, float lerpToWhite = 0f, float? rawHueOverride = null)
 		{
@@ -725,5 +548,6 @@ namespace TRAEProject.NewContent.Items.Accesories.ExtraJumps
 			color4.A = (byte)((float)(int)color4.A * alphaChannelMultiplier);
 			return color4;
 		}
+		
     }
 }

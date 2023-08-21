@@ -22,7 +22,7 @@ namespace TRAEProject.NewContent.Items.Accesories.ExtraJumps
         public override void UpdateAccessory(Player player, bool hideVisual)
         {
             player.GetModPlayer<TRAEJumps>().advFlight = true;
-            player.hasJumpOption_Cloud = true;
+            player.GetJumpState(ExtraJump.CloudInABottle).Enable();
             player.GetModPlayer<Mobility>().flightTimeBonus += 0.2f;
 
             player.jumpSpeedBoost += Mobility.JSV(0.2f);

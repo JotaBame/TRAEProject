@@ -23,7 +23,7 @@ namespace TRAEProject.NewContent.Items.Accesories.ExtraJumps
         }
         public override void UpdateAccessory(Player player, bool hideVisual)
         {
-            player.GetModPlayer<TRAEJumps>().faeJump = true;
+            player.GetJumpState<FaeJump>().Enable();
         }
     }
 }

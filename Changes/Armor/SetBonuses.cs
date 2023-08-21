@@ -113,6 +113,7 @@ namespace TRAEProject.Changes.Armor
             PalCounter++;
             if(Player.onHitRegen)
             {
+                
                 Player.setBonus = "Provides 2hp/s life regen\nYour life regen is used to fill hearts\nThe hearts can store up to 40 life, once full normal regen is resumed\nWhen you or a teamate is damaged the hearts will attempt to heal them.";
                 Player.onHitRegen = false;
                 Player.lifeRegen += 4;
@@ -128,6 +129,15 @@ namespace TRAEProject.Changes.Armor
             if(!TRAEPal)
             {
                 PalBuildup = 0;
+            }
+            if(Player.ghostHeal)
+            {
+                if(Player.lifeSteal < 70)
+                {
+                    float addAmt = Player.lifeRegen * (1/120f);
+                    Player.lifeSteal += addAmt;
+                    Player.lifeRegen = 0;
+                }
             }
         }
         public override void PostHurt(Player.HurtInfo info)
