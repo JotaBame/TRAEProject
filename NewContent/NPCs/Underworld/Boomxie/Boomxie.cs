@@ -8,7 +8,7 @@ using Terraria.GameContent.ItemDropRules;
 using Terraria.ID;
 using Terraria.ModLoader;
 using TRAEProject.NewContent.NPCs.Banners;
-using TRAEProject.NewContent.Items.Weapons.Underworld.WillOfTheWisp;
+using TRAEProject.NewContent.Items.Weapons.Magic.WillOfTheWisp;
 using static Terraria.ModLoader.ModContent;
 using Terraria.DataStructures;
 using Terraria.ModLoader.Utilities;

@@ -67,7 +67,7 @@ namespace TRAEProject.NewContent.Items.FlamethrowerAmmo
             Projectile.GetGlobalProjectile<ProjectileStats>().homesIn = true;
             Projectile.GetGlobalProjectile<ProjectileStats>().dontHitTheSameEnemyMultipleTimes = true;
             Projectile.GetGlobalProjectile<ProjectileStats>().AddsBuff = BuffID.CursedInferno;
-            Projectile.GetGlobalProjectile<ProjectileStats>().AddsBuffDuration = 1200;
+            Projectile.GetGlobalProjectile<ProjectileStats>().AddedBuffDuration = 1200;
             Projectile.GetGlobalProjectile<ProjectileStats>().DamageFalloff = 0.1f;
         }
     }

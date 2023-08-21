@@ -67,7 +67,7 @@ namespace TRAEProject.NewContent.Items.FlamethrowerAmmo
             dustScale = 0.67f; 
 
             Projectile.GetGlobalProjectile<ProjectileStats>().AddsBuff = BuffID.Daybreak;
-            Projectile.GetGlobalProjectile<ProjectileStats>().AddsBuffDuration = 120;
+            Projectile.GetGlobalProjectile<ProjectileStats>().AddedBuffDuration = 120;
             Projectile.penetrate = 5;
             Projectile.GetGlobalProjectile<ProjectileStats>().DamageFalloff = 0.5f;
 

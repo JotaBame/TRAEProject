@@ -19,7 +19,9 @@ namespace TRAEProject.Changes.Weapon.Ranged.Rockets
         public override bool InstancePerEntity => true;
         public void GrenadeAI(Projectile projectile)
         {
-            projectile.rotation = projectile.velocity.ToRotation() + MathHelper.ToRadians(90f) + 1f;
+            projectile.rotation += projectile.rotation += projectile.velocity.X * 0.1f;
+
+
             ++projectile.ai[0];
             if (projectile.ai[0] > 15f)
             {

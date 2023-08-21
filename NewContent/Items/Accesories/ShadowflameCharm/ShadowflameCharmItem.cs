@@ -155,7 +155,7 @@ namespace TRAEProject.NewContent.Items.Accesories.ShadowflameCharm
             Projectile.localNPCHitCooldown = 10;
             Projectile.GetGlobalProjectile<ProjectileStats>().homesIn = true;
             Projectile.GetGlobalProjectile<ProjectileStats>().AddsBuff = BuffID.ShadowFlame;
-            Projectile.GetGlobalProjectile<ProjectileStats>().AddsBuffDuration = 240;
+            Projectile.GetGlobalProjectile<ProjectileStats>().AddedBuffDuration = 240;
         }
         public override void AI()
         {
@@ -194,7 +194,7 @@ namespace TRAEProject.NewContent.Items.Accesories.ShadowflameCharm
 			Projectile.GetGlobalProjectile<ProjectileStats>().AddsBuff = BuffID.Daybreak;
             Projectile.GetGlobalProjectile<ProjectileStats>().AddsBuffChance = 2;
 
-            Projectile.GetGlobalProjectile<ProjectileStats>().AddsBuffDuration = 60;
+            Projectile.GetGlobalProjectile<ProjectileStats>().AddedBuffDuration = 60;
         }
 
 

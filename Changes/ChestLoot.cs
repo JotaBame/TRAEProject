@@ -5,6 +5,7 @@ using TRAEProject.NewContent.Items.Accesories.PalladiumShield;
 using static Terraria.ModLoader.ModContent;
 using TRAEProject.NewContent.Items.Accesories.ExtraJumps;
 using System.Linq;
+using TRAEProject.NewContent.Items.Weapons.Magic.MagicGrenade;
 
 public class ChestLoot : ModSystem
 {
@@ -13,7 +14,7 @@ public class ChestLoot : ModSystem
     public static int[] ShadowItems;
     public override void PostSetupContent()
     {
-        GoldChestItems = new int[] { ItemID.Mace, ItemID.MagicMirror, ItemID.HermesBoots, ItemID.BandofRegeneration, ItemID.ShoeSpikes, ItemID.Extractinator };
+        GoldChestItems = new int[] { ItemID.Mace, ItemID.MagicMirror, ItemID.HermesBoots, ItemID.BandofRegeneration, ItemID.ShoeSpikes, ItemID.LuckyHorseshoe, ItemID.Extractinator, ItemID.FlintlockPistol, ItemType<MagicGrenade>() };
         PyramidItems = new int[] { ItemID.SandstorminaBottle, ItemID.FlyingCarpet, ItemID.AnkhCharm, ItemID.AncientChisel, ItemID.SandBoots, ItemID.ThunderSpear, ItemID.ThunderStaff, ItemID.CatBast, ItemID.MagicConch };
         ShadowItems = new int[] { ItemID.HellwingBow, ItemID.Flamelash, ItemID.FlowerofFire, ItemID.Sunfury, ItemType<PalladiumShield>(), ItemID.GravityGlobe };
     }
@@ -96,20 +97,9 @@ public class ChestLoot : ModSystem
                 }
                 if (Main.tile[chest.x, chest.y].TileFrameX == 1 * 36)
                 {
-                    for (int i = 0; i < GoldChestItems.Length; i++)
-                    {
-                        if (chest.item[0].type == GoldChestItems[i]) 
-                        {
-                            if (WorldGen.genRand.NextBool(8))
-                            {
-                                chest.item[0].SetDefaults(ItemID.LuckyHorseshoe, false);
-
-                            }
-                        }
+                    chest.item[0].SetDefaults(Main.rand.Next(GoldChestItems), false);
 
 
-                    }
-                  
                 }
                 if (chest.item[0].type == ItemID.MagicMissile || chest.item[0].type == ItemID.Muramasa || chest.item[0].type == ItemID.CobaltShield || chest.item[0].type == ItemID.AquaScepter || chest.item[0].type == ItemID.Handgun || chest.item[0].type == ItemID.BlueMoon || chest.item[0].type == ItemID.ShadowKey || chest.item[0].type == ItemID.Valor || chest.item[0].type == ItemID.BoneWelder)
                 {

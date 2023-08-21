@@ -264,6 +264,8 @@ Mods: {
 			PhaseBladeProjectile.DisplayName: Phase Blade Projectile
 			PhaseSaberProjectile.DisplayName: Phase Saber Projectile
 			PalProjectile.DisplayName: Pal Projectile
+			ConfuseRayBeam.DisplayName: Confuse Ray Beam
+			MagicGrenadeP.DisplayName: Magic Grenade P
 		}
 
 		Prefixes: {
@@ -1538,6 +1540,16 @@ Mods: {
 			ManaSurgePotion: {
 				Tooltip: Grants 100% mana reduction for 5 seconds
 				DisplayName: Mana Surge Potion
+			}
+
+			ConfuseRay: {
+				DisplayName: Confuse Ray
+				Tooltip: ""
+			}
+
+			MagicGrenade: {
+				DisplayName: Magic Grenade
+				Tooltip: Explodes in a larger area if it doesn't touch an enemy after a short time
 			}
 		}
 

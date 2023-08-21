@@ -4,11 +4,13 @@ using Terraria.ModLoader;
 using TRAEProject.Changes.Weapon.Ranged.Rockets;
 using Terraria.DataStructures;
 using Microsoft.Xna.Framework;
-using TRAEProject.NewContent.Items.Weapons.Ammo;
+using TRAEProject.NewContent.Items.Weapons.Ranged.Ammo;
 using TRAEProject.Common;
 using TRAEProject.NewContent.TRAEDebuffs;
 using TRAEProject.Common.ModPlayers;
 using static Terraria.ModLoader.ModContent;
+using TRAEProject.NewContent.Items.Weapons.Magic.MagicGrenade;
+
 namespace TRAEProject.Changes.Weapon
 {
     public class StunningProjectile : GlobalProjectile
@@ -56,7 +58,11 @@ namespace TRAEProject.Changes.Weapon
                     }
                    
                 }
-            
+                if (projectile.type == ProjectileType<MagicGrenadeP>() && projectile.ai[0] >= 75f)
+                {
+                    int duration = Main.rand.Next(90, 120);
+                    target.GetGlobalNPC<Stun>().StunMe(target, duration);
+                }
                 switch (projectile.type)
                 {
                     case ProjectileID.TheDaoofPow:
@@ -65,7 +71,7 @@ namespace TRAEProject.Changes.Weapon
                             int duration = Main.rand.Next(60, 80);
                             target.GetGlobalNPC<Stun>().StunMe(target, duration);
                         }
-                        break;
+                        break;     
                     case ProjectileID.SolarWhipSword:
                     case ProjectileID.SolarWhipSwordExplosion:
                         if (Main.rand.NextBool(8))

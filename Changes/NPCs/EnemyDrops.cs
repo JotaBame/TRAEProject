@@ -6,14 +6,14 @@ using System;
 using System.Linq;
 using static Terraria.ModLoader.ModContent;
 using Terraria.GameContent.ItemDropRules;
-using TRAEProject.NewContent.Items.Weapons.Jungla;
+using TRAEProject.NewContent.Items.Weapons.Ranged.Jungla;
 using TRAEProject.NewContent.Items.Materials;
 using TRAEProject.NewContent.Items.Accesories.ShadowflameCharm;
 using TRAEProject.NewContent.Items.Accesories.MechanicalEye;
 using TRAEProject.NewContent.Items.Accesories.SpaceBalloon;
-using TRAEProject.NewContent.Items.Weapons.Ammo;
-using TRAEProject.NewContent.Items.Weapons.HeadHarvester;
-using TRAEProject.NewContent.Items.Weapons.SharpLament;
+using TRAEProject.NewContent.Items.Weapons.Ranged.Ammo;
+using TRAEProject.NewContent.Items.Weapons.Melee.HeadHarvester;
+using TRAEProject.NewContent.Items.Weapons.Magic.SharpLament;
 using TRAEProject.NewContent.Items.Accesories.ExtraJumps;
 using TRAEProject.NewContent.NPCs.Underworld;
 

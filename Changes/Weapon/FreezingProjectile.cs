@@ -2,7 +2,7 @@
 using Terraria.ID;
 using Terraria.ModLoader;
 using TRAEProject.NewContent.Items.Weapons.Summoner.AbsoluteZero;
-using TRAEProject.NewContent.Items.Weapons.Launchers.CryoCannon;
+using TRAEProject.NewContent.Items.Weapons.Ranged.Launchers.CryoCannon;
 using TRAEProject.Common;
 using TRAEProject.NewContent.Items.FlamethrowerAmmo;
 using static Terraria.ModLoader.ModContent;

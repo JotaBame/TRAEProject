@@ -8,7 +8,7 @@ using Terraria;
 using Terraria.ID;
 using TRAEProject.Common;
 using static Terraria.ModLoader.ModContent;
-using TRAEProject.NewContent.Items.Weapons.Ammo;
+using TRAEProject.NewContent.Items.Weapons.Ranged.Ammo;
 namespace TRAEProject.NewContent.TRAEDebuffs
 {
     public class GhostBulletStacks : TRAEDebuff

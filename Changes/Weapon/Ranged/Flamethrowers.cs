@@ -85,7 +85,7 @@ namespace TRAEProject.Changes.Weapons.Ranged
             Projectile.ArmorPenetration = 3;
             Projectile.GetGlobalProjectile<ProjectileStats>().dontHitTheSameEnemyMultipleTimes = true;
             Projectile.GetGlobalProjectile<ProjectileStats>().AddsBuff = BuffID.OnFire;
-            Projectile.GetGlobalProjectile<ProjectileStats>().AddsBuffDuration = 1200;
+            Projectile.GetGlobalProjectile<ProjectileStats>().AddedBuffDuration = 1200;
             Projectile.ai[0] = 1f;
             dieInWater = true;
         }
@@ -109,7 +109,7 @@ namespace TRAEProject.Changes.Weapons.Ranged
             Projectile.penetrate = 5;
             Projectile.GetGlobalProjectile<ProjectileStats>().dontHitTheSameEnemyMultipleTimes = true;
             Projectile.GetGlobalProjectile<ProjectileStats>().AddsBuff = BuffID.Frostburn2;
-            Projectile.GetGlobalProjectile<ProjectileStats>().AddsBuffDuration = 1200;
+            Projectile.GetGlobalProjectile<ProjectileStats>().AddedBuffDuration = 1200;
         }
     }
 }

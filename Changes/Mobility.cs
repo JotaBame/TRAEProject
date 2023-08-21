@@ -220,7 +220,7 @@ namespace TRAEProject
                     Main.gore[num20].velocity *= 0.4f;
                     */
                 }
-                else if(dashing && blizzardDash && (Player.GetJumpState(ExtraJump.BlizzardInABottle).Available || (Player.GetModPlayer<TRAEJumps>().doVanillaJumps && Player.GetModPlayer<TRAEJumps>().allowBlizzardDash && !Player.GetModPlayer<TRAEJumps>().usedBlizzardDash)))
+                else if(dashing && blizzardDash && (Player.GetJumpState(ExtraJump.BlizzardInABottle).Available || (Player.GetModPlayer<TRAEJumps>().allowBlizzardDash && !Player.GetModPlayer<TRAEJumps>().usedBlizzardDash)))
                 {
                     
                     Player.GetModPlayer<TRAEJumps>().usedBlizzardDash = true;

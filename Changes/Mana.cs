@@ -10,7 +10,7 @@ using MonoMod.Cil;
 using Terraria;
 using Terraria.GameContent.UI.ResourceSets;
 using Terraria.ModLoader;
-using TRAEProject.NewContent.Items.Weapons.OnyxCurseDoll;
+using TRAEProject.NewContent.Items.Weapons.Magic.OnyxCurseDoll;
 using static Terraria.ModLoader.ModContent;
 using Terraria.ID;
 

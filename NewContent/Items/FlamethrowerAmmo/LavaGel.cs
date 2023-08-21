@@ -59,7 +59,7 @@ namespace TRAEProject.NewContent.Items.FlamethrowerAmmo
             dustScale = 0.8f;
             Projectile.ArmorPenetration = 3;
             Projectile.GetGlobalProjectile<ProjectileStats>().AddsBuff = BuffID.OnFire3;
-            Projectile.GetGlobalProjectile<ProjectileStats>().AddsBuffDuration = 60;
+            Projectile.GetGlobalProjectile<ProjectileStats>().AddedBuffDuration = 60;
             Projectile.GetGlobalProjectile<ProjectileStats>().DamageFalloff = 0.2f;
             dieInWater = true;
         }

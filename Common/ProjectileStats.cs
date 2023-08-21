@@ -42,8 +42,8 @@ namespace TRAEProject.Common
         // Adding Buffs
         public int AddsBuff = 0; // Adds a buff when hitting a target
         public int AddsBuffChance = 1; // 1 in [variable] chance of that buff being applied to the target
-        public int AddsBuffDuration = 300; // Measured in ticks, since the game runs at 60 frames per second, this base value is 5 seconds.
-        //
+        public int AddedBuffDuration = 300; // Measured in ticks, since the game runs at 60 frames per second, this base value is 5 seconds.
+        public int AddedBuffMinDuration = 0; // equals the max duration if it's left at 0. Used when you want some randomness in the duration.
         // Explosion
         public bool explodes = false; // set to true to make the projectile explode. 
         public int ExplosionRadius = 80; // Hitbox size of the base explosion. Base value is 80.
@@ -56,6 +56,8 @@ namespace TRAEProject.Common
         public override void AI(Projectile projectile)
         {
             Player player = Main.player[projectile.owner];
+            if (AddedBuffMinDuration == 0)
+                AddedBuffMinDuration = AddedBuffDuration;
             if (ProjectileID.Sets.IsAWhip[projectile.type] || projectile.type == ProjectileType<WhipProjectile>())
             {
                 for (int i = 0; i < 1000; i++)
@@ -226,8 +228,10 @@ namespace TRAEProject.Common
 
             }
             if (AddsBuff != 0 && Main.rand.NextBool(AddsBuffChance))
-                target.AddBuff(AddsBuff, AddsBuffDuration);
-
+            {
+                int duration = Main.rand.Next(AddedBuffMinDuration, AddedBuffDuration + 1);
+                target.AddBuff(AddsBuff, duration);
+            }
             if (dontHitTheSameEnemyMultipleTimes)
                 projectile.localNPCImmunity[target.whoAmI] = -1; // this makes the enemy invincible to the projectile.
 

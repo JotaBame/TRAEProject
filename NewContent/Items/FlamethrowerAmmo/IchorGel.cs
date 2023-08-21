@@ -108,7 +108,7 @@ namespace TRAEProject.NewContent.Items.FlamethrowerAmmo
                 Projectile.GetGlobalProjectile<ProjectileStats>().BouncesOffTiles = true;
                 Projectile.GetGlobalProjectile<ProjectileStats>().DirectDamage = 0.7f;
                 Projectile.GetGlobalProjectile<ProjectileStats>().AddsBuff = BuffID.Ichor;
-                Projectile.GetGlobalProjectile<ProjectileStats>().AddsBuffDuration = 240;
+                Projectile.GetGlobalProjectile<ProjectileStats>().AddedBuffDuration = 240;
             }
             public override bool OnTileCollide(Vector2 oldVelocity)
             {

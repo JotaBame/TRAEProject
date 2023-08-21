@@ -40,8 +40,9 @@ namespace TRAEProject.Changes.Items
                     projectile.penetrate = 3;
                     break;
                 case ProjectileID.BookOfSkullsSkull:
-                    projectile.timeLeft = 180;
-                    break;
+                    projectile.usesLocalNPCImmunity = true;
+                    projectile.localNPCHitCooldown = 10;
+                        break;
                 case ProjectileID.ShadowBeamFriendly:
                     projectile.GetGlobalProjectile<ProjectileStats>().SmartBouncesOffEnemies = true;
                     projectile.usesLocalNPCImmunity = true;
@@ -130,7 +131,7 @@ namespace TRAEProject.Changes.Items
 					projectile.usesLocalNPCImmunity = true;
                     projectile.localNPCHitCooldown = 10;
                     break;
-				case ProjectileID.NebulaArcanum:
+                case ProjectileID.NebulaArcanum:
                     projectile.extraUpdates = 2;
                     break;            
                 case ProjectileID.GoldenShowerFriendly:
@@ -142,40 +143,24 @@ namespace TRAEProject.Changes.Items
 				case ProjectileID.FrostBoltStaff:
                     projectile.penetrate = 2;
                     break;
-                case ProjectileID.AmethystBolt:
-                    projectile.GetGlobalProjectile<ProjectileStats>().AddsBuff = BuffID.Confused;
-                    projectile.GetGlobalProjectile<ProjectileStats>().AddsBuffDuration = 10 * 60;
-                    break;
-                case ProjectileID.TopazBolt:
-                    projectile.GetGlobalProjectile<ProjectileStats>().AddsBuff = BuffID.Midas;
-                    projectile.GetGlobalProjectile<ProjectileStats>().AddsBuffDuration = 10 * 60;
-                    break;
+              
                 case ProjectileID.SapphireBolt:
-                    projectile.penetrate = 1;
+                    projectile.penetrate = 2;
                     projectile.GetGlobalProjectile<ProjectileStats>().dontHitTheSameEnemyMultipleTimes = true;
                     projectile.usesLocalNPCImmunity = true;
                     break;
                 case ProjectileID.EmeraldBolt:
-                    projectile.penetrate = 1;
+                    projectile.penetrate = 2;
                     projectile.GetGlobalProjectile<ProjectileStats>().dontHitTheSameEnemyMultipleTimes = true;
                     projectile.usesLocalNPCImmunity = true;
-                    break;
-                case ProjectileID.AmberBolt:
-                    projectile.penetrate = 3;
-                    projectile.usesLocalNPCImmunity = true;
-                    projectile.localNPCHitCooldown = 8;
-                    projectile.GetGlobalProjectile<ProjectileStats>().DamageFalloff = 0.25f;
                     break;
                 case ProjectileID.RubyBolt:
-                    projectile.penetrate = -1;
+                case ProjectileID.AmberBolt:
                     projectile.GetGlobalProjectile<ProjectileStats>().dontHitTheSameEnemyMultipleTimes = true;
-                    projectile.GetGlobalProjectile<ProjectileStats>().explodes = true;
-                    projectile.GetGlobalProjectile<ProjectileStats>().ExplosionRadius = 60;
                     projectile.usesLocalNPCImmunity = true;
                     break;
                 case ProjectileID.DiamondBolt:
                     projectile.penetrate = 2;
-                    projectile.extraUpdates = 1;
                     projectile.GetGlobalProjectile<ProjectileStats>().dontHitTheSameEnemyMultipleTimes = true;
                     projectile.usesLocalNPCImmunity = true;
                     break;
@@ -191,7 +176,7 @@ namespace TRAEProject.Changes.Items
                     break;
                 case ProjectileID.InfernoFriendlyBolt:
                     projectile.GetGlobalProjectile<ProjectileStats>().AddsBuff = BuffID.Daybreak;
-                    projectile.GetGlobalProjectile<ProjectileStats>().AddsBuffDuration = 240;
+                    projectile.GetGlobalProjectile<ProjectileStats>().AddedBuffDuration = 240;
                     break;
                 case ProjectileID.InfernoFriendlyBlast:              
                     projectile.penetrate = 16;
@@ -238,14 +223,7 @@ namespace TRAEProject.Changes.Items
         public override void OnHitNPC(Projectile projectile, NPC target, NPC.HitInfo hit, int damageDone)
         {
             Player player = Main.player[projectile.owner];
-            if(projectile.type == ProjectileID.EmeraldBolt)
-            {
-                if(player.statLife < player.statLifeMax2)
-                {
-                    player.statLife++;
-                    player.HealEffect(1, true);
-                }
-            }
+
             if (DrainManaOnHit > 0)
             {
                 if (player.statMana < DrainManaOnHit * player.manaCost)

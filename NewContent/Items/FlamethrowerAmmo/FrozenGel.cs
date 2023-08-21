@@ -61,7 +61,7 @@ namespace TRAEProject.NewContent.Items.FlamethrowerAmmo
             scalemodifier = 0.2f;
             Projectile.GetGlobalProjectile<ProjectileStats>().DamageFalloff = 0.15f;
 			Projectile.GetGlobalProjectile<ProjectileStats>().AddsBuff = BuffID.Frostburn2;
-            Projectile.GetGlobalProjectile<ProjectileStats>().AddsBuffDuration = 180;
+            Projectile.GetGlobalProjectile<ProjectileStats>().AddedBuffDuration = 180;
 			Projectile.penetrate = 5;
         }
 

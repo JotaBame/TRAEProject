@@ -130,12 +130,12 @@ namespace TRAEProject.Changes.Weapon.Melee
 
                 case ProjectileID.CorruptYoyo:
                     projectile.GetGlobalProjectile<ProjectileStats>().AddsBuff = BuffID.Poisoned;
-                    projectile.GetGlobalProjectile<ProjectileStats>().AddsBuffDuration = 180;
+                    projectile.GetGlobalProjectile<ProjectileStats>().AddedBuffDuration = 180;
                     break;
                 case ProjectileID.StarWrath:
                     projectile.penetrate = 1;
                     projectile.GetGlobalProjectile<ProjectileStats>().AddsBuff = BuffID.Daybreak;
-                    projectile.GetGlobalProjectile<ProjectileStats>().AddsBuffDuration = 300;
+                    projectile.GetGlobalProjectile<ProjectileStats>().AddedBuffDuration = 300;
                     break;
                 case ProjectileID.DaybreakExplosion:
                     projectile.penetrate = 2;

@@ -29,12 +29,12 @@
           "Mono.Cecil.Mdb": "0.11.4.0",
           "Mono.Cecil.Pdb": "0.11.4.0",
           "Mono.Cecil.Rocks": "0.11.4.0",
-          "MonoMod.Backports": "23.3.22.1",
-          "MonoMod.Core": "23.3.22.1",
+          "MonoMod.Backports": "1.0.1.0",
+          "MonoMod.Core": "1.0.1.0",
           "MonoMod.Iced": "1.17.0.0",
-          "MonoMod.ILHelpers": "23.3.22.1",
-          "MonoMod.RuntimeDetour": "23.3.22.1",
-          "MonoMod.Utils": "23.3.22.1",
+          "MonoMod.ILHelpers": "1.0.0.0",
+          "MonoMod.RuntimeDetour": "25.0.2.0",
+          "MonoMod.Utils": "25.0.3.0",
           "MP3Sharp": "1.0.0.0",
           "Newtonsoft.Json": "12.0.0.0",
           "NVorbis": "0.10.0.3",
@@ -86,7 +86,7 @@
         "runtime": {
           "FNA.dll": {
             "assemblyVersion": "22.7.0.0",
-            "fileVersion": "0.0.0.0"
+            "fileVersion": "22.7.0.0"
           }
         }
       },
@@ -146,23 +146,26 @@
           }
         },
         "resources": {
-          "ko/Microsoft.CodeAnalysis.CSharp.resources.dll": {
-            "locale": "ko"
-          },
           "cs/Microsoft.CodeAnalysis.CSharp.resources.dll": {
             "locale": "cs"
           },
-          "tr/Microsoft.CodeAnalysis.CSharp.resources.dll": {
-            "locale": "tr"
+          "de/Microsoft.CodeAnalysis.CSharp.resources.dll": {
+            "locale": "de"
           },
-          "ru/Microsoft.CodeAnalysis.CSharp.resources.dll": {
-            "locale": "ru"
+          "es/Microsoft.CodeAnalysis.CSharp.resources.dll": {
+            "locale": "es"
+          },
+          "fr/Microsoft.CodeAnalysis.CSharp.resources.dll": {
+            "locale": "fr"
+          },
+          "it/Microsoft.CodeAnalysis.CSharp.resources.dll": {
+            "locale": "it"
           },
           "ja/Microsoft.CodeAnalysis.CSharp.resources.dll": {
             "locale": "ja"
           },
-          "fr/Microsoft.CodeAnalysis.CSharp.resources.dll": {
-            "locale": "fr"
+          "ko/Microsoft.CodeAnalysis.CSharp.resources.dll": {
+            "locale": "ko"
           },
           "pl/Microsoft.CodeAnalysis.CSharp.resources.dll": {
             "locale": "pl"
@@ -170,20 +173,17 @@
           "pt-BR/Microsoft.CodeAnalysis.CSharp.resources.dll": {
             "locale": "pt-BR"
           },
+          "ru/Microsoft.CodeAnalysis.CSharp.resources.dll": {
+            "locale": "ru"
+          },
+          "tr/Microsoft.CodeAnalysis.CSharp.resources.dll": {
+            "locale": "tr"
+          },
           "zh-Hans/Microsoft.CodeAnalysis.CSharp.resources.dll": {
             "locale": "zh-Hans"
           },
           "zh-Hant/Microsoft.CodeAnalysis.CSharp.resources.dll": {
             "locale": "zh-Hant"
-          },
-          "es/Microsoft.CodeAnalysis.CSharp.resources.dll": {
-            "locale": "es"
-          },
-          "it/Microsoft.CodeAnalysis.CSharp.resources.dll": {
-            "locale": "it"
-          },
-          "de/Microsoft.CodeAnalysis.CSharp.resources.dll": {
-            "locale": "de"
           }
         }
       },
@@ -195,23 +195,26 @@
           }
         },
         "resources": {
-          "ko/Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll": {
-            "locale": "ko"
-          },
           "cs/Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll": {
             "locale": "cs"
           },
-          "tr/Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll": {
-            "locale": "tr"
+          "de/Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll": {
+            "locale": "de"
           },
-          "ru/Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll": {
-            "locale": "ru"
+          "es/Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll": {
+            "locale": "es"
+          },
+          "fr/Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll": {
+            "locale": "fr"
+          },
+          "it/Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll": {
+            "locale": "it"
           },
           "ja/Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll": {
             "locale": "ja"
           },
-          "fr/Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll": {
-            "locale": "fr"
+          "ko/Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll": {
+            "locale": "ko"
           },
           "pl/Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll": {
             "locale": "pl"
@@ -219,20 +222,17 @@
           "pt-BR/Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll": {
             "locale": "pt-BR"
           },
+          "ru/Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll": {
+            "locale": "ru"
+          },
+          "tr/Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll": {
+            "locale": "tr"
+          },
           "zh-Hans/Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll": {
             "locale": "zh-Hans"
           },
           "zh-Hant/Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll": {
             "locale": "zh-Hant"
-          },
-          "es/Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll": {
-            "locale": "es"
-          },
-          "it/Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll": {
-            "locale": "it"
-          },
-          "de/Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll": {
-            "locale": "de"
           }
         }
       },
@@ -244,23 +244,26 @@
           }
         },
         "resources": {
-          "ko/Microsoft.CodeAnalysis.resources.dll": {
-            "locale": "ko"
-          },
           "cs/Microsoft.CodeAnalysis.resources.dll": {
             "locale": "cs"
           },
-          "tr/Microsoft.CodeAnalysis.resources.dll": {
-            "locale": "tr"
+          "de/Microsoft.CodeAnalysis.resources.dll": {
+            "locale": "de"
           },
-          "ru/Microsoft.CodeAnalysis.resources.dll": {
-            "locale": "ru"
+          "es/Microsoft.CodeAnalysis.resources.dll": {
+            "locale": "es"
+          },
+          "fr/Microsoft.CodeAnalysis.resources.dll": {
+            "locale": "fr"
+          },
+          "it/Microsoft.CodeAnalysis.resources.dll": {
+            "locale": "it"
           },
           "ja/Microsoft.CodeAnalysis.resources.dll": {
             "locale": "ja"
           },
-          "fr/Microsoft.CodeAnalysis.resources.dll": {
-            "locale": "fr"
+          "ko/Microsoft.CodeAnalysis.resources.dll": {
+            "locale": "ko"
           },
           "pl/Microsoft.CodeAnalysis.resources.dll": {
             "locale": "pl"
@@ -268,20 +271,17 @@
           "pt-BR/Microsoft.CodeAnalysis.resources.dll": {
             "locale": "pt-BR"
           },
+          "ru/Microsoft.CodeAnalysis.resources.dll": {
+            "locale": "ru"
+          },
+          "tr/Microsoft.CodeAnalysis.resources.dll": {
+            "locale": "tr"
+          },
           "zh-Hans/Microsoft.CodeAnalysis.resources.dll": {
             "locale": "zh-Hans"
           },
           "zh-Hant/Microsoft.CodeAnalysis.resources.dll": {
             "locale": "zh-Hant"
-          },
-          "es/Microsoft.CodeAnalysis.resources.dll": {
-            "locale": "es"
-          },
-          "it/Microsoft.CodeAnalysis.resources.dll": {
-            "locale": "it"
-          },
-          "de/Microsoft.CodeAnalysis.resources.dll": {
-            "locale": "de"
           }
         }
       },
@@ -301,23 +301,26 @@
           }
         },
         "resources": {
-          "ko/Microsoft.CodeAnalysis.Workspaces.resources.dll": {
-            "locale": "ko"
-          },
           "cs/Microsoft.CodeAnalysis.Workspaces.resources.dll": {
             "locale": "cs"
           },
-          "tr/Microsoft.CodeAnalysis.Workspaces.resources.dll": {
-            "locale": "tr"
+          "de/Microsoft.CodeAnalysis.Workspaces.resources.dll": {
+            "locale": "de"
           },
-          "ru/Microsoft.CodeAnalysis.Workspaces.resources.dll": {
-            "locale": "ru"
+          "es/Microsoft.CodeAnalysis.Workspaces.resources.dll": {
+            "locale": "es"
+          },
+          "fr/Microsoft.CodeAnalysis.Workspaces.resources.dll": {
+            "locale": "fr"
+          },
+          "it/Microsoft.CodeAnalysis.Workspaces.resources.dll": {
+            "locale": "it"
           },
           "ja/Microsoft.CodeAnalysis.Workspaces.resources.dll": {
             "locale": "ja"
           },
-          "fr/Microsoft.CodeAnalysis.Workspaces.resources.dll": {
-            "locale": "fr"
+          "ko/Microsoft.CodeAnalysis.Workspaces.resources.dll": {
+            "locale": "ko"
           },
           "pl/Microsoft.CodeAnalysis.Workspaces.resources.dll": {
             "locale": "pl"
@@ -325,20 +328,17 @@
           "pt-BR/Microsoft.CodeAnalysis.Workspaces.resources.dll": {
             "locale": "pt-BR"
           },
+          "ru/Microsoft.CodeAnalysis.Workspaces.resources.dll": {
+            "locale": "ru"
+          },
+          "tr/Microsoft.CodeAnalysis.Workspaces.resources.dll": {
+            "locale": "tr"
+          },
           "zh-Hans/Microsoft.CodeAnalysis.Workspaces.resources.dll": {
             "locale": "zh-Hans"
           },
           "zh-Hant/Microsoft.CodeAnalysis.Workspaces.resources.dll": {
             "locale": "zh-Hant"
-          },
-          "es/Microsoft.CodeAnalysis.Workspaces.resources.dll": {
-            "locale": "es"
-          },
-          "it/Microsoft.CodeAnalysis.Workspaces.resources.dll": {
-            "locale": "it"
-          },
-          "de/Microsoft.CodeAnalysis.Workspaces.resources.dll": {
-            "locale": "de"
           }
         }
       },
@@ -350,23 +350,26 @@
           }
         },
         "resources": {
-          "ko/Microsoft.CodeAnalysis.Workspaces.MSBuild.resources.dll": {
-            "locale": "ko"
-          },
           "cs/Microsoft.CodeAnalysis.Workspaces.MSBuild.resources.dll": {
             "locale": "cs"
           },
-          "tr/Microsoft.CodeAnalysis.Workspaces.MSBuild.resources.dll": {
-            "locale": "tr"
+          "de/Microsoft.CodeAnalysis.Workspaces.MSBuild.resources.dll": {
+            "locale": "de"
           },
-          "ru/Microsoft.CodeAnalysis.Workspaces.MSBuild.resources.dll": {
-            "locale": "ru"
+          "es/Microsoft.CodeAnalysis.Workspaces.MSBuild.resources.dll": {
+            "locale": "es"
+          },
+          "fr/Microsoft.CodeAnalysis.Workspaces.MSBuild.resources.dll": {
+            "locale": "fr"
+          },
+          "it/Microsoft.CodeAnalysis.Workspaces.MSBuild.resources.dll": {
+            "locale": "it"
           },
           "ja/Microsoft.CodeAnalysis.Workspaces.MSBuild.resources.dll": {
             "locale": "ja"
           },
-          "fr/Microsoft.CodeAnalysis.Workspaces.MSBuild.resources.dll": {
-            "locale": "fr"
+          "ko/Microsoft.CodeAnalysis.Workspaces.MSBuild.resources.dll": {
+            "locale": "ko"
           },
           "pl/Microsoft.CodeAnalysis.Workspaces.MSBuild.resources.dll": {
             "locale": "pl"
@@ -374,20 +377,17 @@
           "pt-BR/Microsoft.CodeAnalysis.Workspaces.MSBuild.resources.dll": {
             "locale": "pt-BR"
           },
+          "ru/Microsoft.CodeAnalysis.Workspaces.MSBuild.resources.dll": {
+            "locale": "ru"
+          },
+          "tr/Microsoft.CodeAnalysis.Workspaces.MSBuild.resources.dll": {
+            "locale": "tr"
+          },
           "zh-Hans/Microsoft.CodeAnalysis.Workspaces.MSBuild.resources.dll": {
             "locale": "zh-Hans"
           },
           "zh-Hant/Microsoft.CodeAnalysis.Workspaces.MSBuild.resources.dll": {
             "locale": "zh-Hant"
-          },
-          "es/Microsoft.CodeAnalysis.Workspaces.MSBuild.resources.dll": {
-            "locale": "es"
-          },
-          "it/Microsoft.CodeAnalysis.Workspaces.MSBuild.resources.dll": {
-            "locale": "it"
-          },
-          "de/Microsoft.CodeAnalysis.Workspaces.MSBuild.resources.dll": {
-            "locale": "de"
           }
         }
       },
@@ -431,19 +431,19 @@
           }
         }
       },
-      "MonoMod.Backports/23.3.22.1": {
+      "MonoMod.Backports/1.0.1.0": {
         "runtime": {
           "MonoMod.Backports.dll": {
-            "assemblyVersion": "23.3.22.1",
-            "fileVersion": "23.3.22.1"
+            "assemblyVersion": "1.0.1.0",
+            "fileVersion": "1.0.1.0"
           }
         }
       },
-      "MonoMod.Core/23.3.22.1": {
+      "MonoMod.Core/1.0.1.0": {
         "runtime": {
           "MonoMod.Core.dll": {
-            "assemblyVersion": "23.3.22.1",
-            "fileVersion": "23.3.22.1"
+            "assemblyVersion": "1.0.1.0",
+            "fileVersion": "1.0.1.0"
           }
         }
       },
@@ -455,27 +455,27 @@
           }
         }
       },
-      "MonoMod.ILHelpers/23.3.22.1": {
+      "MonoMod.ILHelpers/1.0.0.0": {
         "runtime": {
           "MonoMod.ILHelpers.dll": {
-            "assemblyVersion": "23.3.22.1",
-            "fileVersion": "23.3.22.1"
+            "assemblyVersion": "1.0.0.0",
+            "fileVersion": "0.0.0.0"
           }
         }
       },
-      "MonoMod.RuntimeDetour/23.3.22.1": {
+      "MonoMod.RuntimeDetour/25.0.2.0": {
         "runtime": {
           "MonoMod.RuntimeDetour.dll": {
-            "assemblyVersion": "23.3.22.1",
-            "fileVersion": "23.3.22.1"
+            "assemblyVersion": "25.0.2.0",
+            "fileVersion": "25.0.2.0"
           }
         }
       },
-      "MonoMod.Utils/23.3.22.1": {
+      "MonoMod.Utils/25.0.3.0": {
         "runtime": {
           "MonoMod.Utils.dll": {
-            "assemblyVersion": "23.3.22.1",
-            "fileVersion": "23.3.22.1"
+            "assemblyVersion": "25.0.3.0",
+            "fileVersion": "25.0.3.0"
           }
         }
       },
@@ -794,12 +794,12 @@
       "serviceable": false,
       "sha512": ""
     },
-    "MonoMod.Backports/23.3.22.1": {
+    "MonoMod.Backports/1.0.1.0": {
       "type": "reference",
       "serviceable": false,
       "sha512": ""
     },
-    "MonoMod.Core/23.3.22.1": {
+    "MonoMod.Core/1.0.1.0": {
       "type": "reference",
       "serviceable": false,
       "sha512": ""
@@ -809,17 +809,17 @@
       "serviceable": false,
       "sha512": ""
     },
-    "MonoMod.ILHelpers/23.3.22.1": {
+    "MonoMod.ILHelpers/1.0.0.0": {
       "type": "reference",
       "serviceable": false,
       "sha512": ""
     },
-    "MonoMod.RuntimeDetour/23.3.22.1": {
+    "MonoMod.RuntimeDetour/25.0.2.0": {
       "type": "reference",
       "serviceable": false,
       "sha512": ""
     },
-    "MonoMod.Utils/23.3.22.1": {
+    "MonoMod.Utils/25.0.3.0": {
       "type": "reference",
       "serviceable": false,
       "sha512": ""
