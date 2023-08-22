@@ -32,9 +32,10 @@ public class ChestLoot : ModSystem
                 }
 
 
-                if (WorldGen.genRand.NextBool(2) && Main.tile[chest.x, chest.y].TileType == TileID.Containers && Main.tile[chest.x, chest.y].TileFrameX == 0 * 36)
-                {
-                    for (int inventoryIndex = 0; inventoryIndex < 40; inventoryIndex++)
+               
+                if (WorldGen.genRand.NextBool(2) && Main.tile[chest.x, chest.y].TileType == TileID.Containers && (Main.tile[chest.x, chest.y].TileFrameX == 15 * 36 || Main.tile[chest.x, chest.y].TileFrameX == 10 * 36))
+                    {
+                        for (int inventoryIndex = 0; inventoryIndex < 40; inventoryIndex++)
                     {
                         if (chest.item[inventoryIndex].type == ItemID.None)
                         {
@@ -58,6 +59,20 @@ public class ChestLoot : ModSystem
                 }
                 if (WorldGen.genRand.NextBool(2) && Main.tile[chest.x, chest.y].TileType == TileID.Containers && Main.tile[chest.x, chest.y].TileFrameX == 1 * 36)
                 {
+                    chest.item[0].SetDefaults(Main.rand.Next(GoldChestItems), false);
+                    if (chest.item[0].type == ItemID.FlintlockPistol)
+                    {
+                        for (int i = 0; i < 0; i++)
+                        {
+
+                           if (chest.item[i].type == ItemID.None)
+                            {
+                                chest.item[i].SetDefaults(ItemID.MusketBall, false);
+                                chest.item[i].stack = 100;
+
+                            }
+                        }
+                    }
                     for (int i = 0; i < 40; i++)
                     {
                         if (chest.item[i].type == ItemID.None)
@@ -97,7 +112,6 @@ public class ChestLoot : ModSystem
                 }
                 if (Main.tile[chest.x, chest.y].TileFrameX == 1 * 36)
                 {
-                    chest.item[0].SetDefaults(Main.rand.Next(GoldChestItems), false);
 
 
                 }

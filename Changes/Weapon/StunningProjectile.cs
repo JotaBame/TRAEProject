@@ -10,6 +10,7 @@ using TRAEProject.NewContent.TRAEDebuffs;
 using TRAEProject.Common.ModPlayers;
 using static Terraria.ModLoader.ModContent;
 using TRAEProject.NewContent.Items.Weapons.Magic.MagicGrenade;
+using TRAEProject.NewContent.Items.Weapons.Magic.FlashRay;
 
 namespace TRAEProject.Changes.Weapon
 {
@@ -61,6 +62,24 @@ namespace TRAEProject.Changes.Weapon
                 if (projectile.type == ProjectileType<MagicGrenadeP>() && projectile.ai[0] >= 75f)
                 {
                     int duration = Main.rand.Next(90, 120);
+                    target.GetGlobalNPC<Stun>().StunMe(target, duration);
+                }
+                if (projectile.type == ProjectileType<FlashRayBeam>() && Main.rand.NextBool(3))
+                {
+                    int RNG = Main.rand.Next(10);
+                    int duration = 30;
+                    if (RNG < 4)
+                    {
+                        duration = 45;
+                    }
+                    if (RNG >= 4 && RNG < 8)
+                    {
+                        duration = 60;
+                    }
+                    if (RNG >= 8)
+                    {
+                        duration = 90;
+                    }
                     target.GetGlobalNPC<Stun>().StunMe(target, duration);
                 }
                 switch (projectile.type)

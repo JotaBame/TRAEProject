@@ -266,6 +266,7 @@ Mods: {
 			PalProjectile.DisplayName: Pal Projectile
 			ConfuseRayBeam.DisplayName: Confuse Ray Beam
 			MagicGrenadeP.DisplayName: Magic Grenade P
+			FlashRayBeam.DisplayName: Flash Ray Beam
 		}
 
 		Prefixes: {
@@ -1544,12 +1545,17 @@ Mods: {
 
 			ConfuseRay: {
 				DisplayName: Confuse Ray
-				Tooltip: ""
+				Tooltip: A fast confusing ray of energy
 			}
 
 			MagicGrenade: {
 				DisplayName: Magic Grenade
-				Tooltip: Explodes in a larger area if it doesn't touch an enemy after a short time
+				Tooltip: Creates a bigger, more violent explosion after a short time
+			}
+
+			FlashRay: {
+				Tooltip: A fast dazing ray of energy
+				DisplayName: Flash Ray
 			}
 		}
 

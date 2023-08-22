@@ -95,6 +95,14 @@ namespace TRAEProject.Changes.Weapon.Melee
 
                 case ProjectileID.VampireKnife:
                     projectile.ArmorPenetration = 15;
+                    break;    
+				case ProjectileID.Shroomerang:
+                    projectile.usesIDStaticNPCImmunity = true;
+                    projectile.idStaticNPCHitCooldown = 10;
+                    break;
+				case 131:
+                    projectile.usesIDStaticNPCImmunity = true;
+                    projectile.idStaticNPCHitCooldown = 10;
                     break;
                 case ProjectileID.ButchersChainsaw:
                     projectile.penetrate = -1;
@@ -430,7 +438,7 @@ namespace TRAEProject.Changes.Weapon.Melee
 					if (timer > 20)
                     {
                         timer -= 20;
-                        Projectile.NewProjectile(projectile.GetSource_FromThis(), projectile.Center, projectile.velocity, 131, projectile.damage / 2, 0f, projectile.owner);
+                        Projectile.NewProjectile(projectile.GetSource_FromThis(), projectile.Center, projectile.velocity, 131, projectile.damage / 4, 0f, projectile.owner);
                     }
                     return;
                 case ProjectileID.Gradient:

@@ -21,30 +21,27 @@ namespace TRAEProject.NewContent.Items.Weapons.Magic.ConfuseRay
         }
         public override void SetDefaults()
         {
-            Item.DefaultToStaff(ProjectileType<ConfuseRayBeam>(), 6, 24, 10);
-            Item.width = 38;
-            Item.height = 32;
-            Item.damage = 23;
-            Item.crit = 9;
+            Item.DefaultToStaff(ProjectileType<ConfuseRayBeam>(), 6, 24, 12);
+            Item.width = 40;
+            Item.height = 40;
+            Item.damage = 24;
+			Item.crit = 7;
             Item.autoReuse = true;
             Item.rare = ItemRarityID.Green;
             Item.value = Item.sellPrice(silver: 20);
             Item.DamageType = DamageClass.Magic;
-            Item.knockBack = 3f;
+            Item.knockBack = 2f;
             Item.UseSound = SoundID.Item72;
         }
         public override void AddRecipes()
         {
             CreateRecipe(1).AddIngredient(ItemID.AmethystStaff, 1)
-                .AddIngredient(ItemID.Blinkroot, 1)
+                .AddIngredient(ItemID.Blinkroot, 1)                .AddIngredient(ItemID.Deathweed, 1)
+
                 .AddIngredient(ItemID.FallenStar, 3)
                 .AddTile(TileID.Anvils)
                 .Register(); 
-            CreateRecipe(1).AddIngredient(ItemID.TopazStaff, 1)
-                .AddIngredient(ItemID.Blinkroot, 1)
-                .AddIngredient(ItemID.FallenStar, 3)
-                .AddTile(TileID.Anvils)
-                .Register();
+
         }
     }
     class ConfuseRayBeam : ModProjectile
@@ -57,7 +54,7 @@ namespace TRAEProject.NewContent.Items.Weapons.Magic.ConfuseRay
             Projectile.DamageType = DamageClass.Magic;
 			Projectile.width = 10;
 		    Projectile.height = 10;
-			Projectile.extraUpdates = 20;
+			Projectile.extraUpdates = 8;
             Projectile.timeLeft = 240;
 			Projectile.alpha = 255;
 			Projectile.penetrate = 1;

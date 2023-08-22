@@ -55,6 +55,7 @@ namespace TRAEProject.Changes.Items
             switch (item.type)
             {
                 case ItemID.WandofSparking:
+				case ItemID.WandofFrosting:
                     item.mana = 5; // up from 2
                     return;
                 case ItemID.AmethystStaff:
