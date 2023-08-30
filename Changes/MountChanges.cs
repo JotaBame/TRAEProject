@@ -238,6 +238,10 @@ namespace TRAEProject
                     Player.velocity.Y = Math.Sign(Player.velocity.Y) * (VerticalSpeed - Player.runAcceleration);
                 }
             }
+            if(Player.GetModPlayer<Mobility>().crippleTimer <= 0)
+            {
+
+            }
             else
             {
                 Player.runAcceleration *= 0.5f;
