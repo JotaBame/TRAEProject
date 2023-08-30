@@ -1,5 +1,4 @@
-﻿using System;
-using Microsoft.Xna.Framework;
+﻿
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -22,9 +21,11 @@ namespace TRAEProject.NewContent.Items.Accesories.BigBundle
         }
         public override void SetDefaults()
         {
+            Item.width = 38;
+            Item.height = 40;
             Item.accessory = true;
             Item.rare = ItemRarityID.Cyan;
-            Item.value = 100000;
+            Item.value = Item.sellPrice(gold: 9);
         }
         public override void UpdateAccessory(Player player, bool hideVisual)
         {

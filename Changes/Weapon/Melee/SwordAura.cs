@@ -6,11 +6,8 @@ using Terraria.GameContent;
 using static Terraria.Main;
 using Terraria.ModLoader;
 using Terraria;
-using Terraria.Audio;
 using Terraria.ID;
-using static Humanizer.On;
-using static Terraria.GameContent.Bestiary.IL_BestiaryDatabaseNPCsPopulator.CommonTags.SpawnConditions;
-using System.Drawing.Drawing2D;
+
 using Terraria.GameContent.Drawing;
 using TRAEProject.Common;
 using TRAEProject.Changes.Items;

@@ -1,5 +1,4 @@
-using System;
-using Microsoft.Xna.Framework;
+
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -22,7 +21,9 @@ namespace TRAEProject.NewContent.Items.Accesories.Moonwalkers
         {
             Item.accessory = true;
             Item.rare = ItemRarityID.Yellow;
-            Item.value = 750000;
+            Item.width = 30;
+            Item.height = 28;
+            Item.value = Item.sellPrice(gold: 9);
         }
         public override void UpdateAccessory(Player player, bool hideVisual)
         {

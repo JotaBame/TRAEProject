@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -25,7 +21,7 @@ namespace TRAEProject.NewContent.Items.Accesories.WeirdBundle
         public override void SetDefaults()
         {
             Item.accessory = true;
-            Item.value = Item.sellPrice(gold: 10);
+            Item.value = Item.sellPrice(gold: 3);
             Item.rare = ItemRarityID.Yellow;
         }
         public override void UpdateAccessory(Player player, bool hideVisual)

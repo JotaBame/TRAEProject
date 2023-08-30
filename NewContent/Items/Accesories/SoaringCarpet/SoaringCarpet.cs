@@ -1,10 +1,4 @@
-﻿using MonoMod.Cil;
-using Mono.Cecil.Cil;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -27,7 +21,7 @@ namespace TRAEProject.NewContent.Items.Accesories.SoaringCarpet
         {
             Item.width = 22;
             Item.height = 20;
-            Item.value = 10000;
+            Item.value = Item.sellPrice(gold:2);
             Item.rare = ItemRarityID.Green;
             Item.accessory = true;
         }

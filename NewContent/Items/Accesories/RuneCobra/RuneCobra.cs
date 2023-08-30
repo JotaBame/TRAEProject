@@ -1,5 +1,4 @@
-﻿using System;
-using Microsoft.Xna.Framework;
+﻿
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -22,7 +21,9 @@ namespace TRAEProject.NewContent.Items.Accesories.RuneCobra
         {
             Item.accessory = true;
             Item.rare = ItemRarityID.Pink;
-            Item.value = 100000;
+            Item.width = 40;
+            Item.height = 42;
+            Item.value = Item.sellPrice(gold:7);
         }
         public override void UpdateAccessory(Player player, bool hideVisual)
         {

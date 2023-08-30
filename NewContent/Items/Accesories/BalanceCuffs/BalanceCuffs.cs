@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿
 using TRAEProject.Changes.Items;
 using Terraria;
 using Terraria.ID;
@@ -23,6 +20,8 @@ namespace TRAEProject.NewContent.Items.Accesories.BalanceCuffs
         }
         public override void SetDefaults()
         {
+            Item.width = 44;
+            Item.height = 48;
             Item.accessory = true;
             Item.rare = ItemRarityID.Orange;
             Item.value = 50000;

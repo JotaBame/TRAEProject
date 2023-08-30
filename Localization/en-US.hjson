@@ -1549,7 +1549,7 @@ Mods: {
 			Boomxie.DisplayName: Boom Pixie
 			LittleBoomxie.DisplayName: Boom Dust
 			Froggabomba.DisplayName: Froggabomba
-			FroggabombaClone.DisplayName: Froggabomba
+			FroggabombaClone.DisplayName: Froggabomba Copy
 			LavamanderNPC.DisplayName: Lavamander
 			ObsidianBasiliskBody.DisplayName: Obsidian Basilisk
 			ObsidianBasiliskHead.DisplayName: Obsidian Basilisk
@@ -1569,12 +1569,12 @@ Mods: {
 			BoomxieBannerPlaced.MapEntry: Boomxie Banner
 			FroggabombaBannerPlaced.MapEntry: Froggabomba Banner
 			GraniteOvergrowthBannerPlaced.MapEntry: Granite Overgrowth Banner
-			LavamanderBannerPlaced.MapEntry: Lavamander Banner Placed
-			MagmanderBannerPlaced.MapEntry: Magmander Banner Placed
-			ObsidianBasiliskBannerPlaced.MapEntry: Obsidian Basilisk Banner Placed
-			OniRoninBannerPlaced.MapEntry: Oni Ronin Banner Placed
-			PhoenixBannerPlaced.MapEntry: Phoenix Banner Placed
-			SalalavaBannerPlaced.MapEntry: Salalava Banner Placed
+			LavamanderBannerPlaced.MapEntry: Lavamander Banner
+			MagmanderBannerPlaced.MapEntry: Magmander Banner
+			ObsidianBasiliskBannerPlaced.MapEntry: Obsidian Basilisk Banner
+			OniRoninBannerPlaced.MapEntry: Oni Ronin Banner
+			PhoenixBannerPlaced.MapEntry: Phoenix Banner
+			SalalavaBannerPlaced.MapEntry: Salalava Banner
 		}
 
 		Configs: {
@@ -1615,6 +1615,11 @@ Mods: {
 				SkeletronChanges: {
 					Label: Skeletron Changes
 					Tooltip: ""
+				}
+
+				EOCChanges: {
+					Tooltip: ""
+					Label: E O C Changes
 				}
 			}
 		}

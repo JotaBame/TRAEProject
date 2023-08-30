@@ -23,7 +23,6 @@ namespace TRAEProject.NPCs.Boss
 	public class Deerclops : GlobalNPC
 	{
 		public override bool InstancePerEntity => true;
-		int stingercounter = 0;
 		public override void SetDefaults(NPC npc)
 		{
 			if (GetInstance<TRAEConfig>().DeerclopsChanges)

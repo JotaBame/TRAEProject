@@ -71,7 +71,7 @@ namespace TRAEProject.NewContent.Projectiles
             Vector2 drawAt = Projectile.Center - Main.screenPosition;
             Rectangle rectangle = texture.Frame(1, 7, 0, 3);
 
-            Main.EntitySpriteDraw(texture, drawAt, rectangle, Color.OrangeRed, Projectile.rotation, rectangle.Size() / 2f, scaleFactor, SpriteEffects.None);
+            Main.EntitySpriteDraw(texture, drawAt, rectangle, Color.Orange, Projectile.rotation, rectangle.Size() / 2f, scaleFactor, SpriteEffects.None);
 
             
         }

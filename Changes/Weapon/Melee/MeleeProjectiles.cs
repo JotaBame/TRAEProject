@@ -94,7 +94,7 @@ namespace TRAEProject.Changes.Weapon.Melee
                     break;
 
                 case ProjectileID.VampireKnife:
-                    projectile.ArmorPenetration = 20;
+                    projectile.ArmorPenetration = 15;
                     break;
                 case ProjectileID.ButchersChainsaw:
                     projectile.penetrate = -1;

@@ -1,8 +1,4 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -18,14 +14,14 @@ namespace TRAEProject.NewContent.Items.Accesories.ExtraJumps
         public override void SetStaticDefaults()
         {
             Terraria.GameContent.Creative.CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
-
-      
         }
         public override void SetDefaults()
         {
             Item.accessory = true;
             Item.rare = ItemRarityID.Cyan;
-			Item.value = Item.buyPrice(gold: 10);
+            Item.width = 40;
+            Item.height = 40;
+            Item.value = Item.sellPrice(gold: 9);
         }
         public override void UpdateAccessory(Player player, bool hideVisual)
         {

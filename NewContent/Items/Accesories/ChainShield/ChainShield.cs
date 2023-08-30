@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -22,10 +18,12 @@ namespace TRAEProject.NewContent.Items.Accesories.ChainShield
         }
         public override void SetDefaults()
         {
+            Item.width = 28;
+            Item.height = 28;
             Item.accessory = true;
             Item.rare = ItemRarityID.Orange;
-            Item.value = 80000;
-            Item.defense = 3;
+            Item.value = Item.sellPrice(gold: 3);
+                Item.defense = 3;
         }
         public override void UpdateAccessory(Player player, bool hideVisual)
         {

@@ -113,11 +113,17 @@ namespace TRAEProject.Common
             }
             if (BouncesOffTiles)
             {
-                if (onlyBounceOnce)
+                // If the projectile hits the left or right side of the tile, reverse the X velocity
+                if (Math.Abs(projectile.velocity.X - oldVelocity.X) > float.Epsilon)
                 {
-                    BouncesOffTiles = false;
+                    projectile.velocity.X = -oldVelocity.X;
                 }
-                projectile.velocity.Y = -projectile.oldVelocity.Y;
+
+                // If the projectile hits the top or bottom side of the tile, reverse the Y velocity
+                if (Math.Abs(projectile.velocity.Y - oldVelocity.Y) > float.Epsilon)
+                {
+                    projectile.velocity.Y = -oldVelocity.Y;
+                }
                 return false;
             }
             if (BouncesBackOffTiles)
