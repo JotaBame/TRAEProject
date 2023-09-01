@@ -19,9 +19,9 @@ namespace TRAEProject.Changes.NPCs.Boss
         static int tpAnimTime = 8;
         static int tpTime = 20;
         static int tpCount = 6;
-        static int shotTime = 15;
-        static int rapidShotTime = 5;
-        static int shotCount = 5;
+        static int shotTime = 20;
+        static int rapidShotTime = 6;
+        static int shotCount = 3;
         static int waitTime = 75;
         static int periodTime = (tpCount * tpTime + shotTime * shotCount + waitTime);
         public static void Update(NPC npc)
@@ -79,14 +79,14 @@ namespace TRAEProject.Changes.NPCs.Boss
                 {
                     if (periodicTimer % rapidShotTime == 0)
                     {
-                        Shoot(npc);
+                        Shoot(npc, 10f);
                     }
                 }
                 else
                 {
                     if (periodicTimer % shotTime == 0)
                     {
-                        Shoot(npc);
+                        Shoot(npc, 7.5f);
                     }
                 }
             }
@@ -162,13 +162,12 @@ namespace TRAEProject.Changes.NPCs.Boss
                 dust.noGravity = true;
             }
         }
-        static void Shoot(NPC npc)
+        static void Shoot(NPC npc, float velocity)
         {
             if (Main.netMode != 1)
             {
-                float shootSpeed = 10f;
-                int attackDamage_ForProjectiles3 = npc.GetAttackDamage_ForProjectiles(35f, 30f);
-                 Projectile.NewProjectile(npc.GetSource_ReleaseEntity(), npc.Center + TRAEMethods.PolarVector(25 * 9, npc.rotation + MathF.PI / 2), TRAEMethods.PolarVector(shootSpeed, npc.rotation + MathF.PI / 2), ProjectileID.DeathLaser, attackDamage_ForProjectiles3, 0f, Main.myPlayer);
+                int attackDamage_ForProjectiles3 = npc.GetAttackDamage_ForProjectiles(35f, 35f);
+                 Projectile.NewProjectile(npc.GetSource_ReleaseEntity(), npc.Center + TRAEMethods.PolarVector(25 * 9, npc.rotation + MathF.PI / 2), TRAEMethods.PolarVector(velocity, npc.rotation + MathF.PI / 2), ProjectileID.DeathLaser, attackDamage_ForProjectiles3, 0f, Main.myPlayer);
             }
         }
         public static void Start(NPC npc)

@@ -229,7 +229,7 @@ namespace TRAEProject.Changes.NPCs.Boss
                                 if (Main.netMode != 1)
                                 {
                                     int attackDamage_ForProjectiles3 = npc.GetAttackDamage_ForProjectiles(20f, 19f);
-                                    int num413 = Projectile.NewProjectile(npc.GetSource_ReleaseEntity(), npc.Center + TRAEMethods.PolarVector(15 * 9, npc.rotation + MathF.PI / 2), TRAEMethods.PolarVector(shootSpeed, npc.rotation + MathF.PI / 2), ProjectileID.EyeLaser, attackDamage_ForProjectiles3, 0f, Main.myPlayer);
+                                    int num413 = Projectile.NewProjectile(npc.GetSource_ReleaseEntity(), npc.Center + TRAEMethods.PolarVector(15 * 9, npc.rotation + MathF.PI / 2), TRAEMethods.PolarVector(shootSpeed - 1, npc.rotation + MathF.PI / 2), ProjectileID.EyeLaser, attackDamage_ForProjectiles3, 0f, Main.myPlayer);
                                 }
                             }
                         }
@@ -340,7 +340,7 @@ namespace TRAEProject.Changes.NPCs.Boss
                                     int num413 = Projectile.NewProjectile(npc.GetSource_ReleaseEntity(), npc.Center + TRAEMethods.PolarVector(25 * 9, npc.rotation + MathF.PI / 2), TRAEMethods.PolarVector(shootSpeed, npc.rotation + MathF.PI / 2), ProjectileID.DeathLaser, attackDamage_ForProjectiles3, 0f, Main.myPlayer);
                                 }
                             }
-                            if (npc.ai[2] >= 660 + 120)
+                            if (npc.ai[2] >= 660 + 90)
                             {
                                 npc.ai[2] = 0;
                                 npc.netUpdate = true;
