@@ -160,11 +160,6 @@ namespace ChangesArmor
                     player.statManaMax2 += 100;
                     player.manaCost -= 0.20f;
                     break;
-                case ItemID.CrimsonHelmet:
-                case ItemID.CrimsonScalemail:
-                case ItemID.CrimsonGreaves:                    
-                    player.GetDamage<GenericDamageClass>() += 0.02f;
-                    break;
                 case ItemID.Goggles:
                     player.GetCritChance<GenericDamageClass>() += 8;
                     break;
@@ -777,17 +772,6 @@ namespace ChangesArmor
                         }
                     }
                     return;
-                case ItemID.CrimsonHelmet:
-                case ItemID.CrimsonScalemail:
-                case ItemID.CrimsonGreaves:
-				     foreach (TooltipLine line in tooltips)
-                    {
-                        if (line.Mod == "Terraria" && line.Name == "Tooltip0")
-                        {
-                            line.Text = "5% increased damage";
-                        }
-                    }
-                    break;
             }
         }
     }

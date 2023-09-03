@@ -130,16 +130,11 @@ namespace TRAEProject.Changes.Weapons
                 case ItemID.Phantasm:
                     item.damage = 60;
                     return;
-                case ItemID.FairyQueenRangedItem:
-                    item.damage = 40; // down from 50
-                    return;
+
                 case ItemID.ChainGun:
-                    item.damage = 41; // up from 31
+                    item.damage = 38; // up from 31
                     return;
 
-                case ItemID.VortexBeater:
-                    item.damage = 42;
-                    return;
                 // AMMO
                 case ItemID.CrystalBullet:
                     item.damage = 7; // down from 9

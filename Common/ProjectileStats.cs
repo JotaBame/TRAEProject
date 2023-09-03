@@ -143,7 +143,7 @@ namespace TRAEProject.Common
                 int num8 = 20;
                 for (int j = 0; j < 200; j++)
                 {
-                    if (Main.npc[j].CanBeChasedBy(this, false) && projectile.localNPCImmunity[j] != 1)
+                    if (Main.npc[j].CanBeChasedBy(this, false) && projectile.localNPCImmunity[j] != -1)
                     {
                         float DistanceBetweenProjectileAndEnemy = (projectile.Center - Main.npc[j].Center).Length();
                         if (DistanceBetweenProjectileAndEnemy > num8 && DistanceBetweenProjectileAndEnemy < Range && Collision.CanHitLine(projectile.Center, 1, 1, Main.npc[j].Center, 1, 1))

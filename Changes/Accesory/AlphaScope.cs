@@ -135,14 +135,14 @@ namespace TRAEProject.Changes.Accesory
             {                
                 int[] array = new int[10];
                 int num6 = 0;
-                int Range = 500;
-                int num8 = 20;
+                int maxRange = 600;
+                int minimumRange = 32;
                 for (int j = 0; j < 200; j++)
                 {
-                    if (Main.npc[j].CanBeChasedBy(this, false) && projectile.localNPCImmunity[j] != 1)
+                    if (Main.npc[j].CanBeChasedBy(this, false) && projectile.localNPCImmunity[j] != -1)
                     {
                         float DistanceBetweenProjectileAndEnemy = (projectile.Center - Main.npc[j].Center).Length();
-                        if (DistanceBetweenProjectileAndEnemy > num8 && DistanceBetweenProjectileAndEnemy < Range && Collision.CanHitLine(projectile.Center, 1, 1, Main.npc[j].Center, 1, 1))
+                        if (DistanceBetweenProjectileAndEnemy > minimumRange && DistanceBetweenProjectileAndEnemy < maxRange && Collision.CanHitLine(projectile.Center, 1, 1, Main.npc[j].Center, 1, 1))
                         {
                             array[num6] = j;
                             num6++;
@@ -180,14 +180,14 @@ namespace TRAEProject.Changes.Accesory
             Player player = Main.player[projectile.owner];
             int[] array = new int[10];
             int num6 = 0;
-            int Range = 700;
-            int num8 = 20;
+            int maxRange = 600;
+            int minimumRAnge = 32;
             for (int j = 0; j < 200; j++)
             {
-                if (Main.npc[j].CanBeChasedBy(this, false) && projectile.localNPCImmunity[j] != 1)
+                if (Main.npc[j].CanBeChasedBy(this, false) && projectile.localNPCImmunity[j] != -1)
                 {
                     float DistanceBetweenProjectileAndEnemy = (projectile.Center - Main.npc[j].Center).Length();
-                    if (DistanceBetweenProjectileAndEnemy > num8 && DistanceBetweenProjectileAndEnemy < Range && Collision.CanHitLine(projectile.Center, 1, 1, Main.npc[j].Center, 1, 1))
+                    if (DistanceBetweenProjectileAndEnemy > minimumRAnge && DistanceBetweenProjectileAndEnemy < maxRange && Collision.CanHitLine(projectile.Center, 1, 1, Main.npc[j].Center, 1, 1))
                     {
                         array[num6] = j;
                         num6++;
