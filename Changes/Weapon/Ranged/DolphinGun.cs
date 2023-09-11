@@ -51,7 +51,7 @@ namespace TRAEProject.Changes.Weapon.Ranged
                         int projToShoot = 14;
                         float speed = 14f;
                         int usedAmmoItemID = 0;
-                        int Damage = form.GetWeaponDamage(form.inventory[form.selectedItem]) / 2;
+                        int Damage = form.GetWeaponDamage(form.inventory[form.selectedItem]) / 5;
                         float KnockBack = form.inventory[form.selectedItem].knockBack;
                         if (canShoot)
                         {

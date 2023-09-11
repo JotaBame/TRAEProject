@@ -381,6 +381,9 @@ namespace TRAEProject.Changes.Items
 					item.mana = 53; // up from 30
 					item.shootSpeed = 3f;
 					return;
+			    case ItemID.LunarFlareBook:
+					item.mana = 6; // up from 30
+					return;
                 case ItemID.LesserManaPotion:
                     item.healMana = 100;
                     return;
