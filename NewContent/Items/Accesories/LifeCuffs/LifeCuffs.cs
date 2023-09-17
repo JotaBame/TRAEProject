@@ -22,7 +22,7 @@ namespace TRAEProject.NewContent.Items.Accesories.LifeCuffs
             Item.rare = ItemRarityID.Green;
             Item.width = 48;
             Item.height = 48;
-            Item.value = Item.sellPrice(gold: 2);
+            Item.value = Item.sellPrice(gold: 1, silver: 50);
         }
         public override void UpdateAccessory(Player player, bool hideVisual)
         {

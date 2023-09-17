@@ -12,7 +12,7 @@ using Terraria.Audio;
 using static Terraria.ModLoader.ModContent;
 using Terraria.GameContent;
 using Terraria.Graphics.Shaders;
-using TRAEProject.NewContent.Items.Accesories.ExtraJumps;
+using TRAEProject.NewContent.Items.Accesories.MobilityJumps;
 using TRAEProject.NewContent.Items.Accesories.MagicalCarpet;
 
 namespace TRAEProject
@@ -370,7 +370,7 @@ namespace TRAEProject
                     Projectile.NewProjectile(Player.GetSource_ItemUse(Player.HeldItem), Player.Center, Vector2.UnitY * 2, ProjectileID.OrnamentFriendly, 50, 0, Player.whoAmI, -1);
                 }
             }
-            if (Player.GetModPlayer<TRAEProject.NewContent.Items.Accesories.ExtraJumps.TRAEJumps>().isBoosting)
+            if (Player.GetModPlayer<TRAEProject.NewContent.Items.Accesories.MobilityJumps.TRAEJumps>().isBoosting)
             {
                 Player.gravControl = false;
                 Player.gravControl2 = false;

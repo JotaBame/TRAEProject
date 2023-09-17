@@ -14,7 +14,7 @@ using TRAEProject.NewContent.Items.Accesories.SpaceBalloon;
 using TRAEProject.NewContent.Items.Weapons.Ranged.Ammo;
 using TRAEProject.NewContent.Items.Weapons.Melee.HeadHarvester;
 using TRAEProject.NewContent.Items.Weapons.Magic.SharpLament;
-using TRAEProject.NewContent.Items.Accesories.ExtraJumps;
+using TRAEProject.NewContent.Items.Accesories.MobilityJumps;
 using TRAEProject.NewContent.NPCs.Underworld;
 
 namespace TRAEProject.Changes.NPCs

@@ -6,7 +6,7 @@ using TRAEProject.NewContent.Items.Weapons.Ranged.Jungla;
 using TRAEProject.NewContent.Items.Weapons.Ranged.Ammo;
 using TRAEProject.NewContent.Items.Armor.Joter;
 using static Terraria.ModLoader.ModContent;
-using TRAEProject.NewContent.Items.Accesories.ExtraJumps;
+using TRAEProject.NewContent.Items.Accesories.MobilityJumps;
 using Terraria.GameContent.ItemDropRules;
 using System.Collections.Generic;
 

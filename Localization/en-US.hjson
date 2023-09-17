@@ -1341,7 +1341,7 @@ Mods: {
 			}
 
 			H410WFLASH: {
-				DisplayName: H410W FLASH
+				DisplayName: HA-110W FLASH
 				Tooltip:
 					'''
 					'Fairy Launching Assault Shoulder weapon'

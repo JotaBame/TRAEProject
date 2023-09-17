@@ -137,7 +137,7 @@ namespace TRAEProject.Changes.Accesory
                 case ItemID.SteampunkWings:
                     player.moveSpeed += 0.12f;
                     player.jumpSpeedBoost += Mobility.JSV(0.12f);
-                    player.GetModPlayer<TRAEProject.NewContent.Items.Accesories.ExtraJumps.TRAEJumps>().advFlight = true;
+                    player.GetModPlayer<TRAEProject.NewContent.Items.Accesories.MobilityJumps.TRAEJumps>().advFlight = true;
                     break;
                 case ItemID.BatWings:
                     player.moveSpeed += 0.33f;

@@ -6,7 +6,7 @@ using Terraria.ID;
 using Terraria.ModLoader;
 using TRAEProject;
 using TRAEProject.Changes.Prefixes;
-using TRAEProject.NewContent.Items.Accesories.ExtraJumps;
+using TRAEProject.NewContent.Items.Accesories.MobilityJumps;
 using TRAEProject.NewContent.Items.Accesories.SpaceBalloon;
 using static Terraria.ModLoader.ModContent;
 using static Terraria.ModLoader.PlayerDrawLayer;

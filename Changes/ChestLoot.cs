@@ -3,7 +3,7 @@ using Terraria.ID;
 using Terraria.ModLoader;
 using TRAEProject.NewContent.Items.Accesories.PalladiumShield;
 using static Terraria.ModLoader.ModContent;
-using TRAEProject.NewContent.Items.Accesories.ExtraJumps;
+using TRAEProject.NewContent.Items.Accesories.MobilityJumps;
 using System.Linq;
 using TRAEProject.NewContent.Items.Weapons.Magic.MagicGrenade;
 

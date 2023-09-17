@@ -11,7 +11,7 @@ using Terraria.Audio;
 using Terraria.GameContent.Shaders;
 using Terraria.GameContent;
 using Terraria.Graphics.Shaders;
-using TRAEProject.NewContent.Items.Accesories.ExtraJumps;
+using TRAEProject.NewContent.Items.Accesories.MobilityJumps;
 
 namespace TRAEProject
 {

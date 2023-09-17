@@ -30,7 +30,7 @@ namespace TRAEProject.Changes.Weapon.Melee
             switch (item.type)
             {
                 case ItemID.BeeKeeper:
-                    item.damage = 26; // down from 30
+                    item.damage = 20; // down from 30
                     item.noMelee = true;
                     item.shootsEveryUse = true;
                     item.shoot = ProjectileType<BeekeeperAura>();
@@ -40,7 +40,6 @@ namespace TRAEProject.Changes.Weapon.Melee
                     item.shootsEveryUse = true;
                     item.shoot = ProjectileType<PearlwoodAura>();
                     item.rare = ItemRarityID.Pink;
-
                     break;
                 case ItemID.PearlwoodHammer:
                     item.damage = 36; // up from 10
