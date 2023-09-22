@@ -5,6 +5,7 @@ using Terraria.ID;
 using Terraria.ModLoader;
 
 namespace TRAEProject.NewContent.Items.Accesories
+{ 
     public class EvilEye : ModItem
     {
         public override void SetStaticDefaults()

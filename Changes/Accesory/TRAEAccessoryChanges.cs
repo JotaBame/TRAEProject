@@ -8,12 +8,11 @@ using System.Collections.Generic;
 using Terraria.Utilities;
 using TRAEProject.NewContent.Buffs;
 using TRAEProject.Changes;
-using TRAEProject.NewContent.Items.Accesories.EvilEye;
 using TRAEProject.NewContent.Items.Accesories.ShadowflameCharm;
 using TRAEProject.Changes.Items;
 using TRAEProject.Common.ModPlayers;
 using static Terraria.ModLoader.ModContent;
-
+using TRAEProject.NewContent.Items.Accesories;
 
 namespace TRAEProject.Changes.Accesory
 {

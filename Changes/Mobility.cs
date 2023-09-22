@@ -13,7 +13,8 @@ using static Terraria.ModLoader.ModContent;
 using Terraria.GameContent;
 using Terraria.Graphics.Shaders;
 using TRAEProject.NewContent.Items.Accesories.MobilityJumps;
-using TRAEProject.NewContent.Items.Accesories.MagicalCarpet;
+using TRAEProject.NewContent.Items.Accesories.MobilityMisc;
+using TRAEProject.Changes.Accesory;
 
 namespace TRAEProject
 {
@@ -379,7 +380,7 @@ namespace TRAEProject
             {
                 Player.slowFall = false;
             }
-            if(Player.controlUp && !Player.gravControl && !Player.gravControl2 && Player.GetModPlayer<TRAEProject.NewContent.Items.Accesories.SpaceBalloon.SpaceBalloonPlayer>().SpaceBalloon > 0)
+            if(Player.controlUp && !Player.gravControl && !Player.gravControl2 && Player.GetModPlayer<SpaceBalloonPlayer>().SpaceBalloon > 0)
             {
                 Player.slowFall = true;
             }

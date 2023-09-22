@@ -30,6 +30,9 @@ namespace TRAEProject.Changes.Weapon.Summon.Minions
                 case ItemID.FlinxStaff:
                     item.damage = 5; // down from 8
                     break;
+                case ItemID.VampireFrogStaff:
+                    item.damage = 14; // UP FROM 11
+                    break;
                 case ItemID.HornetStaff:
                     item.damage = 12;
                     break;
@@ -114,7 +117,7 @@ namespace TRAEProject.Changes.Weapon.Summon.Minions
                 case ProjectileID.VampireFrog:
                     projectile.usesIDStaticNPCImmunity = false;
                     projectile.usesLocalNPCImmunity = true;
-                    projectile.localNPCHitCooldown = 50; // up from 10, static 
+                    projectile.localNPCHitCooldown = 45; // up from 10, static 
                     break;
                 case ProjectileID.RainbowCrystalExplosion:
                     projectile.usesIDStaticNPCImmunity = false;

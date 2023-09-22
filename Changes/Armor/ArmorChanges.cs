@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using TRAEProject.Changes.Items;
 using TRAEProject.Changes.Armor;
 using Microsoft.Xna.Framework;
+using Terraria.GameContent;
 
 namespace ChangesArmor
 {
@@ -140,6 +141,12 @@ namespace ChangesArmor
                 case ItemID.ApprenticeAltPants:
                     player.moveSpeed -= 0.15f;
                     break;
+                case ItemID.ApprenticeHat:
+                    player.statManaMax2 += 40;
+                    break;
+                case ItemID.ApprenticeAltHead:
+                    player.statManaMax2 += 60;
+                    break;
 ///////////////// end of OOA
                 case ItemID.NinjaHood:
                 case ItemID.NinjaShirt:
@@ -154,11 +161,13 @@ namespace ChangesArmor
                     player.manaCost -= 0.10f;
                     break;
                 case ItemID.SpectreMask:
-                    player.manaCost += 0.13f;
+                    player.manaCost += 0.04f; // now -9% instead of -13%
                     break;
                 case ItemID.SpectreHood:
                     player.statManaMax2 += 100;
                     player.manaCost -= 0.20f;
+                    player.GetDamage<MagicDamageClass>() += 0.05f;
+                    player.GetCritChance<MagicDamageClass>() += 5;
                     break;
                 case ItemID.Goggles:
                     player.GetCritChance<GenericDamageClass>() += 8;
@@ -218,7 +227,8 @@ namespace ChangesArmor
 
             if (head.type == ItemID.SpectreHood && body.type == ItemID.SpectreRobe && legs.type == ItemID.SpectrePants)
                 return "SpectreHoodSet";
-
+            if (head.type == ItemID.SpectreMask && body.type == ItemID.SpectreRobe && legs.type == ItemID.SpectrePants)
+                return "SpectreMaskSet";
             if (head.type == ItemID.PirateHat && body.type == ItemID.PirateShirt && legs.type == ItemID.PiratePants)
                 return "PirateSet"; 
             if (head.type == ItemID.GladiatorHelmet && body.type == ItemID.GladiatorBreastplate && legs.type == ItemID.GladiatorLeggings)
@@ -341,18 +351,6 @@ namespace ChangesArmor
                 player.moveSpeed -= 0.2f;
             }
 
-            //if (armorSet == "HallowedSetSummon")
-            //{
-            //    player.setBonus = "You gain immunity to the next attack after taking a hit\nIncreases your maximum number of minions by 2";
-            //    player.GetModPlayer<SetBonuses>().HolyProtection = true;
-            //    player.onHitDodge = false;
-            //}
-            //if (armorSet == "HallowedSet")
-            //{
-            //    player.setBonus = "You gain immunity to the next attack after taking a hit";
-            //    player.GetModPlayer<SetBonuses>().HolyProtection = true;
-            //    player.onHitDodge = false;
-            //}
 
             if (armorSet == "PirateSet")
             {
@@ -362,6 +360,7 @@ namespace ChangesArmor
             }
             if (armorSet == "SpectreHoodSet")
             {
+                
                 player.setBonus = "Magic attacks heal the player and allies";
                 player.GetDamage<MagicDamageClass>() += 0.4f; // +0.4 to negate the reduction
             }
@@ -456,7 +455,7 @@ namespace ChangesArmor
                     {
                         if (line.Mod == "Terraria" && line.Name == "Defense")
                         {
-                            line.Text += "\nIncreases maximum mana by 100 and reduces mana costs by 20%";
+                            line.Text += "Increases maximum mana by 100 and 20% reduced mana cost\n5% increased magic damage and critical strike chance";
                         }
                     }
                     return;
@@ -465,7 +464,7 @@ namespace ChangesArmor
                     {
                         if (line.Mod == "Terraria" && line.Name == "Tooltip0")
                         {
-                            line.Text = "Increases maximum mana by 60";
+                            line.Text = "Increases maximum mana by 60 and 9% reduced mana cost";
                         }
                     }
                     return;

@@ -10,7 +10,6 @@ using TRAEProject.NewContent.Items.Weapons.Ranged.Jungla;
 using TRAEProject.NewContent.Items.Materials;
 using TRAEProject.NewContent.Items.Accesories.ShadowflameCharm;
 using TRAEProject.NewContent.Items.Accesories.MechanicalEye;
-using TRAEProject.NewContent.Items.Accesories.SpaceBalloon;
 using TRAEProject.NewContent.Items.Weapons.Ranged.Ammo;
 using TRAEProject.NewContent.Items.Weapons.Melee.HeadHarvester;
 using TRAEProject.NewContent.Items.Weapons.Magic.SharpLament;

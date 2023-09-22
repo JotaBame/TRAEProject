@@ -27,7 +27,8 @@ namespace TRAEProject.NewContent.Items.Weapons.Magic.MagicGrenade
             Item.useStyle = ItemUseStyleID.Shoot;
             Item.width = 14;
             Item.height = 20;
-            Item.damage = 90;
+            Item.damage = 75;
+            Item.crit = 16;
             Item.noUseGraphic = true;
             Item.autoReuse = true;
             Item.rare = ItemRarityID.Green;
@@ -56,7 +57,13 @@ namespace TRAEProject.NewContent.Items.Weapons.Magic.MagicGrenade
             Projectile.GetGlobalProjectile<ProjectileStats>().ExplosionRadius = 200;
             Projectile.GetGlobalProjectile<ProjectileStats>().dontExplodeOnTiles = true;
         }
-
+        public override void ModifyHitNPC(NPC target, ref NPC.HitModifiers modifiers)
+        {
+            if (Projectile.ai[0] == 75f)
+            {
+                modifiers.SetCrit();
+            }
+        }
 
         public override void AI()
         {
@@ -80,7 +87,6 @@ namespace TRAEProject.NewContent.Items.Weapons.Magic.MagicGrenade
             if (Projectile.ai[0] == 75f)
             {
                 Projectile.GetGlobalProjectile<ProjectileStats>().ExplosionRadius = 300;
-                Projectile.GetGlobalProjectile<ProjectileStats>().DirectDamage = 1.15f;
 
                 Projectile.velocity.Y = -1.5f;
             }

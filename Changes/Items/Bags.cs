@@ -9,6 +9,7 @@ using static Terraria.ModLoader.ModContent;
 using TRAEProject.NewContent.Items.Accesories.MobilityJumps;
 using Terraria.GameContent.ItemDropRules;
 using System.Collections.Generic;
+using TRAEProject.NewContent.Items.Accesories.AdvFlight;
 
 namespace TRAEProject.Changes.Items
 {

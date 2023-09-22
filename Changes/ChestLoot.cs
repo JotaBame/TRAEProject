@@ -6,6 +6,7 @@ using static Terraria.ModLoader.ModContent;
 using TRAEProject.NewContent.Items.Accesories.MobilityJumps;
 using System.Linq;
 using TRAEProject.NewContent.Items.Weapons.Magic.MagicGrenade;
+using TRAEProject.NewContent.Items.Accesories.AdvFlight;
 
 public class ChestLoot : ModSystem
 {

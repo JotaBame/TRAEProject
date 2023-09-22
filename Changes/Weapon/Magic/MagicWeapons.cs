@@ -7,10 +7,10 @@ using Terraria.ID;
 using Terraria.ModLoader;
 using static Terraria.ModLoader.ModContent;
 using Terraria.DataStructures;
-using TRAEProject.Changes;
-using TRAEProject.NewContent.Items.Accesories.AngelicStone;
+
 using Terraria.Audio;
 using System;
+using TRAEProject.NewContent.Items.Accesories;
 
 namespace TRAEProject.Changes.Items
 {
@@ -362,10 +362,8 @@ namespace TRAEProject.Changes.Items
                     return;        
               
                 case ItemID.LunarFlareBook:
-                    item.damage = 130;
-                    item.useTime = 13; 
-                    item.useAnimation = 13; 
-                    item.mana = 10;
+   
+                    item.mana = 6;
                     return;
                 case ItemID.NebulaBlaze:
                     item.damage = 110;
@@ -381,9 +379,7 @@ namespace TRAEProject.Changes.Items
 					item.mana = 53; // up from 30
 					item.shootSpeed = 3f;
 					return;
-			    case ItemID.LunarFlareBook:
-					item.mana = 6; // up from 30
-					return;
+
                 case ItemID.LesserManaPotion:
                     item.healMana = 100;
                     return;

@@ -1,16 +1,9 @@
-using Microsoft.Xna.Framework;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
-using TRAEProject;
-using TRAEProject.Changes.Prefixes;
+using TRAEProject.NewContent.Items.Accesories;
 using static Terraria.ModLoader.ModContent;
-using TRAEProject.NewContent.Items.Accesories.AngelicStone;
 
 namespace TRAEProject.NewContent.Items.Misc.Potions
 {

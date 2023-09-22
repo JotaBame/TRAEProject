@@ -6,8 +6,7 @@ using System.Threading.Tasks;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
-using TRAEProject.NewContent.Items.Accesories.BigBundle;
-using TRAEProject.NewContent.Items.Accesories.WeirdBundle;
+
 using TRAEProject.NewContent.Projectiles;
 using static Terraria.ModLoader.ModContent;
 using static Terraria.ModLoader.PlayerDrawLayer;
@@ -46,7 +45,7 @@ namespace TRAEProject.Changes.Accesory
                     {
                         if (line.Mod == "Terraria" && line.Name == "Tooltip0")
                         {
-                            line.Text = "Causes buzzy stars to fall and douses you in honey when damaged\nMultiple combs increase efficiency and life regeneration";
+                            line.Text = "Causes buzzy stars to fall and douses you in honey when damaged\nSlightly increases life regeneration";
                         }
                     }
                     break;
@@ -55,7 +54,7 @@ namespace TRAEProject.Changes.Accesory
                     {
                         if (line.Mod == "Terraria" && line.Name == "Tooltip0")
                         {
-                            line.Text = "Releases bees and douses you in honey when damaged\nMultiple combs increase efficiency and life regeneration";
+                            line.Text = "Releases bees and douses you in honey when damaged\nSlightly increases life regeneration";
                         }
                         if (line.Mod == "Terraria" && line.Name == "Tooltip1")
                         {
@@ -68,7 +67,7 @@ namespace TRAEProject.Changes.Accesory
                     {
                         if (line.Mod == "Terraria" && line.Name == "Tooltip0")
                         {
-                            line.Text = "Releases bees and douses you in honey when damaged\nMultiple combs increase efficiency and life regeneration";
+                            line.Text = "Releases bees and douses you in honey when damaged\nSlightly increases life regeneration";
                         }
                         if (line.Mod == "Terraria" && line.Name == "Tooltip0")
                         {
@@ -83,7 +82,7 @@ namespace TRAEProject.Changes.Accesory
                     {
                         if (line.Mod == "Terraria" && line.Name == "Tooltip1")
                         {
-                            line.Text += "\nMultiple combs increase efficiency and life regeneration";
+                            line.Text += "\nSlightly increases life regeneration";
                         }
                     }
                     break;
@@ -106,8 +105,7 @@ namespace TRAEProject.Changes.Accesory
         }
         public override void UpdateLifeRegen()
         {
-            if (combs >= 2)
-                Player.lifeRegen += 1 * combs;
+           Player.lifeRegen += 1 * combs;
         }
 
         public override void OnHitByNPC(NPC npc, Player.HurtInfo hurtInfo)

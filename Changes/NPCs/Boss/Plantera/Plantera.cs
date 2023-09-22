@@ -13,7 +13,6 @@ using Terraria.ModLoader;
 using static Terraria.ModLoader.ModContent;
 using System.IO;
 using Terraria.Localization;
-using TRAEProject.NewContent.Items.Accesories.MagicalCarpet;
 
 namespace TRAEProject.Changes.NPCs.Boss.Plantera
 {

@@ -1,15 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 using TRAEProject.NewContent.Items.Accesories.ShadowflameCharm;
-using TRAEProject.NewContent.Items.Accesories.CounterweightString;
 using static Terraria.ModLoader.ModContent;
 using TRAEProject.NewContent.Items.Materials;
+using TRAEProject.NewContent.Items.Accesories;
 
 namespace TRAEProject.Changes.Recipes
 {

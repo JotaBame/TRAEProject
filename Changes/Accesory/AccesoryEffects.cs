@@ -43,11 +43,11 @@ namespace TRAEProject
         }
         public override void PostUpdate()
         {
-            Player.lifeSteal -= 0.41666667f; // this stat increases by 0.5f every frame, or by 30 per second. with this change it goes down to 5 per second.
+            Player.lifeSteal -= (float)(26/30); // this stat increases by 0.5f every frame, or by 30 per second. with this change it goes down to 5 per second.
 
-            if (Player.lifeSteal > 5)
+            if (Player.lifeSteal > 4)
             {
-                Player.lifeSteal = 5;
+                Player.lifeSteal = 4;
             }
             if (Player.wingsLogic > 0 && Player.rocketBoots != 0 && Player.velocity.Y != 0f && Player.rocketTime != 0)
             {
