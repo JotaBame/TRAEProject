@@ -48,11 +48,7 @@ namespace TRAEProject.Changes.Accesory
                     player.GetModPlayer<AccesoryEffects>().FastFall = true;
                     break;
                 case ItemID.BalloonHorseshoeHoney:
-                    player.lifeRegen += 2;
                     player.GetModPlayer<AccesoryEffects>().FastFall = true;
-                    break;
-                case ItemID.HoneyBalloon:
-                    player.lifeRegen += 2;
                     break;
                 case ItemID.BundleofBalloons:
                     player.noFallDmg = true;

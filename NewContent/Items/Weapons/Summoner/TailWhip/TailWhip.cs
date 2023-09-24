@@ -19,8 +19,8 @@ namespace TRAEProject.NewContent.Items.Weapons.Summoner.TailWhip
         public override void SetStaticDefaults()
         {
             // DisplayName.SetDefault("Tail Whip");
-            // Tooltip.SetDefault("Your summons will focus struck enemies\n11 summon tag damage\nDecreases defense by 16 points on hit");
-             CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
+            BuffID.Sets.IsAnNPCWhipDebuff[Type] = true;
+            CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
 		}
         public override void SetDefaults()
         {

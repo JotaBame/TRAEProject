@@ -188,15 +188,14 @@ namespace TRAEProject.Changes.Weapon.Melee
         public override void UseAnimation(Item item, Player player)
         {
 
-            if (aura != 0)
+            if (aura != 0 && !player.ItemAnimationActive)
             {
                 Vector2 mousePosition = Main.screenPosition + new Vector2(Main.mouseX, Main.mouseY);
-
                 if (player.whoAmI == Main.myPlayer)
                 {
                     Vector2 velocity = new Vector2(Math.Sign(mousePosition.X - player.Center.X), 0); // determines direction
-
-                    Projectile spawnedProj = Projectile.NewProjectileDirect(player.GetSource_ItemUse(item), player.MountedCenter - velocity * 2, velocity * 5 , aura, item.damage, item.knockBack, Main.myPlayer,
+                    int damage = (int)(player.GetTotalDamage(item.DamageType).ApplyTo(item.damage));
+                    Projectile spawnedProj = Projectile.NewProjectileDirect(player.GetSource_ItemUse(item), player.MountedCenter - velocity * 2, velocity * 5 , aura, damage, item.knockBack, Main.myPlayer,
                             Math.Sign(mousePosition.X - player.Center.X) * player.gravDir, player.itemAnimationMax, player.GetAdjustedItemScale(item));
                     NetMessage.SendData(MessageID.PlayerControls, -1, -1, null, player.whoAmI);
 

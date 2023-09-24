@@ -1,15 +1,8 @@
 ﻿using Microsoft.Xna.Framework;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using static Terraria.ModLoader.ModContent;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
-using TRAEProject.Changes.Weapon.Summon.Minions;
-using TRAEProject.Common;
-using TRAEProject.NewContent.Items.Weapons.Summoner.TailWhip;
+using TRAEProject.NewContent.TRAEDebuffs;
 
 namespace TRAEProject.Common
 {
@@ -80,10 +73,7 @@ namespace TRAEProject.Common
             {
                 modifiers.ArmorPenetration += 18;
             }
-            if (npc.HasBuff(BuffType<TailWhipTag>()))
-            {
-                modifiers.ArmorPenetration += 16;
-            }
+     
         }
 
     }

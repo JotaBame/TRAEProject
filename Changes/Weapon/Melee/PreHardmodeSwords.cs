@@ -156,18 +156,7 @@ namespace TRAEProject.Changes.Weapon.Melee
         
 
         /// SHOOT STUFF
-        public override bool Shoot(Item item, Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
-        {
-            Vector2 mousePosition = Main.screenPosition + new Vector2(Main.mouseX, Main.mouseY);
-            switch (item.type)
-            {
-                case ItemID.NightsEdge:
-                        Terraria.Audio.SoundEngine.PlaySound(SoundID.Item8 with { MaxInstances = 0 });
-                        return true;
-  
-            }
-            return true;       
-        }
+
         public override void ModifyTooltips(Item item, List<TooltipLine> tooltips)
         {
             switch (item.type)
@@ -235,7 +224,7 @@ namespace TRAEProject.Changes.Weapon.Melee
                         item.shoot = ProjectileID.None;
                     }
                 }
-
+            
             }
             return base.CanUseItem(item, player);
         }

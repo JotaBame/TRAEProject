@@ -18,8 +18,8 @@ namespace TRAEProject.NewContent.Items.Weapons.Summoner.SpikedWhip
         public override void SetStaticDefaults()
         {
             // DisplayName.SetDefault("Spiked Whip");
-            // Tooltip.SetDefault("Your summons will focus struck enemies\n2 summon tag damage\n11% summon tag critical strike chance\nMore effective at striking multiple enemies");
-             CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
+            BuffID.Sets.IsAnNPCWhipDebuff[Type] = true;
+            CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
 		}
         public override void SetDefaults()
         {

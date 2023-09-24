@@ -101,7 +101,7 @@ namespace TRAEProject.Changes
         }
         public override void UseAnimation(Item item, Player player)
         {
-            if (!item.useTurn && item.CountsAsClass(DamageClass.Melee) && player.itemAnimation == player.itemAnimationMax && item.shoot == 0 || item.type == ItemID.BeamSword)
+            if (!item.useTurn && item.CountsAsClass(DamageClass.Melee) && !player.ItemAnimationActive && item.shoot == 0 || item.type == ItemID.BeamSword)
             {
                 Vector2 mousePosition = Main.screenPosition + new Vector2(Main.mouseX, Main.mouseY);
                 if (player.position.X - mousePosition.X > 0)

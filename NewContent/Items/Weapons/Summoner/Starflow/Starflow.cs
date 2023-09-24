@@ -18,8 +18,8 @@ namespace TRAEProject.NewContent.Items.Weapons.Summoner.Starflow
         public override void SetStaticDefaults()
         {
             // DisplayName.SetDefault("Stardust Trail");
-            // Tooltip.SetDefault("Your summons will focus struck enemies\n22 summon tag damage\nSummon flow invaders while attacking");
-             CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
+            BuffID.Sets.IsAnNPCWhipDebuff[Type] = true;
+            CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
 		}
         public override void SetDefaults()
         {
