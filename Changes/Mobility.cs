@@ -214,24 +214,21 @@ namespace TRAEProject
                     Main.gore[num20].velocity *= 0.4f;
                     */
                 }
-                else if(dashing && blizzardDash && (Player.canJumpAgain_Blizzard || Player.GetModPlayer<TRAEJumps>().BlizzardStored() || (Player.GetModPlayer<TRAEJumps>().doVanillaJumps && Player.GetModPlayer<TRAEJumps>().allowBlizzardDash && !Player.GetModPlayer<TRAEJumps>().usedBlizzardDash)))
+                else if (dashing && blizzardDash && (Player.GetJumpState(ExtraJump.BlizzardInABottle).Available || (Player.GetModPlayer<TRAEJumps>().doVanillaJumps && Player.GetModPlayer<TRAEJumps>().allowBlizzardDash && !Player.GetModPlayer<TRAEJumps>().usedBlizzardDash)))
                 {
-                    if(Player.GetModPlayer<TRAEJumps>().advFlight)
-                    {
-                        Player.GetModPlayer<TRAEJumps>().SpendBlizzardJump();
-                    }
+
                     Player.GetModPlayer<TRAEJumps>().usedBlizzardDash = true;
                     Player.velocity.X = 16f * (float)dir;
                     Player.dashDelay = -1;
                     performingBlizzardDash = true;
-                    Player.canJumpAgain_Blizzard = false;
+                    Player.GetJumpState(ExtraJump.BlizzardInABottle).Available = false;
                     Point point = (Player.Center + new Vector2(dir * Player.width / 2 + 2, Player.gravDir * (float)(-Player.height) / 2f + Player.gravDir * 2f)).ToTileCoordinates();
                     Point point2 = (Player.Center + new Vector2(dir * Player.width / 2 + 2, 0f)).ToTileCoordinates();
                     if (WorldGen.SolidOrSlopedTile(point.X, point.Y) || WorldGen.SolidOrSlopedTile(point2.X, point2.Y))
                     {
                         Player.velocity.X /= 2f;
                     }
-					SoundEngine.PlaySound(SoundID.DoubleJump with { MaxInstances = 0 }, Player.Center);
+                    SoundEngine.PlaySound(SoundID.DoubleJump with { MaxInstances = 0 }, Player.Center);
                 }
             }
             if (Player.dashType != 2)

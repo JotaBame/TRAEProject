@@ -20,16 +20,11 @@ namespace TRAEProject.NewContent.NPCs.Underworld.Lavamander
     {
         public override void SetStaticDefaults()
 		{
-			NPCDebuffImmunityData debuffData = new NPCDebuffImmunityData
-			{
-				SpecificallyImmuneTo = new int[] {
-					BuffID.OnFire,
-					BuffID.OnFire3,
-					BuffID.Confused // Most NPCs have this
-				}
-			};
-			NPCID.Sets.DebuffImmunitySets.Add(Type, debuffData);
-			// DisplayName.SetDefault("Lavamander"); 
+            NPCID.Sets.SpecificDebuffImmunity[Type][BuffID.OnFire] = true;
+            NPCID.Sets.SpecificDebuffImmunity[Type][BuffID.OnFire3] = true;
+            NPCID.Sets.SpecificDebuffImmunity[Type][BuffID.Confused] = true;
+
+            // DisplayName.SetDefault("Lavamander"); 
             Main.npcFrameCount[NPC.type] = 5;
         }
 

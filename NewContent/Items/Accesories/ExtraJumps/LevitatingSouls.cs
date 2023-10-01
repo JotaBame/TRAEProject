@@ -1,3 +1,8 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -17,13 +22,11 @@ namespace TRAEProject.NewContent.Items.Accesories.ExtraJumps
         {
             Item.accessory = true;
             Item.rare = ItemRarityID.Yellow;
-            Item.width = 32;
-            Item.height = 28;
-            Item.value = Item.sellPrice(gold:7);
+			Item.value = Item.buyPrice(0, 40);
         }
         public override void UpdateAccessory(Player player, bool hideVisual)
         {
-            player.GetModPlayer<TRAEJumps>().levitation = true;
+            player.GetJumpState<LevitationJump>().Enable();
             player.moveSpeed += 0.20f;
             player.jumpSpeedBoost += Mobility.JSV(0.24f);
         }

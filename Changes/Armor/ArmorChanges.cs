@@ -301,7 +301,7 @@ namespace ChangesArmor
             if (armorSet == "PharaohSet")
             {
                 player.setBonus = "Grants an improved double jump and the ability to float for a few seconds";
-                player.hasJumpOption_Sandstorm = true;
+                player.GetJumpState<SandstormInABottleJump>().Enable();
                 player.carpet = true;
             }
             if (armorSet == "WizardSetHM")

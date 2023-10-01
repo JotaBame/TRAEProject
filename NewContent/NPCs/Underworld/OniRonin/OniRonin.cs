@@ -19,14 +19,9 @@ namespace TRAEProject.NewContent.NPCs.Underworld.OniRonin
     {
         public override void SetStaticDefaults()
         {
-            NPCDebuffImmunityData debuffData = new()
-            {
-                SpecificallyImmuneTo = new int[] {
-                    BuffID.OnFire,
-                    BuffID.OnFire3,
-                    BuffID.Confused // Most NPCs have this
-				}
-            };
+            NPCID.Sets.SpecificDebuffImmunity[Type][BuffID.OnFire] = true;
+            NPCID.Sets.SpecificDebuffImmunity[Type][BuffID.OnFire3] = true;
+            NPCID.Sets.SpecificDebuffImmunity[Type][BuffID.Confused] = true;
             var drawModifier = new NPCID.Sets.NPCBestiaryDrawModifiers(0)
             { // Influences how the NPC looks in the Bestiary
                 CustomTexturePath = "TRAEProject/NewContent/NPCs/Underworld/OniRonin/OniRoninBestiary", // If the NPC is multiple parts like a worm, a custom texture for the Bestiary is encouraged.
@@ -35,7 +30,6 @@ namespace TRAEProject.NewContent.NPCs.Underworld.OniRonin
                 //PortraitPositionYOverride = 12f
             };
             NPCID.Sets.NPCBestiaryDrawOffset.Add(NPC.type, drawModifier);
-            NPCID.Sets.DebuffImmunitySets.Add(Type, debuffData);
             // DisplayName.SetDefault("Oni Ronin");
             Main.npcFrameCount[NPC.type] = 3;
         }

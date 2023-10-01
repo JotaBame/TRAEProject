@@ -2,6 +2,7 @@
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
+using TRAEProject.Changes.Weapon.Summon.Minions;
 using TRAEProject.NewContent.TRAEDebuffs;
 
 namespace TRAEProject.Common

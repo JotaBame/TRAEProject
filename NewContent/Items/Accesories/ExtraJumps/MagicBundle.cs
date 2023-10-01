@@ -1,4 +1,8 @@
-
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -14,22 +18,23 @@ namespace TRAEProject.NewContent.Items.Accesories.ExtraJumps
         public override void SetStaticDefaults()
         {
             Terraria.GameContent.Creative.CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
+
+      
         }
         public override void SetDefaults()
         {
             Item.accessory = true;
             Item.rare = ItemRarityID.Cyan;
-            Item.width = 40;
-            Item.height = 40;
-            Item.value = Item.sellPrice(gold: 9);
+			Item.value = Item.buyPrice(gold: 10);
         }
         public override void UpdateAccessory(Player player, bool hideVisual)
         {
-            player.hasJumpOption_Sail = true;
+
+            player.GetJumpState(ExtraJump.TsunamiInABottle).Enable();
             player.extraFall += 50;
             player.autoJump = true;
             player.jumpSpeedBoost += Mobility.JSV(0.24f); 
-            player.GetModPlayer<TRAEJumps>().faeJump = true;
+            player.GetJumpState<FaeJump>().Enable();
             player.jumpBoost = true;
             player.GetModPlayer<SpaceBalloonPlayer>().SpaceBalloon += 1;
         }

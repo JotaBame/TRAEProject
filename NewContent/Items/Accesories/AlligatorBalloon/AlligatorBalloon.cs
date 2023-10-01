@@ -27,7 +27,8 @@ namespace TRAEProject.NewContent.Items.Accesories.AlligatorBalloon
         public override void UpdateAccessory(Player player, bool hideVisual)
         {
             player.jumpBoost = true;
-            player.hasJumpOption_Sail = true;
+            player.GetJumpState(ExtraJump.TsunamiInABottle).Enable();
+
             player.extraFall += 30;
 			player.autoJump = true;
             player.jumpSpeedBoost += 1.2f;

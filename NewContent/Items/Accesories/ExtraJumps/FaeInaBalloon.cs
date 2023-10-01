@@ -1,4 +1,8 @@
-
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -19,16 +23,15 @@ namespace TRAEProject.NewContent.Items.Accesories.ExtraJumps
         }
         public override void SetDefaults()
         {
-            Item.width = 34;
-            Item.height = 44;
             Item.accessory = true;
             Item.rare = ItemRarityID.Yellow;
-			Item.value = Item.buyPrice(gold: 6, silver: 50);
+			Item.value = Item.buyPrice(gold: 5);
         }
         public override void UpdateAccessory(Player player, bool hideVisual)
         {
-            player.GetModPlayer<TRAEJumps>().faeJump = true;
-            player.jumpBoost = true; player.noFallDmg = true;
+            player.GetJumpState<FaeJump>().Enable();
+            player.jumpBoost = true; 
+            player.noFallDmg = true;
 
             player.GetModPlayer<SpaceBalloonPlayer>().SpaceBalloon += 1;
         }

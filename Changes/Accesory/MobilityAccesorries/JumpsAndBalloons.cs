@@ -18,27 +18,25 @@ namespace TRAEProject.Changes.Accesory
             {
                 Player.moveSpeed *= 0.5f;
             }
-            if(Player.isPerformingJump_Sandstorm)
+            if (Player.GetJumpState<SandstormInABottleJump>().Active)
             {
                 Player.moveSpeed *= 1.5f;
             }
 
-            if (Player.isPerformingJump_Fart)
+            if (Player.GetJumpState<FartInAJarJump>().Active)
             {
                 Player.moveSpeed *= (1.5f / 1.75f);
             }
-            if (Player.isPerformingJump_Sail)
+            if (Player.GetJumpState<TsunamiInABottleJump>().Active)
+
             {
                 Player.moveSpeed *= (1.5f / 1.25f);
             }
-            if (Player.isPerformingJump_Cloud)
+            if (Player.GetJumpState<CloudInABottleJump>().Active)
             {
                 Player.moveSpeed *= 1.5f;
             }
-            if(Player.GetModPlayer<TRAEJumps>().isLevitating)
-            {
-                Player.moveSpeed *= 1.5f;
-            }
+
         }
         public override void UpdateAccessory(Item item, Player player, bool hideVisual)
         {

@@ -26,8 +26,8 @@ namespace TRAEProject.NewContent.Items.Accesories.WeirdBundle
         }
         public override void UpdateAccessory(Player player, bool hideVisual)
         {
-            player.hasJumpOption_Fart = true;
-            player.hasJumpOption_Sail = true;
+            player.GetJumpState(ExtraJump.FartInAJar).Enable();
+            player.GetJumpState(ExtraJump.TsunamiInABottle).Enable();
             player.jumpBoost = true;
             player.GetModPlayer<HoneyCombPlayer>().combs += 1;
             player.noFallDmg = true;

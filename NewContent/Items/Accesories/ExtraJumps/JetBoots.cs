@@ -1,4 +1,8 @@
-
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -16,19 +20,18 @@ namespace TRAEProject.NewContent.Items.Accesories.ExtraJumps
         }
         public override void SetDefaults()
         {
-            Item.width = 28;
-            Item.height = 40;
-            Item.value = Item.sellPrice(gold: 9);
             Item.accessory = true;
             Item.rare = ItemRarityID.Lime;
+			Item.value = Item.buyPrice(0, 35);
         }
         public override void UpdateAccessory(Player player, bool hideVisual)
         {
             player.GetModPlayer<TRAEJumps>().advFlight = true;
             player.rocketTimeMax += 10;
-            player.GetModPlayer<TRAEJumps>().boosterFlightTimeMax += 40;
+            player.GetModPlayer<TRAEJumps>().boosterCount++;
+            player.GetJumpState<JetJump>().Enable();
             player.GetModPlayer<Mobility>().flightTimeBonus += 0.4f;
-            player.rocketBoots = player.vanityRocketBoots = 1;
+            player.rocketBoots = player.vanityRocketBoots = 1; player.noFallDmg = true;
         }
         public override void AddRecipes()
         {

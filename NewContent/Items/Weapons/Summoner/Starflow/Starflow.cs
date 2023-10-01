@@ -18,7 +18,6 @@ namespace TRAEProject.NewContent.Items.Weapons.Summoner.Starflow
         public override void SetStaticDefaults()
         {
             // DisplayName.SetDefault("Stardust Trail");
-            BuffID.Sets.IsAnNPCWhipDebuff[Type] = true;
             CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
 		}
         public override void SetDefaults()
@@ -76,7 +75,8 @@ namespace TRAEProject.NewContent.Items.Weapons.Summoner.Starflow
             // DisplayName.SetDefault("Starflow Tag");
             // Description.SetDefault("22 tag damage pogchamp");
             Main.debuff[Type] = true;
-  
+            BuffID.Sets.IsATagBuff[Type] = true;
+
         }
         public override void Update(NPC npc, ref int buffIndex)
         {
