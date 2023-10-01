@@ -17,7 +17,6 @@ namespace TRAEProject.Changes.Accesory
             switch (item.type)
             {
                 //running boots
-                case ItemID.HellfireTreads:
                 case ItemID.HermesBoots:
                 case ItemID.FlurryBoots:
                 case ItemID.SailfishBoots:
@@ -86,6 +85,8 @@ namespace TRAEProject.Changes.Accesory
                     player.moveSpeed += Mobility.bootSpeed * 0.01f;
                     player.rocketTimeMax += 10;
                     break;
+                case ItemID.HellfireTreads:
+
                 case ItemID.SpectreBoots:
                     player.accRunSpeed = 4.8f;
                     player.moveSpeed += Mobility.bootSpeed * 0.01f;

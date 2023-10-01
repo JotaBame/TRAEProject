@@ -69,7 +69,7 @@ namespace TRAEProject.Changes.Accesory
                         {
                             line.Text = "Releases bees and douses you in honey when damaged\nSlightly increases life regeneration";
                         }
-                        if (line.Mod == "Terraria" && line.Name == "Tooltip0")
+                        if (line.Mod == "Terraria" && line.Name == "Tooltip1")
                         {
                             line.Text = "Increases jump height, prevents fall damage and allows fast fall";
                         }
