@@ -303,6 +303,13 @@ namespace TRAEProject.Common
                             Dust dust = Dust.NewDustDirect(projectile.position, projectile.width, projectile.height, Main.rand.Next(DustTypes), projectile.velocity.X * 0.5f, projectile.velocity.Y * 0.5f, 150, default, 1.5f);
                             dust.noGravity = true;
                         }
+                        for (int i = 0; i < DustCount / 2; i++)
+                        {
+                            Color sparkleColor = Color.Lerp(Color.Purple, Color.HotPink, Main.rand.NextFloat());
+                            Vector2 sparkleScale = new Vector2(2, 1);
+                            Vector2 sparkleVel = TRAEMethods.PolarVector(Main.rand.NextFloat() * 8 + 2, Main.rand.NextFloat() * MathF.Tau);
+                            Sparkle.NewSparkle(projectile.Center - sparkleVel, sparkleColor, sparkleScale, sparkleVel, Main.rand.Next(20, 40), sparkleScale, null, 1, sparkleVel.ToRotation(), .9f);
+                        }
                         return false;
                     }
             }
