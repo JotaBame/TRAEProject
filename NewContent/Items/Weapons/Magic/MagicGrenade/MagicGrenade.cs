@@ -1,10 +1,5 @@
-using Microsoft.CodeAnalysis;
 using Microsoft.Xna.Framework;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+
 using Terraria;
 using Terraria.Audio;
 using Terraria.ID;
@@ -23,11 +18,11 @@ namespace TRAEProject.NewContent.Items.Weapons.Magic.MagicGrenade
         }
         public override void SetDefaults()
         {
-            Item.DefaultToStaff(ProjectileType<MagicGrenadeP>(), 5.75f, 55, 200);
+            Item.DefaultToStaff(ProjectileType<MagicGrenadeP>(), 5.75f, 55, 150);
             Item.useStyle = ItemUseStyleID.Shoot;
             Item.width = 14;
             Item.height = 20;
-            Item.damage = 75;
+            Item.damage = 60;
             Item.crit = 16;
             Item.noUseGraphic = true;
             Item.autoReuse = true;
@@ -59,7 +54,7 @@ namespace TRAEProject.NewContent.Items.Weapons.Magic.MagicGrenade
         }
         public override void ModifyHitNPC(NPC target, ref NPC.HitModifiers modifiers)
         {
-            if (Projectile.ai[0] == 75f)
+            if (Projectile.ai[0] >= 75f)
             {
                 modifiers.SetCrit();
             }
@@ -86,9 +81,9 @@ namespace TRAEProject.NewContent.Items.Weapons.Magic.MagicGrenade
             }
             if (Projectile.ai[0] == 75f)
             {
-                Projectile.GetGlobalProjectile<ProjectileStats>().ExplosionRadius = 300;
-
-                Projectile.velocity.Y = -1.5f;
+                Projectile.GetGlobalProjectile<ProjectileStats>().ExplosionRadius = 350;
+                if (Projectile.velocity.Y > 0)
+                    Projectile.velocity.Y = -1.5f;
             }
             if (Projectile.ai[0] >= 75f)
             {

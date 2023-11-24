@@ -66,7 +66,7 @@ namespace TRAEProject.Changes.NPCs.Boss
 			{
 				if (npc.type == NPCID.SkeletronHead)
 				{
-					
+					npc.chaseable = true;
 					npc.defense = npc.defDefense;
 					if (npc.ai[0] == 0f && Main.netMode != NetmodeID.MultiplayerClient)
 					{
@@ -126,6 +126,10 @@ namespace TRAEProject.Changes.NPCs.Boss
 								Main.dust[num3].fadeIn = 1f;
 								Main.dust[num3].velocity *= 0.1f;
 								Main.dust[num3].noLight = true;
+							}
+							if (Hands >= 2)
+							{
+								npc.chaseable = false;
 							}
 						}
 						if ((Hands < 2 || (double)npc.life < (double)npc.lifeMax * 0.75) && npc.ai[1] == 0f)

@@ -2,6 +2,7 @@
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
+using TRAEProject.Changes.Accesory;
 
 namespace TRAEProject.NewContent.Items.Accesories.CrossNecklace
 {    /*[AutoloadEquip(EquipType.Neck)]*/
@@ -24,7 +25,7 @@ namespace TRAEProject.NewContent.Items.Accesories.CrossNecklace
         public override void UpdateAccessory(Player player, bool hideVisual)
         {
             player.longInvince = true;
-            player.panic = true;
+            player.GetModPlayer<OnHitEffects>().panicNecklaces += 1;
         }
         public override void AddRecipes()
         {

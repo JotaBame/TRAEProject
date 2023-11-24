@@ -105,10 +105,7 @@ namespace TRAEProject.Changes
                 //case ItemID.Dynamite:
                 //    item.value = Item.buyPrice(silver: 65);
                     //break;
-                case ItemID.Minishark:
-                case ItemID.QuadBarrelShotgun:
-                    item.value = Item.buyPrice(gold: 50);
-                    break;
+ 
                 //case ItemID.TinkerersWorkshop:
                 //    item.value = Item.buyPrice(gold: 30);
                 //    break;

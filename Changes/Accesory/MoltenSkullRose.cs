@@ -36,6 +36,10 @@ namespace TRAEProject.Changes.Accesory
                     break;
                
                 case ItemID.MoltenQuiver:
+                    player.magicQuiver = false;
+                    player.GetModPlayer<RangedStats>().Magicquiver += 1;
+                    if (player.HeldItem.useAmmo == AmmoID.Arrow || player.HeldItem.useAmmo == AmmoID.Stake)
+                        player.GetDamage<RangedDamageClass>() -= 0.1f; // 1.4.4 magic quiver uses a new bool and guess what it is not supported by tmod (at least at the time i'm writing this note)
                     player.GetModPlayer<ObsidianSkullEffect>().arrowsburn += 1;
                     break;
                 case ItemID.ObsidianRose:

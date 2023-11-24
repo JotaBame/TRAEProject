@@ -12,7 +12,7 @@ namespace TRAEProject.Changes.Recipes
 {
     public static class WeaponRecipes
     {
-        public static void Load(Mod mod)
+        public static void Load()
         {
             Recipe StardustPortal = Recipe.Create(ItemID.MoonlordTurretStaff).AddIngredient(3459, 18).AddTile(TileID.LunarCraftingStation);
             StardustPortal.Register();
@@ -27,17 +27,27 @@ namespace TRAEProject.Changes.Recipes
             WaspGun.AddTile(TileID.MythrilAnvil);
             WaspGun.Register(); 
             Recipe MagicDagger = Recipe.Create(ItemID.MagicDagger);
-            MagicDagger.AddIngredient(ItemID.ThrowingKnife, 1);
-            MagicDagger.AddIngredient(ItemID.FallenStar, 5);
+            MagicDagger.AddIngredient(ItemID.ThrowingKnife, 100);
             MagicDagger.AddIngredient(ItemID.DemoniteBar, 10);
             MagicDagger.AddTile(TileID.Anvils);
             MagicDagger.Register(); 
             Recipe MagicDagger2 = Recipe.Create(ItemID.MagicDagger);
-            MagicDagger2.AddIngredient(ItemID.ThrowingKnife, 1);
-            MagicDagger2.AddIngredient(ItemID.FallenStar, 5);
+            MagicDagger2.AddIngredient(ItemID.ThrowingKnife, 100);
             MagicDagger2.AddIngredient(ItemID.CrimtaneBar, 10);
             MagicDagger2.AddTile(TileID.Anvils);
-            MagicDagger2.Register();
+            MagicDagger2.Register(); 
+            Recipe MagicMissile = Recipe.Create(ItemID.MagicMissile);
+            MagicMissile.AddRecipeGroup("GoldBar", 10);
+            MagicMissile.AddIngredient(ItemID.FallenStar, 5);
+            MagicMissile.AddIngredient(ItemID.ShadowScale, 20);
+            MagicMissile.AddTile(TileID.Anvils);
+            MagicMissile.Register();
+            Recipe MagicMissile2 = Recipe.Create(ItemID.MagicMissile);
+            MagicMissile2.AddRecipeGroup("GoldBar", 10);
+            MagicMissile2.AddIngredient(ItemID.FallenStar, 5);
+            MagicMissile2.AddIngredient(ItemID.TissueSample, 20);
+            MagicMissile2.AddTile(TileID.Anvils);
+            MagicMissile2.Register();
             Recipe IceSickle = Recipe.Create(ItemID.IceSickle);
             IceSickle.AddIngredient(ItemID.FrostCore, 1);
             IceSickle.AddIngredient(ItemID.SoulofNight, 15);

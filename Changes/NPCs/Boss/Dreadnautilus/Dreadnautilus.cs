@@ -1,9 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+
 using TRAEProject.NewContent.Items.DreadItems.DreadRelic;
 using Terraria;
 using Terraria.Audio;
@@ -23,7 +21,6 @@ using TRAEProject.NewContent.Items.DreadItems.BloodSquidEgg;
 using TRAEProject.NewContent.Items.DreadItems.BloodBoiler;
 using TRAEProject.NewContent.Items.DreadItems.DreadMask;
 using static Terraria.ModLoader.ModContent;
-using TRAEProject;
 namespace TRAEProject.Changes.NPCs.Boss.Dreadnautilus
 {
 	class Dreadnautilus : GlobalNPC

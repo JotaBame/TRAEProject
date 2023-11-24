@@ -41,6 +41,13 @@ namespace TRAEProject.Changes.NPCs
             
             switch (npc.type)
             {
+                case NPCID.DesertScorpionWall:
+                case NPCID.DesertScorpionWalk:
+                    npcLoot.Add(ItemDropRule.Common(ItemID.QuadBarrelShotgun, 50));
+                    break;
+                case NPCID.DuneSplicerHead:
+                    npcLoot.Add(ItemDropRule.Common(ItemID.QuadBarrelShotgun, 50));
+                    break;
                 case NPCID.DD2DarkMageT1:
                 case NPCID.DD2DarkMageT3:
                     npcLoot.Add(ItemDropRule.OneFromOptions(6, ItemID.MonkBelt, ItemID.HuntressBuckler));

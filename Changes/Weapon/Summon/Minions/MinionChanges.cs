@@ -31,7 +31,7 @@ namespace TRAEProject.Changes.Weapon.Summon.Minions
                     item.damage = 5; // down from 8
                     break;
                 case ItemID.VampireFrogStaff:
-                    item.damage = 14; // UP FROM 11
+                    item.damage = 11; // UP FROM 11
                     break;
                 case ItemID.HornetStaff:
                     item.damage = 12;
@@ -117,7 +117,7 @@ namespace TRAEProject.Changes.Weapon.Summon.Minions
                 case ProjectileID.VampireFrog:
                     projectile.usesIDStaticNPCImmunity = false;
                     projectile.usesLocalNPCImmunity = true;
-                    projectile.localNPCHitCooldown = 45; // up from 10, static 
+                    projectile.localNPCHitCooldown = 40; // up from 10, static 
                     break;
                 case ProjectileID.RainbowCrystalExplosion:
                     projectile.usesIDStaticNPCImmunity = false;
@@ -164,9 +164,7 @@ namespace TRAEProject.Changes.Weapon.Summon.Minions
                     target.immune[projectile.owner] = 0;
                     projectile.localNPCImmunity[target.whoAmI] = 20;
                     break;
-                case ProjectileID.VampireFrog:
-                    projectile.localNPCImmunity[target.whoAmI] = (int)projectile.ai[1];
-                    break;
+          
             }
         }
         public override void ModifyHitNPC(Projectile projectile, NPC target, ref NPC.HitModifiers modifiers)
@@ -204,31 +202,31 @@ namespace TRAEProject.Changes.Weapon.Summon.Minions
                 case ProjectileID.Tempest:
                     Tempest.AI(projectile);
                     return false;
-                case ProjectileID.VampireFrog:
-                    //Main.NewText(projectile.ai[0] + ", " + projectile.ai[1] + ", " + projectile.localAI[0] + ", " + projectile.localAI[1]);
-                    if(projectile.ai[1] == 20)
-                    {
-                        projectile.localAI[0] = 45;
-                    }
-                    if(projectile.localAI[0] > 0)
-                    {
-                        projectile.localAI[0]--;
-                        if(projectile.ai[1] == 0)
-                        {
-                            projectile.ai[0] = 4;
-                            projectile.velocity.X = 0;
-                            projectile.velocity.Y += 0.4f;
-                            if (projectile.velocity.Y > 10f)
-                            {
-                                projectile.velocity.Y = 10f;
-                            }
-                        }
-                    }
-                    else if(projectile.ai[0] == 4)
-                    {
-                        projectile.ai[0] = 0;
-                    }
-                    break;
+                //case ProjectileID.VampireFrog:
+                //    //Main.NewText(projectile.ai[0] + ", " + projectile.ai[1] + ", " + projectile.localAI[0] + ", " + projectile.localAI[1]);
+                //    if(projectile.ai[1] == 20)
+                //    {
+                //        projectile.localAI[0] = 45;
+                //    }
+                //    if(projectile.localAI[0] > 0)
+                //    {
+                //        projectile.localAI[0]--;
+                //        if(projectile.ai[1] == 0)
+                //        {
+                //            projectile.ai[0] = 4;
+                //            projectile.velocity.X = 0;
+                //            projectile.velocity.Y += 0.4f;
+                //            if (projectile.velocity.Y > 10f)
+                //            {
+                //                projectile.velocity.Y = 10f;
+                //            }
+                //        }
+                //    }
+                //    else if(projectile.ai[0] == 4)
+                //    {
+                //        projectile.ai[0] = 0;
+                //    }
+                //    break;
             }
             if(projectile.type == ProjectileID.PygmySpear)
             {
@@ -245,17 +243,17 @@ namespace TRAEProject.Changes.Weapon.Summon.Minions
         {
             base.PostAI(projectile);
         }
-        public override bool? CanHitNPC(Projectile projectile, NPC target)
-        {
-            if(projectile.type == ProjectileID.VampireFrog)
-            {
-                if(projectile.ai[0] != 2 || projectile.ai[1] <= 0)
-                {
-                    return false;
-                }
-            }
-            return base.CanHitNPC(projectile, target);
-        }
+        //public override bool? CanHitNPC(Projectile projectile, NPC target)
+        //{
+        //    if(projectile.type == ProjectileID.VampireFrog)
+        //    {
+        //        if(projectile.ai[0] != 2 || projectile.ai[1] <= 0)
+        //        {
+        //            return false;
+        //        }
+        //    }
+        //    return base.CanHitNPC(projectile, target);
+        //}
         public override bool TileCollideStyle(Projectile projectile, ref int width, ref int height, ref bool fallThrough, ref Vector2 hitboxCenterFrac)
         {
             if (projectile.type == ProjectileID.Pygmy || projectile.type == ProjectileID.Pygmy2 || projectile.type == ProjectileID.Pygmy3 || projectile.type == ProjectileID.Pygmy4)

@@ -29,7 +29,7 @@ namespace TRAEProject.NewContent.Items.Armor.LeatherArmor
         }
         public override void UpdateEquip(Player player)
         {
-            player.GetDamage<SummonDamageClass>() += 0.03f;
+            player.GetDamage<SummonDamageClass>() += 0.04f;
         }
         public override void AddRecipes()
         {

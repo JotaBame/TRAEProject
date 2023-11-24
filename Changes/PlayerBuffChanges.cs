@@ -45,7 +45,7 @@ namespace TRAEProject
                     return;
                 case BuffID.Thorns:
                     player.thorns -= 1f;
-                    player.GetModPlayer<OnHitItems>().newthorns += 0.33f;
+                    player.GetModPlayer<OnHitEffects>().newthorns += 0.33f;
                     return;
                 case BuffID.Rabies:
                     player.AddBuff(BuffType<NeoFeralBite>(), player.buffTime[buffIndex], false);
@@ -141,9 +141,7 @@ namespace TRAEProject
                 case BuffID.SugarRush:
                     tip = "10% increased movement speed and 20% increased mining speed";
                     return;
-                case BuffID.Mining:
-                    tip = "15% increased mining speed";
-                    break;
+    
             }
         }
     }
@@ -269,10 +267,7 @@ namespace TRAEProject
 
         public override void UpdateLifeRegen()
         {
-            if (Player.HasBuff(BuffID.Mining))
-            {
-                Player.pickSpeed += 0.1f;
-            }
+ 
             if (Player.HasBuff(BuffID.Regeneration))
             {
                 if (Player.lifeRegen > 0)

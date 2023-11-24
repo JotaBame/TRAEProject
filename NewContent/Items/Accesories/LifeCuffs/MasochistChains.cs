@@ -2,6 +2,7 @@
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
+using TRAEProject.Changes.Accesory;
 using static Terraria.ModLoader.ModContent;
 
 namespace TRAEProject.NewContent.Items.Accesories.LifeCuffs
@@ -26,8 +27,8 @@ namespace TRAEProject.NewContent.Items.Accesories.LifeCuffs
         }
         public override void UpdateAccessory(Player player, bool hideVisual)
         {
-            player.GetModPlayer<MasoCuffsEffect>().cuffs += 1; 
-			player.panic = true;
+            player.GetModPlayer<LifeCuffsEffect>().cuffs += 1;
+            player.GetModPlayer<OnHitEffects>().panicNecklaces += 1;
         }
 
         public override void AddRecipes()
@@ -39,19 +40,5 @@ namespace TRAEProject.NewContent.Items.Accesories.LifeCuffs
                 .Register();
         }
     }
-    class MasoCuffsEffect : ModPlayer
-    {
-        public int cuffs = 0;
-        public override void ResetEffects()
-        {
-            cuffs = 0;
-        }
-        public override void OnHurt(Player.HurtInfo info)
-        {
-            if (cuffs > 0)
-            {
-                Player.AddBuff(BuffType<HeartAttack>(), cuffs * ((int)info.Damage * 6 + 300));
-            }
-        }
-    }
+  
 }

@@ -86,7 +86,6 @@ namespace TRAEProject.Changes.Accesory
                     player.rocketTimeMax += 10;
                     break;
                 case ItemID.HellfireTreads:
-
                 case ItemID.SpectreBoots:
                     player.accRunSpeed = 4.8f;
                     player.moveSpeed += Mobility.bootSpeed * 0.01f;

@@ -1,9 +1,9 @@
 ﻿
-using TRAEProject.Changes.Items;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 using static Terraria.ModLoader.ModContent;
+using TRAEProject.Changes.Accesory;
 
 namespace TRAEProject.NewContent.Items.Accesories.LifeCuffs
 {    
@@ -28,7 +28,7 @@ namespace TRAEProject.NewContent.Items.Accesories.LifeCuffs
         public override void UpdateAccessory(Player player, bool hideVisual)
         {
             player.GetModPlayer<LifeCuffsEffect>().cuffs += 1;
-            player.GetModPlayer<OnHitItems>().magicCuffsCount += 1;
+            player.GetModPlayer<OnHitEffects>().magicCuffsCount += 1;
         }
 
         public override void AddRecipes()

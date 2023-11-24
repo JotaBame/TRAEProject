@@ -49,14 +49,8 @@ namespace TRAEProject.NewContent.Items.Accesories.LifeCuffs
         {
             if(cuffs > 0)
             {
-                if(Player.HasBuff(ModContent.BuffType<HeartAttack>()))
-                {
-                    Player.buffTime[Player.FindBuffIndex(BuffType<HeartAttack>())] += cuffs * ((int)info.Damage * 6);
-                }
-                else
-                {
-                    Player.AddBuff(BuffType<HeartAttack>(), cuffs * ((int)info.Damage * 6));
-                }
+                 Player.AddBuff(BuffType<HeartAttack>(), 180 + cuffs * info.Damage * 3); // 4 seconds base, +1 second for every 20 damage
+
             }
         }
     }

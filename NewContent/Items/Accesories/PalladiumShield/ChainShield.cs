@@ -28,7 +28,7 @@ namespace TRAEProject.NewContent.Items.Accesories.PalladiumShield
         public override void UpdateAccessory(Player player, bool hideVisual)
         {
             player.statLifeMax2 += 40;
-            player.GetModPlayer<ShackleEffects>().cuffs += 1;
+                    player.GetModPlayer<OnHitEffects>().shackles += 1;
         }
         public override void AddRecipes()
         {

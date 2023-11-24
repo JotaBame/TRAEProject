@@ -24,8 +24,8 @@ namespace TRAEProject.NewContent.Items.Weapons.Magic.ConfuseRay
             Item.DefaultToStaff(ProjectileType<ConfuseRayBeam>(), 6, 24, 12);
             Item.width = 40;
             Item.height = 40;
-            Item.damage = 24;
-			Item.crit = 7;
+            Item.damage = 23;
+			Item.crit = 3;
             Item.autoReuse = true;
             Item.rare = ItemRarityID.Green;
             Item.value = Item.sellPrice(silver: 20);

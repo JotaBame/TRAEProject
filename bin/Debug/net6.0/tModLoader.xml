@@ -1444,6 +1444,142 @@
             <param name="multiplier">The multiplier.</param>
             <returns>The modified <see cref="T:Terraria.DataStructures.WingStats"/>.</returns>
         </member>
+        <member name="T:Terraria.Dust">
+            <summary>
+            Dust are particles effects used to add visual elements to weapons and other effects. Dust are completely visual and should never be used as a gameplay element. Dust count limits are imposed by the game to keep perfomance consistent, so Dust are not guaranteed to spawn when code attempts to spawn them.<para/>
+            Vanilla Dust are enumerated in the <see cref="T:Terraria.ID.DustID"/> class.<para/>
+            New Dust can be implemented using the <see cref="T:Terraria.ModLoader.ModDust"/> class.<para/>
+            The <see href="https://github.com/tModLoader/tModLoader/wiki/Basic-Dust">Basic Dust Guide</see> teaches the basics on using Dust. In addition, the guide has resources teaching how to discover and use vanilla Dust.
+            </summary>
+        </member>
+        <member name="F:Terraria.Dust.position">
+            <summary>
+            Current position of this dust.
+            </summary>
+        </member>
+        <member name="F:Terraria.Dust.velocity">
+            <summary>
+            Current velocity of this dust.
+            </summary>
+        </member>
+        <member name="F:Terraria.Dust.fadeIn">
+            <summary>
+            Used by some dust AI to control logic pertaining to the dust fading in. The specific behavior depends on the dust type. Defaults to 0f.
+            </summary>
+        </member>
+        <member name="F:Terraria.Dust.noGravity">
+            <summary>
+            Indicates if a dust should be affected by gravity or not. Not all vanilla dust have logic checking this value and modded dust with custom <see cref="M:Terraria.ModLoader.ModDust.Update(Terraria.Dust)"/> code would need to implement this into the logic for it to have effect. Defaults to <see langword="false"/>.
+            </summary>
+        </member>
+        <member name="F:Terraria.Dust.scale">
+            <summary>
+            The draw scale of the dust. Many dust rely on scale to determine when it should despawn. The Scale parameter of <see cref="M:Terraria.Dust.NewDust(Microsoft.Xna.Framework.Vector2,System.Int32,System.Int32,System.Int32,System.Single,System.Single,System.Int32,Microsoft.Xna.Framework.Color,System.Single)"/> will be slightly randomized (multiplied by a number between 80% to 120%) and then assigned to <see cref="F:Terraria.Dust.scale"/>.
+            </summary>
+        </member>
+        <member name="F:Terraria.Dust.rotation">
+            <summary>
+            Current rotation of this dust.
+            </summary>
+        </member>
+        <member name="F:Terraria.Dust.noLight">
+            <summary>
+            If true, the dust will not emit light. The specific behavior depends on the dust type, as many dust might not emit light or honor <see cref="F:Terraria.Dust.noLight"/>. Defaults to <see langword="false"/>.
+            </summary>
+        </member>
+        <member name="F:Terraria.Dust.type">
+            <summary>
+            The Dust ID of this dust. The Dust ID will be equal to either a <see cref="T:Terraria.ID.DustID"/> entry or <see cref="M:Terraria.ModLoader.ModContent.DustType``1"/>.
+            </summary>
+        </member>
+        <member name="F:Terraria.Dust.color">
+            <summary>
+            A tinting to the color this dust is drawn. Works best with sprites with low saturation, such as greyscale sprites. Not as effective with colored sprites.
+            </summary>
+        </member>
+        <member name="F:Terraria.Dust.alpha">
+            <summary>
+            How transparent to draw this dust. 0 to 255. 255 is completely transparent. Used to fade dust out and sometimes to determine if a dust should despawn.
+            </summary>
+        </member>
+        <member name="F:Terraria.Dust.frame">
+            <summary>
+            The portion of the sprite sheet that this dust will be drawn using. Typical vanilla dust spawn with a randomly choosen 8x8 frame from a set of 3 options, but modded dust can use whatever dimensions are desired. 
+            </summary>
+        </member>
+        <member name="F:Terraria.Dust.shader">
+            <summary>
+            The shader that will be applied to this dust when drawing. Typically assigned based on the dye attached to the accessory or equipment spawning the dust. This is done using code similar to <c>dust.shader = GameShaders.Armor.GetSecondaryShader(player.cPet, player);</c>
+            </summary>
+        </member>
+        <member name="F:Terraria.Dust.customData">
+            <summary>
+            Can be used to store any custom data. Typically used to store a Player, NPC, or Projectile instance that the dust will attempt to follow.
+            <para/> <see href="https://github.com/tModLoader/tModLoader/blob/stable/ExampleMod/Content/Dusts/ExampleAdvancedDust.cs">ExampleAdvancedDust.cs</see> showcases how customData can be used for advanced movement behavior.
+            </summary>
+        </member>
+        <member name="F:Terraria.Dust.realType">
+            <summary>
+            Used to temporarily store <see cref="F:Terraria.Dust.type"/> when using <see cref="P:Terraria.ModLoader.ModDust.UpdateType"/> to copy the behavior of an existing dust type.
+            </summary>
+        </member>
+        <member name="M:Terraria.Dust.NewDustPerfect(Microsoft.Xna.Framework.Vector2,System.Int32,System.Nullable{Microsoft.Xna.Framework.Vector2},System.Int32,Microsoft.Xna.Framework.Color,System.Single)">
+            <summary>
+            Attempts to spawn a single Dust into the game world. <paramref name="Position"/> indicates the spawn position and <paramref name="Velocity"/> indicates the initial velocity. Unlike <see cref="M:Terraria.Dust.NewDust(Microsoft.Xna.Framework.Vector2,System.Int32,System.Int32,System.Int32,System.Single,System.Single,System.Int32,Microsoft.Xna.Framework.Color,System.Single)"/>, position and velocity will not be slightly randomized, making this method suitable for visual effects that need exact positioning.
+            </summary>
+            <param name="Position"></param>
+            <param name="Type"></param>
+            <param name="Velocity"></param>
+            <param name="Alpha"></param>
+            <param name="newColor"></param>
+            <param name="Scale"></param>
+            <returns>The <see cref="T:Terraria.Dust"/> instance spawned</returns>
+        </member>
+        <member name="M:Terraria.Dust.NewDustDirect(Microsoft.Xna.Framework.Vector2,System.Int32,System.Int32,System.Int32,System.Single,System.Single,System.Int32,Microsoft.Xna.Framework.Color,System.Single)">
+            <summary>
+            <inheritdoc cref="M:Terraria.Dust.NewDust(Microsoft.Xna.Framework.Vector2,System.Int32,System.Int32,System.Int32,System.Single,System.Single,System.Int32,Microsoft.Xna.Framework.Color,System.Single)"/>
+            <para/> Unlike <see cref="M:Terraria.Dust.NewDust(Microsoft.Xna.Framework.Vector2,System.Int32,System.Int32,System.Int32,System.Single,System.Single,System.Int32,Microsoft.Xna.Framework.Color,System.Single)"/>, this method returns a <see cref="T:Terraria.Dust"/> instance directly.
+            </summary>
+            <param name="Position"></param>
+            <param name="Width"></param>
+            <param name="Height"></param>
+            <param name="Type"></param>
+            <param name="SpeedX"></param>
+            <param name="SpeedY"></param>
+            <param name="Alpha"></param>
+            <param name="newColor"></param>
+            <param name="Scale"></param>
+            <returns>The <see cref="T:Terraria.Dust"/> instance spawned</returns>
+        </member>
+        <member name="M:Terraria.Dust.NewDust(Microsoft.Xna.Framework.Vector2,System.Int32,System.Int32,System.Int32,System.Single,System.Single,System.Int32,Microsoft.Xna.Framework.Color,System.Single)">
+            <summary>
+            Attempts to spawn a single Dust into the game world. The Position, Width, and Height parameters dictate a rectangle, the dust will be spawned randomly within that rectangle. SpeedX and SpeedY dictate the initial velocity, they will be slightly randomized as well.
+            </summary>
+            <param name="Position"></param>
+            <param name="Width"></param>
+            <param name="Height"></param>
+            <param name="Type">Either an <see cref="T:Terraria.ID.DustID"/> entry or <see cref="M:Terraria.ModLoader.ModContent.DustType``1"/></param>
+            <param name="SpeedX"></param>
+            <param name="SpeedY"></param>
+            <param name="Alpha"></param>
+            <param name="newColor"></param>
+            <param name="Scale"></param>
+            <returns>The index of the dust within <see cref="F:Terraria.Main.dust"/></returns>
+        </member>
+        <member name="M:Terraria.Dust.QuickDust(System.Int32,System.Int32,Microsoft.Xna.Framework.Color)">
+            <inheritdoc cref="M:Terraria.Dust.QuickDust(Microsoft.Xna.Framework.Vector2,Microsoft.Xna.Framework.Color)"/>
+        </member>
+        <member name="M:Terraria.Dust.QuickDust(Microsoft.Xna.Framework.Point,Microsoft.Xna.Framework.Color)">
+            <inheritdoc cref="M:Terraria.Dust.QuickDust(Microsoft.Xna.Framework.Vector2,Microsoft.Xna.Framework.Color)"/>
+        </member>
+        <member name="M:Terraria.Dust.QuickDust(Microsoft.Xna.Framework.Vector2,Microsoft.Xna.Framework.Color)">
+            <summary>
+            Spawns dust 267 tinted to the provided color at the specified position with no velocity or gravity. Used solely for debugging purposes.
+            </summary>
+            <param name="pos"></param>
+            <param name="color"></param>
+            <returns></returns>
+        </member>
         <member name="F:Terraria.Entity.whoAmI">
             <summary>
             The index of this Entity within its specific array. These arrays track the entities in the world.
@@ -1524,6 +1660,14 @@
             </summary>
             <param name="type">The item type to check.</param>
             <returns>The number of sacrifices remaining , or null if the item can never be unlocked.</returns>
+        </member>
+        <member name="M:Terraria.GameContent.Drawing.TileDrawing.IsVisible(Terraria.Tile)">
+            <summary>
+            Returns true if the tile is visible.
+            <para/>Tiles painted with Echo Coating as well as the Echo Platform, Echo Block, and Ghostly Stinkbug Blocker tiles will all be invisible unless the player has Echo Sight (Nearby active Echo Chamber tile or wearing Spectre Goggles)
+            </summary>
+            <param name="tile"></param>
+            <returns></returns>
         </member>
         <member name="M:Terraria.GameContent.Drawing.TileDrawing.EmitLivingTreeLeaf(System.Int32,System.Int32,System.Int32)">
             <summary>
@@ -1785,6 +1929,108 @@
             <param name="id">The id of the currency system to retrieve.</param>
             <param name="system">When this method returns, contains the retrieved CustomCurrencySystem object, or null if the retrieval failed.</param>
             <returns>true if the retrieval was successful; otherwise, false.</returns>
+        </member>
+        <member name="F:Terraria.GameContent.UI.EmoteBubble.emote">
+            <summary>
+            This is the internal ID of this EmoteBubble.
+            </summary>
+        </member>
+        <member name="M:Terraria.GameContent.UI.EmoteBubble.NewBubble(System.Int32,Terraria.GameContent.UI.WorldUIAnchor,System.Int32)">
+            <summary>
+            Use this method to spawn a emote bubble
+            </summary>
+            <param name="emoticon">The emote ID of the emote that will spawn.</param>
+            <param name="bubbleAnchor">The <see cref="T:Terraria.GameContent.UI.WorldUIAnchor"/> instance for the emote. You can use <code>new WorldUIAnchor(Entity)</code> to get the instance.</param>
+            <param name="time">How long this emote remains.</param>
+            <returns>The <see cref="P:Terraria.GameContent.UI.EmoteBubble.WhoAmI"/> of this emote</returns>
+        </member>
+        <member name="M:Terraria.GameContent.UI.EmoteBubble.NewBubbleNPC(Terraria.GameContent.UI.WorldUIAnchor,System.Int32,Terraria.GameContent.UI.WorldUIAnchor)">
+            <summary>
+            Use this method to make NPCs use a random emote based on the pick emote table.
+            </summary>
+            <param name="bubbleAnchor">The <see cref="T:Terraria.GameContent.UI.WorldUIAnchor"/> instance for the emote. You can use <code>new WorldUIAnchor(NPC)</code> to get the instance.</param>
+            <param name="time">How long this emote remains.</param>
+            <param name="other">The <see cref="T:Terraria.GameContent.UI.WorldUIAnchor"/> instance from the other side of the conversation.</param>
+            <returns>The <see cref="P:Terraria.GameContent.UI.EmoteBubble.WhoAmI"/> of this emote</returns>
+        </member>
+        <member name="M:Terraria.GameContent.UI.EmoteBubble.CheckForNPCsToReactToEmoteBubble(System.Int32,Terraria.Player)">
+            <summary>
+            Try to find a NPC close enough (less than 200 pixels) to react to the emote sent by the player.
+            </summary>
+            <param name="emoteID"></param>
+            <param name="player"></param>
+        </member>
+        <member name="M:Terraria.GameContent.UI.EmoteBubble.MakeLocalPlayerEmote(System.Int32)">
+            <summary>
+            Send a emote from <see cref="P:Terraria.Main.LocalPlayer"/>. Should never be called on server.
+            </summary>
+            <param name="emoteId"></param>
+        </member>
+        <member name="P:Terraria.GameContent.UI.EmoteBubble.WhoAmI">
+            <summary>
+            The whoAmI indicator that indicates this <see cref="T:Terraria.GameContent.UI.EmoteBubble"/>, can be used in <see cref="M:Terraria.GameContent.UI.EmoteBubble.GetExistingEmoteBubble(System.Int32)"/>
+            </summary>
+        </member>
+        <member name="P:Terraria.GameContent.UI.EmoteBubble.IsFullyDisplayed">
+            <summary>
+            Whether or not this emote is fully displayed
+            <br>The first and the last 6 frames are for bubble-popping animation. The emote content is displayed after the animation</br>
+            </summary>
+        </member>
+        <member name="M:Terraria.GameContent.UI.EmoteBubble.GetExistingEmoteBubble(System.Int32)">
+            <summary>
+            Gets the emote bubble that exists in the world by <see cref="P:Terraria.GameContent.UI.EmoteBubble.WhoAmI"/>. Returns null if there is no corresponding emote
+            </summary>
+            <param name="whoAmI"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Terraria.GameContent.UI.EmoteBubble.MakePlayerEmote(Terraria.Player,System.Int32,System.Boolean)">
+            <summary>
+            Send a emote from the player
+            </summary>
+            <param name="player"></param>
+            <param name="emoteId"></param>
+            <param name="syncBetweenClients">If true, this emote will be automatically synchronized between clients</param>
+        </member>
+        <member name="T:Terraria.GameContent.UI.EmoteID.Category">
+            <summary>
+            This class is added by TML for easily adding mod emotes to a specific category.
+            </summary>
+        </member>
+        <member name="F:Terraria.GameContent.UI.EmoteID.Category.General">
+            <summary>
+            <b>General</b> Emotes
+            </summary>
+        </member>
+        <member name="F:Terraria.GameContent.UI.EmoteID.Category.Rps">
+            <summary>
+            <b>Rock, Paper, Scissors!</b> Emotes
+            </summary>
+        </member>
+        <member name="F:Terraria.GameContent.UI.EmoteID.Category.Items">
+            <summary>
+            <b>Items</b> Emotes
+            </summary>
+        </member>
+        <member name="F:Terraria.GameContent.UI.EmoteID.Category.NatureAndWeather">
+            <summary>
+            <b>Nature &amp; Weather</b> Emotes
+            </summary>
+        </member>
+        <member name="F:Terraria.GameContent.UI.EmoteID.Category.Town">
+            <summary>
+            <b>Town</b> Emotes
+            </summary>
+        </member>
+        <member name="F:Terraria.GameContent.UI.EmoteID.Category.CrittersAndMonsters">
+            <summary>
+            <b>Critters &amp; Monsters</b> Emotes
+            </summary>
+        </member>
+        <member name="F:Terraria.GameContent.UI.EmoteID.Category.Dangers">
+            <summary>
+            <b>Dangers</b> Emotes (For bosses)
+            </summary>
         </member>
         <member name="P:Terraria.GameContent.UI.ResourceSets.PlayerStatsSnapshot.AmountOfLifeHearts">
             <summary>
@@ -3403,6 +3649,11 @@
             <br/>Stack sizes with less than 1 or where minStack is not strictly smaller than maxStack will lead to exceptions being thrown.
             </summary>
         </member>
+        <member name="F:Terraria.ID.ItemID.Sets.IsSpaceGun">
+            <summary>
+            Set to <see langword="true"/> to make this Item set its mana cost to 0 whenever <see cref="F:Terraria.Player.spaceGun"/> is set to <see langword="true"/>.
+            </summary>
+        </member>
         <member name="T:Terraria.ID.ItemRarityID">
             <summary>Enumerates the values used with Item.rare</summary>
         </member>
@@ -4187,7 +4438,7 @@
         <member name="T:Terraria.ID.NPCID.Sets.NPCBestiaryDrawModifiers">
             <summary>
             Stores the draw parameters for an NPC type (<see cref="F:Terraria.NPC.type"/>) in the Bestiary.
-            <br/> <strong>Do not use the parameterless constructor or <c>default</c> to create this struct.</strong> Use <see cref="M:Terraria.ID.NPCID.Sets.NPCBestiaryDrawModifiers.#ctor(System.Int32)"/> instead with any parameter -- it sets proper default values.
+            <br/> <strong>Do not use <see langword="default" /> to create this struct.</strong> Use <see langword="new"/> <see cref="M:Terraria.ID.NPCID.Sets.NPCBestiaryDrawModifiers.#ctor"/> instead to set proper default values.
             </summary>
         </member>
         <member name="F:Terraria.ID.NPCID.Sets.NPCBestiaryDrawModifiers.Position">
@@ -4280,6 +4531,9 @@
             Creates a new <see cref="T:Terraria.ID.NPCID.Sets.NPCBestiaryDrawModifiers"/> with default values.
             </summary>
             <param name="seriouslyWhyCantStructsHaveParameterlessConstructors">Unused.</param>
+        </member>
+        <member name="M:Terraria.ID.NPCID.Sets.NPCBestiaryDrawModifiers.#ctor">
+            <inheritdoc cref="M:Terraria.ID.NPCID.Sets.NPCBestiaryDrawModifiers.#ctor(System.Int32)"/>
         </member>
         <member name="F:Terraria.ID.NPCID.Sets.SpecialSpawningRules">
             <summary>
@@ -6141,6 +6395,12 @@
             <br/> Defaults to <see langword="false"/>.
             </summary>
         </member>
+        <member name="F:Terraria.ID.ProjectileID.Sets.PlayerHurtDamageIgnoresDifficultyScaling">
+            <summary>
+            If <see langword="true"/> for a given projectile type (<see cref="F:Terraria.Projectile.type"/>), then that projectile will do the same damage to players regardless of difficulty (expert/master etc). <br/>
+            This set includes all the friendly vanilla explosives which can hurt players from vanilla
+            </summary>
+        </member>
         <member name="F:Terraria.ID.ProjectileID.Sets.SingleGrappleHook">
             <summary>
             Set of Grapple Hook Projectile IDs that determines whether or not said projectile can only have one copy of it within the world per player.
@@ -6356,12 +6616,18 @@
         </member>
         <member name="F:Terraria.ID.TileID.Sets.WallsMergeWith">
             <summary>
-            Tiles that are interpreted as a wall by nearby walls during framing, causing them to frame as if merging with this adjacent tile. Prevents wall from drawing within bounds for transparant tiles.
+            Tiles that are interpreted as a wall by nearby walls during framing, causing them to frame as if merging with this adjacent tile. Prevents wall from drawing within bounds for transparent tiles.
             </summary>
         </member>
         <member name="F:Terraria.ID.TileID.Sets.BlockMergesWithMergeAllBlockOverride">
             <summary>
             The value a tile forces to be set for <see cref="F:Terraria.ID.TileID.Sets.BlockMergesWithMergeAllBlock"/> regardless of default conditions (see its documentation). null by default.
+            </summary>
+        </member>
+        <member name="F:Terraria.ID.TileID.Sets.CanPlaceNextToNonSolidTile">
+            <summary>
+            Allows tiles to be placed next to any tile or wall. (Tiles normally need a <see cref="F:Terraria.Main.tileSolid"/> tile, <see cref="F:Terraria.ID.TileID.Rope"/> tile, <see cref="F:Terraria.ID.TileID.Sets.IsBeam"/> tile, or a wall adjacent to the target position to be placeable.)
+            <br>Used by: Cobweb, Coin Piles, Living Fire Blocks, Smoke Blocks, Bubble Blocks</br>
             </summary>
         </member>
         <member name="F:Terraria.ID.TileID.Sets.CorruptBiome">
@@ -6379,6 +6645,18 @@
         </member>
         <member name="M:Terraria.ID.TileID.Sets.AddCrimsonTile(System.UInt16,System.Int32)">
             Functions to simplify modders adding a tile to the crimson, corruption, or jungle regardless of a remix world or not. Can still add manually as needed.
+        </member>
+        <member name="M:Terraria.IO.WorldFileData.TryGetModVersionGeneratedWith(System.String,System.Version@)">
+            <summary>
+            Retrieves the version that the specified mod was at when the world was generated. <see langword="false"/> will be returned for mods that were not enabled when the world was generated.<para/>
+            The feature tracking which mods were used to generate a world was added in v2023.8, so modders should first check <see cref="P:Terraria.IO.WorldFileData.WorldGenModsRecorded"/> to see if the mods used to generate the world were recorded at all.
+            </summary>
+        </member>
+        <member name="P:Terraria.IO.WorldFileData.WorldGenModsRecorded">
+            <summary>
+            If <see langword="true"/>, the mods used to genereate this world have been saved and their version can be retrieved using <see cref="M:Terraria.IO.WorldFileData.TryGetModVersionGeneratedWith(System.String,System.Version@)"/>.<para/>
+            If <see langword="false"/>, this world was generated before the feature tracking mods used to generate a world was added (v2023.8) and modders can't determine if a specific mod was enabled when the world was generated.
+            </summary>
         </member>
         <member name="F:Terraria.Item.CommonMaxStack">
             <summary>
@@ -7171,7 +7449,7 @@
             height = 12;
             value = buyPrice(0, 0, 15);
             rare = 3;
-            maxStack = CommonMaxStack;
+            maxStack = <see cref="F:Terraria.Item.CommonMaxStack"/>;
             consumable = true;
             </code>
             </summary>
@@ -7258,6 +7536,14 @@
             </code>
             </summary>
             <param name="wallToPlace"></param>
+        </member>
+        <member name="M:Terraria.Item.SetWeaponValues(System.Int32,System.Single,System.Int32)">
+            <summary>
+            This method conviniently sets <see cref="F:Terraria.Item.damage"/>, <see cref="F:Terraria.Item.knockBack"/>, and <see cref="F:Terraria.Item.crit"/>.
+            </summary>
+            <param name="dmg"></param>
+            <param name="knockback"></param>
+            <param name="bonusCritChance"></param>
         </member>
         <member name="M:Terraria.Item.DefaultToBow(System.Int32,System.Single,System.Boolean)">
             <summary>
@@ -7386,7 +7672,7 @@
             useStyle = useGulpSound ? <see cref="F:Terraria.ID.ItemUseStyleID.DrinkLiquid"/> : <see cref="F:Terraria.ID.ItemUseStyleID.EatFood"/>;
             useTurn = true;
             useAnimation = useTime = animationTime;
-            maxStack = 30;
+            maxStack = <see cref="F:Terraria.Item.CommonMaxStack"/>;
             consumable = true;
             buffType = <paramref name="foodbuff"/>;
             buffTime = <paramref name="foodbuffduration"/>;
@@ -7403,7 +7689,7 @@
         </member>
         <member name="M:Terraria.Item.SetShopValues(Terraria.Enums.ItemRarityColor,System.Int32)">
             <summary>
-            A helper method that sets item rarity and item value. 
+            A helper method that sets item rarity (<see cref="F:Terraria.Item.rare"/>) and item value (<see cref="F:Terraria.Item.value"/>). 
             </summary>
             <param name="rarity"></param>
             <param name="coinValue"></param>
@@ -7532,13 +7818,20 @@
             <summary>
             Dictates whether or not attack speed modifiers on this weapon will actually affect its use time.<br/>
             Defaults to false, which allows attack speed modifiers to affect use time. Set this to true to prevent this from happening.<br/>
-            Used in vanilla by all melee weapons which shoot a projectile and have <see cref="F:Terraria.Item.noMelee"/> set to false.
+            Used in vanilla by all melee weapons which shoot a projectile and have <see cref="F:Terraria.Item.noMelee"/> set to false.<para/>
+            Tools should typically set this to true to prevent the tool from mining quicker when the player has attack speed modifiers. By convention tool speed should not be affected by attack speed. They will still attack quicker, but their use time (mine/hammer/axe speed) should not be affected.
             </summary>
         </member>
         <member name="P:Terraria.Item.AllowReforgeForStackableItem">
             <summary>
             Set to true in SetDefaults to allow this item to receive a prefix on reforge even if maxStack is not 1.
             <br>This prevents it from receiving a prefix on craft.</br>
+            </summary>
+        </member>
+        <member name="P:Terraria.Item.useTurnOnAnimationStart">
+            <summary>
+            Similar to useTurn, but only allows turning when an animation starts (eg between swings). Many early-game vanilla swords use this as it makes them clunky and hard to kite with.
+            <br/> Defaults to <see langword="false"/>.
             </summary>
         </member>
         <member name="P:Terraria.Item.useLimitPerAnimation">
@@ -7578,6 +7871,13 @@
         <member name="P:Terraria.Item.StopAnimationOnHurt">
             <summary>
             When enabled and the player is hurt, <see cref="F:Terraria.Player.channel"/> will be set to false, and the item animation will stop immediately
+            </summary>
+        </member>
+        <member name="P:Terraria.Item.ChangePlayerDirectionOnShoot">
+            <summary>
+            When true, shooting any projectile from this item will make the owner face the projectile. Defaults to true.<br/>
+            The only 2 vanilla items that change this from true to false are the Grand Design and Beam Sword<br/>
+            This is different to <see cref="F:Terraria.Item.useTurn"/>. Item.useTurn will prevent the player from changing their direction while the animation is playing if it is set to true.<br/>
             </summary>
         </member>
         <member name="P:Terraria.Item.DamageType">
@@ -7715,6 +8015,37 @@
         <member name="M:Terraria.Lang.GetProjectileName(System.Int32)">
             <summary> Gets the display name of the provided projectile type (<see cref="F:Terraria.Projectile.type"/>) as a <see cref="T:Terraria.Localization.LocalizedText"/>. </summary>
         </member>
+        <member name="M:Terraria.Lighting.AddLight(Microsoft.Xna.Framework.Vector2,Microsoft.Xna.Framework.Vector3)">
+            <summary>
+            Adds light to the world at the specified coordinates.<para/>
+            This overload takes in world coordinates and a Vector3 containing float values typically ranging from 0 to 1. Values greater than 1 will cause the light to propagate farther. A <see cref="T:Microsoft.Xna.Framework.Vector3"/> is used for this method instead of <see cref="T:Microsoft.Xna.Framework.Color"/> to allow these overflow values.
+            </summary>
+            <param name="position"></param>
+            <param name="rgb"></param>
+        </member>
+        <member name="M:Terraria.Lighting.AddLight(Microsoft.Xna.Framework.Vector2,System.Single,System.Single,System.Single)">
+            <summary>
+            <summary>
+            Adds light to the world at the specified coordinates.<para/>
+            This overload takes in world coordinates and float values typically ranging from 0 to 1. Values greater than 1 will cause the light to propagate farther.
+            </summary>
+            </summary>
+            <param name="position"></param>
+            <param name="r"></param>
+            <param name="g"></param>
+            <param name="b"></param>
+        </member>
+        <member name="M:Terraria.Lighting.AddLight(System.Int32,System.Int32,System.Single,System.Single,System.Single)">
+            <summary>
+            Adds light to the world at the specified coordinates.<para/>
+            This overload takes in tile coordinates and float values typically ranging from 0 to 1. Values greater than 1 will cause the light to propagate farther.
+            </summary>
+            <param name="i"></param>
+            <param name="j"></param>
+            <param name="r"></param>
+            <param name="g"></param>
+            <param name="b"></param>
+        </member>
         <member name="T:Terraria.Localization.Language">
             <summary>
             Contains methods to access or retrieve localization values. The <see href="https://github.com/tModLoader/tModLoader/wiki/Localization">Localization Guide</see> teaches more about localization.
@@ -7801,7 +8132,7 @@
         <member name="M:Terraria.Localization.LocalizedText.FormatWith(System.Object)">
             <summary>
             Creates a string from this LocalizedText populated with data from the provided <paramref name="obj"/> parameter. The properties of the provided object are substituted by name into the placeholders of the original text. For example, when used with <see cref="M:Terraria.Lang.CreateDialogSubstitutionObject(Terraria.NPC)"/>, the text "{Nurse}" will be replaced with the first name of the Nurse in the world. Modded substitutions are not currently supported. <br/><br/>
-            When used in conjuction with <see cref="M:Terraria.Localization.Language.SelectRandom(Terraria.Localization.LanguageSearchFilter,Terraria.Utilities.UnifiedRandom)"/> and <see cref="M:Terraria.Lang.CreateDialogFilter(System.String,System.Object)"/>, simple boolean conditions expressed in each LocalizedText can be used to filter a collection of LocalizedText.  <br/><br/>
+            When used in conjunction with <see cref="M:Terraria.Localization.Language.SelectRandom(Terraria.Localization.LanguageSearchFilter,Terraria.Utilities.UnifiedRandom)"/> and <see cref="M:Terraria.Lang.CreateDialogFilter(System.String,System.Object)"/>, simple boolean conditions expressed in each LocalizedText can be used to filter a collection of LocalizedText.  <br/><br/>
             <see cref="M:Terraria.Localization.LocalizedText.Format(System.Object[])"/> is more commonly used to format LocalizedText placeholders. That method replaces placeholders such as "{0}", "{1}", etc with the string representation of the corresponding objects provided.
             </summary>
             <param name="obj"></param>
@@ -7847,6 +8178,37 @@
              </summary>
              <param name="args">The substitution args</param>
              <returns></returns>
+        </member>
+        <member name="T:Terraria.Localization.NetworkText">
+            <summary>
+            Represents text that will be sent over the network in multiplayer and displayed to the receiving user in their selected language. <para/>
+            Use <see cref="M:Terraria.Localization.NetworkText.FromKey(System.String,System.Object[])"/> to send a localization key and optional substitutions. <see cref="M:Terraria.Localization.LocalizedText.ToNetworkText"/> can be used directly as well for the same effect.<para/>
+            Use <see cref="M:Terraria.Localization.NetworkText.FromFormattable(System.String,System.Object[])"/> to send a string with string formatting substitutions and associated substitutions. This is typically used with language-agnostic strings that don't need a localization entry, such as "{0} - {1}".<para/>
+            Use <see cref="M:Terraria.Localization.NetworkText.FromLiteral(System.String)"/> to send a string directly. This should be used to send text that can't be localized.
+            </summary>
+        </member>
+        <member name="M:Terraria.Localization.NetworkText.FromFormattable(System.String,System.Object[])">
+            <summary>
+            Creates a NetworkText object from a string with string formatting substitutions and associated substitutions. This is typically used with language-agnostic strings that don't need a localization entry, such as "{0} - {1}".
+            </summary>
+            <param name="text"></param>
+            <param name="substitutions"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Terraria.Localization.NetworkText.FromLiteral(System.String)">
+            <summary>
+            Creates a NetworkText object from a string. Use this for text that can't be localized.
+            </summary>
+            <param name="text"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Terraria.Localization.NetworkText.FromKey(System.String,System.Object[])">
+            <summary>
+            Creates a NetworkText object from a localization key and optional substitutions. The receiving client will see the resulting text in their selected language.
+            </summary>
+            <param name="key"></param>
+            <param name="substitutions"></param>
+            <returns></returns>
         </member>
         <member name="F:Terraria.Main.dayRate">
             <summary>
@@ -8033,7 +8395,7 @@
         </member>
         <member name="F:Terraria.Main.mouseTextColor">
             <summary>
-            A value that ossilates between 190 and 255. It is used to drive the slight pulsing color effect seen in much of the text shown in-game. The value is used to create <see cref="T:Microsoft.Xna.Framework.Color"/>s by passing in this value as either all 4 parameters or just the alpha parameter.<br/><br/>
+            A value that oscillates between 190 and 255. It is used to drive the slight pulsing color effect seen in much of the text shown in-game. The value is used to create <see cref="T:Microsoft.Xna.Framework.Color"/>s by passing in this value as either all 4 parameters or just the alpha parameter.<br/><br/>
             <see cref="P:Terraria.Main.MouseTextColorReal"/> can be used to access the typical pulsing white <see cref="T:Microsoft.Xna.Framework.Color"/> value.
             </summary>
         </member>
@@ -8577,7 +8939,7 @@
         </member>
         <member name="T:Terraria.ModLoader.Config.JsonDefaultValueAttribute">
             <summary>
-            Similar to DefaultValueAttribute but for reference types. It uses a json string that will be used populate this element when initialized. Defines the default value, expressed as json, to be used to populate an object with the NullAllowed attribute. Modders should only use this in conjuction with NullAllowed, as simply initializing the field with a default value is preferred.
+            Similar to DefaultValueAttribute but for reference types. It uses a json string that will be used populate this element when initialized. Defines the default value, expressed as json, to be used to populate an object with the NullAllowed attribute. Modders should only use this in conjunction with NullAllowed, as simply initializing the field with a default value is preferred.
             </summary>
         </member>
         <member name="T:Terraria.ModLoader.Config.DefaultListValueAttribute">
@@ -8653,7 +9015,7 @@
         </member>
         <member name="T:Terraria.ModLoader.Config.ReferenceDefaultsPreservingResolver">
             <summary>
-            Custom ContractResolver for facilitating refernce type defaults.
+            Custom ContractResolver for facilitating reference type defaults.
             The ShouldSerialize code enables unchanged-by-user reference type defaults to properly not serialize.
             The ValueProvider code helps during deserialization to not
             </summary>
@@ -8680,7 +9042,7 @@
         </member>
         <member name="T:Terraria.ModLoader.Config.ItemDefinition">
             <summary>
-            ItemDefinition represents an Item identity. A typical use for this class is usage in ModConfig, perhapse to facilitate an Item tweaking mod.
+            ItemDefinition represents an Item identity. A typical use for this class is usage in ModConfig, perhaps to facilitate an Item tweaking mod.
             </summary>
         </member>
         <member name="M:Terraria.ModLoader.Config.ItemDefinition.#ctor(System.Int32)">
@@ -8695,11 +9057,14 @@
         <member name="M:Terraria.ModLoader.Config.PrefixDefinition.#ctor(System.Int32)">
             <summary><b>Note: </b>As ModConfig loads before other content, make sure to only use <see cref="M:Terraria.ModLoader.Config.PrefixDefinition.#ctor(System.String,System.String)"/> for modded content in ModConfig classes. </summary>
         </member>
+        <member name="M:Terraria.ModLoader.Config.BuffDefinition.#ctor(System.Int32)">
+            <summary><b>Note: </b>As ModConfig loads before other content, make sure to only use <see cref="M:Terraria.ModLoader.Config.BuffDefinition.#ctor(System.String,System.String)"/> for modded content in ModConfig classes. </summary>
+        </member>
         <member name="T:Terraria.ModLoader.Config.ToFromStringConverter`1">
             <summary>
             This TypeConverter facilitates converting to and from the string Type. This is necessary for Objects that are to be used as Dictionary keys, since the JSON for keys needs to be a string. Classes annotated with this TypeConverter need to implement a static FromString method that returns T.
             </summary>
-            <typeparam name="T">The Type that implementes the static FromString method that returns Type T.</typeparam>
+            <typeparam name="T">The Type that implements the static FromString method that returns Type T.</typeparam>
         </member>
         <member name="T:Terraria.ModLoader.Config.ModConfig">
             <summary>
@@ -8721,6 +9086,9 @@
             </summary>
         </member>
         <member name="M:Terraria.ModLoader.Config.ModConfig.AcceptClientChanges(Terraria.ModLoader.Config.ModConfig,System.Int32,System.String@)">
+            <inheritdoc cref="M:Terraria.ModLoader.Config.ModConfig.AcceptClientChanges(Terraria.ModLoader.Config.ModConfig,System.Int32,Terraria.Localization.NetworkText@)"/>
+        </member>
+        <member name="M:Terraria.ModLoader.Config.ModConfig.AcceptClientChanges(Terraria.ModLoader.Config.ModConfig,System.Int32,Terraria.Localization.NetworkText@)">
             <summary>
             Called on the Server for ServerSide configs to determine if the changes asked for by the Client will be accepted. Useful for enforcing permissions. Called after a check for NeedsReload.
             </summary>
@@ -9053,6 +9421,13 @@
             <summary>
             Gets the ModDust instance with the given type. Returns null if no ModDust with the given type exists.
             </summary>
+        </member>
+        <member name="M:Terraria.ModLoader.EmoteBubbleLoader.GetEmoteBubble(System.Int32)">
+            <summary>
+            Gets the <see cref="T:Terraria.ModLoader.ModEmoteBubble"/> instance corresponding to the specified ID.
+            </summary>
+            <param name="type">The ID of the emote bubble</param>
+            <returns>The <see cref="T:Terraria.ModLoader.ModEmoteBubble"/> instance in the emote bubbles array, null if not found.</returns>
         </member>
         <member name="T:Terraria.ModLoader.Engine.ErrorReporting">
             <summary>
@@ -10277,6 +10652,92 @@
             <param name="buffIndex">The index in Main.LocalPlayer.buffType and .buffTime of the buff</param>
             <returns><see langword="true"/> for allowing the buff to be cancelled, <see langword="false"/> to prevent the buff from being cancelled</returns>
         </member>
+        <member name="M:Terraria.ModLoader.GlobalEmoteBubble.OnSpawn(Terraria.GameContent.UI.EmoteBubble)">
+            <summary>
+            Gets called when emote bubbles spawn in world.
+            </summary>
+            <param name="emoteBubble"></param>
+        </member>
+        <member name="M:Terraria.ModLoader.GlobalEmoteBubble.UpdateFrame(Terraria.GameContent.UI.EmoteBubble)">
+            <summary>
+            Allows you to modify the frame of this emote bubble. Return false to stop vanilla frame update code from running. Returns true by default.
+            </summary>
+            <param name="emoteBubble"></param>
+            <returns>If false, the vanilla frame update code will not run.</returns>
+        </member>
+        <member name="M:Terraria.ModLoader.GlobalEmoteBubble.UpdateFrameInEmoteMenu(System.Int32,System.Int32@)">
+            <summary>
+            Allows you to modify the frame of this emote bubble which displays in emotes menu. Return false to stop vanilla frame update code from running. Returns true by default.
+            <br/>Do note that 
+            </summary>
+            <param name="emoteType">The emote id for this emote.</param>
+            <param name="frameCounter"></param>
+            <returns>If false, the vanilla frame update code will not run.</returns>
+        </member>
+        <member name="M:Terraria.ModLoader.GlobalEmoteBubble.PreDraw(Terraria.GameContent.UI.EmoteBubble,Microsoft.Xna.Framework.Graphics.SpriteBatch,Microsoft.Xna.Framework.Graphics.Texture2D,Microsoft.Xna.Framework.Vector2,Microsoft.Xna.Framework.Rectangle,Microsoft.Xna.Framework.Vector2,Microsoft.Xna.Framework.Graphics.SpriteEffects)">
+            <summary>
+            Allows you to draw things behind this emote bubble, or to modify the way this emote bubble is drawn. Return false to stop the game from drawing the emote bubble (useful if you're manually drawing the emote bubble). Returns true by default.
+            </summary>
+            <param name="emoteBubble"></param>
+            <param name="spriteBatch"></param>
+            <param name="texture"></param>
+            <param name="position"></param>
+            <param name="frame"></param>
+            <param name="origin"></param>
+            <param name="spriteEffects"></param>
+            <returns>If false, the vanilla drawing code will not run.</returns>
+        </member>
+        <member name="M:Terraria.ModLoader.GlobalEmoteBubble.PostDraw(Terraria.GameContent.UI.EmoteBubble,Microsoft.Xna.Framework.Graphics.SpriteBatch,Microsoft.Xna.Framework.Graphics.Texture2D,Microsoft.Xna.Framework.Vector2,Microsoft.Xna.Framework.Rectangle,Microsoft.Xna.Framework.Vector2,Microsoft.Xna.Framework.Graphics.SpriteEffects)">
+            <summary>
+            Allows you to draw things in front of this emote bubble. This method is called even if PreDraw returns false.
+            </summary>
+            <param name="emoteBubble"></param>
+            <param name="spriteBatch"></param>
+            <param name="texture"></param>
+            <param name="position"></param>
+            <param name="frame"></param>
+            <param name="origin"></param>
+            <param name="spriteEffects"></param>
+        </member>
+        <member name="M:Terraria.ModLoader.GlobalEmoteBubble.PreDrawInEmoteMenu(System.Int32,Microsoft.Xna.Framework.Graphics.SpriteBatch,Terraria.GameContent.UI.Elements.EmoteButton,Microsoft.Xna.Framework.Vector2,Microsoft.Xna.Framework.Rectangle,Microsoft.Xna.Framework.Vector2)">
+            <summary>
+            Allows you to draw things behind this emote bubble that displays in emotes menu, or to modify the way this emote bubble is drawn. Return false to stop the game from drawing the emote bubble (useful if you're manually drawing the emote bubble). Returns true by default.
+            </summary>
+            <param name="emoteType"></param>
+            <param name="spriteBatch"></param>
+            <param name="uiEmoteButton">The <see cref="T:Terraria.GameContent.UI.Elements.EmoteButton"/> instance. You can get useful textures and frameCounter from it.</param>
+            <param name="position"></param>
+            <param name="frame"></param>
+            <param name="origin"></param>
+            <returns>If false, the vanilla drawing code will not run.</returns>
+        </member>
+        <member name="M:Terraria.ModLoader.GlobalEmoteBubble.PostDrawInEmoteMenu(System.Int32,Microsoft.Xna.Framework.Graphics.SpriteBatch,Terraria.GameContent.UI.Elements.EmoteButton,Microsoft.Xna.Framework.Vector2,Microsoft.Xna.Framework.Rectangle,Microsoft.Xna.Framework.Vector2)">
+            <summary>
+            Allows you to draw things in front of this emote bubble. This method is called even if PreDraw returns false.
+            </summary>
+            <param name="emoteType"></param>
+            <param name="spriteBatch"></param>
+            <param name="uiEmoteButton">The <see cref="T:Terraria.GameContent.UI.Elements.EmoteButton"/> instance. You can get useful textures and frameCounter from it.</param>
+            <param name="position"></param>
+            <param name="frame"></param>
+            <param name="origin"></param>
+        </member>
+        <member name="M:Terraria.ModLoader.GlobalEmoteBubble.GetFrame(Terraria.GameContent.UI.EmoteBubble)">
+            <summary>
+            Allows you to modify the frame rectangle for drawing this emote. Useful for emote bubbles that share the same texture.
+            </summary>
+            <param name="emoteBubble"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Terraria.ModLoader.GlobalEmoteBubble.GetFrameInEmoteMenu(System.Int32,System.Int32,System.Int32)">
+            <summary>
+            Allows you to modify the frame rectangle for drawing this emote in emotes menu. Useful for emote bubbles that share the same texture.
+            </summary>
+            <param name="emoteType"></param>
+            <param name="frame"></param>
+            <param name="frameCounter"></param>
+            <returns></returns>
+        </member>
         <member name="T:Terraria.ModLoader.GlobalInfoDisplay">
             <summary>
             A class that is used to modify existing info displays (i.e. the things that the Cell Phone uses to communicate information).
@@ -10308,6 +10769,16 @@
             Allows you to modify the display color (the color of the text displayed next to the icon) of an InfoDisplay.
             </summary>
             <param name="currentDisplay">The display you're modifying the display color for.</param>
+            <param name="displayColor">The display color of the current display.</param>
+            <param name="displayShadowColor">The text outline color of the current display.</param>
+        </member>
+        <member name="M:Terraria.ModLoader.GlobalInfoDisplay.ModifyDisplayParameters(Terraria.ModLoader.InfoDisplay,System.String@,System.String@,Microsoft.Xna.Framework.Color@,Microsoft.Xna.Framework.Color@)">
+            <summary>
+            Allows modifying the display value (the text displayed next to the icon), the display name (texxt shown when hovering over the InfoDisplay in-game), and the display colors of an InfoDisplay.
+            </summary>
+            <param name="currentDisplay">The display you're modifying the parameters for.</param>
+            <param name="displayValue">The display value of the current display.</param>
+            <param name="displayName">The display name of the current display.</param>
             <param name="displayColor">The display color of the current display.</param>
             <param name="displayShadowColor">The text outline color of the current display.</param>
         </member>
@@ -11804,6 +12275,16 @@
             <param name="npc"></param>
             <param name="tag"></param>
         </member>
+        <member name="M:Terraria.ModLoader.GlobalNPC.PickEmote(Terraria.NPC,Terraria.Player,System.Collections.Generic.List{System.Int32},Terraria.GameContent.UI.WorldUIAnchor)">
+            <summary>
+            Allows you to change the emote that the NPC will pick
+            </summary>
+            <param name="npc"></param>
+            <param name="closestPlayer">The <see cref="T:Terraria.Player"/> closest to the NPC. You can check the biome the player is in and let the NPC pick the emote that corresponds to the biome.</param>
+            <param name="emoteList">A list of emote IDs from which the NPC will randomly select one</param>
+            <param name="otherAnchor">A <see cref="T:Terraria.GameContent.UI.WorldUIAnchor"/> instance that indicates the target of this emote conversation. Use this to get the instance of the <see cref="T:Terraria.NPC"/> or <see cref="T:Terraria.Player"/> this NPC is talking to.</param>
+            <returns>Return null to use vanilla mechanic (pick one from the list), otherwise pick the emote by the returned ID. Returning -1 will prevent the emote from being used. Returns null by default</returns>
+        </member>
         <member name="T:Terraria.ModLoader.GlobalProjectile">
             <summary>
             This class allows you to modify and use hooks for all projectiles, including vanilla projectiles. Create an instance of an overriding class then call Mod.AddGlobalProjectile to use this.
@@ -11888,7 +12369,7 @@
             <param name="timeLeft"></param>
             <returns></returns>
         </member>
-        <member name="M:Terraria.ModLoader.GlobalProjectile.Kill(Terraria.Projectile,System.Int32)">
+        <member name="M:Terraria.ModLoader.GlobalProjectile.OnKill(Terraria.Projectile,System.Int32)">
             <summary>
             Allows you to control what happens when a projectile is killed (for example, creating dust or making sounds).
             </summary>
@@ -12433,7 +12914,6 @@
         </member>
         <member name="P:Terraria.ModLoader.GlobalType`1.SlotPerEntity">
             <summary>
-            Whether this global has <see cref="P:Terraria.ModLoader.GlobalType`1.InstancePerEntity"/> or can be conditionally applied (overrides <see cref="M:Terraria.ModLoader.GlobalType`2.AppliesToEntity(`0,System.Boolean)"/>) <br/>
             If true, the global will be assigned a <see cref="P:Terraria.ModLoader.GlobalType`1.PerEntityIndex"/> at load time, which can be used to access the instance in the <see cref="P:Terraria.ModLoader.IEntityWithGlobals`1.EntityGlobals"/> array. <br/>
             If false, the global will be a singleton applying to all entities
             </summary>
@@ -12488,13 +12968,16 @@
             <summary>
             Create a copy of this instanced global. Called when an entity is cloned.
             </summary>
-            <param name="from">The entity being cloned</param>
+            <param name="from">The entity being cloned. May be null if <see cref="P:Terraria.ModLoader.GlobalType`2.CloneNewInstances"/> is true (via call from <see cref="M:Terraria.ModLoader.GlobalType`2.NewInstance(`0)"/>)</param>
             <param name="to">The new clone of the entity</param>
             <returns>A clone of this global</returns>
         </member>
         <member name="M:Terraria.ModLoader.GlobalType`2.NewInstance(`0)">
             <summary>
-            Only called if <see cref="P:Terraria.ModLoader.GlobalType`1.InstancePerEntity"/> and <see cref="M:Terraria.ModLoader.GlobalType`2.AppliesToEntity(`0,System.Boolean)"/>(<paramref name="target"/>, ...) are both true
+            Only called if <see cref="P:Terraria.ModLoader.GlobalType`1.InstancePerEntity"/> and <see cref="M:Terraria.ModLoader.GlobalType`2.AppliesToEntity(`0,System.Boolean)"/>(<paramref name="target"/>, ...) are both true. <br/>
+            <br/>
+            Returning null is permitted but <b>not recommended</b> over <c>AppliesToEntity</c> for performance reasons. <br/>
+            Only return null when the global is disabled based on some runtime property (eg world seed).
             </summary>
             <param name="target">The entity instance the global is being instantiated for</param>
             <returns></returns>
@@ -12704,7 +13187,7 @@
         </member>
         <member name="T:Terraria.ModLoader.IO.TagCompound">
             <summary>
-            Tag compounds contained named values, serialisable as per the NBT spec: <see href="https://minecraft.fandom.com/wiki/NBT_format">NBT spec wiki page</see> <br/>
+            Tag compounds contained named values, serialisable as per the NBT spec: <see href="https://minecraft.wiki/w/NBT_format">NBT spec wiki page</see> <br/>
             All primitive data types are supported as well as byte[], int[] and Lists of other supported data types <br/>
             Lists of Lists are internally stored as IList&lt;IList&gt; <br/>
             Modification of lists stored in a TagCompound will only work if there were no type conversions involved and is not advised <br/>
@@ -13333,9 +13816,18 @@
         </member>
         <member name="M:Terraria.ModLoader.Mod.GetLocalizationKey(System.String)">
             <summary>
-            Creates a localization key following the pattern of "Mods.{ModName}.{suffix}". Use this with <see cref="M:Terraria.Localization.Language.GetOrRegister(System.String,System.Func{System.String})"/> to retrieve a <see cref="T:Terraria.Localization.LocalizedText"/> for custom localization keys. Custom localization keys need to be registered during the mod loading process to appear automtaically in the localization files.
+            Creates a localization key following the pattern of "Mods.{ModName}.{suffix}". Use this with <see cref="M:Terraria.Localization.Language.GetOrRegister(System.String,System.Func{System.String})"/> to retrieve a <see cref="T:Terraria.Localization.LocalizedText"/> for custom localization keys. Alternatively <see cref="M:Terraria.ModLoader.Mod.GetLocalization(System.String,System.Func{System.String})"/> can be used directly instead. Custom localization keys need to be registered during the mod loading process to appear automtaically in the localization files.
             </summary>
             <param name="suffix"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Terraria.ModLoader.Mod.GetLocalization(System.String,System.Func{System.String})">
+            <summary>
+            Returns a <see cref="T:Terraria.Localization.LocalizedText"/> for this Mod with the provided <paramref name="suffix"/>. The suffix will be used to generate a key by providing it to <see cref="M:Terraria.ModLoader.Mod.GetLocalizationKey(System.String)"/>.
+            <br/>If no existing localization exists for the key, it will be defined so it can be exported to a matching mod localization file.
+            </summary>
+            <param name="suffix"></param>
+            <param name="makeDefaultValue">A factory method for creating the default value, used to update localization files with missing entries</param>
             <returns></returns>
         </member>
         <member name="M:Terraria.ModLoader.Mod.AddNPCHeadTexture(System.Int32,System.String)">
@@ -13739,7 +14231,8 @@
         </member>
         <member name="M:Terraria.ModLoader.ModBlockType.PostDraw(System.Int32,System.Int32,Microsoft.Xna.Framework.Graphics.SpriteBatch)">
             <summary>
-            Allows you to draw things in front of the tile/wall at the given coordinates. This can also be used to do things such as creating dust.
+            Allows you to draw things in front of the tile/wall at the given coordinates. This can also be used to do things such as creating dust.<para/>
+            Note that this method will be called for tiles even when the tile is <see cref="P:Terraria.Tile.IsTileInvisible"/> due to Echo Coating. Use the <see cref="M:Terraria.GameContent.Drawing.TileDrawing.IsVisible(Terraria.Tile)"/> method to skip effects that shouldn't show when the tile is invisible. This method won't be called for invisible walls.
             </summary>
             <param name="i">The x position in tile coordinates.</param>
             <param name="j">The y position in tile coordinates.</param>
@@ -14169,6 +14662,11 @@
             Get the id (type) of a ModMount by class. Assumes one instance per class.
             </summary>
         </member>
+        <member name="M:Terraria.ModLoader.ModContent.EmoteBubbleType``1">
+            <summary>
+            Get the id (type) of a ModEmoteBubble by class. Assumes one instance per class.
+            </summary>
+        </member>
         <member name="M:Terraria.ModLoader.ModContent.CleanupModReferences">
             <summary>
             Several arrays and other fields hold references to various classes from mods, we need to clean them up to give properly coded mods a chance to be completely free of references
@@ -14221,6 +14719,124 @@
             <summary>
             Allows you to override the color this dust will draw in. Return null to draw it in the normal light color; returns null by default. Note that the dust.noLight field makes the dust ignore lighting and draw in full brightness, and can be set in OnSpawn instead of having to return Color.White here.
             </summary>
+        </member>
+        <member name="T:Terraria.ModLoader.ModEmoteBubble">
+            <summary>
+            Represents an emote. Emotes are typically used by players or NPC. Players can use the emotes menu or chat commands to display an emote, while town NPC spawn emotes when talking to each other.<para/>
+            </summary>
+        </member>
+        <member name="P:Terraria.ModLoader.ModEmoteBubble.Texture">
+            <summary>
+            The file name of this emote's texture file in the mod loader's file space.
+            </summary>
+        </member>
+        <member name="P:Terraria.ModLoader.ModEmoteBubble.Type">
+            <summary>
+            The internal ID of this EmoteBubble.
+            </summary>
+        </member>
+        <member name="P:Terraria.ModLoader.ModEmoteBubble.EmoteBubble">
+            <summary>
+            This is the <see cref="P:Terraria.ModLoader.ModEmoteBubble.EmoteBubble"/> instance.
+            </summary>
+        </member>
+        <member name="P:Terraria.ModLoader.ModEmoteBubble.Command">
+            <summary>
+            This is the name that will show up as the emote command.
+            </summary>
+        </member>
+        <member name="M:Terraria.ModLoader.ModEmoteBubble.AddToCategory(System.Int32)">
+            <summary>
+            Allows you to add this emote to a specific vanilla category.
+            <br><b>This should only be called in <see cref="M:Terraria.ModLoader.ModType.SetStaticDefaults"/></b></br>
+            </summary>
+            <param name="categoryId">The category to which this emote will be added. Use <see cref="T:Terraria.GameContent.UI.EmoteID.Category"/> to select the category you want.</param>
+        </member>
+        <member name="M:Terraria.ModLoader.ModEmoteBubble.IsUnlocked">
+            <summary>
+            Allows you to determine whether or not this emote can be seen in emotes menu. Returns true by default.
+            <br/>Do note that this doesn't effect emote command and NPC using.
+            </summary>
+            <returns>If true, this emote will be shown in emotes menu.</returns>
+        </member>
+        <member name="M:Terraria.ModLoader.ModEmoteBubble.OnSpawn">
+            <summary>
+            Gets called when your emote bubble spawns in world.
+            </summary>
+        </member>
+        <member name="M:Terraria.ModLoader.ModEmoteBubble.UpdateFrame">
+            <summary>
+            Allows you to modify the frame of this emote bubble. Return false to stop vanilla frame update code from running. Returns true by default.
+            </summary>
+            <returns>If false, the vanilla frame update code will not run.</returns>
+        </member>
+        <member name="M:Terraria.ModLoader.ModEmoteBubble.UpdateFrameInEmoteMenu(System.Int32@)">
+            <summary>
+            Allows you to modify the frame of this emote bubble which displays in emotes menu. Return false to stop vanilla frame update code from running. Returns true by default.
+            <br/>Do note that you should <b>NEVER</b> use the <see cref="P:Terraria.ModLoader.ModEmoteBubble.EmoteBubble"/> field in this method because it's null.
+            </summary>
+            <param name="frameCounter"></param>
+            <returns>If false, the vanilla frame update code will not run.</returns>
+        </member>
+        <member name="M:Terraria.ModLoader.ModEmoteBubble.PreDraw(Microsoft.Xna.Framework.Graphics.SpriteBatch,Microsoft.Xna.Framework.Graphics.Texture2D,Microsoft.Xna.Framework.Vector2,Microsoft.Xna.Framework.Rectangle,Microsoft.Xna.Framework.Vector2,Microsoft.Xna.Framework.Graphics.SpriteEffects)">
+            <summary>
+            Allows you to draw things behind this emote bubble, or to modify the way this emote bubble is drawn. Return false to stop the game from drawing the emote bubble (useful if you're manually drawing the emote bubble). Returns true by default.
+            </summary>
+            <param name="spriteBatch"></param>
+            <param name="texture"></param>
+            <param name="position"></param>
+            <param name="frame"></param>
+            <param name="origin"></param>
+            <param name="spriteEffects"></param>
+            <returns>If false, the vanilla drawing code will not run.</returns>
+        </member>
+        <member name="M:Terraria.ModLoader.ModEmoteBubble.PostDraw(Microsoft.Xna.Framework.Graphics.SpriteBatch,Microsoft.Xna.Framework.Graphics.Texture2D,Microsoft.Xna.Framework.Vector2,Microsoft.Xna.Framework.Rectangle,Microsoft.Xna.Framework.Vector2,Microsoft.Xna.Framework.Graphics.SpriteEffects)">
+            <summary>
+            Allows you to draw things in front of this emote bubble. This method is called even if PreDraw returns false.
+            </summary>
+            <param name="spriteBatch"></param>
+            <param name="texture"></param>
+            <param name="position"></param>
+            <param name="frame"></param>
+            <param name="origin"></param>
+            <param name="spriteEffects"></param>
+        </member>
+        <member name="M:Terraria.ModLoader.ModEmoteBubble.PreDrawInEmoteMenu(Microsoft.Xna.Framework.Graphics.SpriteBatch,Terraria.GameContent.UI.Elements.EmoteButton,Microsoft.Xna.Framework.Vector2,Microsoft.Xna.Framework.Rectangle,Microsoft.Xna.Framework.Vector2)">
+            <summary>
+            Allows you to draw things behind this emote bubble that displays in emotes menu, or to modify the way this emote bubble is drawn. Return false to stop the game from drawing the emote bubble (useful if you're manually drawing the emote bubble). Returns true by default.
+            <br/>Do note that you should <b>NEVER</b> use the <see cref="P:Terraria.ModLoader.ModEmoteBubble.EmoteBubble"/> field in this method because it's null.
+            </summary>
+            <param name="spriteBatch"></param>
+            <param name="uiEmoteButton">The <see cref="T:Terraria.GameContent.UI.Elements.EmoteButton"/> instance. You can get useful textures and frameCounter from it.</param>
+            <param name="position"></param>
+            <param name="frame"></param>
+            <param name="origin"></param>
+            <returns>If false, the vanilla drawing code will not run.</returns>
+        </member>
+        <member name="M:Terraria.ModLoader.ModEmoteBubble.PostDrawInEmoteMenu(Microsoft.Xna.Framework.Graphics.SpriteBatch,Terraria.GameContent.UI.Elements.EmoteButton,Microsoft.Xna.Framework.Vector2,Microsoft.Xna.Framework.Rectangle,Microsoft.Xna.Framework.Vector2)">
+            <summary>
+            Allows you to draw things in front of this emote bubble. This method is called even if PreDraw returns false.
+            <br/>Do note that you should <b>NEVER</b> use the <see cref="P:Terraria.ModLoader.ModEmoteBubble.EmoteBubble"/> field in this method because it's null.
+            </summary>
+            <param name="spriteBatch"></param>
+            <param name="uiEmoteButton">The <see cref="T:Terraria.GameContent.UI.Elements.EmoteButton"/> instance. You can get useful textures and frameCounter from it.</param>
+            <param name="position"></param>
+            <param name="frame"></param>
+            <param name="origin"></param>
+        </member>
+        <member name="M:Terraria.ModLoader.ModEmoteBubble.GetFrame">
+            <summary>
+            Allows you to modify the frame rectangle for drawing this emote. Useful for emote bubbles that share the same texture.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Terraria.ModLoader.ModEmoteBubble.GetFrameInEmoteMenu(System.Int32,System.Int32)">
+            <summary>
+            Allows you to modify the frame rectangle for drawing this emote in emotes menu. Useful for emote bubbles that share the same texture.
+            </summary>
+            <param name="frame"></param>
+            <param name="frameCounter"></param>
+            <returns></returns>
         </member>
         <member name="T:Terraria.ModLoader.ModGore">
             <summary>
@@ -15592,6 +16208,15 @@
         <member name="P:Terraria.ModLoader.ModNPC.TownNPCStayingHomeless">
             <summary> Setting this to true will make the NPC not appear in the housing menu nor make it find an house. </summary>
         </member>
+        <member name="M:Terraria.ModLoader.ModNPC.PickEmote(Terraria.Player,System.Collections.Generic.List{System.Int32},Terraria.GameContent.UI.WorldUIAnchor)">
+            <summary>
+            Allows you to change the emote that the NPC will pick
+            </summary>
+            <param name="closestPlayer">The <see cref="T:Terraria.Player"/> closest to the NPC. You can check the biome the player is in and let the NPC pick the emote that corresponds to the biome.</param>
+            <param name="emoteList">A list of emote IDs from which the NPC will randomly select one</param>
+            <param name="otherAnchor">A <see cref="T:Terraria.GameContent.UI.WorldUIAnchor"/> instance that indicates the target of this emote conversation. Use this to get the instance of the <see cref="P:Terraria.ModLoader.ModNPC.NPC"/> or <see cref="T:Terraria.Player"/> this NPC is talking to.</param>
+            <returns>Return null to use vanilla mechanic (pick one from the list), otherwise pick the emote by the returned ID. Returning -1 will prevent the emote from being used. Returns null by default</returns>
+        </member>
         <member name="M:Terraria.ModLoader.ModNPC.SetDefaults">
             <summary>
             Allows you to set all your NPC's properties, such as width, damage, aiStyle, lifeMax, etc.
@@ -16358,7 +16983,7 @@
         </member>
         <member name="M:Terraria.ModLoader.ModPlayer.UpdateDead">
             <summary>
-            Similar to UpdateDead, except this is only called when the player is dead. If this is called, then ResetEffects will not be called.
+            Similar to <see cref="M:Terraria.ModLoader.ModPlayer.ResetEffects"/>, except this is only called when the player is dead. If this is called, then <see cref="M:Terraria.ModLoader.ModPlayer.ResetEffects"/> will not be called.
             </summary>
         </member>
         <member name="M:Terraria.ModLoader.ModPlayer.PreSaveCustomData">
@@ -17255,6 +17880,13 @@
             <param name="itemConsumedCallback">The action that gets invoked when the item is consumed</param>
             <returns>A list of the items that may be used as crafting materials or null if none are available.</returns>
         </member>
+        <member name="M:Terraria.ModLoader.ModPlayer.OnPickup(Terraria.Item)">
+            <summary>
+            Allows you to make special things happen when this player picks up an item. Return false to stop the item from being added to the player's inventory; returns true by default.
+            </summary>
+            <param name="item">The item being picked up</param>
+            <returns></returns>
+        </member>
         <member name="F:Terraria.ModLoader.PrefixCategory.Melee">
             <summary>
             Can modify the size of the weapon
@@ -17450,7 +18082,7 @@
             Allows you to determine whether the vanilla code for Kill and the Kill hook will be called. Return false to stop them from being called. Returns true by default. Note that this does not stop the projectile from dying.
             </summary>
         </member>
-        <member name="M:Terraria.ModLoader.ModProjectile.Kill(System.Int32)">
+        <member name="M:Terraria.ModLoader.ModProjectile.OnKill(System.Int32)">
             <summary>
             Allows you to control what happens when this projectile is killed (for example, creating dust or making sounds). Also useful for creating retrievable ammo. Called on all clients and the server in multiplayer, so be sure to use `if (Projectile.owner == Main.myPlayer)` if you are spawning retrievable ammo. (As seen in ExampleJavelinProjectile)
             </summary>
@@ -18292,7 +18924,7 @@
             <summary>
             Called after all other time calculations. Can be used to modify the speed at which time should progress per tick in seconds, along with the rate at which the tiles in the world and the events in the world should update with it.
             All fields are measured in in-game minutes per real-life second (min/sec).
-            You may want to consider <see cref="!:Main.fastForwardTime"/> and CreativePowerManager.Instance.GetPower&lt;CreativePowers.FreezeTime&gt;().Enabled here.
+            You may want to consider <see cref="M:Terraria.Main.IsFastForwardingTime"/> and CreativePowerManager.Instance.GetPower&lt;CreativePowers.FreezeTime&gt;().Enabled here.
             </summary>
             <param name="timeRate">The speed at which time flows in min/sec.</param>
             <param name="tileUpdateRate">The speed at which tiles in the world update in min/sec.</param>
@@ -18314,6 +18946,17 @@
             <br/><b>Try to write defensive loading code that won't crash if something's missing.</b>
             </summary>
             <param name="tag"> The TagCompound to load data from. </param>
+        </member>
+        <member name="M:Terraria.ModLoader.ModSystem.SaveWorldHeader(Terraria.ModLoader.IO.TagCompound)">
+            <summary>
+            <br/>Allows you to save custom data for this system in the current world, and have that data accessible in the world select UI and during vanilla world loading.
+            <br/><b>WARNING:</b> Saving too much data here will cause lag when opening the world select menu for users with many worlds.
+            <br/>Can be retrieved via <see cref="M:Terraria.IO.WorldFileData.TryGetHeaderData(Terraria.ModLoader.ModSystem,Terraria.ModLoader.IO.TagCompound@)"/> and <see cref="F:Terraria.Main.ActiveWorldFileData"/>
+            <br/>
+            <br/><b>NOTE:</b> The provided tag is always empty by default, and is provided as an argument only for the sake of convenience and optimization.
+            <br/><b>NOTE:</b> Try to only save data that isn't default values.
+            </summary>
+            <param name="tag"> The TagCompound to save data into. Note that this is always empty by default, and is provided as an argument only for the sake of convenience and optimization. </param>
         </member>
         <member name="M:Terraria.ModLoader.ModSystem.CanWorldBePlayed(Terraria.IO.PlayerFileData,Terraria.IO.WorldFileData)">
             <summary>
@@ -18374,7 +19017,8 @@
         </member>
         <member name="M:Terraria.ModLoader.ModSystem.ModifyHardmodeTasks(System.Collections.Generic.List{Terraria.WorldBuilding.GenPass})">
             <summary>
-            Similar to <see cref="M:Terraria.ModLoader.ModSystem.ModifyWorldGenTasks(System.Collections.Generic.List{Terraria.WorldBuilding.GenPass},System.Double@)"/>, but occurs in-game when Hardmode starts. Can be used to modify which tasks should be done and/or add custom tasks. By default the list will only contain 4 items, the vanilla hardmode tasks called "Hardmode Good", "Hardmode Evil", "Hardmode Walls", and "Hardmode Announcement" <para/>
+            Similar to <see cref="M:Terraria.ModLoader.ModSystem.ModifyWorldGenTasks(System.Collections.Generic.List{Terraria.WorldBuilding.GenPass},System.Double@)"/>, but occurs in-game when Hardmode starts. Can be used to modify which tasks should be done and/or add custom tasks. <para/>
+            By default the list will only contain 5 items, the vanilla hardmode tasks called "Hardmode Good Remix", "Hardmode Good", "Hardmode Evil", "Hardmode Walls", and "Hardmode Announcement". "Hardmode Good Remix" will only be enabled on <see href="https://terraria.wiki.gg/wiki/Don%27t_dig_up">Don't dig up</see> worlds (<see cref="F:Terraria.Main.remixWorld"/>) while "Hardmode Good" and "Hardmode Evil" will be enabled otherwise.<para/>
             To disable or hide tasks, please use <see cref="M:Terraria.WorldBuilding.GenPass.Disable"/> and defensive coding.
             </summary>
         </member>
@@ -18528,8 +19172,8 @@
             Allows customization of the items the tile at the given coordinates drops.<br/><br/>
             The default item drop is determined by finding an item with <see cref="F:Terraria.Item.createTile"/> and <see cref="F:Terraria.Item.placeStyle"/> matching the type and style of this tile. 
             <see cref="M:Terraria.ModLoader.ModTile.RegisterItemDrop(System.Int32,System.Int32[])"/> can be used to manually register item drops for tile styles with no corresponding item. It can also be used to register a fallback item, which will be dropped if no suitable item is found.<br/><br/>
-            The default behavior should cover 99% of use cases, meaning that overriding this method should only be necessary in extremely unique tiles, such as tiles dropping multiple items, tiles dropping items with custom data, or tiles with custom tile style code.<br/> 
-            When overriding, use <c>yield return new Item(ItemTypeHere);</c> for each spawned item.<br/>
+            The default behavior should cover 99% of use cases, meaning that overriding this method should only be necessary in extremely unique tiles, such as tiles dropping multiple items, tiles dropping items with custom data, or tiles with custom tile style code.<br/><br/>
+            When overriding, use <c>yield return new Item(ItemTypeHere);</c> for each spawned item. Note that a random prefix will be applied to these items, if applicable, so if specific prefixes or no prefix is needed for an item drop, it will have to be spawned in manually using <see cref="M:Terraria.ModLoader.ModTile.KillMultiTile(System.Int32,System.Int32,System.Int32,System.Int32)"/> or <see cref="M:Terraria.ModLoader.ModTile.KillTile(System.Int32,System.Int32,System.Boolean@,System.Boolean@,System.Boolean@)"/>.<br/><br/>
             The style based drop logic is based on <see cref="T:Terraria.ObjectData.TileObjectData"/>. If a tile has custom 'styles' but still wants to make use of <see cref="M:Terraria.ModLoader.ModTile.RegisterItemDrop(System.Int32,System.Int32[])"/>, <c>TileLoader.GetItemDropFromTypeAndStyle(Type, style)</c> can be used to retrieve the associated item drop.<br/><br/>
             Use <see cref="M:Terraria.ModLoader.ModTile.CanDrop(System.Int32,System.Int32)"/> to conditionally prevent any item drops. Use <see cref="M:Terraria.ModLoader.ModTile.KillMultiTile(System.Int32,System.Int32,System.Int32,System.Int32)"/> or <see cref="M:Terraria.ModLoader.ModTile.KillTile(System.Int32,System.Int32,System.Boolean@,System.Boolean@,System.Boolean@)"/> for other logic such as cleaning up TileEntities or killing chests or signs.<br/>
             </summary>
@@ -18618,7 +19262,7 @@
             <summary>
             Allows you to customize the position in which this tile is drawn. Width refers to the width of one frame of the tile, offsetY refers to how many pixels below its actual position the tile should be drawn, height refers to the height of one frame of the tile.
             <para> By default the values will be set to the values you give this tile's TileObjectData. If this tile has no TileObjectData then they will default to 16, 0, and 16, respectively.</para>
-            <para> tileFrameX and tileFrameY allow you to change which frames are drawn, keeping tile.frameX/Y intact for other purposes.</para>
+            <para> tileFrameX and tileFrameY allow you to change which frames are drawn, keeping tile.TileFrameX/Y intact for other purposes.</para>
             </summary>
             <param name="i">The x position in tile coordinates.</param>
             <param name="j">The y position in tile coordinates.</param>
@@ -19962,11 +20606,14 @@
             <item><description>"ItemName" - The name of the item.</description></item>
             <item><description>"Favorite" - Tells if the item is favorited.</description></item>
             <item><description>"FavoriteDesc" - Tells what it means when an item is favorited.</description></item>
+            <item><description>"NoTransfer" - Warning that this item cannot be placed inside itself, used by Money Trough and Void Bag/Vault.</description></item>
             <item><description>"Social" - Tells if the item is in a social slot.</description></item>
             <item><description>"SocialDesc" - Tells what it means for an item to be in a social slot.</description></item>
             <item><description>"Damage" - The damage value and type of the weapon.</description></item>
             <item><description>"CritChance" - The critical strike chance of the weapon.</description></item>
             <item><description>"Speed" - The use speed of the weapon.</description></item>
+            <item><description>"NoSpeedScaling" - Whether this item does not scale with attack speed, added by tModLoader.</description></item>
+            <item><description>"SpecialSpeedScaling" - The multiplier this item applies to attack speed bonuses, added by tModLoader.</description></item>
             <item><description>"Knockback" - The knockback of the weapon.</description></item>
             <item><description>"FishingPower" - Tells the fishing power of the fishing pole.</description></item>
             <item><description>"NeedsBait" - Tells that a fishing pole requires bait.</description></item>
@@ -20007,6 +20654,10 @@
             <item><description>"PrefixAccMeleeSpeed" - The melee speed modifier of the accessory prefix.</description></item>
             <item><description>"SetBonus" - The set bonus description of the armor set.</description></item>
             <item><description>"Expert" - Tells whether the item is from expert-mode.</description></item>
+            <item><description>"Master" - Whether the item is exclusive to Master Mode.</description></item>
+            <item><description>"JourneyResearch" - How many more items need to be researched to unlock duplication in Journey Mode.</description></item>
+            <item><description>"ModifiedByMods" - Whether the item has been modified by any mods and what mods when holding shift, added by tModLoader.</description></item>
+            <item><description>"BestiaryNotes" - Any bestiary notes, used when hovering items in the bestiary.</description></item>
             <item><description>"SpecialPrice" - Tells the alternate currency price of an item.</description></item>
             <item><description>"Price" - Tells the price of an item.</description></item>
             </list>
@@ -20047,6 +20698,12 @@
             <summary>
             Downloads all ModDownloadItems provided.
             </summary>
+        </member>
+        <member name="T:Terraria.ModLoader.UI.UIButton`1">
+            <summary>
+            A text panel that supports hover and click sounds, hover colors, and alternate colors.
+            </summary>
+            <typeparam name="T"></typeparam>
         </member>
         <member name="M:Terraria.ModLoader.UI.UICommon.TooltipMouseText(System.String)">
             <summary>
@@ -21359,6 +22016,30 @@
             Negative values are used to indicate additional inventories: Piggy Bank (-2), Safe (-3), Defender's Forge (-4), Void Vault (-5)
             </summary>
         </member>
+        <member name="F:Terraria.Player.cHead">
+            <summary>The armor shader ID applied to the <see cref="F:Terraria.ModLoader.EquipType.Head"/> equip texture by a dye item (<see cref="F:Terraria.Item.dye"/>) in the dye slot.</summary>
+        </member>
+        <member name="F:Terraria.Player.cBody">
+            <summary>The armor shader ID applied to the <see cref="F:Terraria.ModLoader.EquipType.Body"/> equip texture by a dye item (<see cref="F:Terraria.Item.dye"/>) in the dye slot.</summary>
+        </member>
+        <member name="F:Terraria.Player.cLegs">
+            <summary>The armor shader ID applied to the <see cref="F:Terraria.ModLoader.EquipType.Legs"/> equip texture by a dye item (<see cref="F:Terraria.Item.dye"/>) in the dye slot.</summary>
+        </member>
+        <member name="F:Terraria.Player.cGrapple">
+            <summary>The armor shader ID applied to the Hook equipment slot by a dye item (<see cref="F:Terraria.Item.dye"/>) in the dye slot.</summary>
+        </member>
+        <member name="F:Terraria.Player.cMount">
+            <summary>The armor shader ID applied to the Mount equipment slot by a dye item (<see cref="F:Terraria.Item.dye"/>) in the dye slot.</summary>
+        </member>
+        <member name="F:Terraria.Player.cMinecart">
+            <summary>The armor shader ID applied to the Minecart equipment slot by a dye item (<see cref="F:Terraria.Item.dye"/>) in the dye slot.</summary>
+        </member>
+        <member name="F:Terraria.Player.cPet">
+            <summary>The armor shader ID applied to the Pet equipment slot by a dye item (<see cref="F:Terraria.Item.dye"/>) in the dye slot.</summary>
+        </member>
+        <member name="F:Terraria.Player.cLight">
+            <summary>The armor shader ID applied to the Light Pet equipment slot by a dye item (<see cref="F:Terraria.Item.dye"/>) in the dye slot.</summary>
+        </member>
         <member name="F:Terraria.Player.ownedProjectileCounts">
             <summary>
             Provides efficient access to the number of projectiles of the specified type owned by this player currently active in the game world.<br/>
@@ -21643,6 +22324,12 @@
         <member name="M:Terraria.Player.HasItemInInventoryOrOpenVoidBag(System.Int32)">
             <summary>
             Similar to <see cref="M:Terraria.Player.HasItem(System.Int32)"/>, but also checks the Void Bag.
+            </summary>
+        </member>
+        <member name="F:Terraria.Player.selectItemOnNextUse">
+            <summary>
+            Causes <see cref="M:Terraria.Player.SmartSelectLookup"/> to run the next time an item animation is finished, even if <see cref="F:Terraria.Player.controlUseItem"/> is held. <br/>
+            Used internally by tML to when a hotbar key is pressed while using an item.
             </summary>
         </member>
         <member name="P:Terraria.Player.ConsumedLifeCrystals">
@@ -22393,7 +23080,7 @@
         <member name="F:Terraria.Projectile.noDropItem">
             <summary>
             Set to true if you don't want this projectile to have a chance to recover the ammo item that shot this. For example, if you shoot the <see cref="F:Terraria.ID.ProjectileID.WoodenArrowFriendly"/> projectile, it will sometimes drop the <see cref="F:Terraria.ID.ItemID.WoodenArrow"/>  item. If your weapon shoots multiple arrows for 1 ammo, you might want to consider setting this field to prevent infinite ammo glitches.
-            <br/> In <see cref="M:Terraria.ModLoader.ModProjectile.Kill(System.Int32)"/>, check this and <see cref="F:Terraria.Projectile.owner"/> to decide if the item should drop: <code>if (Projectile.owner == Main.myPlayer &amp;&amp; !Projectile.noDropItem)</code> See <see href="https://github.com/tModLoader/tModLoader/blob/1.4.4/ExampleMod/Content/Projectiles/ExamplePaperAirplaneProjectile.cs#L142">ExamplePaperAirplaneProjectile</see> for an example of this logic.
+            <br/> In <see cref="M:Terraria.ModLoader.ModProjectile.OnKill(System.Int32)"/>, check this and <see cref="F:Terraria.Projectile.owner"/> to decide if the item should drop: <code>if (Projectile.owner == Main.myPlayer &amp;&amp; !Projectile.noDropItem)</code> See <see href="https://github.com/tModLoader/tModLoader/blob/1.4.4/ExampleMod/Content/Projectiles/ExamplePaperAirplaneProjectile.cs#L142">ExamplePaperAirplaneProjectile</see> for an example of this logic.
             <br/> Set directly on the projectile instance returned from <see cref="M:Terraria.Projectile.NewProjectile(Terraria.DataStructures.IEntitySource,System.Single,System.Single,System.Single,System.Single,System.Int32,System.Int32,System.Single,System.Int32,System.Single,System.Single,System.Single)"/>, not in <see cref="M:Terraria.ModLoader.ModProjectile.SetDefaults"/>. This ensures that the weapon spawning the projectile decides if the ammo item will spawn, which is more compatible.
             <br/> Set automatically when shot from a weapon that counts as <see cref="P:Terraria.ModLoader.DamageClass.Throwing"/> and <see cref="P:Terraria.Player.AnyThrownCostReduction"/> is <see langword="true"/>.
             <br/> Defaults to <see langword="false"/>.
@@ -22401,7 +23088,8 @@
         </member>
         <member name="F:Terraria.Projectile.scale">
             <summary>
-            Scales the projectile drawing, but not the hitbox, making this not suitable for affecting hitbox. Avoid large values.
+            Scales how large the projectile will be drawn. Will also affect the hitbox (<see cref="F:Terraria.Entity.width"/>, <see cref="F:Terraria.Entity.height"/>) if assigned in SetDefaults. If changed elsewhere it will not affect the hitbox, so that will have to be adjusted manually via code in that situation if needed. <para/>
+            Due to legacy code, scale does not affect the draw origin correctly, resulting in the projectile not rotating around the hitbox center correctly nor being drawn correctly centered on the hitbox. For small changes (0.8f to 1.2f) the effect is unnoticeable, but it is advised to avoid large values unless the projectile is manually drawn with the correct approach via <see cref="M:Terraria.ModLoader.ModProjectile.PreDraw(Microsoft.Xna.Framework.Color@)"/>.<para/>
             <br/> Defaults to 1f.
             </summary>
         </member>

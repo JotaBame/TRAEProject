@@ -55,6 +55,9 @@ namespace TRAEProject.Changes.Projectiles
                     projectile.usesLocalNPCImmunity = true;
                     projectile.localNPCHitCooldown = 10;
                     return;
+                case ProjectileID.BlackBolt:
+                    projectile.GetGlobalProjectile<ProjectileStats>().DirectDamage = 0.75f;
+                    return;
                 case ProjectileID.CrystalShard:
                     projectile.GetGlobalProjectile<ProjectileStats>().DirectDamage = 0.5f;
                     projectile.ArmorPenetration = 50;

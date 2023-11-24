@@ -6,6 +6,8 @@ using Terraria.ModLoader;
 using TRAEProject.Common.ModPlayers;
 using TRAEProject.Changes.Weapon.Ranged.Rockets;
 using TRAEProject.Common;
+using System.Collections.Generic;
+
 namespace TRAEProject.Changes.Accesory
 {
     public class AccessoryStats : GlobalItem
@@ -14,19 +16,13 @@ namespace TRAEProject.Changes.Accesory
         {
             if (item.type == ItemID.MagicQuiver)
             {
-                player.magicQuiver = false; 
+                player.magicQuiver = false;
                 player.GetModPlayer<RangedStats>().Magicquiver += 1;
-      
+
                 if (player.HeldItem.useAmmo == AmmoID.Arrow || player.HeldItem.useAmmo == AmmoID.Stake)
                     player.GetDamage<RangedDamageClass>() -= 0.1f; // 1.4.4 magic quiver uses a new bool and guess what it is not supported by tmod (at least at the time i'm writing this note)
             }
-            if (item.type == ItemID.MoltenQuiver)
-            {
-                player.magicQuiver = false; 
-                player.GetModPlayer<RangedStats>().Magicquiver += 1;
-                if (player.HeldItem.useAmmo == AmmoID.Arrow || player.HeldItem.useAmmo == AmmoID.Stake)
-                    player.GetDamage<RangedDamageClass>() -= 0.1f; // 1.4.4 magic quiver uses a new bool and guess what it is not supported by tmod (at least at the time i'm writing this note)
-            }
+ 
             if (item.type == ItemID.StalkersQuiver)
             {
                 player.magicQuiver = false;
@@ -35,6 +31,18 @@ namespace TRAEProject.Changes.Accesory
                 player.GetDamage<RangedDamageClass>() += 0.05f;
                 player.GetCritChance<RangedDamageClass>() += 5;
             }
+            if (item.type == ItemID.RifleScope)
+            {
+                player.GetModPlayer<RangedStats>().GunScope = true;
+                player.GetModPlayer<RangedStats>().gunVelocity += 0.5f;
+            }
+            if (item.type == ItemID.SniperScope)
+            {
+                player.GetModPlayer<RangedStats>().GunScope = true;
+                player.GetModPlayer<RangedStats>().gunVelocity += 0.5f;
+                player.GetDamage<RangedDamageClass>() -= 0.1f;
+            }
+    
             if (item.type == ItemID.ReconScope)
             {
                 player.GetModPlayer<RangedStats>().rangedVelocity += 0.5f;
@@ -42,6 +50,77 @@ namespace TRAEProject.Changes.Accesory
                 player.GetDamage<RangedDamageClass>() -= 0.1f;
 
                 player.GetCritChance<RangedDamageClass>() -= 10;
+            }
+        }
+        public override void ModifyTooltips(Item item, List<TooltipLine> tooltips)
+        {
+            switch (item.type)
+            {                case ItemID.MagicQuiver:
+                    foreach (TooltipLine line in tooltips)
+                    {
+                        if (line.Mod == "Terraria" && line.Name == "Tooltip0")
+                        {
+                            line.Text = "Your arrows will bounce towards nearby enemies, losing 33% damage in the process";
+                        }
+                        if (line.Mod == "Terraria" && line.Name == "Tooltip1")
+                        {
+                            line.Text = "";
+                        }
+                    }
+                    break;
+                case ItemID.StalkersQuiver:
+                    foreach (TooltipLine line in tooltips)
+                    {
+                        if (line.Mod == "Terraria" && line.Name == "Tooltip0")
+                        {
+                            line.Text = "Your arrows will bounce towards nearby enemies, losing 33% damage in the process";
+
+                        }
+                        if (line.Mod == "Terraria" && line.Name == "Tooltip1")
+                        {
+                            line.Text = "5% increased ranged damage and critical strike chance";
+                        }
+                    }
+                    break;
+                case ItemID.RifleScope:
+                    foreach (TooltipLine line in tooltips)
+                    {
+                        if (line.Mod == "Terraria" && line.Name == "Tooltip0")
+                        {
+                            line.Text = "Increases view range for guns (right click to zoom out!)";
+                        }
+                        if (line.Mod == "Terraria" && line.Name == "Tooltip1")
+                        {
+                            line.Text = "Increases ranged velocity and tightens gun spread";
+                        }
+                    }
+                    break;
+                case ItemID.SniperScope:
+                    foreach (TooltipLine line in tooltips)
+                    {
+                        if (line.Mod == "Terraria" && line.Name == "Tooltip1")
+                        {
+                            line.Text = "Increases ranged velocity and tightens gun spread\n10% increased ranged critical strike chance";
+                        }
+                    }
+                    break;
+                case ItemID.ReconScope:
+                    foreach (TooltipLine line in tooltips)
+                    {
+                        if (line.Mod == "Terraria" && line.Name == "Tooltip0")
+                        {
+                            line.Text = "Increases view range for guns (right click to zoom out!)";
+                        }
+                        if (line.Mod == "Terraria" && line.Name == "Tooltip1")
+                        {
+                            line.Text = "Increases ranged velocity and tightens gun spread";
+                        }
+                        if (line.Mod == "Terraria" && line.Name == "Tooltip2")
+                        {
+                            line.Text = "Your ranged attacks will bounce towards their nearby enemy";
+                        }
+                    }
+                    break;
             }
         }
     }

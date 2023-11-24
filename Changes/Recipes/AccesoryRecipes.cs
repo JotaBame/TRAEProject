@@ -12,7 +12,7 @@ namespace TRAEProject.Changes.Recipes
     public static class AccesoryRecipes
     {
 
-        public static void Load(Mod mod)
+        public static void Load()
         { 
             Recipe MoltenSkullRoseMagmaSkull = Recipe.Create(ItemID.MoltenSkullRose).AddIngredient(ItemID.MagmaStone, 1).AddIngredient(ItemID.ObsidianSkull, 1).AddIngredient(ItemID.ObsidianRose).AddTile(TileID.TinkerersWorkbench);
             MoltenSkullRoseMagmaSkull.Register();

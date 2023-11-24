@@ -24,8 +24,8 @@ namespace TRAEProject.NewContent.Items.Weapons.Magic.FlashRay
             Item.DefaultToStaff(ProjectileType<FlashRayBeam>(), 6, 27, 15);
             Item.width = 40;
             Item.height = 40;
-            Item.damage = 26;
-            Item.crit = 7;
+            Item.damage = 24;
+            Item.crit = 3;
             Item.autoReuse = true;
             Item.rare = ItemRarityID.Green;
             Item.value = Item.sellPrice(silver: 22);

@@ -19,10 +19,113 @@ using System.IO;
 using System;
 using TRAEProject.Changes.Prefixes;
 using TRAEProject.Changes.Items;
+using MonoMod.RuntimeDetour;
+using System.Reflection;
+using TRAEilHooks;
 
 namespace TRAEProject
 {
-    public class TRAEProj : Mod
+    public class TRAEproject : ModSystem
+    {
+        public override void AddRecipes()
+        {
+            WeaponRecipes.Load();
+            AccesoryRecipes.Load();
+            MiscRecipes.Load();
+            ArmorRecipes.Load();
+        }
+        public override void PostAddRecipes()
+        {
+            foreach (Recipe recipe in Main.recipe)
+            {
+                WeaponRecipes.Modify(recipe);
+                AccesoryRecipes.Modify(recipe);
+                MiscRecipes.Modify(recipe);
+                ArmorRecipes.Modify(recipe);
+            }
+        }
+        public override void AddRecipeGroups()/* tModPorter Note: Removed. Use ModSystem.AddRecipeGroups */
+    {
+        RecipeGroup group = new RecipeGroup(() => Language.GetTextValue("LegacyMisc.37") + " Emblem", new int[]
+        {
+                ItemID.WarriorEmblem,
+                ItemID.RangerEmblem,
+                ItemID.SorcererEmblem,
+                ItemID.SummonerEmblem
+        });
+        RecipeGroup.RegisterGroup("Emblem", group);
+        RecipeGroup CloudBalloon1 = new RecipeGroup(() => Language.GetTextValue("LegacyMisc.37") + " Cloud in a Balloon", new int[]
+        {
+                ItemID.CloudinaBalloon,
+                ItemID.BlueHorseshoeBalloon
+        });
+        RecipeGroup.RegisterGroup("CloudBalloon", CloudBalloon1);
+        RecipeGroup Jumpgroup1 = new RecipeGroup(() => Language.GetTextValue("LegacyMisc.37") + " Cloud in a Bottle", new int[]
+        {
+                ItemID.CloudinaBottle,
+                ItemID.CloudinaBalloon,
+                ItemID.BlueHorseshoeBalloon
+        });
+        RecipeGroup.RegisterGroup("CloudJump", Jumpgroup1);
+        RecipeGroup BlizzardBalloon1 = new RecipeGroup(() => Language.GetTextValue("LegacyMisc.37") + " Blizzard in a Balloon", new int[]
+        {
+                ItemID.BlizzardinaBalloon,
+                ItemID.WhiteHorseshoeBalloon
+        });
+        RecipeGroup.RegisterGroup("BlizzardBalloon", BlizzardBalloon1);
+        RecipeGroup Jumpgroup2 = new RecipeGroup(() => Language.GetTextValue("LegacyMisc.37") + " Blizzard in a Bottle", new int[]
+        {
+                ItemID.BlizzardinaBottle,
+                ItemID.BlizzardinaBalloon,
+                ItemID.WhiteHorseshoeBalloon
+        });
+        RecipeGroup.RegisterGroup("BlizzardJump", Jumpgroup2);
+        RecipeGroup SandstormBalloon1 = new RecipeGroup(() => Language.GetTextValue("LegacyMisc.37") + " Sandstorm in a Balloon", new int[]
+        {
+                ItemID.SandstorminaBalloon,
+                ItemID.YellowHorseshoeBalloon
+        });
+        RecipeGroup.RegisterGroup("SandstormBalloon", SandstormBalloon1);
+        RecipeGroup Jumpgroup3 = new RecipeGroup(() => Language.GetTextValue("LegacyMisc.37") + " Sandstorm in a Bottle", new int[]
+        {
+                ItemID.SandstorminaBottle,
+                ItemID.SandstorminaBalloon,
+                ItemID.YellowHorseshoeBalloon
+        });
+        RecipeGroup.RegisterGroup("SandstormJump", Jumpgroup3);
+        RecipeGroup Adamantite = new RecipeGroup(() => Language.GetTextValue("LegacyMisc.37") + " Adamantite Bar", new int[]
+        {
+                ItemID.AdamantiteBar,
+                ItemID.TitaniumBar
+        });
+        RecipeGroup.RegisterGroup("Adamantite", Adamantite); // RENAME THIS TO ADAMANTITE
+        RecipeGroup GoldBar = new RecipeGroup(() => Language.GetTextValue("LegacyMisc.37") + " Gold Bar", new int[]
+        {
+                ItemID.GoldBar,
+                ItemID.PlatinumBar
+        });
+        RecipeGroup.RegisterGroup("GoldBar", GoldBar); RecipeGroup group1 = new RecipeGroup(() => Language.GetTextValue("LegacyMisc.37") + " Tsunami in a Bottle", new int[]
+        {
+                ItemID.TsunamiInABottle,
+                ItemID.SharkronBalloon
+        });
+        RecipeGroup.RegisterGroup("TsunamiJump", group1);
+        RecipeGroup group2 = new RecipeGroup(() => Language.GetTextValue("LegacyMisc.37") + " Fart in a jar", new int[]
+         {
+                ItemID.FartinaJar,
+                ItemID.FartInABalloon
+         });
+        RecipeGroup.RegisterGroup("FartJump", group2);
+        RecipeGroup group3 = new RecipeGroup(() => Language.GetTextValue("LegacyMisc.37") + " Honey Balloon", new int[]
+        {
+                ItemID.HoneyComb,
+                ItemID.HoneyBalloon
+        });
+        RecipeGroup.RegisterGroup("HoneyBalloon", group3);
+    }
+
+}
+public class TRAEProj : Mod
     {
         public static TRAEProj Instance;
 
@@ -31,88 +134,23 @@ namespace TRAEProject
         public const string DreadHead1 = "TRAEProject/Changes/NPCs/Boss/Dreadnautilus/MapIcon";
         public const string DreadHead2 = "TRAEProject/Changes/NPCs/Boss/Dreadnautilus/MapIcon2";
         public static int IceMajestyCape;
-        public override void AddRecipeGroups()/* tModPorter Note: Removed. Use ModSystem.AddRecipeGroups */
-        {
-            RecipeGroup group = new RecipeGroup(() => Language.GetTextValue("LegacyMisc.37") + " Emblem", new int[]
-            {
-                ItemID.WarriorEmblem,
-                ItemID.RangerEmblem,
-                ItemID.SorcererEmblem,
-                ItemID.SummonerEmblem
-            });
-            RecipeGroup.RegisterGroup("Emblem", group);
-            RecipeGroup CloudBalloon1 = new RecipeGroup(() => Language.GetTextValue("LegacyMisc.37") + " Cloud in a Balloon", new int[]
-            {
-                ItemID.CloudinaBalloon,
-                ItemID.BlueHorseshoeBalloon
-            });
-            RecipeGroup.RegisterGroup("CloudBalloon", CloudBalloon1);
-            RecipeGroup Jumpgroup1 = new RecipeGroup(() => Language.GetTextValue("LegacyMisc.37") + " Cloud in a Bottle", new int[]
-            {
-                ItemID.CloudinaBottle,
-                ItemID.CloudinaBalloon,
-                ItemID.BlueHorseshoeBalloon
-            });
-            RecipeGroup.RegisterGroup("CloudJump", Jumpgroup1);
-            RecipeGroup BlizzardBalloon1 = new RecipeGroup(() => Language.GetTextValue("LegacyMisc.37") + " Blizzard in a Balloon", new int[]
-            {
-                ItemID.BlizzardinaBalloon,
-                ItemID.WhiteHorseshoeBalloon
-            });
-            RecipeGroup.RegisterGroup("BlizzardBalloon", BlizzardBalloon1);
-            RecipeGroup Jumpgroup2 = new RecipeGroup(() => Language.GetTextValue("LegacyMisc.37") + " Blizzard in a Bottle", new int[]
-            {
-                ItemID.BlizzardinaBottle,
-                ItemID.BlizzardinaBalloon,
-                ItemID.WhiteHorseshoeBalloon
-            });
-            RecipeGroup.RegisterGroup("BlizzardJump", Jumpgroup2);
-            RecipeGroup SandstormBalloon1 = new RecipeGroup(() => Language.GetTextValue("LegacyMisc.37") + " Sandstorm in a Balloon", new int[]
-            {
-                ItemID.SandstorminaBalloon,
-                ItemID.YellowHorseshoeBalloon
-            });
-            RecipeGroup.RegisterGroup("SandstormBalloon", SandstormBalloon1);
-            RecipeGroup Jumpgroup3 = new RecipeGroup(() => Language.GetTextValue("LegacyMisc.37") + " Sandstorm in a Bottle", new int[]
-            {
-                ItemID.SandstorminaBottle,
-                ItemID.SandstorminaBalloon,
-                ItemID.YellowHorseshoeBalloon
-            });
-            RecipeGroup.RegisterGroup("SandstormJump", Jumpgroup3);
-            RecipeGroup Adamantite = new RecipeGroup(() => Language.GetTextValue("LegacyMisc.37") + " Adamantite Bar", new int[]
-            {
-                ItemID.AdamantiteBar,
-                ItemID.TitaniumBar
-            });
-            RecipeGroup.RegisterGroup("Adamantite", Adamantite); // RENAME THIS TO ADAMANTITE
-            RecipeGroup Shadowscales = new RecipeGroup(() => Language.GetTextValue("LegacyMisc.37") + " Evil Tissue", new int[]
-            {
-                ItemID.ShadowScale,
-                ItemID.TissueSample
-            });
-            RecipeGroup.RegisterGroup("Shadowscales", Shadowscales); RecipeGroup group1 = new RecipeGroup(() => Language.GetTextValue("LegacyMisc.37") + " Tsunami in a Bottle", new int[]
-            {
-                ItemID.TsunamiInABottle,
-                ItemID.SharkronBalloon
-            });
-            RecipeGroup.RegisterGroup("TsunamiJump", group1);
-            RecipeGroup group2 = new RecipeGroup(() => Language.GetTextValue("LegacyMisc.37") + " Fart in a jar", new int[]
-             {
-                ItemID.FartinaJar,
-                ItemID.FartInABalloon
-             });
-            RecipeGroup.RegisterGroup("FartJump", group2);
-            RecipeGroup group3 = new RecipeGroup(() => Language.GetTextValue("LegacyMisc.37") + " Honey Balloon", new int[]
-            {
-                ItemID.HoneyComb,
-                ItemID.HoneyBalloon
-            });
-            RecipeGroup.RegisterGroup("HoneyBalloon", group3);
-        }
-    
+        //static ILHook _NPCHook;
+        static ILHook _GrassHook;
+        static ILHook _EclipseHook;
+        static ILHook _OOA2Hook;
+        static ILHook _MountHook;
+
+ 
+
+ 
         public override void Load()
-        {
+        {            
+            //I ain't got anything special to say here; check the other classes for specific hook info
+            //_NPCHook = new ILHook(typeof(Terraria.NPC).GetMethod("SpawnNPC"), ILNPC.DoStuff); //You can remove this hook if you want
+            _GrassHook = new ILHook(typeof(Terraria.WorldGen).GetMethod("UpdateWorld_GrassGrowth", BindingFlags.NonPublic | BindingFlags.Static), ILPlantBulb.DoStuff);
+            _EclipseHook = new ILHook(typeof(Terraria.Main).GetMethod("UpdateTime_StartDay"), ILEclipse.DoStuff);
+            _OOA2Hook = new ILHook(typeof(Terraria.GameContent.Events.DD2Event).GetMethod("FindProperDifficulty", BindingFlags.NonPublic | BindingFlags.Static), ILOOAT2.DoStuff);
+            _MountHook = new ILHook(typeof(Terraria.Mount).GetMethod("UpdateEffects"), ILMounts.DoStuff);
             Terraria.IL_Projectile.StatusNPC += (il) => {
                 var c = new ILCursor(il);
                 if (c.TryGotoNext(MoveType.After, x => x.MatchLdcI4(359)))
@@ -193,7 +231,11 @@ namespace TRAEProject
 
         }
         public override void Unload()
-        {
+        {            //_NPCHook?.Dispose();
+            _GrassHook?.Dispose();
+            _EclipseHook?.Dispose();
+            _OOA2Hook?.Dispose();
+            _MountHook?.Dispose();
             Main.QueueMainThreadAction(() =>
             {
                 if (!Main.dedServ)
@@ -202,23 +244,7 @@ namespace TRAEProject
 
             });
         }
-        public override void AddRecipes()/* tModPorter Note: Removed. Use ModSystem.AddRecipes */
-        {
-            WeaponRecipes.Load(this);
-            AccesoryRecipes.Load(this);
-            MiscRecipes.Load(this);
-            ArmorRecipes.Load(this);
-        }
-        public override void PostAddRecipes()/* tModPorter Note: Removed. Use ModSystem.PostAddRecipes */
-        {
-            foreach (Recipe recipe in Main.recipe)
-            {
-                WeaponRecipes.Modify(recipe);
-                AccesoryRecipes.Modify(recipe);
-                MiscRecipes.Modify(recipe);
-                ArmorRecipes.Modify(recipe);
-            }
-        }
+
         public override object Call(params object[] args) 
         {
 			try 

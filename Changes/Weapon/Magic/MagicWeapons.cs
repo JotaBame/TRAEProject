@@ -114,22 +114,26 @@ namespace TRAEProject.Changes.Items
                     item.useTime = 12; // up from 8
                     item.useAnimation = 12;
                     item.autoReuse = true;
+                    return; 
+
+                case ItemID.MagicMissile:
+                    item.mana = 28; // up from 14
                     return;
                 case ItemID.SpaceGun:
                     item.damage = 22; // up from 17
-                    item.mana = 10; // up from 6
+                    item.mana = 9; // up from 6
 
-                    item.useTime = 20; // down from 17
-                    item.useAnimation = 20;
+                    item.useTime = 17; // down from 17
+                    item.useAnimation = 17;
 					return;
 		        case ItemID.PoisonStaff:
-                    item.damage = 16; // down from 48
+                    item.damage = 17; // down from 48
                     item.mana = 45; // up from 22                  
                     return; 
                 case ItemID.BeeGun:
                     item.damage = 5; 
-				    item.useTime = 20; // down from 16
-                    item.useAnimation = 20;
+				    item.useTime = 22; // down from 16
+                    item.useAnimation = 22;
                     item.mana = 13; // up from 6
 				    item.knockBack = 1f;
                     break;

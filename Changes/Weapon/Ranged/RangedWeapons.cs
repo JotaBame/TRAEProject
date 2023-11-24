@@ -8,6 +8,7 @@ using Terraria.ID;
 using Terraria.ModLoader;
 using static Terraria.ModLoader.ModContent;
 using Terraria.DataStructures;
+using TRAEProject.Changes.NPCs.Boss.Plantera;
 
 namespace TRAEProject.Changes.Weapons
 {
@@ -24,9 +25,6 @@ namespace TRAEProject.Changes.Weapons
             switch (item.type)
             {
 
-                case ItemID.Boomstick:
-                    item.damage = 11; // down from 14
-                    return;
                 case ItemID.Beenade:
                     item.damage = 8; // down from 12				
                     item.useAnimation = 45; // up from 15
@@ -34,10 +32,7 @@ namespace TRAEProject.Changes.Weapons
                     item.shootSpeed = 12f; // up from 6
                     item.autoReuse = true;
                     return;
-                case ItemID.Revolver:
-                    item.damage = 30; // up from 20
-                    item.value = 250000; // 25 gold
-                    return;
+               
 
                 case ItemID.Harpoon:
                     item.shoot = ProjectileType<Harpoon>();
@@ -45,38 +40,67 @@ namespace TRAEProject.Changes.Weapons
                     item.useAnimation = 36;
                     item.useTime = 36;
                     return;
+
+                case ItemID.TheUndertaker:
+                    item.useAnimation = 21; // up from 20
+                    item.useTime = 21;
+                    return;
+                case ItemID.Musket:
+                    item.useAnimation = 35; // up from 32
+                    item.useTime = 35;
+                    return;
+                case ItemID.Revolver:
+                    item.damage = 25; // up from 20
+                    item.value = Item.buyPrice(gold: 25);
+                    return;
+                case ItemID.Boomstick:
+                    item.damage = 11; // down from 14
+                    return;
                 case ItemID.PewMaticHorn:
                     item.useTime = 17;
                     item.useAnimation = 17;
                     break;
-                case ItemID.BeesKnees:
-                    item.damage = 19;
-                    return;
                 case ItemID.Minishark:
-                    item.value = Item.buyPrice(gold: 35);
+                    item.value = Item.buyPrice(gold: 40);
+                    return;
+                case ItemID.Shotgun:
+                    item.value = Item.buyPrice(gold: 45);
+                    item.damage = 13; //down from 24
+                    item.useAnimation = 45; // up from 45
+                    item.useTime = 45; // up from 45
+					item.rare = ItemRarityID.Green;
+
+                    break;
+                case ItemID.BeesKnees:
+                    item.damage = 19; // down from 23
+                    item.useAnimation = 25; // up from 23
+                    item.useTime = 25; // up from 23
                     return;
                 case ItemID.QuadBarrelShotgun:
-                    item.value = Item.buyPrice(gold: 50);
-                    item.autoReuse = true;
-                    return;
+                    item.damage = 25; // down from 21
+
+ 
+                     return;
                 case ItemID.Gatligator:
-                    item.damage = 21; // down from 21
+                    item.damage = 18; // down from 21
 
                     item.useTime = 5; // down from 7
                     item.useAnimation = 5;
-                    item.value = Item.buyPrice(platinum: 1, gold: 50);
+                    item.value = Item.buyPrice(gold: 80);
                     return;
                 case ItemID.Uzi:
-                    item.damage = 22; // up from 30
-                    item.value = Item.buyPrice(platinum: 1, gold: 50);
-                    item.shootSpeed = 5f;
-                    item.useTime = 7;
-                    item.useAnimation = 7;
+                    item.damage = 22; // down from 30
+                    item.value = Item.buyPrice(gold: 80);
+  
                     return;
                 case ItemID.Toxikarp:
                     item.useTime = 14;
                     item.useAnimation = 14;
                     return;
+                //case ItemID.OnyxBlaster:
+                //    item.useTime = 50; // up from 48
+                //    item.useAnimation = 50;
+                //    return;
                 case ItemID.DaedalusStormbow:
                     item.damage = 30;
                     return;
@@ -95,9 +119,7 @@ namespace TRAEProject.Changes.Weapons
                     item.useAnimation = 50;
                     item.autoReuse = true;
                     return;
-                case ItemID.TheUndertaker:
-                    item.autoReuse = true;
-                    return;
+ 
                 case ItemID.JackOLanternLauncher:
                     item.shootSpeed = 14f; // up from 7
                     return;
@@ -163,6 +185,17 @@ namespace TRAEProject.Changes.Weapons
                     item.knockBack = 2f; // down from 3.5
                     return;
             }
+        }
+        public override bool Shoot(Item item, Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
+        {
+            if (item.type == ItemID.Uzi)
+            {
+                Vector2 perturbedSpeed = new Vector2(velocity.X, velocity.Y).RotatedByRandom(MathHelper.ToRadians(15));  
+
+                Projectile.NewProjectile(source, position.X, position.Y, perturbedSpeed.X, perturbedSpeed.Y, type, damage, knockback, player.whoAmI);
+                return false;
+            }
+            return base.Shoot(item, player, source, position, velocity, type, damage, knockback);
         }
         public override void PickAmmo(Item weapon, Item ammo, Player player, ref int type, ref float speed, ref StatModifier damage, ref float knockback)
         {

@@ -35,8 +35,10 @@ namespace TRAEProject.NewContent.Items.Armor.LeatherArmor
 		}
 
 		public override void UpdateEquip(Player player)
-		{
-			player.GetDamage<SummonDamageClass>() += 0.04f;
+        {
+            player.GetAttackSpeed(DamageClass.SummonMeleeSpeed) += 0.08f;
+
+          
 		}
 		public override bool IsArmorSet(Item head, Item body, Item legs)
 		{
@@ -45,9 +47,12 @@ namespace TRAEProject.NewContent.Items.Armor.LeatherArmor
 
 		public override void UpdateArmorSet(Player player)
 		{
-			player.setBonus = "Increased maximum number of minions by 1\n25% increased whip range";
-            player.whipRangeMultiplier += 0.25f;
-			player.maxMinions += 1;
+			player.setBonus = "Increased maximum number of minions by 2\n25% decreased non-summoner damage";
+            player.GetDamage<MeleeDamageClass>() *= 0.75f;
+            player.GetDamage<RangedDamageClass>() *= 0.75f;
+            player.GetDamage<MagicDamageClass>() *= 0.75f;
+
+            player.maxMinions += 2;
 		}
     }
 }

@@ -3,7 +3,7 @@ using Terraria.ID;
 using Terraria.ModLoader;
 using TRAEProject;
 using System.Collections.Generic;
-using TRAEProject.Changes.Items;
+using TRAEProject.Changes.Accesory;
 using TRAEProject.Changes.Armor;
 using Microsoft.Xna.Framework;
 using Terraria.GameContent;
@@ -316,7 +316,7 @@ namespace ChangesArmor
             if (armorSet == "WizardSetHM")
             {
                 player.setBonus = "Return quintuple damage taken to near enemies";
-                player.GetModPlayer<OnHitItems>().runethorns += 5f;
+                player.GetModPlayer<OnHitEffects>().runethorns += 5f;
             }
             if (armorSet == "ShadowSet")
             {
@@ -336,7 +336,7 @@ namespace ChangesArmor
             if (armorSet == "TurtleSet")
             {
                 player.setBonus = "Damage taken is reflected to nearby enemies with thrice the strength\nReduces damage taken by 15%";
-                player.GetModPlayer<OnHitItems>().newthorns += 3f;
+                player.GetModPlayer<OnHitEffects>().newthorns += 3f;
                 player.thorns -= 2f;
                 player.turtleThorns = false;
             }

@@ -13,6 +13,7 @@ using TRAEProject.Common;
 using TRAEProject.Changes.Items;
 using System.Collections.Generic;
 using TRAEProject;
+using TRAEProject.Changes.Accesory;
 
 namespace TRAEProject.Changes.Weapon.Melee
 {
@@ -261,13 +262,13 @@ namespace TRAEProject.Changes.Weapon.Melee
         public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
             Player player = Main.player[Projectile.owner];
-            if (player.GetModPlayer<OnHitItems>().BaghnakhHeal <= (int)(player.GetModPlayer<OnHitItems>().LastHitDamage * 0.5))
+            if (player.GetModPlayer<OnHitEffects>().BaghnakhHeal <= (int)(player.GetModPlayer<OnHitEffects>().LastHitDamage * 0.5))
             {
 
                 float healAmount = (float)(damageDone * 0.05f);
                 if (healAmount < 1)
                     healAmount = 1;
-                player.GetModPlayer<OnHitItems>().BaghnakhHeal += (int)healAmount;
+                player.GetModPlayer<OnHitEffects>().BaghnakhHeal += (int)healAmount;
                 player.HealEffect((int)healAmount, true);
                 player.statLife += (int)healAmount;
             }

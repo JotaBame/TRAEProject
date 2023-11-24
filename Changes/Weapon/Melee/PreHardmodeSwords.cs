@@ -205,6 +205,8 @@ namespace TRAEProject.Changes.Weapon.Melee
         {
             if (item.type == ItemID.LucyTheAxe && swung == false && player.altFunctionUse != 2)
             {
+                item.noUseGraphic = true;
+
                 swung = true;
             }
         }

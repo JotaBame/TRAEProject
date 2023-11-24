@@ -45,7 +45,7 @@ namespace TRAEProject.Changes.Accesory
                     {
                         if (line.Mod == "Terraria" && line.Name == "Tooltip0")
                         {
-                            line.Text = "Causes buzzy stars to fall and douses you in honey when damaged\nSlightly increases life regeneration";
+                            line.Text = "Causes buzzy stars to fall and douses you in honey when damaged\nStack combs to increase efficiency and life regeneration";
                         }
                     }
                     break;
@@ -54,7 +54,7 @@ namespace TRAEProject.Changes.Accesory
                     {
                         if (line.Mod == "Terraria" && line.Name == "Tooltip0")
                         {
-                            line.Text = "Releases bees and douses you in honey when damaged\nSlightly increases life regeneration";
+                            line.Text = "Releases bees and douses you in honey when damaged\nStack combs to increase efficiency and life regeneration";
                         }
                         if (line.Mod == "Terraria" && line.Name == "Tooltip1")
                         {
@@ -67,7 +67,7 @@ namespace TRAEProject.Changes.Accesory
                     {
                         if (line.Mod == "Terraria" && line.Name == "Tooltip0")
                         {
-                            line.Text = "Releases bees and douses you in honey when damaged\nSlightly increases life regeneration";
+                            line.Text = "Releases bees and douses you in honey when damaged\nStack combs to increase efficiency and life regeneration";
                         }
                         if (line.Mod == "Terraria" && line.Name == "Tooltip1")
                         {
@@ -82,7 +82,7 @@ namespace TRAEProject.Changes.Accesory
                     {
                         if (line.Mod == "Terraria" && line.Name == "Tooltip1")
                         {
-                            line.Text += "\nSlightly increases life regeneration";
+                            line.Text += "\nStack combs to increase efficiency and life regeneration";
                         }
                     }
                     break;
@@ -105,7 +105,8 @@ namespace TRAEProject.Changes.Accesory
         }
         public override void UpdateLifeRegen()
         {
-           Player.lifeRegen += 1 * combs;
+            if (combs > 1)
+               Player.lifeRegen += 1 * combs;
         }
 
         public override void OnHitByNPC(NPC npc, Player.HurtInfo hurtInfo)

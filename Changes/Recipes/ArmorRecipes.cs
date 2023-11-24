@@ -13,7 +13,7 @@ namespace TRAEProject.Changes.Recipes
     public static class ArmorRecipes
     {
 
-        public static void Load(Mod mod)
+        public static void Load()
         {
             Recipe AncientShadowHead = Recipe.Create(ItemID.AncientShadowHelmet);
             AncientShadowHead.AddIngredient(ItemID.DemoniteBar, 15);

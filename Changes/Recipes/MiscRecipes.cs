@@ -11,7 +11,7 @@ namespace TRAEProject.Changes.Recipes
 {
     public static class MiscRecipes
     {
-        public static void Load(Mod mod)
+        public static void Load()
         {
             Recipe BloodyTear = Recipe.Create(ItemID.BloodMoonStarter).AddIngredient(ItemID.Lens, 5).AddIngredient(ItemID.VilePowder, 50).AddIngredient(ItemID.Deathweed, 10).AddTile(TileID.DemonAltar);
             BloodyTear.Register();

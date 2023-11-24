@@ -26,7 +26,7 @@ namespace TRAEProject.NewContent.Items.Accesories.CrossNecklace
         public override void UpdateAccessory(Player player, bool hideVisual)
         {
             player.longInvince = true;
-            player.panic = true;
+            player.GetModPlayer<OnHitEffects>().panicNecklaces += 1;
             player.GetModPlayer<HoneyCombPlayer>().combs += 1;
         }
         public override void AddRecipes()

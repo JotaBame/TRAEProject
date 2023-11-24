@@ -10,6 +10,7 @@ using TRAEProject.Common;
 using TRAEProject.Changes.Weapon.Summon.Minions;
 using System.Collections.Generic;
 using System;
+using TRAEProject.NewContent.TRAEDebuffs;
 
 namespace TRAEProject.NewContent.Items.Weapons.Summoner.SpikedWhip
 {
@@ -34,7 +35,7 @@ namespace TRAEProject.NewContent.Items.Weapons.Summoner.SpikedWhip
             Item.noUseGraphic = true;
             Item.damage = 16;
             Item.useTime = Item.useAnimation = 30;
-            Item.knockBack = 2f;
+            Item.knockBack = 4f;
             Item.shootSpeed = 4f;
             Item.rare = ItemRarityID.Green;
             Item.value = Item.sellPrice(0, 0, 80, 0);
@@ -63,11 +64,12 @@ namespace TRAEProject.NewContent.Items.Weapons.Summoner.SpikedWhip
         {
             originalColor = new Color(152, 118, 84);
             whipRangeMultiplier = 1f;
-            fallOff = 0.18f;
+            fallOff = 0.15f;
             tag = BuffType<SpikedTag>();
             whipSegments = 13;
             tipScale = 1.33f;
         }
+ 
     }
     public class SpikedTag : ModBuff
     {
@@ -80,8 +82,8 @@ namespace TRAEProject.NewContent.Items.Weapons.Summoner.SpikedWhip
         }
         public override void Update(NPC npc, ref int buffIndex)
         {
-            npc.GetGlobalNPC<Tag>().Damage += 2;
-            npc.GetGlobalNPC<Tag>().Crit += 11;
+            npc.GetGlobalNPC<Tag>().Damage += 5;
+            npc.GetGlobalNPC<Tag>().Crit += 8;
         }
     }
 }
