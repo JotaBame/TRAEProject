@@ -52,7 +52,6 @@ namespace TRAEProject.NewContent.Items.FlamethrowerAmmo
 
         public override bool PreDraw(ref Color lightColor)
         {
-            Color[] palette = new Color[] { ColorMiddle, ColorBack, ColorLerp, ColorSmoke };
             DrawFlamethrower(ColorMiddle, ColorBack, ColorLerp, ColorSmoke);
             return false;
         }
@@ -64,7 +63,7 @@ namespace TRAEProject.NewContent.Items.FlamethrowerAmmo
             float num2 = 12f;
             float fromMax = num + num2;
             Texture2D value = TextureAssets.Projectile[ProjectileID.Flames].Value;
-            Color transparent = Color.Transparent;
+            Color baseFIreColor = Color.Transparent;
             float num3 = 0.35f;
             float num4 = 0.7f;
             float num5 = 0.85f;
@@ -93,10 +92,10 @@ namespace TRAEProject.NewContent.Items.FlamethrowerAmmo
             {
                 for (float j = 1; j >= 0f; j -= incrementForAfterImages)
                 {
-                    transparent = ((num13 < 0.1f) ? Color.Lerp(Color.Transparent, color1, Utils.GetLerpValue(0f, 0.1f, num13, clamped: true)) : ((num13 < 0.2f) ? Color.Lerp(color1, color2, Utils.GetLerpValue(0.1f, 0.2f, num13, clamped: true)) : ((num13 < num3) ? color2 : ((num13 < num4) ? Color.Lerp(color2, color3, Utils.GetLerpValue(num3, num4, num13, clamped: true)) : ((num13 < num5) ? Color.Lerp(color3, color4, Utils.GetLerpValue(num4, num5, num13, clamped: true)) : ((!(num13 < 1f)) ? Color.Transparent : Color.Lerp(color4, Color.Transparent, Utils.GetLerpValue(num5, 1f, num13, clamped: true))))))));
+                    baseFIreColor = ((num13 < 0.1f) ? Color.Lerp(Color.Transparent, color1, Utils.GetLerpValue(0f, 0.1f, num13, clamped: true)) : ((num13 < 0.2f) ? Color.Lerp(color1, color2, Utils.GetLerpValue(0.1f, 0.2f, num13, clamped: true)) : ((num13 < num3) ? color2 : ((num13 < num4) ? Color.Lerp(color2, color3, Utils.GetLerpValue(num3, num4, num13, clamped: true)) : ((num13 < num5) ? Color.Lerp(color3, color4, Utils.GetLerpValue(num4, num5, num13, clamped: true)) : ((!(num13 < 1f)) ? Color.Transparent : Color.Lerp(color4, Color.Transparent, Utils.GetLerpValue(num5, 1f, num13, clamped: true))))))));
                     float num16 = (1f - j) * Utils.Remap(num13, 0f, 0.2f, 0f, 1f);
                     Vector2 vector = Projectile.Center - Main.screenPosition + Projectile.velocity * (0f - num12) * j;
-                    Color color5 = transparent * num16;
+                    Color color5 = baseFIreColor * num16;
                     Color color6 = color5;
                     if (!elfMelterProjectile)
                     {
@@ -129,8 +128,11 @@ namespace TRAEProject.NewContent.Items.FlamethrowerAmmo
                                 Main.EntitySpriteDraw(value, vector + Projectile.velocity * (0f - num12) * incrementForAfterImages * 0.2f, rectangle, color5 * num11 * 0.25f, num19 + MathF.PI / 2f, rectangle.Size() / 2f, scale * 0.75f, SpriteEffects.None);
                                 Main.EntitySpriteDraw(value, vector, rectangle, color5 * num11, num20 + MathF.PI / 2f, rectangle.Size() / 2f, scale * 0.75f, SpriteEffects.None);
                             }
-                            Main.EntitySpriteDraw(value, vector, rectangle, new Color(255, 255, 255, 0) * (num11 * num11) * num16 * 0.35f, -num20 + MathF.PI / 2f, rectangle.Size() / 2f, scale * 0.75f * 0.6f, SpriteEffects.None);
-                            Main.EntitySpriteDraw(value, vector, rectangle, new Color(255, 255, 255, 0) * (num11 * num11) * num16 * 0.35f, num20 - MathF.PI / 2f, rectangle.Size() / 2f, scale * 0.75f * 0.4f, SpriteEffects.None);
+                            //magic numbers!! yipee
+                            float whiteOpacity =  1 - Utils.GetLerpValue(num4, num5, num13 - .05f, clamped: true);
+                            whiteOpacity *= whiteOpacity;
+                            Main.EntitySpriteDraw(value, vector, rectangle, new Color(255, 255, 255, 0) * (num11 * num11) * num16 * 0.35f * whiteOpacity, -num20 + MathF.PI / 2f, rectangle.Size() / 2f, scale * 0.45f, SpriteEffects.None);
+                            Main.EntitySpriteDraw(value, vector, rectangle, new Color(255, 255, 255, 0) * (num11 * num11) * num16 * 0.35f * whiteOpacity, num20 - MathF.PI / 2f, rectangle.Size() / 2f, scale * 0.4f, SpriteEffects.None);
                             break;
                     }
                 }

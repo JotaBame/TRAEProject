@@ -326,7 +326,7 @@ namespace TRAEProject.Changes.NPCs.Boss
                             {
                                 if (Main.npc[spazIndex].active && Main.npc[spazIndex].type == NPCID.Spazmatism)
                                 {
-                                    spazHealth = (float)Main.npc[spazIndex].life / (float)Main.npc[spazIndex].lifeMax;
+                                    spazHealth = Main.npc[spazIndex].life / (float)Main.npc[spazIndex].lifeMax;
                                     break;
                                 }
                             }

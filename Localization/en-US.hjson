@@ -267,6 +267,7 @@ Mods: {
 			ConfuseRayBeam.DisplayName: Confuse Ray Beam
 			MagicGrenadeP.DisplayName: Magic Grenade P
 			FlashRayBeam.DisplayName: Flash Ray Beam
+			SpamatizmFire.DisplayName: Spamatizm Fire
 		}
 
 		Prefixes: {

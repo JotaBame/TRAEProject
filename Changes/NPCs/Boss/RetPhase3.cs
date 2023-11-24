@@ -221,7 +221,7 @@ namespace TRAEProject.Changes.NPCs.Boss
             //todo: fix laser spawning position
             Vector2 shootPos = npc.Center + TRAEMethods.PolarVector(25 * 9, npc.rotation + MathF.PI / 2);
             Vector2 shootVel = TRAEMethods.PolarVector(shootSpeed, npc.rotation + MathF.PI / 2);
-            DeathLaserShootDust(shootVel, shootPos - Vector2.Normalize(shootVel) * 130);
+            DeathLaserShootDust(shootVel, shootPos - Vector2.Normalize(shootVel) * 140);
             if (Main.netMode != 1)
             {
 
