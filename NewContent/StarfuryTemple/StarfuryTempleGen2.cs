@@ -16,9 +16,9 @@ namespace TRAEProject.NewContent.StarfuryTemple
 		static void CloudIsland(int i, int j)
         {
             UnifiedRandom genRand = WorldGen.genRand;
-            double width = genRand.Next(100, 150);
+            double width = 370;
             double num2 = width;
-            double height = genRand.Next(20, 30);//ISLAND HEIGHT
+            double height = 15;//ISLAND HEIGHT
             int num4 = i;
             int num5 = i;
             int num6 = i;
@@ -34,8 +34,7 @@ namespace TRAEProject.NewContent.StarfuryTemple
             }
             val2.Y = genRand.Next(-20, -10) * 0.02;
             GenerateFloatingIslandBase(genRand, ref width, ref num2, ref height, ref num4, ref num5, ref num6, ref num7, ref val, ref val2);
-            //return;
-           // GenerateCloudyBumpsOnTheIslandBottomProbably(genRand, num4, num5, num6, num7);
+            GenerateCloudyBumpsOnTheIslandBottomProbably(genRand, num4, num5, num6, num7);
             width = genRand.Next(80, 95);
             num2 = width;
             height = genRand.Next(10, 15);
@@ -47,10 +46,10 @@ namespace TRAEProject.NewContent.StarfuryTemple
                 val2.X = genRand.Next(-20, 21) * 0.2;
             }
             val2.Y = genRand.Next(-20, -10) * 0.02;
-            //DirtPassIdkWhatToCallIt(genRand, ref width, ref num2, ref height, num6, ref val, val2);
-            //SomePassRelatedToCloudBlocksAndCheckingNotDirst(genRand, num4, num5, num6, num7);
+            DirtPassIdkWhatToCallIt(genRand, ref width, ref num2, ref height, num6, ref val, val2);
+            SomePassRelatedToCloudBlocksAndCheckingNotDirst(genRand, num4, num5, num6, num7);
             PlaceWallsBehindCloudBlocks(num4, num5, num6, num7);
-            PutWaterOnStuff(genRand, num4, num5, num6, num7);
+            //PutWaterOnStuff(genRand, num4, num5, num6, num7);
             GenerateMiniIslands(genRand, num4, num5, num6);
         }
 
@@ -163,33 +162,20 @@ namespace TRAEProject.NewContent.StarfuryTemple
 
         private static void DirtPassIdkWhatToCallIt(UnifiedRandom genRand, ref double width, ref double num2, ref double height, int num6, ref Vector2D val, Vector2D val2)
         {
+            height *= 3.5f;
+            width *= 3.5f;
             while (width > 0.0 && height > 0.0)
             {
                 width -= genRand.Next(4);
                 height -= 1.0;
-                int num8 = (int)(val.X - width * 0.5);
-                int num9 = (int)(val.X + width * 0.5);
+                int num8 = (int)(val.X - width * 4);
+                int num9 = (int)(val.X + width * 4);
                 int num10 = num6 - 1;
-                int num11 = (int)(val.Y + width * 0.5);
-                if (num8 < 0)
-                {
-                    num8 = 0;
-                }
-                if (num9 > Main.maxTilesX)
-                {
-                    num9 = Main.maxTilesX;
-                }
-                if (num10 < 0)
-                {
-                    num10 = 0;
-                }
-                if (num11 > Main.maxTilesY)
-                {
-                    num11 = Main.maxTilesY;
-                }
-                num2 = width * genRand.Next(80, 120) * 0.01;
+                int num11 = (int)(val.Y + width * 4);
+                ClampValuesToWorldBounds(ref num8, ref num9, ref num10, ref num11);
+                num2 = width/* * genRand.Next(80, 120) * 0.01*/;
                 double num21 = val.Y + 1.0;
-                for (int num22 = num8; num22 < num9; num22++)
+                for (int i = num8; i < num9; i++)
                 {
                     if (genRand.NextBool(2))
                     {
@@ -203,16 +189,16 @@ namespace TRAEProject.NewContent.StarfuryTemple
                     {
                         num21 = val.Y + 2.0;
                     }
-                    for (int num23 = num10; num23 < num11; num23++)
+                    for (int j = num10; j < num11; j++)
                     {
-                        if (num23 > num21)
+                        if (j > num21)
                         {
-                            double num24 = Math.Abs(num22 - val.X);
-                            double num25 = Math.Abs(num23 - val.Y) * 3.0;
-                            if (Math.Sqrt(num24 * num24 + num25 * num25) < num2 * 0.4 && Main.tile[num22, num23].TileType == 189)
+                            double num24 = Math.Abs(i - val.X);
+                            double num25 = Math.Abs(j - val.Y) * 3.0;
+                            if (Math.Sqrt(num24 * num24 + num25 * num25) < num2 * 0.4 && Main.tile[i, j].TileType == 189)
                             {
-                                Main.tile[num22, num23].TileType = TileID.Dirt;
-                                WorldGen.SquareTileFrame(num22, num23);
+                                Main.tile[i, j].TileType = TileID.Dirt;
+                                WorldGen.SquareTileFrame(i, j);
                             }
                         }
                     }
@@ -235,6 +221,26 @@ namespace TRAEProject.NewContent.StarfuryTemple
                 {
                     val2.Y = -0.2;
                 }
+            }
+        }
+
+        private static void ClampValuesToWorldBounds(ref int num8, ref int num9, ref int num10, ref int num11)
+        {
+            if (num8 < 0)
+            {
+                num8 = 0;
+            }
+            if (num9 > Main.maxTilesX)
+            {
+                num9 = Main.maxTilesX;
+            }
+            if (num10 < 0)
+            {
+                num10 = 0;
+            }
+            if (num11 > Main.maxTilesY)
+            {
+                num11 = Main.maxTilesY;
             }
         }
 

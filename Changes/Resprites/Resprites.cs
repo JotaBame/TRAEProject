@@ -19,6 +19,11 @@ namespace TRAEProject.Changes.Resprites
         //I've attempted to fix the lost texture on unloadbug and TRAE overwriting texture packs, but was not succesful, qwerty
         static string path = "TRAEProject/Changes/Resprites/";
         static string vsrPath = "TRAEProject/VanillaSpriteReference/";
+        public override void PostSetupContent()
+        {           
+            if(!ModLoader.TryGetMod("DragonLens",out _))
+                LoadSprites();//bandaid fix to dragonlens startup issue
+        }
         public static void LoadSprites()
         {
             /*
@@ -27,26 +32,26 @@ namespace TRAEProject.Changes.Resprites
 
             SpriteReplace(ref TextureAssets.Item[ProjectileID.StardustDragon1], VSRP(ProjectileID.StardustDragon1), Request<Texture2D>(path + "LunarDragonHead", AssetRequestMode.ImmediateLoad));
             */
-            TextureAssets.Item[ItemID.PearlwoodSword] = Request<Texture2D>(path + "PearlwoodSword");
-            TextureAssets.Item[ItemID.PearlwoodHammer] = Request<Texture2D>(path + "PearlwoodHammer");
-            TextureAssets.Item[ItemID.PearlwoodBow] = Request<Texture2D>(path + "PearlwoodBow");
+            TextureAssets.Item[ItemID.PearlwoodSword] = Request<Texture2D>(path + "PearlwoodSword", AssetRequestMode.ImmediateLoad);
+            TextureAssets.Item[ItemID.PearlwoodHammer] = Request<Texture2D>(path + "PearlwoodHammer", AssetRequestMode.ImmediateLoad);
+            TextureAssets.Item[ItemID.PearlwoodBow] = Request<Texture2D>(path + "PearlwoodBow", AssetRequestMode.ImmediateLoad);
 
-            TextureAssets.Item[ItemID.StarWrath] = Request<Texture2D>(path + "StarWrath");
-            TextureAssets.Projectile[ProjectileID.StarWrath] = Request<Texture2D>(path + "StarWrathProjectile");
+            TextureAssets.Item[ItemID.StarWrath] = Request<Texture2D>(path + "StarWrath", AssetRequestMode.ImmediateLoad);
+            TextureAssets.Projectile[ProjectileID.StarWrath] = Request<Texture2D>(path + "StarWrathProjectile", AssetRequestMode.ImmediateLoad);
             TextureAssets.FlameRing = Request<Texture2D>(path + "FlameRing");
-            TextureAssets.Item[ItemID.StardustDragonStaff] = Request<Texture2D>(path + "LunarDragonStaff");
+            TextureAssets.Item[ItemID.StardustDragonStaff] = Request<Texture2D>(path + "LunarDragonStaff", AssetRequestMode.ImmediateLoad);
 
-            TextureAssets.Projectile[ProjectileID.StardustDragon1] = Request<Texture2D>(path + "LunarDragonHead");
-            TextureAssets.Projectile[ProjectileID.StardustDragon2] = Request<Texture2D>(path + "LunarDragonSpike");
-            TextureAssets.Projectile[ProjectileID.StardustDragon3] = Request<Texture2D>(path + "LunarDragonBody");
-            TextureAssets.Projectile[ProjectileID.StardustDragon4] = Request<Texture2D>(path + "LunarDragonTail");
-            TextureAssets.Buff[BuffID.StardustDragonMinion] = Request<Texture2D>(path + "LunarDragonBuff");
-            TextureAssets.Item[ItemID.MoonlordTurretStaff] = Request<Texture2D>(path + "StardustPortalStaff");
-            TextureAssets.Projectile[ProjectileID.MoonlordTurret] = Request<Texture2D>(path + "StardustPortal");
-            TextureAssets.Projectile[ProjectileID.MoonlordTurretLaser] = Request<Texture2D>(path + "StardustPortalBeam");
+            TextureAssets.Projectile[ProjectileID.StardustDragon1] = Request<Texture2D>(path + "LunarDragonHead", AssetRequestMode.ImmediateLoad);
+            TextureAssets.Projectile[ProjectileID.StardustDragon2] = Request<Texture2D>(path + "LunarDragonSpike", AssetRequestMode.ImmediateLoad);
+            TextureAssets.Projectile[ProjectileID.StardustDragon3] = Request<Texture2D>(path + "LunarDragonBody", AssetRequestMode.ImmediateLoad);
+            TextureAssets.Projectile[ProjectileID.StardustDragon4] = Request<Texture2D>(path + "LunarDragonTail", AssetRequestMode.ImmediateLoad);
+            TextureAssets.Buff[BuffID.StardustDragonMinion] = Request<Texture2D>(path + "LunarDragonBuff", AssetRequestMode.ImmediateLoad);
+            TextureAssets.Item[ItemID.MoonlordTurretStaff] = Request<Texture2D>(path + "StardustPortalStaff", AssetRequestMode.ImmediateLoad);
+            TextureAssets.Projectile[ProjectileID.MoonlordTurret] = Request<Texture2D>(path + "StardustPortal", AssetRequestMode.ImmediateLoad);
+            TextureAssets.Projectile[ProjectileID.MoonlordTurretLaser] = Request<Texture2D>(path + "StardustPortalBeam", AssetRequestMode.ImmediateLoad);
             //TextureAssets.Extra[50] = Request<Texture2D>(path + "Extra_50");
 
-            TextureAssets.Item[ItemID.DarkLance] = Request<Texture2D>(path + "DarkLance");
+            TextureAssets.Item[ItemID.DarkLance] = Request<Texture2D>(path + "DarkLance", AssetRequestMode.ImmediateLoad);
         }
         public static void UnloadSprites()
         {

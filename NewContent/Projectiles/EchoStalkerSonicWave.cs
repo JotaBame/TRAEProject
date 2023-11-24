@@ -47,7 +47,7 @@ namespace TRAEProject.NewContent.Projectiles
             scalingRate = Main.expertMode ? 1f : Main.masterMode ? 1.2f : Main.getGoodWorld ? 2 : 0.6f;
             scalingRate *= Projectile.ai[0];
             Projectile.rotation = Projectile.velocity.ToRotation();
-            Projectile.localAI[0] += scalingRate;//SCALING RATE
+            Projectile.localAI[0] += scalingRate;
             Projectile.Opacity = Projectile.localAI[0];
             if (opacityMult < float.Epsilon && Projectile.localAI[0] > 10)
                 Projectile.Kill();
