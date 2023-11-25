@@ -360,14 +360,14 @@ namespace TRAEProject.Changes.NPCs.Boss
         static void DeathLaserShootDust(Vector2 shootVelocity, Vector2 origin)
         {
             shootVelocity.Normalize();
-            int dustAmount = 16;//change to what you want, this is the line
+            int dustAmount = 12;//change to what you want, this is the line
             for (int i = 0; i < dustAmount; i++)
             {
                 Vector2 dustVel = shootVelocity * Utils.Remap(i, 0, dustAmount, 2, 10);//arbitrary numbers, change 2 ad 10 to your liking
                 float scale = Utils.Remap(i, 0, dustAmount, 2, 1);
                 GlowyRedDust(origin, dustVel, scale);
             }
-            dustAmount = 18;//change to what you want, this is the ring
+            dustAmount = 5;//change to what you want, this is the ring
             for (int i = 0; i < dustAmount; i++)
             {
                 Vector2 offset = Utils.Remap(i, 0, dustAmount, 0, MathF.Tau).ToRotationVector2();
@@ -375,8 +375,8 @@ namespace TRAEProject.Changes.NPCs.Boss
                 offset = offset.RotatedBy(shootVelocity.ToRotation());
                 GlowyRedDust(origin + offset, offset * 2, 2);
             }
-            Vector2 sparkleScale = new(1.5f,3);
-            for (int i = -1; i < 2; i+= 2)
+            Vector2 sparkleScale = new(0.75f,1.5f);
+            for (int i = -1; i < 2; i += 2)
             {
                 Sparkle.NewSparkle(origin, Color.Red, sparkleScale, shootVelocity.RotatedBy(MathF.PI / 2) * i * 5, 20, sparkleScale, rotation: shootVelocity.ToRotation(), friction: .9f);
                 Sparkle.NewSparkle(origin, Color.Red, sparkleScale, shootVelocity.RotatedBy(MathF.PI / 2) * i * 5, 20, sparkleScale, rotation: shootVelocity.ToRotation(), friction: .9f);

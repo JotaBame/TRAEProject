@@ -7,7 +7,8 @@ using static Terraria.ModLoader.ModContent;
 using TRAEProject.Common.ModPlayers;
 
 namespace TRAEProject.NewContent.Items.Accesories.ShadowflameCharm
-{
+{   
+[AutoloadEquip(EquipType.HandsOn, EquipType.HandsOff)]
     public class ShadowClaws : ModItem
     {
         public override void SetStaticDefaults()

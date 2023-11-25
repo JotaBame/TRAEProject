@@ -33,7 +33,7 @@ namespace TRAEProject.Changes.Weapon
        
                     PrefixLegacy.ItemSets.SwordsHammersAxesPicks[spears[i]] = true;
 
-           
+
 
             }
         }

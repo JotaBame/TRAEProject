@@ -117,7 +117,7 @@ namespace TRAEProject.Changes.NPCs.Boss
                 Vector2 shootFrom = npc.Center + TRAEMethods.PolarVector(2, npc.rotation + MathF.PI / 2);
                 float multiplier = 1 + 3f * (npc.ai[2] / flameTime);
                 Vector2 vel = TRAEMethods.PolarVector(6f * multiplier, npc.rotation + MathF.PI / 2);
-                GlowBall.NewGlowBall(shootFrom, Color.YellowGreen with { A = 0}, Vector2.One * .7f, Vector2.Normalize(vel).RotatedByRandom(.2f) * 16 + npc.velocity, 20, null, 1, .9f);
+                //GlowBall.NewGlowBall(shootFrom, Color.YellowGreen with { A = 0}, Vector2.One * .7f, Vector2.Normalize(vel).RotatedByRandom(.2f) * 16 + npc.velocity, 20, null, 1, .9f);
                 npc.localAI[2] += 1f;
                 if (npc.localAI[2] > 22f)
                 {
@@ -419,14 +419,19 @@ namespace TRAEProject.Changes.NPCs.Boss
             Projectile.friendly = false;
             Projectile.hostile = true;
             Projectile.GetGlobalProjectile<Common.ProjectileStats>().DamageFalloff = 0;
-            ColorBack = Color.YellowGreen with { A = 0 };
-            ColorSmoke = Color.Black;
-            ColorMiddle = Color.Green with { A = 0 }; ;
-            ColorLerp = Color.DarkGreen with { A = 0 }; ;
+            ColorMiddle = new Color(50, 255, 0, 0);
+            ColorBack = new Color(167, 255, 65, 0);
+            ColorLerp = Color.Lerp(ColorMiddle, ColorBack, 0.25f);
+            ColorSmoke = new Color(70, 70, 70, 100);
             dustID = DustID.CursedTorch;
             dustAmount = 0;
             scalemodifier = 1;
             Projectile.light = 1;
+        }
+        public override void OnHitPlayer(Player target, Player.HurtInfo info)
+        {
+            if (Main.rand.Next(3) < 2)
+                target.AddBuff(BuffID.CursedInferno, Main.rand.Next(120, 180));
         }
         public override void Load()
         {

@@ -5,7 +5,7 @@ using Terraria.ModLoader;
 using TRAEProject.Changes.Accesory;
 
 namespace TRAEProject.NewContent.Items.Accesories.CrossNecklace
-{    /*[AutoloadEquip(EquipType.Neck)]*/
+{    [AutoloadEquip(EquipType.Neck)]
     class HeartcrossNecklace : ModItem
     {
         public override void SetStaticDefaults()
