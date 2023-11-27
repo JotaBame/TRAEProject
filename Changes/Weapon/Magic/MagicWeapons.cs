@@ -196,8 +196,10 @@ namespace TRAEProject.Changes.Items
                     item.mana = 37; // up from 17
                     return;
                 case ItemID.SpiritFlame:
-                    item.useTime = 24; // up from 22
-                    item.useAnimation = 24;
+                    item.useTime = 30; // up from 22
+                    item.useAnimation = 30;
+					                    item.mana = 19; // up from 17
+
                     return;
           
                 case ItemID.CrystalVileShard:

@@ -78,7 +78,7 @@ namespace TRAEProject.Changes.NPCs
                 entry1.Disable();
                 shop.InsertAfter(ItemID.Minishark, ItemID.Shotgun, Condition.DownedEowOrBoc);
 
-                shop.Add(ItemID.Gatligator, Condition.Hardmode, Condition.InGraveyard);
+                shop.Add(ItemID.QuadBarrelShotgun, Condition.Hardmode, Condition.InGraveyard);
                 shop.Add(ItemID.Uzi, Condition.Hardmode);
             }
             if (shop.NpcType == NPCID.SkeletonMerchant)

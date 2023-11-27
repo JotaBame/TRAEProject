@@ -51,7 +51,6 @@ namespace TRAEProject.Changes.Weapon.Ranged
                 case ItemID.HallowedRepeater:
                     item.damage = 53;
                     item.useTime = item.useAnimation = 16;
-                    item.SetNameOverride("Sharanga");
                     break;
                 case ItemID.ChlorophyteShotbow:
                     item.useTime = item.useAnimation = 24;

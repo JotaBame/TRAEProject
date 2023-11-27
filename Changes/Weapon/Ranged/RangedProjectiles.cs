@@ -58,10 +58,7 @@ namespace TRAEProject.Changes.Projectiles
                 case ProjectileID.BlackBolt:
                     projectile.GetGlobalProjectile<ProjectileStats>().DirectDamage = 0.75f;
                     return;
-                case ProjectileID.CrystalShard:
-                    projectile.GetGlobalProjectile<ProjectileStats>().DirectDamage = 0.5f;
-                    projectile.ArmorPenetration = 50;
-                    return;
+   
                 case ProjectileID.BoneArrowFromMerchant:
                     projectile.penetrate = 1;
                     return;
@@ -126,15 +123,7 @@ namespace TRAEProject.Changes.Projectiles
                     projectile.GetGlobalProjectile<ProjectileStats>().BouncesOffTiles = true;
                     projectile.GetGlobalProjectile<ProjectileStats>().onlyBounceOnce = true;
                     return;
-                case ProjectileID.HallowStar:
-                    projectile.penetrate = -1;
-                    projectile.usesLocalNPCImmunity = true;
-                    projectile.localNPCHitCooldown = 10;
-                    projectile.tileCollide = false;
-                    projectile.GetGlobalProjectile<ProjectileStats>().explodes = true;
-                    projectile.GetGlobalProjectile<ProjectileStats>().ExplosionRadius = 80;
-                    projectile.GetGlobalProjectile<ProjectileStats>().DamageFalloff = 0.25f;
-                    return;
+   
                 case ProjectileID.MechanicalPiranha:
                     projectile.ContinuouslyUpdateDamageStats = true;
                     break;
@@ -794,33 +783,8 @@ namespace TRAEProject.Changes.Projectiles
                         return false;
                     }        
                
-                case ProjectileID.HolyArrow:
-                    {
-                        Terraria.Audio.SoundEngine.PlaySound(SoundID.Item10 with { MaxInstances = 0 }, projectile.position);
-                        for (int i = 0; i < 10; ++i)
-                        {
-                            Dust.NewDust(projectile.position, projectile.width, projectile.height, 58, projectile.velocity.X * 0.1f, projectile.velocity.Y * 0.1f, 150, default, 1.2f);
-                        }
-                        for (int i = 0; i < 3; ++i)
-                        {
-                            Gore.NewGore(projectile.GetSource_FromThis(), projectile.position, new Vector2(projectile.velocity.X * 0.05f, projectile.velocity.Y * 0.05f), Main.rand.Next(16, 18), 1f);
-                        }
-                        int[] spread = { 1 };
-                        TRAEMethods.SpawnProjectilesFromAbove(Main.player[projectile.owner], projectile.Center, 1, 400, 750, spread, 22, ProjectileID.HallowStar, (int)(projectile.damage * 0.5), projectile.knockBack, projectile.owner);
-                        return false;
-                    }
-                case ProjectileID.HallowStar:
-                    {
-                        Terraria.Audio.SoundEngine.PlaySound(SoundID.Item10 with { MaxInstances = 0 }, projectile.position);
-                        int DustCount = 30;
-                        int[] DustTypes = { 15, 57, 58 };
-                        for (int i = 0; i < DustCount; ++i)
-                        {
-                            Dust dust = Dust.NewDustDirect(projectile.position, projectile.width, projectile.height, Main.rand.Next(DustTypes), projectile.velocity.X * 0.5f, projectile.velocity.Y * 0.5f, 150, default, 1.5f);
-                            dust.noGravity = true;
-                        }
-                        return false;
-                    }
+
+
             }
             return true;
         }

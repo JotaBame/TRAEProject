@@ -1532,7 +1532,7 @@ Mods: {
 			}
 
 			ManaSurgePotion: {
-				Tooltip: Grants 100% mana reduction for 5 seconds
+				Tooltip: Grants 100% mana reduction for 4 seconds
 				DisplayName: Mana Surge Potion
 			}
 

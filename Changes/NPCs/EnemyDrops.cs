@@ -43,10 +43,10 @@ namespace TRAEProject.Changes.NPCs
             {
                 case NPCID.DesertScorpionWall:
                 case NPCID.DesertScorpionWalk:
-                    npcLoot.Add(ItemDropRule.Common(ItemID.QuadBarrelShotgun, 50));
+                    npcLoot.Add(ItemDropRule.Common(ItemID.Gatligator, 50));
                     break;
                 case NPCID.DuneSplicerHead:
-                    npcLoot.Add(ItemDropRule.Common(ItemID.QuadBarrelShotgun, 50));
+                    npcLoot.Add(ItemDropRule.Common(ItemID.Gatligator, 50));
                     break;
                 case NPCID.DD2DarkMageT1:
                 case NPCID.DD2DarkMageT3:

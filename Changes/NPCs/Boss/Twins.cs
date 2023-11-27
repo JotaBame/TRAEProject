@@ -55,7 +55,7 @@ namespace TRAEProject.Changes.NPCs.Boss
         public static void Move(NPC npc)
         {
             int abs = (int)Math.Abs(npc.ai[3]);
-            Vector2 goHere = Main.player[npc.target].Center + new Vector2(abs % 10 == 2 ? 300 : -300, abs / 10 == 2 ? 200 : -240);
+            Vector2 goHere = Main.player[npc.target].Center + new Vector2(abs % 10 == 2 ? 25 : -250, abs / 10 == 2 ? 200 : -200);
             FlyTo(npc, goHere, true);
             if (npc.ai[3] >= 0)
             {
@@ -122,8 +122,8 @@ namespace TRAEProject.Changes.NPCs.Boss
         }
         public static void FlyTo(NPC npc, Vector2 goHere, bool phase2 = false)
         {
-            float topSpeed = 15f;
-            float acceleration = 0.04f;
+            float topSpeed = 18f;
+            float acceleration = 0.05f;
      
             if (phase2)
             {
@@ -132,8 +132,7 @@ namespace TRAEProject.Changes.NPCs.Boss
                 {
                     topSpeed *= Distance / 800f; 
                 }
-				topSpeed *= 1.25f;
-                acceleration *= 8;
+                acceleration *= 10;
 				npc.damage = 0;
                 //if((goHere - npc.Center).Length() < acceleration)
                 //{
@@ -409,7 +408,7 @@ namespace TRAEProject.Changes.NPCs.Boss
                         int fireRate = 120;
                         int shotsFired = 4;
                         int delayBeforeRapidFire = 60;
-                        int RapidfireRate = 9;
+                        int RapidfireRate = 15;
                         int rapidShotsFired = 10;
                         npc.ai[2] += 1f;
  

@@ -157,7 +157,7 @@ namespace TRAEProject.Changes.NPCs.Boss
             }
             npc.HitSound = SoundID.NPCHit4;
             npc.damage = (int)(npc.defDamage * 1.5);
-            npc.defense = npc.defDefense + 18;
+            npc.defense = npc.defDefense + 8; // 18 defense, lower than phase 2 because doing ret first is taking longer every single time
             if (npc.ai[1] == 3)
             {
                 Cauldron(npc);
@@ -419,11 +419,12 @@ namespace TRAEProject.Changes.NPCs.Boss
             Projectile.friendly = false;
             Projectile.hostile = true;
             Projectile.GetGlobalProjectile<Common.ProjectileStats>().DamageFalloff = 0;
-            ColorMiddle = new Color(50, 255, 0, 0);
-            ColorBack = new Color(167, 255, 65, 0);
+            ColorMiddle = new Color(50, 255, 0, 100);
+            ColorBack = new Color(167, 255, 65, 100);
             ColorLerp = Color.Lerp(ColorMiddle, ColorBack, 0.25f);
             ColorSmoke = new Color(70, 70, 70, 100);
             dustID = DustID.CursedTorch;
+
             dustAmount = 0;
             scalemodifier = 1;
             Projectile.light = 1;

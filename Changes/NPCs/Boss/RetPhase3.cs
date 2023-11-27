@@ -406,7 +406,7 @@ namespace TRAEProject.Changes.NPCs.Boss
             Projectile.friendly = false;
             Projectile.hostile = true;
             Projectile.tileCollide = false;
-            Projectile.timeLeft = 200;
+            Projectile.timeLeft = 180;
             Projectile.alpha = 255;
             //DrawOffsetX = 150;
             //DrawOriginOffsetX = 150;

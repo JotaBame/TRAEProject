@@ -5,7 +5,8 @@ using Terraria.ModLoader;
 using TRAEProject.Changes.Accesory;
 
 namespace TRAEProject.NewContent.Items.Accesories.MobilityMisc
-{
+{	[AutoloadEquip(EquipType.Shoes)]
+
     public class GravityTabi : ModItem
     {
         public override void SetStaticDefaults()

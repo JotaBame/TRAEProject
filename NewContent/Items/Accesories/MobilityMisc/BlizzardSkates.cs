@@ -4,7 +4,8 @@ using Terraria.ID;
 using Terraria.ModLoader;
 
 namespace TRAEProject.NewContent.Items.Accesories.MobilityMisc
-{
+{	[AutoloadEquip(EquipType.Shoes)]
+
     public class BlizzardSkates : ModItem
     {
         public override void SetStaticDefaults()

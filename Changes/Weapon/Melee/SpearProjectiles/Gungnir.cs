@@ -33,11 +33,11 @@ namespace TRAEProject.Changes.Weapon.Melee.SpearProjectiles
         {
 
             NPC target = null;
-            if (TRAEMethods.ClosestNPC(ref target, 1000, Projectile.Center, false, -1, delegate (NPC possibleTarget) { return Projectile.localNPCImmunity[possibleTarget.whoAmI] != -1; }))
+            if (TRAEMethods.ClosestNPC(ref target, 400, Projectile.Center, false, -1, delegate (NPC possibleTarget) { return Projectile.localNPCImmunity[possibleTarget.whoAmI] != -1; }))
             {
                 float vel = Projectile.velocity.Length();
                 float dir = Projectile.velocity.ToRotation();
-                dir = dir.AngleLerp((target.Center - Projectile.Center).ToRotation(), MathF.PI / 15);
+                dir = dir.AngleLerp((target.Center - Projectile.Center).ToRotation(), MathF.PI / 40);
                 Projectile.velocity = TRAEMethods.PolarVector(vel, dir);
                 float length = Projectile.velocity.Length();
                 Projectile.velocity += (target.Center - Projectile.Center).SafeNormalize(Vector2.UnitY) * 2f;
