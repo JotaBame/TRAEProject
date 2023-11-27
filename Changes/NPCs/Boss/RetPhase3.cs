@@ -357,7 +357,7 @@ namespace TRAEProject.Changes.NPCs.Boss
 
 
         }
-        static void DeathLaserShootDust(Vector2 shootVelocity, Vector2 origin)
+        public static void DeathLaserShootDust(Vector2 shootVelocity, Vector2 origin)
         {
             shootVelocity.Normalize();
             int dustAmount = 16;//change to what you want, this is the line
@@ -386,10 +386,6 @@ namespace TRAEProject.Changes.NPCs.Boss
         {
             Dust dust = Dust.NewDustPerfect(pos, DustID.TheDestroyer, vel, 0, Color.White with { A = 0 }, scale);
             dust.noGravity = true;
-            //dust = Dust.CloneDust(dust);
-            //dust.color = Color.White with { A = 0 };
-            //dust.scale *= .7f;
-            //dust.customData = 1;
         }
     }
     public class EyeNuke : ModProjectile

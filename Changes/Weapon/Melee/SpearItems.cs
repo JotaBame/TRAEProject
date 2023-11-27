@@ -31,8 +31,7 @@ namespace TRAEProject.Changes.Weapon
 			for (int i = 0; i < spears.Length; i++)
 			{
        
-                    PrefixLegacy.ItemSets.SwordsHammersAxesPicks[spears[i]] = true;
-
+                PrefixLegacy.ItemSets.SwordsHammersAxesPicks[spears[i]] = true;
            
 
             }
