@@ -31,8 +31,9 @@ namespace TRAEProject.Changes.Weapon
 			for (int i = 0; i < spears.Length; i++)
 			{
        
-                PrefixLegacy.ItemSets.SwordsHammersAxesPicks[spears[i]] = true;
-           
+                    PrefixLegacy.ItemSets.SwordsHammersAxesPicks[spears[i]] = true;
+
+
 
             }
         }
@@ -210,10 +211,10 @@ namespace TRAEProject.Changes.Weapon
 					thrownSpear = ProjectileType<GungnirThrow>();
                     item.DamageType = DamageClass.MeleeNoSpeed;
 
-                    item.damage = 56;
-					item.shootSpeed = 12; //only the throw uses this
+					item.shootSpeed = 15; //only the throw uses this
+item.damage = 47;					
 					item.useAnimation = 22;
-					item.useTime = 33;
+					item.useTime = 27;
 					break;
 				case ItemID.ChlorophytePartisan:
 					item.useStyle = 1;

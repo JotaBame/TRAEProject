@@ -16,7 +16,7 @@ namespace TRAEProject.NewContent.Items.Misc.Potions
         public override void SetDefaults()
         {
             Item.UseSound = SoundID.Item3;
-            Item.healMana = 20;
+            Item.healMana = 100;
             Item.useStyle = 9;
             Item.useTurn = true;
             Item.useAnimation = 17;
@@ -32,7 +32,7 @@ namespace TRAEProject.NewContent.Items.Misc.Potions
         {
             int maxTime = 3600 / (1 + player.GetModPlayer<AngelicStoneEffects>().stones);
             player.AddBuff(BuffID.ManaSickness, maxTime);
-            player.AddBuff(BuffType<Surge>(), 5 * 60);
+            player.AddBuff(BuffType<Surge>(), 4 * 60);
         }
         public override void AddRecipes()
         {

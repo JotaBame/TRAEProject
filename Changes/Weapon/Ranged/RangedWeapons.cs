@@ -77,21 +77,22 @@ namespace TRAEProject.Changes.Weapons
                     item.useTime = 25; // up from 23
                     return;
                 case ItemID.QuadBarrelShotgun:
-                    item.damage = 25; // down from 21
+                    item.damage = 22; // down from 21
+                    item.value = Item.buyPrice(gold: 90);
 
  
                      return;
                 case ItemID.Gatligator:
-                    item.damage = 18; // down from 21
+                    item.damage = 19; // down from 21
 
-                    item.useTime = 5; // down from 7
-                    item.useAnimation = 5;
-                    item.value = Item.buyPrice(gold: 80);
+                    item.useTime = 6; // down from 7
+                    item.useAnimation = 6;
                     return;
                 case ItemID.Uzi:
                     item.damage = 22; // down from 30
-                    item.value = Item.buyPrice(gold: 80);
-  
+                    item.value = Item.buyPrice(gold: 75);
+                    item.rare = ItemRarityID.LightRed;
+
                     return;
                 case ItemID.Toxikarp:
                     item.useTime = 14;
@@ -110,7 +111,7 @@ namespace TRAEProject.Changes.Weapons
                     item.useAnimation = 17;
                     item.knockBack = 1f; // up from 0
                     item.autoReuse = true;
-                    item.rare = ItemRarityID.Pink;
+                    item.rare = ItemRarityID.LightRed;
                     return;
                 case ItemID.Marrow:
                     item.damage = 100;
@@ -158,9 +159,7 @@ namespace TRAEProject.Changes.Weapons
                     return;
 
                 // AMMO
-                case ItemID.CrystalBullet:
-                    item.damage = 7; // down from 9
-                    return;
+
                 case ItemID.NanoBullet:
                     item.damage = 10; // unchanged
                     item.knockBack = 7f;
@@ -173,7 +172,6 @@ namespace TRAEProject.Changes.Weapons
                     item.knockBack = 6f;
                     return;
                 case ItemID.UnholyArrow:
-                case ItemID.HolyArrow:
                     item.damage = 10;
                     return;
                 case ItemID.HellfireArrow:
@@ -190,7 +188,7 @@ namespace TRAEProject.Changes.Weapons
         {
             if (item.type == ItemID.Uzi)
             {
-                Vector2 perturbedSpeed = new Vector2(velocity.X, velocity.Y).RotatedByRandom(MathHelper.ToRadians(15));  
+                Vector2 perturbedSpeed = new Vector2(velocity.X, velocity.Y).RotatedByRandom(MathHelper.ToRadians(10));  
 
                 Projectile.NewProjectile(source, position.X, position.Y, perturbedSpeed.X, perturbedSpeed.Y, type, damage, knockback, player.whoAmI);
                 return false;
