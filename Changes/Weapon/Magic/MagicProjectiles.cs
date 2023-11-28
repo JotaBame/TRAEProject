@@ -104,10 +104,12 @@ namespace TRAEProject.Changes.Items
 					projectile.timeLeft = 1200;
 					break;			
 				case ProjectileID.BloodRain:
-                case ProjectileID.RainFriendly:
                     projectile.penetrate = 1;
                     break;
-           
+                case ProjectileID.RainFriendly:
+                    projectile.penetrate = 2; projectile.usesLocalNPCImmunity = true;
+                    projectile.localNPCHitCooldown = -1;
+                    break;
                 case ProjectileID.Blizzard:
                     projectile.timeLeft = 150;
                     projectile.GetGlobalProjectile<ProjectileStats>().homesIn = true;

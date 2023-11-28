@@ -28,14 +28,14 @@ namespace TRAEProject.Changes.NPCs.Boss
         const float GravityReductionWhenBelowPlayer = 0.1f; //added feature, Destroyer's gravity is reduced when below the player trying to move toward them
 
         //lasers
-        const int AimedLaserWarnTime = 60; //how long the visual warning for aimed lasers are about to fire lasts, this is also effectively a minimum cooldown on lasers
+        const int AimedLaserWarnTime = 75; //how long the visual warning for aimed lasers are about to fire lasts, this is also effectively a minimum cooldown on lasers
         const int PerpiLaserWarnTime = 120; //how long the visual warning for perpi lasers are about to fire lasts
-        const int BaseLaserCooldown = 240; //the time between laser shots on neutral mood
+        const int BaseLaserCooldown = 300; //the time between laser shots on neutral mood
         const float MaxLaserRange = 2000; //maximun distance a segment can be from the player in order to fire a laser at them
         const float MinLaserRange = 600; // minimum distance a segment can be from the player in order to fire a laser at them
         const int FiringSegmentDenominator = 5; //when set to n every nth active segment will fire aimed lasers
-        const int PerpFiringSegmentDenominator = 2; //when set to n every nth active segment will fire perpi lasers
-        const int PerpiFireFrequency = 4; //every nth shot will be perpindicular shots instead of aimed shots 
+        const int PerpFiringSegmentDenominator = 3; //when set to n every nth active segment will fire perpi lasers
+        const int PerpiFireFrequency = 3; //every nth shot will be perpindicular shots instead of aimed shots 
 
 
         //mood
@@ -44,7 +44,7 @@ namespace TRAEProject.Changes.NPCs.Boss
         const float SpeedMoodSpeedBonus = 2f; //on positive mood it moves up to this many times faster, on negetive mood it moves up to this many times slower
 
         //probes
-        const int probesToSpawn = 30; //how many probes the tail and head each spawn of the course of the fight
+        const int probesToSpawn = 20; //how many probes the tail and head each spawn of the course of the fight
 
 
         //don't mess with these
@@ -54,7 +54,13 @@ namespace TRAEProject.Changes.NPCs.Boss
         {
             if(npc.type == NPCID.TheDestroyer || npc.type == NPCID.TheDestroyerBody || npc.type == NPCID.TheDestroyerTail)
             {
-                npc.lifeMax /= 2;
+                npc.lifeMax = (int)(npc.lifeMax * ((float)50000 / 80000));
+
+            }
+            if (npc.type == NPCID.TheDestroyerBody)
+            {
+                npc.defDefense = 20;
+
             }
         }
         public override bool PreAI(NPC npc)
@@ -70,17 +76,19 @@ namespace TRAEProject.Changes.NPCs.Boss
                 float currentSpeedMultiplier = 1f;
                 float laserCooldownModifer = 1f;
                 float moodModifer = currentMood * hpRatio;
-                if(moodModifer > 0)
+                if (Main.expertMode)
                 {
-                    currentSpeedMultiplier = 1 + moodModifer * (SpeedMoodSpeedBonus - 1);
-                    laserCooldownModifer = 1f /  (1 + moodModifer * (LaserMoodCooldownBonus - 1));
+                    if (moodModifer > 0)
+                    {
+                        currentSpeedMultiplier = 1 + moodModifer * (SpeedMoodSpeedBonus - 1);
+                        laserCooldownModifer = 1f / (1 + moodModifer * (LaserMoodCooldownBonus - 1));
+                    }
+                    else
+                    {
+                        currentSpeedMultiplier = 1f / (1 + Math.Abs(moodModifer) * (SpeedMoodSpeedBonus - 1));
+                        laserCooldownModifer = 1 + Math.Abs(moodModifer) * (LaserMoodCooldownBonus - 1);
+                    }
                 }
-                else
-                {
-                    currentSpeedMultiplier = 1f /  (1 + Math.Abs(moodModifer) * (SpeedMoodSpeedBonus - 1));
-                    laserCooldownModifer = 1 + Math.Abs(moodModifer) * (LaserMoodCooldownBonus - 1);
-                }
-
                 npc.localAI[3]++;
                 if(npc.localAI[3] > Math.Max(0, (BaseLaserCooldown / laserCooldownModifer) - AimedLaserWarnTime))
                 {
@@ -596,5 +604,12 @@ namespace TRAEProject.Changes.NPCs.Boss
 			if (((npc.velocity.X > 0f && npc.oldVelocity.X < 0f) || (npc.velocity.X < 0f && npc.oldVelocity.X > 0f) || (npc.velocity.Y > 0f && npc.oldVelocity.Y < 0f) || (npc.velocity.Y < 0f && npc.oldVelocity.Y > 0f)) && !npc.justHit)
 				npc.netUpdate = true;
 		}
+
+        public override bool PreKill(NPC npc)
+        {
+            if (npc.type == NPCID.Probe && Main.expertMode)
+                NPCLoader.blockLoot.Add(ItemID.Heart);
+            return true;
+        }
     }
 }

@@ -223,7 +223,9 @@ namespace TRAEProject.Changes.Items
                     item.damage = 34; // up from 32
                     item.mana = 30; // up from 6
                     return;
-  
+				case ItemID.SoulDrain:
+                    item.mana = 15; // up from 10
+                    return;
                 case ItemID.SharpTears:
                     item.mana = 50; // up from 20
                     return;
@@ -312,7 +314,6 @@ namespace TRAEProject.Changes.Items
                     rightClickSideWeapon = true;
                     break;
                 case ItemID.NimbusRod:
-                    item.damage = 36; // base value: 36
                     item.mana = 75; // up from 22
                     rightClickSideWeapon = true;
                     break;
