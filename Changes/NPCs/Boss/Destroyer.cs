@@ -213,7 +213,7 @@ namespace TRAEProject.Changes.NPCs.Boss
                         for(int i = -1; i < 2; i++)
                         {
                             float r = npc.rotation - MathF.PI / 2f + i * MathF.PI / 8f;
-                            DrawLaser(npc, spriteBatch, r, Math.Max(0.1f, 1f - Main.npc[(int)npc.ai[3]].localAI[3] / -PerpiLaserWarnTime), 100);
+                            DrawPointedLaser(npc, spriteBatch, r, Math.Max(0.1f, 1f - Main.npc[(int)npc.ai[3]].localAI[3] / -PerpiLaserWarnTime), 100);
                         }
                     }
                 }
@@ -227,8 +227,8 @@ namespace TRAEProject.Changes.NPCs.Boss
                     {
                         if(Main.npc[(int)npc.ai[3]].localAI[3] < 0 && (activeSegID + (int)Main.npc[(int)npc.ai[3]].localAI[2]) % PerpFiringSegmentDenominator == 0)
                         {
-                            DrawLaser(npc, spriteBatch, npc.rotation, Math.Max(0.1f, 1f - Main.npc[(int)npc.ai[3]].localAI[3] / -PerpiLaserWarnTime), 100);
-                            DrawLaser(npc, spriteBatch, npc.rotation + MathF.PI, Math.Max(0.1f, 1f - Main.npc[(int)npc.ai[3]].localAI[3] / -PerpiLaserWarnTime), 100);
+                            DrawPointedLaser(npc, spriteBatch, npc.rotation, Math.Max(0.1f, 1f - Main.npc[(int)npc.ai[3]].localAI[3] / -PerpiLaserWarnTime), 100);
+                            DrawPointedLaser(npc, spriteBatch, npc.rotation + MathF.PI, Math.Max(0.1f, 1f - Main.npc[(int)npc.ai[3]].localAI[3] / -PerpiLaserWarnTime), 100);
                         }
                     }
                     else if((Main.player[npc.target].Center - npc.Center).Length() < MaxLaserRange && (Main.player[npc.target].Center - npc.Center).Length() > MinLaserRange)
@@ -250,6 +250,13 @@ namespace TRAEProject.Changes.NPCs.Boss
             Texture2D blankTexture = TextureAssets.Extra[178].Value;
             Vector2 texScale = new Vector2(length, 6 * opacity);
             spriteBatch.Draw(blankTexture, segPos, new Rectangle(0, 0, 1, 1), Color.Red * opacity  * 0.75f, dir, new Vector2(0, 0.5f), texScale, SpriteEffects.None, 0);
+        }
+        public static void DrawPointedLaser(NPC npc, SpriteBatch spriteBatch, float dir, float opacity, float length)
+        {
+            Vector2 segPos = npc.Center - Main.screenPosition;          
+            Texture2D blankTexture = ModContent.Request<Texture2D>("TRAEProject/Changes/NPCs/Boss/PointedWarning").Value;
+            Vector2 texScale = new Vector2(length / 10, (6 * opacity) / 9);
+            spriteBatch.Draw(blankTexture, segPos, new Rectangle(0, 0, 10, 9), Color.Red * opacity  * 0.75f, dir, new Vector2(0, 4.5f), texScale, SpriteEffects.None, 0);
         }
         public override void FindFrame(NPC npc, int frameHeight)
         {
@@ -347,7 +354,7 @@ namespace TRAEProject.Changes.NPCs.Boss
 						Main.npc[segIndex].realLife = npc.whoAmI;
 						Main.npc[segIndex].ai[1] = prevSegIndex;
 						Main.npc[prevSegIndex].ai[0] = segIndex;
-						NetMessage.SendData(23, -1, -1, null, segIndex);
+						NetMessage.SendData(MessageID.SyncNPC, -1, -1, null, segIndex);
 						prevSegIndex = segIndex;
 					}
 				}
@@ -608,8 +615,21 @@ namespace TRAEProject.Changes.NPCs.Boss
         public override bool PreKill(NPC npc)
         {
             if (npc.type == NPCID.Probe && Main.expertMode)
+            {
                 NPCLoader.blockLoot.Add(ItemID.Heart);
+                return false;
+            }
             return true;
+        }
+    }
+    public class DestroyerProjectiles : GlobalProjectile
+    {
+        public override void SetDefaults(Projectile projectile)
+        {
+            if(projectile.type == ProjectileID.PinkLaser)
+            {
+                projectile.scale *= 2f;
+            }
         }
     }
 }
