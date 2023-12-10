@@ -62,7 +62,7 @@ namespace TRAEProject.Changes.Weapon
                     item.DamageType = DamageClass.MeleeNoSpeed;
 
                     item.damage = 21;
-					item.shootSpeed = 6.5f; //only the throw uses this
+					item.shootSpeed = 8.5f; //only the throw uses this
 					break;
 
 				case ItemID.BoneJavelin:

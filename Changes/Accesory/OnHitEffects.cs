@@ -19,15 +19,22 @@ namespace TRAEProject.Changes.Accesory
         {
             switch (item.type)
             {
+                case ItemID.CrossNecklace:
+                    player.GetModPlayer<OnHitEffects>().crossNecklace = true;
+                    player.longInvince = false;
+                    break;
+                case ItemID.StarVeil:
+                    player.GetModPlayer<OnHitEffects>().crossNecklace = true;
+                    player.longInvince = false;
+                    player.starCloakItem = null;
+                    player.GetModPlayer<OnHitEffects>().starCloaks += 1;
+                    break;
                 case ItemID.SweetheartNecklace:
                 case ItemID.PanicNecklace:
                     player.GetModPlayer<OnHitEffects>().panicNecklaces += 1;
 					player.panic = false;
                     break;
-                case ItemID.StarVeil:
-                    player.starCloakItem = null;
-                    player.GetModPlayer<OnHitEffects>().starCloaks += 1;
-                    break;
+        
                 case ItemID.MagicCuffs:
                     player.GetModPlayer<OnHitEffects>().magicCuffsCount += 1;
                     player.statManaMax2 -= 20;
@@ -113,12 +120,14 @@ namespace TRAEProject.Changes.Accesory
         public int panicNecklaces = 0;
         public int shackles = 0;
         public int starCloaks = 0;
+        public bool crossNecklace = false;
         public float newthorns = 0f;
         public float runeCooldown = 0;
         public float runethorns = 0f;
 
         public override void ResetEffects()
         {
+            crossNecklace = false;
             shackles = 0;
             panicNecklaces = 0;
             magicCuffsCount = 0;
@@ -128,7 +137,8 @@ namespace TRAEProject.Changes.Accesory
         }
         public override void UpdateDead()
         {
-             shackles = 0;
+            crossNecklace = false;
+            shackles = 0;
             panicNecklaces = 0;
             magicCuffsCount = 0;
             runethorns = 0f;        
@@ -138,7 +148,8 @@ namespace TRAEProject.Changes.Accesory
         }
   
         public override void PostUpdateEquips()
-        { 
+        {
+  
             if (runeCooldown > 0)
             {
                 --runeCooldown;
@@ -155,6 +166,17 @@ namespace TRAEProject.Changes.Accesory
                 dust.velocity.X *= 0.1f + Main.rand.Next(30) * 0.01f;
                 dust.velocity.Y *= 0.1f + Main.rand.Next(30) * 0.01f;
                 dust.scale *= 1f + Main.rand.Next(6) * 0.1f;
+            }
+        }
+ 
+        public override void PostHurt(Player.HurtInfo info)
+        {
+            if (crossNecklace)
+            {
+                int invintime = (int)((float)info.Damage * 3 / 5); // every point of info.Damage adds 0.0083 seconds 
+
+                Player.immuneTime += invintime;
+
             }
         }
         public override void OnHurt(Player.HurtInfo info)
@@ -196,13 +218,7 @@ namespace TRAEProject.Changes.Accesory
                 {
                     Player.AddBuff(BuffID.Panic, 240 + info.Damage * 4 * panicNecklaces); // 1 more second for every 15 damage
                 }
-                if (Player.longInvince)
-                {
-                    int invintime = (int)(info.Damage * 3 / 5); // every point of info.Damage adds 0.01 seconds 
-                    if (invintime > 120)
-                        invintime = 120;
-                    Player.immuneTime += invintime - 40; // cross necklace adds .67 seconds so we need to substract that from the total.
-                }
+        
             }
 
         }

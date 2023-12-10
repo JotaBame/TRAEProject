@@ -52,15 +52,7 @@ namespace TRAEProject.Changes.Weapon.Melee.SpearProjectiles
                 SporeBurst();
             }
         }
-        int timer = 1;
-        public override void StuckEffects(NPC victim)
-        {
-            timer++;
-            if(timer % 180 == 0)
-            {
-                SporeBurst();
-            }
-        }
+
         void SporeBurst()
         {
             for (int i =0; i <6; i++)

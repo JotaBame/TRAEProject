@@ -53,8 +53,8 @@ namespace TRAEProject.Changes.Armor
                         Dust d = Dust.NewDustPerfect(Main.LocalPlayer.Top, DustID.IceTorch, speed * 5, Scale: 3f);
                         d.noGravity = true;
                     }
-                    
-                    SoundEngine.PlaySound(SoundID.Item28 with { MaxInstances = 0 }, Player.Center);
+
+                    SoundEngine.PlaySound(new SoundStyle("TRAEProject/Assets/Sounds/FrostArmor") with { MaxInstances = 0 }, Player.Center);
                     for (int k = 0; k < 200; k++)
                     {
                         NPC nPC = Main.npc[k];

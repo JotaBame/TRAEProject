@@ -75,9 +75,14 @@ namespace TRAEProject.Changes.Recipes
             DestructiveRocket.Register();
             Recipe SuperRocket = Recipe.Create(ItemID.RocketIII, 100);
             SuperRocket.AddIngredient(ItemID.RocketI, 100);
-            SuperRocket.AddIngredient(ItemID.SoulofMight, 1);
+            SuperRocket.AddIngredient(ItemID.CobaltBar, 1);
             SuperRocket.AddTile(TileID.Anvils);
-            SuperRocket.Register();
+            SuperRocket.Register(); 
+			Recipe SuperRocket2 = Recipe.Create(ItemID.RocketIII, 100);
+            SuperRocket2.AddIngredient(ItemID.RocketI, 100);
+            SuperRocket2.AddIngredient(ItemID.PalladiumBar, 1);
+            SuperRocket2.AddTile(TileID.Anvils);
+            SuperRocket2.Register();
             Recipe DirectRocket = Recipe.Create(ItemID.RocketIV, 100);
             DirectRocket.AddIngredient(ItemID.RocketI, 100);
             DirectRocket.AddIngredient(ItemID.Cog, 1);

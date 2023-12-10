@@ -37,8 +37,8 @@ namespace TRAEProject.Changes.Weapon.Melee.SpearProjectiles
         {
             spearLength = 127f;
             holdAt = 60f;
-            maxSticks = 8;
-            stickingDps = 100;
+            maxSticks = 4;
+            stickingDps = 200;
             DustOnDeath = DustID.SolarFlare;
         }
         public override void Kill(int timeLeft)

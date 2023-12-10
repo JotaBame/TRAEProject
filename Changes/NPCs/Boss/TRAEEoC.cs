@@ -16,6 +16,13 @@ namespace TRAEProject.NPCs.Boss
 	public class EyeOfCthlhu : GlobalNPC
 	{
 		public override bool InstancePerEntity => true;
+        public override void SetDefaults(NPC npc)
+        {
+            if (Main.masterMode && npc.type == NPCID.ServantofCthulhu)
+            {
+                npc.lifeMax = 17;
+            }
+        }
         public override void OnHitPlayer(NPC npc, Player target, Player.HurtInfo hurtInfo)
         {
             if (Main.masterMode && npc.type == NPCID.ServantofCthulhu && Main.rand.NextBool(3))
@@ -24,8 +31,13 @@ namespace TRAEProject.NPCs.Boss
             }
         }
         public override bool PreAI(NPC npc)
-		{
-			if (GetInstance<TRAEConfig>().EOCChanges)
+        {
+            if (GetInstance<TRAEConfig>().EOCChanges && Main.masterMode && npc.type == NPCID.ServantofCthulhu)
+            {
+                if (npc.velocity.X < 5f)
+                    npc.velocity.X += 0.15f * npc.direction;
+            }
+                if (GetInstance<TRAEConfig>().EOCChanges)
 			{
                 if (npc.type == NPCID.EyeofCthulhu)
                 {
@@ -375,7 +387,7 @@ namespace TRAEProject.NPCs.Boss
                     if (npc.ai[0] == 1f || npc.ai[0] == 2f)
                     {
                         if (npc.life < (float)(npc.lifeMax * 0.5f))
-                             npc.velocity *= 0.9f;
+                             npc.velocity *= 0.8f;
                         if (npc.ai[0] == 1f || npc.ai[3] == 1f)
                         {
                             npc.ai[2] += 0.005f;
@@ -394,8 +406,8 @@ namespace TRAEProject.NPCs.Boss
                         }
                        npc.rotation += npc.ai[2];
                         npc.ai[1] += 1f;
-                        if (Main.masterMode && npc.life < npc.lifeMax / 2)
-                            npc.defense = 18;
+                        if (Main.masterMode && npc.life < npc.lifeMax / 2 && !lowOnHealth)
+                            npc.defense = 12;
 
                         if (Main.getGoodWorld)
                         {
@@ -485,11 +497,10 @@ namespace TRAEProject.NPCs.Boss
                         }
                         return false;
                     }
-					npc.defense = 0;
+					npc.defense = Main.masterMode ? 6 : 0;
                     int num37 = 23;
                     int expertDamage = 23;
-					if (Main.masterMode)
-						npc.defense = 5;
+ 
                     npc.damage = npc.GetAttackDamage_LerpBetweenFinalValues(num37, expertDamage);
                     npc.damage = npc.GetAttackDamage_ScaledByStrength(npc.damage);
                     if (npc.ai[1] == 0f && lowOnHealth)
@@ -624,7 +635,7 @@ namespace TRAEProject.NPCs.Boss
                         }
                         if (Main.masterMode)
                         {
-                            chargeLengthInFrames = 24f;
+                            chargeLengthInFrames = 20f;
                         }
                         if (npc.ai[2] >= chargeLengthInFrames)
                         {
@@ -833,6 +844,7 @@ namespace TRAEProject.NPCs.Boss
                            npc.rotation = (float)Math.Atan2(npc.velocity.Y, npc.velocity.X) - 1.57f;
                         }
                         float cooldownBetweenMadDashes = chargeLength + 13f;
+ 
                         if (npc.ai[2] >= cooldownBetweenMadDashes)
                         {
                             npc.netUpdate = true;
@@ -934,7 +946,15 @@ namespace TRAEProject.NPCs.Boss
             }
 			return true;
 		}
-		
-	}
+        public override bool PreKill(NPC npc)
+        {
+            if (npc.type == NPCID.ServantofCthulhu && Main.masterMode)
+            {
+                NPCLoader.blockLoot.Add(ItemID.Heart);
+                return false;
+            }
+            return true;
+        }
+    }
 }
 	

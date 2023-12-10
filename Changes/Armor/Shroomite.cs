@@ -9,6 +9,7 @@ using TRAEProject.Changes.Items;
 using TRAEProject.Changes.Armor;
 using Microsoft.Xna.Framework;
 using System;
+using Terraria.Audio;
 
 namespace ChangesArmor
 {
@@ -18,11 +19,11 @@ namespace ChangesArmor
         {
             switch (item.type)
             {
-                case ItemID.ShroomiteMask:
+                case ItemID.ShroomiteHeadgear:
                 item.defense = 6;
                 break;
                 case ItemID.ShroomiteHelmet:
-                item.defense = 20;
+                item.defense = 15;
                 break;
             }
         }
@@ -34,23 +35,24 @@ namespace ChangesArmor
                 player.GetDamage(DamageClass.Ranged) += -0.03f;
                 player.GetCritChance(DamageClass.Ranged) += -3f;
                 break;
-                case ItemID.ShroomiteHeadgear:
-                //negate vanilla bonus
-                player.arrowDamage += -0.15f;
-                player.GetCritChance(DamageClass.Ranged) += -5f;
+                case ItemID.ShroomiteMask:
+                    //negate vanilla bonus
+                    player.bulletDamage += -0.15f;
+                    player.GetCritChance(DamageClass.Ranged) += -5f;
 
+         
                 //new Bonuses
                 player.GetDamage(DamageClass.Ranged) += 0.15f;
                 player.GetCritChance(DamageClass.Ranged) += 5f;
-                player.moveSpeed += 0.2f;
+                player.moveSpeed += 0.05f;
                 break;
-                case ItemID.ShroomiteMask:
-                //negate vanilla bonus
-                player.bulletDamage += -0.15f;
-                player.GetCritChance(DamageClass.Ranged) += -5f;
+                case ItemID.ShroomiteHeadgear:
+                    //negate vanilla bonus
+                    player.arrowDamage += -0.15f;
+                    player.GetCritChance(DamageClass.Ranged) += -5f;
 
-                //new Bonuses
-                player.GetCritChance(DamageClass.Ranged) += 28f;
+                    //new Bonuses
+                    player.GetCritChance(DamageClass.Ranged) += 28f;
                 break;
                 case ItemID.ShroomiteHelmet:
                 //negate vanilla bonus
@@ -77,7 +79,7 @@ namespace ChangesArmor
                         }
                     }
                 break;
-                case ItemID.ShroomiteHeadgear:
+                case ItemID.ShroomiteMask:
                     foreach (TooltipLine line in tooltips)
                     {
                         if (line.Mod == "Terraria" && line.Name == "Tooltip0")
@@ -86,11 +88,11 @@ namespace ChangesArmor
                         }
                         if (line.Mod == "Terraria" && line.Name == "Tooltip1")
                         {
-                            line.Text = "5% increased ranged critical strike chance \n20% increased movement speed";
+                            line.Text = "5% increased ranged critical strike chance and movement speed";
                         }
                     }
                 break;
-                case ItemID.ShroomiteMask:
+                case ItemID.ShroomiteHeadgear:
                     foreach (TooltipLine line in tooltips)
                     {
                         if (line.Mod == "Terraria" && line.Name == "Tooltip0")
@@ -128,78 +130,87 @@ namespace ChangesArmor
         public float ShroomDodge = 0;
         public float ShroomIframes = 0;
         int noRangedTimer = 0;
-        int maskStartStealthTime = 20;
-        int timeToMax = 5 * 60 - 20;
-        float maxMaskDamage = 4f;
+        int headgearStartStealthTime = 15;
+        int timeToMax = 120 - 15;
+        float maxHeadDamage = 3f;
         public float damageMult = 1f;
         float traeStealth = 0f;
         bool maskSet = false;
         int shroomDodgeAnim = 0;
         public override void PostUpdateEquips()
         {
+
             maskSet = false;
             ShroomDodge = 0;
             ShroomIframes = 0;
-            if(Player.armor[1].type == ItemID.ShroomiteBreastplate && Player.armor[2].type == ItemID.ShroomiteLeggings)
+            if (Player.armor[1].type == ItemID.ShroomiteBreastplate && Player.armor[2].type == ItemID.ShroomiteLeggings)
             {
-                switch(Player.armor[0].type)
+                switch (Player.armor[0].type)
                 {
-                    case ItemID.ShroomiteHeadgear:
-                    Player.setBonus = "Build up stealth while on the ground\nStealth slowly deplets when off the ground\nStealth provides up to 35% ranged damage, 10% ranged critical strike chance and reducing chance for enemies to target you";
-                    if(traeStealth < 1f && Player.velocity.Y == 0)
-                    {
-                        traeStealth += 1f / 60f;
-                    }
-                    else if(Player.velocity.Y != 0)
-                    {
-                        traeStealth -= 1f / 180f;
-                    }
-                    if(traeStealth > 0)
-                    {
-                        Player.GetDamage(DamageClass.Ranged) += 0.35f * traeStealth;
-                        Player.GetCritChance(DamageClass.Ranged) += 10f * traeStealth;
-                        Player.aggro += (int)(-750 * traeStealth);
-                    }
-                    break;
                     case ItemID.ShroomiteMask:
-                    maskSet = true;
-                    Player.setBonus = "Build up stealth while not using ranged attacks\nStealth wears off after a second of resuming ranged attacks\nStealth provides up to 4x ranged damage multiplier";
-                    if(noRangedTimer < maskStartStealthTime + timeToMax)
-                    {
-                        noRangedTimer++;
-                    }
-                    if(noRangedTimer > maskStartStealthTime)
-                    {
-                        traeStealth = (float)(noRangedTimer - maskStartStealthTime) / timeToMax;
-                        damageMult = 1f + (traeStealth * (maxMaskDamage - 1f));
-                    }
-                    else if(noRangedTimer >= 0)
-                    {
-                        damageMult = 1f;
-                        traeStealth = 0f;
-                    }
-                    break;
+                        Player.setBonus = "Build up stealth while on the ground\nStealth slowly deplets when off the ground\nStealth provides up to 35% ranged damage, 10% ranged critical strike chance and reducing chance for enemies to target you";
+                        if (traeStealth < 1f && Player.velocity.Y == 0)
+                        {
+                            traeStealth += 1f / 60f;
+                        }
+                        else if (Player.velocity.Y != 0)
+                        {
+                            traeStealth -= 1f / 180f;
+                        }
+                        if (traeStealth > 0)
+                        {
+                            Player.GetDamage(DamageClass.Ranged) += 0.35f * traeStealth;
+                            Player.GetCritChance(DamageClass.Ranged) += 10f * traeStealth;
+                            Player.aggro += (int)(-750 * traeStealth);
+                        }
+                        break;
+                    case ItemID.ShroomiteHeadgear:
+                        maskSet = true;
+                        Player.setBonus = "Build up stealth while not using ranged attacks\nStealth depletes while using ranged attacks\nStealth provides up to 3x increased ranged damage";
+                        if (noRangedTimer < headgearStartStealthTime + timeToMax && Player.itemAnimation == 0)
+                        {
+                            noRangedTimer++;
+                        }
+                        if (noRangedTimer == headgearStartStealthTime + timeToMax - 1)
+                        {
+                            for (int i = 0; i < 80; i++)
+                            {
+                                Dust d = Dust.NewDustPerfect(Player.Center, 135, TRAEMethods.PolarVector(12, ((float)Main.rand.Next(80) / 50f) * MathF.PI * 2f), 100);
+                                d.noGravity = true;
+                            }
+
+                        }
+                        if (noRangedTimer > headgearStartStealthTime)
+                        {
+                            traeStealth = (float)(noRangedTimer - headgearStartStealthTime) / timeToMax;
+                            damageMult = 1f + (traeStealth * (maxHeadDamage - 1f));
+                        }
+                        else if (noRangedTimer >= 0)
+                        {
+                            damageMult = 1f;
+                            traeStealth = 0f;
+                        }
+                        break;
                     case ItemID.ShroomiteHelmet:
-                    Player.setBonus = "Build up stealth while on the ground\nStealth slowly deplets when off the ground\nStealth provides up to 30% dodge chance, and 50% more immunity frames after being hit";
-                    if(traeStealth < 1f && Player.velocity.Y == 0)
-                    {
-                        traeStealth += 1f / 60f;
-                    }
-                    else if(Player.velocity.Y != 0)
-                    {
-                        traeStealth -= 1f / 180f;
-                    }
-                    if(traeStealth > 0)
-                    {
-                        ShroomDodge = 0.3f * traeStealth;
-                        ShroomIframes = 0.5f * traeStealth;
-                    }
-                    break;
+                        Player.setBonus = "Build up stealth while on the ground\nStealth provides up to 30% dodge chance and doubled base length of invincibility after taking damage\nStealth depletes after dodging an attack";
+                        if (traeStealth < 1f && Player.velocity.Y == 0)
+                        {
+         
+                            traeStealth += 1f / 90f;
+                       
+                        }
+  
+                        if (traeStealth > 0)
+                        {
+                            ShroomDodge = 0.3f * traeStealth;
+                            ShroomIframes = (int)(40f * traeStealth);
+                        }
+                        break;
                     default:
                         traeStealth = 0;
-                    break;
+                        break;
                 }
-                
+
             }
             else
             {
@@ -208,7 +219,7 @@ namespace ChangesArmor
                 ShroomIframes = 0;
             }
             Player.shroomiteStealth = false;
-            if(!maskSet)
+            if (!maskSet)
             {
                 noRangedTimer = 0;
                 damageMult = 1f;
@@ -250,19 +261,17 @@ namespace ChangesArmor
                 }
                 if(noRangedTimer > 0)
                 {
-                    if(noRangedTimer < maskStartStealthTime)
+                    if(noRangedTimer < headgearStartStealthTime)
                     {
                         noRangedTimer = 0;
                     }
                     else
                     {
-                        noRangedTimer = -60;
-                        traeStealth = 0f;
-                        for(int i =0; i < 100; i++)
-                        {
-                            Dust d = Dust.NewDustPerfect(Player.Center, 135,  TRAEMethods.PolarVector(12,  ((float)i / 50f) * MathF.PI * 2f), 100);
-                            d.noGravity = true;
-                        }
+                        noRangedTimer -= 1;
+
+                        Dust d = Dust.NewDustPerfect(Player.Center, 135, TRAEMethods.PolarVector(12, ((float)Main.rand.Next(80) / 50f) * MathF.PI * 2f), 100);
+                        d.noGravity = true;
+
                     }
                 }
             }
@@ -271,6 +280,8 @@ namespace ChangesArmor
         {
             if (Main.rand.NextFloat() < ShroomDodge)
             {
+                traeStealth = 0;
+
                 //Main.NewText("ShroomDodge");
                 Player.brainOfConfusionDodgeAnimationCounter = 300;
 			    Player.SetImmuneTimeForAllTypes(Player.longInvince ? 120 : 80);
@@ -284,7 +295,7 @@ namespace ChangesArmor
                 }
                 if(ShroomIframes > 0)
                 {
-                    Player.immuneTime += (int)(Player.immuneTime * ShroomIframes);
+                    Player.immuneTime += (int)ShroomIframes;
                 }
                 return true;
             }
@@ -294,7 +305,7 @@ namespace ChangesArmor
         {
             if(ShroomIframes > 0)
             {
-                Player.immuneTime += (int)(Player.immuneTime * ShroomIframes);
+                Player.immuneTime += (int)ShroomIframes;
             }
         }
         /*

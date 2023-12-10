@@ -424,9 +424,8 @@ namespace TRAEProject.Changes.NPCs.Boss
             ColorLerp = Color.Lerp(ColorMiddle, ColorBack, 0.25f);
             ColorSmoke = new Color(70, 70, 70, 100);
             dustID = DustID.CursedTorch;
-
-            dustAmount = 0;
-            scalemodifier = 1;
+             dustAmount = 0;
+            scalemodifier = 1f;
             Projectile.light = 1;
         }
         public override void OnHitPlayer(Player target, Player.HurtInfo info)
@@ -441,7 +440,10 @@ namespace TRAEProject.Changes.NPCs.Boss
         int ChangeEyeFireToSpazFire(On_Projectile.orig_NewProjectile_IEntitySource_float_float_float_float_int_int_float_int_float_float_float orig, Terraria.DataStructures.IEntitySource spawnSource, float X, float Y, float SpeedX, float SpeedY, int Type, int Damage, float KnockBack, int Owner, float ai0, float ai1, float ai2)
         {
             if (Type == ProjectileID.EyeFire)
+            {
                 Type = ModContent.ProjectileType<SpamatizmFire>();
+
+            }
             return orig(spawnSource, X, Y, SpeedX, SpeedY, Type, Damage, KnockBack, Owner, ai0, ai1, ai2);
         }
     }

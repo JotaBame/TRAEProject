@@ -328,7 +328,7 @@ namespace TRAEProject.Changes.NPCs
                     });
                     
                     LeadingConditionRule notExpertRule = new LeadingConditionRule(new Conditions.NotExpert());
-				    notExpertRule.OnSuccess(ItemDropRule.OneFromOptionsNotScalingWithLuck(1, ItemID.RainbowCrystalStaff, ItemID.PiercingStarlight, ItemID.FairyQueenMagicItem, ItemID.FairyQueenRangedItem));
+				    notExpertRule.OnSuccess(ItemDropRule.OneFromOptionsNotScalingWithLuck(1, ItemID.RainbowCrystalStaff, ItemID.PiercingStarlight, ItemID.FairyQueenMagicItem, ItemID.FairyQueenRangedItem, ItemID.RainbowWhip));
                     notExpertRule.OnSuccess(ItemDropRule.Common(ModContent.ItemType<FaeInABottle>(), 5));
                     notExpertRule.OnSuccess(ItemDropRule.Common(4823, 15));
                     notExpertRule.OnSuccess(ItemDropRule.Common(4778, 4));
@@ -375,7 +375,7 @@ namespace TRAEProject.Changes.NPCs
                         return false;
                     });
                     LeadingConditionRule notExpertRule3 = new LeadingConditionRule(new Conditions.NotExpert());
-					notExpertRule3.OnSuccess(ItemDropRule.FewFromOptionsNotScalingWithLuck(2, 1, ItemID.Meowmere, ItemID.Terrarian, ItemID.SDMG, ItemID.Celeb2, ItemID.LunarFlareBook, ItemID.LastPrism, ItemID.RainbowWhip, ItemID.StardustDragonStaff));
+					notExpertRule3.OnSuccess(ItemDropRule.FewFromOptionsNotScalingWithLuck(2, 1, ItemID.Meowmere, ItemID.Terrarian, ItemID.SDMG, ItemID.Celeb2, ItemID.LunarFlareBook, ItemID.LastPrism, /*ItemID.RainbowWhip,*/ ItemID.StardustDragonStaff));
                     notExpertRule3.OnSuccess(ItemDropRule.Common(3373, 7));
                     notExpertRule3.OnSuccess(ItemDropRule.Common(4469, 10));
                     notExpertRule3.OnSuccess(ItemDropRule.Common(3384));

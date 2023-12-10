@@ -541,14 +541,14 @@ namespace TRAEProject.Changes.NPCs.Boss
                                     }
                                     if (playerpositiontospaz > 700f)
                                     {
-                                        speed += 0.9f;
+                                        speed += 1.5f;
                                     }
                                     if (playerpositiontospaz > 800f)
                                     {
-                                        speed += 0.9f;
+                                        speed += 1.5f;
                                     }
                                 }
-                                speed *= 0.8f;
+                                speed *= 2.5f;
                                 playerpositiontospaz /= speed;
                                 playerpositionX *= playerpositiontospaz;
                                 playerpositionY *= playerpositiontospaz;
@@ -594,7 +594,7 @@ namespace TRAEProject.Changes.NPCs.Boss
                                 }
                                 ref float x = ref npc.ai[2];
                                 x += 1f;
-                                if (npc.ai[2] >= 400f)
+                                if (npc.ai[2] >= 350f)
                                 {
                                     npc.ai[1] = 1f;
                                     npc.ai[2] = 0f;

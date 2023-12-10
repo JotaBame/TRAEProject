@@ -30,10 +30,10 @@ namespace TRAEProject.NewContent.Items.Weapons.Summoner.AbsoluteZero
             Item.UseSound = SoundID.Item152;
             Item.noMelee = true;
             Item.noUseGraphic = true;
-            Item.damage = 150;
-            Item.useTime = Item.useAnimation = 30;
+            Item.damage = 180;
+            Item.useTime = Item.useAnimation = 35;
             Item.knockBack = 2f;
-            Item.shootSpeed = 7.48f;
+            Item.shootSpeed = 7.35f;
             Item.rare = ItemRarityID.Yellow;
             Item.value = Item.sellPrice(0, 10, 0, 0);
         }
@@ -73,7 +73,6 @@ namespace TRAEProject.NewContent.Items.Weapons.Summoner.AbsoluteZero
         public override void Update(NPC npc, ref int buffIndex)
         {
             npc.GetGlobalNPC<Tag>().Damage += 12;
-            npc.GetGlobalNPC<Tag>().Crit += 25;
         }
     }
     public class AbsoluteZeroVisualOnHitEffect : GlobalProjectile

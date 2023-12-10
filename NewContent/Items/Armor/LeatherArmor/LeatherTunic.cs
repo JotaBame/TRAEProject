@@ -19,11 +19,11 @@ namespace TRAEProject.NewContent.Items.Armor.LeatherArmor
 		}
 		public override void SetDefaults()
 		{
-			Item.value = Item.sellPrice(0, 0, 50, 0);
+			Item.value = Item.sellPrice(0, 3, 20, 0);
 			Item.rare = ItemRarityID.Blue;
 			Item.width = 36;
 			Item.height = 20;
-			Item.defense = 4;
+			Item.defense = 3;
 		}
 		public override void AddRecipes()
 		{
@@ -36,7 +36,7 @@ namespace TRAEProject.NewContent.Items.Armor.LeatherArmor
 
 		public override void UpdateEquip(Player player)
         {
-            player.GetAttackSpeed(DamageClass.SummonMeleeSpeed) += 0.08f;
+            player.GetAttackSpeed(DamageClass.SummonMeleeSpeed) += 0.1f;
 
           
 		}
@@ -47,10 +47,8 @@ namespace TRAEProject.NewContent.Items.Armor.LeatherArmor
 
 		public override void UpdateArmorSet(Player player)
 		{
-			player.setBonus = "Increased maximum number of minions by 2\n25% decreased non-summoner damage";
-            player.GetDamage<MeleeDamageClass>() *= 0.75f;
-            player.GetDamage<RangedDamageClass>() *= 0.75f;
-            player.GetDamage<MagicDamageClass>() *= 0.75f;
+			player.setBonus = "Increased maximum number of minions by 2";
+ 
 
             player.maxMinions += 2;
 		}

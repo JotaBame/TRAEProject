@@ -2,6 +2,7 @@
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
+using TRAEProject.Changes.Accesory;
 
 namespace TRAEProject.NewContent.Items.Accesories.CrossNecklace
 {    
@@ -25,7 +26,7 @@ namespace TRAEProject.NewContent.Items.Accesories.CrossNecklace
         }
         public override void UpdateAccessory(Player player, bool hideVisual)
         {
-            player.longInvince = true;
+            player.GetModPlayer<OnHitEffects>().crossNecklace = true;
             player.GetModPlayer<BlackCrossDodge>().BlackCrossBelt = true;
         }
         public override void AddRecipes()

@@ -84,7 +84,7 @@ namespace TRAEProject.Changes.Items
                     projectile.GetGlobalProjectile<ProjectileStats>().dontHitTheSameEnemyMultipleTimes = true;
                     break;
                 case ProjectileID.SharpTears:
-                    projectile.penetrate = 5;
+                    projectile.penetrate = 4;
                     break;
                 case ProjectileID.WaterStream:
                     projectile.penetrate = 1;

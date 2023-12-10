@@ -5,7 +5,7 @@ using Terraria.ModLoader;
 using TRAEProject.NewContent.Items.Accesories.MobilityJumps;
 
 namespace TRAEProject.NewContent.Items.Accesories.AdvFlight
-{
+{[AutoloadEquip(EquipType.Shoes)]
     public class JetBoots : ModItem
     {
         public override void SetStaticDefaults()

@@ -33,10 +33,7 @@ namespace TRAEProject.Changes.Projectiles
             {
                 target.GetGlobalNPC<Freeze>().FreezeMe(target, 60);
             }
-            if (projectile.type == ProjectileType<AbsoluteZeroP>() && Main.rand.NextBool(5))
-            {
-                target.GetGlobalNPC<Freeze>().FreezeMe(target, 45);
-            }
+ 
             switch (projectile.type)
             {
 

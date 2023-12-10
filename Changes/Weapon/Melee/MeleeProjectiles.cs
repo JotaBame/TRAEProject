@@ -91,7 +91,7 @@ namespace TRAEProject.Changes.Weapon.Melee
                 case ProjectileID.FormatC:
                     projectile.GetGlobalProjectile<ProjectileStats>().DamageFalloff = 0.4f;
                     break;
-
+ 
                 case ProjectileID.VampireKnife:
                     projectile.ArmorPenetration = 15;
                     break;
@@ -131,7 +131,7 @@ namespace TRAEProject.Changes.Weapon.Melee
                     projectile.GetGlobalProjectile<ProjectileStats>().maxHits = 7;
                     break;
                 case ProjectileID.TerraBlade2Shot:
-                    projectile.GetGlobalProjectile<ProjectileStats>().DirectDamage = 0.6f;
+                    projectile.GetGlobalProjectile<ProjectileStats>().DirectDamage = 0.7f;
                     projectile.penetrate = 3;
                     break;
 

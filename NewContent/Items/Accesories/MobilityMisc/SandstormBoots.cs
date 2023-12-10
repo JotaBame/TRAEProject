@@ -3,7 +3,7 @@ using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 
-namespace TRAEProject.NewContent.Items.Accesories
+namespace TRAEProject.NewContent.Items.Accesories.MobilityMisc
 {
 	[AutoloadEquip(EquipType.Shoes)]
     class SandstormBoots : ModItem

@@ -285,7 +285,10 @@ namespace TRAEProject.Changes.Items
                 case ItemID.ApprenticeStaffT3:
                     item.mana = 30; // up from 14
                     return;
-				case ItemID.Razorpine:
+                case ItemID.BatScepter:
+                    item.damage = 38; // down from 45
+                    return;
+                case ItemID.Razorpine:
                     item.damage = 40;
 					item.useAnimation = 9; 
                     item.useTime = 9; // up from 8
@@ -298,7 +301,7 @@ namespace TRAEProject.Changes.Items
                     return;
          
                 case ItemID.FairyQueenMagicItem:
-                    item.mana = 45;
+                    item.mana = 54; 
                     item.damage = 60; //up from 50
                     return;
                 case ItemID.RainbowGun:
