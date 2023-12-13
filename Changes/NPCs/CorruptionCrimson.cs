@@ -60,10 +60,21 @@ namespace TRAEProject.Changes.NPCs
                             return false;
                         return drop.itemId == ItemID.RottenChunk; // compare more fields if needed
                     });
-                    npcLoot.Add(ItemDropRule.Common(ItemID.RottenChunk, 1, 2, 4));
+                    npcLoot.Add(ItemDropRule.Common(ItemID.RottenChunk, 1, 1, 2));
                     npcLoot.Add(ItemDropRule.Common(ItemID.Leather, 4, 1));
                     return;
             }
+        }
+        public override void EditSpawnPool(IDictionary<int, float> pool, NPCSpawnInfo spawnInfo)
+        {
+            if (spawnInfo.Player.ZoneCorrupt)
+            {
+                float spawnrate = Main.hardMode ? 0.02f : 0.125f;
+                pool.Remove(NPCID.DevourerHead);
+                pool.Add(NPCID.DevourerHead, spawnrate);
+            }
+
+
         }
     }
     

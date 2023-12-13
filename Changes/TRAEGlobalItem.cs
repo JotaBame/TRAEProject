@@ -93,6 +93,11 @@ namespace TRAEProject.Changes
                 case ItemID.Diamond:
                     item.value = Item.sellPrice(gold: 1);
                     break;
+                case ItemID.RifleScope:
+                    item.rare = ItemRarityID.Pink;
+
+                    item.value = Item.buyPrice(gold: 25);
+                     break;
                 case ItemID.WitchBroom:
                     item.rare = ItemRarityID.Yellow;
                     break;
@@ -141,6 +146,14 @@ namespace TRAEProject.Changes
             }
         }
         int timer = 0;
+        public override bool ReforgePrice(Item item, ref int reforgePrice, ref bool canApplyDiscount)
+        {
+            if (item.type == ItemID.Uzi)
+            {
+                reforgePrice = Item.buyPrice(gold: 15);
+            }
+            return base.ReforgePrice(item, ref reforgePrice, ref canApplyDiscount);
+        }
         public override bool OnPickup(Item item, Player player)
         {
             timer = 0;

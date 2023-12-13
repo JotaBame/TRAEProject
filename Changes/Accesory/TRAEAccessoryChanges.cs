@@ -162,8 +162,8 @@ namespace TRAEProject.Changes.Accesory
                 case ItemID.ArcaneFlower:
                     player.manaCost += 0.08f;
                     player.GetModPlayer<Mana>().newManaFlower = true;
-                    player.GetDamage<MagicDamageClass>() += 0.05f;
-                    player.GetCritChance<MagicDamageClass>() += 5;
+                    player.GetDamage<MagicDamageClass>() += 0.04f;
+                    player.GetCritChance<MagicDamageClass>() += 4;
                     break;
                 case ItemID.CelestialEmblem:
                     player.GetDamage<MagicDamageClass>() -= 0.03f;
@@ -397,12 +397,21 @@ namespace TRAEProject.Changes.Accesory
                         }
                     }
                     break;
+                case ItemID.PutridScent:
+                    foreach (TooltipLine line in tooltips)
+                    {
+                        if (line.Mod == "Terraria" && line.Name == "Tooltip0")
+                        {
+                            line.Text = "4% increased magic damage and critical strike chance";
+                        }
+                    }
+                    break;
                 case ItemID.ArcaneFlower:
                     foreach (TooltipLine line in tooltips)
                     {
                         if (line.Mod == "Terraria" && line.Name == "Tooltip0")
                         {
-                            line.Text = "Magic critical strikes have a chance to spawn a mana star\n5% increased magic damage and critical strike chance";
+                            line.Text = "Magic critical strikes have a chance to spawn a mana star\n4% increased magic damage and critical strike chance";
                         }
                     }
                     break;

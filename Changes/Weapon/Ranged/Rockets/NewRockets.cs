@@ -297,6 +297,7 @@ namespace TRAEProject.Changes.Weapon.Ranged.Rockets
             }
             return true;
         }
+       public bool explodeOnHit = false;
         public override void OnHitNPC(Projectile projectile, NPC target, NPC.HitInfo hit, int damageDone)
         {
             if (DryRocket || WetRocket || LavaRocket || HoneyRocket)
@@ -308,6 +309,10 @@ namespace TRAEProject.Changes.Weapon.Ranged.Rockets
                 Projectile.NewProjectile(projectile.GetSource_OnHit(target), projectile.Center, projectile.velocity, ProjectileType<LuminiteBoom>(), projectile.damage, projectile.knockBack);
                 SoundEngine.PlaySound(SoundID.Item14 with { MaxInstances = 0 }, projectile.position);                   
        
+            }
+            if (explodeOnHit)
+            {
+                projectile.Kill();
             }
         }
 
@@ -335,6 +340,7 @@ namespace TRAEProject.Changes.Weapon.Ranged.Rockets
             projectile.usesLocalNPCImmunity = true;
             projectile.localNPCHitCooldown = 10;
             projectile.timeLeft = 600;
+            explodeOnHit = true;
             IsARocket = true;
 
         }
@@ -539,6 +545,8 @@ namespace TRAEProject.Changes.Weapon.Ranged.Rockets
             Projectile.height = 14;
             Projectile.width = 14;
             AIType = ProjectileType<Rocket>();
+            Projectile.GetGlobalProjectile<NewRockets>().explodeOnHit = true;
+
             Projectile.GetGlobalProjectile<NewRockets>().MiniNukeStats(Projectile, true);
         }
         public override void AI()

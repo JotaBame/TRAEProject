@@ -13,29 +13,29 @@ public static class PrimeStats
     public const float primeSpinBonusSpeedFromDist = 1.2f; // vanilla value: 1.1f
 
     //Prime vice
-    public const int viceHealth = 4500; //value in classic mode x1.5 in expert, vanilla value: 9000
+    public const int viceHealth = 9000; //value in classic mode x1.5 in expert, vanilla value: 9000
     //Prime saw
-    public const int sawHealth = 3500; //value in classic mode x1.5 in expert, vanilla value: 9000
+    public const int sawHealth = 2300; //value in classic mode x1.5 in expert, vanilla value: 9000
     public const float sawApproachSpeed = 17f; //Max speed of prime saw when in 'pursuit mode' vanilla value: 7f
     public const float sawApproachAcc = sawApproachSpeed / 120f; //the accekration on prime saw's pursuit mode
     //Prime laser
-    public const int laserHealth = 2500; //value in classic mode x1.5 in expert, vanilla value: 6000
+    public const int laserHealth = 2250; //value in classic mode x1.5 in expert, vanilla value: 6000
     //Prime cannon
-    public const int cannonHealth = 3000; //value in classic mode x1.5 in expert, vanilla value: 7000
+    public const int cannonHealth = 2400; //value in classic mode x1.5 in expert, vanilla value: 7000
     //Prime mace
-    public const int macHealth = 4000; //value in classic mode x1.5 in expert
-    public const int primeMaceSwingTime = 120; // how long it takes for mace to finish its elliptical swing
-    public const int primeMaceNonRageCooldown = 200; //time between mace swings when prime is not raged.
+    public const int macHealth = 2500; //value in classic mode x1.5 in expert
+    public const int primeMaceSwingTime = 90; // how long it takes for mace to finish its elliptical swing
+    public const int primeMaceNonRageCooldown = 180; //time between mace swings when prime is not raged.
     //Prime rail
-    public const int railHealth = 2800; //value in classic mode x1.5 in expert
+    public const int railHealth = 2250; //value in classic mode x1.5 in expert
     public const float railVel = 8f; //compined with railExtraUpdates, determines the velocity of the rail shot
-    public const int railExtraUpdates = 4;
+    public const int railExtraUpdates = 400;
     public const int railChargeTime = 600; //time between rail shots
     public const int railWarnTime = 180; //how long the rail's warning sight line lasts
-    public const int railDamage = 40;
+    public const int railDamage = 60;
     //Prime launcher
-    public const int launcherHealth = 3200; //value in classic mode x1.5 in expert
-    public const int missileBurstSize = 8; //size of missile burst when prime isn't raged
+    public const int launcherHealth = 2000; //value in classic mode x1.5 in expert
+    public const int missileBurstSize = 10; //size of missile burst when prime isn't raged
     public const int missileBurstDelay = 10; //time between missiles in burst
     public const int missileBurstCooldown = 360; //cooldown between bursts
     public const int ragedMissileCooldown = 30; //when raged instead of periodicly doing bursts the launch will continously launch missiles using this cooldown

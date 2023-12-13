@@ -22,16 +22,15 @@ namespace TRAEProject.Changes.Accesory
                 if (player.HeldItem.useAmmo == AmmoID.Arrow || player.HeldItem.useAmmo == AmmoID.Stake)
                     player.GetDamage<RangedDamageClass>() -= 0.1f; // 1.4.4 magic quiver uses a new bool and guess what it is not supported by tmod (at least at the time i'm writing this note)
             }
- 
-            if (item.type == ItemID.StalkersQuiver)
+             if (item.type == ItemID.StalkersQuiver)
             {
                 player.magicQuiver = false;
                 player.GetModPlayer<RangedStats>().Magicquiver += 1;
 
                 if (player.HeldItem.useAmmo == AmmoID.Arrow || player.HeldItem.useAmmo == AmmoID.Stake)
                     player.GetDamage<RangedDamageClass>() -= 0.1f; // 1.4.4 magic quiver uses a new bool and guess what it is not supported by tmod (at least at the time i'm writing this note)                player.GetModPlayer<RangedStats>().Magicquiver += 1;
-                player.GetDamage<RangedDamageClass>() += 0.05f;
-                player.GetCritChance<RangedDamageClass>() += 5;
+                player.GetDamage<RangedDamageClass>() += 0.04f;
+                player.GetCritChance<RangedDamageClass>() += 4;
             }
             if (item.type == ItemID.RifleScope)
             {
@@ -80,7 +79,7 @@ namespace TRAEProject.Changes.Accesory
                         }
                         if (line.Mod == "Terraria" && line.Name == "Tooltip1")
                         {
-                            line.Text = "5% increased ranged damage and critical strike chance";
+                            line.Text = "4% increased ranged damage and critical strike chance";
                         }
                     }
                     break;
@@ -206,7 +205,7 @@ namespace TRAEProject.Changes.Accesory
         {
             if (smartbounces > 0 && projectile.penetrate > 1)
             {
-                QuiverBounce(projectile);
+                QuiverBounce(projectile, target.whoAmI);
             }
         }        
         public override bool OnTileCollide(Projectile projectile, Vector2 oldVelocity)
@@ -214,33 +213,60 @@ namespace TRAEProject.Changes.Accesory
             Player player = Main.player[projectile.owner];
             if (smartbounces > 0)
             {
-                QuiverBounce(projectile);
+                int maxRange = 600;
+                NPC closest = null;
 
+                TRAEMethods.ClosestNPC(ref closest, maxRange, projectile.Center);
+                // specialCondition: delegate (NPC possibleTarget) { return projectile.Center.Distance(projectile.Center) > minimumRange; }
+                if (closest != null && closest.Distance(projectile.Center) > 50)
+                {
+                    Vector2 value2 = closest.Center - projectile.Center;
+                    float scaleFactor2 = projectile.velocity.Length();
+                    value2.Normalize();
+                    projectile.velocity = value2 * scaleFactor2;
+                    projectile.netUpdate = true;
+                    projectile.damage = (int)(projectile.damage * 0.67);
+                    --smartbounces;
+                    hasBounced = true;
+                    for (int i = 0; i < 10; ++i)
+                    {
+                        Dust dust = Dust.NewDustDirect(projectile.position, projectile.width, projectile.height, DustID.UndergroundHallowedEnemies, projectile.velocity.X * 0.5f, projectile.velocity.Y * 0.5f, 150, default, 1.5f);
+                        dust.noGravity = true;
+                    }
+                    return false;
+                }
+                if (closest == null )
+                {
+                    return true;
+                }
+                    
             }
 			return true;
         }
-        void QuiverBounce(Projectile projectile)
+        void QuiverBounce(Projectile projectile, int idTargethit = -1 )
         {
              int maxRange = 600;
-            int minimumRange = 32;
-            NPC closest = null;
+             NPC closest = null;
 
-            TRAEMethods.ClosestNPC(ref closest, maxRange, projectile.Center, specialCondition: delegate (NPC possibleTarget) { return projectile.Center.Distance(projectile.Center) > minimumRange; });
-
-
-            Vector2 value2 = closest.Center - projectile.Center;
-            float scaleFactor2 = projectile.velocity.Length();
-            value2.Normalize();
-            projectile.velocity = value2 * scaleFactor2;
-            projectile.netUpdate = true;
-            projectile.damage = (int)(projectile.damage * 0.67);
-            --smartbounces;
-            hasBounced = true;
-            for (int i = 0; i < 10; ++i)
+            TRAEMethods.ClosestNPC(ref closest, maxRange, projectile.Center, IgnoreThisOne: idTargethit);
+            // specialCondition: delegate (NPC possibleTarget) { return projectile.Center.Distance(projectile.Center) > minimumRange; }
+             if (closest != null && closest.Distance(projectile.Center) > 50)
             {
-                Dust dust = Dust.NewDustDirect(projectile.position, projectile.width, projectile.height, DustID.UndergroundHallowedEnemies, projectile.velocity.X * 0.5f, projectile.velocity.Y * 0.5f, 150, default, 1.5f);
-                dust.noGravity = true;
+                Vector2 value2 = closest.Center - projectile.Center;
+                float scaleFactor2 = projectile.velocity.Length();
+                value2.Normalize();
+                projectile.velocity = value2 * scaleFactor2;
+                projectile.netUpdate = true;
+                projectile.damage = (int)(projectile.damage * 0.67);
+                --smartbounces;
+                hasBounced = true;
+                for (int i = 0; i < 10; ++i)
+                {
+                    Dust dust = Dust.NewDustDirect(projectile.position, projectile.width, projectile.height, DustID.UndergroundHallowedEnemies, projectile.velocity.X * 0.5f, projectile.velocity.Y * 0.5f, 150, default, 1.5f);
+                    dust.noGravity = true;
+                }
             }
+          
         }
     }
 }

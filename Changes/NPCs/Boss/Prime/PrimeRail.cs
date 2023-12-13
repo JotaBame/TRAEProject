@@ -2,6 +2,7 @@ using System;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Terraria;
+using Terraria.Audio;
 using Terraria.GameContent;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -28,7 +29,7 @@ namespace TRAEProject.Changes.NPCs.Boss.Prime
             NPC.width = 52;
             NPC.height = 52;
             NPC.damage = 29;
-            NPC.defense = 20;
+            NPC.defense = 24;
             NPC.lifeMax = PrimeStats.railHealth;
             NPC.HitSound = SoundID.NPCHit4;
             NPC.DeathSound = SoundID.NPCDeath14;
@@ -38,6 +39,7 @@ namespace TRAEProject.Changes.NPCs.Boss.Prime
             NPC.netAlways = true;
             NPC.aiStyle = -1;
         }
+ 
         public override bool PreDraw(SpriteBatch spriteBatch, Vector2 screenPos, Color drawColor)
         {
             SpriteEffects spriteEffects = SpriteEffects.None;
@@ -71,10 +73,12 @@ namespace TRAEProject.Changes.NPCs.Boss.Prime
             
             return false;
         }
+        float aimToward = 0;
         public override void AI()
         {
             NPC.spriteDirection = -1;
-            if (!Main.npc[(int)NPC.ai[1]].active || Main.npc[(int)NPC.ai[1]].aiStyle != 32 || (NPC.ai[0] == 0 && !SkeletronPrime.KeepPhase2Arms(Main.npc[(int)NPC.ai[1]])))
+            NPC prime = Main.npc[(int)NPC.ai[1]];
+            if (!prime.active ||prime.aiStyle != 32 || (NPC.ai[0] == 0 && !SkeletronPrime.KeepPhase2Arms(prime)))
             {
                 NPC.ai[2] += 10f;
                 if (NPC.ai[2] > 50f || Main.netMode != NetmodeID.Server) 
@@ -84,7 +88,7 @@ namespace TRAEProject.Changes.NPCs.Boss.Prime
                     NPC.active = false;
                 }
             }
-            if (Main.npc[(int)NPC.ai[1]].ai[1] == 3f)
+            if (prime.ai[1] == 3f)
                     NPC.EncourageDespawn(10);
 
             float yOffset = -100;
@@ -94,7 +98,7 @@ namespace TRAEProject.Changes.NPCs.Boss.Prime
                 yOffset = 0;
                 xOffset = -306;
             }
-            if (NPC.position.Y > Main.npc[(int)NPC.ai[1]].position.Y + yOffset) 
+            if (NPC.position.Y >prime.position.Y + yOffset) 
             {
                 if (NPC.velocity.Y > 0f)
                     NPC.velocity.Y *= 0.96f;
@@ -103,7 +107,7 @@ namespace TRAEProject.Changes.NPCs.Boss.Prime
                 if (NPC.velocity.Y > 3f)
                     NPC.velocity.Y = 3f;
             }
-            else if (NPC.position.Y < Main.npc[(int)NPC.ai[1]].position.Y + yOffset) 
+            else if (NPC.position.Y <prime.position.Y + yOffset) 
             {
                 if (NPC.velocity.Y < 0f)
                     NPC.velocity.Y *= 0.96f;
@@ -113,7 +117,7 @@ namespace TRAEProject.Changes.NPCs.Boss.Prime
                     NPC.velocity.Y = -3f;
             }
 
-            if (NPC.position.X + (float)(NPC.width / 2) > Main.npc[(int)NPC.ai[1]].position.X + (float)(Main.npc[(int)NPC.ai[1]].width / 2) + xOffset) 
+            if (NPC.position.X + (float)(NPC.width / 2) >prime.position.X + (float)(prime.width / 2) + xOffset) 
             {
                 if (NPC.velocity.X > 0f)
                     NPC.velocity.X *= 0.96f;
@@ -123,7 +127,7 @@ namespace TRAEProject.Changes.NPCs.Boss.Prime
                     NPC.velocity.X = 8f;
             }
 
-            if (NPC.position.X + (float)(NPC.width / 2) < Main.npc[(int)NPC.ai[1]].position.X + (float)(Main.npc[(int)NPC.ai[1]].width / 2) + xOffset) 
+            if (NPC.position.X + (float)(NPC.width / 2) <prime.position.X + (float)(prime.width / 2) + xOffset) 
             {
                 if (NPC.velocity.X < 0f)
                     NPC.velocity.X *= 0.96f;
@@ -134,13 +138,27 @@ namespace TRAEProject.Changes.NPCs.Boss.Prime
             }
 
             NPC.TargetClosest(false);
-            float aimToward = TRAEMethods.PredictiveAimWithOffset(NPC.Center, PrimeStats.railVel * (1 + PrimeStats.railExtraUpdates), Main.player[NPC.target].Center, Main.player[NPC.target].velocity, 30);
-            if(float.IsNaN(aimToward))
+            if (timer > PrimeStats.railChargeTime - PrimeStats.railWarnTime)
             {
-                aimToward = (Main.player[NPC.target].Center - NPC.Center).ToRotation();
+                int num = Dust.NewDust(new Vector2(NPC.position.X, NPC.position.Y), NPC.width, NPC.height, DustID.TheDestroyer, 0f, 0f, 100, default, 1f);
+                Main.dust[num].noGravity = true;
+                Main.dust[num].noLight = true;
             }
-            NPC.rotation.SlowRotation(aimToward, MathF.PI / 120f);
+            if (timer <= PrimeStats.railChargeTime - 10)
+            {
+                aimToward = TRAEMethods.PredictiveAimWithOffset(NPC.Center, PrimeStats.railVel * (1 + PrimeStats.railExtraUpdates), Main.player[NPC.target].Center, Main.player[NPC.target].velocity, 30);
+                if (float.IsNaN(aimToward))
+                {
+                    aimToward = (Main.player[NPC.target].Center - NPC.Center).ToRotation();
+                }
+            }
+ 
+   
+ 
             timer++;
+            NPC.rotation.SlowRotation(aimToward, MathF.PI / 60f);
+
+
             if(timer >= PrimeStats.railChargeTime)
             {
                 timer = 0;
@@ -193,8 +211,8 @@ namespace TRAEProject.Changes.NPCs.Boss.Prime
     {
         public override void SetDefaults()
         {
-            Projectile.width = 8;
-            Projectile.height = 8;
+            Projectile.width = 32;
+            Projectile.height = 32;
             Projectile.aiStyle = 1;
             AIType = ProjectileID.DeathLaser;
             Projectile.hostile = true;
@@ -202,13 +220,47 @@ namespace TRAEProject.Changes.NPCs.Boss.Prime
             Projectile.light = 0.75f;
             Projectile.alpha = 255;
             Projectile.extraUpdates = PrimeStats.railExtraUpdates;
-            Projectile.scale = 1.8f;
-            Projectile.timeLeft = 2700;
+            Projectile.scale = 1f;
+            Projectile.timeLeft = 2400;
         }
-        public override bool PreDraw(ref Color lightColor)
+ 
+        public override bool PreAI()
         {
-            lightColor = Color.White;
-            return base.PreDraw(ref lightColor);
+            if (Projectile.localAI[0] == 0)
+            {
+                Projectile.localAI[0] += 1f;
+
+                SoundEngine.PlaySound(SoundID.Item67);
+
+                return false;
+            }
+             Projectile.localAI[0] += 1f;
+            if (Projectile.localAI[0] > 8f)
+            {
+                for (int i = 0; i < 2; i++)
+                {
+                    int type = DustID.TheDestroyer;
+                    int Dust = Terraria.Dust.NewDust(Projectile.Center, Projectile.width, Projectile.height, type, 0f, 0f, 100);
+                    Main.dust[Dust].position = (Main.dust[Dust].position + Projectile.Center) / 2f;
+                    Main.dust[Dust].noGravity = true;
+                    Dust dust = Main.dust[Dust];
+                    dust.velocity *= 0.1f;
+                    if (i == 1)
+                    {
+                        dust = Main.dust[Dust];
+                        dust.position += Projectile.velocity / 2f;
+                    }
+                    float ScaleMult = (1000f - Projectile.ai[0]) / 500f;
+                    dust = Main.dust[Dust];
+                    dust.scale *= ScaleMult + 0.1f;
+                }
+            }
+            return true;
         }
-    }
+            //public override bool PreDraw(ref Color lightColor)
+            //{
+            //    lightColor = Color.White;
+            //    return base.PreDraw(ref lightColor);
+            //}
+        }
 }

@@ -10,7 +10,7 @@ using TRAEProject.NewContent.NPCs.Underworld.Lavamander;
 
 namespace TRAEProject.Changes.NPCs
 {
-    public class HellEnemies: GlobalNPC
+    public class HellEnemies : GlobalNPC
     {
 
         public override bool InstancePerEntity => true;
@@ -20,8 +20,8 @@ namespace TRAEProject.Changes.NPCs
             switch (npc.type)
             {
                 case NPCID.Hellbat:
-                    npc.damage = 40; 
-                    npc.lifeMax = 70; 
+                    npc.damage = 40;
+                    npc.lifeMax = 70;
                     return;
                 case NPCID.LavaSlime:
                     npc.damage = 50; // up from 15
@@ -47,8 +47,45 @@ namespace TRAEProject.Changes.NPCs
                     return;
             }
         }
+        public override void EditSpawnRate(Player player, ref int spawnRate, ref int maxSpawns)  
+        {
+            if (player.lavaWet && player.ZoneUnderworldHeight && !Main.remixWorld)
+            {
+                spawnRate = (int)(spawnRate * 1.5f);
+            }
+        }
+        public override void EditSpawnPool(IDictionary<int, float> pool, NPCSpawnInfo spawnInfo)
+        {
 
-   
+ 
+            if (spawnInfo.Player.ZoneUnderworldHeight && NPC.downedPlantBoss)
+            {
+                pool.Remove(NPCID.RedDevil);
+                pool.Add(NPCID.RedDevil, 0.25f);
+            }
+            if (spawnInfo.Player.ZoneUnderworldHeight && NPC.downedPlantBoss)
+            {
+                int[] lowerTheseSpawnRates = new int[] { NPCID.LavaSlime, NPCID.FireImp, NPCID.Hellbat };
+                for (int k = 0; k < lowerTheseSpawnRates.Length; k++)
+                {
+                    pool.Remove(lowerTheseSpawnRates[k]);
+                    pool.Add(lowerTheseSpawnRates[k], 0.02f);
+                }
+
+            }
+            if (spawnInfo.Player.ZoneUnderworldHeight && spawnInfo.Player.lavaWet && !Main.hardMode)
+            {
+                int[] increaseTheseSpawnRates = new int[] { NPCID.BoneSerpentHead, NPCID.FireImp };
+                for (int k = 0; k < increaseTheseSpawnRates.Length; k++)
+                {
+                    pool.Remove(increaseTheseSpawnRates[k]);
+                    pool.Add(increaseTheseSpawnRates[k], 0.5f);
+                }
+
+            }
+
+        }
+
         public override void OnKill(NPC npc)
         {
             Vector2 zero = new Vector2(0, 0);

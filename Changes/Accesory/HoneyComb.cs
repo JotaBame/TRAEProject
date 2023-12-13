@@ -146,7 +146,7 @@ namespace TRAEProject.Changes.Accesory
             {
                 if (NewbeesOnHit)
                 {
-                    int duration = hurtInfo.Damage * 6;
+                    int duration = 120 + hurtInfo.Damage * 6;
                     duration += duration / 2 * (combs - 1);
                     if (duration < 150)
                         duration = 150;

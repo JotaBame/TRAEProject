@@ -27,15 +27,15 @@ namespace TRAEProject.NPCs.Boss
         {
             if (Main.masterMode && npc.type == NPCID.ServantofCthulhu && Main.rand.NextBool(3))
             {
-                target.AddBuff(BuffID.Bleeding, Main.rand.Next(200, 300)); // ends up being 5-6 seconds
+                target.AddBuff(BuffID.Bleeding, Main.rand.Next(150, 200));  
             }
         }
         public override bool PreAI(NPC npc)
         {
             if (GetInstance<TRAEConfig>().EOCChanges && Main.masterMode && npc.type == NPCID.ServantofCthulhu)
             {
-                if (npc.velocity.X < 5f)
-                    npc.velocity.X += 0.15f * npc.direction;
+                if (npc.velocity.X < 4f)
+                    npc.velocity.X += 0.16f * npc.direction;
             }
                 if (GetInstance<TRAEConfig>().EOCChanges)
 			{

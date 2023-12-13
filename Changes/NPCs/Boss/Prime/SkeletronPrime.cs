@@ -3,6 +3,7 @@ using System;
 using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.Audio;
+using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
 
@@ -97,24 +98,33 @@ namespace TRAEProject.Changes.NPCs.Boss.Prime
             }
             return base.PreAI(npc);
         }
+        public override void OnSpawn(NPC npc, IEntitySource source)
+        {
+            if (npc.type == NPCID.SkeletronPrime)
+            {
+                npc.TargetClosest();
+
+                int npcIndex = NPC.NewNPC(npc.GetSource_FromAI(), (int)npc.Center.X, (int)npc.Center.Y, NPCID.PrimeVice, npc.whoAmI);
+                Main.npc[npcIndex].ai[0] = -1f;
+                Main.npc[npcIndex].ai[1] = npc.whoAmI;
+                Main.npc[npcIndex].target = npc.target;
+                Main.npc[npcIndex].netUpdate = true;
+            }
+        }
         static void Prime_AI(NPC npc)
         {
             npc.damage = npc.defDamage;
             npc.defense = npc.defDefense;
             float lifeRatio = (float)npc.life / npc.lifeMax;
-            if(Phase0(npc) && lifeRatio < 1f)
+            if(Phase0(npc) && lifeRatio < 0.95f)
             {
                 npc.ai[0]++;
                 SoundEngine.PlaySound(SoundID.Roar, npc.Center);
                 if(Main.netMode != NetmodeID.MultiplayerClient)
                 {
                     npc.TargetClosest();
-                    int npcIndex = NPC.NewNPC(npc.GetSource_FromAI(), (int)npc.Center.X, (int)npc.Center.Y, NPCID.PrimeVice, npc.whoAmI);
-                    Main.npc[npcIndex].ai[0] = -1f;
-                    Main.npc[npcIndex].ai[1] = npc.whoAmI;
-                    Main.npc[npcIndex].target = npc.target;
-                    Main.npc[npcIndex].netUpdate = true;
-                    npcIndex = NPC.NewNPC(npc.GetSource_FromAI(), (int)npc.Center.X, (int)npc.Center.Y, NPCID.PrimeSaw, npc.whoAmI);
+             
+                    int npcIndex = NPC.NewNPC(npc.GetSource_FromAI(), (int)npc.Center.X, (int)npc.Center.Y, NPCID.PrimeSaw, npc.whoAmI);
                     Main.npc[npcIndex].ai[0] = 1f;
                     Main.npc[npcIndex].ai[1] = npc.whoAmI;
                     Main.npc[npcIndex].target = npc.target;
@@ -149,11 +159,11 @@ namespace TRAEProject.Changes.NPCs.Boss.Prime
                     Main.npc[npcIndex].ai[1] = npc.whoAmI;
                     Main.npc[npcIndex].target = npc.target;
                     Main.npc[npcIndex].netUpdate = true;
-                    npcIndex = NPC.NewNPC(npc.GetSource_FromAI(), (int)npc.Center.X, (int)npc.Center.Y, NPCID.PrimeVice, npc.whoAmI);
-                    Main.npc[npcIndex].ai[0] = 1f;
-                    Main.npc[npcIndex].ai[1] = npc.whoAmI;
-                    Main.npc[npcIndex].target = npc.target;
-                    Main.npc[npcIndex].netUpdate = true;
+                    //npcIndex = NPC.NewNPC(npc.GetSource_FromAI(), (int)npc.Center.X, (int)npc.Center.Y, NPCID.PrimeVice, npc.whoAmI);
+                    //Main.npc[npcIndex].ai[0] = 1f;
+                    //Main.npc[npcIndex].ai[1] = npc.whoAmI;
+                    //Main.npc[npcIndex].target = npc.target;
+                    //Main.npc[npcIndex].netUpdate = true;
                     npcIndex = NPC.NewNPC(npc.GetSource_FromAI(), (int)npc.Center.X, (int)npc.Center.Y, ModContent.NPCType<PrimeLauncher>(), npc.whoAmI);
                     Main.npc[npcIndex].ai[0] = 0;
                     Main.npc[npcIndex].ai[1] = npc.whoAmI;
@@ -161,14 +171,16 @@ namespace TRAEProject.Changes.NPCs.Boss.Prime
                     Main.npc[npcIndex].netUpdate = true;
                 }
             }
-            if(Phase2(npc) && lifeRatio < 0.33f && (Main.expertMode || !PrimeStats.lockPhase3ToExpert))
+            if(Phase2(npc) && lifeRatio < 0.2f && (Main.expertMode || !PrimeStats.lockPhase3ToExpert))
             {
                 npc.ai[0]++;
-                SoundEngine.PlaySound(SoundID.Roar, npc.Center);
-                if(Main.netMode != NetmodeID.MultiplayerClient)
+                SoundEngine.PlaySound(SoundID.ForceRoarPitched, npc.Center);
+                if (Main.netMode != NetmodeID.MultiplayerClient)
                 {
                     npc.TargetClosest();
-                    int npcIndex = NPC.NewNPC(npc.GetSource_FromAI(), (int)npc.Center.X, (int)npc.Center.Y, NPCID.PrimeSaw, npc.whoAmI);
+                    int npcIndex = 0;
+
+                   NPC.NewNPC(npc.GetSource_FromAI(), (int)npc.Center.X, (int)npc.Center.Y, NPCID.PrimeSaw, npc.whoAmI);
                     Main.npc[npcIndex].ai[0] = 1f;
                     Main.npc[npcIndex].ai[1] = npc.whoAmI;
                     Main.npc[npcIndex].target = npc.target;
@@ -204,8 +216,8 @@ namespace TRAEProject.Changes.NPCs.Boss.Prime
             if(SummoningPhase(npc))
             {
                 npc.ai[0]++;
-                npc.velocity = Vector2.Zero;
-                npc.rotation = 0;
+                npc.velocity *= 0.99f;
+                npc.rotation = npc.velocity.X / 15f;
                 npc.ai[2] = 0;
                 npc.ai[1] = 0;
                 return;
@@ -306,6 +318,7 @@ namespace TRAEProject.Changes.NPCs.Boss.Prime
                     npc.ai[2] = 0f;
                     npc.ai[1] = 0f;
                 }
+
                 npc.rotation += npc.direction * 0.3f;
                 float distX = Main.player[npc.target].Center.X - npc.Center.X;
                 float distY = Main.player[npc.target].Center.Y - npc.Center.Y;

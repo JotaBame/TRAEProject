@@ -50,7 +50,7 @@ namespace TRAEProject.Changes.NPCs.Boss.Prime
                     triggeredSound = true;
                     SoundEngine.PlaySound(SoundID.Coins  with { MaxInstances = 0, Volume = 1.5f, Pitch = 0.5f}, toBoom);
                 }
-                float speed = 6f;
+                float speed = 9f;
                 Projectile.velocity = TRAEMethods.PolarVector(speed, Projectile.rotation);
                 //Projectile.velocity += TRAEMethods.PolarVector(2f, (toBoom - Projectile.Center).ToRotation());
                 //Projectile.velocity *= 0.95f;
@@ -106,7 +106,7 @@ namespace TRAEProject.Changes.NPCs.Boss.Prime
                             if (Main.player[i].active && !Main.player[i].dead && (Projectile.Center - Main.player[i].Center).Length() < closest)
                             {
                                 closest = (Projectile.Center - Main.player[i].Center).Length();
-                                boomHere = Main.player[i].Center + TRAEMethods.PolarVector(Main.rand.NextFloat(200f, 800f), Main.rand.NextFloat(0f, MathF.PI * 2f));
+                                boomHere = Main.player[i].Center + TRAEMethods.PolarVector(Main.rand.NextFloat(200f, 500f), Main.rand.NextFloat(0f, MathF.PI * 2f));
                             }
                         }
                     }

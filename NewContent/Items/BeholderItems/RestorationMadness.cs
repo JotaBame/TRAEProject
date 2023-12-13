@@ -101,7 +101,7 @@ namespace TRAEProject.NewContent.Items.BeholderItems
             if (Player.HasBuff<Restoring1>() || Player.HasBuff<Restoring2>())
             {
                 timer += 1;
-                if (timer == 40)
+                if (timer >= 40)
                 {
                     Vector2 position4 = Vector2.Zero;
                     position4.X = Player.Center.X + Main.rand.Next(-10, 11) - 6;
@@ -112,7 +112,7 @@ namespace TRAEProject.NewContent.Items.BeholderItems
                         Player.HealEffect(3, true);
                         Player.statLife += 3;
                     }
-                    if (timer == 36 && Player.HasBuff<Restoring1>())
+                    if (Player.HasBuff<Restoring1>())
                     {
                         Player.HealEffect(2, true);
                         Player.statLife += 2;

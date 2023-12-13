@@ -64,7 +64,7 @@ namespace TRAEProject.Changes.Weapons
                     item.value = Item.buyPrice(gold: 35);
                     return;
                 case ItemID.Shotgun:
-                    item.value = Item.buyPrice(gold: 40);
+                    item.value = Item.buyPrice(gold: 45);
                     item.damage = 13; //down from 24
                     item.useAnimation = 45; // up from 45
                     item.useTime = 45; // up from 45
@@ -94,7 +94,7 @@ namespace TRAEProject.Changes.Weapons
                     return;
                 case ItemID.Uzi:
                     item.damage = 22; // down from 30
-                    item.value = Item.buyPrice(gold: 65);
+                    item.value = Item.buyPrice(gold: 75);
                     item.rare = ItemRarityID.LightRed;
 
                     return;

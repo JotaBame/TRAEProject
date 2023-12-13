@@ -165,7 +165,15 @@ namespace TRAEProject.Changes.NPCs
         //    }
         //    return default;
         //}
+        public override void EditSpawnPool(IDictionary<int, float> pool, NPCSpawnInfo spawnInfo)
+        {
 
+            if (spawnInfo.Player.ZoneJungle && spawnInfo.SpawnTileY <= Main.maxTilesY - 200 && spawnInfo.SpawnTileY > Main.rockLayer)
+                pool.Add(NPCID.JungleCreeper, 0.2f);
+
+
+
+        }
         public float braintimer = 0;
         public override void AI(NPC npc)
         {

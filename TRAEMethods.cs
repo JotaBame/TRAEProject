@@ -176,13 +176,14 @@ namespace TRAEProject
         public delegate bool SpecialCondition(NPC possibleTarget);
 
         //used for homing projectile
-        public static bool ClosestNPC(ref NPC target, float maxDistance, Vector2 position, bool ignoreTiles = false, int overrideTarget = -1, SpecialCondition specialCondition = null)
+        public static bool ClosestNPC(ref NPC target, float maxDistance, Vector2 position, bool ignoreTiles = false, int overrideTarget = -1, SpecialCondition specialCondition = null, int IgnoreThisOne = -1)
         {
             //very advance users can use a delegate to insert special condition into the function like only targetting enemies not currently having local iFrames, but if a special condition isn't added then just return it true
             if (specialCondition == null)
             {
                 specialCondition = delegate (NPC possibleTarget) { return true; };
             }
+
             bool foundTarget = false;
             //If you want to prioritse a certain target this is where it's processed, mostly used by minions that haave a target priority
             if (overrideTarget != -1)
@@ -198,7 +199,8 @@ namespace TRAEProject
             {
                 NPC possibleTarget = Main.npc[k];
                 float distance = (possibleTarget.Center - position).Length();
-                if (distance < maxDistance && possibleTarget.active && possibleTarget.chaseable && !possibleTarget.dontTakeDamage && !possibleTarget.friendly && possibleTarget.lifeMax > 5 && !possibleTarget.immortal && (Collision.CanHit(position, 0, 0, possibleTarget.Center, 0, 0) || ignoreTiles) && specialCondition(possibleTarget))
+
+                if (distance < maxDistance  && possibleTarget.whoAmI != IgnoreThisOne &&  possibleTarget.active && possibleTarget.chaseable && !possibleTarget.dontTakeDamage && !possibleTarget.friendly && possibleTarget.lifeMax > 5 && !possibleTarget.immortal && (Collision.CanHit(position, 0, 0, possibleTarget.Center, 0, 0) || ignoreTiles) && specialCondition(possibleTarget))
                 {
                     target = Main.npc[k];
                     foundTarget = true;

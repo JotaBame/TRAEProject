@@ -189,7 +189,8 @@ namespace TRAEProject.Changes.Recipes
                 recipe.RemoveIngredient(ingredientToRemove);
                 recipe.TryGetIngredient(ItemID.SniperScope, out ingredientToRemove);
                 recipe.RemoveIngredient(ingredientToRemove);
-                recipe.AddIngredient(ItemID.RifleScope, 1);
+                recipe.AddIngredient(ItemID.RifleScope, 1); recipe.AddIngredient(ItemID.SoulofSight, 10);
+
                 recipe.AddIngredient(ItemID.MagicQuiver, 1);
             }
             if (recipe.HasResult(ItemID.AnkhShield))

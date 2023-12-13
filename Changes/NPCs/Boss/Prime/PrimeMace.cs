@@ -27,7 +27,7 @@ namespace TRAEProject.Changes.NPCs.Boss.Prime
             NPC.width = 60;
             NPC.height = 60;
             NPC.damage = 60;
-            NPC.defense = 20;
+            NPC.defense = 30;
             NPC.lifeMax = PrimeStats.macHealth;
             NPC.HitSound = SoundID.NPCHit4;
             NPC.DeathSound = SoundID.NPCDeath14;

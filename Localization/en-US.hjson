@@ -269,6 +269,7 @@ Mods: {
 			FlashRayBeam.DisplayName: Flash Ray Beam
 			SpamatizmFire.DisplayName: Spamatizm Fire
 			RailShot.DisplayName: Rail Shot
+			PrimeMissile.DisplayName: Prime Missile
 		}
 
 		Prefixes: {
@@ -703,7 +704,7 @@ Mods: {
 				Tooltip:
 					'''
 					Increases armor penetration by 5
-					5% increased damage and critical strike chance
+					4% increased damage and critical strike chance
 					Enemies are less likely to target you
 					'''
 			}
@@ -1624,6 +1625,7 @@ Mods: {
 			GraniteOvergrowthNPC.DisplayName: Granite Overgrowth
 			PrimeRail.DisplayName: Prime Rail
 			PrimeMace.DisplayName: Prime Mace
+			PrimeLauncher.DisplayName: Prime Launcher
 		}
 
 		Tiles: {

@@ -24,8 +24,8 @@ namespace TRAEProject.NewContent.Items.Accesories
         }
         public override void UpdateAccessory(Player player, bool hideVisual)
         {
-            player.GetDamage(DamageClass.Generic) += 0.05f;
-            player.GetCritChance(DamageClass.Generic) += 5;
+            player.GetDamage(DamageClass.Generic) += 0.04f;
+            player.GetCritChance(DamageClass.Generic) += 4;
             player.GetArmorPenetration(DamageClass.Generic) += 5;
             player.aggro -= 500;
         }

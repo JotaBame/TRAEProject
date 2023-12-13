@@ -68,7 +68,15 @@ namespace TRAEProject.Changes.NPCs
                     });
                     npcLoot.Remove(ItemDropRule.Common(ItemID.FireFeather));
                     break;
-          
+                case NPCID.SkeletonSniper:
+                     npcLoot.RemoveWhere(rule =>
+                    {
+                        if (rule is not CommonDrop drop) // Type of drop you expect here
+                            return false;
+                        return drop.itemId == ItemID.RifleScope; // compare more fields if needed
+                    });
+                    npcLoot.Remove(ItemDropRule.Common(ItemID.RifleScope));
+                    break;
                 case NPCID.DesertDjinn:
                     npcLoot.RemoveWhere(rule =>
                     {

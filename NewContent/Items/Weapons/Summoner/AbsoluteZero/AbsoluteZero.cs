@@ -30,8 +30,8 @@ namespace TRAEProject.NewContent.Items.Weapons.Summoner.AbsoluteZero
             Item.UseSound = SoundID.Item152;
             Item.noMelee = true;
             Item.noUseGraphic = true;
-            Item.damage = 180;
-            Item.useTime = Item.useAnimation = 35;
+            Item.damage = 175;
+            Item.useTime = Item.useAnimation = 36;
             Item.knockBack = 2f;
             Item.shootSpeed = 7.35f;
             Item.rare = ItemRarityID.Yellow;

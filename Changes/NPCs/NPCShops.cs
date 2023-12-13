@@ -80,6 +80,8 @@ namespace TRAEProject.Changes.NPCs
 
                 shop.Add(ItemID.QuadBarrelShotgun, Condition.Hardmode, Condition.InGraveyard);
                 shop.Add(ItemID.Uzi, Condition.Hardmode);
+                shop.InsertAfter(ItemID.AmmoBox, ItemID.RifleScope, Condition.Hardmode);
+
             }
             if (shop.NpcType == NPCID.SkeletonMerchant)
             {

@@ -49,10 +49,10 @@ namespace TRAEProject.Changes.NPCs.Boss.Prime
                 npc.ai[2] = 0f;
             }
 
-            if (!Main.npc[(int)npc.ai[1]].active || Main.npc[(int)npc.ai[1]].aiStyle != 32 || (npc.ai[0] == -1 && !SkeletronPrime.KeepPhase1Arms(Main.npc[(int)npc.ai[1]])) || (npc.ai[0] == 1 && !SkeletronPrime.KeepPhase2Arms(Main.npc[(int)npc.ai[1]]))) 
+            if (!Main.npc[(int)npc.ai[1]].active || Main.npc[(int)npc.ai[1]].aiStyle != 32 /*|| (npc.ai[0] == -1 && !SkeletronPrime.KeepPhase1Arms(Main.npc[(int)npc.ai[1]])) || (npc.ai[0] == 1 && !SkeletronPrime.KeepPhase2Arms(Main.npc[(int)npc.ai[1]]))*/)
             {
                 npc.ai[2] += 10f;
-                if (npc.ai[2] > 50f || Main.netMode != NetmodeID.Server) 
+                if (npc.ai[2] > 50f || Main.netMode != NetmodeID.Server)
                 {
                     npc.life = -1;
                     npc.HitEffect();
@@ -60,7 +60,7 @@ namespace TRAEProject.Changes.NPCs.Boss.Prime
                 }
             }
 
-            if(npc.ai[2] == 99f) 
+            if (npc.ai[2] == 99f) 
             {
                 //return mode
                 if (npc.position.Y > Main.npc[(int)npc.ai[1]].position.Y) 

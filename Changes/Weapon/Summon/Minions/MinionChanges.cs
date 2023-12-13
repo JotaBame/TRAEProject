@@ -68,6 +68,15 @@ namespace TRAEProject.Changes.Weapon.Summon.Minions
         {
             switch (item.type)
             {
+                case ItemID.FlinxStaff:
+                    foreach (TooltipLine line in tooltips)
+                    {
+                        if (line.Mod == "Terraria" && line.Name == "Tooltip0")
+                        {
+                            line.Text += "\nIgnores 2 defense";
+                        }
+                    }
+                    break;
                 case ItemID.StardustDragonStaff:
                     foreach (TooltipLine line in tooltips)
                     {
@@ -87,12 +96,21 @@ namespace TRAEProject.Changes.Weapon.Summon.Minions
         {
             switch (projectile.type)
             {
+                case ProjectileID.BabyBird:
+                    projectile.usesIDStaticNPCImmunity = false;
+                    projectile.usesLocalNPCImmunity = true;
+                    projectile.localNPCHitCooldown = 30;
+                     break;
                 case ProjectileID.FlinxMinion:
-                    break;
+                    projectile.usesIDStaticNPCImmunity = false;
+                    projectile.usesLocalNPCImmunity = true;
+                    projectile.localNPCHitCooldown = 30;
+                    projectile.ArmorPenetration = 2;
+                     break;
                 case ProjectileID.BabySlime:
                     projectile.usesIDStaticNPCImmunity = false;
                     projectile.usesLocalNPCImmunity = true;
-                    projectile.localNPCHitCooldown = 20;
+                    projectile.localNPCHitCooldown = 30;
                     break;
                 case ProjectileID.Tempest:
                     projectile.usesLocalNPCImmunity = true;
@@ -150,15 +168,11 @@ namespace TRAEProject.Changes.Weapon.Summon.Minions
             switch (projectile.type)
             {
                 case ProjectileID.JumperSpider:
-                case ProjectileID.VenomSpider:
+                 case ProjectileID.VenomSpider:
                 case ProjectileID.DangerousSpider:
                     {
                         projectile.localAI[1] = 45f; // up from 20
-                        int findbuffIndex = target.FindBuffIndex(BuffID.Venom);
-                        if (findbuffIndex != -1)
-                        {
-                            target.DelBuff(findbuffIndex);
-                        };
+ 
                         break;
                     }
                 case ProjectileID.Tempest:
@@ -242,6 +256,13 @@ namespace TRAEProject.Changes.Weapon.Summon.Minions
         }
         public override void PostAI(Projectile projectile)
         {
+            if (projectile.type == ProjectileID.FlinxMinion)
+            {
+                 if (projectile.velocity.Y < 0 && projectile.velocity.Y > -3f)
+                {
+                    projectile.velocity.Y -= 0.2f;
+                }    
+            }
             base.PostAI(projectile);
         }
         //public override bool? CanHitNPC(Projectile projectile, NPC target)

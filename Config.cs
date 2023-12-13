@@ -23,7 +23,7 @@ namespace TRAEProject
         [DefaultValue(true)]
         public bool SkeletronChanges { get; set; }
         
-        [DefaultValue(false)]
+        [DefaultValue(true)]
         public bool DeerclopsChanges { get; set; }
         //[ReloadRequired] //None required     
         [DefaultValue(true)] 

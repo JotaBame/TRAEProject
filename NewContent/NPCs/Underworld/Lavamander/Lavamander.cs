@@ -34,7 +34,7 @@ namespace TRAEProject.NewContent.NPCs.Underworld.Lavamander
             NPC.aiStyle = 3;
             AIType = NPCID.WalkingAntlion;
 			//AnimationType = NPCID.WalkingAntlion;
-			NPC.value = 5000;
+			NPC.value = 2000;
 			NPC.damage = 35;
 			NPC.defense = 12;
 			NPC.lifeMax = 180;
