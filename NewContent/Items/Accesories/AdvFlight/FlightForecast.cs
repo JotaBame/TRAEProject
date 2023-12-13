@@ -16,7 +16,7 @@ namespace TRAEProject.NewContent.Items.Accesories.AdvFlight
         {
             Item.width = 38;
             Item.height = 38;
-            Item.value = Item.sellPrice(gold: 6);
+            Item.value = Item.sellPrice(gold: 4);
             Item.rare = ItemRarityID.Orange;
             Item.accessory = true;
         }
@@ -24,9 +24,8 @@ namespace TRAEProject.NewContent.Items.Accesories.AdvFlight
         {
             player.GetModPlayer<TRAEJumps>().advFlight = true;
             player.GetJumpState(ExtraJump.CloudInABottle).Enable();
-            player.GetModPlayer<Mobility>().flightTimeBonus += 0.2f;
+            player.GetModPlayer<Mobility>().flightTimeBonus += 0.4f;
 
-            player.jumpSpeedBoost += Mobility.JSV(0.2f);
 
         }
         public override void AddRecipes()

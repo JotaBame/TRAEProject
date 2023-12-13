@@ -103,7 +103,7 @@ namespace TRAEProject.Changes.Items
 					return false;
 				});
 				itemLoot.Add(ItemDropRule.Common(ModContent.ItemType<FaeInABottle>(), 5));
-				itemLoot.Add(ItemDropRule.OneFromOptionsNotScalingWithLuck(1, ItemID.RainbowCrystalStaff, ItemID.PiercingStarlight, ItemID.FairyQueenMagicItem, ItemID.FairyQueenRangedItem));
+				itemLoot.Add(ItemDropRule.OneFromOptionsNotScalingWithLuck(1, ItemID.RainbowCrystalStaff, ItemID.PiercingStarlight, ItemID.FairyQueenMagicItem, ItemID.FairyQueenRangedItem, ItemID.RainbowWhip));
 				break;
 				case ItemID.MoonLordBossBag:
 					itemLoot.RemoveWhere(rule =>
@@ -140,7 +140,7 @@ namespace TRAEProject.Changes.Items
 
                         return false;
                     }); 
-                    itemLoot.Add(ItemDropRule.FewFromOptionsNotScalingWithLuck(2, 1, ItemID.Meowmere, ItemID.Terrarian, ItemID.SDMG, ItemID.Celeb2, ItemID.LunarFlareBook, ItemID.LastPrism, ItemID.RainbowWhip, ItemID.StardustDragonStaff));
+                    itemLoot.Add(ItemDropRule.FewFromOptionsNotScalingWithLuck(2, 1, ItemID.Meowmere, ItemID.Terrarian, ItemID.SDMG, ItemID.Celeb2, ItemID.LunarFlareBook, ItemID.LastPrism, /*ItemID.RainbowWhip,*/ ItemID.StardustDragonStaff));
                         break;
 				case ItemID.ObsidianLockbox:
 				itemLoot.RemoveWhere(rule =>

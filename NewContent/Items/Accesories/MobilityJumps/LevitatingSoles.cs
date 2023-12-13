@@ -3,9 +3,10 @@ using Terraria.ID;
 using Terraria.ModLoader;
 
 namespace TRAEProject.NewContent.Items.Accesories.MobilityJumps
-{
+{ [AutoloadEquip(EquipType.Shoes)]
     public class LevitatingSoles : ModItem
-    {
+    {   
+
         public override void SetStaticDefaults()
         {
             Terraria.GameContent.Creative.CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;

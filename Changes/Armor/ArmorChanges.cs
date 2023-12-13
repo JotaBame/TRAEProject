@@ -165,10 +165,8 @@ namespace ChangesArmor
                     break;
                 case ItemID.SpectreHood:
                     player.statManaMax2 += 100;
-                    player.manaCost -= 0.20f;
-                    player.GetDamage<MagicDamageClass>() += 0.05f;
-                    player.GetCritChance<MagicDamageClass>() += 5;
-                    break;
+                    player.manaCost -= 0.13f;
+                     break;
                 case ItemID.Goggles:
                     player.GetCritChance<GenericDamageClass>() += 8;
                     break;
@@ -360,7 +358,8 @@ namespace ChangesArmor
             }
             if (armorSet == "SpectreHoodSet")
             {
-                
+ 
+
                 player.setBonus = "Magic attacks heal the player and allies";
                 player.GetDamage<MagicDamageClass>() += 0.4f; // +0.4 to negate the reduction
             }
@@ -455,7 +454,7 @@ namespace ChangesArmor
                     {
                         if (line.Mod == "Terraria" && line.Name == "Defense")
                         {
-                            line.Text += "Increases maximum mana by 100 and 20% reduced mana cost\n5% increased magic damage and critical strike chance";
+                            line.Text += "\nIncreases maximum mana by 100 and 13% reduced mana cost";
                         }
                     }
                     return;

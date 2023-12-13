@@ -86,18 +86,5 @@ namespace TRAEProject.Changes.NPCs
         }
 
     }
-    public class NPCBuffChangesG : GlobalBuff
-    {
-        public override void Update(int type, NPC npc, ref int buffIndex)
-        {
-            switch (type)
-            {
-                case BuffID.RainbowWhipNPCDebuff:
-                    npc.GetGlobalNPC<Tag>().Damage += 30;
-                    npc.GetGlobalNPC<Tag>().Crit += 20; // this isn't exactly 30% crit but whatevs
-                    return;
-
-            }
-        }
-    }
+ 
 }

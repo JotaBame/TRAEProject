@@ -26,6 +26,8 @@ namespace TRAEProject.Changes.Accesory
             if (item.type == ItemID.StalkersQuiver)
             {
                 player.magicQuiver = false;
+                player.GetModPlayer<RangedStats>().Magicquiver += 1;
+
                 if (player.HeldItem.useAmmo == AmmoID.Arrow || player.HeldItem.useAmmo == AmmoID.Stake)
                     player.GetDamage<RangedDamageClass>() -= 0.1f; // 1.4.4 magic quiver uses a new bool and guess what it is not supported by tmod (at least at the time i'm writing this note)                player.GetModPlayer<RangedStats>().Magicquiver += 1;
                 player.GetDamage<RangedDamageClass>() += 0.05f;
@@ -211,88 +213,33 @@ namespace TRAEProject.Changes.Accesory
         {
             Player player = Main.player[projectile.owner];
             if (smartbounces > 0)
-            {                
-                int[] array = new int[10];
-                int num6 = 0;
-                int maxRange = 600;
-                int minimumRange = 32;
-                for (int j = 0; j < 200; j++)
-                {
-                    if (Main.npc[j].CanBeChasedBy(this, false) && projectile.localNPCImmunity[j] != -1)
-                    {
-                        float DistanceBetweenProjectileAndEnemy = (projectile.Center - Main.npc[j].Center).Length();
-                        if (DistanceBetweenProjectileAndEnemy > minimumRange && DistanceBetweenProjectileAndEnemy < maxRange && Collision.CanHitLine(projectile.Center, 1, 1, Main.npc[j].Center, 1, 1))
-                        {
-                            array[num6] = j;
-                            num6++;
-                            if (num6 >= 9)
-                            {
-                                break;
-                            }
-                        }
-                    }
-                }
-                if (num6 > 0)
-                {
-                    num6 = Main.rand.Next(num6);
-                    Vector2 value2 = Main.npc[array[num6]].Center - projectile.Center;
-                    float scaleFactor2 = projectile.velocity.Length();
-                    value2.Normalize();
-                    projectile.velocity = value2 * scaleFactor2;
-                    projectile.netUpdate = true;
-                    projectile.damage = (int)(projectile.damage * 0.6);
-                    --smartbounces;
-                    hasBounced = true;
-                    for (int i = 0; i < 15; ++i)
-                    {
-                        Dust dust = Dust.NewDustDirect(projectile.position, projectile.width, projectile.height, DustID.UndergroundHallowedEnemies, projectile.velocity.X * 0.5f, projectile.velocity.Y * 0.5f, 150, default, 1.5f);
-                        dust.noGravity = true;
-                    }                
-					return false;
+            {
+                QuiverBounce(projectile);
 
-                }
             }
 			return true;
         }
         void QuiverBounce(Projectile projectile)
         {
-            Player player = Main.player[projectile.owner];
-            int[] array = new int[10];
-            int num6 = 0;
-            int maxRange = 600;
-            int minimumRAnge = 32;
-            for (int j = 0; j < 200; j++)
+             int maxRange = 600;
+            int minimumRange = 32;
+            NPC closest = null;
+
+            TRAEMethods.ClosestNPC(ref closest, maxRange, projectile.Center, specialCondition: delegate (NPC possibleTarget) { return projectile.Center.Distance(projectile.Center) > minimumRange; });
+
+
+            Vector2 value2 = closest.Center - projectile.Center;
+            float scaleFactor2 = projectile.velocity.Length();
+            value2.Normalize();
+            projectile.velocity = value2 * scaleFactor2;
+            projectile.netUpdate = true;
+            projectile.damage = (int)(projectile.damage * 0.67);
+            --smartbounces;
+            hasBounced = true;
+            for (int i = 0; i < 10; ++i)
             {
-                if (Main.npc[j].CanBeChasedBy(this, false) && projectile.localNPCImmunity[j] != -1)
-                {
-                    float DistanceBetweenProjectileAndEnemy = (projectile.Center - Main.npc[j].Center).Length();
-                    if (DistanceBetweenProjectileAndEnemy > minimumRAnge && DistanceBetweenProjectileAndEnemy < maxRange && Collision.CanHitLine(projectile.Center, 1, 1, Main.npc[j].Center, 1, 1))
-                    {
-                        array[num6] = j;
-                        num6++;
-                        if (num6 >= 9)
-                        {
-                            break;
-                        }
-                    }
-                }
-            }
-            if (num6 > 0)
-            {
-                num6 = Main.rand.Next(num6);
-                Vector2 value2 = Main.npc[array[num6]].Center - projectile.Center;
-                float scaleFactor2 = projectile.velocity.Length();
-                value2.Normalize();
-                projectile.velocity = value2 * scaleFactor2;
-                projectile.netUpdate = true;
-                projectile.damage = (int)(projectile.damage * 0.6);
-                --smartbounces;
-                hasBounced = true;
-                for (int i = 0; i < 15; ++i)
-                {
-                    Dust dust = Dust.NewDustDirect(projectile.position, projectile.width, projectile.height, DustID.UndergroundHallowedEnemies, projectile.velocity.X * 0.5f, projectile.velocity.Y * 0.5f, 150, default, 1.5f);
-                    dust.noGravity = true;
-                }
+                Dust dust = Dust.NewDustDirect(projectile.position, projectile.width, projectile.height, DustID.UndergroundHallowedEnemies, projectile.velocity.X * 0.5f, projectile.velocity.Y * 0.5f, 150, default, 1.5f);
+                dust.noGravity = true;
             }
         }
     }

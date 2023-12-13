@@ -127,9 +127,7 @@ namespace TRAEProject.Changes.Projectiles
                 case ProjectileID.MechanicalPiranha:
                     projectile.ContinuouslyUpdateDamageStats = true;
                     break;
-                case ProjectileID.VenomBullet:
-                    projectile.ArmorPenetration = 10;
-                    break;
+      
             }
         }
         public override bool TileCollideStyle(Projectile projectile, ref int width, ref int height, ref bool fallThrough, ref Vector2 hitboxCenterFrac)

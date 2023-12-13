@@ -358,11 +358,12 @@ namespace ChangesWeapons.Changes
                 case ItemID.ApprenticeAltHead:
                 case ItemID.ApprenticeAltPants:
                 case ItemID.ApprenticeAltShirt:
-                case ItemID.ReindeerBells:  
-				   case ItemID.RainbowCrystalStaff:
+                case ItemID.ReindeerBells:
+                case ItemID.RainbowWhip:
+
+                case ItemID.RainbowCrystalStaff:
 				item.rare = ItemRarityID.Cyan;
                     break;
-				case ItemID.RainbowWhip:
                 case ItemID.PortalGun:
                 case ItemID.MoonlordArrow:
                 case ItemID.MoonlordBullet:

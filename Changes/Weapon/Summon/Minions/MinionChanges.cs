@@ -28,7 +28,7 @@ namespace TRAEProject.Changes.Weapon.Summon.Minions
             {
              
                 case ItemID.FlinxStaff:
-                    item.damage = 5; // down from 8
+                    item.damage = 6; // down from 8
                     break;
                 case ItemID.VampireFrogStaff:
                     item.damage = 11; // UP FROM 11
@@ -43,7 +43,8 @@ namespace TRAEProject.Changes.Weapon.Summon.Minions
                     item.damage = 45; // up from 34
                     break;
                 case ItemID.StormTigerStaff:
-                    item.damage = 34; // down from 41
+				                    item.damage = 34; // down from 41
+
                     item.useTime = 20;
                     item.useAnimation = 20;
                     break;

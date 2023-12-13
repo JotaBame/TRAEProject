@@ -391,7 +391,7 @@ namespace TRAEProject
             //}
             if(ankletAcc)
             {
-                Player.runAcceleration *= 3f;
+                Player.runAcceleration *= 1.5f;
             }
 
             if (Player.wingsLogic == 30 && Player.TryingToHoverDown) // vortex booster

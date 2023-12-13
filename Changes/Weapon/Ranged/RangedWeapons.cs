@@ -61,10 +61,10 @@ namespace TRAEProject.Changes.Weapons
                     item.useAnimation = 17;
                     break;
                 case ItemID.Minishark:
-                    item.value = Item.buyPrice(gold: 40);
+                    item.value = Item.buyPrice(gold: 35);
                     return;
                 case ItemID.Shotgun:
-                    item.value = Item.buyPrice(gold: 45);
+                    item.value = Item.buyPrice(gold: 40);
                     item.damage = 13; //down from 24
                     item.useAnimation = 45; // up from 45
                     item.useTime = 45; // up from 45
@@ -77,7 +77,7 @@ namespace TRAEProject.Changes.Weapons
                     item.useTime = 25; // up from 23
                     return;
                 case ItemID.QuadBarrelShotgun:
-                    item.damage = 22; // down from 21
+                    item.damage = 19; // down from 21
                     item.value = Item.buyPrice(gold: 90);
 
  
@@ -94,7 +94,7 @@ namespace TRAEProject.Changes.Weapons
                     return;
                 case ItemID.Uzi:
                     item.damage = 22; // down from 30
-                    item.value = Item.buyPrice(gold: 75);
+                    item.value = Item.buyPrice(gold: 65);
                     item.rare = ItemRarityID.LightRed;
 
                     return;
@@ -163,7 +163,10 @@ namespace TRAEProject.Changes.Weapons
                     return;
 
                 // AMMO
-
+                case ItemID.VenomBullet:
+					item.damage = 19; // up from 15
+                    item.knockBack = 7f;
+                    return;
                 case ItemID.NanoBullet:
                     item.damage = 10; // unchanged
                     item.knockBack = 7f;
@@ -284,15 +287,7 @@ namespace TRAEProject.Changes.Weapons
                         }
                     }
                     return;
-                case ItemID.VenomBullet:
-                    foreach (TooltipLine line in tooltips)
-                    {
-                        if (line.Mod == "Terraria" && line.Name == "Tooltip0")
-                        {
-                            line.Text += "\nIgnores 10 defense";
-                        }
-                    }
-                    return;
+  
             }
         }
     }

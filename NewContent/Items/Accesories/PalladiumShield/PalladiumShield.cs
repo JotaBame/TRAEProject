@@ -26,7 +26,7 @@ namespace TRAEProject.NewContent.Items.Accesories.PalladiumShield
         }
         public override void UpdateAccessory(Player player, bool hideVisual)
         {
-            player.statLifeMax2 += 40;
+            player.statLifeMax2 += 50;
         }
 
     }

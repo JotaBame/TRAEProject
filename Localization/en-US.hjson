@@ -268,6 +268,7 @@ Mods: {
 			MagicGrenadeP.DisplayName: Magic Grenade P
 			FlashRayBeam.DisplayName: Flash Ray Beam
 			SpamatizmFire.DisplayName: Spamatizm Fire
+			RailShot.DisplayName: Rail Shot
 		}
 
 		Prefixes: {
@@ -440,6 +441,11 @@ Mods: {
 				Description: Mods.TRAEProject.Buffs.Surge.Description
 				DisplayName: Surge
 			}
+
+			AZSecondTag: {
+				DisplayName: A Z Second Tag
+				Description: Mods.TRAEProject.Buffs.AZSecondTag.Description
+			}
 		}
 
 		Items: {
@@ -490,7 +496,7 @@ Mods: {
 					'''
 					Allows skating by double tapping on the ground
 					Grants a double jump
-					Allows for a powerful airborne dash that uses the double jump.
+					Allows for a powerful airborne dash that uses the double jump 
 					'''
 			}
 
@@ -498,7 +504,7 @@ Mods: {
 				DisplayName: Chain Shield
 				Tooltip:
 					'''
-					Increases max life by 40
+					Increases max life by 50
 					Temporarily increases defense when damaged
 					'''
 			}
@@ -584,13 +590,13 @@ Mods: {
 				Tooltip:
 					'''
 					Rocket boots and wings are activated by pressing UP instead of jump
-					20% increased flight time and jump speed
+					40% increased flight time 
 					Provides a double jump
 					'''
 			}
 
 			JetBoots: {
-				DisplayName: Jet boots
+				DisplayName: Jet Boots
 				Tooltip:
 					'''
 					Rocket boots and wings are activated by pressing UP instead of jump
@@ -672,7 +678,7 @@ Mods: {
 				DisplayName: Mirror Shield
 				Tooltip:
 					'''
-					Increases max life by 40
+					Increases max life by 50
 					Reduces damage taken from projectiles by 12%
 					'''
 			}
@@ -689,7 +695,7 @@ Mods: {
 
 			PalladiumShield: {
 				DisplayName: Palladium Shield
-				Tooltip: Increases max life by 40
+				Tooltip: Increases max life by 50
 			}
 
 			PutridToothNecklace: {
@@ -859,17 +865,17 @@ Mods: {
 
 			LeatherHat: {
 				DisplayName: Leather Hood
-				Tooltip: 4% increased summon damage
+				Tooltip: 3% increased summon damage
 			}
 
 			LeatherPants: {
 				DisplayName: Leather Pants
-				Tooltip: 4% increased summon damage
+				Tooltip: 3% increased summon damage
 			}
 
 			LeatherTunic: {
 				DisplayName: Leather Tunic
-				Tooltip: 8% increased whip speed
+				Tooltip: 10% increased whip speed
 			}
 
 			PhoenixHeadgear: {
@@ -1396,7 +1402,7 @@ Mods: {
 					'''
 					Your summons will focus struck enemies
 					12 summon tag damage
-					25% summon tag critical strike chance
+					Freezing energy bursts from enemies hit by summons, tripling damage
 					'''
 			}
 
@@ -1569,6 +1575,30 @@ Mods: {
 					'''
 				DisplayName: Heartcross Necklace
 			}
+
+			FroststrideBoots: {
+				Tooltip:
+					'''
+					20% increased movement speed
+					Allows skating by double tapping on the ground
+					Grants a double jump
+					Allows for a powerful airborne dash that uses the double jump 
+					'''
+				DisplayName: Froststride Boots
+			}
+
+			CloudChasers: {
+				DisplayName: Cloud Chasers
+				Tooltip:
+					'''
+					20% increased movement speed 
+					40% increased flight time
+					The wearer can triple jump
+					20% increased movement speed on sand
+					Rocket boots and wings are activated by pressing UP instead of jump
+
+					'''
+			}
 		}
 
 		NPCs: {
@@ -1592,6 +1622,8 @@ Mods: {
 			SalalavaNPC.DisplayName: Salalava
 			BomberBonesNPC.DisplayName: Bomber Bones
 			GraniteOvergrowthNPC.DisplayName: Granite Overgrowth
+			PrimeRail.DisplayName: Prime Rail
+			PrimeMace.DisplayName: Prime Mace
 		}
 
 		Tiles: {

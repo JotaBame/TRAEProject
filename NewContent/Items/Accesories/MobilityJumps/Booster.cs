@@ -4,7 +4,8 @@ using Terraria.ID;
 using Terraria.ModLoader;
 
 namespace TRAEProject.NewContent.Items.Accesories.MobilityJumps
-{
+{    [AutoloadEquip(EquipType.Back)]
+
     public class Booster : ModItem
     {
         public override void SetStaticDefaults()

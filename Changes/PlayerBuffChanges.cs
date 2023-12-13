@@ -312,25 +312,7 @@ namespace TRAEProject
             return true;
         }
     }
-    public class PotionChanges : GlobalItem
-    {
-
-        public override void ModifyTooltips(Item item, List<TooltipLine> tooltips)
-        {
-            switch (item.type)
-            {
-                case ItemID.MiningPotion:
-                    foreach (TooltipLine line in tooltips)
-                    {
-                        if (line.Mod == "Terraria" && line.Name == "Tooltip0")
-                        {
-                            line.Text = "15% increased mining speed";
-                        }
-                    }
-                    break;
-            }
-        }
-    }
+ 
 }
 
         

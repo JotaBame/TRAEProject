@@ -30,7 +30,7 @@ namespace TRAEProject.NewContent.Items.Weapons.Ranged.Launchers.T3Launcher
             Item.useAmmo = AmmoID.Rocket;
             Item.shoot = ProjectileID.RocketI;
             Item.knockBack = 8f;
-            Item.shootSpeed = 7f;
+            Item.shootSpeed = 10f;
             Item.noMelee = true;
             Item.useStyle = ItemUseStyleID.Shoot;
             Item.UseSound = SoundID.Item11;

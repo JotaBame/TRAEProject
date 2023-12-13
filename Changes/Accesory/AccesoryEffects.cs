@@ -43,13 +43,16 @@ namespace TRAEProject
         }
         public override void PostUpdate()
         {
-            Player.lifeSteal -= (float)(26/30); // this stat increases by 0.5f every frame, or by 30 per second. with this change it goes down to 5 per second.
+
+            Player.lifeSteal -= 13f / 30f; // this stat increases by 0.5f every frame, or by 30 per second. with this change it goes down to 4 per second.
 
             if (Player.lifeSteal > 4)
             {
+
                 Player.lifeSteal = 4;
+
             }
-            if (Player.wingsLogic > 0 && Player.rocketBoots != 0 && Player.velocity.Y != 0f && Player.rocketTime != 0)
+             if (Player.wingsLogic > 0 && Player.rocketBoots != 0 && Player.velocity.Y != 0f && Player.rocketTime != 0)
             {
                 int num45 = 6;
                 int num46 = Player.rocketTime * num45;
@@ -218,8 +221,7 @@ namespace TRAEProject
         {
             Player.immune = true;
             Player.immuneTime = 80;
-            if (Player.longInvince)
-                Player.immuneTime = Player.immuneTime + 40;
+ 
             for (int index = 0; index < Player.hurtCooldowns.Length; ++index)
                 Player.hurtCooldowns[index] = Player.immuneTime;
             Player.AddBuff(BuffID.ParryDamageBuff, 600, false);

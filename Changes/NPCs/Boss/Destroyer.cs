@@ -21,7 +21,7 @@ namespace TRAEProject.Changes.NPCs.Boss
         //movement
         const float DestroyerGravity = 0.15f; //When not burrowing the Destroyer's head acts like a gravity obeying projectile, this determines the gravity, Vanilla value: 0.15f
         const int PlayerDetectionRegionSize = 800; //if the Destroyer's head is not close enough to the player it will burrow regardless of blocks, this is how close it has to be to not set burrow, vanilla value: 1000
-        const float BaseTerminalVelocity = 16f; //Determines various max speed values, vanilla value: 16f
+        const float BaseTerminalVelocity = 12f; //Determines various max speed values, vanilla value: 16f
         const float BaseAccelration = 0.1f * 2f; //the acceration destroyer uses for moving, gets a 20% more on some seeds, vanilla value: 0.1f
         const float BaseBurrowAccelration = 0.15f * 2f; //extra acceration destroyer uses for moving when burrowing, gets a 20% more on some seeds, vanilla value: 0.15f
         const float OverPlayerBurrowTarget = 160f; //In vanilla destroyer attempts to burrow directly at the player, however when close enough gravity will take over causing it to miss, with the the destoryer will target above the player making it more of a threat
@@ -57,11 +57,7 @@ namespace TRAEProject.Changes.NPCs.Boss
                 npc.lifeMax = (int)(npc.lifeMax * ((float)50000 / 80000));
 
             }
-            if (npc.type == NPCID.TheDestroyerBody)
-            {
-                npc.defDefense = 20;
-
-            }
+ 
         }
         public override bool PreAI(NPC npc)
         {
@@ -69,15 +65,14 @@ namespace TRAEProject.Changes.NPCs.Boss
             {
                 //recreated modified vanilla movement
                 //Main.NewText("AI0: " + npc.ai[0] + " AI1: " + npc.ai[1] + " AI2: " + npc.ai[2] + " AI3: " + npc.ai[2] + " LAI0: " + npc.localAI[0] + " LAI1: " + npc.localAI[1] + " LAI2: " + npc.localAI[2] + " LAI3: " + npc.localAI[2] );
-                float hpRatio = (1f - ((float)npc.life / npc.lifeMax)) * 0.5f + 0.5f;
+                float hpRatio = Main.expertMode ? (1f - ((float)npc.life / npc.lifeMax)) * 0.5f + 0.5f : 1f;
                 npc.ai[2] += MathF.PI * 2f / MoodPeriod;
                 float currentMood = MathF.Sin(npc.ai[2]) * hpRatio;
                 //Main.NewText("Mood: " + MathF.Round(currentMood, 2) + "/" + MathF.Round(hpRatio, 2));
                 float currentSpeedMultiplier = 1f;
                 float laserCooldownModifer = 1f;
                 float moodModifer = currentMood * hpRatio;
-                if (Main.expertMode)
-                {
+              
                     if (moodModifer > 0)
                     {
                         currentSpeedMultiplier = 1 + moodModifer * (SpeedMoodSpeedBonus - 1);
@@ -88,7 +83,7 @@ namespace TRAEProject.Changes.NPCs.Boss
                         currentSpeedMultiplier = 1f / (1 + Math.Abs(moodModifer) * (SpeedMoodSpeedBonus - 1));
                         laserCooldownModifer = 1 + Math.Abs(moodModifer) * (LaserMoodCooldownBonus - 1);
                     }
-                }
+               
                 npc.localAI[3]++;
                 if(npc.localAI[3] > Math.Max(0, (BaseLaserCooldown / laserCooldownModifer) - AimedLaserWarnTime))
                 {
