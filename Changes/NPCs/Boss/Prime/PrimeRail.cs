@@ -10,10 +10,13 @@ namespace TRAEProject.Changes.NPCs.Boss.Prime
 {
     public class PrimeRail : ModNPC
     {
-        const float shootVel = 8f;
-        public const int railExtraUpdates = 4;
-        const int chargeTime = 600;
-        const int warnTime = 180;
+        public override void HitEffect(NPC.HitInfo hit)
+        {
+            if(NPC.life <= 0)
+            {
+                PrimeStats.ArmGore(NPC);
+            }
+        }
         int timer = 0;
         public override void SetStaticDefaults()
         {
@@ -26,7 +29,7 @@ namespace TRAEProject.Changes.NPCs.Boss.Prime
             NPC.height = 52;
             NPC.damage = 29;
             NPC.defense = 20;
-            NPC.lifeMax = 8000;
+            NPC.lifeMax = PrimeStats.railHealth;
             NPC.HitSound = SoundID.NPCHit4;
             NPC.DeathSound = SoundID.NPCDeath14;
             NPC.noGravity = true;
@@ -41,48 +44,7 @@ namespace TRAEProject.Changes.NPCs.Boss.Prime
 			if (NPC.spriteDirection == 1)
 				spriteEffects = SpriteEffects.FlipHorizontally;
 
-            float side = 1;
-            Vector2 vector7 = new Vector2(NPC.position.X + (float)NPC.width * 0.5f - 5f * side, NPC.position.Y + 20f);
-            for (int k = 0; k < 2; k++) 
-            {
-                float num22 = Main.npc[(int)NPC.ai[1]].position.X + (float)(Main.npc[(int)NPC.ai[1]].width / 2) - vector7.X;
-                float num23 = Main.npc[(int)NPC.ai[1]].position.Y + (float)(Main.npc[(int)NPC.ai[1]].height / 2) - vector7.Y;
-                float num24 = 0f;
-                if (k == 0) 
-                {
-                    num22 -= 200f * side;
-                    num23 += 130f;
-                    num24 = (float)Math.Sqrt(num22 * num22 + num23 * num23);
-                    num24 = 92f / num24;
-                    vector7.X += num22 * num24;
-                    vector7.Y += num23 * num24;
-                }
-                else 
-                {
-                    num22 -= 50f * side;
-                    num23 += 80f;
-                    num24 = (float)Math.Sqrt(num22 * num22 + num23 * num23);
-                    num24 = 60f / num24;
-                    vector7.X += num22 * num24;
-                    vector7.Y += num23 * num24;
-                }
-
-                float rotation7 = (float)Math.Atan2(num23, num22) - 1.57f;
-                Color color7 = Lighting.GetColor((int)vector7.X / 16, (int)(vector7.Y / 16f));
-                spriteBatch.Draw(TextureAssets.BoneArm2.Value, new Vector2(vector7.X - screenPos.X, vector7.Y - screenPos.Y), new Rectangle(0, 0, TextureAssets.BoneArm.Width(), TextureAssets.BoneArm.Height()), color7, rotation7, new Vector2((float)TextureAssets.BoneArm.Width() * 0.5f, (float)TextureAssets.BoneArm.Height() * 0.5f), 1f, SpriteEffects.None, 0f);
-                if (k == 0) 
-                {
-                    vector7.X += num22 * num24 / 2f;
-                    vector7.Y += num23 * num24 / 2f;
-                }
-                else if (!Main.gamePaused) 
-                {
-                    vector7.X += num22 * num24 - 16f;
-                    vector7.Y += num23 * num24 - 6f;
-                    int num25 = Dust.NewDust(new Vector2(vector7.X, vector7.Y), 30, 10, DustID.Torch, num22 * 0.02f, num23 * 0.02f, 0, default(Microsoft.Xna.Framework.Color), 2.5f);
-                    Main.dust[num25].noGravity = true;
-                }
-            }
+            PrimeStats.RenderBones(NPC, spriteBatch, screenPos, 1);
 
             drawColor = NPC.GetNPCColorTintedByBuffs(drawColor);
             for (int num93 = 9; num93 >= 0; num93 -= 2) 
@@ -102,9 +64,9 @@ namespace TRAEProject.Changes.NPCs.Boss.Prime
             spriteBatch.Draw(ModContent.Request<Texture2D>("TRAEProject/Changes/NPCs/Boss/Prime/PrimeRail_Glow").Value, NPC.Center - screenPos,
                         NPC.frame, Color.White, NPC.rotation,
                         new Vector2(20f, 20f), 1f, spriteEffects, 0f);
-            if(timer > chargeTime - warnTime)
+            if(timer > PrimeStats.railChargeTime - PrimeStats.railWarnTime)
             {
-                DrawLaser(spriteBatch, NPC.Center + TRAEMethods.PolarVector(30, NPC.rotation), NPC.rotation, MathF.Max(0.1f, 1f - (float)(chargeTime - timer) / warnTime), 3000);
+                DrawLaser(spriteBatch, NPC.Center + TRAEMethods.PolarVector(30, NPC.rotation), NPC.rotation, MathF.Max(0.1f, 1f - (float)(PrimeStats.railChargeTime - timer) / PrimeStats.railWarnTime), 3000);
             }
             
             return false;
@@ -172,20 +134,20 @@ namespace TRAEProject.Changes.NPCs.Boss.Prime
             }
 
             NPC.TargetClosest(false);
-            float aimToward = TRAEMethods.PredictiveAimWithOffset(NPC.Center, shootVel * (1 + railExtraUpdates), Main.player[NPC.target].Center, Main.player[NPC.target].velocity, 30);
+            float aimToward = TRAEMethods.PredictiveAimWithOffset(NPC.Center, PrimeStats.railVel * (1 + PrimeStats.railExtraUpdates), Main.player[NPC.target].Center, Main.player[NPC.target].velocity, 30);
             if(float.IsNaN(aimToward))
             {
                 aimToward = (Main.player[NPC.target].Center - NPC.Center).ToRotation();
             }
             NPC.rotation.SlowRotation(aimToward, MathF.PI / 120f);
             timer++;
-            if(timer >= chargeTime)
+            if(timer >= PrimeStats.railChargeTime)
             {
                 timer = 0;
                 if(Main.netMode != NetmodeID.MultiplayerClient)
                 {
-                    Projectile.NewProjectile(NPC.GetSource_FromAI(), NPC.Center + TRAEMethods.PolarVector(30, NPC.rotation), TRAEMethods.PolarVector(shootVel, NPC.rotation), ModContent.ProjectileType<RailShot>(), 80, 0, Main.myPlayer);
-                    DeathRailShootDust(TRAEMethods.PolarVector(shootVel * 1.4f, NPC.rotation), NPC.Center + TRAEMethods.PolarVector(30, NPC.rotation));
+                    Projectile.NewProjectile(NPC.GetSource_FromAI(), NPC.Center + TRAEMethods.PolarVector(30, NPC.rotation), TRAEMethods.PolarVector(PrimeStats.railVel, NPC.rotation), ModContent.ProjectileType<RailShot>(), PrimeStats.railDamage, 0, Main.myPlayer);
+                    DeathRailShootDust(TRAEMethods.PolarVector(PrimeStats.railVel * 1.4f, NPC.rotation), NPC.Center + TRAEMethods.PolarVector(30, NPC.rotation));
                 }
             }
         }
@@ -239,7 +201,7 @@ namespace TRAEProject.Changes.NPCs.Boss.Prime
             Projectile.penetrate = 3;
             Projectile.light = 0.75f;
             Projectile.alpha = 255;
-            Projectile.extraUpdates = PrimeRail.railExtraUpdates;
+            Projectile.extraUpdates = PrimeStats.railExtraUpdates;
             Projectile.scale = 1.8f;
             Projectile.timeLeft = 2700;
         }

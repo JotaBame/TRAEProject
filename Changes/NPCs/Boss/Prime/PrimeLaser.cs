@@ -8,6 +8,13 @@ namespace TRAEProject.Changes.NPCs.Boss.Prime
 {
     public class PrimeLaser : GlobalNPC
     {
+        public override void SetDefaults(NPC npc)
+        {
+            if(npc.type == NPCID.PrimeLaser)
+            {
+                npc.lifeMax = (int)(npc.lifeMax * ((float)PrimeStats.laserHealth / 6000));
+            }
+        }
         public override bool PreAI(NPC npc)
         {
             if(npc.type == NPCID.PrimeLaser)

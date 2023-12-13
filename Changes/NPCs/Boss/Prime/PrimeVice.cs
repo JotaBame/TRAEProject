@@ -9,6 +9,13 @@ namespace TRAEProject.Changes.NPCs.Boss.Prime
 {
     public class PrimeVice : GlobalNPC
     {
+        public override void SetDefaults(NPC npc)
+        {
+            if(npc.type == NPCID.PrimeVice)
+            {
+                npc.lifeMax = (int)(npc.lifeMax * ((float)PrimeStats.viceHealth / 9000));
+            }
+        }
         public override bool PreAI(NPC npc)
         {
             if(npc.type == NPCID.PrimeVice)

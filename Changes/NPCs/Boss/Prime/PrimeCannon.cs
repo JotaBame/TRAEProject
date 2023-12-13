@@ -8,13 +8,19 @@ namespace TRAEProject.Changes.NPCs.Boss.Prime
 {
     public class PrimeCannon : GlobalNPC
     {
-
+        public override void SetDefaults(NPC npc)
+        {
+            if(npc.type == NPCID.PrimeCannon)
+            {
+                npc.lifeMax = (int)(npc.lifeMax * ((float)PrimeStats.cannonHealth / 7000));
+            }
+        }
         public override void AI(NPC npc)
         {
             if(npc.type == NPCID.PrimeCannon && npc.ai[2] == 0)
             {
                 npc.localAI[0] += 3f;
-                if (Main.npc[(int)npc.ai[1]].ai[1] != 0f)
+                if (Main.npc[(int)npc.ai[1]].ai[1] != 0f) 
                 {
                     npc.localAI[0] += 3f;
                 }

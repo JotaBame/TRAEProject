@@ -33,7 +33,7 @@ namespace TRAEProject.Changes.NPCs.Boss.Prime
     }
     public class SkeletronPrime : GlobalNPC
     {
-        const int armSpawnTime = 60;
+        const int armSpawnTime = 60; 
         public static bool Phase0(NPC npc)
         {
             return npc.ai[0] == 0;
@@ -97,12 +97,12 @@ namespace TRAEProject.Changes.NPCs.Boss.Prime
             }
             return base.PreAI(npc);
         }
-        void Prime_AI(NPC npc)
+        static void Prime_AI(NPC npc)
         {
             npc.damage = npc.defDamage;
             npc.defense = npc.defDefense;
             float lifeRatio = (float)npc.life / npc.lifeMax;
-            if(Phase0(npc) && lifeRatio < 0.9f)
+            if(Phase0(npc) && lifeRatio < 1f)
             {
                 npc.ai[0]++;
                 SoundEngine.PlaySound(SoundID.Roar, npc.Center);
@@ -133,7 +133,7 @@ namespace TRAEProject.Changes.NPCs.Boss.Prime
                     Main.npc[npcIndex].ai[3] = 150f;
                 }
             }
-            if(Phase1(npc) && lifeRatio < 0.6f)
+            if(Phase1(npc) && ((lifeRatio < 0.67f && (Main.expertMode || !PrimeStats.lockPhase3ToExpert)) || lifeRatio < 0.5f))
             {
                 npc.ai[0]++;
                 SoundEngine.PlaySound(SoundID.Roar, npc.Center);
@@ -154,9 +154,14 @@ namespace TRAEProject.Changes.NPCs.Boss.Prime
                     Main.npc[npcIndex].ai[1] = npc.whoAmI;
                     Main.npc[npcIndex].target = npc.target;
                     Main.npc[npcIndex].netUpdate = true;
+                    npcIndex = NPC.NewNPC(npc.GetSource_FromAI(), (int)npc.Center.X, (int)npc.Center.Y, ModContent.NPCType<PrimeLauncher>(), npc.whoAmI);
+                    Main.npc[npcIndex].ai[0] = 0;
+                    Main.npc[npcIndex].ai[1] = npc.whoAmI;
+                    Main.npc[npcIndex].target = npc.target;
+                    Main.npc[npcIndex].netUpdate = true;
                 }
             }
-            if(Phase2(npc) && lifeRatio < 0.3f)
+            if(Phase2(npc) && lifeRatio < 0.33f && (Main.expertMode || !PrimeStats.lockPhase3ToExpert))
             {
                 npc.ai[0]++;
                 SoundEngine.PlaySound(SoundID.Roar, npc.Center);
@@ -189,6 +194,11 @@ namespace TRAEProject.Changes.NPCs.Boss.Prime
                     Main.npc[npcIndex].ai[1] = npc.whoAmI * -1f;
                     Main.npc[npcIndex].target = npc.target;
                     Main.npc[npcIndex].netUpdate = true;
+                    npcIndex = NPC.NewNPC(npc.GetSource_FromAI(), (int)npc.Center.X, (int)npc.Center.Y, ModContent.NPCType<PrimeLauncher>(), npc.whoAmI);
+                    Main.npc[npcIndex].ai[0] = 1;
+                    Main.npc[npcIndex].ai[1] = npc.whoAmI;
+                    Main.npc[npcIndex].target = npc.target;
+                    Main.npc[npcIndex].netUpdate = true;
                 }
             }
             if(SummoningPhase(npc))
@@ -197,6 +207,7 @@ namespace TRAEProject.Changes.NPCs.Boss.Prime
                 npc.velocity = Vector2.Zero;
                 npc.rotation = 0;
                 npc.ai[2] = 0;
+                npc.ai[1] = 0;
                 return;
             }
 
@@ -295,45 +306,40 @@ namespace TRAEProject.Changes.NPCs.Boss.Prime
                     npc.ai[2] = 0f;
                     npc.ai[1] = 0f;
                 }
-
                 npc.rotation += npc.direction * 0.3f;
                 float distX = Main.player[npc.target].Center.X - npc.Center.X;
                 float distY = Main.player[npc.target].Center.Y - npc.Center.Y;
                 float dist = (float)Math.Sqrt(distX * distX + distY * distY);
-                float speed = 2f;
-                if (Main.expertMode) 
-                {
-                    speed = 3.5f; // vanilla value 6f
-                    if (dist > 150f)
-                        speed *= 1.05f; //vanilla value 1.05
+                float speed = PrimeStats.primeSpinBaseSpeed;
+                if (dist > 150f)
+                    speed *= 1.05f; //vanilla value 1.05
 
-                    if (dist > 200f)
-                        speed *= 1.2f; //vanilla value 1.1
+                if (dist > 200f)
+                    speed *= PrimeStats.primeSpinBonusSpeedFromDist; //vanilla value 1.1
 
-                    if (dist > 250f)
-                        speed *= 1.2f; //vanilla value 1.1
+                if (dist > 250f)
+                    speed *= PrimeStats.primeSpinBonusSpeedFromDist; //vanilla value 1.1
 
-                    if (dist > 300f)
-                        speed *= 1.2f; //vanilla value 1.1
+                if (dist > 300f)
+                    speed *= PrimeStats.primeSpinBonusSpeedFromDist; //vanilla value 1.1
 
-                    if (dist > 350f)
-                        speed *= 1.2f; //vanilla value 1.1
+                if (dist > 350f)
+                    speed *= PrimeStats.primeSpinBonusSpeedFromDist; //vanilla value 1.1
 
-                    if (dist > 400f)
-                        speed *= 1.2f; //vanilla value 1.1
+                if (dist > 400f)
+                    speed *= PrimeStats.primeSpinBonusSpeedFromDist; //vanilla value 1.1
 
-                    if (dist > 450f)
-                        speed *= 1.2f; //vanilla value 1.1
+                if (dist > 450f)
+                    speed *= PrimeStats.primeSpinBonusSpeedFromDist; //vanilla value 1.1
 
-                    if (dist > 500f)
-                        speed *= 1.2f; //vanilla value 1.1
+                if (dist > 500f)
+                    speed *= PrimeStats.primeSpinBonusSpeedFromDist; //vanilla value 1.1
 
-                    if (dist > 550f)
-                        speed *= 1.2f; //vanilla value 1.1
+                if (dist > 550f)
+                    speed *= PrimeStats.primeSpinBonusSpeedFromDist; //vanilla value 1.1
 
-                    if (dist > 600f)
-                        speed *= 1.2f; //vanilla value 1.1
-                }
+                if (dist > 600f)
+                    speed *= PrimeStats.primeSpinBonusSpeedFromDist; //vanilla value 1.1
 
                 float speed2 = speed / dist;
                 npc.velocity.X = distX * speed2;

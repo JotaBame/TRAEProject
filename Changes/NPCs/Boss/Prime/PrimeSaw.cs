@@ -10,6 +10,13 @@ namespace TRAEProject.Changes.NPCs.Boss.Prime
 {
     public class PrimeSaw : GlobalNPC
     {
+        public override void SetDefaults(NPC npc)
+        {
+            if(npc.type == NPCID.PrimeSaw)
+            {
+                npc.lifeMax = (int)(npc.lifeMax * ((float)PrimeStats.sawHealth / 9000));
+            }
+        }
         public override bool PreAI(NPC npc)
         {
             if(npc.type == NPCID.PrimeSaw)
@@ -19,55 +26,6 @@ namespace TRAEProject.Changes.NPCs.Boss.Prime
             }
             return base.PreAI(npc);
         }
-        /*
-        public override bool PreDraw(NPC npc, SpriteBatch spriteBatch, Vector2 screenPos, Color drawColor)
-        {
-
-            Vector2 vector7 = new Vector2(npc.position.X + (float)npc.width * 0.5f - 5f * npc.ai[0], npc.position.Y + 20f);
-            for (int k = 0; k < 2; k++) 
-            {
-                float num22 = Main.npc[(int)npc.ai[1]].position.X + (float)(Main.npc[(int)npc.ai[1]].width / 2) - vector7.X;
-                float num23 = Main.npc[(int)npc.ai[1]].position.Y + (float)(Main.npc[(int)npc.ai[1]].height / 2) - vector7.Y;
-                float num24 = 0f;
-                if (k == 0) 
-                {
-                    num22 -= 200f * npc.ai[0];
-                    num23 += 130f;
-                    num24 = (float)Math.Sqrt(num22 * num22 + num23 * num23);
-                    num24 = 92f / num24;
-                    vector7.X += num22 * num24;
-                    vector7.Y += num23 * num24;
-                }
-                else 
-                {
-                    num22 -= 50f * npc.ai[0];
-                    num23 += 80f;
-                    num24 = (float)Math.Sqrt(num22 * num22 + num23 * num23);
-                    num24 = 60f / num24;
-                    vector7.X += num22 * num24;
-                    vector7.Y += num23 * num24;
-                }
-
-                float rotation7 = (float)Math.Atan2(num23, num22) - 1.57f;
-                Color color7 = Lighting.GetColor((int)vector7.X / 16, (int)(vector7.Y / 16f));
-                spriteBatch.Draw(TextureAssets.BoneArm2.Value, new Vector2(vector7.X - screenPos.X, vector7.Y - screenPos.Y), new Rectangle(0, 0, TextureAssets.BoneArm.Width(), TextureAssets.BoneArm.Height()), color7, rotation7, new Vector2((float)TextureAssets.BoneArm.Width() * 0.5f, (float)TextureAssets.BoneArm.Height() * 0.5f), 1f, SpriteEffects.None, 0f);
-                if (k == 0) 
-                {
-                    vector7.X += num22 * num24 / 2f;
-                    vector7.Y += num23 * num24 / 2f;
-                }
-                else if (!Main.gamePaused) 
-                {
-                    vector7.X += num22 * num24 - 16f;
-                    vector7.Y += num23 * num24 - 6f;
-                    int num25 = Dust.NewDust(new Vector2(vector7.X, vector7.Y), 30, 10, DustID.Torch, num22 * 0.02f, num23 * 0.02f, 0, default(Microsoft.Xna.Framework.Color), 2.5f);
-                    Main.dust[num25].noGravity = true;
-                }
-            }
-            
-            return true;
-        }
-        */
         static void Prime_Saw_AI(NPC npc)
         {
             float distX = Main.npc[(int)npc.ai[1]].Center.X - 200f * npc.ai[0] - npc.Center.X;
@@ -259,8 +217,8 @@ namespace TRAEProject.Changes.NPCs.Boss.Prime
         }
         static void AproachPlayer(NPC npc)
         {
-            float speed = 17f; //vanilla value 7f
-            float acc = speed / 120f; //vanilla value 0.05f
+            float speed = PrimeStats.sawApproachSpeed; //vanilla value 7f
+            float acc = PrimeStats.sawApproachAcc; //vanilla value 0.05f
             npc.TargetClosest();
             if (Main.player[npc.target].dead) 
             {
