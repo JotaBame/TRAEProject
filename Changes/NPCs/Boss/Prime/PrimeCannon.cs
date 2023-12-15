@@ -19,10 +19,10 @@ namespace TRAEProject.Changes.NPCs.Boss.Prime
         {
             if(npc.type == NPCID.PrimeCannon && npc.ai[2] == 0)
             {
-                npc.localAI[0] += 3f;
+                npc.localAI[0] += 2f;
                 if (Main.npc[(int)npc.ai[1]].ai[1] != 0f) 
                 {
-                    npc.localAI[0] += 3f;
+                    npc.localAI[0] += 2f;
                 }
                 if(!SkeletronPrime.KeepPhase1Arms(Main.npc[(int)npc.ai[1]]))
                 {

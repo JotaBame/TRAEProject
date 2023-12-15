@@ -16,6 +16,10 @@ namespace TRAEProject.Changes.NPCs.Boss.Prime
         {
             database.Entries.Remove(bestiaryEntry);
         }
+        public override void ApplyDifficultyAndPlayerScaling(int numPlayers, float balance, float bossAdjustment)
+        {
+            NPC.lifeMax = (int)(NPC.lifeMax * 0.75f * bossAdjustment);
+        }
         public override void HitEffect(NPC.HitInfo hit)
         {
             if(NPC.life <= 0)
@@ -149,7 +153,7 @@ namespace TRAEProject.Changes.NPCs.Boss.Prime
                 Main.dust[num].noGravity = true;
                 Main.dust[num].noLight = true;
             }
-            if (timer <= PrimeStats.railChargeTime - 10)
+            if (timer <= PrimeStats.railChargeTime)
             {
                 aimToward = TRAEMethods.PredictiveAimWithOffset(NPC.Center, PrimeStats.railVel * (1 + PrimeStats.railExtraUpdates), Main.player[NPC.target].Center, Main.player[NPC.target].velocity, 30);
                 if (float.IsNaN(aimToward))
@@ -161,7 +165,7 @@ namespace TRAEProject.Changes.NPCs.Boss.Prime
    
  
             timer++;
-            NPC.rotation.SlowRotation(aimToward, MathF.PI / 60f);
+            NPC.rotation.SlowRotation(aimToward, MathF.PI / 120f);
 
 
             if(timer >= PrimeStats.railChargeTime)

@@ -24,7 +24,10 @@ namespace TRAEProject.Changes.NPCs.Boss.Prime
                 PrimeStats.ArmGore(NPC);
             }
         }
-
+        public override void ApplyDifficultyAndPlayerScaling(int numPlayers, float balance, float bossAdjustment)
+        {
+            NPC.lifeMax = (int)(NPC.lifeMax * 0.75f * bossAdjustment);
+        }
         
         public override void SetStaticDefaults()
         {
