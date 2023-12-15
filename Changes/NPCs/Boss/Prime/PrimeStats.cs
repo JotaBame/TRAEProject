@@ -39,7 +39,7 @@ public static class PrimeStats
     public const int missileBurstDelay = 10; //time between missiles in burst
     public const int missileBurstCooldown = 360; //cooldown between bursts
     public const int ragedMissileCooldown = 30; //when raged instead of periodicly doing bursts the launch will continously launch missiles using this cooldown
-    public const int missileDamage = 35;
+    public const int missileDamage = 32;
 
 
     public static void ArmGore(NPC npc)
