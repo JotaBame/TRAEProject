@@ -98,19 +98,6 @@ namespace TRAEProject.Changes.NPCs.Boss.Prime
             }
             return base.PreAI(npc);
         }
-        public override void OnSpawn(NPC npc, IEntitySource source)
-        {
-            if (npc.type == NPCID.SkeletronPrime)
-            {
-                npc.TargetClosest();
-
-                int npcIndex = NPC.NewNPC(npc.GetSource_FromAI(), (int)npc.Center.X, (int)npc.Center.Y, NPCID.PrimeVice, npc.whoAmI);
-                Main.npc[npcIndex].ai[0] = -1f;
-                Main.npc[npcIndex].ai[1] = npc.whoAmI;
-                Main.npc[npcIndex].target = npc.target;
-                Main.npc[npcIndex].netUpdate = true;
-            }
-        }
         static void Prime_AI(NPC npc)
         {
             npc.damage = npc.defDamage;
@@ -123,8 +110,12 @@ namespace TRAEProject.Changes.NPCs.Boss.Prime
                 if(Main.netMode != NetmodeID.MultiplayerClient)
                 {
                     npc.TargetClosest();
-             
-                    int npcIndex = NPC.NewNPC(npc.GetSource_FromAI(), (int)npc.Center.X, (int)npc.Center.Y, NPCID.PrimeSaw, npc.whoAmI);
+                    int npcIndex = NPC.NewNPC(npc.GetSource_FromAI(), (int)npc.Center.X, (int)npc.Center.Y, NPCID.PrimeVice, npc.whoAmI);
+                    Main.npc[npcIndex].ai[0] = -1f;
+                    Main.npc[npcIndex].ai[1] = npc.whoAmI;
+                    Main.npc[npcIndex].target = npc.target;
+                    Main.npc[npcIndex].netUpdate = true;
+                    npcIndex = NPC.NewNPC(npc.GetSource_FromAI(), (int)npc.Center.X, (int)npc.Center.Y, NPCID.PrimeSaw, npc.whoAmI);
                     Main.npc[npcIndex].ai[0] = 1f;
                     Main.npc[npcIndex].ai[1] = npc.whoAmI;
                     Main.npc[npcIndex].target = npc.target;
@@ -143,7 +134,7 @@ namespace TRAEProject.Changes.NPCs.Boss.Prime
                     Main.npc[npcIndex].ai[3] = 150f;
                 }
             }
-            if(Phase1(npc) && ((lifeRatio < 0.67f && (Main.expertMode || !PrimeStats.lockPhase3ToExpert)) || lifeRatio < 0.5f))
+            if(Phase1(npc) && ((lifeRatio < 0.6f && (Main.expertMode || !PrimeStats.lockPhase3ToExpert)) || lifeRatio < 0.5f))
             {
                 npc.ai[0]++;
                 SoundEngine.PlaySound(SoundID.Roar, npc.Center);
@@ -159,11 +150,11 @@ namespace TRAEProject.Changes.NPCs.Boss.Prime
                     Main.npc[npcIndex].ai[1] = npc.whoAmI;
                     Main.npc[npcIndex].target = npc.target;
                     Main.npc[npcIndex].netUpdate = true;
-                    //npcIndex = NPC.NewNPC(npc.GetSource_FromAI(), (int)npc.Center.X, (int)npc.Center.Y, NPCID.PrimeVice, npc.whoAmI);
-                    //Main.npc[npcIndex].ai[0] = 1f;
-                    //Main.npc[npcIndex].ai[1] = npc.whoAmI;
-                    //Main.npc[npcIndex].target = npc.target;
-                    //Main.npc[npcIndex].netUpdate = true;
+                    npcIndex = NPC.NewNPC(npc.GetSource_FromAI(), (int)npc.Center.X, (int)npc.Center.Y, NPCID.PrimeVice, npc.whoAmI);
+                    Main.npc[npcIndex].ai[0] = 1f;
+                    Main.npc[npcIndex].ai[1] = npc.whoAmI;
+                    Main.npc[npcIndex].target = npc.target;
+                    Main.npc[npcIndex].netUpdate = true;
                     npcIndex = NPC.NewNPC(npc.GetSource_FromAI(), (int)npc.Center.X, (int)npc.Center.Y, ModContent.NPCType<PrimeLauncher>(), npc.whoAmI);
                     Main.npc[npcIndex].ai[0] = 0;
                     Main.npc[npcIndex].ai[1] = npc.whoAmI;
@@ -178,9 +169,8 @@ namespace TRAEProject.Changes.NPCs.Boss.Prime
                 if (Main.netMode != NetmodeID.MultiplayerClient)
                 {
                     npc.TargetClosest();
-                    int npcIndex = 0;
 
-                   NPC.NewNPC(npc.GetSource_FromAI(), (int)npc.Center.X, (int)npc.Center.Y, NPCID.PrimeSaw, npc.whoAmI);
+                    int npcIndex = NPC.NewNPC(npc.GetSource_FromAI(), (int)npc.Center.X, (int)npc.Center.Y, NPCID.PrimeSaw, npc.whoAmI);
                     Main.npc[npcIndex].ai[0] = 1f;
                     Main.npc[npcIndex].ai[1] = npc.whoAmI;
                     Main.npc[npcIndex].target = npc.target;

@@ -37,6 +37,35 @@ namespace TRAEProject.Changes.NPCs.Boss.Prime
             }
             return true;
         }
+        void Explode(Vector2 here)
+        {
+            if(Projectile.timeLeft > 2)
+            {
+                Projectile.timeLeft = 2;
+                Projectile.width = 200;
+                Projectile.height = 200;
+                Projectile.position = here - Projectile.Size * 0.5f;
+                Projectile.tileCollide = false;
+                Projectile.velocity = Vector2.Zero;
+                SoundEngine.PlaySound(SoundID.Item62, here);
+                for (int i = 0; i < 100; i++)
+                {
+                    float rot = MathF.PI * 2f * ((float)i / 100f);
+                    Dust d = Dust.NewDustPerfect(Projectile.Center, DustID.TheDestroyer, TRAEMethods.PolarVector(15f, rot));
+                    d.noGravity = true;
+                    d.scale = 1f;
+                }
+                for(int i = 0; i < 60; i++)
+                {
+                    Dust d = Dust.NewDustPerfect(Projectile.Center, DustID.TheDestroyer, TRAEMethods.PolarVector(Main.rand.NextFloat(1f, 15f), Main.rand.NextFloat(0f, MathF.PI * 2f)));
+                    d.noGravity = true;
+                }
+                for(int i = 0; i < 20; i++)
+                {
+                    int num914 = Gore.NewGore(Projectile.GetSource_FromThis(), Projectile.Center, TRAEMethods.PolarVector(Main.rand.NextFloat(1f, 6f), Main.rand.NextFloat(0f, MathF.PI * 2f)), Main.rand.Next(61, 64));
+                }
+            }
+        }
         Vector2? boomHere = null;
         bool triggeredSound = false;
         float rotSpeed = MathF.PI / 120f;
@@ -58,32 +87,8 @@ namespace TRAEProject.Changes.NPCs.Boss.Prime
                 rotSpeed += MathF.PI / 480f;
                 if((Projectile.Center - toBoom).Length() < 20f)
                 {
-                    if(Projectile.timeLeft > 2)
-                    {
-                        Projectile.timeLeft = 2;
-                        Projectile.width = 200;
-                        Projectile.height = 200;
-                        Projectile.position = toBoom - Projectile.Size * 0.5f;
-                        Projectile.tileCollide = false;
-                        Projectile.velocity = Vector2.Zero;
-                        SoundEngine.PlaySound(SoundID.Item62, toBoom);
-                        for (int i = 0; i < 100; i++)
-                        {
-                            float rot = MathF.PI * 2f * ((float)i / 100f);
-                            Dust d = Dust.NewDustPerfect(Projectile.Center, DustID.TheDestroyer, TRAEMethods.PolarVector(15f, rot));
-                            d.noGravity = true;
-                            d.scale = 1f;
-                        }
-                        for(int i = 0; i < 60; i++)
-                        {
-                            Dust d = Dust.NewDustPerfect(Projectile.Center, DustID.TheDestroyer, TRAEMethods.PolarVector(Main.rand.NextFloat(1f, 15f), Main.rand.NextFloat(0f, MathF.PI * 2f)));
-                            d.noGravity = true;
-                        }
-                        for(int i = 0; i < 20; i++)
-                        {
-                            int num914 = Gore.NewGore(Projectile.GetSource_FromThis(), Projectile.Center, TRAEMethods.PolarVector(Main.rand.NextFloat(1f, 6f), Main.rand.NextFloat(0f, MathF.PI * 2f)), Main.rand.Next(61, 64));
-                        }
-                    }
+                    Explode(toBoom);
+                    
                 }
                 else
                 {
@@ -109,6 +114,10 @@ namespace TRAEProject.Changes.NPCs.Boss.Prime
                                 boomHere = Main.player[i].Center + TRAEMethods.PolarVector(Main.rand.NextFloat(200f, 500f), Main.rand.NextFloat(0f, MathF.PI * 2f));
                             }
                         }
+                    }
+                    if(boomHere == null)
+                    {
+                        Explode(Projectile.Center);
                     }
                 }
             }

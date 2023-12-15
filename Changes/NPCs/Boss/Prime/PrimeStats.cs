@@ -13,11 +13,11 @@ public static class PrimeStats
     public const float primeSpinBonusSpeedFromDist = 1.2f; // vanilla value: 1.1f
 
     //Prime vice
-    public const int viceHealth = 9000; //value in classic mode x1.5 in expert, vanilla value: 9000
+    public const int viceHealth = 3200; //value in classic mode x1.5 in expert, vanilla value: 9000
     //Prime saw
     public const int sawHealth = 2300; //value in classic mode x1.5 in expert, vanilla value: 9000
     public const float sawApproachSpeed = 17f; //Max speed of prime saw when in 'pursuit mode' vanilla value: 7f
-    public const float sawApproachAcc = sawApproachSpeed / 120f; //the accekration on prime saw's pursuit mode
+    public const float sawApproachAcc = sawApproachSpeed / 120f; //the accekration on prime saw's pursuit mode, vanilla vaule 0.05f
     //Prime laser
     public const int laserHealth = 2250; //value in classic mode x1.5 in expert, vanilla value: 6000
     //Prime cannon
@@ -29,7 +29,7 @@ public static class PrimeStats
     //Prime rail
     public const int railHealth = 2250; //value in classic mode x1.5 in expert
     public const float railVel = 8f; //compined with railExtraUpdates, determines the velocity of the rail shot
-    public const int railExtraUpdates = 400;
+    public const int railExtraUpdates = 5;
     public const int railChargeTime = 600; //time between rail shots
     public const int railWarnTime = 180; //how long the rail's warning sight line lasts
     public const int railDamage = 60;

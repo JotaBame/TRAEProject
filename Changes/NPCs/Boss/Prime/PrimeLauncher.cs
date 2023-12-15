@@ -5,6 +5,7 @@ using Microsoft.Xna.Framework.Graphics;
 using Terraria;
 using Terraria.Audio;
 using Terraria.GameContent;
+using Terraria.GameContent.Bestiary;
 using Terraria.ID;
 using Terraria.ModLoader;
 
@@ -12,6 +13,10 @@ namespace TRAEProject.Changes.NPCs.Boss.Prime
 {
     public class PrimeLauncher : ModNPC
     {
+        public override void SetBestiary(BestiaryDatabase database, BestiaryEntry bestiaryEntry)
+        {
+            database.Entries.Remove(bestiaryEntry);
+        }
         public override void HitEffect(NPC.HitInfo hit)
         {
             if(NPC.life <= 0)
