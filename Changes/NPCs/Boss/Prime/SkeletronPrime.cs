@@ -159,11 +159,11 @@ namespace TRAEProject.Changes.NPCs.Boss.Prime
                     Main.npc[npcIndex].ai[1] = npc.whoAmI;
                     Main.npc[npcIndex].target = npc.target;
                     Main.npc[npcIndex].netUpdate = true;
-                    //npcIndex = NPC.NewNPC(npc.GetSource_FromAI(), (int)npc.Center.X, (int)npc.Center.Y, NPCID.PrimeVice, npc.whoAmI);
-                    //Main.npc[npcIndex].ai[0] = 1f;
-                    //Main.npc[npcIndex].ai[1] = npc.whoAmI;
-                    //Main.npc[npcIndex].target = npc.target;
-                    //Main.npc[npcIndex].netUpdate = true;
+                    npcIndex = NPC.NewNPC(npc.GetSource_FromAI(), (int)npc.Center.X, (int)npc.Center.Y, NPCID.PrimeVice, npc.whoAmI);
+                    Main.npc[npcIndex].ai[0] = 1f;
+                    Main.npc[npcIndex].ai[1] = npc.whoAmI;
+                    Main.npc[npcIndex].target = npc.target;
+                    Main.npc[npcIndex].netUpdate = true;
                     npcIndex = NPC.NewNPC(npc.GetSource_FromAI(), (int)npc.Center.X, (int)npc.Center.Y, ModContent.NPCType<PrimeLauncher>(), npc.whoAmI);
                     Main.npc[npcIndex].ai[0] = 0;
                     Main.npc[npcIndex].ai[1] = npc.whoAmI;
