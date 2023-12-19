@@ -9,6 +9,7 @@ using Terraria.ID;
 using Terraria.ModLoader;
 using TRAEProject.Changes.Weapon.Summon.Minions;
 using TRAEProject.NewContent.Items.Weapons.Summoner.TailWhip;
+using TRAEProject.NewContent.Buffs;
 
 namespace TRAEProject.Changes.NPCs
 {
@@ -39,6 +40,7 @@ namespace TRAEProject.Changes.NPCs
                 damage = npc.lifeRegen / -12;
                 npc.netUpdate = true;
             }
+
         }
         public override void DrawEffects(NPC npc, ref Color drawColor)
         {

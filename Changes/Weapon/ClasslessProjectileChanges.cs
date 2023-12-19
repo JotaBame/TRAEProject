@@ -89,6 +89,7 @@ namespace TRAEProject.Changes.Weapon
                 }
             }
         }
+
         public override bool CanHitPlayer(Projectile projectile, Player target)
         {
             if (projectile.type == ProjectileID.InsanityShadowHostile)

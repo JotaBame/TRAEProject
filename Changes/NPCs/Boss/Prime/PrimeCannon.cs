@@ -18,11 +18,12 @@ namespace TRAEProject.Changes.NPCs.Boss.Prime
         public override void AI(NPC npc)
         {
             if(npc.type == NPCID.PrimeCannon && npc.ai[2] == 0)
-            {
-                npc.localAI[0] += 2f;
+            {                npc.damage = 0;
+
+                npc.localAI[0] += 1f;
                 if (Main.npc[(int)npc.ai[1]].ai[1] != 0f) 
                 {
-                    npc.localAI[0] += 2f;
+                    npc.localAI[0] += 1f;
                 }
                 if(!SkeletronPrime.KeepPhase1Arms(Main.npc[(int)npc.ai[1]]))
                 {

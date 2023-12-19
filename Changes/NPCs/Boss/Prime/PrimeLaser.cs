@@ -12,13 +12,15 @@ namespace TRAEProject.Changes.NPCs.Boss.Prime
         {
             if(npc.type == NPCID.PrimeLaser)
             {
+
                 npc.lifeMax = (int)(npc.lifeMax * ((float)PrimeStats.laserHealth / 6000));
             }
         }
         public override bool PreAI(NPC npc)
         {
             if(npc.type == NPCID.PrimeLaser)
-            {
+            {                npc.damage = 0;
+
                 Prime_Laser_AI(npc);
                 return false;
             }

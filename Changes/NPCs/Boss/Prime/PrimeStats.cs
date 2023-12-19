@@ -24,18 +24,18 @@ public static class PrimeStats
     public const int cannonHealth = 2400; //value in classic mode x1.5 in expert, vanilla value: 7000
     //Prime mace
     public const int macHealth = 3300; //value in classic mode x1.5 in expert
-    public const int primeMaceSwingTime = 105; // how long it takes for mace to finish its elliptical swing
+    public const int primeMaceSwingTime = 120; // how long it takes for mace to finish its elliptical swing
     public const int primeMaceNonRageCooldown = 180; //time between mace swings when prime is not raged.
     //Prime rail
     public const int railHealth = 3000; //value in classic mode x1.5 in expert
-    public const float railVel = 8f; //compined with railExtraUpdates, determines the velocity of the rail shot
+    public const float railVel = 10f; //compined with railExtraUpdates, determines the velocity of the rail shot
     public const int railExtraUpdates = 5;
     public const int railChargeTime = 600; //time between rail shots
     public const int railWarnTime = 180; //how long the rail's warning sight line lasts
-    public const int railDamage = 60;
+    public const int railDamage = 50;
     //Prime launcher
     public const int launcherHealth = 2600; //value in classic mode x1.5 in expert
-    public const int missileBurstSize = 10; //size of missile burst when prime isn't raged
+    public const int missileBurstSize = 8; //size of missile burst when prime isn't raged
     public const int missileBurstDelay = 10; //time between missiles in burst
     public const int missileBurstCooldown = 360; //cooldown between bursts
     public const int ragedMissileCooldown = 30; //when raged instead of periodicly doing bursts the launch will continously launch missiles using this cooldown

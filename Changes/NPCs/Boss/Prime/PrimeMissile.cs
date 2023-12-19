@@ -42,8 +42,8 @@ namespace TRAEProject.Changes.NPCs.Boss.Prime
             if(Projectile.timeLeft > 2)
             {
                 Projectile.timeLeft = 2;
-                Projectile.width = 200;
-                Projectile.height = 200;
+                Projectile.width = 189;
+                Projectile.height = 180;
                 Projectile.position = here - Projectile.Size * 0.5f;
                 Projectile.tileCollide = false;
                 Projectile.velocity = Vector2.Zero;
@@ -111,7 +111,7 @@ namespace TRAEProject.Changes.NPCs.Boss.Prime
                             if (Main.player[i].active && !Main.player[i].dead && (Projectile.Center - Main.player[i].Center).Length() < closest)
                             {
                                 closest = (Projectile.Center - Main.player[i].Center).Length();
-                                boomHere = Main.player[i].Center + TRAEMethods.PolarVector(Main.rand.NextFloat(200f, 500f), Main.rand.NextFloat(0f, MathF.PI * 2f));
+                                boomHere = Main.player[i].Center + TRAEMethods.PolarVector(Main.rand.NextFloat(250f, 500f), Main.rand.NextFloat(0f, MathF.PI * 2f));
                             }
                         }
                     }

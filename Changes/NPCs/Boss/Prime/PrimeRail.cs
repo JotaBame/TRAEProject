@@ -38,7 +38,7 @@ namespace TRAEProject.Changes.NPCs.Boss.Prime
         {
             NPC.width = 52;
             NPC.height = 52;
-            NPC.damage = 29;
+            NPC.damage = 30;
             NPC.defense = 24;
             NPC.lifeMax = PrimeStats.railHealth;
             NPC.HitSound = SoundID.NPCHit4;
@@ -85,7 +85,7 @@ namespace TRAEProject.Changes.NPCs.Boss.Prime
         }
         float aimToward = 0;
         public override void AI()
-        {
+        { NPC.damage = 0;
             NPC.spriteDirection = -1;
             NPC prime = Main.npc[(int)NPC.ai[1]];
             if (!prime.active || prime.aiStyle != 32 || (NPC.ai[0] == 0 && !SkeletronPrime.KeepPhase2Arms(prime)))
@@ -154,7 +154,7 @@ namespace TRAEProject.Changes.NPCs.Boss.Prime
                 Main.dust[num].noGravity = true;
                 Main.dust[num].noLight = true;
             }
-            if (timer <= PrimeStats.railChargeTime)
+            if (timer <= PrimeStats.railChargeTime - 5)
             {
                 aimToward = TRAEMethods.PredictiveAimWithOffset(NPC.Center, PrimeStats.railVel * (1 + PrimeStats.railExtraUpdates), Main.player[NPC.target].Center, Main.player[NPC.target].velocity, 30);
                 if (float.IsNaN(aimToward))
@@ -251,11 +251,10 @@ namespace TRAEProject.Changes.NPCs.Boss.Prime
             if (Projectile.localAI[0] == 0)
             {
                 Projectile.localAI[0] += 1f;
-                PunchCameraModifier screenShake = new(Projectile.Center, Projectile.velocity.SafeNormalize(new Vector2(0, 1)), 10, 1, 30, 1000f);
-                Main.instance.CameraModifiers.Add(screenShake);
+ 
                 SoundEngine.PlaySound(SoundID.Item67 with { Pitch = -1f, Volume = 2 }, Projectile.Center);
-                SoundEngine.PlaySound(SoundID.Item158 with { Pitch = 1, Volume = 2 }, Projectile.Center);
-                SoundEngine.PlaySound(SoundID.Item158 with { Pitch = -1, Volume = 2 }, Projectile.Center);
+                //SoundEngine.PlaySound(SoundID.Item158 with { Pitch = 1, Volume = 2 }, Projectile.Center);
+                //SoundEngine.PlaySound(SoundID.Item158 with { Pitch = -1, Volume = 2 }, Projectile.Center);
 
                 return false;
             }

@@ -38,7 +38,7 @@ namespace TRAEProject.Changes.NPCs.Boss.Prime
         {
             NPC.width = 38;
             NPC.height = 38;
-            NPC.damage = 29;
+            NPC.damage = 30;
             NPC.defense = 28;
             NPC.lifeMax = PrimeStats.launcherHealth;
             NPC.HitSound = SoundID.NPCHit4;
@@ -80,7 +80,8 @@ namespace TRAEProject.Changes.NPCs.Boss.Prime
         }
         int timer = 0;
         public override void AI()
-        {
+        { 
+			NPC.damage = 0;
             NPC.spriteDirection = -1;
             if (!Main.npc[(int)NPC.ai[1]].active || Main.npc[(int)NPC.ai[1]].aiStyle != 32 || (NPC.ai[0] == 0 && !SkeletronPrime.KeepPhase2Arms(Main.npc[(int)NPC.ai[1]])))
             {

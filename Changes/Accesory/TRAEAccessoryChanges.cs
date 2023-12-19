@@ -274,7 +274,7 @@ namespace TRAEProject.Changes.Accesory
                     {
                         if (line.Mod == "Terraria" && line.Name == "Tooltip0")
                         {
-                            line.Text = "Significantly increases potency of friendly Poison";
+                            line.Text = "Significantly increases potency of friendly Poison and Venom";
                         }
                     }
                     break;
@@ -292,7 +292,7 @@ namespace TRAEProject.Changes.Accesory
                     {
                         if (line.Mod == "Terraria" && line.Name == "Tooltip0")
                         {
-                            line.Text = "Significantly increases potency of friendly Poison\nIncreases potency of friendly debuffs by 50%";
+                            line.Text = "Significantly increases potency of friendly Poison and Venom\nIncreases potency of friendly debuffs by 50%";
                         }
                     }
                     break;
