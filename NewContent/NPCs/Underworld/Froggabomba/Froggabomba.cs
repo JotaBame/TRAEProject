@@ -99,7 +99,7 @@ namespace TRAEProject.NewContent.NPCs.Underworld.Froggabomba
         }
         public override void ModifyNPCLoot(NPCLoot npcLoot)
         {
-            npcLoot.Add(ItemDropRule.Common(ItemID.ExplosivePowder, 4)); 
+            npcLoot.Add(ItemDropRule.Common(ItemID.ExplosivePowder, 2)); 
             npcLoot.Add(ItemDropRule.Common(ItemType<BoomfrogStaff>(), 20));
 
         }
