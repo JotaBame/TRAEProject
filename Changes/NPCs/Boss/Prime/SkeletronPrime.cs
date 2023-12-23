@@ -16,7 +16,7 @@ namespace TRAEProject.Changes.NPCs.Boss.Prime
         {
             if (projectile.type == ProjectileID.BombSkeletronPrime)
             {
-                modifiers.FinalDamage *= 0.8f;
+                modifiers.FinalDamage *= 0.75f;
             }
         }
         public override bool CanHitPlayer(Projectile projectile, Player target)
@@ -28,6 +28,7 @@ namespace TRAEProject.Changes.NPCs.Boss.Prime
         {
             if(projectile.type == ProjectileID.BombSkeletronPrime)
             {
+			
                 Rectangle rect = projectile.getRect();
                 for(int i = 0; i < Main.player.Length; i++)
                 {

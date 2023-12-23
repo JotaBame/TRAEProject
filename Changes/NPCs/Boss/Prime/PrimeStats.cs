@@ -28,7 +28,7 @@ public static class PrimeStats
     public const int primeMaceNonRageCooldown = 180; //time between mace swings when prime is not raged.
     //Prime rail
     public const int railHealth = 3000; //value in classic mode x1.5 in expert
-    public const float railVel = 10f; //compined with railExtraUpdates, determines the velocity of the rail shot
+    public const float railVel = 12.5f; //compined with railExtraUpdates, determines the velocity of the rail shot
     public const int railExtraUpdates = 5;
     public const int railChargeTime = 600; //time between rail shots
     public const int railWarnTime = 180; //how long the rail's warning sight line lasts

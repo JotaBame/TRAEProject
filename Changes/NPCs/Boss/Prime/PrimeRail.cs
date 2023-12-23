@@ -154,19 +154,17 @@ namespace TRAEProject.Changes.NPCs.Boss.Prime
                 Main.dust[num].noGravity = true;
                 Main.dust[num].noLight = true;
             }
-            if (timer <= PrimeStats.railChargeTime - 5)
+            if (timer <= PrimeStats.railChargeTime)
             {
-                aimToward = TRAEMethods.PredictiveAimWithOffset(NPC.Center, PrimeStats.railVel * (1 + PrimeStats.railExtraUpdates), Main.player[NPC.target].Center, Main.player[NPC.target].velocity, 30);
-                if (float.IsNaN(aimToward))
-                {
+ 
                     aimToward = (Main.player[NPC.target].Center - NPC.Center).ToRotation();
-                }
+              
             }
 
 
 
             timer++;
-            NPC.rotation.SlowRotation(aimToward, MathF.PI / 120f);
+            NPC.rotation.SlowRotation(aimToward, MathF.PI / 90f);
 
 
             if (timer >= PrimeStats.railChargeTime)
