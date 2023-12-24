@@ -43,20 +43,46 @@ namespace TRAEProject.Changes.NPCs
             {
                 case NPCID.DesertScorpionWall:
                 case NPCID.DesertScorpionWalk:
-                    npcLoot.Add(ItemDropRule.Common(ItemID.Gatligator, 50));
+                    npcLoot.Add(ItemDropRule.Common(ItemID.Gatligator, 33));
                     break;
                 case NPCID.DuneSplicerHead:
-                    npcLoot.Add(ItemDropRule.Common(ItemID.Gatligator, 50));
+                    npcLoot.Add(ItemDropRule.Common(ItemID.Gatligator, 33));
                     break;
                 case NPCID.DD2DarkMageT1:
                 case NPCID.DD2DarkMageT3:
-                    npcLoot.Add(ItemDropRule.OneFromOptions(6, ItemID.MonkBelt, ItemID.HuntressBuckler));
-
+                    npcLoot.Add(ItemDropRule.OneFromOptions(6, ItemID.MonkBelt, ItemID.HuntressBuckler, ItemID.SquireShield, ItemID.ApprenticeScarf));
+                    npcLoot.RemoveWhere(rule =>
+                    {
+                        if (rule is not CommonDrop drop) // Type of drop you expect here
+                            return false;
+                        return drop.itemId == ItemID.SquireShield; // compare more fields if needed
+                    });
+                    npcLoot.Remove(ItemDropRule.Common(ItemID.SquireShield)); 
+                    npcLoot.RemoveWhere(rule =>
+                    {
+                        if (rule is not CommonDrop drop) // Type of drop you expect here
+                            return false;
+                        return drop.itemId == ItemID.ApprenticeScarf; // compare more fields if needed
+                    });
+                    npcLoot.Remove(ItemDropRule.Common(ItemID.ApprenticeScarf));
                     break;
                 case NPCID.DD2OgreT2:
                 case NPCID.DD2OgreT3:
-                    npcLoot.Add(ItemDropRule.OneFromOptions(6, ItemID.SquireShield, ItemID.ApprenticeScarf));
-
+                    npcLoot.Add(ItemDropRule.OneFromOptions(6, ItemID.MonkBelt, ItemID.HuntressBuckler, ItemID.SquireShield, ItemID.ApprenticeScarf));
+                    npcLoot.RemoveWhere(rule =>
+                    {
+                        if (rule is not CommonDrop drop) // Type of drop you expect here
+                            return false;
+                        return drop.itemId == ItemID.MonkBelt; // compare more fields if needed
+                    });
+                    npcLoot.Remove(ItemDropRule.Common(ItemID.MonkBelt));
+                    npcLoot.RemoveWhere(rule =>
+                    {
+                        if (rule is not CommonDrop drop) // Type of drop you expect here
+                            return false;
+                        return drop.itemId == ItemID.HuntressBuckler; // compare more fields if needed
+                    });
+                    npcLoot.Remove(ItemDropRule.Common(ItemID.HuntressBuckler));
                     break;
                 case NPCID.RedDevil:
                     npcLoot.Add(ItemDropRule.Common(ItemID.GuideVoodooDoll, 80));

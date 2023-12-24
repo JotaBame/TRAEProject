@@ -43,8 +43,8 @@ namespace TRAEProject.Changes
                     item.useTime = 3; // down from 10
                     item.useAnimation = 3;
                     break;
-                case ItemID.AdamantitePickaxe:
-			       item.useTime = 7; // down from 8
+                case ItemID.TitaniumPickaxe:
+			       item.useTime = 8; // down from 8
 				   break;				
                 case ItemID.ObsidianHorseshoe:
                     item.SetNameOverride("Gravity Horseshoe");
