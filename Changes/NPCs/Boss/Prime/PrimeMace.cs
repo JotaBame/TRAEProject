@@ -159,7 +159,7 @@ namespace TRAEProject.Changes.NPCs.Boss.Prime
                 float theta =  MathF.PI * 2f * NPC.ai[2] / PrimeStats.primeMaceSwingTime;
                 Vector2 ellipseCenter = (restingPosition + swingAt) * 0.5f;
                 float ellipselength = (swingAt - restingPosition).Length();
-                float ellipseWidth = 600f;
+                float ellipseWidth = 750f;
                 goTo = ellipseCenter + new Vector2(ellipselength * -0.5f * MathF.Cos(theta), ellipseWidth * 0.5f * MathF.Sin(theta)).RotatedBy((swingAt - restingPosition).ToRotation());
 
                 if (NPC.ai[2] >= PrimeStats.primeMaceSwingTime)

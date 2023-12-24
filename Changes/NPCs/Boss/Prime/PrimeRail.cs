@@ -84,8 +84,10 @@ namespace TRAEProject.Changes.NPCs.Boss.Prime
             return false;
         }
         float aimToward = 0;
+        
         public override void AI()
-        { NPC.damage = 0;
+        { 
+            NPC.damage = 0;
             NPC.spriteDirection = -1;
             NPC prime = Main.npc[(int)NPC.ai[1]];
             if (!prime.active || prime.aiStyle != 32 || (NPC.ai[0] == 0 && !SkeletronPrime.KeepPhase2Arms(prime)))
@@ -154,18 +156,25 @@ namespace TRAEProject.Changes.NPCs.Boss.Prime
                 Main.dust[num].noGravity = true;
                 Main.dust[num].noLight = true;
             }
-            if (timer <= PrimeStats.railChargeTime - 5)
+            if (timer <= PrimeStats.railChargeTime  - PrimeStats.stopAimingTime)
             {
-                aimToward = TRAEMethods.PredictiveAimWithOffset(NPC.Center, PrimeStats.railVel * (1 + PrimeStats.railExtraUpdates), Main.player[NPC.target].Center, Main.player[NPC.target].velocity, 30);
-                if (float.IsNaN(aimToward))
+                aimToward = TRAEMethods.PredictiveAimWithOffset(NPC.Center, PrimeStats.railVel * (1 + PrimeStats.railExtraUpdates), Main.player[NPC.target].Center + Main.player[NPC.target].velocity * PrimeStats.stopAimingTime, Main.player[NPC.target].velocity, 30);
+                if (float.IsNaN(aimToward) || !PrimeStats.railUsesPredictiveAim)
                 {
-                    aimToward = (Main.player[NPC.target].Center - NPC.Center).ToRotation();
+                    aimToward = (Main.player[NPC.target].Center + Main.player[NPC.target].velocity * PrimeStats.stopAimingTime - NPC.Center).ToRotation();
                 }
+            }
+            else
+            {
+                NPC.velocity = Vector2.Zero;
             }
 
 
-
             timer++;
+            if(timer >= PrimeStats.railChargeTime - PrimeStats.railWarnTime && prime.ai[1] != 0f)
+            {
+                timer = PrimeStats.railChargeTime - PrimeStats.railWarnTime;
+            }
             NPC.rotation.SlowRotation(aimToward, MathF.PI / 120f);
 
 
