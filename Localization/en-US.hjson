@@ -1644,7 +1644,8 @@ Mods: {
 		Configs: {
 			TRAEConfig: {
 				DisplayName: T R A E Config
-				Headers.BossChanges: Boss Changes Header
+				Headers.BossChanges: Boss Changes
+				
 
 				PlanteraRework: {
 					Label: Plantera Rework
@@ -1685,6 +1686,50 @@ Mods: {
 					Tooltip: ""
 					Label: E O C Changes
 				}
+
+				Headers.PrimeRail: Prime Rail
+				Headers.BameRail: Bame's Rail Nerf (No Predictive Aim)
+				Headers.QwertyRail: Qwerty's Rail Nerf (Adjusted Predictive Aim)
+
+				railMode: {
+					Label: Railgun Mode
+				}
+
+				bRailVel: {
+					Label: Rail Shot Velocity
+					Tooltip: Total velocity of rail shot = Shot Velocity * (1 + extra updates)
+				}
+				bRailEUpdates: {
+					Label: Rail Shot Extra Updates
+					Tooltip: Total velocity of rail shot = Shot Velocity * (1 + extra updates)
+				}
+				bRailTurnSpeed: {
+					Label: Gun Turn Speed (degrees / s)
+					Tooltip: How quickly the railgun can turn
+				}
+
+				qRailVel: {
+					Label: Rail Shot Velocity
+					Tooltip: Total velocity of rail shot = Shot Velocity * (1 + extra updates)
+				}
+				qRailEUpdates: {
+					Label: Rail Shot Extra Updates
+					Tooltip: Total velocity of rail shot = Shot Velocity * (1 + extra updates)
+				}
+				qRailTurnSpeed: {
+					Label: Gun Turn Speed (degrees / s)
+					Tooltip: How quickly the railgun can turn
+				}
+				railStopAimTime: {
+					Label: Rail Stop Aim Time
+					Tooltip: How many frames the railgun stops aiming before it fires, the predictive aim will account for this
+				}
+				holdFireOnRage: {
+					Label: Hold Fire On Rage
+					Tooltip: When prime is spinning hold fire on the railgun, practically guarentees a shot right when prime's rage ends
+				}
+				
+				
 			}
 		}
 	}
