@@ -64,10 +64,12 @@ namespace TRAEProject.Changes.NPCs
                 entry.Disable();
                 shop.Add(ItemID.Grenade, Condition.DownedEyeOfCthulhu);
             }
+            /*
             if (shop.NpcType == NPCID.BestiaryGirl)
             {
                 shop.Add(ItemID.DiggingMoleMinecart, new Condition("noCart", () => Main.GetBestiaryProgressReport().CompletionPercent < 0.6f));
             }
+            */
             if (shop.NpcType == NPCID.Wizard)
                 shop.Add(ItemID.FastClock);
             if (shop.NpcType == NPCID.ArmsDealer)

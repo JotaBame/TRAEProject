@@ -79,7 +79,7 @@ namespace TRAEProject.Changes.NPCs.Boss.Prime
                     triggeredSound = true;
                     SoundEngine.PlaySound(SoundID.Coins  with { MaxInstances = 0, Volume = 1.5f, Pitch = 0.5f}, toBoom);
                 }
-                float speed = 8f;
+                float speed = 7f;
                 Projectile.velocity = TRAEMethods.PolarVector(speed, Projectile.rotation);
                 //Projectile.velocity += TRAEMethods.PolarVector(2f, (toBoom - Projectile.Center).ToRotation());
                 //Projectile.velocity *= 0.95f;

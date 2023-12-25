@@ -80,6 +80,10 @@ namespace TRAEProject
 		{
 			dir = 0;
 			dashing = false;
+            if(Player.mount.Active)
+            {
+                return;
+            }
 			if (Player.dashTime > 0)
 			{
 				Player.dashTime--;

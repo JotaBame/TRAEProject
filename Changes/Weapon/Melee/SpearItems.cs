@@ -13,6 +13,7 @@ using TRAEProject.NewContent.Items.Armor.Joter;
 using TRAEProject.Changes.Weapon.Melee.SpearProjectiles;
 using static Terraria.ModLoader.ModContent;
 using Terraria.GameContent.Prefixes;
+using Terraria.GameContent.Creative;
 
 namespace TRAEProject.Changes.Weapon
 {
@@ -30,12 +31,10 @@ namespace TRAEProject.Changes.Weapon
 		{
 			for (int i = 0; i < spears.Length; i++)
 			{
-       
-                    PrefixLegacy.ItemSets.SwordsHammersAxesPicks[spears[i]] = true;
-
-
-
+                PrefixLegacy.ItemSets.SwordsHammersAxesPicks[spears[i]] = true;
             }
+			CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[ItemID.Javelin] = 1;
+			CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[ItemID.BoneJavelin] = 1;
         }
 		public bool canGetMeleeModifiers = false;
 		public override void SetDefaults(Item item)

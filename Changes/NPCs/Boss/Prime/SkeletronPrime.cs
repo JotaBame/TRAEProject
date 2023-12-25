@@ -10,37 +10,7 @@ using static Terraria.ModLoader.ModContent;
 
 namespace TRAEProject.Changes.NPCs.Boss.Prime
 {
-    public class PrimeProjectiles : GlobalProjectile
-    {
-        public override void ModifyHitPlayer(Projectile projectile, Player target, ref Player.HurtModifiers modifiers)
-        {
-            if (projectile.type == ProjectileID.BombSkeletronPrime)
-            {
-                modifiers.FinalDamage *= 0.75f;
-            }
-        }
-        public override bool CanHitPlayer(Projectile projectile, Player target)
-        {
-            
-            return base.CanHitPlayer(projectile, target);
-        }
-        public override void AI(Projectile projectile)
-        {
-            if(projectile.type == ProjectileID.BombSkeletronPrime)
-            {
-			
-                Rectangle rect = projectile.getRect();
-                for(int i = 0; i < Main.player.Length; i++)
-                {
-                    if(Main.player[i].getRect().Intersects(rect))
-                    {
-                        projectile.Kill();
-                        break;
-                    }
-                }
-            }
-        }
-    }
+    
     public class SkeletronPrime : GlobalNPC
     {
         const int armSpawnTime = 60;
@@ -72,6 +42,10 @@ namespace TRAEProject.Changes.NPCs.Boss.Prime
         public static bool KeepPhase2Arms(NPC npc)
         {
             return Phase2(npc) || npc.ai[0] < armSpawnTime * 2;
+        }
+        public static bool NoArms()
+        {
+            return !(NPC.AnyNPCs(NPCID.PrimeCannon) || NPC.AnyNPCs(NPCID.PrimeLaser) || NPC.AnyNPCs(NPCID.PrimeSaw) || NPC.AnyNPCs(NPCID.PrimeVice) || NPC.AnyNPCs(ModContent.NPCType<PrimeRail>()) || NPC.AnyNPCs(ModContent.NPCType<PrimeLauncher>()) || NPC.AnyNPCs(ModContent.NPCType<PrimeMace>()));
         }
         public override void FindFrame(NPC npc, int frameHeight)
         {
@@ -115,6 +89,14 @@ namespace TRAEProject.Changes.NPCs.Boss.Prime
             npc.damage = npc.defDamage;
             npc.defense = npc.defDefense;
             float lifeRatio = (float)npc.life / npc.lifeMax;
+            if(NoArms())
+            {
+                npc.localAI[0]++;
+            }
+            else
+            {
+                npc.localAI[0] = 0;
+            }
         
             if(Phase0(npc) && lifeRatio < 0.95f)
             {
@@ -147,7 +129,7 @@ namespace TRAEProject.Changes.NPCs.Boss.Prime
                     Main.npc[npcIndex].ai[3] = 150f;
                 }
             }
-            if(Phase1(npc) && ((lifeRatio < 0.6f && (Main.expertMode || !PrimeStats.lockPhase3ToExpert)) || lifeRatio < 0.5f))
+            if(Phase1(npc) && ((lifeRatio < 0.6f && (Main.expertMode || !PrimeStats.lockPhase3ToExpert)) || lifeRatio < 0.5f || npc.localAI[0] > 60 * 30))
             {
                 npc.ai[0]++;
                 SoundEngine.PlaySound(SoundID.Roar, npc.Center);
@@ -175,7 +157,7 @@ namespace TRAEProject.Changes.NPCs.Boss.Prime
                     Main.npc[npcIndex].netUpdate = true;
                 }
             }
-             if (Phase2(npc) && lifeRatio < 0.2f && (Main.expertMode || !PrimeStats.lockPhase3ToExpert))
+             if (Phase2(npc) && (lifeRatio < 0.2f || npc.localAI[0] > 60 * 30) && (Main.expertMode || !PrimeStats.lockPhase3ToExpert))
             {
                 npc.ai[0]++;
                 SoundEngine.PlaySound(SoundID.ForceRoarPitched, npc.Center);

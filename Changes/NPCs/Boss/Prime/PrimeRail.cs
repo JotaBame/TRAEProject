@@ -84,8 +84,10 @@ namespace TRAEProject.Changes.NPCs.Boss.Prime
             return false;
         }
         float aimToward = 0;
+        
         public override void AI()
-        { NPC.damage = 0;
+        { 
+            NPC.damage = 0;
             NPC.spriteDirection = -1;
             NPC prime = Main.npc[(int)NPC.ai[1]];
             if (!prime.active || prime.aiStyle != 32 || (NPC.ai[0] == 0 && !SkeletronPrime.KeepPhase2Arms(prime)))
@@ -146,7 +148,36 @@ namespace TRAEProject.Changes.NPCs.Boss.Prime
                 if (NPC.velocity.X < -8f)
                     NPC.velocity.X = -8f;
             }
-
+            float railVel = PrimeStats.railVel;
+            bool predictiveAim = PrimeStats.railUsesPredictiveAim;
+            float stopAimingTime = PrimeStats.stopAimingTime;
+            int railExtraUpdates = PrimeStats.railExtraUpdates;
+            bool holdFireWhenRaged = false;
+            float rotSpeed = MathF.PI / 120f;
+            switch(ModContent.GetInstance<TRAEConfig>().railMode)
+            {
+                case RailMode.Classic:
+                stopAimingTime = 0;
+                predictiveAim = true;
+                railVel = 10f;
+                railExtraUpdates = 5;
+                break;
+                case RailMode.BameNerf:
+                stopAimingTime = 0;
+                predictiveAim = false;
+                railVel = ModContent.GetInstance<TRAEConfig>().bRailVel;
+                railExtraUpdates = ModContent.GetInstance<TRAEConfig>().bRailEUpdates;
+                rotSpeed = (ModContent.GetInstance<TRAEConfig>().bRailTurnSpeed / 60f) * (180f / MathF.PI);
+                break;
+                case RailMode.QwertyNerf:
+                stopAimingTime = ModContent.GetInstance<TRAEConfig>().railStopAimTime;
+                predictiveAim = true;
+                railVel = ModContent.GetInstance<TRAEConfig>().qRailVel;
+                railExtraUpdates = ModContent.GetInstance<TRAEConfig>().qRailEUpdates;
+                holdFireWhenRaged = ModContent.GetInstance<TRAEConfig>().holdFireOnRage;
+                rotSpeed = (ModContent.GetInstance<TRAEConfig>().qRailTurnSpeed / 60f) * (180f / MathF.PI);
+                break;
+            }
             NPC.TargetClosest(false);
             if (timer > PrimeStats.railChargeTime - PrimeStats.railWarnTime)
             {
@@ -154,17 +185,26 @@ namespace TRAEProject.Changes.NPCs.Boss.Prime
                 Main.dust[num].noGravity = true;
                 Main.dust[num].noLight = true;
             }
-            if (timer <= PrimeStats.railChargeTime)
+            if (timer <= PrimeStats.railChargeTime  - stopAimingTime)
             {
- 
-                    aimToward = (Main.player[NPC.target].Center - NPC.Center).ToRotation();
-              
+                aimToward = TRAEMethods.PredictiveAimWithOffset(NPC.Center, railVel * (1 + railExtraUpdates), Main.player[NPC.target].Center + Main.player[NPC.target].velocity * stopAimingTime, Main.player[NPC.target].velocity, 30);
+                if (float.IsNaN(aimToward) || !predictiveAim)
+                {
+                    aimToward = (Main.player[NPC.target].Center + Main.player[NPC.target].velocity * stopAimingTime - NPC.Center).ToRotation();
+                }
+            }
+            else if(holdFireWhenRaged)
+            {
+                NPC.velocity = Vector2.Zero;
             }
 
 
-
             timer++;
-            NPC.rotation.SlowRotation(aimToward, MathF.PI / 90f);
+            if(holdFireWhenRaged && timer >= PrimeStats.railChargeTime - PrimeStats.railWarnTime && prime.ai[1] != 0f)
+            {
+                timer = PrimeStats.railChargeTime - PrimeStats.railWarnTime;
+            }
+            NPC.rotation.SlowRotation(aimToward, rotSpeed);
 
 
             if (timer >= PrimeStats.railChargeTime)
@@ -172,8 +212,8 @@ namespace TRAEProject.Changes.NPCs.Boss.Prime
                 timer = 0;
                 if (Main.netMode != NetmodeID.MultiplayerClient)
                 {
-                    Projectile.NewProjectile(NPC.GetSource_FromAI(), NPC.Center + TRAEMethods.PolarVector(30, NPC.rotation), TRAEMethods.PolarVector(PrimeStats.railVel, NPC.rotation), ModContent.ProjectileType<RailShot>(), PrimeStats.railDamage, 0, Main.myPlayer);
-                    DeathRailShootDust(TRAEMethods.PolarVector(PrimeStats.railVel * 1.4f, NPC.rotation), NPC.Center + TRAEMethods.PolarVector(30, NPC.rotation));
+                    Projectile.NewProjectile(NPC.GetSource_FromAI(), NPC.Center + TRAEMethods.PolarVector(30, NPC.rotation), TRAEMethods.PolarVector(railVel, NPC.rotation), ModContent.ProjectileType<RailShot>(), PrimeStats.railDamage, 0, Main.myPlayer);
+                    DeathRailShootDust(TRAEMethods.PolarVector(railVel * 1.4f, NPC.rotation), NPC.Center + TRAEMethods.PolarVector(30, NPC.rotation));
                 }
             }
         }
@@ -229,6 +269,20 @@ namespace TRAEProject.Changes.NPCs.Boss.Prime
         }
         public override void SetDefaults()
         {
+
+            Projectile.extraUpdates = PrimeStats.railExtraUpdates;
+            switch(ModContent.GetInstance<TRAEConfig>().railMode)
+            {
+                case RailMode.Classic:
+                Projectile.extraUpdates = 5;
+                break;
+                case RailMode.BameNerf:
+                Projectile.extraUpdates = 5;
+                break;
+                case RailMode.QwertyNerf:
+                Projectile.extraUpdates = 7;
+                break;
+            }
             Projectile.width = 32;
             Projectile.height = 32;
             Projectile.aiStyle = 1;
@@ -238,7 +292,6 @@ namespace TRAEProject.Changes.NPCs.Boss.Prime
             Projectile.penetrate = 3;
             Projectile.light = 0.75f;
             Projectile.alpha = 255;
-            Projectile.extraUpdates = PrimeStats.railExtraUpdates;
             Projectile.scale = 1f;
             Projectile.timeLeft = 2400;
         }
