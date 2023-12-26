@@ -13,6 +13,7 @@ using Terraria.ModLoader;
 using TRAEProject.NewContent.Items.Weapons.Magic.OnyxCurseDoll;
 using static Terraria.ModLoader.ModContent;
 using Terraria.ID;
+using Terraria.DataStructures;
 
 namespace TRAEProject.Changes
 {
@@ -54,10 +55,17 @@ namespace TRAEProject.Changes
             {
                 if (Main.rand.NextBool(3))
                 {
-                    Item.NewItem(Player.GetSource_OnHit(target), target.getRect(), ItemID.Star, 1);
+                    
+                    QuickSpawnStar(Player.GetSource_OnHit(target), target.getRect());
                     ++manaFlowerLimit;
                 }
             }
+        }
+        static void QuickSpawnStar(IEntitySource source, Rectangle rect)
+        {
+            int number = Item.NewItem(source, rect, ItemID.Star, 1, noBroadcast: false, -1);
+			if (Main.netMode == NetmodeID.MultiplayerClient)
+				NetMessage.SendData(MessageID.SyncItem, -1, -1, null, number, 1f);
         }
         public override void PostUpdateEquips()
         {

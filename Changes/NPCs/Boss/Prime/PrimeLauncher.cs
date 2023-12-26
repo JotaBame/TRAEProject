@@ -161,6 +161,10 @@ namespace TRAEProject.Changes.NPCs.Boss.Prime
         }
         static void Fire(NPC npc)
         {
+            if(Main.netMode == NetmodeID.MultiplayerClient)
+            {
+                return;
+            }
             SoundEngine.PlaySound(SoundID.Item11, npc.Center);
             int damage = PrimeStats.missileDamage;
             Projectile.NewProjectile(npc.GetSource_FromAI(), npc.Center + TRAEMethods.PolarVector(18f, npc.rotation), TRAEMethods.PolarVector(10, npc.rotation), ModContent.ProjectileType<PrimeMissile>(), damage, 0, Main.myPlayer);

@@ -1,4 +1,5 @@
 using System;
+using System.IO;
 using Microsoft.CodeAnalysis;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
@@ -114,6 +115,7 @@ namespace TRAEProject.Changes.NPCs.Boss.Prime
                                 boomHere = Main.player[i].Center + TRAEMethods.PolarVector(Main.rand.NextFloat(250f, 500f), Main.rand.NextFloat(0f, MathF.PI * 2f));
                             }
                         }
+                        Projectile.netUpdate = true;
                     }
                     if(boomHere == null)
                     {
@@ -121,6 +123,29 @@ namespace TRAEProject.Changes.NPCs.Boss.Prime
                     }
                 }
             }
+        }
+        public override void SendExtraAI(BinaryWriter writer)
+        {
+            bool sendBoom = (boomHere != null);
+            writer.Write(sendBoom);
+            if(sendBoom)
+            {
+                writer.WriteVector2((Vector2)boomHere);
+            }
+            base.SendExtraAI(writer);
+        }
+        public override void ReceiveExtraAI(BinaryReader reader)
+        {
+            bool boom = reader.ReadBoolean();
+            if(boom)
+            {
+                boomHere = reader.ReadVector2();
+            }
+            else
+            {
+                boomHere = null;
+            }
+            base.ReceiveExtraAI(reader);
         }
         public override bool PreDraw(ref Color lightColor)
         {

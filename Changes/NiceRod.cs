@@ -51,5 +51,12 @@ namespace TRAEProject.Changes
                 SoundEngine.PlaySound(new SoundStyle("TRAEProject/Assets/Sounds/noice") with { MaxInstances = 0 });
             }
         }
+        public override void PostUpdateRunSpeeds()
+        {
+            if(effect)
+            {
+                Player.runAcceleration *= -1;
+            }
+        }
     }
 }

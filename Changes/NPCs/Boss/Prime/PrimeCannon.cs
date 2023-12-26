@@ -52,7 +52,7 @@ namespace TRAEProject.Changes.NPCs.Boss.Prime
         public override bool CanHitPlayer(Projectile projectile, Player target)
         {
             
-            return base.CanHitPlayer(projectile, target);
+            return base.CanHitPlayer(projectile, target); 
         }
         /*
         public override bool OnTileCollide(Projectile projectile, Vector2 oldVelocity)
@@ -77,6 +77,10 @@ namespace TRAEProject.Changes.NPCs.Boss.Prime
             projectile.tileCollide = true;
             for(int i = 0; i < Main.player.Length; i++)
             {
+                if(Main.player[i].active && Main.player[i].getRect().Intersects(projectile.getRect()))
+                {
+                    projectile.Kill();
+                }
                 if(projectile.tileCollide && Main.player[i].active && Main.player[i].Bottom.Y > projectile.Bottom.Y && MathF.Abs(Main.player[i].Center.X - projectile.Center.X) < 1000f)
                 {
                     projectile.tileCollide = false;

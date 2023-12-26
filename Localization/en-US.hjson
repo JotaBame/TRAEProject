@@ -447,6 +447,11 @@ Mods: {
 				DisplayName: A Z Second Tag
 				Description: Mods.TRAEProject.Buffs.AZSecondTag.Description
 			}
+
+			WishForSpeedBuff: {
+				DisplayName: Wish for Speed
+				Description: Your wish was 15% movement speed... right?
+			}
 		}
 
 		Items: {

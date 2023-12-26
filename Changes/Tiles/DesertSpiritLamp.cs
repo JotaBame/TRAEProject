@@ -7,6 +7,7 @@ using static Terraria.ModLoader.ModContent;
 
 using TRAEProject.NewContent.Items.Misc.PermaBuffs;
 using System.Collections.Generic;
+using TRAEProject.NewContent.Buffs;
 
 namespace TRAEProject.Changes
 {
@@ -106,15 +107,13 @@ namespace TRAEProject.Changes
 				}
 				float rotation = (rubAt - Player.MountedCenter).ToRotation() - MathF.PI / 2f;
 				Player.SetCompositeArmBack(enabled: true, stretch, rotation);
-                if(Player.GetModPlayer<PermaBuffs>().speedWish)
-                {
-                    return;
-                }
                 //Dust.NewDustPerfect(rubAt, 6);
                 Vector2 nozzle = rubAt + new Vector2(-14, -6);
                 Dust d = Dust.NewDustPerfect(nozzle, 6, -1.5f * Vector2.UnitY);
                 d.noGravity = true;
                 d.color = Color.SkyBlue;
+                Player.AddBuff(ModContent.BuffType<WishForSpeedBuff>(), 2);
+                /*
                 if(rubTime > 180)
                 {
                     for(int i =0; i < 50; i++)
@@ -128,6 +127,7 @@ namespace TRAEProject.Changes
                     rubTime = 0;
                     rubHere = null;
                 }
+                */
 
             }
             else
