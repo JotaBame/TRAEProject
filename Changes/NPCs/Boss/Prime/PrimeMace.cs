@@ -167,7 +167,7 @@ namespace TRAEProject.Changes.NPCs.Boss.Prime
                     NPC.ai[2] = 0;
                     NPC.netUpdate = true;
                 }
-                NPC.velocity = (goTo - NPC.Center) * (1/6f);
+                NPC.velocity = (goTo - NPC.Center) * (1/8f);
             }
             
             //Dust.NewDustPerfect(goTo, DustID.Torch, Vector2.Zero);
