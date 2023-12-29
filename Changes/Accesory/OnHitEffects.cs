@@ -74,7 +74,7 @@ namespace TRAEProject.Changes.Accesory
                     {
                         if (line.Mod == "Terraria" && line.Name == "Tooltip0")
                         {
-                            line.Text = "When hit restores 3 mana for every point of damage taken";
+                            line.Text = "Restores 3 mana for every point of damage taken";
                         }
                         if (line.Mod == "Terraria" && line.Name == "Tooltip1")
                         {
@@ -87,7 +87,7 @@ namespace TRAEProject.Changes.Accesory
                     {
                         if (line.Mod == "Terraria" && line.Name == "Tooltip0")
                         {
-                            line.Text = "When hit restores 3 mana for every point of damage taken";
+                            line.Text = "Restores 3 mana for every point of damage taken";
                         }
                         if (line.Mod == "Terraria" && line.Name == "Tooltip1")
                         {
@@ -95,7 +95,7 @@ namespace TRAEProject.Changes.Accesory
                         }
                         if (line.Mod == "Terraria" && line.Name == "Tooltip2")
                         {
-                            line.Text = "On damage and on pickup mana restores can temporarily go over maximum mana";
+                            line.Text = "Mana restores can go over maximum mana";
                         }
                     }
                     break;

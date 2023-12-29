@@ -1,11 +1,11 @@
 Mods: {
 	TRAEProject: {
 		Projectiles: {
-			BouncingFlames.DisplayName: Bouncing Flames
-			BloodBeam.DisplayName: Blood Beam
-			BloodSnipe.DisplayName: Blood Snipe
-			EyeNuke.DisplayName: Eye Nuke
-			HostileCloud.DisplayName: Hostile Cloud
+			BouncingFlames.DisplayName: Llamas Rebotantes
+			BloodBeam.DisplayName: Laser de Sangre
+			BloodSnipe.DisplayName: Snipe de Sangre
+			EyeNuke.DisplayName: Bomba Ojo
+			HostileCloud.DisplayName: Nube Hostil
 			PlanteraHook.DisplayName: Plantera's Hook
 			PlanteraHook2.DisplayName: Plantera's Hook
 			VineRing.DisplayName: Vine Ring
@@ -273,149 +273,149 @@ Mods: {
 		}
 
 		Prefixes: {
-			Aerodynamic.DisplayName: Aerodynamic
-			Bad.DisplayName: Bad
+			Aerodynamic.DisplayName: Aerodinámico
+			Bad.DisplayName: Malo
 			Brutal.DisplayName: Brutal
-			Dense.DisplayName: Dense
-			Devastating.DisplayName: Devastating
-			Enchanted.DisplayName: Enchanted
-			Extended.DisplayName: Extended
-			Extreme.DisplayName: Extreme
-			Kinetic.DisplayName: Kinetic
-			Pathetic.DisplayName: Pathetic
-			Piercing.DisplayName: Piercing
-			Pounding.DisplayName: Pounding
+			Dense.DisplayName: Denso
+			Devastating.DisplayName: Devastante
+			Enchanted.DisplayName: Encantado
+			Extended.DisplayName: Extendido
+			Extreme.DisplayName: Extremo
+			Kinetic.DisplayName: Kinético
+			Pathetic.DisplayName: Patetico
+			Piercing.DisplayName: Atravesante
+			Pounding.DisplayName: Golpeante
 			Radical.DisplayName: Radical
-			Relentless.DisplayName: Relentless
-			Spiked.DisplayName: Spiked
-			Tricky.DisplayName: Tricky
-			Zoned.DisplayName: Zoned
+			Relentless.DisplayName: Imparable
+			Spiked.DisplayName: Pinchudo
+			Tricky.DisplayName: Tramposo
+			Zoned.DisplayName: Zonificado
 		}
 
 		Buffs: {
 			Celled: {
-				DisplayName: Celled
-				Description: Being eaten by cells
+				DisplayName: Celulado
+				Description: Las células te están comiendo
 			}
 
 			Impaled: {
-				DisplayName: Impaled
+				DisplayName: Empalado
 				Description: Ouch!
 			}
 
 			KaleidoscopeSecondTag: {
 				DisplayName: KaleidoscopeNewDebuff
-				Description: Mods.TRAEProject.Buffs.KaleidoscopeSecondTag.Description
+				Description: este no aparece XD
 			}
 
 			LavaShield: {
-				DisplayName: Lava Shield
-				Description: Increases defense by 12
+				DisplayName: Escudo de Lava
+				Description: Aumenta la defensa en 12
 			}
 
 			MagicBoost: {
-				DisplayName: Magic Boost
-				Description: Magic damage increased by 20%
+				DisplayName: Impulso Mágico
+				Description: Aumenta el daño mágico en 20%
 			}
 
 			NanoHealing: {
-				DisplayName: Nano Healing
-				Description: Being repaired by nanites
+				DisplayName: Nano Curación
+				Description: Los nanitos te reparan
 			}
 
 			NeoFeralBite: {
-				DisplayName: Feral Bite
-				Description: Causes confusion
+				DisplayName: Mordisco feroz
+				Description: Provoca Confusión
 			}
 
 			SandRush: {
-				DisplayName: Sand Rush
-				Description: Movement speed increased by 20%
+				DisplayName: Ímpetu Arena
+				Description: Aumenta velocidad de movimiento en 20%
 			}
 
 			SBandAidFix: {
 				DisplayName: Band Aid Fix
-				Description: wait, don't band-aids actually help you HEAL your wounds?
+				Description: no pienso perder tiempo traduciendo esto
 			}
 
 			ShackledDefenses: {
-				DisplayName: Shackled Defenses
-				Description: Defense increased by 10
+				DisplayName: Defensa Esposada
+				Description: Aumenta la defensa en 10
 			}
 
 			StrongerPoisoned: {
 				DisplayName: Stronger Poisoned
-				Description: Yes, I'm fully aware that this is the exact opposite of what a Bezoar is for.
+				Description: lol no
 			}
 
 			WaterAffinity: {
-				DisplayName: Water Affinity
-				Description: Running Speed increased
+				DisplayName: Afinidad Acuática
+				Description: Aumenta la velocidad de movimiento en 30%
 			}
 
 			HeartAttack: {
-				DisplayName: Heart Attack!
-				Description: Damage increased by a multiplicative 20%
+				DisplayName: Ataque Corazón!
+				Description: Aumenta el daño en un 20%
 			}
 
 			MadFlockos: {
-				DisplayName: Flocko Flock
-				Description: The Mad Flockos will fight for you
+				DisplayName: Rebaño de Copitos
+				Description: Los copitos locos pelearán por ti
 			}
 
 			PhoenixRush: {
-				DisplayName: Ash Rush
-				Description: 15% increased movement and jump speed
+				DisplayName: Ímpetu Cenizas
+				Description: Aumenta la velocidad de salto y movimiento en 15%
 			}
 
 			ReptilianMight: {
-				DisplayName: Reptilian Might
-				Description: 30% increased melee speed
+				DisplayName: Fuerza Reptiliana
+				Description: Aumenta la velocidad del cuerpo a cuerpo 30%
 			}
 
 			BurntOut: {
-				DisplayName: Burnt Out
-				Description: Need To Recharge
+				DisplayName: Quemado
+				Description: Necesitas recargar
 			}
 
 			EvilLookingEyeBuff: {
-				DisplayName: Baby Beholder
-				Description: It can't shoot lasers yet. I think.
+				DisplayName: Bebé Beholder
+				Description: Todavía no puede disparar láseres. Creo.
 			}
 
 			Restoring1: {
-				DisplayName: Restoring
-				Description: Restoring health
+				DisplayName: Restauración
+				Description: Restaura vida
 			}
 
 			Restoring2: {
-				DisplayName: Restoring
-				Description: Restoring health
+				DisplayName: Restauración
+				Description: Restaura vida
 			}
 
 			Wipeout: {
-				DisplayName: Wiped Out
-				Description: The scroll needs to recharge.
+				DisplayName: Eliminado
+				Description: El pergamino necesita recargar
 			}
 
 			BloodSquidBuff: {
-				DisplayName: Baby Blood Squid
-				Description: It drips and skips!
+				DisplayName: Calamar de Sangre Bebé
+				Description: Brinca y Gotea!
 			}
 
 			BloodRush: {
-				DisplayName: Blood Rush
-				Description: Fly away!
+				DisplayName: Ímpetu de Sangre
+				Description: Ve volando!
 			}
 
 			LavamanderBuff: {
-				DisplayName: Lavamander
-				Description: Don't get cold feet again
+				DisplayName: Lavamandra
+				Description: Calienta sus pies for ti
 			}
 
 			Power: {
-				DisplayName: Power
-				Description: Damage increased by 30%
+				DisplayName: Poder
+				Description: Aumenta el daño en 30%
 			}
 
 			AbsoluteZeroTag: {
@@ -449,38 +449,38 @@ Mods: {
 			}
 
 			WishForSpeedBuff: {
-				DisplayName: Wish for Speed
-				Description: Your wish was 15% movement speed... right?
+				DisplayName: Deseo por velocidad
+				Description: Puedes pedir cualquier deseo... siempre que sea 15% más velocidad de movimiento
 			}
 		}
 
 		Items: {
 			AlligatorBalloon: {
-				DisplayName: Croco Balloon
+				DisplayName: Croco Globo
 				Tooltip:
 					'''
-					Allows the holder to double jump
-					Greatly increases jump speed and fall resistance
-					Allows auto-jump
+					Su portador puede realizar saltos dobles					
+					Gran incremento de la velocidad de salto y resistencia a las caídas
+					Permite el alto-salto
 					'''
 			}
 
 			AngelicStone: {
-				DisplayName: Angelic Stone
+				DisplayName: Piedra Angelical
 				Tooltip:
 					'''
-					10% increased mana regeneration
-					Automatically uses mana potions when needed
-					Reduces the cooldown of mana sickness by 50%
+					Aumenta la regeneración de mana en 10%					
+					Usa de forma automática pociones de maná cuando se necesitan
+					Reduces la duracion de Locura de Maná en un 50%
 					'''
 			}
 
 			BalanceCuffs: {
-				DisplayName: Balance Cuffs
+				DisplayName: Esposas Balance
 				Tooltip:
 					'''
-					When hit grants a 20% damage buff for damage/10 seconds
-					When hit restores 3 mana for every point of damage taken
+					Aumenta el daño en 20% al ser herido
+					Restaura 3 de mana por cada punto de daño recibido
 					'''
 			}
 
@@ -738,7 +738,7 @@ Mods: {
 				DisplayName: Shadow Claws
 				Tooltip:
 					'''
-					Increases melee speed by 12% and allows all melee weapons and whips to autoswing
+					Increases velocidad del cuerpo a cuerpo by 12% and allows all melee weapons and whips to autoswing
 					Minion damage is stored as Shadowflame energy, up to 3000
 					Whip strikes spawn a friendly Shadowflame Apparition for every 750 damage stored
 					'''
@@ -982,7 +982,7 @@ Mods: {
 				Tooltip:
 					'''
 					15% increased critical strike chance
-					25% increased melee speed
+					25% increased velocidad del cuerpo a cuerpo
 					'''
 			}
 
@@ -1029,7 +1029,7 @@ Mods: {
 				DisplayName: Master Emblem
 				Tooltip:
 					'''
-					12% increased melee speed
+					12% increased velocidad del cuerpo a cuerpo
 					12% increased ranged critical strike damage
 					12% increased mana regeneration
 					Increases your maximum number of minions by 1
@@ -1522,8 +1522,7 @@ Mods: {
 				DisplayName: Croco Balloon
 				Tooltip:
 					'''
-					Allows the holder to double jump
-					Greatly increases jump speed and fall resistance
+					Su portador puede realizar saltos dobles					Greatly increases jump speed and fall resistance
 					Allows auto-jump
 					'''
 			}
@@ -1649,8 +1648,13 @@ Mods: {
 		Configs: {
 			TRAEConfig: {
 				DisplayName: T R A E Config
-				Headers.BossChanges: Boss Changes
-				
+
+				Headers: {
+					BossChanges: Boss Changes
+					PrimeRail: Prime Rail
+					BameRail: Bame's Rail Nerf (No Predictive Aim)
+					QwertyRail: Qwerty's Rail Nerf (Adjusted Predictive Aim)
+				}
 
 				PlanteraRework: {
 					Label: Plantera Rework
@@ -1692,22 +1696,21 @@ Mods: {
 					Label: E O C Changes
 				}
 
-				Headers.PrimeRail: Prime Rail
-				Headers.BameRail: Bame's Rail Nerf (No Predictive Aim)
-				Headers.QwertyRail: Qwerty's Rail Nerf (Adjusted Predictive Aim)
-
 				railMode: {
 					Label: Railgun Mode
+					Tooltip: ""
 				}
 
 				bRailVel: {
 					Label: Rail Shot Velocity
 					Tooltip: Total velocity of rail shot = Shot Velocity * (1 + extra updates)
 				}
+
 				bRailEUpdates: {
 					Label: Rail Shot Extra Updates
 					Tooltip: Total velocity of rail shot = Shot Velocity * (1 + extra updates)
 				}
+
 				bRailTurnSpeed: {
 					Label: Gun Turn Speed (degrees / s)
 					Tooltip: How quickly the railgun can turn
@@ -1717,24 +1720,33 @@ Mods: {
 					Label: Rail Shot Velocity
 					Tooltip: Total velocity of rail shot = Shot Velocity * (1 + extra updates)
 				}
+
 				qRailEUpdates: {
 					Label: Rail Shot Extra Updates
 					Tooltip: Total velocity of rail shot = Shot Velocity * (1 + extra updates)
 				}
+
 				qRailTurnSpeed: {
 					Label: Gun Turn Speed (degrees / s)
 					Tooltip: How quickly the railgun can turn
 				}
+
 				railStopAimTime: {
 					Label: Rail Stop Aim Time
 					Tooltip: How many frames the railgun stops aiming before it fires, the predictive aim will account for this
 				}
+
 				holdFireOnRage: {
 					Label: Hold Fire On Rage
 					Tooltip: When prime is spinning hold fire on the railgun, practically guarentees a shot right when prime's rage ends
 				}
-				
-				
+			}
+
+			RailMode: {
+				QwertyNerf.Label: Qwerty Nerf
+				BameNerf.Label: Bame Nerf
+				Classic.Label: Classic
+				Tooltip: ""
 			}
 		}
 	}

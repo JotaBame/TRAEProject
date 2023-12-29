@@ -43,7 +43,7 @@ namespace TRAEProject.Changes.NPCs.Boss.Prime
             if(Projectile.timeLeft > 2)
             {
                 Projectile.timeLeft = 2;
-                Projectile.width = 189;
+                Projectile.width = 180; // make it 200 and scale up the reticle appropiately for master
                 Projectile.height = 180;
                 Projectile.position = here - Projectile.Size * 0.5f;
                 Projectile.tileCollide = false;
@@ -162,7 +162,7 @@ namespace TRAEProject.Changes.NPCs.Boss.Prime
                 {
                     Vector2 renderHere = (Vector2)boomHere;
                     Texture2D ret = ModContent.Request<Texture2D>("TRAEProject/Changes/NPCs/Boss/Prime/TargetRetical").Value;
-                    float trig = 1f + 0.2f * MathF.Sin(MathF.PI * Projectile.timeLeft / 60f);
+                    float trig = 1f + 0.25f * MathF.Sin(MathF.PI * Projectile.timeLeft / 60f);
                     Main.EntitySpriteDraw(ret, renderHere - Main.screenPosition, null, Color.White, 0, ret.Size() * 0.5f, trig, SpriteEffects.None, 0);
                 }
             }

@@ -1,4 +1,5 @@
 using System;
+using Microsoft.CodeAnalysis;
 using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.Audio;
@@ -21,10 +22,10 @@ namespace TRAEProject.Changes.NPCs.Boss.Prime
             if(npc.type == NPCID.PrimeCannon && npc.ai[2] == 0)
             {                npc.damage = 0;
 
-                npc.localAI[0] += 1f;
+                npc.localAI[0] += 2f;
                 if (Main.npc[(int)npc.ai[1]].ai[1] != 0f) 
                 {
-                    npc.localAI[0] += 1f;
+                    npc.localAI[0] += 2f;
                 }
                 if(!SkeletronPrime.KeepPhase1Arms(Main.npc[(int)npc.ai[1]]))
                 {
@@ -42,11 +43,18 @@ namespace TRAEProject.Changes.NPCs.Boss.Prime
     }
     public class PrimeProjectiles : GlobalProjectile
     {
+        public override void SetDefaults(Projectile entity)
+        {
+            if (entity.type == ProjectileID.BombSkeletronPrime)
+            {
+                entity.timeLeft = 180;
+            }
+        }
         public override void ModifyHitPlayer(Projectile projectile, Player target, ref Player.HurtModifiers modifiers)
         {
             if (projectile.type == ProjectileID.BombSkeletronPrime)
             {
-                modifiers.FinalDamage *= 0.8f;
+               
             }
         }
         public override bool CanHitPlayer(Projectile projectile, Player target)
@@ -75,7 +83,9 @@ namespace TRAEProject.Changes.NPCs.Boss.Prime
         void AI_016(Projectile projectile) 
         {
             projectile.tileCollide = true;
-            for(int i = 0; i < Main.player.Length; i++)
+           projectile.DamageType = DamageClass.Default;
+
+            for (int i = 0; i < Main.player.Length; i++)
             {
                 if(Main.player[i].active && Main.player[i].getRect().Intersects(projectile.getRect()))
                 {

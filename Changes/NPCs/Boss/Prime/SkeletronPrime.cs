@@ -97,8 +97,8 @@ namespace TRAEProject.Changes.NPCs.Boss.Prime
             {
                 npc.localAI[0] = 0;
             }
-        
-            if(Phase0(npc) && lifeRatio < 0.95f)
+       
+            if(Phase0(npc) && lifeRatio < 0.96f)
             {
                 npc.ai[0]++;
                 SoundEngine.PlaySound(SoundID.Roar, npc.Center);
@@ -129,7 +129,7 @@ namespace TRAEProject.Changes.NPCs.Boss.Prime
                     Main.npc[npcIndex].ai[3] = 150f;
                 }
             }
-            if(Phase1(npc) && ((lifeRatio < 0.6f && (Main.expertMode || !PrimeStats.lockPhase3ToExpert)) || lifeRatio < 0.5f || npc.localAI[0] > 60 * 30))
+            if(Phase1(npc) && ((lifeRatio < 0.6f && (Main.expertMode || !PrimeStats.lockPhase3ToExpert)) || lifeRatio < 0.5f || npc.localAI[0] > 60 * 15))
             {
                 npc.ai[0]++;
                 SoundEngine.PlaySound(SoundID.Roar, npc.Center);
@@ -157,7 +157,7 @@ namespace TRAEProject.Changes.NPCs.Boss.Prime
                     Main.npc[npcIndex].netUpdate = true;
                 }
             }
-             if (Phase2(npc) && (lifeRatio < 0.2f || npc.localAI[0] > 60 * 30) && (Main.expertMode || !PrimeStats.lockPhase3ToExpert))
+             if (Phase2(npc) && (lifeRatio < 0.2f || npc.localAI[0] > 60 * 15) && (Main.expertMode || !PrimeStats.lockPhase3ToExpert))
             {
                 npc.ai[0]++;
                 SoundEngine.PlaySound(SoundID.ForceRoarPitched, npc.Center);
@@ -221,15 +221,15 @@ namespace TRAEProject.Changes.NPCs.Boss.Prime
                 SoundEngine.PlaySound(SoundID.Roar, npc.Center);
             }
 
-            if (npc.ai[1] == 0f) 
+            if (npc.ai[1] == 0f)
             {
                 //hover and let arms do work
                 npc.ai[2] += 1f;
-                if(Phase0(npc))
+                if (Phase0(npc))
                 {
                     npc.ai[2] = 0;
                 }
-                if (npc.ai[2] >= 600f) 
+                if (npc.ai[2] >= 600f)
                 {
                     npc.ai[2] = 0f;
                     npc.ai[1] = 1f;
@@ -242,7 +242,7 @@ namespace TRAEProject.Changes.NPCs.Boss.Prime
                 float maxVertSpeed = 2f;
                 float horiAcc = 0.1f;
                 float maxHoriSpeed = 8f;
-                if (Main.expertMode) 
+                if (Main.expertMode)
                 {
                     verticalAcc = 0.03f;
                     maxVertSpeed = 4f;
@@ -250,7 +250,7 @@ namespace TRAEProject.Changes.NPCs.Boss.Prime
                     maxHoriSpeed = 9.5f;
                 }
 
-                if (npc.Center.Y > Main.player[npc.target].Center.Y - 200f) 
+                if (npc.Center.Y > Main.player[npc.target].Center.Y - 200f)
                 {
                     if (npc.velocity.Y > 0f)
                         npc.velocity.Y *= 0.98f;
@@ -259,7 +259,7 @@ namespace TRAEProject.Changes.NPCs.Boss.Prime
                     if (npc.velocity.Y > maxVertSpeed)
                         npc.velocity.Y = maxVertSpeed;
                 }
-                else if (npc.Center.Y < Main.player[npc.target].Center.Y - 500f) 
+                else if (npc.Center.Y < Main.player[npc.target].Center.Y - 500f)
                 {
                     if (npc.velocity.Y < 0f)
                         npc.velocity.Y *= 0.98f;
@@ -269,7 +269,7 @@ namespace TRAEProject.Changes.NPCs.Boss.Prime
                         npc.velocity.Y = 0f - maxVertSpeed;
                 }
 
-                if (npc.Center.X > Main.player[npc.target].Center.X + 100f) 
+                if (npc.Center.X > Main.player[npc.target].Center.X + 100f)
                 {
                     if (npc.velocity.X > 0f)
                         npc.velocity.X *= 0.98f;
@@ -279,7 +279,7 @@ namespace TRAEProject.Changes.NPCs.Boss.Prime
                         npc.velocity.X = maxHoriSpeed;
                 }
 
-                if (npc.Center.X < Main.player[npc.target].Center.X - 100f) 
+                if (npc.Center.X < Main.player[npc.target].Center.X - 100f)
                 {
                     if (npc.velocity.X < 0f)
                         npc.velocity.X *= 0.98f;
@@ -289,16 +289,20 @@ namespace TRAEProject.Changes.NPCs.Boss.Prime
                         npc.velocity.X = 0f - maxHoriSpeed;
                 }
             }
-            else if (npc.ai[1] == 1f) 
+            else if (npc.ai[1] == 1f)
             {
                 //charge at player
                 npc.defense *= 2;
                 npc.damage *= 2;
                 npc.ai[2] += 1f;
+                if (Phase3(npc))
+                {
+                    npc.ai[2] += 0.5f;
+                }
                 if (npc.ai[2] == 2f)
                     SoundEngine.PlaySound(SoundID.Roar, npc.Center);
 
-                if (npc.ai[2] >= 400f) 
+                if (npc.ai[2] >= 400f)
                 {
                     npc.ai[2] = 0f;
                     npc.ai[1] = 0f;
@@ -309,35 +313,37 @@ namespace TRAEProject.Changes.NPCs.Boss.Prime
                 float distY = Main.player[npc.target].Center.Y - npc.Center.Y;
                 float dist = (float)Math.Sqrt(distX * distX + distY * distY);
                 float speed = PrimeStats.primeSpinBaseSpeed;
+                float accel = PrimeStats.primeSpinBonusSpeedFromDist; //vanilla value 1.1
+             
                 if (dist > 150f)
                     speed *= 1.05f; //vanilla value 1.05
 
                 if (dist > 200f)
-                    speed *= PrimeStats.primeSpinBonusSpeedFromDist; //vanilla value 1.1
+                    speed *= accel;
 
                 if (dist > 250f)
-                    speed *= PrimeStats.primeSpinBonusSpeedFromDist; //vanilla value 1.1
+                    speed *= accel;
 
                 if (dist > 300f)
-                    speed *= PrimeStats.primeSpinBonusSpeedFromDist; //vanilla value 1.1
+                    speed *= accel;
 
                 if (dist > 350f)
-                    speed *= PrimeStats.primeSpinBonusSpeedFromDist; //vanilla value 1.1
+                    speed *= accel;
 
                 if (dist > 400f)
-                    speed *= PrimeStats.primeSpinBonusSpeedFromDist; //vanilla value 1.1
+                    speed *= accel;
 
                 if (dist > 450f)
-                    speed *= PrimeStats.primeSpinBonusSpeedFromDist; //vanilla value 1.1
+                    speed *= accel;
 
                 if (dist > 500f)
-                    speed *= PrimeStats.primeSpinBonusSpeedFromDist; //vanilla value 1.1
+                    speed *= accel;
 
                 if (dist > 550f)
-                    speed *= PrimeStats.primeSpinBonusSpeedFromDist; //vanilla value 1.1
+                    speed *= accel;
 
                 if (dist > 600f)
-                    speed *= PrimeStats.primeSpinBonusSpeedFromDist; //vanilla value 1.1
+                    speed *= accel;
 
                 float speed2 = speed / dist;
                 npc.velocity.X = distX * speed2;

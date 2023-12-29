@@ -301,7 +301,7 @@ namespace TRAEProject.Changes.NPCs.Boss
                                 npc.ai[2] = 0;
                                 npc.ai[1] = 0;
                             }
-                            if (npc.ai[2] % 3 == 0)
+                            if (npc.ai[2] % 4 == 0)
                             {
                                 if (Main.netMode != 1)
                                 {
@@ -409,7 +409,7 @@ namespace TRAEProject.Changes.NPCs.Boss
                         int shotsFired = 4;
                         int delayBeforeRapidFire = 60;
                         int RapidfireRate = 15;
-                        int rapidShotsFired = 10;
+                        int rapidShotsFired = 8;
                         npc.ai[2] += 1f;
  
                         if (npc.ai[2] > fireRate * shotsFired)
@@ -494,7 +494,25 @@ namespace TRAEProject.Changes.NPCs.Boss
             if (GetInstance<TRAEConfig>().TwinsRework)
             {
                 if (npc.type == NPCID.Spazmatism)
-                {
+                {   // shoot fireballs slower
+                    if (npc.ai[0] == 0f)
+                    {
+                        if (npc.ai[1] == 0f)
+                        {
+                            if (npc.ai[2] <= 600)
+                            {
+                                if (Main.expertMode && (double)npc.life < (double)npc.lifeMax * 0.8)
+                                {
+                                    npc.ai[3] -= 0.6f; // goes up 1.6 on expert mode when below 80% hp... let me just get rid of that real quick
+                                }
+                                if (!Main.player[npc.target].dead)
+                                {
+                                    npc.ai[3] -= 0.25f; // goes up by 1 normally, so 25% slower
+                                }
+                            }
+                        }
+                    }
+                    //
                     if (Main.expertMode)
                     {
                         if (NPC.CountNPCS(NPCID.Retinazer) <= 0 && npc.ai[0] < 4 && Main.expertMode)
@@ -511,7 +529,6 @@ namespace TRAEProject.Changes.NPCs.Boss
                             if (npc.ai[1] == 0f)
                             {
                                 float speed = 2.4f;
-                                float tenpercent = 0.2f;
                                 int num425 = 1;
                                 if (npc.position.X + (float)(npc.width / 2) < Main.player[npc.target].position.X + (float)Main.player[npc.target].width)
                                 {
@@ -547,54 +564,56 @@ namespace TRAEProject.Changes.NPCs.Boss
                                     {
                                         speed += 1.5f;
                                     }
-                                }
-                                speed *= 2.5f;
+							}                                
+
+                                speed *= 2f;							float accel = 0.2f;
+
                                 playerpositiontospaz /= speed;
                                 playerpositionX *= playerpositiontospaz;
                                 playerpositionY *= playerpositiontospaz;
                                 if (npc.velocity.X < playerpositionX)
                                 {
-                                    ref float x1 = ref npc.velocity.X; // could maybe be simplified to npc.velocity.X += tenpercent 
-                                    x1 += tenpercent;
+                                    ref float x1 = ref npc.velocity.X; // could maybe be simplified to npc.velocity.X += accel 
+                                    x1 += accel;
                                     if (npc.velocity.X < 0f && playerpositionX > 0f)
                                     {
                                         ref float x2 = ref npc.velocity.X;
-                                        x2 += tenpercent;
+                                        x2 += accel;
                                     }
                                 }
                                 else if (npc.velocity.X > playerpositionX)
                                 {
                                     ref float x3 = ref npc.velocity.X;
-                                    x3 -= tenpercent;
+                                    x3 -= accel;
                                     if (npc.velocity.X > 0f && playerpositionX < 0f)
                                     {
                                         ref float x4 = ref npc.velocity.X;
-                                        x4 -= tenpercent;
+                                        x4 -= accel;
                                     }
                                 }
                                 if (npc.velocity.Y < playerpositionY)
                                 {
                                     ref float x5 = ref npc.velocity.Y;
-                                    x5 += tenpercent;
+                                    x5 += accel;
                                     if (npc.velocity.Y < 0f && playerpositionY > 0f)
                                     {
                                         ref float x6 = ref npc.velocity.Y;
-                                        x6 += tenpercent;
+                                        x6 += accel;
                                     }
                                 }
                                 else if (npc.velocity.Y > playerpositionY)
                                 {
                                     ref float x7 = ref npc.velocity.Y;
-                                    x7 -= tenpercent;
+                                    x7 -= accel;
                                     if (npc.velocity.Y > 0f && playerpositionY < 0f)
                                     {
                                         ref float x8 = ref npc.velocity.Y;
-                                        x8 -= tenpercent;
+                                        x8 -= accel;
                                     }
                                 }
                                 ref float x = ref npc.ai[2];
                                 x += 1f;
-                                if (npc.ai[2] >= 350f)
+                                if (npc.ai[2] >= 300f)
                                 {
                                     npc.ai[1] = 1f;
                                     npc.ai[2] = 0f;

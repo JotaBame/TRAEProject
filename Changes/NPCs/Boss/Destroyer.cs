@@ -28,9 +28,9 @@ namespace TRAEProject.Changes.NPCs.Boss
         const float GravityReductionWhenBelowPlayer = 0.1f; //added feature, Destroyer's gravity is reduced when below the player trying to move toward them
 
         //lasers
-        const int AimedLaserWarnTime = 75; //how long the visual warning for aimed lasers are about to fire lasts, this is also effectively a minimum cooldown on lasers
-        const int PerpiLaserWarnTime = 120; //how long the visual warning for perpi lasers are about to fire lasts
-        const int BaseLaserCooldown = 300; //the time between laser shots on neutral mood
+        const int AimedLaserWarnTime = 90; //how long the visual warning for aimed lasers are about to fire lasts, this is also effectively a minimum cooldown on lasers
+        const int PerpiLaserWarnTime = 180; //how long the visual warning for perpi lasers are about to fire lasts
+        const int BaseLaserCooldown = 360; //the time between laser shots on neutral mood
         const float MaxLaserRange = 2000; //maximun distance a segment can be from the player in order to fire a laser at them
         const float MinLaserRange = 600; // minimum distance a segment can be from the player in order to fire a laser at them
         const int FiringSegmentDenominator = 5; //when set to n every nth active segment will fire aimed lasers
@@ -46,13 +46,25 @@ namespace TRAEProject.Changes.NPCs.Boss
         //probes
         const int probesToSpawn = 20; //how many probes the tail and head each spawn of the course of the fight
 
+        // master (unused, for now)
+        const int MasterAimedLaserWarnTime = 75;  
+        const int MasterPerpiLaserWarnTime = 120;  
+        const int MasterBaseLaserCooldown = 300; 
 
         //don't mess with these
         const int segmentActive = 2;
         const int segmentInactive = 1;
         public override void SetDefaults(NPC npc)
         {
-            if(npc.type == NPCID.TheDestroyer || npc.type == NPCID.TheDestroyerBody || npc.type == NPCID.TheDestroyerTail)
+			if(npc.type == NPCID.TheDestroyer && Main.expertMode)
+            {
+				npc.damage = 50; // expert quadruples damage, this ends up being 200;
+			}
+            if (npc.type == NPCID.Probe && Main.masterMode)
+            {
+                npc.lifeMax = 134; // probes have too much hp in master
+             }
+            if (npc.type == NPCID.TheDestroyer)
             {
                 npc.lifeMax = (int)(npc.lifeMax * ((float)50000 / 80000));
 
@@ -65,7 +77,7 @@ namespace TRAEProject.Changes.NPCs.Boss
             {
                 //recreated modified vanilla movement
                 //Main.NewText("AI0: " + npc.ai[0] + " AI1: " + npc.ai[1] + " AI2: " + npc.ai[2] + " AI3: " + npc.ai[2] + " LAI0: " + npc.localAI[0] + " LAI1: " + npc.localAI[1] + " LAI2: " + npc.localAI[2] + " LAI3: " + npc.localAI[2] );
-                float hpRatio = Main.expertMode ? (1f - ((float)npc.life / npc.lifeMax)) * 0.5f + 0.5f : 1f;
+                float hpRatio = Main.expertMode ? (1f - ((float)npc.life / npc.lifeMax)) * 0.4f + 0.5f : 1f;
                 npc.ai[2] += MathF.PI * 2f / MoodPeriod;
                 float currentMood = MathF.Sin(npc.ai[2]) * hpRatio;
                 //Main.NewText("Mood: " + MathF.Round(currentMood, 2) + "/" + MathF.Round(hpRatio, 2));
@@ -85,6 +97,7 @@ namespace TRAEProject.Changes.NPCs.Boss
                     }
                
                 npc.localAI[3]++;
+                
                 if(npc.localAI[3] > Math.Max(0, (BaseLaserCooldown / laserCooldownModifer) - AimedLaserWarnTime))
                 {
                     if(npc.localAI[2] % PerpiFireFrequency == (PerpiFireFrequency - 1))
@@ -193,7 +206,7 @@ namespace TRAEProject.Changes.NPCs.Boss
                 }
                 else
                 {
-                    npc.dontTakeDamage = true;
+                     npc.dontTakeDamage = true;
                 }
             }
         }
@@ -624,6 +637,13 @@ namespace TRAEProject.Changes.NPCs.Boss
             if(projectile.type == ProjectileID.PinkLaser)
             {
                 projectile.scale *= 2f;
+            }
+        }
+        public override void ModifyHitPlayer(Projectile projectile, Player target, ref Player.HurtModifiers modifiers)
+        {
+            if (projectile.type == ProjectileID.PinkLaser && NPC.AnyNPCs(NPCID.Probe))
+            {
+                modifiers.FinalDamage *= 0.88f; // with this, probe lasers match the damage of body lasers
             }
         }
     }

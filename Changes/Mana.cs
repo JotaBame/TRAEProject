@@ -124,6 +124,7 @@ namespace TRAEProject.Changes
             }
             return base.PreItemCheck();
         }
+ 
         public void GiveManaOverloadable(int amount)
         {
             Player.statMana += amount;

@@ -20,7 +20,7 @@ namespace TRAEProject.Changes.NPCs.Boss
                 npc.TargetClosest();
             }
             bool playerDead = Main.player[npc.target].dead;
-            float angVel = (MathF.PI / 180f) + (MathF.PI / 150f) * (1f - (npc.ai[2] / flameTime)) * (1f - (npc.ai[2] / flameTime));
+            float angVel = (MathF.PI / 240f) + (MathF.PI / 180f) * (1f - (npc.ai[2] / flameTime)) * (1f - (npc.ai[2] / flameTime));
             npc.rotation.SlowRotation((Main.player[npc.target].Center - npc.Center).ToRotation() - MathF.PI / 2, angVel);
 
             if (Main.rand.NextBool(5))
@@ -115,7 +115,7 @@ namespace TRAEProject.Changes.NPCs.Boss
             if (Collision.CanHit(npc.position, npc.width, npc.height, Main.player[npc.target].position, Main.player[npc.target].width, Main.player[npc.target].height))
             {
                 Vector2 shootFrom = npc.Center + TRAEMethods.PolarVector(2, npc.rotation + MathF.PI / 2);
-                float multiplier = 1 + 3f * (npc.ai[2] / flameTime);
+                float multiplier = 1 + 4f * (npc.ai[2] / flameTime);
                 Vector2 vel = TRAEMethods.PolarVector(6f * multiplier, npc.rotation + MathF.PI / 2);
                 //GlowBall.NewGlowBall(shootFrom, Color.YellowGreen with { A = 0}, Vector2.One * .7f, Vector2.Normalize(vel).RotatedByRandom(.2f) * 16 + npc.velocity, 20, null, 1, .9f);
                 npc.localAI[2] += 1f;
@@ -272,7 +272,7 @@ namespace TRAEProject.Changes.NPCs.Boss
                     npc.ai[2] = 0f;
                     npc.target = 255;
                     npc.rotation = (Main.player[npc.target].Center - npc.Center).ToRotation() - MathF.PI / 2;
-                    if (npc.ai[3] >= 4f)
+                    if (npc.ai[3] >= 3f) // five on master
                     {
                         npc.ai[1] = 3f;
                         npc.ai[3] = 0f;
@@ -425,7 +425,7 @@ namespace TRAEProject.Changes.NPCs.Boss
             ColorSmoke = new Color(70, 70, 70, 100);
             dustID = DustID.CursedTorch;
              dustAmount = 0;
-            scalemodifier = 1f;
+             scalemodifier = 0.8f;
             Projectile.light = 1;
         }
         public override void OnHitPlayer(Player target, Player.HurtInfo info)

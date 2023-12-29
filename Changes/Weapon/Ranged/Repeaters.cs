@@ -137,7 +137,7 @@ namespace TRAEProject.Changes.Weapon.Ranged
                         num4 = 24f / num4;
                         num2 *= num4;
                         num3 *= num4;
-                        Projectile.NewProjectile(player.GetSource_FromThis(), k, y2, num2, num3, 221, 20, 0f, player.whoAmI);
+                        Projectile.NewProjectile(player.GetSource_FromThis(), k, y2, num2, num3, 221, 30, 0f, player.whoAmI);
                         return;
                 }
             }
@@ -152,7 +152,7 @@ namespace TRAEProject.Changes.Weapon.Ranged
             Projectile.aiStyle = 1;
             AIType = ProjectileID.Bullet;
             Projectile.timeLeft = 30;
-            Projectile.ArmorPenetration = 15;
+            Projectile.ArmorPenetration = 20;
             Projectile.extraUpdates = 1;
             Projectile.scale = 1.35f;
             Projectile.DamageType = DamageClass.Ranged;
