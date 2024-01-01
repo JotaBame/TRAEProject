@@ -41,13 +41,7 @@ namespace TRAEProject.Changes.NPCs
             
             switch (npc.type)
             {
-                case NPCID.DesertScorpionWall:
-                case NPCID.DesertScorpionWalk:
-                    npcLoot.Add(ItemDropRule.Common(ItemID.Gatligator, 33));
-                    break;
-                case NPCID.DuneSplicerHead:
-                    npcLoot.Add(ItemDropRule.Common(ItemID.Gatligator, 33));
-                    break;
+
                 case NPCID.DD2DarkMageT1:
                 case NPCID.DD2DarkMageT3:
                     npcLoot.Add(ItemDropRule.OneFromOptions(6, ItemID.MonkBelt, ItemID.HuntressBuckler, ItemID.SquireShield, ItemID.ApprenticeScarf));
@@ -103,15 +97,19 @@ namespace TRAEProject.Changes.NPCs
                     });
                     npcLoot.Remove(ItemDropRule.Common(ItemID.RifleScope));
                     break;
-                case NPCID.DesertDjinn:
+
+                 case NPCID.IceMimic:
+                    npcLoot.Add(ItemDropRule.OneFromOptionsNotScalingWithLuck(1, MimicDrops));
+                    break;
+                case NPCID.ArmoredViking:
+                case NPCID.IceTortoise:
                     npcLoot.RemoveWhere(rule =>
                     {
                         if (rule is not CommonDrop drop) // Type of drop you expect here
                             return false;
-                        return drop.itemId == ItemID.DjinnLamp; // compare more fields if needed
+                        return drop.itemId == ItemID.IceSickle; // compare more fields if needed
                     });
-                    npcLoot.Add(ItemDropRule.Common(ItemID.SpiritFlame, 40));
-                break;
+                    break;
                 case NPCID.IcyMerman:
                 case NPCID.IceElemental:
                     npcLoot.RemoveWhere(rule =>
@@ -119,6 +117,11 @@ namespace TRAEProject.Changes.NPCs
                         if (rule is not CommonDrop drop) // Type of drop you expect here
                             return false;
                         return drop.itemId == ItemID.FrostStaff; // compare more fields if needed
+                    }); npcLoot.RemoveWhere(rule =>
+                    {
+                        if (rule is not CommonDrop drop) // Type of drop you expect here
+                            return false;
+                        return drop.itemId == ItemID.IceSickle; // compare more fields if needed
                     });
                     break;
                 case NPCID.GreekSkeleton:
@@ -131,20 +134,30 @@ namespace TRAEProject.Changes.NPCs
                     npcLoot.Add(ItemDropRule.Common(ItemID.Javelin, 25));
                     break;
                 case NPCID.Clown:
-                    {
-                        npcLoot.Add(ItemDropRule.OneFromOptionsNotScalingWithLuck(4, ItemID.WhoopieCushion));
-                        return;
-                    }
+                    npcLoot.Add(ItemDropRule.OneFromOptionsNotScalingWithLuck(4, ItemID.WhoopieCushion));
+                    return;
                 case NPCID.SkeletonCommando:
-                    {
-                        npcLoot.Add(ItemDropRule.Common(ItemType<MechanicalEyeItem>(), 33));
-                        return;
-                    }
+                    npcLoot.Add(ItemDropRule.Common(ItemType<MechanicalEyeItem>(), 33));
+                    return;
                 case NPCID.MartianDrone:
+                    npcLoot.Add(ItemDropRule.Common(ItemType<SpaceBalloonItem>(), 25));
+                    return;
+                case NPCID.DesertDjinn:
+                    npcLoot.RemoveWhere(rule =>
                     {
-                        npcLoot.Add(ItemDropRule.Common(ItemType<SpaceBalloonItem>(), 25));
-                        return;
-                    }
+                        if (rule is not CommonDrop drop) // Type of drop you expect here
+                            return false;
+                        return drop.itemId == ItemID.DjinnLamp; // compare more fields if needed
+                    });
+                    npcLoot.Add(ItemDropRule.Common(ItemID.SpiritFlame, 40));
+                    break;
+                case NPCID.DesertScorpionWall:
+                case NPCID.DesertScorpionWalk:
+                    npcLoot.Add(ItemDropRule.Common(ItemID.Gatligator, 30));
+                    break;
+                case NPCID.DuneSplicerHead:
+                    npcLoot.Add(ItemDropRule.Common(ItemID.Gatligator, 20));
+                    break;
                 case NPCID.DesertLamiaDark:
                 case NPCID.DesertLamiaLight:
                     npcLoot.Add(ItemDropRule.Common(ItemID.DjinnLamp, 80));
@@ -157,6 +170,7 @@ namespace TRAEProject.Changes.NPCs
                 case NPCID.DesertGhoulCrimson:
                     npcLoot.Add(ItemDropRule.Common(ItemID.DjinnLamp, 80));
                     break;
+
                 case NPCID.Tim:
                     npcLoot.Add(ItemDropRule.Common(ItemID.BookofSkulls, 2));
                     break;
@@ -178,28 +192,32 @@ namespace TRAEProject.Changes.NPCs
                     npcLoot.Add(ItemDropRule.Common(ItemID.BrainScrambler, 30));
                     npcLoot.Add(ItemDropRule.Common(ItemID.BrainScrambler, 30));
                     break;
-                case NPCID.IceMimic:
-                    npcLoot.Add(ItemDropRule.OneFromOptionsNotScalingWithLuck(1, MimicDrops));
-                    break;
+        
                 case NPCID.PirateShip:
+                    npcLoot.RemoveWhere(rule =>
+                    {
+                        if (rule is not CommonDrop drop) // Type of drop you expect here
+                            return false;
+                        return drop.itemId == ItemID.LuckyCoin; // compare more fields if needed
+                    }); npcLoot.RemoveWhere(rule =>
+                    {
+                        if (rule is not CommonDrop drop) // Type of drop you expect here
+                            return false;
+                        return drop.itemId == ItemID.GoldRing; // compare more fields if needed
+                    }); npcLoot.RemoveWhere(rule =>
+                    {
+                        if (rule is not CommonDrop drop) // Type of drop you expect here
+                            return false;
+                        return drop.itemId == ItemID.DiscountCard; // compare more fields if needed
+                    }); npcLoot.RemoveWhere(rule =>
+                    {
+                        if (rule is not CommonDrop drop) // Type of drop you expect here
+                            return false;
+                        return drop.itemId == ItemID.PirateStaff; // compare more fields if needed
+                    });
                     npcLoot.Add(ItemDropRule.OneFromOptionsNotScalingWithLuck(1, PirateDrops));
                     break;
-                case NPCID.ArmoredViking:
-                    npcLoot.RemoveWhere(rule =>
-                    {
-                        if (rule is not CommonDrop drop) // Type of drop you expect here
-                            return false;
-                        return drop.itemId == ItemID.IceSickle; // compare more fields if needed
-                    });
-                    break;
-                case NPCID.IceTortoise:
-                    npcLoot.RemoveWhere(rule =>
-                    {
-                        if (rule is not CommonDrop drop) // Type of drop you expect here
-                            return false;
-                        return drop.itemId == ItemID.IceSickle; // compare more fields if needed
-                    });
-                    break;
+
                 case NPCID.GoblinSummoner:
                     npcLoot.Add(ItemDropRule.Common(ItemType<ShadowflameCharmItem>(), 5));
                     break;
@@ -422,6 +440,13 @@ namespace TRAEProject.Changes.NPCs
         {
             NPCLoader.blockLoot.Add(ItemID.TrifoldMap);
             NPCLoader.blockLoot.Add(ItemID.FastClock);
+            NPCLoader.blockLoot.Add(ItemID.Yelets);
+            NPCLoader.blockLoot.Add(ItemID.HelFire);
+            if (!NPC.downedPlantBoss && npc.type == NPCID.Princess)
+            {
+                NPCLoader.blockLoot.Add(ItemID.PrincessWeapon);
+
+            }
             switch (npc.type)
             {
                 case 657: // queen slime

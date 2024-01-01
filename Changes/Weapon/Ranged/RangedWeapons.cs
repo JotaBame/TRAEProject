@@ -287,7 +287,15 @@ namespace TRAEProject.Changes.Weapons
                         }
                     }
                     return;
-  
+                case ItemID.NanoBullet:
+                    foreach (TooltipLine line in tooltips)
+                    {
+                        if (line.Mod == "Terraria" && line.Name == "Tooltip0")
+                        {
+                            line.Text += "Increases life regeneration after striking an enemy";
+                        }
+                    }
+                    return;
             }
         }
     }

@@ -12,6 +12,8 @@ using TRAEProject.NewContent.NPCs.Underworld.Beholder;
 using Terraria.Localization;
 using Terraria.Chat;
 using Terraria.Audio;
+using System;
+using Steamworks;
 
 namespace TRAEProject.Changes
 {
@@ -376,6 +378,25 @@ namespace TRAEProject.Changes
        
         public override void ModifyTooltips(Item item, List<TooltipLine> tooltips)
         {
+            foreach (TooltipLine line in tooltips)
+            {
+                if (line.Mod == "Terraria" && line.Name == "Speed")
+                {
+                    Player player = Main.player[item.playerIndexTheItemIsReservedFor];
+                     float roundedUseTime = MathF.Round(item.useAnimation / (1 + (player.GetAttackSpeed(item.DamageType) - 1) * ItemID.Sets.BonusAttackSpeedMultiplier[item.type]));
+               
+                    if (item.CountsAsClass(DamageClass.SummonMeleeSpeed))
+                    {
+                        roundedUseTime = MathF.Round(item.useAnimation / (1 + ((player.GetAttackSpeed(item.DamageType) - 1 + player.GetAttackSpeed(DamageClass.Melee) - 1) * ItemID.Sets.BonusAttackSpeedMultiplier[item.type])));
+                    }
+                     float attacksPerSecond = 60 / roundedUseTime;
+                    if (item.reuseDelay > 0)
+                    {
+                         attacksPerSecond = 60 / (float)(roundedUseTime + item.reuseDelay);
+                    }
+                    line.Text = MathF.Round(attacksPerSecond, 1) + " attacks per second";
+                }
+            }
             switch (item.type)
             {
                 case ItemID.VineRope:

@@ -1,11 +1,11 @@
 Mods: {
 	TRAEProject: {
 		Projectiles: {
-			BouncingFlames.DisplayName: Llamas Rebotantes
-			BloodBeam.DisplayName: Laser de Sangre
-			BloodSnipe.DisplayName: Snipe de Sangre
-			EyeNuke.DisplayName: Bomba Ojo
-			HostileCloud.DisplayName: Nube Hostil
+			BouncingFlames.DisplayName: Bouncing Flames
+			BloodBeam.DisplayName: Blood Beam
+			BloodSnipe.DisplayName: Blood Snipe
+			EyeNuke.DisplayName: Eye Nuke
+			HostileCloud.DisplayName: Hostile Cloud
 			PlanteraHook.DisplayName: Plantera's Hook
 			PlanteraHook2.DisplayName: Plantera's Hook
 			VineRing.DisplayName: Vine Ring
@@ -273,149 +273,149 @@ Mods: {
 		}
 
 		Prefixes: {
-			Aerodynamic.DisplayName: Aerodinámico
-			Bad.DisplayName: Malo
+			Aerodynamic.DisplayName: Aerodynamic
+			Bad.DisplayName: Bad
 			Brutal.DisplayName: Brutal
-			Dense.DisplayName: Denso
-			Devastating.DisplayName: Devastante
-			Enchanted.DisplayName: Encantado
-			Extended.DisplayName: Extendido
-			Extreme.DisplayName: Extremo
-			Kinetic.DisplayName: Kinético
-			Pathetic.DisplayName: Patetico
-			Piercing.DisplayName: Atravesante
-			Pounding.DisplayName: Golpeante
+			Dense.DisplayName: Dense
+			Devastating.DisplayName: Devastating
+			Enchanted.DisplayName: Enchanted
+			Extended.DisplayName: Extended
+			Extreme.DisplayName: Extreme
+			Kinetic.DisplayName: Kinetic
+			Pathetic.DisplayName: Pathetic
+			Piercing.DisplayName: Piercing
+			Pounding.DisplayName: Pounding
 			Radical.DisplayName: Radical
-			Relentless.DisplayName: Imparable
-			Spiked.DisplayName: Pinchudo
-			Tricky.DisplayName: Tramposo
-			Zoned.DisplayName: Zonificado
+			Relentless.DisplayName: Relentless
+			Spiked.DisplayName: Spiked
+			Tricky.DisplayName: Tricky
+			Zoned.DisplayName: Zoned
 		}
 
 		Buffs: {
 			Celled: {
-				DisplayName: Celulado
-				Description: Las células te están comiendo
+				DisplayName: Celled
+				Description: Being eaten by cells
 			}
 
 			Impaled: {
-				DisplayName: Empalado
+				DisplayName: Impaled
 				Description: Ouch!
 			}
 
 			KaleidoscopeSecondTag: {
 				DisplayName: KaleidoscopeNewDebuff
-				Description: este no aparece XD
+				Description: Mods.TRAEProject.Buffs.KaleidoscopeSecondTag.Description
 			}
 
 			LavaShield: {
-				DisplayName: Escudo de Lava
-				Description: Aumenta la defensa en 12
+				DisplayName: Lava Shield
+				Description: Increases defense by 12
 			}
 
 			MagicBoost: {
-				DisplayName: Impulso Mágico
-				Description: Aumenta el daño mágico en 20%
+				DisplayName: Magic Boost
+				Description: Magic damage increased by 20%
 			}
 
 			NanoHealing: {
-				DisplayName: Nano Curación
-				Description: Los nanitos te reparan
+				DisplayName: Nano Healing
+				Description: Being repaired by nanites
 			}
 
 			NeoFeralBite: {
-				DisplayName: Mordisco feroz
-				Description: Provoca Confusión
+				DisplayName: Feral Bite
+				Description: Causes confusion
 			}
 
 			SandRush: {
-				DisplayName: Ímpetu Arena
-				Description: Aumenta velocidad de movimiento en 20%
+				DisplayName: Sand Rush
+				Description: Movement speed increased by 20%
 			}
 
 			SBandAidFix: {
 				DisplayName: Band Aid Fix
-				Description: no pienso perder tiempo traduciendo esto
+				Description: wait, don't band-aids actually help you HEAL your wounds?
 			}
 
 			ShackledDefenses: {
-				DisplayName: Defensa Esposada
-				Description: Aumenta la defensa en 10
+				DisplayName: Shackled Defenses
+				Description: Defense increased by 10
 			}
 
 			StrongerPoisoned: {
 				DisplayName: Stronger Poisoned
-				Description: lol no
+				Description: Yes, I'm fully aware that this is the exact opposite of what a Bezoar is for.
 			}
 
 			WaterAffinity: {
-				DisplayName: Afinidad Acuática
-				Description: Aumenta la velocidad de movimiento en 30%
+				DisplayName: Water Affinity
+				Description: Running Speed increased
 			}
 
 			HeartAttack: {
-				DisplayName: Ataque Corazón!
-				Description: Aumenta el daño en un 20%
+				DisplayName: Heart Attack!
+				Description: Damage increased by a multiplicative 20%
 			}
 
 			MadFlockos: {
-				DisplayName: Rebaño de Copitos
-				Description: Los copitos locos pelearán por ti
+				DisplayName: Flocko Flock
+				Description: The Mad Flockos will fight for you
 			}
 
 			PhoenixRush: {
-				DisplayName: Ímpetu Cenizas
-				Description: Aumenta la velocidad de salto y movimiento en 15%
+				DisplayName: Ash Rush
+				Description: 15% increased movement and jump speed
 			}
 
 			ReptilianMight: {
-				DisplayName: Fuerza Reptiliana
-				Description: Aumenta la velocidad del cuerpo a cuerpo 30%
+				DisplayName: Reptilian Might
+				Description: 30% increased melee speed
 			}
 
 			BurntOut: {
-				DisplayName: Quemado
-				Description: Necesitas recargar
+				DisplayName: Burnt Out
+				Description: Need To Recharge
 			}
 
 			EvilLookingEyeBuff: {
-				DisplayName: Bebé Beholder
-				Description: Todavía no puede disparar láseres. Creo.
+				DisplayName: Baby Beholder
+				Description: It can't shoot lasers yet. I think.
 			}
 
 			Restoring1: {
-				DisplayName: Restauración
-				Description: Restaura vida
+				DisplayName: Restoring
+				Description: Restoring health
 			}
 
 			Restoring2: {
-				DisplayName: Restauración
-				Description: Restaura vida
+				DisplayName: Restoring
+				Description: Restoring health
 			}
 
 			Wipeout: {
-				DisplayName: Eliminado
-				Description: El pergamino necesita recargar
+				DisplayName: Wiped Out
+				Description: The scroll needs to recharge.
 			}
 
 			BloodSquidBuff: {
-				DisplayName: Calamar de Sangre Bebé
-				Description: Brinca y Gotea!
+				DisplayName: Baby Blood Squid
+				Description: It drips and skips!
 			}
 
 			BloodRush: {
-				DisplayName: Ímpetu de Sangre
-				Description: Ve volando!
+				DisplayName: Blood Rush
+				Description: Fly away!
 			}
 
 			LavamanderBuff: {
-				DisplayName: Lavamandra
-				Description: Calienta sus pies for ti
+				DisplayName: Lavamander
+				Description: Don't get cold feet again
 			}
 
 			Power: {
-				DisplayName: Poder
-				Description: Aumenta el daño en 30%
+				DisplayName: Power
+				Description: Damage increased by 30%
 			}
 
 			AbsoluteZeroTag: {
@@ -449,38 +449,38 @@ Mods: {
 			}
 
 			WishForSpeedBuff: {
-				DisplayName: Deseo por velocidad
-				Description: Puedes pedir cualquier deseo... siempre que sea 15% más velocidad de movimiento
+				DisplayName: Wish For Speed Buff
+				Description: Mods.TRAEProject.Buffs.WishForSpeedBuff.Description
 			}
 		}
 
 		Items: {
 			AlligatorBalloon: {
-				DisplayName: Croco Globo
+				DisplayName: Croco Balloon
 				Tooltip:
 					'''
-					Su portador puede realizar saltos dobles					
-					Gran incremento de la velocidad de salto y resistencia a las caídas
-					Permite el alto-salto
+					Allows the holder to double jump
+					Greatly increases jump speed and fall resistance
+					Allows auto-jump
 					'''
 			}
 
 			AngelicStone: {
-				DisplayName: Piedra Angelical
+				DisplayName: Angelic Stone
 				Tooltip:
 					'''
-					Aumenta la regeneración de mana en 10%					
-					Usa de forma automática pociones de maná cuando se necesitan
-					Reduces la duracion de Locura de Maná en un 50%
+					10% increased mana regeneration
+					Automatically uses mana potions when needed
+					Reduces the cooldown of mana sickness by 50%
 					'''
 			}
 
 			BalanceCuffs: {
-				DisplayName: Esposas Balance
+				DisplayName: Balance Cuffs
 				Tooltip:
 					'''
-					Aumenta el daño en 20% al ser herido
-					Restaura 3 de mana por cada punto de daño recibido
+					When hit grants a 20% damage buff for damage/10 seconds
+					When hit restores 3 mana for every point of damage taken
 					'''
 			}
 
@@ -550,6 +550,7 @@ Mods: {
 					Rocket boots and wings are activated by pressing UP instead of jump
 					40% increased flight time
 					Provides extended rocket boot flight
+					Negates fall damage
 					'''
 			}
 
@@ -559,6 +560,7 @@ Mods: {
 					'''
 					Rocket boots and wings are activated by pressing UP instead of jump
 					40% increased flight time
+					Negates fall damage
 					'''
 			}
 
@@ -597,6 +599,8 @@ Mods: {
 					'''
 					Rocket boots and wings are activated by pressing UP instead of jump
 					40% increased flight time 
+					Negates fall damage
+
 					Provides a double jump
 					'''
 			}
@@ -607,6 +611,7 @@ Mods: {
 					'''
 					Rocket boots and wings are activated by pressing UP instead of jump
 					40% increased flight time
+					Negates fall damage
 					Provides rocket boot flight
 					Provides an omnidirectional booster
 					'''
@@ -709,7 +714,7 @@ Mods: {
 				Tooltip:
 					'''
 					Increases armor penetration by 5
-					4% increased damage and critical strike chance
+						4% increased damage and critical strike chance
 					Enemies are less likely to target you
 					'''
 			}
@@ -738,7 +743,7 @@ Mods: {
 				DisplayName: Shadow Claws
 				Tooltip:
 					'''
-					Increases velocidad del cuerpo a cuerpo by 12% and allows all melee weapons and whips to autoswing
+					Increases melee speed by 12% and allows all melee weapons and whips to autoswing
 					Minion damage is stored as Shadowflame energy, up to 3000
 					Whip strikes spawn a friendly Shadowflame Apparition for every 750 damage stored
 					'''
@@ -982,7 +987,7 @@ Mods: {
 				Tooltip:
 					'''
 					15% increased critical strike chance
-					25% increased velocidad del cuerpo a cuerpo
+					25% increased melee speed
 					'''
 			}
 
@@ -1029,7 +1034,7 @@ Mods: {
 				DisplayName: Master Emblem
 				Tooltip:
 					'''
-					12% increased velocidad del cuerpo a cuerpo
+					12% increased melee speed
 					12% increased ranged critical strike damage
 					12% increased mana regeneration
 					Increases your maximum number of minions by 1
@@ -1522,7 +1527,8 @@ Mods: {
 				DisplayName: Croco Balloon
 				Tooltip:
 					'''
-					Su portador puede realizar saltos dobles					Greatly increases jump speed and fall resistance
+					Allows the holder to double jump
+					Greatly increases jump speed and fall resistance
 					Allows auto-jump
 					'''
 			}
@@ -1597,10 +1603,11 @@ Mods: {
 				Tooltip:
 					'''
 					20% increased movement speed 
-					40% increased flight time
 					The wearer can triple jump
 					20% increased movement speed on sand
 					Rocket boots and wings are activated by pressing UP instead of jump
+					40% increased flight time
+					Negates fall damage
 
 					'''
 			}
@@ -1650,10 +1657,10 @@ Mods: {
 				DisplayName: T R A E Config
 
 				Headers: {
-					BossChanges: Boss Changes
-					PrimeRail: Prime Rail
-					BameRail: Bame's Rail Nerf (No Predictive Aim)
-					QwertyRail: Qwerty's Rail Nerf (Adjusted Predictive Aim)
+					BossChanges: Boss Changes Header
+					PrimeRail: Prime Rail Header
+					BameRail: Bame Rail Header
+					QwertyRail: Qwerty Rail Header
 				}
 
 				PlanteraRework: {
@@ -1697,56 +1704,56 @@ Mods: {
 				}
 
 				railMode: {
-					Label: Railgun Mode
+					Label: rail Mode
 					Tooltip: ""
 				}
 
 				bRailVel: {
-					Label: Rail Shot Velocity
-					Tooltip: Total velocity of rail shot = Shot Velocity * (1 + extra updates)
+					Label: b Rail Vel
+					Tooltip: ""
 				}
 
 				bRailEUpdates: {
-					Label: Rail Shot Extra Updates
-					Tooltip: Total velocity of rail shot = Shot Velocity * (1 + extra updates)
+					Label: b Rail E Updates
+					Tooltip: ""
 				}
 
 				bRailTurnSpeed: {
-					Label: Gun Turn Speed (degrees / s)
-					Tooltip: How quickly the railgun can turn
+					Label: b Rail Turn Speed
+					Tooltip: ""
 				}
 
 				qRailVel: {
-					Label: Rail Shot Velocity
-					Tooltip: Total velocity of rail shot = Shot Velocity * (1 + extra updates)
+					Label: q Rail Vel
+					Tooltip: ""
 				}
 
 				qRailEUpdates: {
-					Label: Rail Shot Extra Updates
-					Tooltip: Total velocity of rail shot = Shot Velocity * (1 + extra updates)
+					Label: q Rail E Updates
+					Tooltip: ""
 				}
 
 				qRailTurnSpeed: {
-					Label: Gun Turn Speed (degrees / s)
-					Tooltip: How quickly the railgun can turn
+					Label: q Rail Turn Speed
+					Tooltip: ""
 				}
 
 				railStopAimTime: {
-					Label: Rail Stop Aim Time
-					Tooltip: How many frames the railgun stops aiming before it fires, the predictive aim will account for this
+					Label: rail Stop Aim Time
+					Tooltip: ""
 				}
 
 				holdFireOnRage: {
-					Label: Hold Fire On Rage
-					Tooltip: When prime is spinning hold fire on the railgun, practically guarentees a shot right when prime's rage ends
+					Label: hold Fire On Rage
+					Tooltip: ""
 				}
 			}
 
 			RailMode: {
-				QwertyNerf.Label: Qwerty Nerf
-				BameNerf.Label: Bame Nerf
-				Classic.Label: Classic
 				Tooltip: ""
+				Classic.Label: Classic
+				BameNerf.Label: Bame Nerf
+				QwertyNerf.Label: Qwerty Nerf
 			}
 		}
 	}

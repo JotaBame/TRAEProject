@@ -89,7 +89,7 @@ namespace TRAEProject.Changes.Prefixes
                     }
                     if (line.Name == "PrefixAccMoveSpeed")
                     {
-                        line.Text += "and jump speed";
+                        line.Text += " and jump speed";
 
 
                     }

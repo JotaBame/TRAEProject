@@ -55,8 +55,8 @@ namespace TRAEProject.Changes.Recipes
             IceSickle.AddTile(TileID.MythrilAnvil);
             IceSickle.Register();
             Recipe PulseBow = Recipe.Create(ItemID.PulseBow);
-            PulseBow.AddIngredient(ItemID.ShroomiteBar, 20);
-            PulseBow.AddTile(TileID.Autohammer);
+            PulseBow.AddIngredient(ItemID.ShroomiteBar, 18);
+            PulseBow.AddTile(TileID.MythrilAnvil);
             PulseBow.Register(); 
             Recipe Rocket = Recipe.Create(ItemID.RocketI, 50);
             Rocket.AddIngredient(ItemID.IronBar, 1);
@@ -73,8 +73,8 @@ namespace TRAEProject.Changes.Recipes
             DestructiveRocket.AddIngredient(ItemID.ExplosivePowder, 1);
             DestructiveRocket.AddTile(TileID.Anvils);
             DestructiveRocket.Register();
-            Recipe SuperRocket = Recipe.Create(ItemID.RocketIII, 50);
-            SuperRocket.AddIngredient(ItemID.RocketI, 50);
+            Recipe SuperRocket = Recipe.Create(ItemID.RocketIII, 65);
+            SuperRocket.AddIngredient(ItemID.RocketI, 65);
             SuperRocket.AddIngredient(ItemID.CobaltBar, 2);
             SuperRocket.AddTile(TileID.Anvils);
             SuperRocket.Register(); 

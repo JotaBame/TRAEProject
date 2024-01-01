@@ -234,12 +234,11 @@ namespace TRAEProject.Changes.Accesory
                         dust.noGravity = true;
                     }
                     return false;
-                }
-                if (closest == null )
-                {
-                    return true;
-                }
-                    
+                }                   
+            }
+            if (projectile.type == ProjectileID.ChlorophyteArrow || projectile.type == ProjectileID.NanoBullet)
+            {
+                projectile.Kill();
             }
 			return true;
         }

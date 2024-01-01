@@ -23,7 +23,7 @@ namespace TRAEProject.NewContent.Items.Weapons.Ranged.Ammo
             Item.damage = 9;
             Item.DamageType = DamageClass.Ranged;
             Item.knockBack = 2;
-            Item.value = Item.sellPrice(0, 0, 0, 20);
+            Item.value = Item.sellPrice(0, 0, 0, 8);
             Item.rare = ItemRarityID.Blue;
             Item.width = 14;
             Item.height = 32;

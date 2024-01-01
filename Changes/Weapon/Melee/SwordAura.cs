@@ -262,10 +262,10 @@ namespace TRAEProject.Changes.Weapon.Melee
         public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
             Player player = Main.player[Projectile.owner];
-            if (player.GetModPlayer<OnHitEffects>().BaghnakhHeal <= (int)(player.GetModPlayer<OnHitEffects>().LastHitDamage * 0.5))
+            if (player.GetModPlayer<OnHitEffects>().BaghnakhHeal <= (int)(player.GetModPlayer<OnHitEffects>().LastHitDamage * 0.33))
             {
 
-                float healAmount = (float)(damageDone * 0.05f);
+                float healAmount = (float)(damageDone * 0.04f);
                 if (healAmount < 1)
                     healAmount = 1;
                 player.GetModPlayer<OnHitEffects>().BaghnakhHeal += (int)healAmount;

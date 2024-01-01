@@ -19,7 +19,6 @@ namespace TRAEProject.Changes.Weapon.Melee
     class HardmodeSwords : GlobalItem
     {
         public override bool InstancePerEntity => true;
-        public bool FetidHeal = false;
         int aura = 0; // for use for those swords that also shoot a projectile on top of the aura
         public override GlobalItem Clone(Item item, Item itemClone)
         {
@@ -132,11 +131,11 @@ namespace TRAEProject.Changes.Weapon.Melee
                     item.damage = 70; // down from 80
                     break;
                 case ItemID.FetidBaghnakhs:
-                    FetidHeal = true;
                     item.noMelee = true; item.useTurn = false;
 
                     item.shootsEveryUse = true;
-                    item.shoot = ProjectileType<ShortAura>(); item.damage = 45;
+                    item.shoot = ProjectileType<ShortAura>(); 
+                    item.damage = 40;
                     item.useTime = 8;
                     item.useAnimation = 8;
                     break;
@@ -145,7 +144,6 @@ namespace TRAEProject.Changes.Weapon.Melee
 
                     item.shootsEveryUse = true;
                     item.shoot = ProjectileType<ShortAura>();
-                    FetidHeal = true;
                     item.useTime = 8;
                     item.useAnimation = 8;
                     break;

@@ -110,7 +110,7 @@ namespace TRAEProject.Changes.Weapon.Ranged
     {
         public override void OnHitNPC(Projectile projectile, NPC target, NPC.HitInfo hit, int damageDone)
         {
-            if(projectile.arrow)
+            if(projectile.arrow && !projectile.GetGlobalProjectile<ProjectileStats>().FirstHit)
             {
                 Player player = Main.player[projectile.owner];
                 switch (player.HeldItem.type)

@@ -21,7 +21,7 @@ namespace TRAEProject.Changes.Recipes
             Sashimi.Register();
             Recipe Leather = Recipe.Create(ItemID.Leather).AddIngredient(ItemID.Vertebrae, 5).AddTile(TileID.Tables);
             Leather.Register();
-            
+     
             Recipe Wire = 
             Recipe.Create(ItemID.Wire, 3).
             AddIngredient(ItemID.CopperBar, 1).

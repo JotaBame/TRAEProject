@@ -17,6 +17,7 @@ using TRAEProject.NewContent.NPCs.Underworld.Salalava;
 using static Terraria.GameContent.Bestiary.IL_BestiaryDatabaseNPCsPopulator.CommonTags.SpawnConditions;
 using Mono.CompilerServices.SymbolWriter;
 using Terraria.GameContent.Bestiary;
+using TRAEProject.NewContent.Items.Weapons.Ranged.Ammo;
 
 namespace TRAEProject.Changes.NPCs
 {
@@ -79,6 +80,13 @@ namespace TRAEProject.Changes.NPCs
                 shop.TryGetEntry(ItemID.Shotgun, out var entry1);
                 entry1.Disable();
                 shop.InsertAfter(ItemID.Minishark, ItemID.Shotgun, Condition.DownedEowOrBoc);
+                if (WorldGen.crimson)
+                {
+                    shop.TryGetEntry(ItemID.UnholyArrow, out var entry2);
+                    entry2.Disable();
+                    shop.InsertAfter(ItemID.MusketBall, ItemType<BloodyArrow>(), Condition.Hardmode);
+
+                }
 
                 shop.Add(ItemID.QuadBarrelShotgun, Condition.Hardmode, Condition.InGraveyard);
                 shop.Add(ItemID.Uzi, Condition.Hardmode);

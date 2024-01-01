@@ -210,7 +210,7 @@ namespace TRAEProject.Changes.Projectiles
                 }
                 if (projectile.CountsAsClass(DamageClass.Ranged) && (player.GetModPlayer<RangedStats>().GunScope || player.GetModPlayer<RangedStats>().AlphaScope > 0 || player.GetModPlayer<RangedStats>().ReconScope > 0))
                 {
-                    if (projectile.owner == player.whoAmI && projectile.type != ProjectileID.Phantasm && projectile.type != ProjectileID.VortexBeater)
+                    if (projectile.owner == player.whoAmI && projectile.type != ProjectileID.Phantasm && projectile.type != ProjectileID.VortexBeater && projectile.type != ProjectileID.DD2PhoenixBow)
                     {
                         projectile.extraUpdates += 1;
                     }

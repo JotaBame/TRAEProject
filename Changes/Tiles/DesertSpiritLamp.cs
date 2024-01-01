@@ -8,6 +8,7 @@ using static Terraria.ModLoader.ModContent;
 using TRAEProject.NewContent.Items.Misc.PermaBuffs;
 using System.Collections.Generic;
 using TRAEProject.NewContent.Buffs;
+using Terraria.Audio;
 
 namespace TRAEProject.Changes
 {
@@ -112,7 +113,11 @@ namespace TRAEProject.Changes
                 Dust d = Dust.NewDustPerfect(nozzle, 6, -1.5f * Vector2.UnitY);
                 d.noGravity = true;
                 d.color = Color.SkyBlue;
-                Player.AddBuff(ModContent.BuffType<WishForSpeedBuff>(), 2);
+                if (!Player.HasBuff(BuffType<WishForSpeedBuff>()))
+                {
+                    Player.AddBuff(ModContent.BuffType<WishForSpeedBuff>(), 2);
+                    SoundEngine.PlaySound(SoundID.Item4, Player.Center);
+                }
                 /*
                 if(rubTime > 180)
                 {
