@@ -29,7 +29,8 @@ namespace TRAEProject.NewContent.Items.Accesories.MobilityMisc
         public override void UpdateAccessory(Player player, bool hideVisual)
         {
  
-            player.GetModPlayer<TRAEJumps>().advFlight = true;
+            player.GetModPlayer<TRAEJumps>().advFlight = true; player.noFallDmg = true;
+
             player.GetJumpState(ExtraJump.CloudInABottle).Enable();
             player.GetModPlayer<Mobility>().flightTimeBonus += 0.4f;
             player.accRunSpeed = 4.8f;

@@ -26,6 +26,7 @@ namespace TRAEProject.NewContent.Items.Accesories.AdvFlight
         {
             player.GetModPlayer<TRAEJumps>().advFlight = true;
             player.GetModPlayer<Mobility>().flightTimeBonus += 0.4f;
+            player.noFallDmg = true;
             player.rocketTimeMax += 10;
             player.rocketBoots = player.vanityRocketBoots = 1;
         }

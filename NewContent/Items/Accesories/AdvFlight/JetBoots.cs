@@ -26,7 +26,8 @@ namespace TRAEProject.NewContent.Items.Accesories.AdvFlight
         public override void UpdateAccessory(Player player, bool hideVisual)
         {
             player.GetModPlayer<TRAEJumps>().advFlight = true;
-            player.rocketTimeMax += 10;
+            player.rocketTimeMax += 10; player.noFallDmg = true;
+
             player.GetModPlayer<TRAEJumps>().boosterCount++;
             player.GetJumpState<JetJump>().Enable();
             player.GetModPlayer<Mobility>().flightTimeBonus += 0.4f;
