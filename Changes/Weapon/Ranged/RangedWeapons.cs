@@ -149,6 +149,12 @@ namespace TRAEProject.Changes.Weapons
                     item.useTime = 40;
                     item.useAnimation = 40;
                     return;
+                case ItemID.FairyQueenRangedItem:
+                     item.useTime = 2;// unchanged
+                    item.useAnimation = 10; // down from 30
+                    item.reuseDelay = 20; // up from 0
+                    // THIS IS THE EXACT SAME FIRE RATE, IT SEEMS THE DEVS FORGOT REUSEDELAY EXISTED WHEN CODING THIS THING
+                    return;
                 case ItemID.DD2BetsyBow:
                     item.damage = 19; //down from 39
                     item.useTime = 22; // down from 30

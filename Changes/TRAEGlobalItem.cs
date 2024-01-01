@@ -14,6 +14,7 @@ using Terraria.Chat;
 using Terraria.Audio;
 using System;
 using Steamworks;
+using TRAEProject.Changes.Weapon.Melee;
 
 namespace TRAEProject.Changes
 {
@@ -383,18 +384,31 @@ namespace TRAEProject.Changes
                 if (line.Mod == "Terraria" && line.Name == "Speed")
                 {
                     Player player = Main.player[item.playerIndexTheItemIsReservedFor];
-                     float roundedUseTime = MathF.Round(item.useAnimation / (1 + (player.GetAttackSpeed(item.DamageType) - 1) * ItemID.Sets.BonusAttackSpeedMultiplier[item.type]));
-               
+                    float roundedUseAnim = MathF.Round(item.useAnimation / (1 + (player.GetAttackSpeed(item.DamageType) - 1 + player.GetAttackSpeed(DamageClass.Generic) - 1) * ItemID.Sets.BonusAttackSpeedMultiplier[item.type]));
+
                     if (item.CountsAsClass(DamageClass.SummonMeleeSpeed))
                     {
-                        roundedUseTime = MathF.Round(item.useAnimation / (1 + ((player.GetAttackSpeed(item.DamageType) - 1 + player.GetAttackSpeed(DamageClass.Melee) - 1) * ItemID.Sets.BonusAttackSpeedMultiplier[item.type])));
+                        roundedUseAnim = MathF.Round(item.useAnimation / (1 + ((player.GetAttackSpeed(item.DamageType) - 1 + player.GetAttackSpeed(DamageClass.Melee) - 1 + player.GetAttackSpeed(DamageClass.Generic) - 1) * ItemID.Sets.BonusAttackSpeedMultiplier[item.type])));
                     }
-                     float attacksPerSecond = 60 / roundedUseTime;
-                    if (item.reuseDelay > 0)
-                    {
-                         attacksPerSecond = 60 / (float)(roundedUseTime + item.reuseDelay);
-                    }
+                    float attacksPerSecond = 60 / roundedUseAnim;
                     line.Text = MathF.Round(attacksPerSecond, 1) + " attacks per second";
+
+                    if (item.CountsAsClass(DamageClass.Melee) && !item.CountsAsClass(DamageClass.MeleeNoSpeed) && !item.shootsEveryUse && (item.shoot != 0 || item.GetGlobalItem<HardmodeSwords>().aura != 0)) // write down the projectile's attack speed
+                    {
+                        float projUseTime = MathF.Round(item.useTime / (1 + (player.GetAttackSpeed(DamageClass.MeleeNoSpeed) - 1 + player.GetAttackSpeed(DamageClass.Generic) - 1) * ItemID.Sets.BonusAttackSpeedMultiplier[item.type]));
+                        attacksPerSecond = 60 / projUseTime;
+                        line.Text += "\n" + MathF.Round(attacksPerSecond, 1) + " projectiles per second";
+                    }
+                    else if (item.useAnimation != item.useTime && item.reuseDelay != 0) // for weapons like CAR, eventide  
+                    {
+                        attacksPerSecond = 60 / (roundedUseAnim + item.reuseDelay);
+                        line.Text = MathF.Round(attacksPerSecond, 1) + " attacks per second";
+
+                    }
+ 
+                
+ 
+                 
                 }
             }
             switch (item.type)

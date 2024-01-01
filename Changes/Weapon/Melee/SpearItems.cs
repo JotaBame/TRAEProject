@@ -14,6 +14,7 @@ using TRAEProject.Changes.Weapon.Melee.SpearProjectiles;
 using static Terraria.ModLoader.ModContent;
 using Terraria.GameContent.Prefixes;
 using Terraria.GameContent.Creative;
+using TRAEProject.Changes.Weapon.Melee;
 
 namespace TRAEProject.Changes.Weapon
 {
@@ -511,6 +512,32 @@ item.damage = 47;
         }
         public override void ModifyTooltips(Item item, List<TooltipLine> tooltips)
         {
+			if (thrownSpear != -1)
+            {
+				foreach (TooltipLine line in tooltips)
+				{
+					if (line.Mod == "Terraria" && line.Name == "Speed")
+					{
+						Player player = Main.player[item.playerIndexTheItemIsReservedFor];
+						float roundedUseTime = MathF.Round(item.useAnimation / (1 + (player.GetAttackSpeed(item.DamageType) - 1 + player.GetAttackSpeed(DamageClass.Generic) - 1) * ItemID.Sets.BonusAttackSpeedMultiplier[item.type]));
+
+						if (item.CountsAsClass(DamageClass.SummonMeleeSpeed))
+						{
+							roundedUseTime = MathF.Round(item.useAnimation / (1 + ((player.GetAttackSpeed(item.DamageType) - 1 + player.GetAttackSpeed(DamageClass.Melee) - 1 + player.GetAttackSpeed(DamageClass.Generic) - 1) * ItemID.Sets.BonusAttackSpeedMultiplier[item.type])));
+						}
+						float attacksPerSecond = 60 / roundedUseTime;
+						if (item.reuseDelay > 0)
+						{
+							attacksPerSecond = 60 / (float)(roundedUseTime + item.reuseDelay);
+						}
+						line.Text = MathF.Round(attacksPerSecond, 1) + " attacks per second";
+                        float projUseTime = MathF.Round(item.useTime / (1 + (player.GetAttackSpeed(DamageClass.MeleeNoSpeed) - 1 + player.GetAttackSpeed(DamageClass.Generic) - 1) * ItemID.Sets.BonusAttackSpeedMultiplier[item.type]));
+                        attacksPerSecond = 60 / projUseTime;
+                         line.Text += "\n" + MathF.Round(attacksPerSecond / 1.33f, 1) + " thrown attacks per second";
+
+                    }
+				}
+            }
             switch (item.type)
             {
                 case ItemID.PalladiumPike:

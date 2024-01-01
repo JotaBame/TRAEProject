@@ -19,7 +19,7 @@ namespace TRAEProject.Changes.Weapon.Melee
     class HardmodeSwords : GlobalItem
     {
         public override bool InstancePerEntity => true;
-        int aura = 0; // for use for those swords that also shoot a projectile on top of the aura
+        public int aura = 0; // for use for those swords that also shoot a projectile on top of the aura
         public override GlobalItem Clone(Item item, Item itemClone)
         {
             return base.Clone(item, itemClone);
@@ -135,7 +135,7 @@ namespace TRAEProject.Changes.Weapon.Melee
 
                     item.shootsEveryUse = true;
                     item.shoot = ProjectileType<ShortAura>(); 
-                    item.damage = 40;
+                    item.damage = 45;
                     item.useTime = 8;
                     item.useAnimation = 8;
                     break;
@@ -144,8 +144,8 @@ namespace TRAEProject.Changes.Weapon.Melee
 
                     item.shootsEveryUse = true;
                     item.shoot = ProjectileType<ShortAura>();
-                    item.useTime = 8;
-                    item.useAnimation = 8;
+                    item.useTime = 7;
+                    item.useAnimation = 7;
                     break;
                 case ItemID.ChristmasTreeSword: 
                     item.useTime = 29;

@@ -44,7 +44,7 @@ namespace TRAEProject.Changes.Accesory
 
                 case ItemID.FastClock:
                     Main.time += 4;
-                    player.buffImmune[BuffID.Slow] = false;
+                     player.buffImmune[BuffID.Slow] = false;
                     break;
                 case ItemID.Bezoar:
                     player.GetModPlayer<Bezoar>().bezoar = true;
