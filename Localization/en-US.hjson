@@ -479,8 +479,8 @@ Mods: {
 				DisplayName: Balance Cuffs
 				Tooltip:
 					'''
-					When hit grants a 20% damage buff for damage/10 seconds
-					When hit restores 3 mana for every point of damage taken
+					Increases damage by 20% damage
+					Restores 3 mana for every point of damage taken
 					'''
 			}
 
@@ -490,7 +490,7 @@ Mods: {
 					'''
 					Allows the player to sextuple jump!
 					Increases jump height and prevents fall damage
-					Allows reducing gravity by holding up
+					Allows reducing gravity by holding UP					
 					Releases Bees and covers you in honey when damaged
 					Stack combs to increase efficiency and life regeneration
 					'''
@@ -579,7 +579,7 @@ Mods: {
 					'''
 					A weak double jump that grant immunity frames
 					Increases jump height
-					Allows reducing gravity by holding up
+					Allows reducing gravity by holding UP					
 					'''
 			}
 
@@ -590,7 +590,7 @@ Mods: {
 
 			FantasyPack: {
 				DisplayName: Fantasy Pack
-				Tooltip: Provides a controllable booster, a levitation jump, and a fae jump
+				Tooltip: Provides an omnidirectional booster, a levitation jump, and a fae jump
 			}
 
 			FlightForecast: {
@@ -643,7 +643,7 @@ Mods: {
 
 			LifeCuffs: {
 				DisplayName: Life Cuffs
-				Tooltip: When hit grants a 20% damage buff for damage/10 seconds
+				Tooltip: Increases damage by 20% when damaged
 			}
 
 			MagicalCarpet: {
@@ -666,7 +666,7 @@ Mods: {
 				Tooltip:
 					'''
 					Increases ranged velocity and tightens gun spread
-					Rockets, guns and arrows smart bounce and stun enemies on critical strikes
+					Rockets, bullets and arrows smart bounce and stun enemies on critical strikes
 					'Prepare to be Terminated'
 					'''
 			}
@@ -700,7 +700,7 @@ Mods: {
 					'''
 					Increases jump height, prevents fall damage and grants extended flight
 					Press DOWN to fall faster
-					Allows reducing gravity by holding up
+					Allows reducing gravity by holding UP					
 					'''
 			}
 
@@ -783,7 +783,7 @@ Mods: {
 					Grants a soaring carpet, use it by holding UP
 					Hovering with the carpet increases movement speed by 30%
 					Increases acceleration
-					Fall damage immunity
+					Negates fall damage
 					'''
 			}
 
@@ -792,7 +792,7 @@ Mods: {
 				Tooltip:
 					'''
 					Increases jump height
-					Allows reducing gravity by holding up
+					Allows reducing gravity by holding UP					
 					'''
 			}
 
@@ -800,7 +800,7 @@ Mods: {
 				DisplayName: The Black Cross
 				Tooltip:
 					'''
-					Increases length of invincibility after taking damage.
+					Increases length of invincibility after taking damage
 					Grants the wearer a chance to dodge an attack
 					'''
 			}
@@ -1152,7 +1152,7 @@ Mods: {
 
 			BlessedGel: {
 				DisplayName: Water Gel
-				Tooltip: Flames bounce to their targets
+				Tooltip: Boiling water that bounces to its targets
 			}
 
 			BloodyGel: {
@@ -1413,7 +1413,7 @@ Mods: {
 					'''
 					Your summons will focus struck enemies
 					12 summon tag damage
-					Freezing energy bursts from enemies hit by summons, tripling damage
+					Freezing energy bursts from enemies hit by summons, dealing triple damage
 					'''
 			}
 
@@ -1465,7 +1465,7 @@ Mods: {
 
 			SuperRose: {
 				DisplayName: Cursed Flower
-				Tooltip: Charge it up to release petals that seek out your foes
+				Tooltip: Charges up with mana to periodically summon seeking petals
 			}
 
 			WillOfTheWisp: {
@@ -1560,7 +1560,7 @@ Mods: {
 
 			MagicGrenade: {
 				DisplayName: Magic Grenade
-				Tooltip: Guaranteed critical explosion if left out for a short time
+				Tooltip: Guaranteed critical and bigger explosion if left out for a short time
 			}
 
 			FlashRay: {
@@ -1700,7 +1700,7 @@ Mods: {
 
 				EOCChanges: {
 					Tooltip: ""
-					Label: E O C Changes
+					Label: Eye Of Cthulhu Changes
 				}
 
 				railMode: {

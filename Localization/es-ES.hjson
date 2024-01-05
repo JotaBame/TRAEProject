@@ -197,7 +197,7 @@ Mods: {
 			PetalFriendly.DisplayName: Petal
 			SuperRoseProj.DisplayName: PetalSpawner
 			WillOfTheWispFlame.DisplayName: Will O' Wisp Flame
-			BomberBonesGrenade.DisplayName: Bomber Bones Grenade
+			BomberBonesGrenade.DisplayName: Huesos Explosivos Grenade
 			GraniteBolt.DisplayName: Granite Bolt
 			GraniteBoom.DisplayName: Granite Boom
 			DeathgazeBeam.DisplayName: Deathgaze
@@ -435,7 +435,7 @@ Mods: {
 
 			TailWhipTag: {
 				DisplayName: TailWhipTag
-				Description: I wanted the crit tag on this to be equal to pokemon's normal critical strike chance, but that's 6.25% and it was way too low
+				Description: I wanted the crit tag on this to be equal to pokemon's normal probabilidad de golpe crítico, but that's 6.25% and it was way too low
 			}
 
 			Surge: {
@@ -485,71 +485,72 @@ Mods: {
 			}
 
 			BigBundle: {
-				DisplayName: The Big Bundle
+				DisplayName: El Gran Puñado
 				Tooltip:
 					'''
-					Allows the player to sextuple jump!
-					Increases jump height and prevents fall damage
-					Allows reducing gravity by holding up
-					Releases Bees and covers you in honey when damaged
-					Stack combs to increase efficiency and life regeneration
+					El jugador puede hacer un salto séxtuple!
+					Aumenta la altura de los saltos y previene el daño por caída
+					Permite reducir la gravedad manteniendo ARRIBA
+					Libera abejas y te cubre en miel cuando recibes daño
+					Varias colmenas aumentan la eficiencia y la regeneración de vida
 					'''
 			}
 
 			BlizzardSkates: {
-				DisplayName: Blizzard Skates
+				DisplayName: Patines Ventisca
 				Tooltip:
 					'''
-					Allows skating by double tapping on the ground
-					Grants a double jump
-					Allows for a powerful airborne dash that uses the double jump 
+					Permite patinar tocando dos veces en una dirección
+					Otorga un doble salto
+					Permite un poderoso dash aéreo que consume el doble salto
 					'''
 			}
 
 			ChainShield: {
-				DisplayName: Chain Shield
+				DisplayName: Escudo Cadena
 				Tooltip:
 					'''
-					Increases max life by 50
-					Temporarily increases defense when damaged
+					Aumenta la vida máxima en 50
+					Temporalmente aumenta la defensa al recibir daño
 					'''
 			}
 
 			CounterweightString: {
-				DisplayName: Counterweight String
+				DisplayName: Cuerda Contrapeso
 				Tooltip:
 					'''
-					Increases yoyo range
-					Throws a counterweight after hitting an enemy with a yoyo
+					Incrementa el rango de yoyó
+					Tira un contrapeso al golpear a un enemigo con el yoyó
 					'''
 			}
 
 			DemonShield: {
-				DisplayName: Demon Shield
+				DisplayName: Escudo Demonio
 				Tooltip:
 					'''
-					Absorbs 25% of damage done to players on your team when above 25% life
-					Grants immunity to knockback
-					8% increased damage to nearby enemies
+					Absorbe el 25% del daño realizado a jugadores en tu equipo cuando tienes más del 25% de vida 
+					Otorga inmunidad al knockback
+					Incrementa el daño a enemigos cercanos en un 8%
 					'''
 			}
 
 			EvilEye: {
-				DisplayName: Evil Eye
+				DisplayName: Ojo Maligno
 				Tooltip:
 					'''
-					Unleashes curses to the wielder and nearby enemies when damaged
-					Projectiles deal 15% less damage and curse all enemies
+					Maldice al portador y a enemigos cercanos cuando recibe daño
+					Los proyectiles hacen un 15% menos de daño y maldicen a todos los enemigos
 					'''
 			}
 
 			AdvFlightBoots: {
-				DisplayName: Adv. Flight boots
+				DisplayName: Botas de vuelo avanzado
 				Tooltip:
 					'''
-					Rocket boots and wings are activated by pressing UP instead of jump
-					40% increased flight time
-					Provides extended rocket boot flight
+					Las Botas Cohete y las Alas se activan presionando ARRIBA en lugar de Salto					
+					Incrementa el tiempo de vuelo en 40% 
+					Niega el daño por caída
+					Otorga un vuelo extendido
 					'''
 			}
 
@@ -557,349 +558,350 @@ Mods: {
 				DisplayName: Adv. Flight System
 				Tooltip:
 					'''
-					Rocket boots and wings are activated by pressing UP instead of jump
-					40% increased flight time
+					Las Botas Cohete y las Alas se activan presionando ARRIBA en lugar de Salto					
+					Incrementa el tiempo de vuelo en 40% 
+					Niega el daño por caída
 					'''
 			}
 
 			Booster: {
-				DisplayName: Christmas Booster
+				DisplayName: Jetpack Navideño
 				Tooltip:
 					'''
-					Provides an omnidirectional jetpack
-					'This is how santa gets down the chimmney so quickly'
+					Otorga un jetpack omnidireccional
+					'Así es como Santa baja la chimenea tan rápido'
 					'''
 			}
 
 			FaeInABalloon: {
-				DisplayName: Fae Balloon
+				DisplayName: Globo Hada
 				Tooltip:
 					'''
-					A weak double jump that grant immunity frames
-					Increases jump height
-					Allows reducing gravity by holding up
+					Un doble salto débil que otorga frames de inmunidad 
+					Incrementa la altura de los saltos
+					Permite reducir la gravedad manteniendo ARRIBA
 					'''
 			}
 
 			FaeInABottle: {
-				DisplayName: Fae in a bottle
-				Tooltip: A weak double jump that grant immunity frames
+				DisplayName: Hada en una Botella
+				Tooltip: Un doble salto débil que otorga frames de inmunidad 
 			}
 
 			FantasyPack: {
-				DisplayName: Fantasy Pack
-				Tooltip: Provides a controllable booster, a levitation jump, and a fae jump
+				DisplayName: Jetpack de Fantasía
+				Tooltip: Otorga un jetpack omnidireccional, un salto de levitación y un salto de hada 
 			}
 
 			FlightForecast: {
-				DisplayName: Flight Forecast
+				DisplayName: Pronóstico de Vuelo
 				Tooltip:
 					'''
-					Rocket boots and wings are activated by pressing UP instead of jump
-					40% increased flight time 
-					Provides a double jump
+					Las Botas Cohete y las Alas se activan presionando ARRIBA en lugar de Salto					
+					Incrementa el tiempo de vuelo en 40%  
+					Otorga un doble salto
 					'''
 			}
 
 			JetBoots: {
-				DisplayName: Jet Boots
+				DisplayName: Botas Jet
 				Tooltip:
 					'''
-					Rocket boots and wings are activated by pressing UP instead of jump
-					40% increased flight time
-					Provides rocket boot flight
-					Provides an omnidirectional booster
+					Las Botas Cohete y las Alas se activan presionando ARRIBA en lugar de Salto					
+					Incrementa el tiempo de vuelo en 40% 
+					Otorga vuelo de botas cohete
+					Otorga un jetpack omnidireccional
 					'''
 			}
 
 			LevitatingSoles: {
-				DisplayName: Levitating Soles
+				DisplayName: Suelas de Levitación
 				Tooltip:
 					'''
-					Provides a long lasting double jump
-					20% increased movement speed 
-					24% increased jump speed
+					Otorga un doble salto largo
+					Incrementa la velocidad de movimiento en 20% 
+					Incrementa la velocidad de salto en 24% 
 					'''
 			}
 
 			LevitationJuice: {
-				DisplayName: Levitation Juice
-				Tooltip: Provides a long lasting double jump
+				DisplayName: Jugo de levitación
+				Tooltip: Otorga un doble salto largo
+
 			}
 
 			GravityTabi: {
-				DisplayName: Gravity Tabi
+				DisplayName: Tabi de Gravedad
 				Tooltip:
 					'''
-					Allows control of gravity, fast fall and dashing
-					Prevents fall damage
+					Permite controlar la gravedad, caer más rapido y un dash
+					Previene el daño por caída
 					'''
 			}
 
 			LifeCuffs: {
-				DisplayName: Life Cuffs
-				Tooltip: When hit grants a 20% damage buff for damage/10 seconds
+				DisplayName: Esposas de Vida
+				Tooltip: Incrementa el daño en un 20% cuando recibes daño
 			}
 
 			MagicalCarpet: {
-				DisplayName: Magical Carpet
+				DisplayName: Alfombra Mágica
 				Tooltip:
 					'''
-					Grants flight and slow fall
-					Hold DOWN to hover for 25% increased movement speed
-					'I will show you the world...'
+					Permite el vuelo y la caída lenta
+					Manten apretado ABAJO para incrementar la velocidad de movimiento en 20% y levitar
+					'Yo te mostraré el mundo...'
 					'''
 			}
 
 			MasochistChains: {
-				DisplayName: Masochist Chains
-				Tooltip: Getting hit will temporarily increase damage by 20% and movement speed
+				DisplayName: Cadenas de Masoquista
+				Tooltip: Incrementa el daño en 20% y la velocidad del movimiento al recibir daño
 			}
 
 			AlphaScope: {
-				DisplayName: Alpha Scope
+				DisplayName: Mira Alfa
 				Tooltip:
 					'''
-					Increases ranged velocity and tightens gun spread
-					Rockets, guns and arrows smart bounce and stun enemies on critical strikes
-					'Prepare to be Terminated'
+					Incrementa velocidad de rango y reduce la dispersión de pistolas
+					Los cohetes, balas y flechas saltan hacia el enemigo y paralizan en golpes críticos 
+					'Prepárate a ser terminado'
 					'''
 			}
 
 			EyeOfTheDestroyer: {
-				DisplayName: Eye Of The Destroyer
+				DisplayName: Ojo del Destructor
 				Tooltip:
 					'''
-					10% increased critical strike chance
-					Rocket critical strikes stun enemies for 1 second
+					Incrementa la probabilidad de golpe crítico en 10%
+					Los cohetes críticos paralizan por 1 segundo 
 					'''
 			}
 
 			MechanicalEyeItem: {
-				DisplayName: Cyber Eye
-				Tooltip: Rocket critical strikes stun enemies for 1 second
+				DisplayName: Ojo Cibernético
+				Tooltip: Los cohetes críticos paralizan por 1 segundo
 			}
 
 			MirrorShield: {
-				DisplayName: Mirror Shield
+				DisplayName: Escudo Espejo
 				Tooltip:
 					'''
-					Increases max life by 50
-					Reduces damage taken from projectiles by 12%
+					Aumenta la vida máxima en 50
+					Reduce el daño recibido por projectiles en 12% 
 					'''
 			}
 
 			Moonwalkers: {
-				DisplayName: Moonwalkers
+				DisplayName: Pisalunas
 				Tooltip:
 					'''
-					Increases jump height, prevents fall damage and grants extended flight
-					Press DOWN to fall faster
-					Allows reducing gravity by holding up
+					Incrementa la altura de los saltos, previene el daño por caída y otorga vuelo extendido 
+					Presiona ABAJO para caer más rápido
+					Permite reducir la gravedad manteniendo ARRIBA
 					'''
 			}
 
 			PalladiumShield: {
-				DisplayName: Palladium Shield
-				Tooltip: Increases max life by 50
+				DisplayName: Escudo de Paladio
+				Tooltip: Aumenta la vida máxima en 50
 			}
 
 			PutridToothNecklace: {
-				DisplayName: Bone Biter Necklace
+				DisplayName: Collar de Muerdehuesos
 				Tooltip:
 					'''
-					Increases armor penetration by 5
-					4% increased damage and critical strike chance
-					Enemies are less likely to target you
+					Aumenta en 5 la penetración de armadura
+					Incrementa el daño y la probabilidad de golpe crítico en 4%
+					Será menos probable que los enemigos te ataquen
 					'''
 			}
 
 			RuneCobra: {
-				DisplayName: Rune Cobra
+				DisplayName: Runa Cobra
 				Tooltip:
 					'''
-					Increases your maximum number of minions by 1 and minion critical strike chance by 5%
-					Minion damage is stored as Shadowflame energy, up to 3000
-					Whip strikes spawn a friendly Shadowflame Apparition for every 750 damage stored
+					Incrementa la cantidad de súbditos en 1 y la probabilidad de golpe crítico de súbditos en 5%
+					El daño de súbditos se almacena como energía de llama oscura, hasta 3000 
+					Los golpes de látigo crean una Aparición de Llama Oscura por cada 750 de daño almacenado 					
 					'''
 			}
 
 			SandstormBoots: {
-				DisplayName: Sandstorm Boots
+				DisplayName: Botas de Tormenta Arena
 				Tooltip:
 					'''
-					20% increased movement speed
-					The wearer can perform an improved double jump
-					20% increased movement speed on sand
+					Aumenta la velocidad de movimiento en 20% 
+					El portador puede realizar un doble salto mejorado
+					Incrementa la velocidad de movimiento en 20% en arena
 					'''
 			}
 
 			ShadowClaws: {
-				DisplayName: Shadow Claws
+				DisplayName: Garras Sombra
 				Tooltip:
 					'''
-					Increases velocidad del cuerpo a cuerpo by 12% and allows all melee weapons and whips to autoswing
-					Minion damage is stored as Shadowflame energy, up to 3000
-					Whip strikes spawn a friendly Shadowflame Apparition for every 750 damage stored
+					Incrementa la velocidad del cuerpo a cuerpo by 12% 
+					Permite el uso automático de las armas cuerpo a cuerpo y látigos
+					El daño de súbditos se almacena como energía de llama oscura, hasta 3000 
+					Los golpes de látigo crean una Aparición de Llama Oscura por cada 750 de daño almacenado 					
 					'''
 			}
 
 			ShadowflameCharmItem: {
-				DisplayName: Shadowflame Charm
+				DisplayName: Talismán de Llama Oscura
 				Tooltip:
 					'''
-					Minion damage is stored as Shadowflame energy, up to 3000
-					Whip strikes spawn a friendly Shadowflame Apparition for every 750 damage stored
+					El daño de súbditos se almacena como energía de llama oscura, hasta 3000 
+					Los golpes de látigo crean una Aparición de Llama Oscura por cada 750 de daño almacenado 					
 					'''
 			}
 
 			ShamanNecklace: {
-				DisplayName: Shaman Necklace
+				DisplayName: Collar Shamán
 				Tooltip:
 					'''
-					Increases your max number of minions by 1
-					12% increased summon damage
+					Aumenta la cantidad de súbditos en 1
+					Aumenta el daño de súbditos en 12%
 					'''
 			}
 
 			SkeletonBeetle: {
-				DisplayName: Tribal Beetle
+				DisplayName: Escarabajo Tribal
 				Tooltip:
 					'''
-					Increases your maximum number of sentries by 2
-					Increased summon knockback
+					Aumenta la cantidad máxima de torretas en 2
+					Aumenta el knockback de invocaciones
 					'''
 			}
 
 			SoaringCarpet: {
-				DisplayName: Soaring Carpet
+				DisplayName: Alfombra Planeadora
 				Tooltip:
 					'''
-					Grants a soaring carpet, use it by holding UP
-					Hovering with the carpet increases movement speed by 30%
-					Increases acceleration
-					Fall damage immunity
+					Otorga una alfombra planeadora, úsala manteniendo ARRIBA
+					Levitar con la alfombra aumenta la velocidad de movimiento en 30% 
+					Aumenta la aceleración
+					Niega el daño por caída
 					'''
 			}
 
 			SpaceBalloonItem: {
-				DisplayName: Space Balloon
+				DisplayName: Globo espacial
 				Tooltip:
 					'''
-					Increases jump height
-					Allows reducing gravity by holding up
+					Aumenta la altura de los saltos 
+					Permite reducir la gravedad manteniendo ARRIBA
 					'''
 			}
 
 			TheBlackCross: {
-				DisplayName: The Black Cross
+				DisplayName: La Cruz Negra
 				Tooltip:
 					'''
-					Increases length of invincibility after taking damage.
-					Grants the wearer a chance to dodge an attack
+					Aumenta el tiempo de invencibilidad tras recibir daños
+					Otorga la posibilidad de esquivar ataques
 					'''
 			}
 
 			TwoFlowers: {
-				DisplayName: Two Flowers
+				DisplayName: Dos Flores
 				Tooltip:
 					'''
-					Magic critical strikes deal 10% increased damage and have a chance to spawn a mana star
-					Automatically uses mana potions when needed
-
+					Los golpes críticos mágicos hacen un 10% más de daño y tienen una oportunidad de crear una estrella de maná
+ 					Automática usa pociones de maná cuando se necesitan
 					'''
 			}
 
 			BundleOfWeirdBalloons: {
-				DisplayName: Bundle of Weird Balloons
+				DisplayName: Puñado de globos raros
 				Tooltip:
 					'''
-					Allows the user to triple jump
-					Increases jump height
-					Releases bees and douses the wielder in honey when damaged
-					Stack combs to increase efficiency and life regeneration
-
+					El portador puede realizar un triple salto
+					Aumenta la altura de los saltos 
+					Libera abejas y te cubre en miel cuando recibes daño
+					Varias colmenas aumentan la eficiencia y la regeneración de vida
 					'''
 			}
 
 			ChlorophyteHood: {
-				DisplayName: Chlorophyte Hood
-				Tooltip: Increases your maximum number of minions by 2
+				DisplayName: Capucha de Clorofita
+				Tooltip: Aumenta los súbditos en 2
 			}
 
 			IceMajestyBreastplate: {
-				DisplayName: Glacial Breastplate
+				DisplayName: Pechera Glacial
 				Tooltip:
 					'''
-					15% increased summon damage
-					30% increased whip range
+					Aumenta el daño de invocador en 15% 
+					Aumenta el rango de látigos en 30%
 					'''
 			}
 
 			IceMajestyCrown: {
-				DisplayName: Glacial Crown
+				DisplayName: Corona Glacial
 				Tooltip:
 					'''
-					Increases your maximum number of minions by 1
-					20% increased whip speed
+					Aumenta los súbditos en 1
+					Aumenta la velocidad de látigos en 20%
 					'''
 			}
 
-			IceMajestyLeggings: {
-				DisplayName: Glacial Leggings
+			IceMajestyGrebas: {
+				DisplayName: Grebas Glacial 
 				Tooltip:
 					'''
-					10% increased summon damage and whip speed
-					20% increased movement speed
+					Aumenta el daño de invocador y velocidad de látigos en 10%
+					Aumenta la velocidad de movimiento en 20% 
 					'''
 			}
 
 			FinalBoss: {
-				DisplayName: Final Boss
-				Tooltip: !srepoleved gnitanosrepmi snoitanimoba gnitanosrepmi rof taerG
+				DisplayName: Jefe Final
+				Tooltip: !serodallorrased odnanosrepmi senoicanimoba ranosrepmi arap laineG
 			}
 
 			JoterMask: {
-				DisplayName: Joter Mask
-				Tooltip: Great for impersonating abominations impersonating developers!
+				DisplayName: Joter Máscara
+				Tooltip: Genial para impersonar abominaciones impersonando desarrolladores!
 			}
 
 			JoterTrident: {
-				DisplayName: Joter Trident
+				DisplayName: Joter Tridente
 				Tooltip: Joter Eat
 			}
 
 			LeatherHat: {
-				DisplayName: Leather Hood
-				Tooltip: 3% increased summon damage
+				DisplayName: Capucha de Cuero
+				Tooltip: Aumenta el daño de invocador en 3% 
 			}
 
 			LeatherPants: {
-				DisplayName: Leather Pants
-				Tooltip: 3% increased summon damage
+				DisplayName: Pantalones de Cuero
+				Tooltip: Aumenta el daño de invocador en 3%
 			}
 
 			LeatherTunic: {
-				DisplayName: Leather Tunic
-				Tooltip: 10% increased whip speed
+				DisplayName: Túnica de Cuero
+				Tooltip: Incrementa velocidad de látigo en 10% 
 			}
 
 			PhoenixHeadgear: {
-				DisplayName: Phoenix Headgear
+				DisplayName: Casco de Fénix
 				Tooltip:
 					'''
-					11% increased ranged and summon damage
-					7% increased ranged critical strike chance
-					10% increased jump speed
+					Incrementa el daño de invocador y a distancia en 11%
+					Incrementa probabilidad de golpe crítico a distancia en 7%
+					Incrementa velocidad de salto en 10%
 					'''
 			}
 
-			PhoenixLeggings: {
-				DisplayName: Phoenix Leggings
+			PhoenixGrebas: {
+				DisplayName: Grebas de Fénix
 				Tooltip:
 					'''
-					11% increased ranged and summon damage
-					11% increased movement speed
+					Incrementa el daño de invocador y a distancia en 11%
+					Incrementa la velocidad de movimiento en 11%
 					'''
 			}
 
@@ -907,633 +909,632 @@ Mods: {
 				DisplayName: Phoenix Tunic
 				Tooltip:
 					'''
-					11% increased ranged and summon damage
-					Increased your maximum number of minions by 1
+					Incrementa el daño de invocador y a distancia en 11% 
+					Aumenta los súbditos en 1
 					'''
 			}
 
 			ReptilianBulwark: {
-				DisplayName: Reptilian Bulwark
+				DisplayName: Baluarte Reptiliano
 				Tooltip:
 					'''
-					11% increased melee and summon damage
-					Increased your maximum number of minions by 1
+					Incrementa daño de invocador y cuerpo a cuerpo en 11% 
+					Aumenta los súbditos en 1
 					'''
 			}
 
 			ReptilianGreaves: {
-				DisplayName: Reptilian Treads
+				DisplayName: Botas Reptilianas
 				Tooltip:
 					'''
-					11% increased melee and summon damage
-					11% increased movement speed
+					Incrementa daño de invocador y cuerpo a cuerpo en 11% 
+					Aumenta la velocidad de movimiento en 11%
 					'''
 			}
 
 			ReptilianMask: {
-				DisplayName: Reptilian Mask
+				DisplayName: Máscara Reptiliana
 				Tooltip:
 					'''
-					11% increased melee and summon damage
-					7% increased melee critical strike chance
-					15% increased whip range
+					Incrementa daño de invocador y cuerpo a cuerpo en 11% 
+					Aumenta probabilidad de golpe crítico cuerpo a cuerpo en 7%
+					Aumenta el rango de látigos en 15%
 					'''
 			}
 
 			AshRoninHat: {
-				DisplayName: Ash Ronin Mask
+				DisplayName: Máscara del Ronin Ceniza
 				Tooltip:
 					'''
-					11% increased magic and summon damage
-					7% increased magic critical strike chance
-					Increases maximum mana by 80
+					Aumenta el daño de invocador y mágico en 11%
+					Aumenta probabilidad de golpe crítico mágica en 7%
+					Aumenta el maná máxima en 80%
 					'''
 			}
 
 			AshRoninPants: {
-				DisplayName: Ash Ronin Pants
+				DisplayName: Pantalones del Ronin Ceniza
 				Tooltip:
 					'''
-					11% increased magic and summon damage
-					11% increased movement speed
+					Aumenta el daño de invocador y mágico en 11%
+					Aumenta la velocidad de movimiento en 11%
 					'''
 			}
 
 			AshRoninRobes: {
-				DisplayName: Ash Ronin Robes
+				DisplayName: Bata del Ronin Ceniza
 				Tooltip:
 					'''
-					11% increased magic and summon damage
-					Increased your maximum number of minions by 1
+					Aumenta el daño de invocador y mágico en 11%
+					Aumenta los súbditos en 1
 					'''
 			}
 
 			UnderworldWarriorChestplate: {
-				DisplayName: Underworld Warrior Chestplate
+				DisplayName: Pechera del Guerrero del Inframundo
 				Tooltip:
 					'''
-					15% increased damage
-					25% increased ranged velocity
+					Aumenta el daño en 15%
+					Aumenta la velocidad a distancia en 25%
 					'''
 			}
 
 			UnderworldWarriorGreaves: {
-				DisplayName: Underworld Warrior Greaves
+				DisplayName: Grebas del Guerrero del Inframundo
 				Tooltip:
 					'''
-					15% increased critical strike chance
-					25% increased velocidad del cuerpo a cuerpo
+					Aumenta probabilidad de golpe crítico en 15%
+					Aumenta velocidad del cuerpo a cuerpo en 25%
 					'''
 			}
 
 			UnderworldWarriorHelmet: {
-				DisplayName: Underworld Warrior Helmet
+				DisplayName: Casco del Guerrero del Inframundo
 				Tooltip:
 					'''
-					15% increased damage
-					25% reduced mana costs
+					Aumenta el daño en 15%
+					Reduce los costos mágicos en 25%
 					'''
 			}
 
 			BeholderBag: {
-				DisplayName: Treasure Bag
+				DisplayName: Bolsa del Tesoro
 				Tooltip: "{$CommonItemTooltip.RightClickToOpen}"
 			}
 
 			BeholderMask: {
-				DisplayName: Beholder Mask
+				DisplayName: Máscara del Beholder
 				Tooltip: ""
 			}
 
 			BeholderRelicItem: {
-				DisplayName: Beholder Relic
+				DisplayName: Reliquia del Beholder
 				Tooltip: ""
 			}
 
 			BeholderTrophyItem: {
-				DisplayName: Beholder Trophy
+				DisplayName: Trofeo del Beholder
 				Tooltip: ""
 			}
 
 			EvilLookingEye: {
-				DisplayName: Evil Looking Egg
+				DisplayName: Huevo de aspecto maligno
 				Tooltip: Summons a baby Beholder
 			}
 
 			GreaterRestorationPotion: {
-				DisplayName: Greater Restoration Potion
+				DisplayName: Poción de Restauración Mayor
 				Tooltip: ""
 			}
 
 			MasterEmblem: {
-				DisplayName: Master Emblem
+				DisplayName: Emblema del Maestro
 				Tooltip:
 					'''
-					12% increased velocidad del cuerpo a cuerpo
-					12% increased ranged critical strike damage
-					12% increased mana regeneration
-					Increases your maximum number of minions by 1
+					Aumenta velocidad del cuerpo a cuerpo en 12%
+					Aumenta el daño de golpes críticos a distancia en 12%
+					Aumenta la regeneración de maná en 12%
+					Aumenta los súbditos en 1
 					'''
 			}
 
 			RingOfFuror: {
-				DisplayName: Ring of Fury
+				DisplayName: Anillo de la furia
 				Tooltip:
 					'''
-					12% increased total damage
-					11% reduced maximum health
+					Aumenta el daño total en 12%
+					Reduce la vida máxima en 11%
 					'''
 			}
 
 			RingOfMight: {
-				DisplayName: Ring of Might
+				DisplayName: Anillo de la fuerza
 				Tooltip:
 					'''
-					11% increased maximum health
-					6% increased total damage
+					Aumenta la vida máxima en 11%
+					Aumenta el daño total en 6%
 					'''
 			}
 
 			RingOfTenacity: {
-				DisplayName: Ring of Tenacity
+				DisplayName: Anillo de Tenacidad
 				Tooltip:
 					'''
-					22% increased maximum health
-					6% reduced total damage
+					Aumenta la vida máxima en 22%
+					Reduce el daño total en 6%
 					'''
 			}
 
 			ScrollOfWipeout: {
-				DisplayName: Scroll of Wipeout
-				Tooltip: Deals massive damage to all nearby enemies
+				DisplayName: Pergamino de eliminación
+				Tooltip: Hace daño masivo a todos los enemigos
 			}
 
 			WandOfDisintegration: {
-				DisplayName: Wand of Disintegration
+				DisplayName: Varita de Desintegración
 				Tooltip:
 					'''
-					Disintegrate everything in your path
-					Use at your own risk
+					Desintegra todo en tu camino
+					Usala a tu propio riesgo
 					'''
 			}
 
 			BloodBoiler: {
-				DisplayName: Blood Boiler
-				Tooltip: Gives a new meaning to 'making your blood boil'
+				DisplayName: Hierve Sangre
+				Tooltip: Le da un nuevo significado a 'me hierve la sangre'!
 			}
 
 			BloodSquidEgg: {
-				DisplayName: Blood Squid Egg
-				Tooltip: Summons a Baby Blood Squid
+				DisplayName: Huevo de calamar de sangre
+				Tooltip: Invoca un Calamar de Sangre Bebé
 			}
 
 			BloodWings: {
-				DisplayName: Bloodfin Wings
+				DisplayName: Alas de Sangre
 				Tooltip:
 					'''
-					Allows flight and slow fall
-					Flight is boosted upon taking damage
+					Permite el vuelo y caída lenta
+					Potencia el vuelo al recibir daño
 					'''
 			}
 
 			DreadBag: {
-				DisplayName: Treasure Bag
+				DisplayName: Bolsa del Tesoro
 				Tooltip: "{$CommonItemTooltip.RightClickToOpen}"
 			}
 
 			BottomlessChumBucket: {
-				DisplayName: Bottomless Chum Bucket
+				DisplayName: Balde de carnada sin fondo
 				Tooltip:
 					'''
-					Toss in water up to 3 times to increase fishing power
-					This can't possibly fail!
+					Tiralo en agua hasta 3 veces para aumentar el poder de pesca
+					'Esto no podrá fallar!'
 					'''
 			}
 
 			Brimstone: {
-				DisplayName: Brimstone
-				Tooltip: Blood laser barrage
+				DisplayName: Azufre
+				Tooltip: Bombardeo de Laser de sangre
 			}
 
 			DreadMask: {
-				DisplayName: Dreadnautilus Mask
+				DisplayName: Máscara de Nautilo Terrible
 				Tooltip: ""
 			}
 
 			DreadnautilusRelic: {
-				DisplayName: Dreadnautilus Relic
+				DisplayName: Reliquia de Nautilo Terrible
 				Tooltip: ""
 			}
 
 			DreadSummon: {
-				DisplayName: Bloody Sea Wasp
-				Tooltip: Use to catch a powerful Blood Moon monster
+				DisplayName: Avispa Marina Sangrienta
+				Tooltip: Usala para atrapar a un poderoso monstruo de la luna de sangre
 			}
 
 			DreadTrophy: {
-				DisplayName: Dreadnautilus Trophy
+				DisplayName: Trofeo del Nautilo Terrible
 				Tooltip: ""
 			}
 
 			RedPearl: {
-				DisplayName: Red Pearl
-				Tooltip: Increases enemy spawn rates and luck
+				DisplayName: Perla Roja
+				Tooltip: Aumenta los spawn rates y la suerte
 			}
 
 			ShellSpinner: {
-				DisplayName: Shell Spinner
-				Tooltip: Spin to win!
+				DisplayName: Caparazon Giratorio
+				Tooltip: Gira y Gana!
 			}
 
 			BlessedGel: {
-				DisplayName: Water Gel
-				Tooltip: Flames bounce to their targets
+				DisplayName: Gel de Agua
+				Tooltip: Agua hirviendo que salta hacia su enemigo
 			}
 
 			BloodyGel: {
-				DisplayName: Bloody Gel
-				Tooltip: Destroys your enemy from the inside
+				DisplayName: Gel Sangriento
+				Tooltip: Destroza al enemigo desde adentro
 			}
 
 			CrystalGel: {
-				DisplayName: Crystal Gel
-				Tooltip: Splits into 3 flames, ignores 25 defense
+				DisplayName: Gel de cristal
+				Tooltip: Se divide en 3 llamas, ignora 25 de defensa
 			}
 
 			CursedGel: {
-				DisplayName: Cursed Gel
-				Tooltip: Flames seek out their targets
+				DisplayName: Gel Maldito
+				Tooltip: Las llamas persiguen a sus enemigos
 			}
 
 			FrozenGel: {
-				DisplayName: Glacial Gel
-				Tooltip: Create the coldest flames
+				DisplayName: Gel Glacial
+				Tooltip: Crea las llamas más frías
 			}
 
 			IchorGel: {
-				DisplayName: Ichor Gel
-				Tooltip: Highly Volatile
+				DisplayName: Gel de Ichor
+				Tooltip: Altamente Volátil
 			}
 
 			LavaGel: {
-				DisplayName: Lava Gel
-				Tooltip: Ignite it to know what REAL fire is!
+				DisplayName: Gel de Lava
+				Tooltip: Quemalo para ver el VERDADERO fuego!
 			}
 
 			SolarGel: {
-				DisplayName: Cremator Gel
-				Tooltip: Shoots a concentrated flare
+				DisplayName: Gel Quemador
+				Tooltip: Una llama concentrada
 			}
 
 			DriedRose: {
-				DisplayName: Dried Rose
-				Tooltip: Has a bit of magic remaining
+				DisplayName: Rosa Seca
+				Tooltip: Le queda un poco de magia
 			}
 
 			GraniteBattery: {
-				DisplayName: Granite Battery
-				Tooltip: Holds more power than it looks
+				DisplayName: Batería de Granito
+				Tooltip: Tiene más energía de lo que parece
 			}
 
 			IceQueenJewel: {
-				DisplayName: Glacial Diamond
-				Tooltip: Holds the power of the Ice Queen
+				DisplayName: Diamante Helado
+				Tooltip: Contiene el poder de la Reina de Hielo
 			}
 
 			LuminiteFeather: {
-				DisplayName: Luminite Feather
-				Tooltip: Use to make the ultimate wings
+				DisplayName: Pluma de Luminita
+				Tooltip: Úsala para crear las alas definitivas
 			}
 
 			MagicalAsh: {
-				DisplayName: Magical Ash
-				Tooltip: Let's hope a Phoenix isn't born from these
+				DisplayName: Ceniza Mágica
+				Tooltip: Esperemos que no nazca un Fénix de éstas
 			}
 
 			ObsidianScale: {
-				DisplayName: Obsidian Scales
-				Tooltip: Very hard to crack
+				DisplayName: Escamas de Obsidiana
+				Tooltip: Imposibles de Partir
 			}
 
 			SalamanderTail: {
-				DisplayName: Salamander Tail
-				Tooltip: It's still moving...
+				DisplayName: Cola de Salamandra
+				Tooltip: Aún se mueve...
 			}
 
 			HeatproofSaddle: {
-				DisplayName: Heatproof Saddle
-				Tooltip: Summons a ridable lava walker mount
+				DisplayName: Silla de montar a prueba de calor
+				Tooltip: Invoca una montura caminante en lava
 			}
 
 			SpeedWish: {
-				DisplayName: Wish for Speed
+				DisplayName: unused item
 				Tooltip:
 					'''
-					Permanently increases movement speed by 15%
-					"You can have any 1 wish... as long as it's 15% more movement speed."
+					no lo uses
 					'''
 			}
 
 			PowerBrew: {
-				DisplayName: Power Brew
-				Tooltip: Increases damage by 30% for 20 seconds after drunk
+				DisplayName: Brebaje de Poder
+				Tooltip: Aumenta el daño en 30% por 20 segundos luego de beberla
 			}
 
 			SweetElixir: {
-				DisplayName: Sweet Elixir
-				Tooltip: Grants Honey for 45 seconds
+				DisplayName: Dulce Elixir
+				Tooltip: Otorga Miel por 25 segundos
 			}
 
 			TeleportationVial: {
-				DisplayName: Teleportation Vial
-				Tooltip: Teleports you to the position of the mouse
+				DisplayName: Frasco de teletransportación
+				Tooltip: Te teletransporta a la posición del mouse
 			}
 
 			BeetleArrow: {
-				DisplayName: Beetle Arrow
-				Tooltip: 25% chance to stun and create a damaging shockwave
+				DisplayName: Flecha de Escarabajo
+				Tooltip: 25% de probabilidad de paralizar al enemigo
 			}
 
 			BeetleDart: {
-				DisplayName: Beetle Dart
-				Tooltip: 33% chance to stun enemies and deal triple damage
+				DisplayName: Dardo de Escarabajo
+				Tooltip: 33% de probabilidad de paralizar al enemigo y hacer un triple de daño
 			}
 
 			BloodyArrow: {
-				DisplayName: Bloody Arrow
-				Tooltip: Leaves Blood Drops in its path
+				DisplayName: Flecha Sangrienta
+				Tooltip: Deja Gotas de Sangre en su camino
 			}
 
 			BoneBullet: {
-				DisplayName: Bone Bullet
-				Tooltip: Chance to break into bones
+				DisplayName: Bala de Hueso
+				Tooltip: Probabilidad de romperse en huesos
 			}
 
 			ChargedArrow: {
-				DisplayName: Charged arrow
+				DisplayName: Flecha Cargada
 				Tooltip:
 					'''
-					Creates a damaging ring around hit enemies
-					Stacks up to 5 times, increasing range
+					Crea un anillo dañante alrededor del enemigo
+					Se acumula hasta 5 veces, con cada vez más rango
 					'''
 			}
 
 			ChargedBullet: {
-				DisplayName: Charged Bullet
-				Tooltip: Jumps between hit enemies
+				DisplayName: Bala Cargada
+				Tooltip: Salta entre enemigos golpeados
 			}
 
 			GhostBullet: {
-				DisplayName: Ghost Bullet
+				DisplayName: Bala Fantasma
 				Tooltip:
 					'''
-					Goes through tiles and enemies
-					Leaves up to 9 ghost bullets inside the enemy, releases them when killed
+					Atraviesa bloques y enemigos
+					Deja 9 balas fantasma en los enemigos, se liberan cuando muere
 					'''
 			}
 
 			GhostDart: {
-				DisplayName: Ghost Dart
+				DisplayName: Dardo fantasma
 				Tooltip:
 					'''
-					Goes through tiles and enemies
-					Splits into 6 when close to a target
+					Atraviesa bloques y enemigos
+					Se divide en 6 cuando está cerca del enemigo
 					'''
 			}
 
 			LuminiteRocket: {
-				DisplayName: Luminite Rocket
+				DisplayName: Cohete de Luminita
 				Tooltip:
 					'''
-					Giant explosion
-					Explodes multiple times
+					Explosión Gigante
+					Explota muchas veces
 					'''
 			}
 
 			ShroomiteBullet: {
-				DisplayName: Shroomite Bullet
-				Tooltip: Critical strikes deal 25% more damage
+				DisplayName: Bala de Shroomita
+				Tooltip: Los golpes críticos hacen un 25% más de daño
 			}
 
 			SolarArrow: {
-				DisplayName: Sun Arrow
-				Tooltip: 5% chance to deal greatly increased damage
+				DisplayName: Flecha de Sol
+				Tooltip: Probabilidad de 5% de hacer mucho más daño
 			}
 
 			BAM: {
 				DisplayName: B.A.M.
 				Tooltip:
 					'''
-					'Bombardment Assault Multitool'
-					Shoots gel, rockets and darts
+					'Bombardeo de Asalto Múltiple'
+					Dispara gel, cohetes y dardos
 					'''
 			}
 
 			DoubleHaxor: {
-				DisplayName: Double Haxor
-				Tooltip: A chasing axe and a powerful hammer
+				DisplayName: Doble Hackeracha
+				Tooltip: Un hacha perseguidora y un martillo poderoso
 			}
 
 			GraniteBook: {
-				DisplayName: Electro Shield
-				Tooltip: Summons an electric ring around you
+				DisplayName: Electro Escudo
+				Tooltip: Invoca un escudo eléctrico a tu alrededor
 			}
 
 			HeadHarvester: {
-				DisplayName: Head Harvester
+				DisplayName: Recogecabezas
 				Tooltip: ""
 			}
 
 			Jungla: {
 				DisplayName: Jungla
-				Tooltip: Shoots three darts at once
+				Tooltip: Dispara tres dardos a la vez
 			}
 
 			CryoCannon: {
-				DisplayName: Cryo Cannon
-				Tooltip: Shoots Freezing Rockets
+				DisplayName: Cañón Criogénico
+				Tooltip: Lanza cohetes congelantes
 			}
 
 			H410WFLASH: {
 				DisplayName: HA-110W FLASH
 				Tooltip:
 					'''
-					'Fairy Launching Assault Shoulder weapon'
-					Shoots explosive pixie Rockets that follow your cursor
+ 					Lanza Cohetes Hadas que siguen tu cursor
 					'''
 			}
 
 			SkullCannon: {
-				DisplayName: Skull Cannon
-				Tooltip: Shoots Rockets
+				DisplayName: Cañón Calavera
+				Tooltip: Lanza Cohetes
 			}
 
 			AdamantiteLauncher: {
-				DisplayName: Adamantite Launcher
-				Tooltip: Shoots Rockets
+				DisplayName: Lanzador de Adamantita
+				Tooltip: Lanza Rockets
 			}
 
 			TitaniumBazooka: {
-				DisplayName: Titanium Bazooka
-				Tooltip: Shoots two to three Rockets in one shot
+				DisplayName: Bazooka de Titanio
+				Tooltip: Dispara dos o tres cohetes en un disparo
 			}
 
 			NebulaMaelstrom: {
-				DisplayName: Nebula Maelstrom
+				DisplayName: Tormenta Nebula
 				Tooltip:
 					'''
-					Unleash a particle storm on your opponents
-					Right-click to uncast 
+					Libera una tormenta de partículas a tus enemigos
+					Click derecho para desinvocar
 					'''
 			}
 
 			OnyxCurseDoll: {
-				DisplayName: Onyx Curse Doll
+				DisplayName: Muñeca maldita de Ónix
 				Tooltip:
 					'''
-					Summons 3 fireballs to circle around you
-					They will curse nearby enemies, causing damage over time, lower damage or defense
-					Right-click to uncast 
+					Invoca 3 bolas de fuego malditas que giran a tu alrededor
+					Maldicen a enemigos cercanos, bajando el daño, defensa o causando daño
+					Click derecho para desinvocar
 					'''
 			}
 
 			SharpLament: {
-				DisplayName: Sharp Tears
-				Tooltip: Shoots flaming wood
+				DisplayName: Lágrimas filosas
+				Tooltip: Dispara madera en llamas
 			}
 
 			AbsoluteZero: {
-				DisplayName: Absolute Zero
+				DisplayName: Cero Absoluto
 				Tooltip:
 					'''
-					Your summons will focus struck enemies
-					12 summon tag damage
-					Freezing energy bursts from enemies hit by summons, tripling damage
+					Tus invocaciones se concentran en enemigos golpeados
+					12 de daño de conexión por invocación
+					Energía Congelante estalla de enemigos golpeados por invocaciones, haciendo triple daño
 					'''
 			}
 
 			BoomfrogStaff: {
-				DisplayName: Boomfrog Staff
-				Tooltip: Summons a parent boomfrog sentry that spawns kamikaze frogs
+				DisplayName: Báculo de Bumsapo
+				Tooltip: Invoca a un padre Bumsapo para engendrar ranas kamikaze
 			}
 
 			GraniteShockerStaff: {
-				DisplayName: Granite Shocker Staff
-				Tooltip: Summons a Shocker Sentry that shoots chain lightning
+				DisplayName: Báculo de Shockeador Granito
+				Tooltip: Invoca una sentinela Shockeadora que dispara rayo en cadena
 			}
 
 			YoungQueenBeeStaff: {
-				DisplayName: Young Queen Bee Staff
-				Tooltip: Summons a bee Sentry that shoots bees at your enemies
+				DisplayName: Báculo de la reina abeja joven
+				Tooltip: Invoca una sentinela que dispara abejas a tus enemigos
 			}
 
 			SpikedWhip: {
-				DisplayName: Spiked Whip
+				DisplayName: Látigo con Pinchos
 				Tooltip:
 					'''
-					Your summons will focus struck enemies
-					5 summon tag damage
-					8% summon tag critical strike chance
-					Performs better against multiple targets than most whips
+					Tus invocaciones se concentran en enemigos golpeados
+					5 de daño de conexión por invocación
+					8% de probabilidad de golpe crítico de conexión por invocación
+					Desempeña mejor contra múltiples enemigos que otros látigos
 					'''
 			}
 
 			Starflow: {
-				DisplayName: Stardust Trail
+				DisplayName: Camino de Polvo Estelar
 				Tooltip:
 					'''
-					Your summons will focus struck enemies
-					22 summon tag damage
-					Summon flow invaders while attacking
+					Tus invocaciones se concentran en enemigos golpeados
+					22 de daño de conexión por invocación
+					Invoca invasores flow mientras ataca
 					'''
 			}
 
 			TailWhip: {
-				DisplayName: Tail Whip
+				DisplayName: Cola Látigo 
 				Tooltip:
 					'''
-					Your summons will focus struck enemies
-					11 summon tag damage
-					Decreases defense by 16 points on hit
+					Tus invocaciones se concentran en enemigos golpeados
+					11 de daño de conexión por invocación
+					Disminuye la defensa en 16 en un golpe
 					'''
 			}
 
 			SuperRose: {
-				DisplayName: Cursed Flower
-				Tooltip: Charge it up to release petals that seek out your foes
+				DisplayName: Flor Maldita
+				Tooltip: Otórgale maná e invocará pétalos que persiguen a tus enemigos
 			}
 
 			WillOfTheWisp: {
-				DisplayName: Will O' Wisp
-				Tooltip: Shoots a smart bouncing fireball
+				DisplayName: Fuego Fatuo
+				Tooltip: Invoca una bola de fuego saltarina
 			}
 
 			BomberBonesBanner: {
-				DisplayName: Bomber Bones Banner
-				Tooltip: Nearby players get a bonus against: Bomber Bones
+				DisplayName: Banner de Huesos Explosivos
+				Tooltip: Nearby players get a bonus against: Huesos Explosivos
 			}
 
 			BoomxieBanner: {
-				DisplayName: Boom Pixie Banner
-				Tooltip: Nearby players get a bonus against: Boom Pixie
+				DisplayName: Banner de Hadabum  
+				Tooltip: Nearby players get a bonus against: Hadabum
 			}
 
 			FroggabombaBanner: {
-				DisplayName: Froggabomba Banner
-				Tooltip: Nearby players get a bonus against: Froggabomba
+				DisplayName: Banner de Ranabomba
+				Tooltip: Nearby players get a bonus against: Ranabomba
 			}
 
 			GraniteOvergrowthBanner: {
-				DisplayName: Granite Overgrowth Banner
-				Tooltip: Nearby players get a bonus against: Granite Overgrowth
+				DisplayName: Banner de Infección de Granito
+				Tooltip: Nearby players get a bonus against: Infección de Granito
 			}
 
 			LavamanderBanner: {
-				DisplayName: Lavamander Banner
-				Tooltip: Nearby players get a bonus against: Lavamander
+				DisplayName: Banner de Lavamandra 
+				Tooltip: Nearby players get a bonus against: Lavamandra
 			}
 
 			MagmanderBanner: {
-				DisplayName: Magmander Banner
-				Tooltip: Nearby players get a bonus against: Magmander
+				DisplayName: Banner de Magmandra 
+				Tooltip: Nearby players get a bonus against: Magmandra
 			}
 
 			ObsidianBasiliskBanner: {
-				DisplayName: Obsidian Basilisk Banner
-				Tooltip: Nearby players get a bonus against: ObsidianBasilisk
+				DisplayName: Banner de Basilisco de Obsidiana  
+				Tooltip: Nearby players get a bonus against: Basilisco de Obsidiana
 			}
 
 			OniRoninBanner: {
-				DisplayName: Oni Ronin Banner
-				Tooltip: Nearby players get a bonus against: OniRonin
+				DisplayName: Banner de Oni Ronin  
+				Tooltip: Nearby players get a bonus against: Oni Ronin
 			}
 
 			PhoenixBanner: {
-				DisplayName: Undying Phoenix Banner
-				Tooltip: Nearby players get a bonus against: Undying Phoenix
+				DisplayName: Banner de Fénix Inmortal  
+				Tooltip: Nearby players get a bonus against: Fénix Inmortal
 			}
 
 			SalalavaBanner: {
-				DisplayName: Salalava Banner
+				DisplayName: Banner de Salalava  
 				Tooltip: Nearby players get a bonus against: Salalava
 			}
 
 			AlligatorBalloonItem: {
-				DisplayName: Croco Balloon
+				DisplayName: Croco Globo
 				Tooltip:
 					'''
-					Su portador puede realizar saltos dobles					Greatly increases jump speed and fall resistance
-					Allows auto-jump
+					Su portador puede realizar saltos dobles					
+					Mejora enormemente los saltos y la resistencia a las caídas
+					Permite auto-salto
 					'''
 			}
 
 			MagicBundle: {
-				DisplayName: Magic Bundle
+				DisplayName: Puñado Mágico
 				Tooltip:
 					'''
-					Allows the holder to triple jump, the first granting brief invincibility
-					Greatly increases jump speed and fall resistance
-					Allows auto-jump and reducing gravity
+					Su portador puede realizar saltos triples, el primero otorga invincibilidad breve					
+					Mejora enormemente los saltos y la resistencia a las caídas
+					Permite auto-salto y reducir la gravedad
 					'''
 			}
 
@@ -1543,103 +1544,102 @@ Mods: {
 			}
 
 			ManaSurgePotion: {
-				Tooltip: Grants 100% mana reduction for 4 seconds
+				Tooltip: Reduce el costo de maná en 100% por 4 segundos
 				DisplayName: Mana Surge Potion
 			}
 
 			ConfuseRay: {
-				DisplayName: Confuse Ray
-				Tooltip: Shoots a confusing ray of energy
+				DisplayName: Rayo Confuso
+				Tooltip: Dispara un rayo confundidor
 			}
 
 			MagicGrenade: {
-				DisplayName: Magic Grenade
-				Tooltip: Guaranteed critical explosion if left out for a short time
+				DisplayName: Granada Mágica
+				Tooltip: Garantiza una explosión crítica más grande si se deja por un tiempo
 			}
 
 			FlashRay: {
-				Tooltip: Shoots a stunning ray of energy
-				DisplayName: Flash Ray
+				Tooltip: Dispara un rayo paralizante
+				DisplayName: Rayo Paralizante
 			}
 
 			HeartOfGold: {
 				Tooltip:
 					'''
-					Releases bees, douses the user in honey and increases movement speed when damaged
-					Stack combs to increase efficiency and life regeneration
-					Increases length of invincibility after taking damage
+ 					Libera abejas, te cubre en miel e incrementa la velocidad de movimiento cuando recibes daño
+					Varias colmenas aumentan la eficiencia y la regeneración de vida
+					Aumenta el tiempo de invincibilidad al recibir daño
 					'''
-				DisplayName: Heart of Gold
+				DisplayName: Corazón de Oro
 			}
 
 			HeartcrossNecklace: {
 				Tooltip:
 					'''
-					Increases movement speed when damaged
-					Increases length of invincibility after taking damage
+					Incrementa velocidad de movimiento al recibir daño
+					Aumenta el tiempo de invincibilidad al recibir daño
 					'''
-				DisplayName: Heartcross Necklace
+				DisplayName: Collar de Corazón de Cruz
 			}
 
 			FroststrideBoots: {
 				Tooltip:
 					'''
-					20% increased movement speed
-					Allows skating by double tapping on the ground
-					Grants a double jump
-					Allows for a powerful airborne dash that uses the double jump 
+					Aumenta la velocidad de movimiento en 20% 
+					Permite patinar tocando dos veces en una dirección
+					Otorga un doble salto
+					Permite un poderoso dash aéreo que consume el doble salto
 					'''
-				DisplayName: Froststride Boots
+				DisplayName: Botas del paso helado
 			}
 
 			CloudChasers: {
-				DisplayName: Cloud Chasers
+				DisplayName: Persigue Nubes
 				Tooltip:
 					'''
-					20% increased movement speed 
-					40% increased flight time
-					The wearer can triple jump
-					20% increased movement speed on sand
-					Rocket boots and wings are activated by pressing UP instead of jump
-
+					Incrementa la velocidad de movimiento en 20% 
+					Incrementa el tiempo de vuelo en 40% 
+					El portador puede hacer saltos triples
+					Incrementa la velocidad de movimiento en 20% en arena
+					Las Botas Cohete y las Alas se activan presionando ARRIBA en lugar de Salto
 					'''
 			}
 		}
 
 		NPCs: {
-			BomberBones.DisplayName: Bomber Bones
-			GraniteCore.DisplayName: Granite Core
-			GraniteOvergrowth.DisplayName: Granite Overgrowth
+			BomberBones.DisplayName: Huesos Explosivos
+			GraniteCore.DisplayName: Núcleo de Granito
+			GraniteOvergrowth.DisplayName: Infección de Granito
 			BeholderNPC.DisplayName: Beholder
-			Boomxie.DisplayName: Boom Pixie
-			LittleBoomxie.DisplayName: Boom Dust
-			Froggabomba.DisplayName: Froggabomba
-			FroggabombaClone.DisplayName: Froggabomba Copy
-			LavamanderNPC.DisplayName: Lavamander
-			ObsidianBasiliskBody.DisplayName: Obsidian Basilisk
-			ObsidianBasiliskHead.DisplayName: Obsidian Basilisk
-			ObsidianBasiliskTail.DisplayName: Obsidian Basilisk
+			Boomxie.DisplayName: Hadabum
+			LittleBoomxie.DisplayName: Polvo Explosivo
+			Ranabomba.DisplayName: Ranabomba
+			RanabombaClone.DisplayName: RanabombaCopy
+			LavamanderNPC.DisplayName: Lavamandra
+			ObsidianBasiliskBody.DisplayName: Basilisco de Obsidiana
+			ObsidianBasiliskHead.DisplayName: Basilisco de Obsidiana
+			ObsidianBasiliskTail.DisplayName: Basilisco de Obsidiana
 			OniRoninNPC.DisplayName: Oni Ronin
-			PhoenixAsh.DisplayName: Phoenix Ash
-			PhoenixNPC.DisplayName: Undying Phoenix
-			LavaBubble.DisplayName: Lava Bubble
-			Lavalarva.DisplayName: Magmander
+			PhoenixAsh.DisplayName: Ceniza de Fénix
+			PhoenixNPC.DisplayName: Fénix Inmortal
+			LavaBubble.DisplayName: Burbuja de Lava
+			Lavalarva.DisplayName: Magmandra
 			SalalavaNPC.DisplayName: Salalava
-			BomberBonesNPC.DisplayName: Bomber Bones
-			GraniteOvergrowthNPC.DisplayName: Granite Overgrowth
-			PrimeRail.DisplayName: Prime Rail
-			PrimeMace.DisplayName: Prime Mace
-			PrimeLauncher.DisplayName: Prime Launcher
+			BomberBonesNPC.DisplayName: Huesos Explosivos
+			GraniteOvergrowthNPC.DisplayName: Infección de Granito
+			PrimeRail.DisplayName: Riel Mayor
+			PrimeMace.DisplayName: Maza Mayor
+			PrimeLauncher.DisplayName: Lanzador Mayor
 		}
 
 		Tiles: {
-			BomberBonesBannerPlaced.MapEntry: Bomber Bones Banner
+			BomberBonesBannerPlaced.MapEntry: Huesos Explosivos Banner
 			BoomxieBannerPlaced.MapEntry: Boomxie Banner
-			FroggabombaBannerPlaced.MapEntry: Froggabomba Banner
-			GraniteOvergrowthBannerPlaced.MapEntry: Granite Overgrowth Banner
-			LavamanderBannerPlaced.MapEntry: Lavamander Banner
+			RanabombaBannerPlaced.MapEntry: RanabombaBanner
+			GraniteOvergrowthBannerPlaced.MapEntry: Infección de GranitoBanner
+			LavamanderBannerPlaced.MapEntry: LavamandraBanner
 			MagmanderBannerPlaced.MapEntry: Magmander Banner
-			ObsidianBasiliskBannerPlaced.MapEntry: Obsidian Basilisk Banner
+			ObsidianBasiliskBannerPlaced.MapEntry: Basilisco de Obsidiana Banner
 			OniRoninBannerPlaced.MapEntry: Oni Ronin Banner
 			PhoenixBannerPlaced.MapEntry: Phoenix Banner
 			SalalavaBannerPlaced.MapEntry: Salalava Banner
@@ -1657,43 +1657,43 @@ Mods: {
 				}
 
 				PlanteraRework: {
-					Label: Plantera Rework
-					Tooltip: Experimental plantera rework, very buggy
+					Label: Rework a Plantera
+					Tooltip: Rework a Plantera experimental, muchos bugs
 				}
 
 				TwinsRework: {
-					Label: Twins Rework
+					Label: Rework a los gemelos
 					Tooltip: ""
 				}
 
 				CultistChanges: {
-					Label: Cultist Changes
+					Label: Cambios al Cultista
 					Tooltip: ""
 				}
 
 				DeerclopsChanges: {
-					Label: Deerclops Changes
+					Label: Cambios a Deerclops
 					Tooltip: ""
 				}
 
 				FishronChanges: {
-					Label: Duke Fishron Changes
+					Label: Cambios a Duke Fishron
 					Tooltip: ""
 				}
 
 				QBChanges: {
-					Label: Queen Bee Changes
+					Label: Cambios a la Reina Abeja
 					Tooltip: ""
 				}
 
 				SkeletronChanges: {
-					Label: Skeletron Changes
+					Label: Cambios a Esqueletrón
 					Tooltip: ""
 				}
 
 				EOCChanges: {
 					Tooltip: ""
-					Label: E O C Changes
+					Label: Cambios al ojo de Cthulhu
 				}
 
 				railMode: {

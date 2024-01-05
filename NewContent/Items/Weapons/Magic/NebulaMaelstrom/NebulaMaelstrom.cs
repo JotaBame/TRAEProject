@@ -9,6 +9,7 @@ using System;
 using static Terraria.ModLoader.ModContent;
 using Terraria.Audio;
 using System.Collections.Generic;
+using TRAEProject.Changes.Items;
 
 namespace TRAEProject.NewContent.Items.Weapons.Magic.NebulaMaelstrom
 {
@@ -35,7 +36,9 @@ namespace TRAEProject.NewContent.Items.Weapons.Magic.NebulaMaelstrom
             Item.knockBack = 2f;
             Item.shootSpeed = 4f;
             Item.noMelee = true;
-            Item.shoot = ProjectileType<MaelstromBall>();
+            Item.GetGlobalItem<TRAEMagicItem>().rightClickSideWeapon = true;
+
+        Item.shoot = ProjectileType<MaelstromBall>();
             Item.useStyle = ItemUseStyleID.Shoot;
             Item.UseSound = SoundID.Item117;
         }
