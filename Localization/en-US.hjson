@@ -450,7 +450,7 @@ Mods: {
 
 			WishForSpeedBuff: {
 				DisplayName: Wish For Speed Buff
-				Description: Mods.TRAEProject.Buffs.WishForSpeedBuff.Description
+				Description: You get any one wish... as long as it's 15% increased movement speed
 			}
 		}
 
@@ -714,7 +714,7 @@ Mods: {
 				Tooltip:
 					'''
 					Increases armor penetration by 5
-						4% increased damage and critical strike chance
+					4% increased damage and critical strike chance
 					Enemies are less likely to target you
 					'''
 			}

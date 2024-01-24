@@ -585,12 +585,12 @@ Mods: {
 
 			FaeInABottle: {
 				DisplayName: Hada en una Botella
-				Tooltip: Un doble salto débil que otorga frames de inmunidad 
+				Tooltip: Un doble salto débil que otorga frames de inmunidad
 			}
 
 			FantasyPack: {
 				DisplayName: Jetpack de Fantasía
-				Tooltip: Otorga un jetpack omnidireccional, un salto de levitación y un salto de hada 
+				Tooltip: Otorga un jetpack omnidireccional, un salto de levitación y un salto de hada
 			}
 
 			FlightForecast: {
@@ -627,7 +627,6 @@ Mods: {
 			LevitationJuice: {
 				DisplayName: Jugo de levitación
 				Tooltip: Otorga un doble salto largo
-
 			}
 
 			GravityTabi: {
@@ -809,7 +808,7 @@ Mods: {
 				Tooltip:
 					'''
 					Los golpes críticos mágicos hacen un 10% más de daño y tienen una oportunidad de crear una estrella de maná
- 					Automática usa pociones de maná cuando se necesitan
+						Automática usa pociones de maná cuando se necesitan
 					'''
 			}
 
@@ -847,13 +846,13 @@ Mods: {
 					'''
 			}
 
-			IceMajestyGrebas: {
-				DisplayName: Grebas Glacial 
-				Tooltip:
+			IceMajestyLeggings: {
+				// DisplayName: Glacial Leggings
+				/* Tooltip:
 					'''
-					Aumenta el daño de invocador y velocidad de látigos en 10%
-					Aumenta la velocidad de movimiento en 20% 
-					'''
+					10% increased summon damage and whip speed
+					20% increased movement speed
+					''' */
 			}
 
 			FinalBoss: {
@@ -873,7 +872,7 @@ Mods: {
 
 			LeatherHat: {
 				DisplayName: Capucha de Cuero
-				Tooltip: Aumenta el daño de invocador en 3% 
+				Tooltip: Aumenta el daño de invocador en 3%
 			}
 
 			LeatherPants: {
@@ -883,7 +882,7 @@ Mods: {
 
 			LeatherTunic: {
 				DisplayName: Túnica de Cuero
-				Tooltip: Incrementa velocidad de látigo en 10% 
+				Tooltip: Incrementa velocidad de látigo en 10%
 			}
 
 			PhoenixHeadgear: {
@@ -896,13 +895,13 @@ Mods: {
 					'''
 			}
 
-			PhoenixGrebas: {
-				DisplayName: Grebas de Fénix
-				Tooltip:
+			PhoenixLeggings: {
+				// DisplayName: Phoenix Leggings
+				/* Tooltip:
 					'''
-					Incrementa el daño de invocador y a distancia en 11%
-					Incrementa la velocidad de movimiento en 11%
-					'''
+					11% increased ranged and summon damage
+					11% increased movement speed
+					''' */
 			}
 
 			PhoenixTunic: {
@@ -1229,10 +1228,7 @@ Mods: {
 
 			SpeedWish: {
 				DisplayName: unused item
-				Tooltip:
-					'''
-					no lo uses
-					'''
+				Tooltip: no lo uses
 			}
 
 			PowerBrew: {
@@ -1357,10 +1353,7 @@ Mods: {
 
 			H410WFLASH: {
 				DisplayName: HA-110W FLASH
-				Tooltip:
-					'''
- 					Lanza Cohetes Hadas que siguen tu cursor
-					'''
+				Tooltip: Lanza Cohetes Hadas que siguen tu cursor
 			}
 
 			SkullCannon: {
@@ -1449,7 +1442,7 @@ Mods: {
 			}
 
 			TailWhip: {
-				DisplayName: Cola Látigo 
+				DisplayName: Cola Látigo
 				Tooltip:
 					'''
 					Tus invocaciones se concentran en enemigos golpeados
@@ -1474,7 +1467,7 @@ Mods: {
 			}
 
 			BoomxieBanner: {
-				DisplayName: Banner de Hadabum  
+				DisplayName: Banner de Hadabum
 				Tooltip: Nearby players get a bonus against: Hadabum
 			}
 
@@ -1489,32 +1482,32 @@ Mods: {
 			}
 
 			LavamanderBanner: {
-				DisplayName: Banner de Lavamandra 
+				DisplayName: Banner de Lavamandra
 				Tooltip: Nearby players get a bonus against: Lavamandra
 			}
 
 			MagmanderBanner: {
-				DisplayName: Banner de Magmandra 
+				DisplayName: Banner de Magmandra
 				Tooltip: Nearby players get a bonus against: Magmandra
 			}
 
 			ObsidianBasiliskBanner: {
-				DisplayName: Banner de Basilisco de Obsidiana  
+				DisplayName: Banner de Basilisco de Obsidiana
 				Tooltip: Nearby players get a bonus against: Basilisco de Obsidiana
 			}
 
 			OniRoninBanner: {
-				DisplayName: Banner de Oni Ronin  
+				DisplayName: Banner de Oni Ronin
 				Tooltip: Nearby players get a bonus against: Oni Ronin
 			}
 
 			PhoenixBanner: {
-				DisplayName: Banner de Fénix Inmortal  
+				DisplayName: Banner de Fénix Inmortal
 				Tooltip: Nearby players get a bonus against: Fénix Inmortal
 			}
 
 			SalalavaBanner: {
-				DisplayName: Banner de Salalava  
+				DisplayName: Banner de Salalava
 				Tooltip: Nearby players get a bonus against: Salalava
 			}
 
@@ -1566,7 +1559,7 @@ Mods: {
 			HeartOfGold: {
 				Tooltip:
 					'''
- 					Libera abejas, te cubre en miel e incrementa la velocidad de movimiento cuando recibes daño
+						Libera abejas, te cubre en miel e incrementa la velocidad de movimiento cuando recibes daño
 					Varias colmenas aumentan la eficiencia y la regeneración de vida
 					Aumenta el tiempo de invincibilidad al recibir daño
 					'''
@@ -1613,8 +1606,8 @@ Mods: {
 			BeholderNPC.DisplayName: Beholder
 			Boomxie.DisplayName: Hadabum
 			LittleBoomxie.DisplayName: Polvo Explosivo
-			Ranabomba.DisplayName: Ranabomba
-			RanabombaClone.DisplayName: RanabombaCopy
+			// Froggabomba.DisplayName: Froggabomba
+			// FroggabombaClone.DisplayName: Froggabomba Copy
 			LavamanderNPC.DisplayName: Lavamandra
 			ObsidianBasiliskBody.DisplayName: Basilisco de Obsidiana
 			ObsidianBasiliskHead.DisplayName: Basilisco de Obsidiana
@@ -1635,7 +1628,7 @@ Mods: {
 		Tiles: {
 			BomberBonesBannerPlaced.MapEntry: Huesos Explosivos Banner
 			BoomxieBannerPlaced.MapEntry: Boomxie Banner
-			RanabombaBannerPlaced.MapEntry: RanabombaBanner
+			// FroggabombaBannerPlaced.MapEntry: Froggabomba Banner
 			GraniteOvergrowthBannerPlaced.MapEntry: Infección de GranitoBanner
 			LavamanderBannerPlaced.MapEntry: LavamandraBanner
 			MagmanderBannerPlaced.MapEntry: Magmander Banner

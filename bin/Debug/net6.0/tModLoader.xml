@@ -2721,6 +2721,11 @@
             <br>When using the gamepad in smart cursor mode, the cursor that is relatively far away from the player</br>
             </summary>
         </member>
+        <member name="T:Terraria.ID.DashID">
+            <summary>
+            Corresponds to values assigned to <see cref="F:Terraria.Player.dashType"/>.
+            </summary>
+        </member>
         <member name="F:Terraria.ID.DustID.Water">
             <summary>
             Use Dust.dustWater() if you want to calculate water dust based on water style
@@ -16242,7 +16247,7 @@
             <summary> The type of the item this NPC drops for every 50 times it is defeated. For any ModNPC whose banner field is set to the type of this NPC, that ModNPC will drop this banner. </summary>
         </member>
         <member name="P:Terraria.ModLoader.ModNPC.SpawnModBiomes">
-            <summary> The ModBiome Types associated with this NPC spawning, if applicable. Used in Bestiary </summary>
+            <summary> The ModBiome Types associated with this NPC spawning, if applicable. Used in Bestiary.<para/>Vanilla biomes are added to the bestiary via <see cref="M:Terraria.ModLoader.ModNPC.SetBestiary(Terraria.GameContent.Bestiary.BestiaryDatabase,Terraria.GameContent.Bestiary.BestiaryEntry)"/> directly.</summary>
         </member>
         <member name="P:Terraria.ModLoader.ModNPC.TownNPCStayingHomeless">
             <summary> Setting this to true will make the NPC not appear in the housing menu nor make it find an house. </summary>
@@ -17564,7 +17569,7 @@
         </member>
         <member name="M:Terraria.ModLoader.ModPlayer.OnHitNPC(Terraria.NPC,Terraria.NPC.HitInfo,System.Int32)">
             <summary>
-            Allows you to create special effects when this player hits an NPC by swinging a melee weapon (for example how the Pumpkin Sword creates pumpkin heads).
+            Allows you to create special effects when this player hits an NPC.
             </summary>
             <param name="target"></param>
             <param name="hit"></param>
@@ -21033,9 +21038,9 @@
         <member name="F:Terraria.NPC.aiStyle">
             <summary>
             Selects which vanilla code to use for the AI method. Vanilla NPC AI styles are enumerated in the <see cref="T:Terraria.ID.NPCAIStyleID"/> class. Modders can use vanilla aiStyle and optionally <see cref="P:Terraria.ModLoader.ModNPC.AIType"/> to mimic AI code already in the game. This is usually only useful as a prototyping tool since it is difficult to customize existing aiStyle code. See <see cref="P:Terraria.ModLoader.ModNPC.AIType"/> and <see href="https://github.com/tModLoader/tModLoader/blob/1.4.4/ExampleMod/Content/NPCs/PartyZombie.cs">PartyZombie</see> to see how to use vanilla ai. If you are using custom AI code, there is no need to set this field.
-            <br/> Customizing an existing aiStyle usually requires following the <see href="https://github.com/tModLoader/tModLoader/wiki/Advanced-Vanilla-Code-Adaption#example-projectile-or-npc-ai-code">Vanilla Code Adaption Guide</see>.
-            <br/> If you are using completely custom AI, set this to -1 since an aiStyle of 0 will face the player automatically, which may interfere with your logic.
-            <br/> Defaults to 0.
+            <para/> Customizing an existing aiStyle usually requires following the <see href="https://github.com/tModLoader/tModLoader/wiki/Advanced-Vanilla-Code-Adaption#example-projectile-or-npc-ai-code">Vanilla Code Adaption Guide</see>.
+            <para/> An aiStyle of 0 will face the player automatically, while an aiStyle of -1 is used for completely custom ai.
+            <para/> Defaults to 0 for vanilla NPC and -1 for modded NPC.
             </summary>
         </member>
         <member name="F:Terraria.NPC.damage">
@@ -22488,12 +22493,14 @@
             <summary>
             Gets the crit chance modifier for this damage type on this player.
             This returns a reference, and as such, you can freely modify this method's return value with operators.
+            <para/> Note that crit values are percentage values ranging from 0 to 100, unlike damage multipliers. Adding 4, for example, would add 4% to the crit chance.
             </summary>
         </member>
         <member name="M:Terraria.Player.GetCritChance(Terraria.ModLoader.DamageClass)">
             <summary>
             Gets the crit chance modifier for this damage type on this player.
             This returns a reference, and as such, you can freely modify this method's return value with operators.
+            <para/> Note that crit values are percentage values ranging from 0 to 100, unlike damage multipliers. Adding 4, for example, would add 4% to the crit chance.
             </summary>
         </member>
         <member name="M:Terraria.Player.GetAttackSpeed``1">
@@ -22502,36 +22509,42 @@
             This returns a reference, and as such, you can freely modify this method's return values with operators.
             Setting this such that it results in zero or a negative value will throw an exception.
             NOTE: Due to the nature of attack speed modifiers, modifications to Flat will do nothing for this modifier.
+            <para/> Note that attack speed is a multiplier. Adding 0.15f, for example, would add 15% to the attack speed stat.
             </summary>
         </member>
         <member name="M:Terraria.Player.GetAttackSpeed(Terraria.ModLoader.DamageClass)">
             <summary>
             Gets the attack speed modifier for this damage type on this player.
             This returns a reference, and as such, you can freely modify this method's return values with operators.
+            <para/> Note that attack speed is a multiplier. Adding 0.15f, for example, would add 15% to the attack speed stat.
             </summary>
         </member>
         <member name="M:Terraria.Player.GetArmorPenetration``1">
             <summary>
             Gets the armor penetration modifier for this damage type on this player.
             This returns a reference, and as such, you can freely modify this method's return value with operators.
+            <para/> Note that armor penetration value are typically whole numbers. Adding 5, for example, would add 5 to the armor penetration stat, similar to the Shark Tooth Necklace accessory.
             </summary>
         </member>
         <member name="M:Terraria.Player.GetArmorPenetration(Terraria.ModLoader.DamageClass)">
             <summary>
             Gets the armor penetration modifier for this damage type on this player.
             This returns a reference, and as such, you can freely modify this method's return value with operators.
+            <para/> Note that armor penetration value are typically whole numbers. Adding 5, for example, would add 5 to the armor penetration stat, similar to the Shark Tooth Necklace accessory.
             </summary>
         </member>
         <member name="M:Terraria.Player.GetKnockback``1">
             <summary>
             Gets the knockback modifier for this damage type on this player.
             This returns a reference, and as such, you can freely modify this method's return value with operators.
+            <para/> Note that knockback values are multipliers. Adding 0.12f, for example, would add 12% to the knockback stat.
             </summary>
         </member>
         <member name="M:Terraria.Player.GetKnockback(Terraria.ModLoader.DamageClass)">
             <summary>
             Gets the knockback modifier for this damage type on this player.
             This returns a reference, and as such, you can freely modify this method's return value with operators.
+            <para/> Note that knockback values are multipliers. Adding 0.12f, for example, would add 12% to the knockback stat.
             </summary>
         </member>
         <member name="M:Terraria.Player.GetTotalDamage``1">

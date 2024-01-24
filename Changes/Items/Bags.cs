@@ -15,7 +15,7 @@ namespace TRAEProject.Changes.Items
 {
     public class Bags : GlobalItem
     {
-        public override void ModifyItemLoot(Item item, ItemLoot itemLoot)
+         public override void ModifyItemLoot(Item item, ItemLoot itemLoot)
         {
 			
 			if(item.expert)
@@ -140,22 +140,33 @@ namespace TRAEProject.Changes.Items
 
                         return false;
                     }); 
-                    itemLoot.Add(ItemDropRule.FewFromOptionsNotScalingWithLuck(2, 1, ItemID.Meowmere, ItemID.Terrarian, ItemID.SDMG, ItemID.Celeb2, ItemID.LunarFlareBook, ItemID.LastPrism, /*ItemID.RainbowWhip,*/ ItemID.StardustDragonStaff));
+                    itemLoot.Add(ItemDropRule.FewFromOptionsNotScalingWithLuck(2, 1, ItemID.Meowmere, ItemID.Terrarian, ItemID.SDMG, ItemID.Celeb2, ItemID.LunarFlareBook, ItemID.LastPrism, ItemID.StardustDragonStaff));
                         break;
 				case ItemID.ObsidianLockbox:
-				itemLoot.RemoveWhere(rule =>
-				{
-					if (rule is OneFromOptionsNotScaledWithLuckDropRule)
-					{
-						return true;
-					}
-					return false;
-				});
-				itemLoot.Add(ItemDropRule.OneFromOptionsNotScalingWithLuck(1, ChestLoot.ShadowItems));
-				itemLoot.Add(ItemDropRule.Common(ItemID.TreasureMagnet, 4));
-				break;
+                    itemLoot.RemoveWhere(rule =>
+                    {
+                        if (rule is not OneFromOptionsNotScaledWithLuckDropRule drop) // Type of drop you expect here
+                        {
+                            return false;
+                        }
+                        for (int i = 0; i < drop.dropIds.Length; i++)
+                        {
+                            if (drop.dropIds[i] == ItemID.DarkLance)
+                            {
+                                return true;
+                            }
+
+                        }
+                        return false;
+                    });
+                    itemLoot.Add(ItemDropRule.Common(ModContent.ItemType<FaeInABottle>(), 5));
+                     break;
+ 				break;
 				case ItemID.LockBox:
-				itemLoot.Add(ItemDropRule.Common(ModContent.ItemType<AdvFlightSystem>(), 5));
+ 
+                    itemLoot.Add(ItemDropRule.OneFromOptionsNotScalingWithLuck(1, ChestLoot.DungeonItems));
+ 
+                    itemLoot.Add(ItemDropRule.Common(ModContent.ItemType<AdvFlightSystem>(), 5));
 				break;
 				case ItemID.IronCrate:
 				case ItemID.IronCrateHard:
@@ -257,14 +268,13 @@ namespace TRAEProject.Changes.Items
 				}
 				//itemLoot.Add(ItemDropRule.OneFromOptionsNotScalingWithLuck(1, ItemID.ThunderSpear, ItemID.ThunderStaff, ItemID.AncientChisel, ItemID.SandstorminaBottle, ItemID.AnkhCharm, ItemID.MagicConch));
 				break;
-                case ItemID.FloatingIslandFishingCrate:
-                case ItemID.FloatingIslandFishingCrateHard:
-
-                    break;
+   
             }
             base.ModifyItemLoot(item, itemLoot);
         }
 		public static readonly int[] ShadowChestLoot = new int[] { ItemID.HellwingBow, ItemID.Flamelash, ItemID.FlowerofFire, ItemID.Sunfury };
-		
-    }
+        public static readonly int[] DungeonItems = new int[] { ItemID.Muramasa, ItemID.CobaltShield, ItemID.AquaScepter, ItemID.Handgun, ItemID.BlueMoon, ItemID.ShadowKey, ItemID.Valor, ItemID.BoneWelder
+    };
+
+}
 }
