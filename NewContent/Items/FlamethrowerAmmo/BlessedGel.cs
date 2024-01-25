@@ -63,7 +63,7 @@ namespace TRAEProject.NewContent.Items.FlamethrowerAmmo
             Projectile.GetGlobalProjectile<ProjectileStats>().SmartBouncesOffEnemies = true;
             Projectile.GetGlobalProjectile<ProjectileStats>().SmartBouncesOffTiles = true;
             Projectile.usesLocalNPCImmunity = true;
-Projectile.GetGlobalProjectile<ProjectileStats>().dontHitTheSameEnemyMultipleTimes = true;
+            Projectile.GetGlobalProjectile<ProjectileStats>().dontHitTheSameEnemyMultipleTimes = true;
             Projectile.GetGlobalProjectile<ProjectileStats>().DamageFalloff = 0.2f;
         }
         public override void AI()
@@ -74,7 +74,7 @@ Projectile.GetGlobalProjectile<ProjectileStats>().dontHitTheSameEnemyMultipleTim
                 Dust.NewDustDirect(Projectile.Center, 1, 1, DustID.Smoke, 0, -1);
             }
 	}		
-	public override void Kill(int timeLeft)
+	public override void OnKill(int timeLeft)
 	{
 		{
             for (int i = 0; i < 6; ++i)

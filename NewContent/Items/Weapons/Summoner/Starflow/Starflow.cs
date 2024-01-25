@@ -368,7 +368,7 @@ namespace TRAEProject.NewContent.Items.Weapons.Summoner.Starflow
 		
 		}
 
-		public override void Kill(int timeLeft)
+		public override void OnKill(int timeLeft)
         {
             for (int i = 0; i < 25; i++)
             {

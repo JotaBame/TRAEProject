@@ -192,7 +192,7 @@ namespace ChangesArmor
                         }
                         break;
                     case ItemID.ShroomiteHelmet:
-                        Player.setBonus = "Build up stealth while on the ground\nStealth provides up to 30% dodge chance and doubled base length of invincibility after taking damage\nStealth depletes after dodging an attack";
+                        Player.setBonus = "Build up stealth while on the ground\nStealth provides up to 30% dodge chance and doubled base length of invincibility after taking damage\nStealth depletes after dodging an attack\nSomehow this stealh increases the chance enemies will target you...";
                         if (traeStealth < 1f && Player.velocity.Y == 0)
                         {
          
@@ -204,6 +204,7 @@ namespace ChangesArmor
                         {
                             ShroomDodge = 0.3f * traeStealth;
                             ShroomIframes = (int)(40f * traeStealth);
+                            Player.aggro += (int)(750 * traeStealth);
                         }
                         break;
                     default:

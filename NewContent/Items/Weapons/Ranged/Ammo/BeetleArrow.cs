@@ -61,7 +61,7 @@ namespace TRAEProject.NewContent.Items.Weapons.Ranged.Ammo
             Projectile.hostile = false;
             Projectile.friendly = true;
         }
-        public override void Kill(int timeLeft)
+        public override void OnKill(int timeLeft)
         {
             Terraria.Audio.SoundEngine.PlaySound(SoundID.Item10 with { MaxInstances = 0 }, Projectile.position);
             for (int i = 0; i < 10; i++)

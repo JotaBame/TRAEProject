@@ -25,6 +25,7 @@ namespace TRAEProject.NewContent.Items.DreadItems.RedPearl
             Item.width = 26;
             Item.height = 32;
             Item.rare = ItemRarityID.LightPurple;
+            Item.value = Item.sellPrice(gold: 5);
         }
         public override void UpdateAccessory(Player player, bool hideVisual)
         {

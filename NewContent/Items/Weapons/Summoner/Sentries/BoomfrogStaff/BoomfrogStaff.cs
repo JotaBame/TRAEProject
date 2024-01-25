@@ -195,7 +195,7 @@ namespace TRAEProject.NewContent.Items.Weapons.Summoner.Sentries.BoomfrogStaff
             return false;
         }
 
-        public override void Kill(int timeLeft)
+        public override void OnKill(int timeLeft)
         {
 
             //Main.PlaySound(SoundID.Item, Projectile.Center, 45);

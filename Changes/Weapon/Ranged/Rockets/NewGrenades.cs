@@ -85,7 +85,7 @@ namespace TRAEProject.Changes.Weapon.Ranged.Rockets
         {
             Projectile.GetGlobalProjectile<NewGrenades>().GrenadeAI(Projectile);
         }
-        public override void Kill(int timeLeft)
+        public override void OnKill(int timeLeft)
         {
             TRAEMethods.DefaultExplosion(Projectile);
             Projectile.GetGlobalProjectile<NewRockets>().DestroyTiles(Projectile, 3);
@@ -160,7 +160,7 @@ namespace TRAEProject.Changes.Weapon.Ranged.Rockets
         {
             Projectile.GetGlobalProjectile<NewGrenades>().GrenadeAI(Projectile);
         }
-        public override void Kill(int timeLeft)
+        public override void OnKill(int timeLeft)
         {
             TRAEMethods.DefaultExplosion(Projectile);
             Projectile.GetGlobalProjectile<NewRockets>().DestroyTiles(Projectile, 7);
@@ -182,7 +182,7 @@ namespace TRAEProject.Changes.Weapon.Ranged.Rockets
         {
             Projectile.GetGlobalProjectile<NewGrenades>().GrenadeAI(Projectile);
         }
-        public override void Kill(int timeLeft)
+        public override void OnKill(int timeLeft)
         {
             Projectile.GetGlobalProjectile<NewRockets>().ClusterRocketExplosion(Projectile);
         }

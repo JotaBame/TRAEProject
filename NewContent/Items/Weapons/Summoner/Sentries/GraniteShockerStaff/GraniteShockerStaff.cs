@@ -215,7 +215,7 @@ namespace TRAEProject.NewContent.Items.Weapons.Summoner.Sentries.GraniteShockerS
             return false;
         }
 
-        public override void Kill(int timeLeft)
+        public override void OnKill(int timeLeft)
         {
             for (int n = 0; n < 20; n++)
             {

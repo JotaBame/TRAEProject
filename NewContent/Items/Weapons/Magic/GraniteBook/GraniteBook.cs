@@ -103,7 +103,7 @@ namespace TRAEProject.NewContent.Items.Weapons.Magic.GraniteBook
             {
                 Projectile.Kill();
             }
-            int dusts = 7;
+            int dusts = 2;
             int NPCLimit = 0;
             int Range = 250;
             int damage = Projectile.damage;
@@ -124,6 +124,10 @@ namespace TRAEProject.NewContent.Items.Weapons.Magic.GraniteBook
                         {
 							++NPCLimit;
                             player.ApplyDamageToNPC(nPC, damage, Projectile.knockBack, nPC.direction * -1, crit: false);
+                            for(int l = 0; l < Vector2.Distance(Projectile.Center, nPC.Center); l+=20)
+                            {
+                                Dust.NewDustPerfect(player.Center + (nPC.Center - Projectile.Center).SafeNormalize(-Vector2.UnitY) * l, DustID.Electric);
+                            }
                             SoundEngine.PlaySound(SoundID.Item93 with { MaxInstances = 0 }, nPC.position);
                         }
                     }

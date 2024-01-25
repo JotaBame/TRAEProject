@@ -218,7 +218,7 @@ namespace TRAEProject.NewContent.Items.Weapons.Summoner.Sentries.YoungQueenBeeSt
             return false;
         }
 
-        public override void Kill(int timeLeft)
+        public override void OnKill(int timeLeft)
         {
             int num528 = Gore.NewGore(Projectile.GetSource_FromThis(), Projectile.position, new Vector2(0f, 0f), Main.rand.Next(61, 64), 1f);
             Gore gore = Main.gore[num528];

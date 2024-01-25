@@ -63,53 +63,6 @@ namespace TRAEProject
                 }
                 Player.rocketTime = 0;
             } // this is for Obsidian Rocket Boots to increase Flight time 
-            if (Player.shroomiteStealth && !Player.mount.Active) // Always active while on the ground, Stealth disappears slower, reduced all bonuses by 25%, max damage is reduced by a further 10%.  
-            {
-                if (Player.stealth <= 0.25f)
-                {
-                    Player.stealth = 0.25f;
-                    if (Main.netMode == NetmodeID.MultiplayerClient)
-                    {
-                        NetMessage.SendData(MessageID.PlayerStealth, -1, -1, null, Player.whoAmI);
-                    }
-                }
-                if (Player.itemAnimation > 0)
-                {
-                    Player.stealthTimer = 0;
-                }
-                if (Player.velocity.Y == 0 && Player.stealth > 0.25f)
-                {
-                    Player.stealth -= 0.015f;
-                }
-                if (Player.velocity.X > -0.1 && Player.velocity.X < 0.1 && Player.velocity.Y > -0.1 && Player.velocity.Y < 0.1 && Player.mount.Active)
-                {
-                    if (Player.stealthTimer == 0 && Player.stealth > 0f)
-                    {
-                        Player.stealth += 0.015f;
-                    }
-                }
-                else
-                {
-                    float VelocityY = Math.Abs(Player.velocity.Y);
-                    Player.stealth += VelocityY * 0.0035f;
-                    float Velocity = Math.Abs(Player.velocity.X) + Math.Abs(Player.velocity.Y);
-                    Player.stealth -= Velocity * 0.0075f;
-                    if (Player.stealth > 1f)
-                    {
-                        Player.stealth = 1f;
-                    }
-                    if (Player.mount.Active)
-                    {
-                        Player.stealth = 1f;
-                    }
-                }
-                Player.GetDamage<RangedDamageClass>() -= (1f - Player.stealth) * 0.2f;// at maximum stealth (0.25, not 0 like in vanilla), damage is increased by 45%. With this code, it's reduced by 20%, making it +25%
-                //Player.aggro -= (int)((1f - Player.stealth) * 750f);
-                if (Player.stealthTimer > 0)
-                {
-                    Player.stealthTimer--;
-                }
-            }
             if (LavaShield && Player.lavaWet)
             {
                 Player.AddBuff(BuffType<LavaShield>(), 900);

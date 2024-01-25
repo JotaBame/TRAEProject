@@ -831,7 +831,7 @@ namespace TRAEProject.Changes.NPCs.Boss
 			
 
 		}
-		public override void Kill(int timeLeft)
+		public override void OnKill(int timeLeft)
 		{
 			SoundEngine.PlaySound(SoundID.Dig with { MaxInstances = 0 }, Projectile.Center);
 			for (int index1 = 0; index1 < 20; ++index1)

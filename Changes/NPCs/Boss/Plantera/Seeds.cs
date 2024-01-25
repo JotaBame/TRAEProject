@@ -24,7 +24,7 @@ namespace TRAEProject.Changes.NPCs.Boss.Plantera
             }
 				//base.SetDefaults(projectile);
         }
-        public override void Kill(Projectile projectile, int timeLeft)
+        public override void OnKill(Projectile projectile, int timeLeft)
         {
             if(projectile.type == 276 && projectile.localAI[1] == 1)
             {

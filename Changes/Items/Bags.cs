@@ -108,18 +108,9 @@ namespace TRAEProject.Changes.Items
 				case ItemID.MoonLordBossBag:
 					itemLoot.RemoveWhere(rule =>
                     {
-                        if (rule is not OneFromOptionsNotScaledWithLuckDropRule drop) // Type of drop you expect here
+                        if (rule is FromOptionsWithoutRepeatsDropRule) // Type of drop you expect here
 						{
-                            return false;
-						}
-						for(int i = 0; i < drop.dropIds.Length; i++)
-						{
-                 
-                            if (drop.dropIds[i] == ItemID.StarWrath)
-							{
-								return true;
-							}
-							
+                            return true;
 						}
                         return false;
                     });
@@ -129,15 +120,10 @@ namespace TRAEProject.Changes.Items
                         {
                             return false;
                         }
-
-
                         if (drop.itemId == ItemID.GravityGlobe)
                         {
                             return true;
                         }
-
-
-
                         return false;
                     }); 
                     itemLoot.Add(ItemDropRule.FewFromOptionsNotScalingWithLuck(2, 1, ItemID.Meowmere, ItemID.Terrarian, ItemID.SDMG, ItemID.Celeb2, ItemID.LunarFlareBook, ItemID.LastPrism, /*ItemID.RainbowWhip,*/ ItemID.StardustDragonStaff));
@@ -145,17 +131,19 @@ namespace TRAEProject.Changes.Items
 				case ItemID.ObsidianLockbox:
 				itemLoot.RemoveWhere(rule =>
 				{
-					if (rule is OneFromOptionsNotScaledWithLuckDropRule)
-					{
-						return true;
-					}
-					return false;
+					return true;
 				});
 				itemLoot.Add(ItemDropRule.OneFromOptionsNotScalingWithLuck(1, ChestLoot.ShadowItems));
 				itemLoot.Add(ItemDropRule.Common(ItemID.TreasureMagnet, 4));
 				break;
 				case ItemID.LockBox:
+				itemLoot.RemoveWhere(rule =>
+				{
+					return true;
+				});
+				itemLoot.Add(ItemDropRule.OneFromOptionsNotScalingWithLuck(1, ChestLoot.DungeonItems));
 				itemLoot.Add(ItemDropRule.Common(ModContent.ItemType<AdvFlightSystem>(), 5));
+				itemLoot.Add(ItemDropRule.Common(ItemID.ShadowKey, 5));
 				break;
 				case ItemID.IronCrate:
 				case ItemID.IronCrateHard:

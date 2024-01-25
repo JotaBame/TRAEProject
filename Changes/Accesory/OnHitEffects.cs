@@ -201,13 +201,16 @@ namespace TRAEProject.Changes.Accesory
                 {
                     TRAEMethods.SpawnProjectilesFromAbove(Player, Player.position, 2 + (info.Damage / 33) * starCloaks, 400, 600, spread, 20, ProjectileID.StarCloakStar, 100, 2f, Player.whoAmI);
                 }
-                if (runethorns > 0f && runeCooldown == 0)
+                if(Main.myPlayer == Player.whoAmI) //only run this code for the local player
                 {
-                    RuneThorns(info.Damage);
-                }
-                if (newthorns > 0f)
-                {
-                    Thorns(info.Damage);
+                    if (runethorns > 0f && runeCooldown == 0)
+                    {
+                        RuneThorns(info.Damage);
+                    }
+                    if (newthorns > 0f)
+                    {
+                        Thorns(info.Damage);
+                    }
                 }
                 if (shackles > 0)
                 {

@@ -19,7 +19,7 @@ namespace TRAEProject.Changes.Accesory
             ArmorIDs.Wing.Sets.Stats[ArmorIDs.Wing.CreativeWings].FlyTime = PreHardmode;
             ArmorIDs.Wing.Sets.Stats[ArmorIDs.Wing.LongTrailRainbowWings].FlyTime = 360;
 
-
+            
             ArmorIDs.Wing.Sets.Stats[ArmorIDs.Wing.LeafWings].FlyTime = 360;
             ArmorIDs.Wing.Sets.Stats[ArmorIDs.Wing.DemonWings].FlyTime = EarlyHardmode;
             ArmorIDs.Wing.Sets.Stats[ArmorIDs.Wing.AngelWings].FlyTime = EarlyHardmode;
@@ -73,6 +73,8 @@ namespace TRAEProject.Changes.Accesory
             ArmorIDs.Wing.Sets.Stats[ArmorIDs.Wing.GroxTheGreatWings].FlyTime = EarlyHardmode2;
             ArmorIDs.Wing.Sets.Stats[ArmorIDs.Wing.LokisWings].FlyTime = EarlyHardmode2;
             ArmorIDs.Wing.Sets.Stats[ArmorIDs.Wing.SkiphssPaws].FlyTime = EarlyHardmode2;
+
+            
         }
         public override void SetDefaults(Item item)
         {
@@ -179,6 +181,7 @@ namespace TRAEProject.Changes.Accesory
                     player.GetModPlayer<AccesoryEffects>().FastFall = true;
                     player.moveSpeed += 0.25f;
                     player.jumpSpeedBoost += Mobility.JSV(0.25f);
+                    player.GetModPlayer<Mobility>().ankletAcc = true;
                     break;
                 case ItemID.RainbowWings:
                     player.moveSpeed += 0.25f;
@@ -209,6 +212,14 @@ namespace TRAEProject.Changes.Accesory
                     player.moveSpeed += 0.5f;
                     player.jumpSpeedBoost += Mobility.JSV(0.5f);
                     break;
+            }
+            if(ModLoader.TryGetMod("ModLoader", out Mod tModLoader))
+            {
+                if(item.ModItem != null && item.ModItem.Mod == tModLoader && item.wingSlot > 0)
+                {
+                    player.moveSpeed += 0.12f;
+                    player.jumpSpeedBoost += Mobility.JSV(0.12f);
+                }
             }
         }
         public static void PostProcessChanges(Player player)
@@ -458,7 +469,7 @@ namespace TRAEProject.Changes.Accesory
                     {
                         if (line.Mod == "Terraria" && line.Name == "Tooltip0")
                         {
-                            line.Text += "\n25% increased movement and jump speed" + "\nHold down to fall faster";
+                            line.Text += "\n25% increased movement and jump speed" + "\nHold down to fall faster\nGreatly increases acceleration";
                         }
                     }
                     break;
@@ -552,6 +563,13 @@ namespace TRAEProject.Changes.Accesory
                 case ItemID.SkiphsWings:
                     tooltips.Add(new TooltipLine(Mod, "dev wing speed", "Increases movement and jump speed by 10%"));
                     break;
+            }
+            if(ModLoader.TryGetMod("ModLoader", out Mod tModLoader))
+            {
+                if(item.ModItem != null && item.ModItem.Mod == tModLoader && item.wingSlot > 0)
+                {
+                    tooltips.Add(new TooltipLine(Mod, "tMod wing speed", "Increases movement and jump speed by 12%"));
+                }
             }
         }
     }

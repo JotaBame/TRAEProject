@@ -99,7 +99,7 @@ namespace TRAEProject.NewContent.Items.Armor.Joter
                 }
             }
         }
-        public override void Kill(int timeLeft)
+        public override void OnKill(int timeLeft)
         {
             SoundEngine.PlaySound(SoundID.NPCDeath1 with { MaxInstances = 0 }, Projectile.position);
             Vector2 usePos = Projectile.position; // Position to use for dusts

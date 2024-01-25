@@ -679,7 +679,7 @@ namespace TRAEProject.Common
         }
         public int DustOnDeath = 81;
         public int DustOnDeathCount = 20;
-        public override void Kill(int timeLeft)
+        public override void OnKill(int timeLeft)
         {
             SoundEngine.PlaySound(SoundID.Dig with { MaxInstances = 0 }, Projectile.Center); // Play a death sound
             Vector2 usePos = Projectile.position; // Position to use for dusts

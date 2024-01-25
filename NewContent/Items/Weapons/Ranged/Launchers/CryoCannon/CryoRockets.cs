@@ -157,7 +157,7 @@ namespace TRAEProject.NewContent.Items.Weapons.Ranged.Launchers.CryoCannon
         {
             Projectile.GetGlobalProjectile<CryoRockets>().CryoRocketAI(Projectile);
         }
-        public override void Kill(int timeLeft)
+        public override void OnKill(int timeLeft)
         {
             Projectile.GetGlobalProjectile<CryoRockets>().FrostExplosion(Projectile);
             Projectile.GetGlobalProjectile<NewRockets>().DestroyTiles(Projectile, 3);
@@ -226,7 +226,7 @@ namespace TRAEProject.NewContent.Items.Weapons.Ranged.Launchers.CryoCannon
             Projectile.GetGlobalProjectile<CryoRockets>().CryoRocketAI(Projectile);
       
         }
-        public override void Kill(int timeLeft)
+        public override void OnKill(int timeLeft)
         {
             Projectile.GetGlobalProjectile<CryoRockets>().FrostExplosion(Projectile);
             Projectile.GetGlobalProjectile<NewRockets>().DestroyTiles(Projectile, 3);
@@ -247,7 +247,7 @@ namespace TRAEProject.NewContent.Items.Weapons.Ranged.Launchers.CryoCannon
         {
             Projectile.GetGlobalProjectile<CryoRockets>().CryoRocketAI(Projectile);
         }
-        public override void Kill(int timeLeft)
+        public override void OnKill(int timeLeft)
         {
             if (Projectile.owner == Main.myPlayer)
             {

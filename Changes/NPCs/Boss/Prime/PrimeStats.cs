@@ -30,9 +30,9 @@ public static class PrimeStats
     public const int railHealth = 3000; //value in classic mode x1.5 in expert
     
     public const float railVel = 10f; //compined with railExtraUpdates, determines the velocity of the rail shot
-    public const int railExtraUpdates = 7;
+    public const int railExtraUpdates = 5;
     //5
-    public const int stopAimingTime = 40; 
+    public const int stopAimingTime = 15; 
     public const bool railUsesPredictiveAim = true;
     public const int railChargeTime = 600; //time between rail shots
     public const int railWarnTime = 180; //how long the rail's warning sight line lasts

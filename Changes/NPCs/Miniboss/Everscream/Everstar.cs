@@ -52,7 +52,7 @@ namespace TRAEProject.Changes.NPCs.Miniboss.Everscream
                 Projectile.hostile = true;
                 Projectile.friendly = false;
         }
-        public override void Kill(int timeLeft)
+        public override void OnKill(int timeLeft)
         {
             int Cluster = ProjectileID.OrnamentHostileShrapnel; // snowman cannon's projectile, doesn't damage the player
             float num852 = (MathF.PI * 2f);

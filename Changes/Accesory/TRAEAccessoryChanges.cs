@@ -23,11 +23,43 @@ namespace TRAEProject.Changes.Accesory
         BuffID.Confused, BuffID.Slow, BuffID.OgreSpit, BuffID.Weak, BuffID.BrokenArmor,
         BuffID.CursedInferno,   BuffID.Frostburn,  BuffID.Chilled,  BuffID.Frozen,
         BuffID.Ichor,   BuffID.Stoned,  BuffID.VortexDebuff,  BuffID.Obstructed,
-        BuffID.Electrified, BuffID.ShadowFlame, BuffID.WitheredWeapon, BuffID.WitheredArmor, BuffID.Dazed, BuffID.Burning}; // 
+        BuffID.Electrified, BuffID.ShadowFlame, BuffID.WitheredWeapon, BuffID.WitheredArmor, BuffID.Dazed, BuffID.Burning}; //
 
-        void CelestialStoneStats(Player player)
+
+        
+        static void CelestialStoneStats(Player player)
         {
             player.skyStoneEffects = false;
+
+
+            //total stats: 
+            //4% increased damage critical strike chance, movement speed, and jump speed
+            //8% increased melee speed
+            //10% incresed mining speed and reduced ammo usage
+            //increases defense and armor penetration by 4
+            //increases max life and mana by 20
+            //increases life regen by 0.5hp/s
+            /*
+            player.GetDamage<GenericDamageClass>() += 0.04f;
+            player.GetCritChance<GenericDamageClass>() += 4;
+            player.moveSpeed += 0.04f;
+            player.jumpSpeedBoost += Mobility.JSV(0.04f);
+
+            player.GetAttackSpeed(DamageClass.Melee) += 0.08f;
+
+            player.GetModPlayer<RangedStats>().chanceNotToConsumeAmmo += 10;
+            player.pickSpeed -= 0.1f;
+
+            player.statDefense += 4;
+            player.GetArmorPenetration(DamageClass.Generic) += 4;
+
+            player.statLifeMax2 += 20;
+            player.statManaMax2 += 20;
+
+            player.lifeRegen++;
+            */
+            // total stats: +8% damage, +2% crit, +0.5 hp/s, +4 defense. +5% melee speed, +20 max mana, +5% movement speed, 10% chance not to consume ammo
+            
             player.GetDamage<GenericDamageClass>() += 0.08f;
             player.GetCritChance<GenericDamageClass>() += 2;
             player.statDefense += 4;
@@ -35,6 +67,7 @@ namespace TRAEProject.Changes.Accesory
             player.statManaMax2 += 20;
             player.GetAttackSpeed(DamageClass.Melee) += 0.05f;
             player.GetModPlayer<RangedStats>().chanceNotToConsumeAmmo += 10;
+            
         }
         public override void UpdateAccessory(Item item, Player player, bool hideVisual)
         {
@@ -120,7 +153,7 @@ namespace TRAEProject.Changes.Accesory
                 case ItemID.CelestialStone:
                     CelestialStoneStats(player);
 
-                    // total stats: +8% damage, +2% crit, +0.5 hp/s, +4 defense. +5% melee speed, +20 max mana, +5% movement speed, 10% chance not to consume ammo
+                    
                     break;
                 case ItemID.MoonStone:
                     if (!Main.dayTime)
@@ -140,7 +173,8 @@ namespace TRAEProject.Changes.Accesory
                     player.wolfAcc = false;
                     break;
                 case ItemID.BandofStarpower:
-                    player.GetModPlayer<Mana>().manaRegenBoost += 0.1f;                    player.statManaMax2 -= 20;
+                    player.GetModPlayer<Mana>().manaRegenBoost += 0.1f;                    
+                    player.statManaMax2 -= 20;
                     break;
                 case ItemID.ManaRegenerationBand:
                     player.statManaMax2 -= 20;
@@ -231,6 +265,9 @@ namespace TRAEProject.Changes.Accesory
         }
         public override void ModifyTooltips(Item item, List<TooltipLine> tooltips)
         {
+            string celStone = "8% increased damage\n2% increased critical strike chance\n5% increased melee speed\n10% incresed mining speed and reduced ammo usage\nincreases defense by 4\nincreases mana by 20\nincreases life regen by 0.5hp/s";
+            //string celStone = "4% increased damage, critical strike chance, movement speed, and jump speed\n8% increased melee speed\n10% incresed mining speed and reduced ammo usage\nincreases defense and armor penetration by 4\nincreases max life and mana by 20\nincreases life regen by 0.5hp/s";
+
             switch (item.type)
             {
                 case ItemID.SquireShield:
@@ -548,12 +585,27 @@ namespace TRAEProject.Changes.Accesory
                         }
                     }
                     break;
+                    //total stats: 
+                    //4% increased damage critical strike chance, movement speed, and jump speed
+                    //8% increased melee speed
+                    //10% incresed mining speed and reduced ammo usage
+                    //increases defense and armor penetration by 4
+                    //increases max life and mana by 20
+                    //increases life regen by 0.5hp/s
                 case ItemID.SunStone:
                     foreach (TooltipLine line in tooltips)
                     {
                         if (line.Mod == "Terraria" && line.Name == "Tooltip0")
                         {
-                            line.Text = "Minor increases to damage, maximum mana, chance not to consume ammo,";
+                            line.Text = "During the Day: ";
+                        }
+                        if (line.Mod == "Terraria" && line.Name == "Tooltip1")
+                        {
+                            line.Text = celStone;
+                        }
+                        if (line.Mod == "Terraria" && line.Name == "Tooltip2")
+                        {
+                            line.Text = "";
                         }
 
                     }
@@ -563,7 +615,15 @@ namespace TRAEProject.Changes.Accesory
                     {
                         if (line.Mod == "Terraria" && line.Name == "Tooltip0")
                         {
-                            line.Text = "Minor increases to damage, maximum mana, chance not to consume ammo,";
+                            line.Text = "During the Night: ";
+                        }
+                        if (line.Mod == "Terraria" && line.Name == "Tooltip1")
+                        {
+                            line.Text = celStone;
+                        }
+                        if (line.Mod == "Terraria" && line.Name == "Tooltip2")
+                        {
+                            line.Text = "";
                         }
 
                     }
@@ -573,11 +633,15 @@ namespace TRAEProject.Changes.Accesory
                     {
                         if (line.Mod == "Terraria" && line.Name == "Tooltip0")
                         {
-                            line.Text = "Minor increases to damage, maximum mana, chance not to consume ammo,";
+                            line.Text = celStone;
                         }
                         if (line.Mod == "Terraria" && line.Name == "Tooltip1")
                         {
-                            line.Text = "melee speed, critical strike chance, life regeneration,";
+                            line.Text = "";
+                        }
+                        if (line.Mod == "Terraria" && line.Name == "Tooltip2")
+                        {
+                            line.Text = "";
                         }
                     }
                     break;
@@ -590,11 +654,19 @@ namespace TRAEProject.Changes.Accesory
                         }
                         if (line.Mod == "Terraria" && line.Name == "Tooltip1")
                         {
-                            line.Text = "Minor increases to damage, maximum mana,";
+                            line.Text = celStone;
                         }
                         if (line.Mod == "Terraria" && line.Name == "Tooltip2")
                         {
-                            line.Text = "chance not to consume ammo, melee speed,";
+                            line.Text = "";
+                        }
+                        if (line.Mod == "Terraria" && line.Name == "Tooltip3")
+                        {
+                            line.Text = "";
+                        }
+                        if (line.Mod == "Terraria" && line.Name == "Tooltip4")
+                        {
+                            line.Text = "";
                         }
                     }
                     break;

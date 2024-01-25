@@ -165,7 +165,7 @@ namespace TRAEProject.NewContent.Items.Weapons.Ranged.BAM
         {
             Projectile.GetGlobalProjectile<BAMRockets>().BAMRocketAI(Projectile);
         }
-        public override void Kill(int timeLeft)
+        public override void OnKill(int timeLeft)
         {
             Projectile.GetGlobalProjectile<BAMRockets>().BAMExplosion(Projectile);
         }
@@ -183,7 +183,7 @@ namespace TRAEProject.NewContent.Items.Weapons.Ranged.BAM
         {
             Projectile.GetGlobalProjectile<BAMRockets>().BAMRocketAI(Projectile);
         }
-        public override void Kill(int timeLeft)
+        public override void OnKill(int timeLeft)
         { 
             Projectile.GetGlobalProjectile<BAMRockets>().BAMExplosion(Projectile);
             Projectile.GetGlobalProjectile<NewRockets>().DestroyTiles(Projectile, 3);
@@ -202,7 +202,7 @@ namespace TRAEProject.NewContent.Items.Weapons.Ranged.BAM
         {
             Projectile.GetGlobalProjectile<BAMRockets>().BAMRocketAI(Projectile);
         }
-        public override void Kill(int timeLeft)
+        public override void OnKill(int timeLeft)
         {
             Projectile.GetGlobalProjectile<BAMRockets>().BAMExplosion(Projectile);
         }
@@ -220,7 +220,7 @@ namespace TRAEProject.NewContent.Items.Weapons.Ranged.BAM
         {
             Projectile.GetGlobalProjectile<BAMRockets>().BAMRocketAI(Projectile);
         }
-        public override void Kill(int timeLeft)
+        public override void OnKill(int timeLeft)
         {
             Projectile.GetGlobalProjectile<BAMRockets>().BAMExplosion(Projectile);
         }
@@ -238,7 +238,7 @@ namespace TRAEProject.NewContent.Items.Weapons.Ranged.BAM
         {
             Projectile.GetGlobalProjectile<BAMRockets>().BAMRocketAI(Projectile);
         }
-        public override void Kill(int timeLeft)
+        public override void OnKill(int timeLeft)
         {
             Projectile.GetGlobalProjectile<BAMRockets>().BAMExplosion(Projectile);
         }
@@ -256,7 +256,7 @@ namespace TRAEProject.NewContent.Items.Weapons.Ranged.BAM
         {
             Projectile.GetGlobalProjectile<BAMRockets>().BAMRocketAI(Projectile);
         }
-        public override void Kill(int timeLeft)
+        public override void OnKill(int timeLeft)
         {
             Projectile.GetGlobalProjectile<BAMRockets>().BAMExplosion(Projectile);
             Projectile.GetGlobalProjectile<NewRockets>().DestroyTiles(Projectile, 6);
@@ -275,7 +275,7 @@ namespace TRAEProject.NewContent.Items.Weapons.Ranged.BAM
         {
             Projectile.GetGlobalProjectile<BAMRockets>().BAMRocketAI(Projectile);
         }
-        public override void Kill(int timeLeft)
+        public override void OnKill(int timeLeft)
         {
             Projectile.GetGlobalProjectile<BAMRockets>().BAMExplosion(Projectile);
             if (Projectile.owner == Main.myPlayer)
@@ -310,7 +310,7 @@ namespace TRAEProject.NewContent.Items.Weapons.Ranged.BAM
         {
             Projectile.GetGlobalProjectile<BAMRockets>().BAMRocketAI(Projectile);
         }
-        public override void Kill(int timeLeft)
+        public override void OnKill(int timeLeft)
         {
             Projectile.GetGlobalProjectile<BAMRockets>().BAMExplosion(Projectile);
         }
@@ -330,7 +330,7 @@ namespace TRAEProject.NewContent.Items.Weapons.Ranged.BAM
         {
             Projectile.GetGlobalProjectile<BAMRockets>().BAMRocketAI(Projectile);
         }
-        public override void Kill(int timeLeft)
+        public override void OnKill(int timeLeft)
         {
             Projectile.GetGlobalProjectile<BAMRockets>().BAMExplosion(Projectile);
         }
@@ -350,7 +350,7 @@ namespace TRAEProject.NewContent.Items.Weapons.Ranged.BAM
         {
             Projectile.GetGlobalProjectile<BAMRockets>().BAMRocketAI(Projectile);
         }
-        public override void Kill(int timeLeft)
+        public override void OnKill(int timeLeft)
         {
             Projectile.GetGlobalProjectile<BAMRockets>().BAMExplosion(Projectile);
         }
@@ -369,7 +369,7 @@ namespace TRAEProject.NewContent.Items.Weapons.Ranged.BAM
         {
             Projectile.GetGlobalProjectile<BAMRockets>().BAMRocketAI(Projectile);
         }
-              public override void Kill(int timeLeft)
+              public override void OnKill(int timeLeft)
         {
             Projectile.GetGlobalProjectile<BAMRockets>().BAMExplosion(Projectile);
         }
@@ -388,7 +388,7 @@ namespace TRAEProject.NewContent.Items.Weapons.Ranged.BAM
         {
             Projectile.GetGlobalProjectile<BAMRockets>().BAMRocketAI(Projectile);
         }
-        public override void Kill(int timeLeft)
+        public override void OnKill(int timeLeft)
         {
             Projectile.GetGlobalProjectile<BAMRockets>().BAMExplosion(Projectile);
         }

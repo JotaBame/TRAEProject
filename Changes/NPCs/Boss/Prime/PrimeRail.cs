@@ -13,13 +13,14 @@ namespace TRAEProject.Changes.NPCs.Boss.Prime
 {
     public class PrimeRail : ModNPC
     {
+        
         public override void SetBestiary(BestiaryDatabase database, BestiaryEntry bestiaryEntry)
         {
             database.Entries.Remove(bestiaryEntry);
         }
         public override void ApplyDifficultyAndPlayerScaling(int numPlayers, float balance, float bossAdjustment)
         {
-            NPC.lifeMax = (int)(NPC.lifeMax * 0.75f * bossAdjustment);
+            NPC.lifeMax = (int)(NPC.lifeMax * 0.75f * bossAdjustment * balance);
         }
         public override void HitEffect(NPC.HitInfo hit)
         {
@@ -152,32 +153,9 @@ namespace TRAEProject.Changes.NPCs.Boss.Prime
             bool predictiveAim = PrimeStats.railUsesPredictiveAim;
             float stopAimingTime = PrimeStats.stopAimingTime;
             int railExtraUpdates = PrimeStats.railExtraUpdates;
-            bool holdFireWhenRaged = false;
-            float rotSpeed = MathF.PI / 120f;
-            switch(ModContent.GetInstance<TRAEConfig>().railMode)
-            {
-                case RailMode.Classic:
-                stopAimingTime = 0;
-                predictiveAim = true;
-                railVel = 10f;
-                railExtraUpdates = 5;
-                break;
-                case RailMode.BameNerf:
-                stopAimingTime = 0;
-                predictiveAim = false;
-                railVel = ModContent.GetInstance<TRAEConfig>().bRailVel;
-                railExtraUpdates = ModContent.GetInstance<TRAEConfig>().bRailEUpdates;
-                rotSpeed = (ModContent.GetInstance<TRAEConfig>().bRailTurnSpeed / 60f) * (180f / MathF.PI);
-                break;
-                case RailMode.QwertyNerf:
-                stopAimingTime = ModContent.GetInstance<TRAEConfig>().railStopAimTime;
-                predictiveAim = true;
-                railVel = ModContent.GetInstance<TRAEConfig>().qRailVel;
-                railExtraUpdates = ModContent.GetInstance<TRAEConfig>().qRailEUpdates;
-                holdFireWhenRaged = ModContent.GetInstance<TRAEConfig>().holdFireOnRage;
-                rotSpeed = (ModContent.GetInstance<TRAEConfig>().qRailTurnSpeed / 60f) * (180f / MathF.PI);
-                break;
-            }
+            bool holdFireWhenRaged = true;
+            float rotSpeed = (100 / 60f) * (180f / MathF.PI);
+            
             NPC.TargetClosest(false);
             if (timer > PrimeStats.railChargeTime - PrimeStats.railWarnTime)
             {
@@ -271,18 +249,6 @@ namespace TRAEProject.Changes.NPCs.Boss.Prime
         {
 
             Projectile.extraUpdates = PrimeStats.railExtraUpdates;
-            switch(ModContent.GetInstance<TRAEConfig>().railMode)
-            {
-                case RailMode.Classic:
-                Projectile.extraUpdates = 5;
-                break;
-                case RailMode.BameNerf:
-                Projectile.extraUpdates = 5;
-                break;
-                case RailMode.QwertyNerf:
-                Projectile.extraUpdates = 7;
-                break;
-            }
             Projectile.width = 32;
             Projectile.height = 32;
             Projectile.aiStyle = 1;

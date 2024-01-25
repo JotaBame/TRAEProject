@@ -130,6 +130,14 @@ namespace TRAEProject.Changes.Projectiles
       
             }
         }
+        public override void OnSpawn(Projectile projectile, IEntitySource source)
+        {
+            Player player = Main.player[projectile.owner];
+            if (projectile.arrow && !player.HeldItem.IsAir && (player.HeldItem.type == ItemID.Tsunami || player.HeldItem.type == ItemID.MythrilRepeater))
+            {
+                projectile.extraUpdates += 1;
+            }
+        }
         public override bool TileCollideStyle(Projectile projectile, ref int width, ref int height, ref bool fallThrough, ref Vector2 hitboxCenterFrac)
         {
             switch (projectile.type)
@@ -204,10 +212,6 @@ namespace TRAEProject.Changes.Projectiles
             if (!dontDoThisAgain)
             {
                 dontDoThisAgain = true;
-                if (projectile.arrow && !player.HeldItem.IsAir && (player.HeldItem.type == ItemID.Tsunami || player.HeldItem.type == ItemID.MythrilRepeater))
-                {
-                    projectile.extraUpdates += 1;
-                }
                 if (projectile.CountsAsClass(DamageClass.Ranged) && (player.GetModPlayer<RangedStats>().GunScope || player.GetModPlayer<RangedStats>().AlphaScope > 0 || player.GetModPlayer<RangedStats>().ReconScope > 0))
                 {
                     if (projectile.owner == player.whoAmI && projectile.type != ProjectileID.Phantasm && projectile.type != ProjectileID.VortexBeater && projectile.type != ProjectileID.DD2PhoenixBow)
@@ -538,16 +542,6 @@ namespace TRAEProject.Changes.Projectiles
                         Projectile.NewProjectile(projectile.GetSource_FromThis(), projectile.position.X, projectile.position.Y, 0f, 0f, ProjectileID.CursedDartFlame, (projectile.damage * 1), 0, projectile.owner, 0f, 0f);
                         return true;
                     }
-                case ProjectileID.NanoBullet:
-                case ProjectileID.ChlorophyteArrow:
-                    {
-                        if (projectile.GetGlobalProjectile<ScopeAndQuiver>().smartbounces == 0)
-                        {
-                            projectile.Kill();
-                            return false;
-                        }
-                        return true;
-                    }
             }
             return true;
         }
@@ -786,7 +780,7 @@ namespace TRAEProject.Changes.Projectiles
             }
             return true;
         }
-        public override void Kill(Projectile projectile, int timeLeft)
+        public override void OnKill(Projectile projectile, int timeLeft)
         {
             switch (projectile.type)
             {               

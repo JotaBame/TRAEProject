@@ -70,7 +70,7 @@ namespace TRAEProject.NewContent.Items.Weapons.Ranged.Ammo
             Projectile.rotation = Projectile.velocity.ToRotation() + MathHelper.ToRadians(90f);
             Lighting.AddLight(Projectile.Center, 0f, 0f, 0.4f);
         }
-        public override void Kill(int timeLeft)
+        public override void OnKill(int timeLeft)
         {
             Terraria.Audio.SoundEngine.PlaySound(SoundID.Item10 with { MaxInstances = 0 }, Projectile.position);
         }

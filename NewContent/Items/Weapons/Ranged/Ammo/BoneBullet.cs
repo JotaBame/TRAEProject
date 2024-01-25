@@ -70,7 +70,7 @@ namespace TRAEProject.NewContent.Items.Weapons.Ranged.Ammo
             Projectile.rotation = Projectile.velocity.ToRotation() + MathHelper.ToRadians(90f);;
          
         }
-        public override void Kill(int timeLeft)
+        public override void OnKill(int timeLeft)
         {
             SoundEngine.PlaySound(SoundID.Dig with { MaxInstances = 0 }, Projectile.Center);
             if (Main.myPlayer == Main.player[Projectile.owner].whoAmI && Main.rand.NextBool(2))

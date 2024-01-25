@@ -15,9 +15,11 @@ namespace TRAEProject.NewContent.Items.Weapons.Ranged.Launchers.H410WFLASH
     {
         public override bool InstancePerEntity => true;
         public bool PixieExplosion = false;
+
+        bool target = false;
         public void PixieRocketAI(Projectile projectile)
         {     
-		projectile.rotation = MathF.Atan2(projectile.velocity.Y, projectile.velocity.X) + 1.57f;
+		    projectile.rotation = MathF.Atan2(projectile.velocity.Y, projectile.velocity.X) + 1.57f;
             if (projectile.ai[0] < 25)
             {
                 ++projectile.ai[0];
@@ -25,22 +27,9 @@ namespace TRAEProject.NewContent.Items.Weapons.Ranged.Launchers.H410WFLASH
             /// control it
             else 
             {
-                Vector2 move = Vector2.Zero;
-                bool target = false;
-                float distance = 3000f;
-                for (int k = 0; k < 200; k++)
+                if(target)
                 {
-                    Vector2 newMove = Main.MouseWorld - projectile.Center;
-                    float distanceTo = MathF.Sqrt(newMove.X * newMove.X + newMove.Y * newMove.Y);
-                    if (distanceTo < distance)
-                    {
-                        move = newMove;
-                        distance = distanceTo;
-                        target = true;
-                    }
-                }
-                if (target)
-                {
+                    Vector2 move = new Vector2(projectile.ai[1], projectile.ai[2]);
                     float magnitude = MathF.Sqrt(move.X * move.X + move.Y * move.Y);
                     if (magnitude > 10f)
                     {
@@ -49,6 +38,14 @@ namespace TRAEProject.NewContent.Items.Weapons.Ranged.Launchers.H410WFLASH
                     projectile.velocity += move * 2f;
                     projectile.velocity *= 0.95f;
                 }
+                if (Main.LocalPlayer == Main.player[projectile.owner])
+                {
+                    Vector2 newMove = Main.MouseWorld - projectile.Center;
+                    projectile.ai[1] = newMove.X;
+                    projectile.ai[2] = newMove.Y;
+                    projectile.netUpdate = true;
+                }
+                target = true;
             }
             /// Dusts
             if ((Math.Abs(projectile.velocity.X) >= 8f || Math.Abs(projectile.velocity.Y) >= 8f) && Main.rand.Next(2) == 0)
@@ -199,7 +196,7 @@ namespace TRAEProject.NewContent.Items.Weapons.Ranged.Launchers.H410WFLASH
         {
             Projectile.GetGlobalProjectile<PixieRockets>().PixieRocketAI(Projectile);
         }
-        public override void Kill(int timeLeft)
+        public override void OnKill(int timeLeft)
         {
             Projectile.GetGlobalProjectile<PixieRockets>().HallowExplosion(Projectile);
             Projectile.GetGlobalProjectile<NewRockets>().DestroyTiles(Projectile, 3);
@@ -262,7 +259,7 @@ namespace TRAEProject.NewContent.Items.Weapons.Ranged.Launchers.H410WFLASH
             Projectile.GetGlobalProjectile<PixieRockets>().PixieRocketAI(Projectile);
       
         }
-        public override void Kill(int timeLeft)
+        public override void OnKill(int timeLeft)
         {
             Projectile.GetGlobalProjectile<PixieRockets>().HallowExplosion(Projectile);
             Projectile.GetGlobalProjectile<NewRockets>().DestroyTiles(Projectile, 3);
@@ -281,7 +278,7 @@ namespace TRAEProject.NewContent.Items.Weapons.Ranged.Launchers.H410WFLASH
         {
             Projectile.GetGlobalProjectile<PixieRockets>().PixieRocketAI(Projectile);
         }
-        public override void Kill(int timeLeft)
+        public override void OnKill(int timeLeft)
         {
             if (Projectile.owner == Main.myPlayer)
             {

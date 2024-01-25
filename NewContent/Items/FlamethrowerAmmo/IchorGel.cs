@@ -64,7 +64,7 @@ namespace TRAEProject.NewContent.Items.FlamethrowerAmmo
                 Dust.NewDustDirect(Projectile.Center, 1, 1, DustID.Smoke, 0, -1);
             }
         }        
-        public override void Kill(int timeLeft)
+        public override void OnKill(int timeLeft)
         {
             int spits = 1;
             for (int i = 0; i < spits; i++)

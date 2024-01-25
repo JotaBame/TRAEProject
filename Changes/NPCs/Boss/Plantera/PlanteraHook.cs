@@ -32,7 +32,7 @@ namespace TRAEProject.Changes.NPCs.Boss.Plantera
         }
         Vector2? anchor = null;
         Player player;
-        public override void Kill(int timeLeft)
+        public override void OnKill(int timeLeft)
         {
             Gore.NewGore(Projectile.GetSource_FromThis(),new Vector2(Projectile.position.X + (float)Main.rand.Next(Projectile.width), Projectile.position.Y + (float)Main.rand.Next(Projectile.height)), Projectile.velocity, 390, Projectile.scale);
             Gore.NewGore(Projectile.GetSource_FromThis(), new Vector2(Projectile.position.X + (float)Main.rand.Next(Projectile.width), Projectile.position.Y + (float)Main.rand.Next(Projectile.height)), Projectile.velocity, 391, Projectile.scale);

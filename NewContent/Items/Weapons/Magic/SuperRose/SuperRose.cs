@@ -120,7 +120,7 @@ namespace TRAEProject.NewContent.Items.Weapons.Magic.SuperRose
             }
 
         }
-        public override void Kill(int timeLeft)
+        public override void OnKill(int timeLeft)
         {
             SoundEngine.PlaySound(SoundID.Item20 with { MaxInstances = 0 }, Projectile.Center);
         }

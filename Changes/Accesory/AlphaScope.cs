@@ -7,6 +7,7 @@ using TRAEProject.Common.ModPlayers;
 using TRAEProject.Changes.Weapon.Ranged.Rockets;
 using TRAEProject.Common;
 using System.Collections.Generic;
+using Terraria.DataStructures;
 
 namespace TRAEProject.Changes.Accesory
 {
@@ -180,8 +181,12 @@ namespace TRAEProject.Changes.Accesory
             {
                 AffectedByAlphaScope = true;
             }
+            if(projectile.type == ProjectileID.IchorDart || projectile.type == ProjectileID.CursedDart)
+            {
+                AffectedByAlphaScope = true;
+            }
         }
-        public override void AI(Projectile projectile)
+        public override void OnSpawn(Projectile projectile, IEntitySource source)
         {
             Player player = Main.player[projectile.owner];
             if (!projectile.GetGlobalProjectile<NewRockets>().IsARocket)
@@ -216,9 +221,9 @@ namespace TRAEProject.Changes.Accesory
                 int maxRange = 600;
                 NPC closest = null;
 
-                TRAEMethods.ClosestNPC(ref closest, maxRange, projectile.Center);
+
                 // specialCondition: delegate (NPC possibleTarget) { return projectile.Center.Distance(projectile.Center) > minimumRange; }
-                if (closest != null && closest.Distance(projectile.Center) > 50)
+                if (TRAEMethods.ClosestNPC(ref closest, maxRange, projectile.Center) && closest.Distance(projectile.Center) > 50)
                 {
                     Vector2 value2 = closest.Center - projectile.Center;
                     float scaleFactor2 = projectile.velocity.Length();

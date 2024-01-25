@@ -14,6 +14,11 @@ namespace TRAEProject.Changes.NPCs.Boss
 {
     public class Twins : GlobalNPC
     {
+        public override void SetStaticDefaults()
+        {
+            NPCID.Sets.NoMultiplayerSmoothingByType[NPCID.Retinazer] = true;
+        }
+
         
         public override void SetDefaults(NPC npc)
         {

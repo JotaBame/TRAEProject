@@ -66,11 +66,7 @@ namespace TRAEProject.NewContent.NPCs.Underworld.Beholder
         {
             if (Main.expertMode)
             {
-                NPC.lifeMax = (int)((NPC.lifeMax * 3 / 4) * bossAdjustment);
-            }
-            if (Main.masterMode)
-            {
-                NPC.lifeMax = (int)(NPC.lifeMax * 3 / 4 * bossAdjustment); 
+                NPC.lifeMax = (int)((NPC.lifeMax * 3 / 4) * bossAdjustment * balance);
             }
             
 
@@ -740,7 +736,7 @@ namespace TRAEProject.NewContent.NPCs.Underworld.Beholder
                 Main.dust[num177].noGravity = true;
             }
         }
-        public override void Kill(int timeLeft)
+        public override void OnKill(int timeLeft)
         {
             SoundEngine.PlaySound(SoundID.Item10 with { MaxInstances = 0 }, Projectile.position);
             for (int num729 = 0; num729 < 30; num729++)
@@ -796,7 +792,7 @@ namespace TRAEProject.NewContent.NPCs.Underworld.Beholder
             Main.spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, Main.DefaultSamplerState, DepthStencilState.None, Main.Rasterizer, null, Main.Transform);
             return base.PreDraw(ref lightColor);
         }
-        public override void Kill(int timeLeft)
+        public override void OnKill(int timeLeft)
         {
             SoundEngine.PlaySound(SoundID.Item10 with { MaxInstances = 0 }, Projectile.position);
             for (int num729 = 0; num729 < 20; num729++)
@@ -853,7 +849,7 @@ namespace TRAEProject.NewContent.NPCs.Underworld.Beholder
                 Main.dust[num177].noGravity = true;
             }
         }
-        public override void Kill(int timeLeft)
+        public override void OnKill(int timeLeft)
         {
             SoundEngine.PlaySound(SoundID.Item10 with { MaxInstances = 0 }, Projectile.position);
             for (int num729 = 0; num729 < 30; num729++)
@@ -933,7 +929,7 @@ namespace TRAEProject.NewContent.NPCs.Underworld.Beholder
                 Main.dust[num177].noGravity = true;
             }
         }
-        public override void Kill(int timeLeft)
+        public override void OnKill(int timeLeft)
         {
             SoundEngine.PlaySound(SoundID.Item10 with { MaxInstances = 0 }, Projectile.position);
 

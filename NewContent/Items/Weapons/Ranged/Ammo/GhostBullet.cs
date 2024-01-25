@@ -84,7 +84,7 @@ namespace TRAEProject.NewContent.Items.Weapons.Ranged.Ammo
                 GB.SetProjectile(Projectile);
             }
         }
-        public override void Kill(int timeLeft)
+        public override void OnKill(int timeLeft)
         {
             Terraria.Audio.SoundEngine.PlaySound(SoundID.Item10 with { MaxInstances = 0 }, Projectile.position);
         }

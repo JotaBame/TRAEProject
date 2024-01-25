@@ -450,7 +450,7 @@ Mods: {
 
 			WishForSpeedBuff: {
 				DisplayName: Wish For Speed Buff
-				Description: Mods.TRAEProject.Buffs.WishForSpeedBuff.Description
+				Description: Your wish was 15% movement speed... right?
 			}
 		}
 
@@ -490,7 +490,7 @@ Mods: {
 					'''
 					Allows the player to sextuple jump!
 					Increases jump height and prevents fall damage
-					Allows reducing gravity by holding UP					
+					Allows reducing gravity by holding UP
 					Releases Bees and covers you in honey when damaged
 					Stack combs to increase efficiency and life regeneration
 					'''
@@ -579,7 +579,7 @@ Mods: {
 					'''
 					A weak double jump that grant immunity frames
 					Increases jump height
-					Allows reducing gravity by holding UP					
+					Allows reducing gravity by holding UP
 					'''
 			}
 
@@ -700,7 +700,7 @@ Mods: {
 					'''
 					Increases jump height, prevents fall damage and grants extended flight
 					Press DOWN to fall faster
-					Allows reducing gravity by holding UP					
+					Allows reducing gravity by holding UP
 					'''
 			}
 
@@ -792,7 +792,7 @@ Mods: {
 				Tooltip:
 					'''
 					Increases jump height
-					Allows reducing gravity by holding UP					
+					Allows reducing gravity by holding UP
 					'''
 			}
 

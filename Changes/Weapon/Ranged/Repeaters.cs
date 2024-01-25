@@ -157,7 +157,7 @@ namespace TRAEProject.Changes.Weapon.Ranged
             Projectile.scale = 1.35f;
             Projectile.DamageType = DamageClass.Ranged;
         }
-        public override void Kill(int timeLeft)
+        public override void OnKill(int timeLeft)
         {
             for (int i = 0; i < 8; i++)
             {
