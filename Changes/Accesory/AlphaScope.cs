@@ -241,7 +241,7 @@ namespace TRAEProject.Changes.Accesory
                     return false;
                 }                   
             }
-            if (smartbounces == 0 && projectile.type == ProjectileID.ChlorophyteArrow || projectile.type == ProjectileID.NanoBullet)
+            if (projectile.type == ProjectileID.ChlorophyteArrow || projectile.type == ProjectileID.NanoBullet)
             {
                 projectile.Kill();
             }

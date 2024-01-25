@@ -84,29 +84,25 @@ namespace TRAEProject.NewContent.NPCs.Underworld.OniRonin
             int teleportCooldown = 200; 
             NPC.ai[0] += 1f;
             if (NPC.ai[0] > 1000 || (NPC.DistanceSQ(player.Center) >= 800f * 800f))
-                teleportCooldown = 20;
-            
-            if (NPC.ai[2] != 0f && NPC.ai[3] != 0f)//rapid teleports phase
+                teleportCooldown = 20; //rapid teleports phase
+
+            if (NPC.ai[2] != 0f && NPC.ai[3] != 0f )
             {
-                TRAEMethods.ServerClientCheck("tele");
+                
                 Vector2 tpDestination = new Vector2(NPC.ai[2] * 16 + 8f, NPC.ai[3] * 16 - NPC.height / 2);
                 teleportEffect = new(NPC.Center, tpDestination, 20);
-                
-                NPC.position += NPC.netOffset;
                 SoundEngine.PlaySound(new SoundStyle("TRAEProject/Assets/Sounds/OniTeleport") with { MaxInstances = 0 }, NPC.Center);                   
                 float tpDirection = (tpDestination - NPC.Center).ToRotation();
                 OniRoninExtraVisualMethods.OniDustEffects(NPC.Center, 2, tpDirection, 5);
-                NPC.position -= NPC.netOffset;
                 NPC.position.X = NPC.ai[2] * 16f - (NPC.width / 2) + 8f;
                 NPC.position.Y = NPC.ai[3] * 16f - NPC.height;
-                NPC.netOffset = Vector2.Zero;
                 NPC.velocity = Vector2.Zero;
                 NPC.ai[2] = 0f;
                 NPC.ai[3] = 0f;
                 SoundEngine.PlaySound(SoundID.Item8 with { MaxInstances = 0 }, NPC.position);        
                 OniRoninExtraVisualMethods.OniDustEffects(NPC.Center, 2, tpDirection , 5);
 
-            }//rapid teleports phase
+            }
 
             if (NPC.ai[0] % teleportCooldown == 0 && Main.netMode != NetmodeID.MultiplayerClient)
             {
@@ -143,7 +139,6 @@ namespace TRAEProject.NewContent.NPCs.Underworld.OniRonin
                     if(Main.netMode != NetmodeID.MultiplayerClient)
                     {
                         Projectile.NewProjectile(NPC.GetSource_FromAI(), NPC.Center + offsetToHand, projVel, petal, 30, 0f);
-                        NPC.netUpdate = true;
                     }
                 }
             }//spawn circling petals
@@ -165,12 +160,14 @@ namespace TRAEProject.NewContent.NPCs.Underworld.OniRonin
                         Projectile.NewProjectile(NPC.GetSource_FromAI(), NPC.Center , projVel, petal, 30, 0f, ai0: NPC.Center.X + offsetToHand.X, ai1: NPC.Center.Y + offsetToHand.Y - 4, ai2: Main.rand.NextFloat());
                     }
                 }
-                NPC.netUpdate = true;
             }//petal rapid fire end
-            if (NPC.ai[0] > 1200 && Main.netMode != NetmodeID.MultiplayerClient)
+            if (NPC.ai[0] > 1200)
             {
                 NPC.ai[0] = 0; 
-                NPC.netUpdate = true;
+                if(Main.netMode != NetmodeID.MultiplayerClient)
+                {
+                    NPC.netUpdate = true;
+                }
             }
             if(teleportEffect.TimeLeft < -1)
             OniRoninExtraVisualMethods.OniDustEffects(NPC.Bottom, 3, NPC.spriteDirection, 0);
