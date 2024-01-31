@@ -15,33 +15,33 @@ namespace TRAEProject
         [DefaultValue(true)]
         public bool EOCChanges { get; set; }
 
-        //[ReloadRequired] //None required     
         [DefaultValue(true)]
         public bool QBChanges { get; set; }
 
-        //[ReloadRequired] //None required     
         [DefaultValue(true)]
         public bool SkeletronChanges { get; set; }
         
         [DefaultValue(true)]
         public bool DeerclopsChanges { get; set; }
-        //[ReloadRequired] //None required     
+         
         [DefaultValue(true)] 
-        
         public bool TwinsRework { get; set; }
-        //[ReloadRequired] //None required     
+
+        [DefaultValue(true)]
+        public bool PrimeRework { get; set; }
+
+        [DefaultValue(true)]
+        public bool DestroyerRework { get; set; }
+
         [DefaultValue(false)]
         public bool PlanteraRework { get; set; }
 
-        //[ReloadRequired] //None required
-        [DefaultValue(true)]
+         [DefaultValue(true)]
         public bool FishronChanges { get; set; }
 
-        //[ReloadRequired] //None required     
-        [DefaultValue(true)]
+         [DefaultValue(true)]
         public bool CultistChanges { get; set; }
-        //[ReloadRequired] //None required   
-
+ 
 
         
 

@@ -7,7 +7,7 @@ using System;
 using Terraria.Audio;
 using Microsoft.Xna.Framework.Graphics;
 using Terraria.GameContent;
-using Terraria.Net;
+ using static Terraria.ModLoader.ModContent;
 
 namespace TRAEProject.Changes.NPCs.Boss
 {
@@ -56,24 +56,26 @@ namespace TRAEProject.Changes.NPCs.Boss
         const int segmentInactive = 1;
         public override void SetDefaults(NPC npc)
         {
-			if(npc.type == NPCID.TheDestroyer && Main.expertMode)
+            if (GetInstance<TRAEConfig>().DestroyerRework && !Main.zenithWorld)
             {
-				npc.damage = 50; // expert quadruples damage, this ends up being 200;
-			}
-            if (npc.type == NPCID.Probe && Main.masterMode)
-            {
-                npc.lifeMax = 134; // probes have too much hp in master
-             }
-            if (npc.type == NPCID.TheDestroyer)
-            {
-                npc.lifeMax = (int)(npc.lifeMax * ((float)50000 / 80000));
+                if (npc.type == NPCID.TheDestroyer && Main.expertMode)
+                {
+                    npc.damage = 50; // expert quadruples damage, this ends up being 200;
+                }
+                if (npc.type == NPCID.Probe && Main.masterMode)
+                {
+                    npc.lifeMax = 134; // probes have too much hp in master
+                }
+                if (npc.type == NPCID.TheDestroyer)
+                {
+                    npc.lifeMax = (int)(npc.lifeMax * ((float)50000 / 80000));
 
+                }
             }
- 
         }
         public override bool PreAI(NPC npc)
         {
-            if(npc.type == NPCID.TheDestroyer)
+            if(npc.type == NPCID.TheDestroyer && GetInstance<TRAEConfig>().DestroyerRework && !Main.zenithWorld)
             {
                 //recreated modified vanilla movement
                 //Main.NewText("AI0: " + npc.ai[0] + " AI1: " + npc.ai[1] + " AI2: " + npc.ai[2] + " AI3: " + npc.ai[2] + " LAI0: " + npc.localAI[0] + " LAI1: " + npc.localAI[1] + " LAI2: " + npc.localAI[2] + " LAI3: " + npc.localAI[2] );
@@ -146,109 +148,115 @@ namespace TRAEProject.Changes.NPCs.Boss
         }
         public override void AI(NPC npc)
         {
-            if(npc.type == NPCID.TheDestroyerTail)
+            if (GetInstance<TRAEConfig>().DestroyerRework && !Main.zenithWorld)
             {
-                if(npc.localAI[3] * (1f / probesToSpawn)  <  1f - ((float)npc.life / npc.lifeMax))
+                if (npc.type == NPCID.TheDestroyerTail)
                 {
-                    npc.localAI[3]++;
-                    if(Main.netMode != NetmodeID.MultiplayerClient)
+                    if (npc.localAI[3] * (1f / probesToSpawn) < 1f - ((float)npc.life / npc.lifeMax))
                     {
-                        int num763 = NPC.NewNPC(npc.GetSource_FromAI(), (int)(npc.position.X + (float)(npc.width / 2)), (int)(npc.position.Y + (float)npc.height), 139);
-                        if (Main.netMode == NetmodeID.Server && num763 < 200)
-                            NetMessage.SendData(MessageID.SyncNPC, -1, -1, null, num763);
-
-                        npc.netUpdate = true;
-                    }
-                }
-            }
-            if(npc.type == NPCID.TheDestroyerBody)
-            {
-                //stop vanilla shooting behavior
-                npc.localAI[0] = 0;
-
-                if(npc.localAI[3] == 0)
-                {
-                    npc.localAI[3] = FindIDByRecursion(npc);
-                }
-                //make only every few segments active
-                //in vanilla ai[2] = 0 means it hasn't launched a probe, ai[2] = 1 means it has, we use 2 for active and 1 for innactive to prevent probe spawning
-                npc.ai[2] = ((int)(npc.localAI[3] + ActiveSegmentShifter) % ActiveSegmentDenominator == 0) ? segmentActive : segmentInactive;
-                if(npc.ai[2] == segmentActive)
-                {
-                    Lighting.AddLight(npc.Center, TorchID.Red);
-                    npc.TargetClosest();
-                    int activeSegID = (int)npc.localAI[3] / ActiveSegmentDenominator;
-                    if((int)Main.npc[(int)npc.ai[3]].localAI[2] % PerpiFireFrequency == (PerpiFireFrequency - 1))
-                    {
-                        if(Main.npc[(int)npc.ai[3]].localAI[3] == -1  && (activeSegID + (int)Main.npc[(int)npc.ai[3]].localAI[2]) % PerpFiringSegmentDenominator == 0)
+                        npc.localAI[3]++;
+                        if (Main.netMode != NetmodeID.MultiplayerClient)
                         {
-                            //Vector2 laserVel = (Main.player[npc.target].Center - npc.Center) / 80;
-                            Vector2 laserVel = TRAEMethods.PolarVector(11f, npc.rotation);
-                            Projectile.NewProjectile(npc.GetSource_FromAI(), npc.Center, laserVel, 100, npc.GetAttackDamage_ForProjectiles(22f, 18f), 0, Main.myPlayer);
-                            RetPhase3.DeathLaserShootDust(laserVel, npc.Center);
+                            int num763 = NPC.NewNPC(npc.GetSource_FromAI(), (int)(npc.position.X + (float)(npc.width / 2)), (int)(npc.position.Y + (float)npc.height), 139);
+                            if (Main.netMode == NetmodeID.Server && num763 < 200)
+                                NetMessage.SendData(MessageID.SyncNPC, -1, -1, null, num763);
 
-                            laserVel = TRAEMethods.PolarVector(-11f, npc.rotation);
-                            Projectile.NewProjectile(npc.GetSource_FromAI(), npc.Center, laserVel, 100, npc.GetAttackDamage_ForProjectiles(22f, 18f), 0, Main.myPlayer);
-                            RetPhase3.DeathLaserShootDust(laserVel, npc.Center);
-                        }
-                    }
-                    else if((Main.player[npc.target].Center - npc.Center).Length() < MaxLaserRange && (Main.player[npc.target].Center - npc.Center).Length() > MinLaserRange)
-                    {
-                        //(Main.player[npc.target].Center - npc.Center).SafeNormalize(-Vector2.UnitY) * 8f
-                        if(Main.npc[(int)npc.ai[3]].localAI[3] == -1 && (activeSegID + (int)Main.npc[(int)npc.ai[3]].localAI[2]) % FiringSegmentDenominator == 0)
-                        {
-                            Vector2 laserVel = (Main.player[npc.target].Center - npc.Center) / 80;
-                            //Vector2 laserVel = (Main.player[npc.target].Center - npc.Center).SafeNormalize(-Vector2.UnitY) * 11f;
-                            Projectile.NewProjectile(npc.GetSource_FromAI(), npc.Center, laserVel, 100, npc.GetAttackDamage_ForProjectiles(22f, 18f), 0, Main.myPlayer);
-                            RetPhase3.DeathLaserShootDust(laserVel, npc.Center);
+                            npc.netUpdate = true;
                         }
                     }
                 }
-                else
+                if (npc.type == NPCID.TheDestroyerBody)
                 {
-                     npc.dontTakeDamage = true;
+                    //stop vanilla shooting behavior
+                    npc.localAI[0] = 0;
+
+                    if (npc.localAI[3] == 0)
+                    {
+                        npc.localAI[3] = FindIDByRecursion(npc);
+                    }
+                    //make only every few segments active
+                    //in vanilla ai[2] = 0 means it hasn't launched a probe, ai[2] = 1 means it has, we use 2 for active and 1 for innactive to prevent probe spawning
+                    npc.ai[2] = ((int)(npc.localAI[3] + ActiveSegmentShifter) % ActiveSegmentDenominator == 0) ? segmentActive : segmentInactive;
+                    if (npc.ai[2] == segmentActive)
+                    {
+                        Lighting.AddLight(npc.Center, TorchID.Red);
+                        npc.TargetClosest();
+                        int activeSegID = (int)npc.localAI[3] / ActiveSegmentDenominator;
+                        if ((int)Main.npc[(int)npc.ai[3]].localAI[2] % PerpiFireFrequency == (PerpiFireFrequency - 1))
+                        {
+                            if (Main.npc[(int)npc.ai[3]].localAI[3] == -1 && (activeSegID + (int)Main.npc[(int)npc.ai[3]].localAI[2]) % PerpFiringSegmentDenominator == 0)
+                            {
+                                //Vector2 laserVel = (Main.player[npc.target].Center - npc.Center) / 80;
+                                Vector2 laserVel = TRAEMethods.PolarVector(11f, npc.rotation);
+                                Projectile.NewProjectile(npc.GetSource_FromAI(), npc.Center, laserVel, 100, npc.GetAttackDamage_ForProjectiles(22f, 18f), 0, Main.myPlayer);
+                                RetPhase3.DeathLaserShootDust(laserVel, npc.Center);
+
+                                laserVel = TRAEMethods.PolarVector(-11f, npc.rotation);
+                                Projectile.NewProjectile(npc.GetSource_FromAI(), npc.Center, laserVel, 100, npc.GetAttackDamage_ForProjectiles(22f, 18f), 0, Main.myPlayer);
+                                RetPhase3.DeathLaserShootDust(laserVel, npc.Center);
+                            }
+                        }
+                        else if ((Main.player[npc.target].Center - npc.Center).Length() < MaxLaserRange && (Main.player[npc.target].Center - npc.Center).Length() > MinLaserRange)
+                        {
+                            //(Main.player[npc.target].Center - npc.Center).SafeNormalize(-Vector2.UnitY) * 8f
+                            if (Main.npc[(int)npc.ai[3]].localAI[3] == -1 && (activeSegID + (int)Main.npc[(int)npc.ai[3]].localAI[2]) % FiringSegmentDenominator == 0)
+                            {
+                                Vector2 laserVel = (Main.player[npc.target].Center - npc.Center) / 80;
+                                //Vector2 laserVel = (Main.player[npc.target].Center - npc.Center).SafeNormalize(-Vector2.UnitY) * 11f;
+                                Projectile.NewProjectile(npc.GetSource_FromAI(), npc.Center, laserVel, 100, npc.GetAttackDamage_ForProjectiles(22f, 18f), 0, Main.myPlayer);
+                                RetPhase3.DeathLaserShootDust(laserVel, npc.Center);
+                            }
+                        }
+                    }
+                    else
+                    {
+                        npc.dontTakeDamage = true;
+                    }
                 }
             }
         }
         public override void PostDraw(NPC npc, SpriteBatch spriteBatch, Vector2 screenPos, Color drawColor)
         {
-            if(npc.type == NPCID.TheDestroyer)
+            if (GetInstance<TRAEConfig>().DestroyerRework && !Main.zenithWorld)
             {
-                if(npc.localAI[2] % PerpiFireFrequency == (PerpiFireFrequency - 1))
+                if (npc.type == NPCID.TheDestroyer)
                 {
-                    if(npc.localAI[3] < 0)
+                    if (npc.localAI[2] % PerpiFireFrequency == (PerpiFireFrequency - 1))
                     {
-                        for(int i = -1; i < 2; i++)
+                        if (npc.localAI[3] < 0)
                         {
-                            float r = npc.rotation - MathF.PI / 2f + i * MathF.PI / 8f;
-                            DrawPointedLaser(npc, spriteBatch, r, Math.Max(0.1f, 1f - Main.npc[(int)npc.ai[3]].localAI[3] / -PerpiLaserWarnTime), 100);
+                            for (int i = -1; i < 2; i++)
+                            {
+                                float r = npc.rotation - MathF.PI / 2f + i * MathF.PI / 8f;
+                                DrawPointedLaser(npc, spriteBatch, r, Math.Max(0.1f, 1f - Main.npc[(int)npc.ai[3]].localAI[3] / -PerpiLaserWarnTime), 100);
+                            }
                         }
                     }
                 }
-            }
-            if(npc.type == NPCID.TheDestroyerBody)
-            {
-                if(npc.ai[2] == segmentActive)
+                if (npc.type == NPCID.TheDestroyerBody)
                 {
-                    int activeSegID = (int)npc.localAI[3] / ActiveSegmentDenominator;
-                    if((int)Main.npc[(int)npc.ai[3]].localAI[2] % PerpiFireFrequency == (PerpiFireFrequency - 1))
+                    if (npc.ai[2] == segmentActive)
                     {
-                        if(Main.npc[(int)npc.ai[3]].localAI[3] < 0 && (activeSegID + (int)Main.npc[(int)npc.ai[3]].localAI[2]) % PerpFiringSegmentDenominator == 0)
+                        int activeSegID = (int)npc.localAI[3] / ActiveSegmentDenominator;
+                        if ((int)Main.npc[(int)npc.ai[3]].localAI[2] % PerpiFireFrequency == (PerpiFireFrequency - 1))
                         {
-                            DrawPointedLaser(npc, spriteBatch, npc.rotation, Math.Max(0.1f, 1f - Main.npc[(int)npc.ai[3]].localAI[3] / -PerpiLaserWarnTime), 100);
-                            DrawPointedLaser(npc, spriteBatch, npc.rotation + MathF.PI, Math.Max(0.1f, 1f - Main.npc[(int)npc.ai[3]].localAI[3] / -PerpiLaserWarnTime), 100);
+                            if (Main.npc[(int)npc.ai[3]].localAI[3] < 0 && (activeSegID + (int)Main.npc[(int)npc.ai[3]].localAI[2]) % PerpFiringSegmentDenominator == 0)
+                            {
+                                DrawPointedLaser(npc, spriteBatch, npc.rotation, Math.Max(0.1f, 1f - Main.npc[(int)npc.ai[3]].localAI[3] / -PerpiLaserWarnTime), 100);
+                                DrawPointedLaser(npc, spriteBatch, npc.rotation + MathF.PI, Math.Max(0.1f, 1f - Main.npc[(int)npc.ai[3]].localAI[3] / -PerpiLaserWarnTime), 100);
+                            }
                         }
-                    }
-                    else if((Main.player[npc.target].Center - npc.Center).Length() < MaxLaserRange && (Main.player[npc.target].Center - npc.Center).Length() > MinLaserRange)
-                    {
-                        
-                        if(Main.npc[(int)npc.ai[3]].localAI[3] < 0 && (activeSegID + (int)Main.npc[(int)npc.ai[3]].localAI[2]) % FiringSegmentDenominator == 0)
+                        else if ((Main.player[npc.target].Center - npc.Center).Length() < MaxLaserRange && (Main.player[npc.target].Center - npc.Center).Length() > MinLaserRange)
                         {
-                            DrawLaser(npc, spriteBatch, (Main.player[npc.target].Center - npc.Center).ToRotation(), Math.Max(0.1f, 1f - Main.npc[(int)npc.ai[3]].localAI[3] / -AimedLaserWarnTime), (Main.player[npc.target].Center - npc.Center).Length());
-                        }
-                    }
-                }
 
+                            if (Main.npc[(int)npc.ai[3]].localAI[3] < 0 && (activeSegID + (int)Main.npc[(int)npc.ai[3]].localAI[2]) % FiringSegmentDenominator == 0)
+                            {
+                                DrawLaser(npc, spriteBatch, (Main.player[npc.target].Center - npc.Center).ToRotation(), Math.Max(0.1f, 1f - Main.npc[(int)npc.ai[3]].localAI[3] / -AimedLaserWarnTime), (Main.player[npc.target].Center - npc.Center).Length());
+                            }
+                        }
+                    }
+
+                }
             }
             base.PostDraw(npc, spriteBatch, screenPos, drawColor);
         }
@@ -268,7 +276,7 @@ namespace TRAEProject.Changes.NPCs.Boss
         }
         public override void FindFrame(NPC npc, int frameHeight)
         {
-            if(npc.type == NPCID.TheDestroyerBody)
+            if(npc.type == NPCID.TheDestroyerBody && GetInstance<TRAEConfig>().DestroyerRework && !Main.zenithWorld)
             {
                 //we manually set frameY = 0 when on 2 to for it to use the not probe launched frame for active segments
                 if(npc.ai[2] == segmentActive)
@@ -634,14 +642,14 @@ namespace TRAEProject.Changes.NPCs.Boss
     {
         public override void SetDefaults(Projectile projectile)
         {
-            if(projectile.type == ProjectileID.PinkLaser)
+            if(projectile.type == ProjectileID.PinkLaser && GetInstance<TRAEConfig>().DestroyerRework && !Main.zenithWorld)
             {
                 projectile.scale *= 2f;
             }
         }
         public override void ModifyHitPlayer(Projectile projectile, Player target, ref Player.HurtModifiers modifiers)
         {
-            if (projectile.type == ProjectileID.PinkLaser && NPC.AnyNPCs(NPCID.Probe))
+            if (projectile.type == ProjectileID.PinkLaser && NPC.AnyNPCs(NPCID.Probe) && GetInstance<TRAEConfig>().DestroyerRework && !Main.zenithWorld)
             {
                 modifiers.FinalDamage *= 0.88f; // with this, probe lasers match the damage of body lasers
             }

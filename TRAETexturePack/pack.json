@@ -1,7 +1,7 @@
 {
     "Name": "TRAE Texture pack",
-    "Author": "TRAE dev team",
-    "Description": "Replaces some textures for the TRAE mod",
+    "Author": "TRAE Dev team",
+    "Description": "Replaces textures based on changes made in the TRAE mod. Not recommended to use the pack without the mod installed, or viceversa.",
     "Version": 
     {
         "major": 1,

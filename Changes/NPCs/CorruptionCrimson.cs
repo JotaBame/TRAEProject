@@ -71,7 +71,7 @@ namespace TRAEProject.Changes.NPCs
             {
                  pool.Add(NPCID.IceTortoise, 0.1f);
             }
-                if (spawnInfo.Player.ZoneCorrupt)
+                if (spawnInfo.Player.ZoneCorrupt && !Main.remixWorld)
             {
                 float spawnrate = Main.hardMode ? 0.02f : 0.125f;
                 pool.Remove(NPCID.DevourerHead);

@@ -55,9 +55,7 @@ namespace TRAEProject.Changes.Projectiles
                     projectile.usesLocalNPCImmunity = true;
                     projectile.localNPCHitCooldown = 10;
                     return;
-                case ProjectileID.BlackBolt:
-                    projectile.GetGlobalProjectile<ProjectileStats>().DirectDamage = 0.75f;
-                    return;
+             
    
                 case ProjectileID.BoneArrowFromMerchant:
                     projectile.penetrate = 1;
@@ -106,8 +104,7 @@ namespace TRAEProject.Changes.Projectiles
                     return;
                 case ProjectileID.IchorBullet:
                     projectile.GetGlobalProjectile<ProjectileStats>().BouncesOffTiles = true;
-                    projectile.GetGlobalProjectile<ProjectileStats>().onlyBounceOnce = true;
-                    return;
+                     return;
                 case ProjectileID.GrenadeI:
                 case ProjectileID.GrenadeII:
                 case ProjectileID.GrenadeIII:
@@ -121,7 +118,6 @@ namespace TRAEProject.Changes.Projectiles
                 case ProjectileID.BoneArrow:
                     projectile.penetrate = 3; 
                     projectile.GetGlobalProjectile<ProjectileStats>().BouncesOffTiles = true;
-                    projectile.GetGlobalProjectile<ProjectileStats>().onlyBounceOnce = true;
                     return;
    
                 case ProjectileID.MechanicalPiranha:

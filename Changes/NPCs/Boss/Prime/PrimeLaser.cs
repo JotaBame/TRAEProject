@@ -3,14 +3,16 @@ using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
+using static Terraria.ModLoader.ModContent;
 
 namespace TRAEProject.Changes.NPCs.Boss.Prime
 {
     public class PrimeLaser : GlobalNPC
     {
+        
         public override void SetDefaults(NPC npc)
         {
-            if(npc.type == NPCID.PrimeLaser)
+            if(npc.type == NPCID.PrimeLaser && GetInstance<TRAEConfig>().PrimeRework && !Main.zenithWorld)
             {
 
                 npc.lifeMax = (int)(npc.lifeMax * ((float)PrimeStats.laserHealth / 6000));
@@ -18,7 +20,7 @@ namespace TRAEProject.Changes.NPCs.Boss.Prime
         }
         public override bool PreAI(NPC npc)
         {
-            if(npc.type == NPCID.PrimeLaser)
+            if(npc.type == NPCID.PrimeLaser && GetInstance<TRAEConfig>().PrimeRework && !Main.zenithWorld)
             {                npc.damage = 0;
 
                 Prime_Laser_AI(npc);

@@ -4,7 +4,7 @@ using Terraria.ID;
 using Terraria.ModLoader;
 
 namespace TRAEProject.NewContent.Items.Accesories.MobilityJumps
-{
+{ [AutoloadEquip(EquipType.Waist)]
     public class FaeInABottle : ModItem
     {
         public override void SetStaticDefaults()

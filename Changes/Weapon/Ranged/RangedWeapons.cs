@@ -82,10 +82,7 @@ namespace TRAEProject.Changes.Weapons
 
  
                      return;
-                case ItemID.OnyxBlaster:
-                    item.useTime = 50; // up from 48
-                    item.useAnimation = 50;
-                    return;
+ 
                 case ItemID.Gatligator:
                     item.damage = 18; // down from 21
 

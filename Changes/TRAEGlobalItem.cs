@@ -15,6 +15,7 @@ using Terraria.Audio;
 using System;
 using Steamworks;
 using TRAEProject.Changes.Weapon.Melee;
+using TRAEProject.Changes.Items;
 
 namespace TRAEProject.Changes
 {
@@ -46,9 +47,8 @@ namespace TRAEProject.Changes
                     item.useTime = 3; // down from 10
                     item.useAnimation = 3;
                     break;
-                case ItemID.TitaniumPickaxe:
-			       item.useTime = 8; // down from 8
-				   break;				
+          
+ 		
                 case ItemID.ObsidianHorseshoe:
                     item.SetNameOverride("Gravity Horseshoe");
                     break;
@@ -399,16 +399,49 @@ namespace TRAEProject.Changes
                         attacksPerSecond = 60 / projUseTime;
                         line.Text += "\n" + MathF.Round(attacksPerSecond, 1) + " projectiles per second";
                     }
+                    if (item.axe > 0 || item.hammer > 0)
+
+                    {
+                        attacksPerSecond = 60 / item.useTime;
+                        line.Text = MathF.Round(attacksPerSecond, 1) + " uses per second";
+                    }
+                    if (item.pick > 0) 
+                    {
+                        float projUseTime = MathF.Round(item.useTime * (player.pickSpeed) - 1);
+                        if (item.GetGlobalItem<DrillItems>().drillSpeed != -1)
+                        {
+
+                            projUseTime = item.useTime;
+
+                        }
+                        if (projUseTime < 1)
+                            projUseTime = 1;
+ 
+                        attacksPerSecond = 60 / projUseTime;
+                        line.Text = MathF.Round(attacksPerSecond, 1) + " uses per second";
+                    }
                     else if (item.useAnimation != item.useTime && item.reuseDelay != 0) // for weapons like CAR, eventide  
                     {
                         attacksPerSecond = 60 / (roundedUseAnim + item.reuseDelay);
                         line.Text = MathF.Round(attacksPerSecond, 1) + " attacks per second";
 
                     }
- 
-                
- 
-                 
+                    if (item.type == ItemID.DD2PhoenixBow)
+                    { 
+                          line.Text = "3.3 attacks per second";
+                    }
+                    if (item.type == ItemID.VortexBeater)
+                    {
+                        line.Text = "12 attacks per second\n1.7 rockets per second";
+                    }
+                    if (item.type == ItemID.Phantasm)
+                    {
+                        line.Text = "Builds up from 2.5 attacks per second to 3.3";
+                    }
+                    if (item.type == ItemID.LaserMachinegun)
+                    {
+                        line.Text = "Builds up to 20 attacks per second";
+                    }
                 }
             }
             switch (item.type)

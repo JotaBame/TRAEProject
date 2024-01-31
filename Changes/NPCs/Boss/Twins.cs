@@ -22,7 +22,7 @@ namespace TRAEProject.Changes.NPCs.Boss
         
         public override void SetDefaults(NPC npc)
         {
-            if (GetInstance<TRAEConfig>().TwinsRework)
+            if (GetInstance<TRAEConfig>().TwinsRework && !Main.zenithWorld)
             {
                 if (npc.type == NPCID.Retinazer)
                 {
@@ -199,7 +199,7 @@ namespace TRAEProject.Changes.NPCs.Boss
         }
         public override bool PreAI(NPC npc)
         {
-            if (GetInstance<TRAEConfig>().TwinsRework)
+            if (GetInstance<TRAEConfig>().TwinsRework && !Main.zenithWorld)
             {
                 if (npc.type == NPCID.Retinazer)
                 {
@@ -496,7 +496,7 @@ namespace TRAEProject.Changes.NPCs.Boss
         
         public override void AI(NPC npc)
         {
-            if (GetInstance<TRAEConfig>().TwinsRework)
+            if (GetInstance<TRAEConfig>().TwinsRework && !Main.zenithWorld)
             {
                 if (npc.type == NPCID.Spazmatism)
                 {   // shoot fireballs slower
@@ -701,7 +701,7 @@ namespace TRAEProject.Changes.NPCs.Boss
         }
         public override bool PreDraw(NPC npc, SpriteBatch spriteBatch, Vector2 screenPos, Color drawColor)
         {
-            if (GetInstance<TRAEConfig>().TwinsRework)
+            if (GetInstance<TRAEConfig>().TwinsRework && !Main.zenithWorld)
             {
  
                 if (npc.type == NPCID.Retinazer && npc.ai[0] >= 4f)
@@ -720,7 +720,7 @@ namespace TRAEProject.Changes.NPCs.Boss
         }
         public override void PostDraw(NPC npc, SpriteBatch spriteBatch, Vector2 screenPos, Color drawColor)
         {
-            if (GetInstance<TRAEConfig>().TwinsRework)
+            if (GetInstance<TRAEConfig>().TwinsRework && !Main.zenithWorld)
             {
                 if (npc.type == NPCID.Retinazer)
                 {
@@ -746,7 +746,7 @@ namespace TRAEProject.Changes.NPCs.Boss
     {
         public override void SetDefaults(Projectile projectile)
         {
-            if (GetInstance<TRAEConfig>().TwinsRework)
+            if (GetInstance<TRAEConfig>().TwinsRework && !Main.zenithWorld)
             {
                 if (projectile.type == ProjectileID.DeathLaser)
                 {

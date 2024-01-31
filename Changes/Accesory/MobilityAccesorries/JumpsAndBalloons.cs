@@ -14,14 +14,12 @@ namespace TRAEProject.Changes.Accesory
     {
         public static void DoubleJumpHorizontalSpeeds(Player Player)
         {
-            if (Player.sandStorm)
-            {
-                Player.moveSpeed *= 0.5f;
-            }
+ 
             if(Player.GetJumpState(ExtraJump.SandstormInABottle).Active)
             {
-                Player.moveSpeed *= 1.5f;
-            }
+                Player.moveSpeed *= 0.75f;
+
+             }
 
             if (Player.GetJumpState(ExtraJump.FartInAJar).Active)
             {

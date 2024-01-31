@@ -393,12 +393,12 @@ namespace TRAEProject.Changes.NPCs.Boss
         public override void SetStaticDefaults()
         {
             // DisplayName.SetDefault("Eye Nuke");
-            Main.projFrames[Projectile.type] = 3;
+            Main.projFrames[Projectile.type] = 4;
         }
         public override void SetDefaults()
         {
-            Projectile.width = 60;
-            Projectile.height = 150;
+            Projectile.width = 50;
+            Projectile.height = 114;
             Projectile.friendly = false;
             Projectile.hostile = true;
             Projectile.tileCollide = false;
@@ -459,7 +459,7 @@ namespace TRAEProject.Changes.NPCs.Boss
             {
                 Projectile.frame += 1;
             }
-            if (Projectile.frame >= 3)
+            if (Projectile.frame >= 4)
             {
                 Projectile.frame = 0;
             }

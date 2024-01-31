@@ -9,6 +9,7 @@ using Terraria;
 using Terraria.GameContent;
 using Terraria.ID;
 using Terraria.ModLoader;
+using static Terraria.ModLoader.ModContent;
 
 namespace TRAEProject.Changes.NPCs.Boss.Plantera
 {
@@ -21,7 +22,7 @@ namespace TRAEProject.Changes.NPCs.Boss.Plantera
         int timer = 0;
         public override void SetDefaults(NPC npc)
         {
-            if (npc.type == NPCID.PlanterasTentacle)
+            if (npc.type == NPCID.PlanterasTentacle && GetInstance<TRAEConfig>().PlanteraRework)
             {
                 npc.lifeMax = 1;
                 npc.behindTiles = true;
@@ -30,7 +31,7 @@ namespace TRAEProject.Changes.NPCs.Boss.Plantera
 
         public override void ApplyDifficultyAndPlayerScaling(NPC npc, int numPlayers, float balance, float bossAdjustment)/* tModPorter Note:bossAdjustment -> balance (bossAdjustment is different, see the docs for details) */
         {
-            if (npc.type == NPCID.PlanterasTentacle)
+            if (npc.type == NPCID.PlanterasTentacle && GetInstance<TRAEConfig>().PlanteraRework)
             {
                 npc.lifeMax = 1;
             }
@@ -38,7 +39,7 @@ namespace TRAEProject.Changes.NPCs.Boss.Plantera
         float reachTime = 120;
         public override bool PreAI(NPC npc)
         {
-            if (npc.type == NPCID.PlanterasTentacle)
+            if (npc.type == NPCID.PlanterasTentacle && GetInstance<TRAEConfig>().PlanteraRework)
             {
                 if(anchor == null)
                 {
@@ -88,7 +89,7 @@ namespace TRAEProject.Changes.NPCs.Boss.Plantera
         }
         public override bool PreDraw(NPC npc, SpriteBatch spriteBatch, Vector2 screenPos, Color drawColor)
         {
-            if (npc.type == NPCID.PlanterasTentacle)
+            if (npc.type == NPCID.PlanterasTentacle && GetInstance<TRAEConfig>().PlanteraRework)
             {
                 if (anchor != null)
                 {

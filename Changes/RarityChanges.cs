@@ -362,7 +362,7 @@ namespace ChangesWeapons.Changes
                 case ItemID.RainbowWhip:
 
                 case ItemID.RainbowCrystalStaff:
-				item.rare = ItemRarityID.Cyan;
+                    item.rare = ItemRarityID.Cyan;
                     break;
                 case ItemID.PortalGun:
                 case ItemID.MoonlordArrow:

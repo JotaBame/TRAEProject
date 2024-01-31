@@ -165,7 +165,7 @@ namespace TRAEProject.Changes.Accesory
 
                 case ProjectileID.MoonlordBullet:
                     AffectedByReconScope = true; 
-                    AffectedByAlphaScope = false;
+                    AffectedByAlphaScope = false; // wait why is this set to false, im too afraid of breaking things to find out
                     break;
             }
             if (projectile.arrow)
@@ -173,18 +173,11 @@ namespace TRAEProject.Changes.Accesory
                 AffectedByReconScope = true; 
                 AffectedByAlphaScope = true;
             }
-            if (projectile.GetGlobalProjectile<NewRockets>().IsARocket)
-            {
-                AffectedByAlphaScope = true;
-            }
             if (AffectedByReconScope)
             {
                 AffectedByAlphaScope = true;
             }
-            if(projectile.type == ProjectileID.IchorDart || projectile.type == ProjectileID.CursedDart)
-            {
-                AffectedByAlphaScope = true;
-            }
+ 
         }
         public override void OnSpawn(Projectile projectile, IEntitySource source)
         {

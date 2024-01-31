@@ -569,7 +569,7 @@ Mods: {
 				Tooltip:
 					'''
 					Provides an omnidirectional jetpack
-					'This is how santa gets down the chimmney so quickly'
+					'This is how Santa gets down the chimney so quickly'
 					'''
 			}
 
@@ -1584,7 +1584,7 @@ Mods: {
 					Increases movement speed when damaged
 					Increases length of invincibility after taking damage
 					'''
-				DisplayName: Heartcross Necklace
+				DisplayName: Sacred Necklace
 			}
 
 			FroststrideBoots: {
@@ -1745,6 +1745,16 @@ Mods: {
 
 				holdFireOnRage: {
 					Label: hold Fire On Rage
+					Tooltip: ""
+				}
+
+				PrimeRework: {
+					Label: Prime Rework
+					Tooltip: ""
+				}
+
+				DestroyerRework: {
+					Label: Destroyer Rework
 					Tooltip: ""
 				}
 			}

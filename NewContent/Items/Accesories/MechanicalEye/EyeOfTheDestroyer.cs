@@ -6,7 +6,7 @@ using TRAEProject.Common.ModPlayers;
 using static Terraria.ModLoader.ModContent;
 
 namespace TRAEProject.NewContent.Items.Accesories.MechanicalEye
-{
+{[AutoloadEquip(EquipType.Face)]
     public class EyeOfTheDestroyer : ModItem
     {
         public override void SetStaticDefaults()

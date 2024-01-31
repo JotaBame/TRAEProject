@@ -1733,6 +1733,16 @@ Mods: {
 					Label: Hold Fire On Rage
 					Tooltip: When prime is spinning hold fire on the railgun, practically guarentees a shot right when prime's rage ends
 				}
+
+				PrimeRework: {
+					// Label: Prime Rework
+					// Tooltip: ""
+				}
+
+				DestroyerRework: {
+					// Label: Destroyer Rework
+					// Tooltip: ""
+				}
 			}
 
 			RailMode: {

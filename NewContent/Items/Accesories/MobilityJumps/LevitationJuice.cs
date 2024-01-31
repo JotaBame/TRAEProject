@@ -3,7 +3,7 @@ using Terraria.ID;
 using Terraria.ModLoader;
 
 namespace TRAEProject.NewContent.Items.Accesories.MobilityJumps
-{
+{ [AutoloadEquip(EquipType.Waist)]
     public class LevitationJuice : ModItem
     {
         public override void SetStaticDefaults()

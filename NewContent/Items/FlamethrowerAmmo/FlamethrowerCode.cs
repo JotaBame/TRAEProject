@@ -36,8 +36,7 @@ namespace TRAEProject.NewContent.Items.FlamethrowerAmmo
         }
         public virtual void FlamethrowerDefaults()
         {
-
-        }
+         }
         protected Color ColorMiddle = new Color(255, 80, 20, 200);
         protected Color ColorBack = new Color(255, 255, 20, 70);
         protected Color ColorLerp = Color.Lerp(new Color(80, 255, 20, 100), new Color(255, 255, 20, 70), 0.25f);
@@ -162,8 +161,7 @@ namespace TRAEProject.NewContent.Items.FlamethrowerAmmo
         }
         public override bool OnTileCollide(Vector2 oldVelocity)
         {
-
-            Projectile.velocity = oldVelocity * 0.95f;
+             Projectile.velocity = oldVelocity * 0.95f;
             Projectile.position -= Projectile.velocity;
             return false;
         }

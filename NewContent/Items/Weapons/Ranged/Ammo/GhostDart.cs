@@ -57,8 +57,7 @@ namespace TRAEProject.NewContent.Items.Weapons.Ranged.Ammo
             Projectile.alpha = 50;
             Projectile.GetGlobalProjectile<ProjectileStats>().homesIn = true;
             Projectile.GetGlobalProjectile<ProjectileStats>().homingRange = 600;
-            Projectile.GetGlobalProjectile<ScopeAndQuiver>().AffectedByAlphaScope = true;
-            Projectile.penetrate = 1;
+             Projectile.penetrate = 1;
             Projectile.ignoreWater = true;
             Projectile.DamageType = DamageClass.Ranged;
             Projectile.hostile = false;
@@ -98,8 +97,7 @@ namespace TRAEProject.NewContent.Items.Weapons.Ranged.Ammo
             Projectile.GetGlobalProjectile<ProjectileStats>().homingRange = 600;
 			Projectile.GetGlobalProjectile<ProjectileStats>().homesIn = true;
             Projectile.ArmorPenetration = 100;
-            Projectile.GetGlobalProjectile<ScopeAndQuiver>().AffectedByAlphaScope = true;
-            Projectile.penetrate = 3;
+             Projectile.penetrate = 3;
             Projectile.ignoreWater = true;
             Projectile.DamageType = DamageClass.Ranged;
             Projectile.hostile = false;

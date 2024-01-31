@@ -1,12 +1,16 @@
 using Microsoft.Xna.Framework;
-using Terraria;
-using System;
 using System.Collections.Generic;
+using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 using TRAEProject.NewContent.NPCs.Underworld.Boomxie;
-using static Terraria.ModLoader.ModContent;
+using TRAEProject.NewContent.NPCs.Underworld.Froggabomba;
 using TRAEProject.NewContent.NPCs.Underworld.Lavamander;
+using TRAEProject.NewContent.NPCs.Underworld.ObsidianBasilisk;
+using TRAEProject.NewContent.NPCs.Underworld.OniRonin;
+using TRAEProject.NewContent.NPCs.Underworld.Phoenix;
+using TRAEProject.NewContent.NPCs.Underworld.Salalava;
+using static Terraria.ModLoader.ModContent;
 
 namespace TRAEProject.Changes.NPCs
 {
@@ -23,10 +27,14 @@ namespace TRAEProject.Changes.NPCs
                     npc.damage = 40;
                     npc.lifeMax = 70;
                     return;
+                    
                 case NPCID.LavaSlime:
-                    npc.damage = 50; // up from 15
+                    if (!Main.remixWorld)
+                    { 
+                        npc.damage = 50; // up from 15
                     npc.lifeMax = 150; // up from 50
                     npc.knockBackResist = 0.4f; // up from 0%
+                    }
                     return;
                 case NPCID.BoneSerpentHead:
                     npc.damage = 70; // up from 30
@@ -56,16 +64,26 @@ namespace TRAEProject.Changes.NPCs
         }
         public override void EditSpawnPool(IDictionary<int, float> pool, NPCSpawnInfo spawnInfo)
         {
+  
 
+            if (Main.remixWorld && spawnInfo.Player.ZoneUnderworldHeight && spawnInfo.PlayerFloorX > Main.maxTilesX / 3 && spawnInfo.PlayerFloorX < Main.maxTilesX * 2 / 3)
+            {
+
+                int[] removeThese =  { NPCType<OniRoninNPC>(), NPCType<SalalavaNPC>(), NPCType<ObsidianBasiliskHead>(), NPCType<PhoenixNPC>(), NPCType<LavamanderNPC>(), NPCType<Lavalarva>(), NPCType<Froggabomba>(), NPCType<Boomxie>()};
+                for (int k = 0; k < removeThese.Length; k++)
+                {
+                    pool.Remove(removeThese[k]);
+                 }
+            }
  
-            if (spawnInfo.Player.ZoneUnderworldHeight && NPC.downedPlantBoss)
+            if (spawnInfo.Player.ZoneUnderworldHeight && NPC.downedPlantBoss && !Main.remixWorld)
             {
                 pool.Remove(NPCID.RedDevil);
                 pool.Add(NPCID.RedDevil, 0.25f);
             }
             if (spawnInfo.Player.ZoneUnderworldHeight && NPC.downedPlantBoss)
             {
-                int[] lowerTheseSpawnRates = new int[] { NPCID.LavaSlime, NPCID.FireImp, NPCID.Hellbat };
+                int[] lowerTheseSpawnRates = { NPCID.LavaSlime, NPCID.FireImp, NPCID.Hellbat };
                 for (int k = 0; k < lowerTheseSpawnRates.Length; k++)
                 {
                     pool.Remove(lowerTheseSpawnRates[k]);
@@ -75,7 +93,7 @@ namespace TRAEProject.Changes.NPCs
             }
             if (spawnInfo.Player.ZoneUnderworldHeight && spawnInfo.Player.lavaWet && !Main.hardMode)
             {
-                int[] increaseTheseSpawnRates = new int[] { NPCID.BoneSerpentHead, NPCID.FireImp };
+                int[] increaseTheseSpawnRates = { NPCID.BoneSerpentHead, NPCID.FireImp };
                 for (int k = 0; k < increaseTheseSpawnRates.Length; k++)
                 {
                     pool.Remove(increaseTheseSpawnRates[k]);

@@ -49,7 +49,7 @@ namespace TRAEProject.Changes.NPCs.Boss.Prime
         }
         public override void FindFrame(NPC npc, int frameHeight)
         {
-            if(npc.type == NPCID.SkeletronPrime)
+            if(npc.type == NPCID.SkeletronPrime && GetInstance<TRAEConfig>().PrimeRework && !Main.zenithWorld)
             {
                 npc.frame.Width = 140;
                 npc.frame.X = 0;
@@ -75,7 +75,7 @@ namespace TRAEProject.Changes.NPCs.Boss.Prime
  
         public override bool PreAI(NPC npc)
         {
-            if(npc.type == NPCID.SkeletronPrime)
+            if(npc.type == NPCID.SkeletronPrime && GetInstance<TRAEConfig>().PrimeRework && !Main.zenithWorld)
             {
            
                 Prime_AI(npc);

@@ -5,6 +5,7 @@ using Terraria;
 using Terraria.Audio;
 using Terraria.ID;
 using Terraria.ModLoader;
+using static Terraria.ModLoader.ModContent;
 
 namespace TRAEProject.Changes.NPCs.Boss.Prime
 {
@@ -12,14 +13,14 @@ namespace TRAEProject.Changes.NPCs.Boss.Prime
     {
         public override void SetDefaults(NPC npc)
         {
-            if(npc.type == NPCID.PrimeCannon)
+            if(npc.type == NPCID.PrimeCannon && GetInstance<TRAEConfig>().PrimeRework && !Main.zenithWorld)
             {
                 npc.lifeMax = (int)(npc.lifeMax * ((float)PrimeStats.cannonHealth / 7000));
             }
         }
         public override void AI(NPC npc)
         {
-            if(npc.type == NPCID.PrimeCannon && npc.ai[2] == 0)
+            if(npc.type == NPCID.PrimeCannon && npc.ai[2] == 0 && GetInstance<TRAEConfig>().PrimeRework && !Main.zenithWorld) 
             {                npc.damage = 0;
 
                 npc.localAI[0] += 2f;
@@ -45,14 +46,14 @@ namespace TRAEProject.Changes.NPCs.Boss.Prime
     {
         public override void SetDefaults(Projectile entity)
         {
-            if (entity.type == ProjectileID.BombSkeletronPrime)
+            if (entity.type == ProjectileID.BombSkeletronPrime && GetInstance<TRAEConfig>().PrimeRework && !Main.zenithWorld)
             {
                 entity.timeLeft = 180;
             }
         }
         public override void ModifyHitPlayer(Projectile projectile, Player target, ref Player.HurtModifiers modifiers)
         {
-            if (projectile.type == ProjectileID.BombSkeletronPrime)
+            if (projectile.type == ProjectileID.BombSkeletronPrime && GetInstance<TRAEConfig>().PrimeRework && !Main.zenithWorld)
             {
                
             }
@@ -194,7 +195,7 @@ namespace TRAEProject.Changes.NPCs.Boss.Prime
         
         public override bool PreAI(Projectile projectile)
         {
-            if(projectile.type == ProjectileID.BombSkeletronPrime)
+            if(projectile.type == ProjectileID.BombSkeletronPrime && GetInstance<TRAEConfig>().PrimeRework && !Main.zenithWorld)
             {
                 AI_016(projectile);
                 return false;

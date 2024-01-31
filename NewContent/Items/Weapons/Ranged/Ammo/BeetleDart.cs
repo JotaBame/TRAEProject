@@ -54,8 +54,7 @@ namespace TRAEProject.NewContent.Items.Weapons.Ranged.Ammo
             AIType = ProjectileID.PoisonDartBlowgun;
             Projectile.CloneDefaults(ProjectileID.PoisonDartBlowgun);
             Projectile.timeLeft = 1200;
-            Projectile.GetGlobalProjectile<ScopeAndQuiver>().AffectedByAlphaScope = true;
-            Projectile.penetrate = 1;
+             Projectile.penetrate = 1;
             Projectile.extraUpdates = 2;
             Projectile.ignoreWater = true;
             Projectile.DamageType = DamageClass.Ranged;

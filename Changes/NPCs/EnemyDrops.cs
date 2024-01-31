@@ -98,9 +98,7 @@ namespace TRAEProject.Changes.NPCs
                     npcLoot.Remove(ItemDropRule.Common(ItemID.RifleScope));
                     break;
 
-                 case NPCID.IceMimic:
-                    npcLoot.Add(ItemDropRule.OneFromOptionsNotScalingWithLuck(1, MimicDrops));
-                    break;
+           
                 case NPCID.ArmoredViking:
                 case NPCID.IceTortoise:
                     npcLoot.RemoveWhere(rule =>
@@ -328,9 +326,15 @@ namespace TRAEProject.Changes.NPCs
                     ruleD.OnSuccess(ItemDropRule.Common(ModContent.ItemType<Booster>(), 4));
                     npcLoot.Add(ruleD);
                     break;
+                case NPCID.IceMimic:
+                    if (!Main.remixWorld)
+                        npcLoot.Add(ItemDropRule.OneFromOptionsNotScalingWithLuck(1, MimicDrops));
+                    break;
                 case NPCID.Mimic:
                     npcLoot.RemoveWhere(rule => true);
-                    npcLoot.Add(ItemDropRule.OneFromOptionsNotScalingWithLuck(1, MimicDrops));
+                    if (!Main.remixWorld)
+
+                        npcLoot.Add(ItemDropRule.OneFromOptionsNotScalingWithLuck(1, MimicDrops));
                     break;
                 case NPCID.BigMimicHallow:
                     npcLoot.RemoveWhere(rule =>

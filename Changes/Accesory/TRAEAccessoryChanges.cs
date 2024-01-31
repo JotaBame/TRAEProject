@@ -48,7 +48,7 @@ namespace TRAEProject.Changes.Accesory
             player.GetAttackSpeed(DamageClass.Melee) += 0.08f;
 
             player.GetModPlayer<RangedStats>().chanceNotToConsumeAmmo += 10;
-            player.pickSpeed -= 0.1f;
+            
 
             player.statDefense += 4;
             player.GetArmorPenetration(DamageClass.Generic) += 4;
@@ -59,7 +59,7 @@ namespace TRAEProject.Changes.Accesory
             player.lifeRegen++;
             */
             // total stats: +8% damage, +2% crit, +0.5 hp/s, +4 defense. +5% melee speed, +20 max mana, +5% movement speed, 10% chance not to consume ammo
-            
+            player.pickSpeed -= 1.1f;
             player.GetDamage<GenericDamageClass>() += 0.08f;
             player.GetCritChance<GenericDamageClass>() += 2;
             player.statDefense += 4;

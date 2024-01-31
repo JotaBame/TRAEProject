@@ -8,6 +8,7 @@ using Terraria.ModLoader;
 using TRAEProject.NewContent.Items.Weapons.Summoner.Whip;
 
 using static Terraria.ModLoader.ModContent;
+using TRAEProject.Changes.Accesory;
 
 namespace TRAEProject.Common
 {
@@ -28,7 +29,6 @@ namespace TRAEProject.Common
         public bool cantCrit = false; // self-explanatory
         public bool dontHitTheSameEnemyMultipleTimes = false;// self-explanatory
                                                              // Bouncing
-        public bool onlyBounceOnce = false;
         public bool BouncesOffTiles = false;
         public bool BouncesBackOffTiles = false;
         public float DamageLossOffATileBounce = 0f;
@@ -113,61 +113,63 @@ namespace TRAEProject.Common
                 }
                 return false;
             }
-            if (BouncesOffTiles)
-            {
-                // If the projectile hits the left or right side of the tile, reverse the X velocity
-                if (Math.Abs(projectile.velocity.X - oldVelocity.X) > float.Epsilon)
+ 
+                if (BouncesOffTiles)
                 {
-                    projectile.velocity.X = -oldVelocity.X;
-                }
-
-                // If the projectile hits the top or bottom side of the tile, reverse the Y velocity
-                if (Math.Abs(projectile.velocity.Y - oldVelocity.Y) > float.Epsilon)
-                {
-                    projectile.velocity.Y = -oldVelocity.Y;
-                }
-                return false;
-            }
-            if (BouncesBackOffTiles)
-            {
-                projectile.velocity.X = -projectile.oldVelocity.X;
-                projectile.velocity.Y = -projectile.oldVelocity.Y;
-            }
-            if (DamageLossOffATileBounce > 0)
-                projectile.damage -= (int)(projectile.damage * DamageLossOffATileBounce);
-            if (SmartBouncesOffTiles)
-            {
-                int[] array = new int[10];
-                int num6 = 0;
-                int Range = 700;
-                int num8 = 20;
-                for (int j = 0; j < 200; j++)
-                {
-                    if (Main.npc[j].CanBeChasedBy(this, false) && projectile.localNPCImmunity[j] != -1)
+                    // If the projectile hits the left or right side of the tile, reverse the X velocity
+                    if (Math.Abs(projectile.velocity.X - oldVelocity.X) > float.Epsilon)
                     {
-                        float DistanceBetweenProjectileAndEnemy = (projectile.Center - Main.npc[j].Center).Length();
-                        if (DistanceBetweenProjectileAndEnemy > num8 && DistanceBetweenProjectileAndEnemy < Range && Collision.CanHitLine(projectile.Center, 1, 1, Main.npc[j].Center, 1, 1))
+                        projectile.velocity.X = -oldVelocity.X;
+                    }
+
+                    // If the projectile hits the top or bottom side of the tile, reverse the Y velocity
+                    if (Math.Abs(projectile.velocity.Y - oldVelocity.Y) > float.Epsilon)
+                    {
+                        projectile.velocity.Y = -oldVelocity.Y;
+                    }
+                    return false;
+                }
+                if (BouncesBackOffTiles)
+                {
+                    projectile.velocity.X = -projectile.oldVelocity.X;
+                    projectile.velocity.Y = -projectile.oldVelocity.Y;
+                }
+                if (DamageLossOffATileBounce > 0)
+                    projectile.damage -= (int)(projectile.damage * DamageLossOffATileBounce);
+                if (SmartBouncesOffTiles)
+                {
+                    int[] array = new int[10];
+                    int num6 = 0;
+                    int Range = 700;
+                    int num8 = 20;
+                    for (int j = 0; j < 200; j++)
+                    {
+                        if (Main.npc[j].CanBeChasedBy(this, false) && projectile.localNPCImmunity[j] != -1)
                         {
-                            array[num6] = j;
-                            num6++;
-                            if (num6 >= 9)
+                            float DistanceBetweenProjectileAndEnemy = (projectile.Center - Main.npc[j].Center).Length();
+                            if (DistanceBetweenProjectileAndEnemy > num8 && DistanceBetweenProjectileAndEnemy < Range && Collision.CanHitLine(projectile.Center, 1, 1, Main.npc[j].Center, 1, 1))
                             {
-                                break;
+                                array[num6] = j;
+                                num6++;
+                                if (num6 >= 9)
+                                {
+                                    break;
+                                }
                             }
                         }
                     }
+                    if (num6 > 0)
+                    {
+                        num6 = Main.rand.Next(num6);
+                        Vector2 value2 = Main.npc[array[num6]].Center - projectile.Center;
+                        float scaleFactor2 = projectile.velocity.Length();
+                        value2.Normalize();
+                        projectile.velocity = value2 * scaleFactor2;
+                        projectile.netUpdate = true;
+                    }
+                    return false;
                 }
-                if (num6 > 0)
-                {
-                    num6 = Main.rand.Next(num6);
-                    Vector2 value2 = Main.npc[array[num6]].Center - projectile.Center;
-                    float scaleFactor2 = projectile.velocity.Length();
-                    value2.Normalize();
-                    projectile.velocity = value2 * scaleFactor2;
-                    projectile.netUpdate = true;
-                }
-                return false;
-            }
+            
             return true;
         }
         public override void ModifyHitNPC(Projectile projectile, NPC target, ref NPC.HitModifiers modifiers)
