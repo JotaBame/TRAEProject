@@ -6,19 +6,19 @@ using static Terraria.ModLoader.ModContent;
 using Microsoft.Xna.Framework.Graphics;
 using System;
 using Terraria.GameContent;
+using Microsoft.CodeAnalysis;
 
 
 namespace TRAEProject.NewContent.Projectiles
 {
     public class HelAura : ModProjectile
     {
-        public override string Texture => "Terraria/Images/Item_0";
 
         // these are the defaults for all gels
         public override void SetDefaults()
         {
-            Projectile.width = 196;
-            Projectile.height = 196;
+            Projectile.width = 20;
+            Projectile.height = 20;
             Projectile.alpha = 255;
             Projectile.extraUpdates = 2;
             Projectile.DamageType = DamageClass.Melee;
@@ -28,6 +28,32 @@ namespace TRAEProject.NewContent.Projectiles
             Projectile.idStaticNPCHitCooldown = 10;
             Projectile.penetrate = -1;
             Projectile.tileCollide = false;
+        }
+        public override bool? Colliding(Rectangle projHitbox, Rectangle targetHitbox)
+        {
+            return AABBvCircleCollision(targetHitbox, Projectile.Center, 90);
+        }
+        static bool AABBvCircleCollision(Rectangle AABB, Vector2 circleCenter, float circleRadius)
+        {
+            float closestX = circleCenter.X;
+            if(closestX > AABB.X + AABB.Width)
+            {
+                closestX = AABB.X + AABB.Width;
+            }
+            if(closestX < AABB.X)
+            {
+                closestX = AABB.X;
+            }
+            float closestY = circleCenter.Y;
+            if(closestY > AABB.Y + AABB.Height)
+            {
+                closestY = AABB.Y + AABB.Height;
+            }
+            if(closestY < AABB.Y)
+            {
+                closestY = AABB.Y;
+            }
+            return (circleCenter - new Vector2(closestX, closestY)).Length() < circleRadius;
         }
         float scaleFactor = 2f;
         public override void AI()
@@ -42,47 +68,53 @@ namespace TRAEProject.NewContent.Projectiles
             {
                 Projectile.Center = parent.Center;
             }
-            Projectile.localAI[0] += 1f;
-            Projectile.rotation += MathF.PI / 120f;
             Projectile.timeLeft = 2;
-            scaleFactor = 2f + 0.2f * MathF.Sin(MathF.PI * Projectile.localAI[0] / 120f);
-            if(Projectile.localAI[0] < 60f)
-            {
-                scaleFactor *= Projectile.localAI[0] / 60f;
-            }
-            int dustTimer = 60;
-            if (dustTimer > 0 && Projectile.localAI[0] >= dustTimer && Main.rand.NextFloat() < 0.25f)
-            {
-                Vector2 center = Main.player[Projectile.owner].Center;
-                Vector2 vector = (Projectile.Center - center).SafeNormalize(Vector2.Zero).RotatedByRandom(0.19634954631328583) * 7f;
-                Dust dust2 = Dust.NewDustDirect(Projectile.Center + Main.rand.NextVector2Circular(50f, 50f) - vector * 2f, 4, 4, DustID.RedTorch, 0f, 0f, 150, new Color(80, 80, 80));
-                dust2.noGravity = true;
-                dust2.velocity = vector;
-                dust2.scale *= 1.1f + Main.rand.NextFloat() * 0.2f;
-                dust2.customData = -0.3f - 0.15f * Main.rand.NextFloat();
-            }
-        }
-        public void DrawFlamethrower(Color color1, Color color2, Color color3, Color color4)
-        {
-            float num13 = Utils.Remap(Projectile.localAI[0], 0f, (int)Projectile.localAI[0] % 72, 0f, 1f);
-            float num11 = Utils.Remap(Projectile.localAI[0], 60, (int)Projectile.localAI[0] % 72, 1f, 0f);
-
-            Texture2D texture = TextureAssets.Projectile[ProjectileID.Flames].Value;
-            Vector2 drawAt = Projectile.Center - Main.screenPosition;
-            Rectangle rectangle = texture.Frame(1, 7, 0, 3);
-
-            Main.EntitySpriteDraw(texture, drawAt, rectangle, Color.Orange, Projectile.rotation, rectangle.Size() / 2f, scaleFactor, SpriteEffects.None);
-
-            
         }
         public override bool PreDraw(ref Color lightColor)
         {
-            Color ColorMiddle = new Color(255, 50, 50, 200);
-            Color ColorBack = new Color(240, 170, 23, 200);
-            Color ColorLerp = Color.Lerp(ColorMiddle, ColorBack, 0.25f);
-            Color ColorSmoke = new Color(65, 65, 65, 100);
-            DrawFlamethrower(ColorMiddle, ColorBack, ColorLerp, ColorSmoke);
-            return base.PreDraw(ref lightColor);
+            
+            float num = 1f;
+            float num2 = 0.1f;
+            float num3 = 0.9f;
+            if (!Main.gamePaused && Main.instance.IsActive)
+            {
+                Projectile.scale += 0.004f;
+            }
+            if (Projectile.scale < 1f)
+            {
+                num = Projectile.scale;
+            }
+            else
+            {
+                Projectile.scale = 0.8f;
+                num = Projectile.scale;
+            }
+            if (!Main.gamePaused && Main.instance.IsActive)
+            {
+                Projectile.rotation += 0.05f;
+            }
+            if (Projectile.rotation > (float)Math.PI * 2f)
+            {
+                Projectile.rotation -= (float)Math.PI * 2f;
+            }
+            if (Projectile.rotation < (float)Math.PI * -2f)
+            {
+                Projectile.rotation += (float)Math.PI * 2f;
+            }
+            for (int j = 0; j < 3; j++)
+            {
+                float num4 = num + num2 * (float)j;
+                if (num4 > 1f)
+                {
+                    num4 -= num2 * 2f;
+                }
+                float num5 = MathHelper.Lerp(0.8f, 0f, Math.Abs(num4 - num3) * 10f);
+                Main.EntitySpriteDraw(TextureAssets.Projectile[Projectile.type].Value, Projectile.Center - Main.screenPosition, 
+                new Rectangle(0, 400 * j, 400, 400), new Color(num5, num5, num5, num5 / 2f), 
+                Projectile.rotation + (float)Math.PI / 3f * (float)j, new Vector2(200f, 200f), 
+                num4 * 0.5f, SpriteEffects.None);
+            }
+            return false;
         }
     }
 }
