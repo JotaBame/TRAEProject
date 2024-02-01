@@ -17,9 +17,9 @@ namespace TRAEProject.NewContent.Items.Accesories.CrossNecklace
         public override void SetDefaults()
         {
             Item.accessory = true;
-            Item.rare = ItemRarityID.LightPurple;
+            Item.rare = ItemRarityID.Pink;
             Item.width = 26;
-            Item.height = 36;
+            Item.height = 32;
             Item.value = Item.sellPrice(gold:3, silver: 50);
         }
         public override void UpdateAccessory(Player player, bool hideVisual)

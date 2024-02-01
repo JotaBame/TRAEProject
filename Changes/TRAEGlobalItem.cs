@@ -436,11 +436,11 @@ namespace TRAEProject.Changes
                     }
                     if (item.type == ItemID.Phantasm)
                     {
-                        line.Text = "Builds up from 2.5 attacks per second to 3.3";
+                        line.Text = "Builds up from 2.5 to 3.3 attacks per second";
                     }
                     if (item.type == ItemID.LaserMachinegun)
                     {
-                        line.Text = "Builds up to 20 attacks per second";
+                        line.Text = "Builds up from 2 to 20 attacks per second";
                     }
                 }
             }

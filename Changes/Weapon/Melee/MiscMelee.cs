@@ -9,6 +9,7 @@ using Terraria.ModLoader;
 using static Terraria.ModLoader.ModContent;
 using Terraria.DataStructures;
 using TRAEProject.Changes.Prefixes;
+using System;
 
 namespace TRAEProject.Changes.Weapon.Melee
 {
@@ -92,10 +93,10 @@ namespace TRAEProject.Changes.Weapon.Melee
                     item.knockBack = 5f;
                     return;
                 case ItemID.Yelets:
-                    item.damage = 70;
+                    item.damage = 65;
                     return;
                 case ItemID.Code2:
-                    item.damage = 67;
+                    item.damage = 61;
                     return;
                 case ItemID.Kraken:
                     item.damage = 70; // vanilla value = 95
@@ -135,14 +136,20 @@ namespace TRAEProject.Changes.Weapon.Melee
                 {
                     if (line.Mod == "Terraria" && line.Name == "Speed")
                     {
-                        float speed = ProjectileID.Sets.YoyosTopSpeed[item.shoot] * item.GetGlobalItem<YoyoStats>().speed;
+ 
                         float range = ProjectileID.Sets.YoyosMaximumRange[item.shoot] * item.GetGlobalItem<YoyoStats>().range; 
                         if(Main.LocalPlayer.yoyoString)
                         {
                             range = range * 1.25f + 30f;
                         }
                         range *= (1f + Main.LocalPlayer.GetAttackSpeed(DamageClass.Melee) * 3f) / 4f / 16f;
+                        range = MathF.Round(range);
+
+                        float time = MathF.Round(ProjectileID.Sets.YoyosLifeTimeMultiplier[item.shoot], 1);
+                        
+                        float speed = ProjectileID.Sets.YoyosTopSpeed[item.shoot] * item.GetGlobalItem<YoyoStats>().speed;
                         speed *= (1f + Main.LocalPlayer.GetAttackSpeed(DamageClass.Melee) * 3f) / 4f;
+
                         string speedText = "";
                         if(speed < 10f)
                         {
@@ -169,14 +176,26 @@ namespace TRAEProject.Changes.Weapon.Melee
                             speedText = "Insanely fast maneuvering speed";
                         }
 
+                        if (ProjectileID.Sets.YoyosLifeTimeMultiplier[item.shoot] < 0)
+                            line.Text = "Infinite lifespan" + "\n" + speedText + "\n" + range + " tiles range";
 
-                        line.Text = speedText + "\n" + range + " tiles range";
+                        else
+                            line.Text = time + " seconds lifespan" + "\n" + speedText + "\n" + range + " tiles range";
                     }
                 }
 
             }
             switch (item.type)
             {
+                case ItemID.HelFire:
+                    foreach (TooltipLine line in tooltips)
+                    {
+                        if (line.Mod == "Terraria" && line.Name == "Knockback")
+                        {
+                            line.Text += "\nIncinerate enemies with a ring of fire";
+                        }
+                    }
+                    break;
                 case ItemID.Cutlass:
                     foreach (TooltipLine line in tooltips)
                     {
@@ -191,7 +210,7 @@ namespace TRAEProject.Changes.Weapon.Melee
                     {
                         if (line.Mod == "Terraria" && line.Name == "Knockback")
                         {
-                            line.Text += "\nIncreases health regeneration after striking an enemy";
+                            line.Text += "\nIncreases health regeneration after striking an enemy\nMore effective with Palladium armor equipped";
                         }
                     }
                     break;

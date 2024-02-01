@@ -350,6 +350,47 @@ namespace TRAEProject.Changes.Weapon.Melee
                         }
                     }
                     break;
+                case ItemID.ChlorophyteSaber:
+                    foreach (TooltipLine line in tooltips)
+                    {
+                        if (line.Mod == "Terraria" && line.Name == "Tooltip0")
+                        {
+
+                            line.Text = "Creates a damaging spore on every hit";
+                        }
+                    }
+                    break;
+                case ItemID.ChlorophyteClaymore:
+                    foreach (TooltipLine line in tooltips)
+                    {
+                        if (line.Mod == "Terraria" && line.Name == "Tooltip0")
+                        {
+
+                            line.Text = "Shoots a bouncing orb";
+                        }
+                    }
+                    break;
+                case ItemID.FetidBaghnakhs:
+                    foreach (TooltipLine line in tooltips)
+                    {
+                        if (line.Mod == "Terraria" && line.Name == "Knockback")
+                        {
+
+                            line.Text += "\nMelee speed affects this weapon at 25% efficiency";
+                        }
+                    }
+                    break;
+                case ItemID.PsychoKnife:
+                    foreach (TooltipLine line in tooltips)
+                    {
+                        if (line.Mod == "Terraria" && line.Name == "Knockback")
+                        {
+
+                            line.Text += "\nMelee speed affects this weapon at 33% efficiency";
+                        }
+                    }
+                    break;
+
                 case ItemID.TerraBlade:
                     foreach (TooltipLine line in tooltips)
                     {

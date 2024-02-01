@@ -69,7 +69,7 @@ namespace TRAEProject.Changes.NPCs
         {
             if (spawnInfo.Player.ZoneSnow && spawnInfo.Player.ZoneRockLayerHeight && (spawnInfo.Player.ZoneCorrupt || spawnInfo.Player.ZoneCrimson || spawnInfo.Player.ZoneHallow))
             {
-                 pool.Add(NPCID.IceTortoise, 0.1f);
+                 pool.Add(NPCID.IceTortoise, 0.05f);
             }
                 if (spawnInfo.Player.ZoneCorrupt && !Main.remixWorld)
             {

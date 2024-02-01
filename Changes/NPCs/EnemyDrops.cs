@@ -446,6 +446,34 @@ namespace TRAEProject.Changes.NPCs
             NPCLoader.blockLoot.Add(ItemID.FastClock);
             NPCLoader.blockLoot.Add(ItemID.Yelets);
             NPCLoader.blockLoot.Add(ItemID.HelFire);
+            if (Main.remixWorld && npc.type == NPCID.IceMimic)
+            {
+                if (!Main.hardMode)
+                {
+                    NPCLoader.blockLoot.Add(ItemID.Frostbrand);
+                    //NPCLoader.blockLoot.Add(ItemID.IceBow); ICE MIMIC IS SUPPOSED TO DROP THIS
+                    NPCLoader.blockLoot.Add(ItemID.TitanGlove);
+                    NPCLoader.blockLoot.Add(ItemID.PhilosophersStone);
+                    NPCLoader.blockLoot.Add(ItemID.StarCloak);
+                    NPCLoader.blockLoot.Add(ItemID.DualHook);
+
+                    NPCLoader.blockLoot.Add(ItemID.CrossNecklace);
+
+
+                    NPCLoader.blockLoot.Add(ItemID.FlowerofFrost);
+                }
+                if (Main.hardMode && Main.rand.NextBool(5))
+                {
+                    Item.NewItem(npc.GetSource_Loot(), npc.Center, ItemID.SnowballCannon);
+
+                }
+
+            }
+            if (Main.remixWorld && Main.hardMode && npc.type == NPCID.Mimic && Main.rand.NextBool(5))
+            {
+                Item.NewItem(npc.GetSource_Loot(), npc.Center, ItemID.WandofSparking);
+
+            }
             if (!NPC.downedPlantBoss && npc.type == NPCID.Princess)
             {
                 NPCLoader.blockLoot.Add(ItemID.PrincessWeapon);

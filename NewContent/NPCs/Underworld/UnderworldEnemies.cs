@@ -30,8 +30,7 @@ namespace TRAEProject.NewContent.NPCs.Underworld
         {
             if (Main.hardMode && NPC.downedPlantBoss && !NPC.AnyNPCs(NPCType<BeholderNPC>()))
             {
-                if (spawnInfo.Player.ZoneBeach && Main.remixWorld)
-                    return SpawnCondition.Underworld.Chance * 0.08f;
+ 
                 for (int i = 0; i < 255; i++)
                 {
                     Player player = Main.player[i];

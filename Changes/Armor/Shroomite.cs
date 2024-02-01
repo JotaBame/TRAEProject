@@ -309,28 +309,7 @@ namespace ChangesArmor
                 Player.immuneTime += (int)ShroomIframes;
             }
         }
-        /*
-        public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
-        {
-            if(maskSet && hit.DamageType == DamageClass.Ranged)
-            {
-                if(damageMult > 1f)
-                {
-                }
-                if(noRangedTimer > 0)
-                {
-                    if(noRangedTimer < maskStartStealthTime)
-                    {
-                        noRangedTimer = 0;
-                    }
-                    else
-                    {
-                        noRangedTimer = -20;
-                    }
-                }
-            }
-        }
-        */
+ 
     }
 }
 

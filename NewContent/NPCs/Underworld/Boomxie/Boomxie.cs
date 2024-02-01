@@ -71,8 +71,7 @@ namespace TRAEProject.NewContent.NPCs.Underworld.Boomxie
         }
         public override float SpawnChance(NPCSpawnInfo spawnInfo)
         {
-            if (spawnInfo.Player.ZoneBeach && Main.remixWorld)
-                return SpawnCondition.Underworld.Chance * 0.25f;
+ 
             if (NPC.downedPlantBoss)
             {
                 return SpawnCondition.Underworld.Chance * 0.025f;

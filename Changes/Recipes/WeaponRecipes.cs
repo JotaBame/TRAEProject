@@ -44,7 +44,7 @@ namespace TRAEProject.Changes.Recipes
             MagicMissile.Register();
             Recipe MagicMissile2 = Recipe.Create(ItemID.MagicMissile);
             MagicMissile2.AddRecipeGroup("GoldBar", 10);
-            MagicMissile.AddIngredient(ItemID.Diamond, 5);
+            MagicMissile2.AddIngredient(ItemID.Diamond, 5);
             MagicMissile2.AddIngredient(ItemID.TissueSample, 20);
             MagicMissile2.AddTile(TileID.Anvils);
             MagicMissile2.Register();

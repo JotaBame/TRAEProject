@@ -7,6 +7,7 @@ using Microsoft.Xna.Framework.Graphics;
 using System;
 using Terraria.GameContent;
 using Microsoft.CodeAnalysis;
+using TRAEProject.Common;
 
 
 namespace TRAEProject.NewContent.Projectiles
@@ -24,6 +25,8 @@ namespace TRAEProject.NewContent.Projectiles
             Projectile.DamageType = DamageClass.Melee;
             Projectile.hostile = false;
             Projectile.friendly = true;
+            Projectile.GetGlobalProjectile<ProjectileStats>().AddsBuff = BuffID.Daybreak;
+            Projectile.GetGlobalProjectile<ProjectileStats>().AddedBuffDuration = 180;
             Projectile.usesIDStaticNPCImmunity = true;
             Projectile.idStaticNPCHitCooldown = 10;
             Projectile.penetrate = -1;
@@ -31,7 +34,7 @@ namespace TRAEProject.NewContent.Projectiles
         }
         public override bool? Colliding(Rectangle projHitbox, Rectangle targetHitbox)
         {
-            return AABBvCircleCollision(targetHitbox, Projectile.Center, 90);
+            return AABBvCircleCollision(targetHitbox, Projectile.Center, 105);
         }
         static bool AABBvCircleCollision(Rectangle AABB, Vector2 circleCenter, float circleRadius)
         {
@@ -73,7 +76,7 @@ namespace TRAEProject.NewContent.Projectiles
         public override bool PreDraw(ref Color lightColor)
         {
             
-            float num = 1f;
+            float projScale = 1f;
             float num2 = 0.1f;
             float num3 = 0.9f;
             if (!Main.gamePaused && Main.instance.IsActive)
@@ -82,12 +85,12 @@ namespace TRAEProject.NewContent.Projectiles
             }
             if (Projectile.scale < 1f)
             {
-                num = Projectile.scale;
+                projScale = Projectile.scale;
             }
             else
             {
                 Projectile.scale = 0.8f;
-                num = Projectile.scale;
+                projScale = Projectile.scale;
             }
             if (!Main.gamePaused && Main.instance.IsActive)
             {
@@ -103,7 +106,7 @@ namespace TRAEProject.NewContent.Projectiles
             }
             for (int j = 0; j < 3; j++)
             {
-                float num4 = num + num2 * (float)j;
+                float num4 = projScale + num2 * (float)j;
                 if (num4 > 1f)
                 {
                     num4 -= num2 * 2f;
@@ -112,7 +115,7 @@ namespace TRAEProject.NewContent.Projectiles
                 Main.EntitySpriteDraw(TextureAssets.Projectile[Projectile.type].Value, Projectile.Center - Main.screenPosition, 
                 new Rectangle(0, 400 * j, 400, 400), new Color(num5, num5, num5, num5 / 2f), 
                 Projectile.rotation + (float)Math.PI / 3f * (float)j, new Vector2(200f, 200f), 
-                num4 * 0.5f, SpriteEffects.None);
+                num4 * 0.625f, SpriteEffects.None);
             }
             return false;
         }

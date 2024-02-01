@@ -63,16 +63,8 @@ public class ChestLoot : ModSystem
                     chest.item[0].SetDefaults(Main.rand.Next(GoldChestItems), false);
                     if (chest.item[0].type == ItemID.FlintlockPistol)
                     {
-                        for (int i = 0; i < 0; i++)
-                        {
-
-                           if (chest.item[i].type == ItemID.None)
-                            {
-                                chest.item[i].SetDefaults(ItemID.MusketBall, false);
-                                chest.item[i].stack = 100;
-
-                            }
-                        }
+                        chest.item[1].SetDefaults(ItemID.MusketBall, false);
+                        chest.item[1].stack = 100;
                     }
                     for (int i = 0; i < 40; i++)
                     {

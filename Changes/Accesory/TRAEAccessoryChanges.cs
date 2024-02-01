@@ -265,7 +265,7 @@ namespace TRAEProject.Changes.Accesory
         }
         public override void ModifyTooltips(Item item, List<TooltipLine> tooltips)
         {
-            string celStone = "8% increased damage\n2% increased critical strike chance\n5% increased melee speed\n10% incresed mining speed and reduced ammo usage\nincreases defense by 4\nincreases mana by 20\nincreases life regen by 0.5hp/s";
+            string celStone = "8% increased damage\n2% increased critical strike chance\n5% increased melee speed\n10% increased mining speed and reduced ammo usage\nIncreases defense by 4\nIncreases mana by 20\nIncreases life regen by 0.5hp/s";
             //string celStone = "4% increased damage, critical strike chance, movement speed, and jump speed\n8% increased melee speed\n10% incresed mining speed and reduced ammo usage\nincreases defense and armor penetration by 4\nincreases max life and mana by 20\nincreases life regen by 0.5hp/s";
 
             switch (item.type)

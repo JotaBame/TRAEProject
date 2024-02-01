@@ -449,8 +449,8 @@ Mods: {
 			}
 
 			WishForSpeedBuff: {
-				DisplayName: Wish For Speed Buff
-				Description: Your wish was 15% movement speed... right?
+				DisplayName: Wish for Speed
+				Description: You get any one wish... so long as the wish is 15% increased movement speed
 			}
 		}
 

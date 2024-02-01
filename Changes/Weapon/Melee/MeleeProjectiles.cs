@@ -49,13 +49,11 @@ namespace TRAEProject.Changes.Weapon.Melee
             // Terrarian: -4f lifetime, 400f range, 17.5f top speed
             // 
             //
-            ProjectileID.Sets.YoyosTopSpeed[ProjectileID.Chik] = 20f;
-            ProjectileID.Sets.YoyosMaximumRange[ProjectileID.Chik] = 300f;
+            //ProjectileID.Sets.YoyosTopSpeed[ProjectileID.Chik] = 20f;
+            //ProjectileID.Sets.YoyosMaximumRange[ProjectileID.Chik] = 300f;
 
 
-            ProjectileID.Sets.YoyosTopSpeed[ProjectileID.HelFire] = 20f;
-            ProjectileID.Sets.YoyosMaximumRange[ProjectileID.HelFire] = 370f;
-            ProjectileID.Sets.YoyosLifeTimeMultiplier[ProjectileID.HelFire] = -1f;
+             ProjectileID.Sets.YoyosLifeTimeMultiplier[ProjectileID.HelFire] = -1f;
 
             ProjectileID.Sets.YoyosMaximumRange[ProjectileID.TheEyeOfCthulhu] = 500f; // 
 
@@ -137,6 +135,10 @@ namespace TRAEProject.Changes.Weapon.Melee
 
                 case ProjectileID.CorruptYoyo:
                     projectile.GetGlobalProjectile<ProjectileStats>().AddsBuff = BuffID.Poisoned;
+                    projectile.GetGlobalProjectile<ProjectileStats>().AddedBuffDuration = 180;
+                    break;
+                case ProjectileID.HelFire:
+                    projectile.GetGlobalProjectile<ProjectileStats>().AddsBuff = BuffID.Daybreak;
                     projectile.GetGlobalProjectile<ProjectileStats>().AddedBuffDuration = 180;
                     break;
                 case ProjectileID.StarWrath:
