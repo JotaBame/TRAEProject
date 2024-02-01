@@ -68,7 +68,7 @@ namespace TRAEProject.NewContent.Items.Weapons.Summoner.AbsoluteZero
             // DisplayName.SetDefault("AbsoluteZeroTag");
             // Description.SetDefault("You will be frozen when hit by a critical strike. Except not, because you are a player and not an enemy, but whatever.");
             Main.debuff[Type] = true;
-  
+            BuffID.Sets.IsATagBuff[Type] = true;
         }
         public override void Update(NPC npc, ref int buffIndex)
         {

@@ -42,6 +42,19 @@ namespace TRAEProject.Changes.NPCs.Boss.LunaticCultist
         }
         static float AttackSpeed(NPC npc)
         {
+            if (npc.type == NPCID.CultistBossClone)
+            {
+                for (int i = 0; i < 200; i++)
+                {
+                    NPC cultist = Main.npc[i];
+                    if ((cultist.life / cultist.lifeMax) <= 0.1f)
+                        return 2.25f;
+                    if (Main.expertMode || Main.masterMode)
+                        return 2.25f - 1f * (cultist.life / cultist.lifeMax);
+                    else
+                        return 2.25f - 1.25f * (cultist.life / cultist.lifeMax);
+                }
+            } 
             if ((npc.life / npc.lifeMax) <= 0.1f)
                 return 2.25f;
             if (Main.expertMode || Main.masterMode)
@@ -140,7 +153,7 @@ namespace TRAEProject.Changes.NPCs.Boss.LunaticCultist
                         List<int> list = new List<int>();
                         for (int i = 0; i < 200; i++)
                         {
-                            if (Main.npc[i].active && Main.npc[i].type == NPCID.CultistBossClone && Main.npc[i].ai[3] == (float)npc.whoAmI)
+                            if (Main.npc[i].active && Main.npc[i].type == NPCID.CultistBossClone && Main.npc[i].ai[3] == npc.whoAmI)
                             {
                                 list.Add(i);
                             }
@@ -223,7 +236,7 @@ namespace TRAEProject.Changes.NPCs.Boss.LunaticCultist
                         {
                             npc.position -= npc.velocity;
                         }
-                        npc.ai[1] -= AttackSpeed(npc);
+                        npc.ai[1] -= 1f;
                         if (npc.ai[1] <= 0f)
                         {
                             EndAttack(npc);
@@ -895,10 +908,10 @@ namespace TRAEProject.Changes.NPCs.Boss.LunaticCultist
             }
             if (num14 == 0)
             {
-                float num15 = MathF.Ceiling((player.Center + new Vector2(0f, -100f) - center).Length() / 50f);
-                if (num15 == 0f)
+                float position = MathF.Ceiling((player.Center + new Vector2(0f, -100f) - center).Length() / (50f * AttackSpeed(npc)));
+                if (position == 0f)
                 {
-                    num15 = 1f;
+                    position = 1f;
                 }
                 List<int> list2 = new List<int>();
                 int num16 = 0;
@@ -927,8 +940,8 @@ namespace TRAEProject.Changes.NPCs.Boss.LunaticCultist
                     Vector2 value = new Vector2(0f, -1f).RotatedBy(num17) * new Vector2(300f, 200f);
                     Vector2 value2 = player.Center + value - center2;
                     nPC2.ai[0] = 1f;
-                    nPC2.ai[1] = num15 * 2f;
-                    nPC2.velocity = value2 / num15;
+                    nPC2.ai[1] = position * 2;
+                    nPC2.velocity = value2 / position;
                     if (npc.whoAmI >= nPC2.whoAmI)
                     {
                         nPC2.position -= nPC2.velocity;

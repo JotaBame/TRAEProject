@@ -19,8 +19,7 @@ namespace TRAEProject.NewContent.Items.Weapons.Summoner.TailWhip
         public override void SetStaticDefaults()
         {
             // DisplayName.SetDefault("Tail Whip");
-            // Tooltip.SetDefault("Your summons will focus struck enemies\n11 summon tag damage\nDecreases defense by 16 points on hit");
-             CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
+            CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
 		}
         public override void SetDefaults()
         {
@@ -81,6 +80,7 @@ namespace TRAEProject.NewContent.Items.Weapons.Summoner.TailWhip
             // DisplayName.SetDefault("TailWhipTag");
             // Description.SetDefault("I wanted the crit tag on this to be equal to pokemon's normal critical strike chance, but that's 6.25% and it was way too low");
             Main.debuff[Type] = true;
+            BuffID.Sets.IsATagBuff[Type] = true;
 
         }
         public override void Update(NPC npc, ref int buffIndex)

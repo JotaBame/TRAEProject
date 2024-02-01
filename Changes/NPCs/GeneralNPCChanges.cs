@@ -109,10 +109,18 @@ namespace TRAEProject.Changes.NPCs
                     break;
             }
         }
+
         public override void OnHitPlayer(NPC npc, Player target, Player.HurtInfo hurtInfo)
         {
             switch (npc.type)
             {
+                case NPCID.JungleCreeper:
+                case NPCID.JungleCreeperWall:
+                    if (target.HasBuff(BuffID.Venom))
+                    {
+                        target.ClearBuff(BuffID.Venom); // this is jank but the odds you'll have acid venom and be hit by a Jungle Creeper in a realistic scenario are practically null
+                    }    
+                    break;
                 case NPCID.StardustCellBig:
                     {
                         int length = Main.rand.Next(90, 180);

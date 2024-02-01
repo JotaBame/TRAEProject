@@ -129,6 +129,10 @@ namespace TRAEProject.NewContent.Items.Armor.Joter
     }
     public class Jottie : ModProjectile
     {
+        public override void SetStaticDefaults()
+        {
+            Main.projFrames[Projectile.type] = 2;
+        }
         public override void SetDefaults()
         {
             Projectile.CloneDefaults(ProjectileID.TinyEater);

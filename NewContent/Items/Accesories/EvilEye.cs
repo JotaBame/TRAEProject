@@ -105,7 +105,7 @@ namespace TRAEProject.NewContent.Items.Accesories
                 if (debuffToApply == BuffID.ShadowFlame)
                 {
                     DustType = DustID.Shadowflame; 
-                    enemyDuration = 60 + hurtInfo.Damage; // 60 damage + what was taken
+                    enemyDuration = 105 + (int)(hurtInfo.Damage * 1.75f); 
                 }
                 if (debuffToApply == BuffID.WitheredArmor)
                 {
