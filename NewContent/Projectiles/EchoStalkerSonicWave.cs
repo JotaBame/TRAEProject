@@ -1,11 +1,11 @@
-﻿using System;
-using Terraria;
-using Terraria.ModLoader;
-using System.Collections.Generic;
+﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using Microsoft.Xna.Framework;
-using Terraria.ID;
+using ReLogic.Content;
+using System;
+using Terraria;
 using Terraria.GameContent;
+using Terraria.ID;
+using Terraria.ModLoader;
 
 namespace TRAEProject.NewContent.Projectiles
 {
@@ -15,7 +15,7 @@ namespace TRAEProject.NewContent.Projectiles
         static Rectangle smallRing = new Rectangle(228, 6, 12, 19);
         static Rectangle mediumRing = new Rectangle(242, 4, 14, 24);
         static Rectangle bigRing = new Rectangle(258, 0, 18, 32);
-        static Texture2D texture;
+        static Asset<Texture2D> texture;
         public override void SetStaticDefaults()
         {
             ProjectileID.Sets.TrailCacheLength[Type] = 20;
@@ -54,19 +54,22 @@ namespace TRAEProject.NewContent.Projectiles
         }
         public override bool? Colliding(Rectangle projHitbox, Rectangle targetHitbox)
         {
+            Vector2 rectSize = new Vector2(4);
 
             for (float i = 0; i < 1; i += 1f / (int)(Projectile.localAI[0] * 0.8f + 1))
             {
                 float rotation = i * MathF.Tau;
                 Vector2 posOffset = rotation.ToRotationVector2() * Projectile.localAI[0] * 2;
-                Vector2 posOffset2 = rotation.ToRotationVector2() * (Projectile.localAI[0] * 2-6) ;
+                Vector2 posOffset2 = rotation.ToRotationVector2() * (Projectile.localAI[0] * 2 - 6);
                 posOffset.X *= 0.5f;
                 posOffset2.X *= 0.5f;
                 posOffset = posOffset.RotatedBy(Projectile.rotation);
                 posOffset2 = posOffset2.RotatedBy(Projectile.rotation);
-                if (CircleHitbox(5, Projectile.Center + posOffset, targetHitbox))
+                Rectangle hitbox = Utils.CenteredRectangle(Projectile.Center + posOffset, rectSize);
+                if (hitbox.Intersects(targetHitbox))
                     return true;
-                if (CircleHitbox(5, Projectile.Center + posOffset2, targetHitbox))
+                hitbox = Utils.CenteredRectangle(Projectile.Center + posOffset2, rectSize);
+                if (hitbox.Intersects(targetHitbox))
                 {
                     return true;
                 }
@@ -79,12 +82,12 @@ namespace TRAEProject.NewContent.Projectiles
         }
         public override bool PreDraw(ref Color lightColor)
         {
-            if(texture == null)
-            texture = TextureAssets.Projectile[ProjectileID.CultistBossLightningOrbArc].Value;//small dot texture
+            if (texture == null)
+                texture = TextureAssets.Projectile[ProjectileID.CultistBossLightningOrbArc];//small dot texture
             float lifetime = 100000 * scalingRate;
             float fadeOutTime = 20 * scalingRate;
             opacityMult = Utils.GetLerpValue(lifetime + fadeOutTime, lifetime, Projectile.localAI[0], true);
-            for (float i = 0; i < 1; i+= 1f / (int)(Projectile.localAI[0] * 3 + 1))
+            for (float i = 0; i < 1; i += 1f / (int)(Projectile.localAI[0] * 3 + 1))
             {
                 float rotation = i * MathF.Tau + Main.GlobalTimeWrappedHourly * -5;
                 Vector2 posOffset = rotation.ToRotationVector2() * Projectile.localAI[0] * 2;
@@ -94,9 +97,13 @@ namespace TRAEProject.NewContent.Projectiles
                 color *= 0.7f;
                 color *= opacityMult;
                 color *= Projectile.Opacity;
-                Main.EntitySpriteDraw(texture, Projectile.Center - Main.screenPosition + posOffset, null, color * Projectile.Opacity, Projectile.rotation + rotation, texture.Size() / 2,1f/texture.Width * 10 /* new Vector2(0.4f, 0.6f)*/, SpriteEffects.None);     
+                Main.EntitySpriteDraw(texture, Projectile.Center - Main.screenPosition + posOffset, null, color * Projectile.Opacity, Projectile.rotation + rotation, texture.Size() / 2, 1f / texture.Width() * 10 /* new Vector2(0.4f, 0.6f)*/, SpriteEffects.None);
             }
             return false;// base.PreDraw(ref lightColor);
+        }
+        public override void Unload()
+        {
+            texture = null;
         }
     }
 }
