@@ -8,12 +8,12 @@ using static Terraria.ModLoader.ModContent;
 
 namespace TRAEProject.NPCs.Boss
 {
-    public class QueenBee : GlobalNPC
-    {
+	public class QueenBee : GlobalNPC
+	{
 		public override bool InstancePerEntity => true;
 		int stingercounter = 0;
-        public override void SetDefaults(NPC npc)
-        {
+		public override void SetDefaults(NPC npc)
+		{
 			if (npc.type >= 210 && npc.type <= 211)
 			{
 				npc.lifeMax = 5;
@@ -21,14 +21,14 @@ namespace TRAEProject.NPCs.Boss
 			}
 
 		}
-        public override void OnHitPlayer(NPC npc, Player target, Player.HurtInfo hurtInfo)
-        {				
+		public override void OnHitPlayer(NPC npc, Player target, Player.HurtInfo hurtInfo)
+		{
 			if (npc.type >= 210 && npc.type <= 211)
 				target.ApplyDamageToNPC(npc, npc.life + (npc.defense + 1) / 2, 0, 0, false);
 
 		}
-        public override bool PreAI(NPC npc)
-        {
+		public override bool PreAI(NPC npc)
+		{
 			if (GetInstance<TRAEConfig>().QBChanges)
 			{
 				if (npc.type == NPCID.QueenBee)
@@ -181,11 +181,8 @@ namespace TRAEProject.NPCs.Boss
 								npc.ai[2] = 0f;
 								npc.netUpdate = true;
 								float num622 = 12f;
-								if (Main.masterMode)
-								{
-									num622 = 24f;
-								}
-								else if (Main.expertMode)
+
+								if (Main.expertMode)
 								{
 									num622 = 16f;
 									if ((double)npc.life < (double)npc.lifeMax * 0.75)
@@ -215,7 +212,7 @@ namespace TRAEProject.NPCs.Boss
 								npc.velocity.X = num623 * num625;
 								npc.velocity.Y = num624 * num625;
 								npc.spriteDirection = npc.direction;
-								SoundEngine.PlaySound(SoundID.Roar with { MaxInstances = 0 }, npc.position);
+								SoundEngine.PlaySound(SoundID.Zombie125, npc.position);
 								return false;
 							}
 							npc.localAI[0] = 0f;
@@ -774,6 +771,16 @@ namespace TRAEProject.NPCs.Boss
 				}
 			}
 			return true;
+		}
+        public override bool PreKill(NPC npc)
+        {
+            if (npc.type == NPCID.Bee && Main.masterMode)
+            {
+                NPCLoader.blockLoot.Add(ItemID.Heart);
+                return false;
+            }
+            return true;
         }
     }
+
 }

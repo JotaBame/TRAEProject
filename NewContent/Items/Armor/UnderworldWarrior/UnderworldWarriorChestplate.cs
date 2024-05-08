@@ -37,7 +37,7 @@ namespace TRAEProject.NewContent.Items.Armor.UnderworldWarrior
 
 		public override void UpdateEquip(Player player)
 		{
-            player.GetDamage<GenericDamageClass>() += 0.10f;
+            player.GetDamage<GenericDamageClass>() += 0.15f;
             player.GetModPlayer<RangedStats>().rangedVelocity += 0.25f;
         }
         public override bool IsArmorSet(Item head, Item body, Item legs)

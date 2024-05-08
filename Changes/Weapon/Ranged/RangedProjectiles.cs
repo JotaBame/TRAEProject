@@ -55,14 +55,8 @@ namespace TRAEProject.Changes.Projectiles
                     projectile.usesLocalNPCImmunity = true;
                     projectile.localNPCHitCooldown = 10;
                     return;
-                case ProjectileID.CrystalShard:
-                    projectile.GetGlobalProjectile<ProjectileStats>().DirectDamage = 0.5f;
-                    projectile.ArmorPenetration = 50;
-                    return;
-                case ProjectileID.Electrosphere:
-                    projectile.usesIDStaticNPCImmunity = true;
-                    projectile.idStaticNPCHitCooldown = 10;
-                    return;
+             
+   
                 case ProjectileID.BoneArrowFromMerchant:
                     projectile.penetrate = 1;
                     return;
@@ -110,8 +104,7 @@ namespace TRAEProject.Changes.Projectiles
                     return;
                 case ProjectileID.IchorBullet:
                     projectile.GetGlobalProjectile<ProjectileStats>().BouncesOffTiles = true;
-                    projectile.GetGlobalProjectile<ProjectileStats>().onlyBounceOnce = true;
-                    return;
+                     return;
                 case ProjectileID.GrenadeI:
                 case ProjectileID.GrenadeII:
                 case ProjectileID.GrenadeIII:
@@ -125,23 +118,20 @@ namespace TRAEProject.Changes.Projectiles
                 case ProjectileID.BoneArrow:
                     projectile.penetrate = 3; 
                     projectile.GetGlobalProjectile<ProjectileStats>().BouncesOffTiles = true;
-                    projectile.GetGlobalProjectile<ProjectileStats>().onlyBounceOnce = true;
                     return;
-                case ProjectileID.HallowStar:
-                    projectile.penetrate = -1;
-                    projectile.usesLocalNPCImmunity = true;
-                    projectile.localNPCHitCooldown = 10;
-                    projectile.tileCollide = false;
-                    projectile.GetGlobalProjectile<ProjectileStats>().explodes = true;
-                    projectile.GetGlobalProjectile<ProjectileStats>().ExplosionRadius = 80;
-                    projectile.GetGlobalProjectile<ProjectileStats>().DamageFalloff = 0.25f;
-                    return;
+   
                 case ProjectileID.MechanicalPiranha:
                     projectile.ContinuouslyUpdateDamageStats = true;
                     break;
-                //case ProjectileID.VenomBullet:
-                //    projectile.ArmorPenetration = 10;
-                //    break;
+      
+            }
+        }
+        public override void OnSpawn(Projectile projectile, IEntitySource source)
+        {
+            Player player = Main.player[projectile.owner];
+            if (projectile.arrow && !player.HeldItem.IsAir && (player.HeldItem.type == ItemID.Tsunami || player.HeldItem.type == ItemID.MythrilRepeater))
+            {
+                projectile.extraUpdates += 1;
             }
         }
         public override bool TileCollideStyle(Projectile projectile, ref int width, ref int height, ref bool fallThrough, ref Vector2 hitboxCenterFrac)
@@ -218,13 +208,9 @@ namespace TRAEProject.Changes.Projectiles
             if (!dontDoThisAgain)
             {
                 dontDoThisAgain = true;
-                if (projectile.arrow && !player.HeldItem.IsAir && (player.HeldItem.type == ItemID.Tsunami || player.HeldItem.type == ItemID.MythrilRepeater))
-                {
-                    projectile.extraUpdates += 1;
-                }
                 if (projectile.CountsAsClass(DamageClass.Ranged) && (player.GetModPlayer<RangedStats>().GunScope || player.GetModPlayer<RangedStats>().AlphaScope > 0 || player.GetModPlayer<RangedStats>().ReconScope > 0))
                 {
-                    if (projectile.owner == player.whoAmI && projectile.type != ProjectileID.Phantasm && projectile.type != ProjectileID.VortexBeater)
+                    if (projectile.owner == player.whoAmI && projectile.type != ProjectileID.Phantasm && projectile.type != ProjectileID.VortexBeater && projectile.type != ProjectileID.DD2PhoenixBow)
                     {
                         projectile.extraUpdates += 1;
                     }
@@ -552,16 +538,6 @@ namespace TRAEProject.Changes.Projectiles
                         Projectile.NewProjectile(projectile.GetSource_FromThis(), projectile.position.X, projectile.position.Y, 0f, 0f, ProjectileID.CursedDartFlame, (projectile.damage * 1), 0, projectile.owner, 0f, 0f);
                         return true;
                     }
-                case ProjectileID.NanoBullet:
-                case ProjectileID.ChlorophyteArrow:
-                    {
-                        if (projectile.GetGlobalProjectile<ScopeAndQuiver>().smartbounces == 0)
-                        {
-                            projectile.Kill();
-                            return false;
-                        }
-                        return true;
-                    }
             }
             return true;
         }
@@ -795,37 +771,12 @@ namespace TRAEProject.Changes.Projectiles
                         return false;
                     }        
                
-                case ProjectileID.HolyArrow:
-                    {
-                        Terraria.Audio.SoundEngine.PlaySound(SoundID.Item10 with { MaxInstances = 0 }, projectile.position);
-                        for (int i = 0; i < 10; ++i)
-                        {
-                            Dust.NewDust(projectile.position, projectile.width, projectile.height, 58, projectile.velocity.X * 0.1f, projectile.velocity.Y * 0.1f, 150, default, 1.2f);
-                        }
-                        for (int i = 0; i < 3; ++i)
-                        {
-                            Gore.NewGore(projectile.GetSource_FromThis(), projectile.position, new Vector2(projectile.velocity.X * 0.05f, projectile.velocity.Y * 0.05f), Main.rand.Next(16, 18), 1f);
-                        }
-                        int[] spread = { 1 };
-                        TRAEMethods.SpawnProjectilesFromAbove(Main.player[projectile.owner], projectile.Center, 1, 400, 750, spread, 22, ProjectileID.HallowStar, (int)(projectile.damage * 0.5), projectile.knockBack, projectile.owner);
-                        return false;
-                    }
-                case ProjectileID.HallowStar:
-                    {
-                        Terraria.Audio.SoundEngine.PlaySound(SoundID.Item10 with { MaxInstances = 0 }, projectile.position);
-                        int DustCount = 30;
-                        int[] DustTypes = { 15, 57, 58 };
-                        for (int i = 0; i < DustCount; ++i)
-                        {
-                            Dust dust = Dust.NewDustDirect(projectile.position, projectile.width, projectile.height, Main.rand.Next(DustTypes), projectile.velocity.X * 0.5f, projectile.velocity.Y * 0.5f, 150, default, 1.5f);
-                            dust.noGravity = true;
-                        }
-                        return false;
-                    }
+
+
             }
             return true;
         }
-        public override void Kill(Projectile projectile, int timeLeft)
+        public override void OnKill(Projectile projectile, int timeLeft)
         {
             switch (projectile.type)
             {               

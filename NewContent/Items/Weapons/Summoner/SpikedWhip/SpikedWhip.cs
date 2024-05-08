@@ -10,6 +10,7 @@ using TRAEProject.Common;
 using TRAEProject.Changes.Weapon.Summon.Minions;
 using System.Collections.Generic;
 using System;
+using TRAEProject.NewContent.TRAEDebuffs;
 
 namespace TRAEProject.NewContent.Items.Weapons.Summoner.SpikedWhip
 {
@@ -18,8 +19,7 @@ namespace TRAEProject.NewContent.Items.Weapons.Summoner.SpikedWhip
         public override void SetStaticDefaults()
         {
             // DisplayName.SetDefault("Spiked Whip");
-            // Tooltip.SetDefault("Your summons will focus struck enemies\n2 summon tag damage\n11% summon tag critical strike chance\nMore effective at striking multiple enemies");
-             CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
+            CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
 		}
         public override void SetDefaults()
         {
@@ -34,7 +34,7 @@ namespace TRAEProject.NewContent.Items.Weapons.Summoner.SpikedWhip
             Item.noUseGraphic = true;
             Item.damage = 16;
             Item.useTime = Item.useAnimation = 30;
-            Item.knockBack = 2f;
+            Item.knockBack = 4f;
             Item.shootSpeed = 4f;
             Item.rare = ItemRarityID.Green;
             Item.value = Item.sellPrice(0, 0, 80, 0);
@@ -63,11 +63,12 @@ namespace TRAEProject.NewContent.Items.Weapons.Summoner.SpikedWhip
         {
             originalColor = new Color(152, 118, 84);
             whipRangeMultiplier = 1f;
-            fallOff = 0.18f;
+            fallOff = 0.15f;
             tag = BuffType<SpikedTag>();
             whipSegments = 13;
             tipScale = 1.33f;
         }
+ 
     }
     public class SpikedTag : ModBuff
     {
@@ -76,12 +77,13 @@ namespace TRAEProject.NewContent.Items.Weapons.Summoner.SpikedWhip
             // DisplayName.SetDefault("Spiked Tag");
             // Description.SetDefault("Do you think there could've been a cooler name than 'Spiked Whip'? Sometimes simple is better, i suppose.");
             Main.debuff[Type] = true;
-  
+            BuffID.Sets.IsATagBuff[Type] = true;
+
         }
         public override void Update(NPC npc, ref int buffIndex)
         {
-            npc.GetGlobalNPC<Tag>().Damage += 2;
-            npc.GetGlobalNPC<Tag>().Crit += 11;
+            npc.GetGlobalNPC<Tag>().Damage += 5;
+            npc.GetGlobalNPC<Tag>().Crit += 8;
         }
     }
 }

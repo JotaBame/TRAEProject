@@ -6,7 +6,7 @@ using Terraria.Audio;
 using Terraria.DataStructures;
 using Microsoft.Xna.Framework;
 using Terraria.Graphics.Shaders;
-using TRAEProject.NewContent.Items.Accesories.ExtraJumps;
+using TRAEProject.NewContent.Items.Accesories.MobilityJumps;
 
 namespace TRAEProject.Changes.Accesory
 {
@@ -14,28 +14,22 @@ namespace TRAEProject.Changes.Accesory
     {
         public static void DoubleJumpHorizontalSpeeds(Player Player)
         {
-            if (Player.sandStorm)
+ 
+            if(Player.GetJumpState(ExtraJump.SandstormInABottle).Active)
             {
-                Player.moveSpeed *= 0.5f;
-            }
-            if(Player.isPerformingJump_Sandstorm)
-            {
-                Player.moveSpeed *= 1.5f;
-            }
+                Player.moveSpeed *= 0.75f;
 
-            if (Player.isPerformingJump_Fart)
+             }
+
+            if (Player.GetJumpState(ExtraJump.FartInAJar).Active)
             {
                 Player.moveSpeed *= (1.5f / 1.75f);
             }
-            if (Player.isPerformingJump_Sail)
+            if (Player.GetJumpState(ExtraJump.TsunamiInABottle).Active)
             {
                 Player.moveSpeed *= (1.5f / 1.25f);
             }
-            if (Player.isPerformingJump_Cloud)
-            {
-                Player.moveSpeed *= 1.5f;
-            }
-            if(Player.GetModPlayer<TRAEJumps>().isLevitating)
+            if (Player.GetJumpState(ExtraJump.CloudInABottle).Active)
             {
                 Player.moveSpeed *= 1.5f;
             }
@@ -48,11 +42,7 @@ namespace TRAEProject.Changes.Accesory
                     player.GetModPlayer<AccesoryEffects>().FastFall = true;
                     break;
                 case ItemID.BalloonHorseshoeHoney:
-                    player.lifeRegen += 2;
                     player.GetModPlayer<AccesoryEffects>().FastFall = true;
-                    break;
-                case ItemID.HoneyBalloon:
-                    player.lifeRegen += 2;
                     break;
                 case ItemID.BundleofBalloons:
                     player.noFallDmg = true;
@@ -80,19 +70,6 @@ namespace TRAEProject.Changes.Accesory
                         }
                     }
                     break;
-                case ItemID.HoneyBalloon:
-                    foreach (TooltipLine line in tooltips)
-                    {
-                        if (line.Mod == "Terraria" && line.Name == "Tooltip0")
-                        {
-                            line.Text = "Releases bees and douses you in honey when damaged";
-                        }
-                        if (line.Mod == "Terraria" && line.Name == "Tooltip1")
-                        {
-                            line.Text = "Increases jump height and life regeneration";
-                        }
-                    }
-                    break;
                 case ItemID.BalloonHorseshoeFart:
                 case ItemID.BalloonHorseshoeSharkron:
                 case ItemID.YellowHorseshoeBalloon:
@@ -103,19 +80,6 @@ namespace TRAEProject.Changes.Accesory
                         if (line.Mod == "Terraria" && line.Name == "Tooltip1")
                         {
                             line.Text += "\nAllows fast fall";
-                        }
-                    }
-                    break;
-                case ItemID.BalloonHorseshoeHoney:
-                    foreach (TooltipLine line in tooltips)
-                    {
-                        if (line.Mod == "Terraria" && line.Name == "Tooltip0")
-                        {
-                            line.Text = "Releases bees and douses you in honey when damaged and negates fall damage";
-                        }
-                        if (line.Mod == "Terraria" && line.Name == "Tooltip1")
-                        {
-                            line.Text = "Increases jump height and life regeneration\nAllows fast fall";
                         }
                     }
                     break;

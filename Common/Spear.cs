@@ -79,22 +79,7 @@ namespace TRAEProject.Common
             if (!item.IsAir)
             {
                 float bonusSize = 1f;
-                switch (item.prefix)
-                {
-                    case PrefixID.Large:
-                        bonusSize = (1.18f / 1.15f);
-                        break;
-                    case PrefixID.Massive:
-                        bonusSize = (1.25f / 1.18f);
-                        break;
-                    case PrefixID.Dangerous:
-                        bonusSize = (1.12f / 1.5f);
-                        break;
-                    case PrefixID.Bulky:
-                        bonusSize = (1.2f / 1.1f);
-                        break;
-                }
-                projectile.scale = bonusSize * item.scale * (player.meleeScaleGlove ? 1.1f : 1f) * player.GetModPlayer<MeleeStats>().weaponSize;
+                projectile.scale = bonusSize * item.scale * (player.meleeScaleGlove ? 1.1f : 1f) ;
             }
         }
 
@@ -259,6 +244,7 @@ namespace TRAEProject.Common
         public override void ModifyHitNPC(NPC target, ref NPC.HitModifiers modifiers)
         {
             int direction = Math.Sign(target.Center.X - Main.player[Projectile.owner].Center.X);
+            modifiers.HitDirectionOverride = direction;
             SpearModfiyHitNPCMelee(target, ref modifiers);
         }
         public int[] hitCount = new int[Main.npc.Length];
@@ -693,7 +679,7 @@ namespace TRAEProject.Common
         }
         public int DustOnDeath = 81;
         public int DustOnDeathCount = 20;
-        public override void Kill(int timeLeft)
+        public override void OnKill(int timeLeft)
         {
             SoundEngine.PlaySound(SoundID.Dig with { MaxInstances = 0 }, Projectile.Center); // Play a death sound
             Vector2 usePos = Projectile.position; // Position to use for dusts
@@ -725,7 +711,8 @@ namespace TRAEProject.Common
     {
         public override bool PreItemCheck()
         {
-            if(!Player.HeldItem.IsAir && Player.HeldItem.GetGlobalItem<SpearItems>().altShoot != -1 && Main.mouseRight && Player.autoReuseGlove && Player.itemAnimation ==1)
+            if (!Player.HeldItem.IsAir && Player.HeldItem.GetGlobalItem<SpearItems>().thrownSpear != -1 && Main.mouseRight && (Player.autoReuseGlove) && Player.itemAnimation == 1)
+
             {
                 Player.altFunctionUse = 2;
                 Player.itemAnimationMax = Player.itemAnimation = Player.HeldItem.useAnimation;

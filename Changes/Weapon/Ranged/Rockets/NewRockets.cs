@@ -297,6 +297,7 @@ namespace TRAEProject.Changes.Weapon.Ranged.Rockets
             }
             return true;
         }
+       public bool explodeOnHit = false;
         public override void OnHitNPC(Projectile projectile, NPC target, NPC.HitInfo hit, int damageDone)
         {
             if (DryRocket || WetRocket || LavaRocket || HoneyRocket)
@@ -308,6 +309,10 @@ namespace TRAEProject.Changes.Weapon.Ranged.Rockets
                 Projectile.NewProjectile(projectile.GetSource_OnHit(target), projectile.Center, projectile.velocity, ProjectileType<LuminiteBoom>(), projectile.damage, projectile.knockBack);
                 SoundEngine.PlaySound(SoundID.Item14 with { MaxInstances = 0 }, projectile.position);                   
        
+            }
+            if (explodeOnHit)
+            {
+                projectile.Kill();
             }
         }
 
@@ -335,6 +340,7 @@ namespace TRAEProject.Changes.Weapon.Ranged.Rockets
             projectile.usesLocalNPCImmunity = true;
             projectile.localNPCHitCooldown = 10;
             projectile.timeLeft = 600;
+            explodeOnHit = true;
             IsARocket = true;
 
         }
@@ -429,7 +435,7 @@ namespace TRAEProject.Changes.Weapon.Ranged.Rockets
                 projectile.alpha = 0;
             }
         }
-        public override void Kill(Projectile projectile, int timeLeft)
+        public override void OnKill(Projectile projectile, int timeLeft)
         {
             if (LuminiteRocket)
             {
@@ -484,7 +490,7 @@ namespace TRAEProject.Changes.Weapon.Ranged.Rockets
         {
             Projectile.GetGlobalProjectile<NewRockets>().RocketAI(Projectile);
         }
-        public override void Kill(int timeLeft)
+        public override void OnKill(int timeLeft)
         {
             TRAEMethods.DefaultExplosion(Projectile);
             Projectile.GetGlobalProjectile<NewRockets>().DestroyTiles(Projectile, 3);
@@ -539,13 +545,15 @@ namespace TRAEProject.Changes.Weapon.Ranged.Rockets
             Projectile.height = 14;
             Projectile.width = 14;
             AIType = ProjectileType<Rocket>();
+            Projectile.GetGlobalProjectile<NewRockets>().explodeOnHit = true;
+
             Projectile.GetGlobalProjectile<NewRockets>().MiniNukeStats(Projectile, true);
         }
         public override void AI()
         {
             Projectile.GetGlobalProjectile<NewRockets>().RocketAI(Projectile);
         }
-        public override void Kill(int timeLeft)
+        public override void OnKill(int timeLeft)
         {
             TRAEMethods.DefaultExplosion(Projectile);
             Projectile.GetGlobalProjectile<NewRockets>().DestroyTiles(Projectile, 7);
@@ -564,7 +572,7 @@ namespace TRAEProject.Changes.Weapon.Ranged.Rockets
         {
             Projectile.GetGlobalProjectile<NewRockets>().RocketAI(Projectile);
         }
-        public override void Kill(int timeLeft)
+        public override void OnKill(int timeLeft)
         {
             Projectile.GetGlobalProjectile<NewRockets>().ClusterRocketExplosion(Projectile);
         }

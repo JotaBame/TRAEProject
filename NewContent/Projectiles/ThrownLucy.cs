@@ -18,7 +18,7 @@ namespace TRAEProject.NewContent.Projectiles
             Projectile.scale = 1.1f;
             //Projectile.usesLocalNPCImmunity = true;
             //Projectile.localNPCHitCooldown = 10;
-            Projectile.penetrate = 2;
+            Projectile.penetrate = -1;
         }
     }
     public class LucyJank : ModPlayer

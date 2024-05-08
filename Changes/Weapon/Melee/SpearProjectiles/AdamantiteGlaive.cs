@@ -25,7 +25,7 @@ namespace TRAEProject.Changes.Weapon.Melee.SpearProjectiles
         {
             spearLength = 155.5f;
             holdAt = 93f;
-            Projectile.penetrate = 5;
+            Projectile.penetrate = 3;
             floatTime = 120;
             DustOnDeath = DustID.Adamantite; 
             DustOnDeathCount = 40;

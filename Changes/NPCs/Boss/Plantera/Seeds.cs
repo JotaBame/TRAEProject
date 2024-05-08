@@ -18,15 +18,16 @@ namespace TRAEProject.Changes.NPCs.Boss.Plantera
 		int down = 360;
         public override void SetDefaults(Projectile projectile)
         {
-			if (projectile.type == 276)
-            {
+			if (projectile.type == 276 && GetInstance<TRAEConfig>().PlanteraRework)
+			{ 
+            
 				projectile.timeLeft = 120;
             }
 				//base.SetDefaults(projectile);
         }
-        public override void Kill(Projectile projectile, int timeLeft)
+        public override void OnKill(Projectile projectile, int timeLeft)
         {
-            if(projectile.type == 276 && projectile.localAI[1] == 1)
+            if(projectile.type == 276 && projectile.localAI[1] == 1 && GetInstance<TRAEConfig>().PlanteraRework)
             {
 
 				SoundEngine.PlaySound(SoundID.NPCHit1 with { MaxInstances = 0 }, projectile.Center);
@@ -35,7 +36,7 @@ namespace TRAEProject.Changes.NPCs.Boss.Plantera
         }
         public override bool PreAI(Projectile projectile)
 		{
-			if (projectile.type == 275 || projectile.type == 276)
+			if (projectile.type == 275 || projectile.type == 276 && GetInstance<TRAEConfig>().PlanteraRework)
 			{
 				projectile.extraUpdates = 3;
 				if (projectile.ai[1] == 0f)

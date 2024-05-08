@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -24,7 +20,9 @@ namespace TRAEProject.NewContent.Items.Accesories.LifeCuffs
         {
             Item.accessory = true;
             Item.rare = ItemRarityID.Green;
-            Item.value = 20000;
+            Item.width = 48;
+            Item.height = 48;
+            Item.value = Item.sellPrice(gold: 1, silver: 50);
         }
         public override void UpdateAccessory(Player player, bool hideVisual)
         {
@@ -51,17 +49,13 @@ namespace TRAEProject.NewContent.Items.Accesories.LifeCuffs
         {
             if(cuffs > 0)
             {
-                Player.AddBuff(BuffType<HeartAttack>(), cuffs * ((int)info.Damage * 3 + 300));
+                 Player.AddBuff(BuffType<HeartAttack>(), 180 + cuffs * info.Damage * 3); // 4 seconds base, +1 second for every 20 damage
+
             }
         }
     }
     class HeartAttack : ModBuff
     {
-        public override void SetStaticDefaults()
-        {
-            // DisplayName.SetDefault("Heart Attack!");
-            // Description.SetDefault("Damage increased by 20%");
-        }
         public override void Update(Player player, ref int buffIndex)
         {
             player.GetDamage(DamageClass.Generic) += 0.2f;

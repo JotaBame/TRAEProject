@@ -19,8 +19,7 @@ namespace TRAEProject.Changes.Weapon.Melee
     class HardmodeSwords : GlobalItem
     {
         public override bool InstancePerEntity => true;
-        public bool FetidHeal = false;
-        int aura = 0; // for use for those swords that also shoot a projectile on top of the aura
+        public int aura = 0; // for use for those swords that also shoot a projectile on top of the aura
         public override GlobalItem Clone(Item item, Item itemClone)
         {
             return base.Clone(item, itemClone);
@@ -30,7 +29,7 @@ namespace TRAEProject.Changes.Weapon.Melee
             switch (item.type)
             {
                 case ItemID.BeeKeeper:
-                    item.damage = 26; // down from 30
+                    item.damage = 20; // down from 30
                     item.noMelee = true;
                     item.shootsEveryUse = true;
                     item.shoot = ProjectileType<BeekeeperAura>();
@@ -40,7 +39,6 @@ namespace TRAEProject.Changes.Weapon.Melee
                     item.shootsEveryUse = true;
                     item.shoot = ProjectileType<PearlwoodAura>();
                     item.rare = ItemRarityID.Pink;
-
                     break;
                 case ItemID.PearlwoodHammer:
                     item.damage = 36; // up from 10
@@ -105,19 +103,20 @@ namespace TRAEProject.Changes.Weapon.Melee
                     item.shoot = ProjectileType<TitaniumAura>();
                     item.SetNameOverride("Titanium Falchion");
                     break;
-
-                //phasesabers
-                case ItemID.PurplePhasesaber:
-                case ItemID.YellowPhasesaber:
-                case ItemID.BluePhasesaber:
-                case ItemID.GreenPhasesaber:
-                case ItemID.RedPhasesaber:
-                case ItemID.OrangePhasesaber:
-                case ItemID.WhitePhasesaber:
-                    item.damage = 48;
-                    item.crit = 24;
-                    item.autoReuse = true;
+                case ItemID.ChlorophyteSaber:
+                    //item.damage = 50;
+                    item.useTime = 20;
+                    item.useAnimation = 20;
+                    item.shootsEveryUse = true;
+                    item.noMelee = true;
                     item.useTurn = false;
+                    item.shoot = ProjectileType<SaberAura>();
+                    break;
+                case ItemID.ChlorophyteClaymore:
+                    aura = ProjectileType<ClaymoreAura>();
+                    item.noMelee = true;
+                    item.useTurn = false;
+                    item.useTime = 30;
                     break;
                 case ItemID.Seedler:
                     item.useTime = 27;
@@ -132,11 +131,11 @@ namespace TRAEProject.Changes.Weapon.Melee
                     item.damage = 70; // down from 80
                     break;
                 case ItemID.FetidBaghnakhs:
-                    FetidHeal = true;
                     item.noMelee = true; item.useTurn = false;
 
                     item.shootsEveryUse = true;
-                    item.shoot = ProjectileType<ShortAura>(); item.damage = 45;
+                    item.shoot = ProjectileType<ShortAura>(); 
+                    item.damage = 45;
                     item.useTime = 8;
                     item.useAnimation = 8;
                     break;
@@ -145,9 +144,8 @@ namespace TRAEProject.Changes.Weapon.Melee
 
                     item.shootsEveryUse = true;
                     item.shoot = ProjectileType<ShortAura>();
-                    FetidHeal = true;
-                    item.useTime = 8;
-                    item.useAnimation = 8;
+                    item.useTime = 7;
+                    item.useAnimation = 7;
                     break;
                 case ItemID.ChristmasTreeSword: 
                     item.useTime = 29;
@@ -181,6 +179,14 @@ namespace TRAEProject.Changes.Weapon.Melee
                     return;
                 case 3063: // meowmere
                     return;
+
+
+                case ItemID.EnchantedSword:
+                    aura = ModContent.ProjectileType<EnchantedAura>();
+                    item.damage = 24;
+                    item.useAnimation = 18;
+                    item.noMelee = true;
+                    break;
      
 
             }
@@ -189,15 +195,14 @@ namespace TRAEProject.Changes.Weapon.Melee
         public override void UseAnimation(Item item, Player player)
         {
 
-            if (aura != 0)
+            if (aura != 0 && !player.ItemAnimationActive)
             {
                 Vector2 mousePosition = Main.screenPosition + new Vector2(Main.mouseX, Main.mouseY);
-
                 if (player.whoAmI == Main.myPlayer)
                 {
                     Vector2 velocity = new Vector2(Math.Sign(mousePosition.X - player.Center.X), 0); // determines direction
-
-                    Projectile spawnedProj = Projectile.NewProjectileDirect(player.GetSource_ItemUse(item), player.MountedCenter - velocity * 2, velocity * 5 , aura, item.damage, item.knockBack, Main.myPlayer,
+                    int damage = (int)(player.GetTotalDamage(item.DamageType).ApplyTo(item.damage));
+                    Projectile spawnedProj = Projectile.NewProjectileDirect(player.GetSource_ItemUse(item), player.MountedCenter - velocity * 2, velocity * 5, aura, damage, item.knockBack, Main.myPlayer,
                             Math.Sign(mousePosition.X - player.Center.X) * player.gravDir, player.itemAnimationMax, player.GetAdjustedItemScale(item));
                     NetMessage.SendData(MessageID.PlayerControls, -1, -1, null, player.whoAmI);
 
@@ -223,6 +228,7 @@ namespace TRAEProject.Changes.Weapon.Melee
                 case ItemID.FetidBaghnakhs:
                 case ItemID.PsychoKnife:
                 case ItemID.PearlwoodSword:
+                case ItemID.ChlorophyteSaber:
 
                     if (player.whoAmI == Main.myPlayer)
                     {
@@ -292,12 +298,18 @@ namespace TRAEProject.Changes.Weapon.Melee
             }    
         }
 
-
+        public override void OnHitNPC(Item item, Player player, NPC target, NPC.HitInfo hit, int damageDone)
+        {
+            
+        }
         public override void HoldItem(Item item, Player player)
         {
+
             switch (item.type)
-            {
+            {                    
+
                 case ItemID.TerraBlade:
+
                     player.GetAttackSpeed<MeleeDamageClass>() /= 0.75f;
                     break;
                 case ItemID.TitaniumSword:
@@ -309,15 +321,76 @@ namespace TRAEProject.Changes.Weapon.Melee
         {
             switch (item.type)
             {
+                case ItemID.TitaniumSword:
+                    foreach (TooltipLine line in tooltips)
+                    {
+                        if (line.Mod == "Terraria" && line.Name == "Knockback")
+                        {
+                            line.Text += "\nAttacking generates a defensive barrier of titanium shards\nDeals more damage with Titanium Armor equipped";
+                        }
+                    }
+                    break;
+                case ItemID.PalladiumSword:
+                    foreach (TooltipLine line in tooltips)
+                    {
+                        if (line.Mod == "Terraria" && line.Name == "Knockback")
+                        {
+                            line.Text += "\nGreatly increases life regeneration after striking an enemy\nMore effective with Palladium armor equipped";
+
+                        }
+                    }
+                    break;
                 case ItemID.MythrilSword:
                     foreach (TooltipLine line in tooltips)
                     {
                         if (line.Mod == "Terraria" && line.Name == "Knockback")
                         {
+
                             line.Text += "\nDeals 25% more damage on critical hits";
                         }
                     }
                     break;
+                case ItemID.ChlorophyteSaber:
+                    foreach (TooltipLine line in tooltips)
+                    {
+                        if (line.Mod == "Terraria" && line.Name == "Tooltip0")
+                        {
+
+                            line.Text = "Creates a damaging spore on every hit";
+                        }
+                    }
+                    break;
+                case ItemID.ChlorophyteClaymore:
+                    foreach (TooltipLine line in tooltips)
+                    {
+                        if (line.Mod == "Terraria" && line.Name == "Tooltip0")
+                        {
+
+                            line.Text = "Shoots a bouncing orb";
+                        }
+                    }
+                    break;
+                case ItemID.FetidBaghnakhs:
+                    foreach (TooltipLine line in tooltips)
+                    {
+                        if (line.Mod == "Terraria" && line.Name == "Knockback")
+                        {
+
+                            line.Text += "\nMelee speed affects this weapon at 25% efficiency";
+                        }
+                    }
+                    break;
+                case ItemID.PsychoKnife:
+                    foreach (TooltipLine line in tooltips)
+                    {
+                        if (line.Mod == "Terraria" && line.Name == "Knockback")
+                        {
+
+                            line.Text += "\nMelee speed affects this weapon at 33% efficiency";
+                        }
+                    }
+                    break;
+
                 case ItemID.TerraBlade:
                     foreach (TooltipLine line in tooltips)
                     {

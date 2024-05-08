@@ -5,9 +5,9 @@ using Terraria.ID;
 using Terraria.ModLoader;
 using static Terraria.ModLoader.ModContent;
 using TRAEProject.Changes.Weapon.Ranged.Rockets;
-using TRAEProject.NewContent.Items.Weapons.Launchers.SkullCannon;
-using TRAEProject.NewContent.Items.Weapons.Launchers.T3Launcher;
-using TRAEProject.NewContent.Items.Weapons.Ammo;
+using TRAEProject.NewContent.Items.Weapons.Ranged.Launchers.SkullCannon;
+using TRAEProject.NewContent.Items.Weapons.Ranged.Launchers.T3Launcher;
+using TRAEProject.NewContent.Items.Weapons.Ranged.Ammo;
 namespace TRAEProject.Changes.Weapons.Rockets
 {
     public class ShootNewRockets : GlobalItem

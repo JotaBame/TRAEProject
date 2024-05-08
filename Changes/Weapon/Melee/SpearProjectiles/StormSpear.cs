@@ -49,7 +49,7 @@ namespace TRAEProject.Changes.Weapon.Melee.SpearProjectiles
             if(projectile.type == ProjectileID.ThunderSpearShot)
             {
                 projectile.usesLocalNPCImmunity = true;
-            }
+             }
         }
         public static void MakeBolt(Projectile projectile, NPC target)
         {

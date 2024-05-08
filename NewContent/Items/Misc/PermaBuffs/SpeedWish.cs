@@ -31,19 +31,6 @@ namespace TRAEProject.NewContent.Items.Misc.PermaBuffs
             Item.useTime = Item.useAnimation = 20;
             Item.UseSound = SoundID.NPCDeath6;
         }
-
-		public override bool? UseItem(Player player) 
-        {
-			if (player.GetModPlayer<PermaBuffs>().speedWish) 
-            {
-				// Returning null will make the item not be consumed
-				return null;
-			}
-
-            player.GetModPlayer<PermaBuffs>().speedWish = true;
-			
-			return true;
-		}
        
 
         public override void Update(ref float gravity, ref float maxFallSpeed)

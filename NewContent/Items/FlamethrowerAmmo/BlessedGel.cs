@@ -53,9 +53,11 @@ namespace TRAEProject.NewContent.Items.FlamethrowerAmmo
             Projectile.CloneDefaults(ProjectileID.WaterStream);
             AIType = ProjectileID.WaterStream; 
             Projectile.timeLeft = 210;
-            Projectile.penetrate = 5;
+            Projectile.penetrate = 3;
             Projectile.extraUpdates = 2;
-            Projectile.ignoreWater = true;
+            Projectile.ignoreWater = true; 
+            Projectile.ArmorPenetration = 3;
+
             Projectile.DamageType = DamageClass.Ranged;
             Projectile.friendly = true;
             Projectile.GetGlobalProjectile<ProjectileStats>().SmartBouncesOffEnemies = true;
@@ -72,7 +74,7 @@ namespace TRAEProject.NewContent.Items.FlamethrowerAmmo
                 Dust.NewDustDirect(Projectile.Center, 1, 1, DustID.Smoke, 0, -1);
             }
 	}		
-	public override void Kill(int timeLeft)
+	public override void OnKill(int timeLeft)
 	{
 		{
             for (int i = 0; i < 6; ++i)

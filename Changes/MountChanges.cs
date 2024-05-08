@@ -11,7 +11,7 @@ using Terraria.Audio;
 using Terraria.GameContent.Shaders;
 using Terraria.GameContent;
 using Terraria.Graphics.Shaders;
-using TRAEProject.NewContent.Items.Accesories.ExtraJumps;
+using TRAEProject.NewContent.Items.Accesories.MobilityJumps;
 
 namespace TRAEProject
 {
@@ -49,27 +49,50 @@ namespace TRAEProject
                     Player.velocity.X = Math.Sign(Player.velocity.X) * (Player.accRunSpeed-Player.runAcceleration - 0.2f);
                 }
             }
-            //nerfed to 40mph
-            if (Player.mount.Type == MountID.DarkHorse || Player.mount.Type == MountID.PaintedHorse || Player.mount.Type == MountID.MajesticHorse)
+            if (Player.mount.Type == MountID.Flamingo)
             {
-
-                Player.accRunSpeed = 8f * mountSpeedBonus;
+                Player.runAcceleration *= 1.75f;
+                Player.accRunSpeed = 5f * mountSpeedBonus;
+            }
+            //horses
+            if (Player.mount.Type == MountID.DarkHorse)
+            {
+                Player.accRunSpeed = 8.6f * mountSpeedBonus;
+            }
+            if (Player.mount.Type == MountID.PaintedHorse)
+            {
+                Player.jumpHeight = 12;
+                Player.accRunSpeed = 7.8f * mountSpeedBonus;
+            }
+            if (Player.mount.Type == MountID.MajesticHorse)
+            {
+                Player.runAcceleration *= 1.5f;
+                Player.accRunSpeed = 7.8f * mountSpeedBonus;
             }
             //Nerfed max horizontal speed to ~34mph
             if (Player.mount.Type == MountID.Basilisk)
             {
                 Player.accRunSpeed = 6.75f * mountSpeedBonus;
-                if(Math.Abs(Player.velocity.X) > Player.accRunSpeed)
+                if (Math.Abs(Player.velocity.X) > Player.accRunSpeed)
                 {
                     Player.velocity.X = Math.Sign(Player.velocity.X) * (Player.accRunSpeed-Player.runAcceleration - 0.2f);
                 }
             }
-
+            if (Player.mount.Type == MountID.Wolf)
+            {
+                Player.accRunSpeed = 7f * mountSpeedBonus; 
+                if (Math.Abs(Player.velocity.X) > Player.accRunSpeed)
+                {
+                    Player.velocity.X = Math.Sign(Player.velocity.X) * (Player.accRunSpeed - Player.runAcceleration - 0.2f);
+                }
+                Player.runAcceleration *= 2f;
+                Player.runSlowdown *= 2f;
+            }
             //Nerfed max horizontal speed to ~30mph
             //Improved jumping ability WHY IS A BUNNY SO BAD AT JUMPING
             //Gave it a double jump
             //Improved acceration
-            if(Player.mount.Type == MountID.Bunny)
+            if (Player.mount.Type == MountID.Bunny)
             {
                 Player.accRunSpeed = 5.6f * mountSpeedBonus;
                 Player.runAcceleration = 0.3f;
@@ -109,7 +132,7 @@ namespace TRAEProject
             //max speed nerfed to ~30mph
             if(Player.mount.Type == MountID.GolfCartSomebodySaveMe)
             {
-                float maxSpeed  = 6f * mountSpeedBonus;
+                float maxSpeed  = 5.6f * mountSpeedBonus;
                 if(Math.Abs(Player.velocity.X) > maxSpeed)
                 {
                     Player.velocity.X = Math.Sign(Player.velocity.X) * (maxSpeed-Player.runAcceleration);
@@ -200,11 +223,11 @@ namespace TRAEProject
                 {
                     Player.velocity.Y += 0.1f;
                 }
-                if (Player.wet)
+                if (Player.wet || Player.ZoneRain)
                 {
                     Player.GetDamage<GenericDamageClass>() -= 0.05f;
-                    VerticalSpeed *= 1.15f;
-                    HorizontalSpeed *= 1.15f;
+                    VerticalSpeed *= 1.1f;
+                    HorizontalSpeed *= 1.1f;
                 }
                 if (Math.Abs(Player.velocity.X) > HorizontalSpeed)
                 {
@@ -214,6 +237,10 @@ namespace TRAEProject
                 {
                     Player.velocity.Y = Math.Sign(Player.velocity.Y) * (VerticalSpeed - Player.runAcceleration);
                 }
+            }
+            if(Player.GetModPlayer<Mobility>().crippleTimer <= 0)
+            {
+
             }
             else
             {
@@ -226,7 +253,7 @@ namespace TRAEProject
         {
             if(Player.mount.Type == MountID.Bunny)
             {
-                Player.hasJumpOption_Cloud = true;
+                Player.GetJumpState(ExtraJump.CloudInABottle).Enable();
             }
         }
     }

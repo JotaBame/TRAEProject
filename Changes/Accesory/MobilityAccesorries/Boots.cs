@@ -6,7 +6,7 @@ using Terraria.Audio;
 using Terraria.DataStructures;
 using Microsoft.Xna.Framework;
 using Terraria.Graphics.Shaders;
-using TRAEProject.NewContent.Items.Accesories.ExtraJumps;
+using TRAEProject.NewContent.Items.Accesories.MobilityJumps;
 
 namespace TRAEProject.Changes.Accesory
 {
@@ -17,7 +17,6 @@ namespace TRAEProject.Changes.Accesory
             switch (item.type)
             {
                 //running boots
-                case ItemID.HellfireTreads:
                 case ItemID.HermesBoots:
                 case ItemID.FlurryBoots:
                 case ItemID.SailfishBoots:
@@ -69,18 +68,24 @@ namespace TRAEProject.Changes.Accesory
                     break;
                     //rocket boots line
                 case ItemID.RocketBoots:
-                    player.rocketTimeMax += 10;
+                    player.rocketTimeMax += 5;
                     break;
                 case ItemID.ObsidianWaterWalkingBoots:
                     player.waterWalk2 = false;
                     player.rocketBoots = 1;
-                    player.rocketTimeMax += 10; player.rocketBoots = player.vanityRocketBoots = 1;
+                    player.rocketTimeMax += 10; 
+                    player.rocketBoots = player.vanityRocketBoots = 1;
 
                     player.GetModPlayer<AccesoryEffects>().FastFall = true;
                     player.noFallDmg = true;
                     player.fireWalk = false;
                     break;
                 case ItemID.FairyBoots:
+                    player.accRunSpeed = 4.8f;
+                    player.moveSpeed += Mobility.bootSpeed * 0.01f;
+                    player.rocketTimeMax += 10;
+                    break;
+                case ItemID.HellfireTreads:
                 case ItemID.SpectreBoots:
                     player.accRunSpeed = 4.8f;
                     player.moveSpeed += Mobility.bootSpeed * 0.01f;
@@ -151,16 +156,28 @@ namespace TRAEProject.Changes.Accesory
                     }
                     break;
                 case ItemID.FairyBoots:
-                case ItemID.SpectreBoots:
                     foreach (TooltipLine line in tooltips)
-                    {
-                        if (line.Mod == "Terraria" && line.Name == "Tooltip0")
-                        {
-                            line.Text = "Provides rocket boot flight";
-                        }
+                    {   
                         if (line.Mod == "Terraria" && line.Name == "Tooltip1")
                         {
                             line.Text = Mobility.bootSpeed + "% increased movement speed";
+                        }
+                        if (line.Mod == "Terraria" && line.Name == "Tooltip0")
+                        {
+                            line.Text = "Provides extended rocket boot flight";
+                        }
+                    }
+                    break;
+                case ItemID.SpectreBoots:
+                    foreach (TooltipLine line in tooltips)
+                    {   
+                        if (line.Mod == "Terraria" && line.Name == "Tooltip1")
+                        {
+                            line.Text = Mobility.bootSpeed + "% increased movement speed";
+                        }
+                        if (line.Mod == "Terraria" && line.Name == "Tooltip0")
+                        {
+                            line.Text = "Provides rocket boot flight";
                         }
                     }
                     break;
@@ -194,16 +211,16 @@ namespace TRAEProject.Changes.Accesory
                     break;
                 case ItemID.LightningBoots:
                     foreach (TooltipLine line in tooltips)
-                    {
-                        if (line.Mod == "Terraria" && line.Name == "Tooltip0")
-                        {
-                            line.Text = "Provides rocket boot flight";
-                        }
-                        if (line.Mod == "Terraria" && line.Name == "Tooltip1")
+                    {  if (line.Mod == "Terraria" && line.Name == "Tooltip0")
                         {
                             line.Text = Mobility.bootSpeed + "% increased movement speed" + "\nGreatly increases acceleration";
                             
                         }
+                        if (line.Mod == "Terraria" && line.Name == "Tooltip1")
+                        {
+                            line.Text = "Provides rocket boot flight";
+                        }
+                      
                     }
                     break;
                 case ItemID.TerrasparkBoots:
@@ -215,7 +232,7 @@ namespace TRAEProject.Changes.Accesory
                         }
                         if (line.Mod == "Terraria" && line.Name == "Tooltip1")
                         {
-                            line.Text = "Provides rocket boot flight(5)";
+                            line.Text = "Provides rocket boot flight";
                         }
                         if (line.Mod == "Terraria" && line.Name == "Tooltip2")
                         {
@@ -298,11 +315,7 @@ namespace TRAEProject.Changes.Accesory
                         }
                         if (line.Mod == "Terraria" && line.Name == "Tooltip1")
                         {
-                            line.Text = "Hold DOWN to increase falling speed";
-                        }
-                        if (line.Mod == "Terraria" && line.Name == "Tooltip2")
-                        {
-                            line.Text = "Grants immunity to fall damage";
+                            line.Text = "Hold DOWN to increase falling speed\nGrants immunity to fall damage";
                         }
                     }
                     break;

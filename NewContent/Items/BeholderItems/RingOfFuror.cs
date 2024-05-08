@@ -1,8 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using static Terraria.ModLoader.ModContent;
+
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -15,7 +12,7 @@ namespace TRAEProject.NewContent.Items.BeholderItems
         public override void SetStaticDefaults()
         {
             Terraria.GameContent.Creative.CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
-
+            ItemID.Sets.ShimmerTransformToItem[Type] = ItemType<RingOfMight>();
             // DisplayName.SetDefault("Ring of Fury");
             // Tooltip.SetDefault("12% increased total damage\n9% reduced maximum HP");
         }
@@ -30,6 +27,5 @@ namespace TRAEProject.NewContent.Items.BeholderItems
             player.statLifeMax2 = (int)(player.statLifeMax2 / 1.11f);
             player.GetDamage(DamageClass.Generic) *= 1.12f;
         }
-
     }
 }

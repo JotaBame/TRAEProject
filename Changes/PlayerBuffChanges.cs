@@ -8,11 +8,25 @@ using TRAEProject.Changes;
 using Terraria.DataStructures;
 using Microsoft.Xna.Framework;
 using TRAEProject.Changes.Accesory;
+using System.Collections.Generic;
 
 namespace TRAEProject
 {
     public class PlayerBuffChanges : GlobalBuff
     {
+        public override void SetStaticDefaults()
+        {
+            Main.buffNoSave[BuffID.Bewitched] = false;
+            Main.persistentBuff[BuffID.Bewitched] = true;
+            Main.buffNoSave[BuffID.AmmoBox] = false;
+            Main.persistentBuff[BuffID.AmmoBox] = true;
+            Main.buffNoSave[BuffID.Sharpened] = false;
+            Main.persistentBuff[BuffID.Sharpened] = true;
+            Main.buffNoSave[BuffID.Clairvoyance] = false;
+            Main.persistentBuff[BuffID.Clairvoyance] = true;
+            Main.buffNoSave[BuffID.WarTable] = false;
+            Main.persistentBuff[BuffID.WarTable] = true;
+        }
         public override void Update(int type, Player player, ref int buffIndex)
         {
             switch (type)
@@ -31,7 +45,7 @@ namespace TRAEProject
                     return;
                 case BuffID.Thorns:
                     player.thorns -= 1f;
-                    player.GetModPlayer<OnHitItems>().newthorns += 0.33f;
+                    player.GetModPlayer<OnHitEffects>().newthorns += 0.33f;
                     return;
                 case BuffID.Rabies:
                     player.AddBuff(BuffType<NeoFeralBite>(), player.buffTime[buffIndex], false);
@@ -120,7 +134,6 @@ namespace TRAEProject
                     return;
                 case BuffID.Swiftness:
                     tip = Mobility.swiftSpeed + "% increased movement speed";
-
                     return;
                 case BuffID.StarInBottle:
                     tip = "Increased max mana by 20";
@@ -128,6 +141,7 @@ namespace TRAEProject
                 case BuffID.SugarRush:
                     tip = "10% increased movement speed and 20% increased mining speed";
                     return;
+    
             }
         }
     }
@@ -164,6 +178,10 @@ namespace TRAEProject
                     RingDamage = 1;
                 }
                 int dustsToMake = 5 + damageDone / 10;
+                if(dustsToMake > 600)
+                {
+                    dustsToMake = 600;
+                }
                 for (int i = 0; i < dustsToMake; i++)
                 {
                     float radius = range / 62.5f;
@@ -249,6 +267,7 @@ namespace TRAEProject
 
         public override void UpdateLifeRegen()
         {
+ 
             if (Player.HasBuff(BuffID.Regeneration))
             {
                 if (Player.lifeRegen > 0)
@@ -271,6 +290,13 @@ namespace TRAEProject
             }
         }
 
+        public override void ModifyHitByNPC(NPC npc, ref Player.HurtModifiers modifiers)
+        {
+            if (npc.HasBuff(BuffID.WitheredWeapon))
+            {
+                modifiers.FinalDamage *= 0.84f;
+            }    
+        }
         public override bool PreKill(double damage, int hitDirection, bool pvp, ref bool playSound, ref bool genGore, ref PlayerDeathReason damageSource)
         {
             if (Celled && hitDirection == 0 && damageSource.SourceOtherIndex == 8)
@@ -286,6 +312,7 @@ namespace TRAEProject
             return true;
         }
     }
+ 
 }
 
         

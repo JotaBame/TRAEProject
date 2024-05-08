@@ -41,7 +41,7 @@ namespace TRAEProject.Changes.Weapon.Melee.SpearProjectiles
             stickingDps = 100;
             DustOnDeath = DustID.SolarFlare;
         }
-        public override void Kill(int timeLeft)
+        public override void OnKill(int timeLeft)
         {
             Rectangle hitbox2 = Projectile.Hitbox;
             for (int num118 = 0; num118 < 6; num118 += 3)

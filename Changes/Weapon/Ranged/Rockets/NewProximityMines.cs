@@ -89,7 +89,7 @@ namespace TRAEProject.Changes.Weapon.Ranged.Rockets
             Projectile.GetGlobalProjectile<NewMines>().MineAI(Projectile);
         }
   
-        public override void Kill(int timeLeft)
+        public override void OnKill(int timeLeft)
         {
             TRAEMethods.DefaultExplosion(Projectile);
             Projectile.GetGlobalProjectile<ProjectileStats>().dontExplodeOnTiles = true;
@@ -192,7 +192,7 @@ namespace TRAEProject.Changes.Weapon.Ranged.Rockets
             Projectile.velocity.Y = 0f;
             return false;
         }
-        public override void Kill(int timeLeft)
+        public override void OnKill(int timeLeft)
         {
             TRAEMethods.DefaultExplosion(Projectile);
             Projectile.GetGlobalProjectile<NewRockets>().DestroyTiles(Projectile, 7);
@@ -219,7 +219,7 @@ namespace TRAEProject.Changes.Weapon.Ranged.Rockets
             Projectile.velocity.Y = 0f;
             return false;
         }
-        public override void Kill(int timeLeft)
+        public override void OnKill(int timeLeft)
         {
             Projectile.GetGlobalProjectile<NewRockets>().ClusterRocketExplosion(Projectile);
         }

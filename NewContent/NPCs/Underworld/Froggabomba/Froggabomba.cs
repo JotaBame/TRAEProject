@@ -21,15 +21,9 @@ namespace TRAEProject.NewContent.NPCs.Underworld.Froggabomba
     {
         public override void SetStaticDefaults()
         {
-            NPCDebuffImmunityData debuffData = new NPCDebuffImmunityData
-            {
-                SpecificallyImmuneTo = new int[] {
-                    BuffID.OnFire,
-                    BuffID.OnFire3,
-                    BuffID.Confused // Most NPCs have this
-				}
-            };
-            NPCID.Sets.DebuffImmunitySets.Add(Type, debuffData);
+            NPCID.Sets.SpecificDebuffImmunity[Type][BuffID.OnFire] = true;
+            NPCID.Sets.SpecificDebuffImmunity[Type][BuffID.OnFire3] = true;
+            NPCID.Sets.SpecificDebuffImmunity[Type][BuffID.Confused] = true;
             // DisplayName.SetDefault("Froggabomba"); // Automatic from .lang files
             Main.npcFrameCount[NPC.type] = 4; // make sure to set this for your modnpcs.
         }
@@ -62,8 +56,7 @@ namespace TRAEProject.NewContent.NPCs.Underworld.Froggabomba
         }
         public override float SpawnChance(NPCSpawnInfo spawnInfo)
         {
-            if (spawnInfo.Player.ZoneBeach && Main.remixWorld)
-                return SpawnCondition.Underworld.Chance * 0.25f;
+     
             if (NPC.downedPlantBoss)
             {
                 return SpawnCondition.Underworld.Chance * 0.025f;
@@ -97,13 +90,15 @@ namespace TRAEProject.NewContent.NPCs.Underworld.Froggabomba
                 for (int i = 0; i < smallBoomxiesToSpawn; i++)
                 {
                     damagestored -= 30;
+                    NPC.life -= 30;
                     NPC.NewNPC(NPC.GetSource_FromAI(), (int)NPC.Center.X, (int)NPC.Center.Y, NPCType<FroggabombaClone>());
+                    frogsSpawned++;
                 }
             }
         }
         public override void ModifyNPCLoot(NPCLoot npcLoot)
         {
-            npcLoot.Add(ItemDropRule.Common(ItemID.ExplosivePowder, 4)); 
+            npcLoot.Add(ItemDropRule.Common(ItemID.ExplosivePowder, 2)); 
             npcLoot.Add(ItemDropRule.Common(ItemType<BoomfrogStaff>(), 20));
 
         }
@@ -125,15 +120,10 @@ namespace TRAEProject.NewContent.NPCs.Underworld.Froggabomba
     {
         public override void SetStaticDefaults()
         {
-            NPCDebuffImmunityData debuffData = new NPCDebuffImmunityData
-            {
-                SpecificallyImmuneTo = new int[] {
-                    BuffID.OnFire,
-                    BuffID.OnFire3,
-                    BuffID.Confused // Most NPCs have this
-				}
-            }; NPCID.Sets.DebuffImmunitySets.Add(Type, debuffData);
-            NPCID.Sets.NPCBestiaryDrawModifiers value = new NPCID.Sets.NPCBestiaryDrawModifiers(0)
+            NPCID.Sets.SpecificDebuffImmunity[Type][BuffID.OnFire] = true;
+            NPCID.Sets.SpecificDebuffImmunity[Type][BuffID.OnFire3] = true;
+            NPCID.Sets.SpecificDebuffImmunity[Type][BuffID.Confused] = true;
+            NPCID.Sets.NPCBestiaryDrawModifiers value = new NPCID.Sets.NPCBestiaryDrawModifiers()
             {
                 Hide = true // Hides this NPC from the Bestiary, useful for multi-part NPCs whom you only want one entry.
             };

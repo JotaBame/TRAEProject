@@ -24,22 +24,39 @@ namespace TRAEProject.Changes.Items
             switch(item.type)
             {
                 case ItemID.CobaltDrill:
+                    item.useTime = drillSpeed = 11;
+                    item.tileBoost = -1;
+                    break;
                 case ItemID.PalladiumDrill:
-                drillSpeed = 10;
-                item.tileBoost = 0;
-                break;
+                    item.useTime = drillSpeed = 10; item.tileBoost = -1;
+
+                    break;
                 case ItemID.MythrilDrill:
+                    item.useTime = drillSpeed = 9; item.tileBoost = -1;
+
+                    break;
                 case ItemID.OrichalcumDrill:
-                drillSpeed = 8;
-                item.tileBoost = 0;
-                break;
+                    item.useTime = drillSpeed = 9;
+                    item.tileBoost = -1;
+                    break;
                 case ItemID.AdamantiteDrill:
+                    item.useTime = drillSpeed = 8;
+                    item.tileBoost = 0;
+
+                    break;
                 case ItemID.TitaniumDrill:
+                    item.useTime = drillSpeed = 8;
+                    item.tileBoost = 0;
+
+                    break;
                 case ItemID.Drax:
+                    item.tileBoost = 0;
+
+                    item.useTime = drillSpeed = 7;
+                    break;
                 case ItemID.ChlorophyteDrill:
-                drillSpeed = 6;
-                item.tileBoost++;
-                break;
+                    item.useTime = drillSpeed = 6;
+                    break;
             }
         }
         public override void HoldItem(Item item, Player player)

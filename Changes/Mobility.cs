@@ -12,8 +12,9 @@ using Terraria.Audio;
 using static Terraria.ModLoader.ModContent;
 using Terraria.GameContent;
 using Terraria.Graphics.Shaders;
-using TRAEProject.NewContent.Items.Accesories.ExtraJumps;
-using TRAEProject.NewContent.Items.Accesories.MagicalCarpet;
+using TRAEProject.NewContent.Items.Accesories.MobilityJumps;
+using TRAEProject.NewContent.Items.Accesories.MobilityMisc;
+using TRAEProject.Changes.Accesory;
 
 namespace TRAEProject
 {
@@ -65,7 +66,7 @@ namespace TRAEProject
         }
         public override void PreUpdate()
         {
-            Player.rocketTimeMax = 0;       
+            Player.rocketTimeMax = 0;
    
         }
         public override void PreUpdateMovement()
@@ -79,6 +80,10 @@ namespace TRAEProject
 		{
 			dir = 0;
 			dashing = false;
+            if(Player.mount.Active)
+            {
+                return;
+            }
 			if (Player.dashTime > 0)
 			{
 				Player.dashTime--;
@@ -134,6 +139,12 @@ namespace TRAEProject
             {
                 Player.fireWalk = true;
             }
+            if(Player.shadowArmor)
+            {
+                Player.shadowArmor = false;
+                ankletAcc = true;
+                Player.moveSpeed += 0.2f;
+            }
             Player.wingTimeMax = (int)(Player.wingTimeMax * flightTimeBonus);
             Player.rocketTimeMax = (int)(Player.rocketTimeMax * flightTimeBonus);
             Player.jumpSpeedBoost += 1.4f;
@@ -145,6 +156,7 @@ namespace TRAEProject
             {
                 Player.moveSpeed *= 1.15f;
             }
+
             if (Player.accRunSpeed >= 4.8f)
             {
                 if (Player.controlLeft && Player.velocity.X <= 0f - Player.accRunSpeed && Player.dashDelay >= 0)
@@ -213,17 +225,14 @@ namespace TRAEProject
                     Main.gore[num20].velocity *= 0.4f;
                     */
                 }
-                else if(dashing && blizzardDash && (Player.canJumpAgain_Blizzard || Player.GetModPlayer<TRAEJumps>().BlizzardStored() || (Player.GetModPlayer<TRAEJumps>().doVanillaJumps && Player.GetModPlayer<TRAEJumps>().allowBlizzardDash && !Player.GetModPlayer<TRAEJumps>().usedBlizzardDash)))
+                else if(dashing && blizzardDash && (Player.GetJumpState(ExtraJump.BlizzardInABottle).Available || (Player.GetModPlayer<TRAEJumps>().allowBlizzardDash && !Player.GetModPlayer<TRAEJumps>().usedBlizzardDash)))
                 {
-                    if(Player.GetModPlayer<TRAEJumps>().advFlight)
-                    {
-                        Player.GetModPlayer<TRAEJumps>().SpendBlizzardJump();
-                    }
+                    
                     Player.GetModPlayer<TRAEJumps>().usedBlizzardDash = true;
-                    Player.velocity.X = 18f * (float)dir;
+                    Player.velocity.X = 16f * (float)dir;
                     Player.dashDelay = -1;
                     performingBlizzardDash = true;
-                    Player.canJumpAgain_Blizzard = false;
+                    Player.GetJumpState(ExtraJump.BlizzardInABottle).Available = false;
                     Point point = (Player.Center + new Vector2(dir * Player.width / 2 + 2, Player.gravDir * (float)(-Player.height) / 2f + Player.gravDir * 2f)).ToTileCoordinates();
                     Point point2 = (Player.Center + new Vector2(dir * Player.width / 2 + 2, 0f)).ToTileCoordinates();
                     if (WorldGen.SolidOrSlopedTile(point.X, point.Y) || WorldGen.SolidOrSlopedTile(point2.X, point2.Y))
@@ -261,9 +270,9 @@ namespace TRAEProject
                         case 99: //ice skates
                             if(performingBlizzardDash)
                             {
-                                Player.moveSpeed += 0.4f;
+                                Player.moveSpeed += 0.2f;
                             }
-                            Player.moveSpeed += 0.4f;
+                            Player.moveSpeed += 0.33f;
                             skating = true;
                             Player.armorEffectDrawShadow = false;
                             if(Player.velocity.Y == 0 && ((Math.Sign(Player.velocity.X) == -1 && Player.controlLeft) || (Math.Sign(Player.velocity.X) == 1 && Player.controlRight)))
@@ -366,7 +375,7 @@ namespace TRAEProject
                     Projectile.NewProjectile(Player.GetSource_ItemUse(Player.HeldItem), Player.Center, Vector2.UnitY * 2, ProjectileID.OrnamentFriendly, 50, 0, Player.whoAmI, -1);
                 }
             }
-            if (Player.slowFall || Player.GetModPlayer<TRAEProject.NewContent.Items.Accesories.ExtraJumps.TRAEJumps>().isBoosting)
+            if (Player.GetModPlayer<TRAEProject.NewContent.Items.Accesories.MobilityJumps.TRAEJumps>().isBoosting)
             {
                 Player.gravControl = false;
                 Player.gravControl2 = false;
@@ -375,7 +384,7 @@ namespace TRAEProject
             {
                 Player.slowFall = false;
             }
-            if(Player.controlUp && !Player.gravControl && !Player.gravControl2 && Player.GetModPlayer<TRAEProject.NewContent.Items.Accesories.SpaceBalloon.SpaceBalloonPlayer>().SpaceBalloon > 0)
+            if(Player.controlUp && !Player.gravControl && !Player.gravControl2 && Player.GetModPlayer<SpaceBalloonPlayer>().SpaceBalloon > 0)
             {
                 Player.slowFall = true;
             }
@@ -384,10 +393,9 @@ namespace TRAEProject
             //{
             //    Player.extraFall += Math.Abs(num39) - (Player.extraFall + 25 + (Player.statLifeMax2 / 20));
             //}
-
             if(ankletAcc)
             {
-                Player.runAcceleration *= 1.75f;
+                Player.runAcceleration *= 1.5f;
             }
 
             if (Player.wingsLogic == 30 && Player.TryingToHoverDown) // vortex booster
@@ -399,12 +407,12 @@ namespace TRAEProject
             if (Player.wingsLogic == 37 && Player.TryingToHoverDown)
             {
                 Player.runAcceleration /= 3;
-                Player.moveSpeed += 0.44f;
+                Player.moveSpeed += 0.45f;
             }
             else if (Player.wingsLogic == 22 && Player.TryingToHoverDown)
             {
                 Player.runAcceleration /= 3;
-                Player.moveSpeed += 0.44f;
+                Player.moveSpeed += 0.45f;
             }
             else if (Player.wingsLogic == 45 && Player.TryingToHoverDown)
             {
@@ -417,7 +425,7 @@ namespace TRAEProject
                 Player.wingTime += 0.5f;
                 Player.runAcceleration /= 2;
                 //Player.runSlowdown *= 2;
-                Player.moveSpeed += 0.44f;
+                Player.moveSpeed += 0.45f;
                 Player.velocity.Y = Player.velocity.Y * 0.9f;
                 if (Player.velocity.Y > -2f && Player.velocity.Y < 1f)
                 {
@@ -425,6 +433,9 @@ namespace TRAEProject
                     //Player.position.Y += .1f;
                 }
             }
+
+            //Main.NewText("Speed: " + Player.moveSpeed + ", Acceleration: " + Player.runAcceleration);
+            //Main.NewText(Player.rocketTimeMax);
         }
         public override void PostUpdateRunSpeeds()
         {

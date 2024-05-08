@@ -11,6 +11,7 @@ namespace TRAEProject.NewContent.Items.Misc.PermaBuffs
 {
 	public class PermaBuffs : ModPlayer
 	{
+		/*
 		public bool speedWish;
 		public override void PostUpdateBuffs()
 		{
@@ -44,7 +45,7 @@ namespace TRAEProject.NewContent.Items.Misc.PermaBuffs
 			speedWish = reader.ReadBoolean();
 		}
 
-		public override void CopyClientState(ModPlayer clientClone)/* tModPorter Suggestion: Replace Item.Clone usages with Item.CopyNetStateTo */ {
+		public override void CopyClientState(ModPlayer clientClone) {
 			PermaBuffs clone = clientClone as PermaBuffs;
 			clone.speedWish = speedWish;
 		}
@@ -70,5 +71,6 @@ namespace TRAEProject.NewContent.Items.Misc.PermaBuffs
 		{
 			speedWish = tag.GetBool("speedWish");
 		}
+		*/
 	}
 }

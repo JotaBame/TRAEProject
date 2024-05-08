@@ -36,15 +36,10 @@ namespace TRAEProject.NewContent.NPCs.Underworld.Beholder
         // Playtest
         public override void SetStaticDefaults()
         {
-            NPCDebuffImmunityData debuffData = new NPCDebuffImmunityData
-            {
-                SpecificallyImmuneTo = new int[] {
-                    BuffID.OnFire,
-                    BuffID.OnFire3,
-                    BuffID.Confused // Most NPCs have this
-				}
-            };
-            NPCID.Sets.DebuffImmunitySets.Add(Type, debuffData);
+
+            NPCID.Sets.SpecificDebuffImmunity[Type][BuffID.OnFire] = true;
+            NPCID.Sets.SpecificDebuffImmunity[Type][BuffID.OnFire3] = true;
+            NPCID.Sets.SpecificDebuffImmunity[Type][BuffID.Confused] = true;
             // DisplayName.SetDefault("Beholder");
             Main.npcFrameCount[NPC.type] = 6;
         }
@@ -71,11 +66,7 @@ namespace TRAEProject.NewContent.NPCs.Underworld.Beholder
         {
             if (Main.expertMode)
             {
-                NPC.lifeMax = (int)((NPC.lifeMax * 3 / 4) *bossAdjustment);
-            }
-            if (Main.masterMode)
-            {
-                NPC.lifeMax = (int)(NPC.lifeMax * 3 / 4 *bossAdjustment); 
+                NPC.lifeMax = (int)((NPC.lifeMax * 3 / 4) * bossAdjustment * balance);
             }
             
 
@@ -99,7 +90,7 @@ namespace TRAEProject.NewContent.NPCs.Underworld.Beholder
 
             //Add the treasure bag (automatically checks for expert mode)
             npcLoot.Add(ItemDropRule.BossBag(ItemType<BeholderBag>())); //this requires you to set BossBag in SetDefaults accordingly
-            //All our drops here are based on "not expert", meaning we use .OnSuccess() to add them into the rule, which then gets added
+            //All our drops here are based on "not expert", meaning we dase .OnSuccess() to add them into the rule, which then gets added
             LeadingConditionRule notExpertRule = new(new Conditions.NotExpert());
             //Notice we use notExpertRule.OnSuccess instead of npcLoot.Add so it only applies in normal mode
             notExpertRule.OnSuccess(ItemDropRule.OneFromOptionsNotScalingWithLuck(1, ItemType<UnderworldWarriorHelmet>(), ItemType<UnderworldWarriorChestplate>(), ItemType<UnderworldWarriorGreaves>()));
@@ -419,7 +410,7 @@ namespace TRAEProject.NewContent.NPCs.Underworld.Beholder
 
 
                     }
-                    if (NPC.ai[2] >= scythes * delay && Main.netMode != NetmodeID.MultiplayerClient)
+                    if (NPC.ai[2] >= scythes * delay && Main.netMode != NetmodeID.MultiplayerClient && Main.expertMode)
                     {
                         for (int i = 0; i < Main.rand.Next(7, 9); i++)
                         {
@@ -745,7 +736,7 @@ namespace TRAEProject.NewContent.NPCs.Underworld.Beholder
                 Main.dust[num177].noGravity = true;
             }
         }
-        public override void Kill(int timeLeft)
+        public override void OnKill(int timeLeft)
         {
             SoundEngine.PlaySound(SoundID.Item10 with { MaxInstances = 0 }, Projectile.position);
             for (int num729 = 0; num729 < 30; num729++)
@@ -801,7 +792,7 @@ namespace TRAEProject.NewContent.NPCs.Underworld.Beholder
             Main.spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, Main.DefaultSamplerState, DepthStencilState.None, Main.Rasterizer, null, Main.Transform);
             return base.PreDraw(ref lightColor);
         }
-        public override void Kill(int timeLeft)
+        public override void OnKill(int timeLeft)
         {
             SoundEngine.PlaySound(SoundID.Item10 with { MaxInstances = 0 }, Projectile.position);
             for (int num729 = 0; num729 < 20; num729++)
@@ -858,7 +849,7 @@ namespace TRAEProject.NewContent.NPCs.Underworld.Beholder
                 Main.dust[num177].noGravity = true;
             }
         }
-        public override void Kill(int timeLeft)
+        public override void OnKill(int timeLeft)
         {
             SoundEngine.PlaySound(SoundID.Item10 with { MaxInstances = 0 }, Projectile.position);
             for (int num729 = 0; num729 < 30; num729++)
@@ -938,7 +929,7 @@ namespace TRAEProject.NewContent.NPCs.Underworld.Beholder
                 Main.dust[num177].noGravity = true;
             }
         }
-        public override void Kill(int timeLeft)
+        public override void OnKill(int timeLeft)
         {
             SoundEngine.PlaySound(SoundID.Item10 with { MaxInstances = 0 }, Projectile.position);
 

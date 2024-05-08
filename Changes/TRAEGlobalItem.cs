@@ -12,6 +12,10 @@ using TRAEProject.NewContent.NPCs.Underworld.Beholder;
 using Terraria.Localization;
 using Terraria.Chat;
 using Terraria.Audio;
+using System;
+using Steamworks;
+using TRAEProject.Changes.Weapon.Melee;
+using TRAEProject.Changes.Items;
 
 namespace TRAEProject.Changes
 {
@@ -24,9 +28,16 @@ namespace TRAEProject.Changes
         }
         public override void SetDefaults(Item item)
         {
+            if(item.createTile >= 0 && item.damage <=0)
+            {
+                item.useTime = 7; // down from 15
+                //item.useAnimation = 7;
+            }
             switch (item.type)
             {
-                
+                case ItemID.GravityGlobe:
+                    item.value = Item.sellPrice(gold: 4);
+                    break;
                 case ItemID.GingerBeard:
                     item.value = Item.sellPrice(gold: 8);
                     break;
@@ -36,9 +47,8 @@ namespace TRAEProject.Changes
                     item.useTime = 3; // down from 10
                     item.useAnimation = 3;
                     break;
-                case ItemID.AdamantitePickaxe:
-			       item.useTime = 7; // down from 8
-				   break;				
+          
+ 		
                 case ItemID.ObsidianHorseshoe:
                     item.SetNameOverride("Gravity Horseshoe");
                     break;
@@ -58,10 +68,6 @@ namespace TRAEProject.Changes
                     item.useTime = 5;
                     item.useAnimation = 5;
                     item.tileBoost = 6;
-                    break;
-                case ItemID.StrangeBrew:
-                    item.healMana = 0;
-                    item.healLife = 80;
                     break;
                 case ItemID.BottledHoney:
                     item.healLife = 70;
@@ -90,16 +96,82 @@ namespace TRAEProject.Changes
                 case ItemID.Diamond:
                     item.value = Item.sellPrice(gold: 1);
                     break;
+                case ItemID.RifleScope:
+                    item.rare = ItemRarityID.Pink;
+
+                    item.value = Item.buyPrice(gold: 25);
+                     break;
                 case ItemID.WitchBroom:
                     item.rare = ItemRarityID.Yellow;
+                    break;
+                //case ItemID.Furnace:
+                //    item.value = Item.buyPrice(silver: 10);
+                //    break;
+                //case ItemID.Bomb:
+                //    item.value = Item.buyPrice(silver: 10);
+                //    break;
+                //case ItemID.Dynamite:
+                //    item.value = Item.buyPrice(silver: 65);
+                    //break;
+ 
+                //case ItemID.TinkerersWorkshop:
+                //    item.value = Item.buyPrice(gold: 30);
+                //    break;
+                //case ItemID.SharpeningStation:
+                //case ItemID.BewitchingTable:
+                //case ItemID.CrystalBall:
+                //    item.value = Item.buyPrice(gold: 50);
+                //    break;
+                //case ItemID.TeleportationPylonDesert:
+                //case ItemID.TeleportationPylonHallow:
+                //case ItemID.TeleportationPylonJungle:
+                //case ItemID.TeleportationPylonMushroom:
+                //case ItemID.TeleportationPylonOcean:
+                //case ItemID.TeleportationPylonPurity:
+                //case ItemID.TeleportationPylonSnow:
+                //case ItemID.TeleportationPylonUnderground:
+                //case ItemID.TeleportationPylonVictory:
+                //    item.value = Item.buyPrice(gold: 20);
+                //    break;
+                //case ItemID.ImbuingStation:
+                //    item.value = Item.buyPrice(gold: 50);
+                //    break;
+                //case ItemID.Bell:
+                //case ItemID.Harp:
+                //case ItemID.SpellTome:
+                //    item.value = Item.buyPrice(gold: 70);
+                //    break;
+                case ItemID.PirateHat:
+                case ItemID.PirateShirt:
+                case ItemID.PiratePants:
+                    item.value = Item.buyPrice(gold: 50);
                     break;
             }
         }
         int timer = 0;
+        public override bool ReforgePrice(Item item, ref int reforgePrice, ref bool canApplyDiscount)
+        {
+            if (item.type == ItemID.Uzi)
+            {
+                reforgePrice = Item.buyPrice(gold: 15);
+            }
+            return base.ReforgePrice(item, ref reforgePrice, ref canApplyDiscount);
+        }
         public override bool OnPickup(Item item, Player player)
         {
             timer = 0;
             return true;
+        }
+        public override void UseAnimation(Item item, Player player)
+        {
+            if (!item.useTurn && item.CountsAsClass(DamageClass.Melee) && player.itemAnimation == player.itemAnimationMax && item.shoot == 0 || item.type == ItemID.BeamSword)
+            {
+                Vector2 mousePosition = Main.screenPosition + new Vector2(Main.mouseX, Main.mouseY);
+                if (player.position.X - mousePosition.X > 0)
+                    player.direction = -1;
+                else
+                    player.direction = 1;
+            }
         }
         public override void Update(Item item, ref float gravity, ref float maxFallSpeed)
         {
@@ -298,7 +370,7 @@ namespace TRAEProject.Changes
                         return;
                     }
                 case ItemID.BottledHoney:
-                    player.AddBuff(BuffID.Honey, 2400, false);
+                    player.AddBuff(BuffID.Honey, 1800, false);
                     return;
             }
             return;
@@ -307,6 +379,71 @@ namespace TRAEProject.Changes
        
         public override void ModifyTooltips(Item item, List<TooltipLine> tooltips)
         {
+            foreach (TooltipLine line in tooltips)
+            {
+                if (line.Mod == "Terraria" && line.Name == "Speed")
+                {
+                    Player player = Main.player[item.playerIndexTheItemIsReservedFor];
+                    float roundedUseAnim = MathF.Round(item.useAnimation / (1 + (player.GetAttackSpeed(item.DamageType) - 1 + player.GetAttackSpeed(DamageClass.Generic) - 1) * ItemID.Sets.BonusAttackSpeedMultiplier[item.type]));
+
+                    if (item.CountsAsClass(DamageClass.SummonMeleeSpeed))
+                    {
+                        roundedUseAnim = MathF.Round(item.useAnimation / (1 + ((player.GetAttackSpeed(item.DamageType) - 1 + player.GetAttackSpeed(DamageClass.Melee) - 1 + player.GetAttackSpeed(DamageClass.Generic) - 1) * ItemID.Sets.BonusAttackSpeedMultiplier[item.type])));
+                    }
+                    float attacksPerSecond = 60 / roundedUseAnim;
+                    line.Text = MathF.Round(attacksPerSecond, 1) + " attacks per second";
+
+                    if (item.CountsAsClass(DamageClass.Melee) && !item.CountsAsClass(DamageClass.MeleeNoSpeed) && !item.shootsEveryUse && (item.shoot != 0 || item.GetGlobalItem<HardmodeSwords>().aura != 0)) // write down the projectile's attack speed
+                    {
+                        float projUseTime = MathF.Round(item.useTime / (1 + (player.GetAttackSpeed(DamageClass.MeleeNoSpeed) - 1 + player.GetAttackSpeed(DamageClass.Generic) - 1) * ItemID.Sets.BonusAttackSpeedMultiplier[item.type]));
+                        attacksPerSecond = 60 / projUseTime;
+                        line.Text += "\n" + MathF.Round(attacksPerSecond, 1) + " projectiles per second";
+                    }
+                    if (item.axe > 0 || item.hammer > 0)
+
+                    {
+                        attacksPerSecond = 60 / item.useTime;
+                        line.Text = MathF.Round(attacksPerSecond, 1) + " uses per second";
+                    }
+                    if (item.pick > 0) 
+                    {
+                        float projUseTime = MathF.Round(item.useTime * (player.pickSpeed) - 1);
+                        if (item.GetGlobalItem<DrillItems>().drillSpeed != -1)
+                        {
+
+                            projUseTime = item.useTime;
+
+                        }
+                        if (projUseTime < 1)
+                            projUseTime = 1;
+ 
+                        attacksPerSecond = 60 / projUseTime;
+                        line.Text = MathF.Round(attacksPerSecond, 1) + " uses per second";
+                    }
+                    else if (item.useAnimation != item.useTime && item.reuseDelay != 0) // for weapons like CAR, eventide  
+                    {
+                        attacksPerSecond = 60 / (roundedUseAnim + item.reuseDelay);
+                        line.Text = MathF.Round(attacksPerSecond, 1) + " attacks per second";
+
+                    }
+                    if (item.type == ItemID.DD2PhoenixBow)
+                    { 
+                          line.Text = "3.3 attacks per second";
+                    }
+                    if (item.type == ItemID.VortexBeater)
+                    {
+                        line.Text = "12 attacks per second\n1.7 rockets per second";
+                    }
+                    if (item.type == ItemID.Phantasm)
+                    {
+                        line.Text = "Builds up from 2.5 to 3.3 attacks per second";
+                    }
+                    if (item.type == ItemID.LaserMachinegun)
+                    {
+                        line.Text = "Builds up from 2 to 20 attacks per second";
+                    }
+                }
+            }
             switch (item.type)
             {
                 case ItemID.VineRope:
@@ -386,7 +523,7 @@ namespace TRAEProject.Changes
                     {
                         if (line.Mod == "Terraria" && line.Name == "Tooltip0" && NPC.downedPlantBoss)
                         {
-                            line.Text += "\nRespected by powerful underworld foes";
+                            line.Text += "\nFeared by powerful underworld foes";
                         }
                     }
                     break;

@@ -14,6 +14,7 @@ using TRAEProject.NewContent.Buffs;
 using TRAEProject.NewContent.TRAEDebuffs;
 using static Terraria.ModLoader.ModContent;
 using Terraria.Audio;
+using Microsoft.Xna.Framework.Graphics;
 
 namespace TRAEProject.Changes.Armor
 {
@@ -21,51 +22,46 @@ namespace TRAEProject.Changes.Armor
     {
         public int shadowArmorDodgeChance = 0;
         public bool PirateSet = false;
-        public bool HolyProtection = false;
+        //public bool HolyProtection = false;
         public bool TitaniumArmorOn = false;
         public bool whenHitDodge = false;
         public bool secretPearlwoodSetBonus = false;
+        //public bool TRAEPal = false;
+        //public int PalBuildup = 0;
+        //public const int PalMax = 40 * 120;
+        //public int PalCounter = 0;
         public override void ResetEffects()
         {
             TitaniumArmorOn = false;
             PirateSet = false;
             shadowArmorDodgeChance = 0;
-            HolyProtection = false;
+            //HolyProtection = false;
             whenHitDodge = false;
             secretPearlwoodSetBonus = false;
+            //TRAEPal = false;
         }
         public override void UpdateDead()
         {
             TitaniumArmorOn = false;
             PirateSet = false;
             shadowArmorDodgeChance = 0;
-            HolyProtection = false;
+            //HolyProtection = false;
             whenHitDodge = false;
             secretPearlwoodSetBonus = false;
+            //TRAEPal = false;
+        }
+        public override void PostUpdateEquips()
+        {
+            if (Player.ghostDmg > 0f)
+            {
+                Player.ghostDmg += 1.25f; // it goes down by 6.66 every update. It fills up as you deal damage. With this, it fills up at 325 per second
+            }
         }
         public override void OnHurt(Player.HurtInfo info)
         {
             if (info.Damage > 1)
             {
-                Shadowdodge();
-            }
-        }
-        public override void ModifyHitNPCWithItem(Item item, NPC target, ref NPC.HitModifiers modifiers)
-        {
-            if(secretPearlwoodSetBonus && Main.rand.NextBool(1000))
-            {
-                modifiers.GetDamage(6969, false);
-                Main.NewText("Nice!");
-                SoundEngine.PlaySound(new SoundStyle("TRAEProject/Assets/Sounds/noice") with { MaxInstances = 0 });
-            }
-        }
-        public override void ModifyHitNPCWithProj(Projectile proj, NPC target, ref NPC.HitModifiers modifiers)
-        {
-            if(secretPearlwoodSetBonus && Main.rand.NextBool(1000))
-            {
-                modifiers.GetDamage(6969, false);
-                Main.NewText("Nice!");
-                SoundEngine.PlaySound(new SoundStyle("TRAEProject/Assets/Sounds/noice") with { MaxInstances = 0 });
+                //Shadowdodge();
             }
         }
 
@@ -106,7 +102,7 @@ namespace TRAEProject.Changes.Armor
                 NetMessage.SendData(MessageID.Dodge, -1, -1, null, Player.whoAmI, 1f);
             }
         }
-
+        /*
         void Shadowdodge()
         {
             if (HolyProtection && !whenHitDodge)
@@ -118,5 +114,164 @@ namespace TRAEProject.Changes.Armor
                 }
             }
         }
+        */
+        //public override void UpdateBadLifeRegen()
+        //{
+        //PalCounter++;
+        //if(Player.onHitRegen)
+        //{
+
+        //    Player.setBonus = "Provides 2hp/s life regen\nYour life regen is used to fill hearts\nThe hearts can store up to 40 life, once full normal regen is resumed\nWhen you or a teamate is damaged the hearts will attempt to heal them.";
+        //    Player.onHitRegen = false;
+        //    Player.lifeRegen += 4;
+        //    TRAEPal = true;
+        //    //Main.NewText("hey");
+        //    if(PalBuildup < PalMax)
+        //    {
+        //        int amt = Math.Min(PalMax - PalBuildup, Player.lifeRegen);
+        //        PalBuildup += amt;
+        //        Player.lifeRegen -= amt;
+        //    }
+        //}
+        //if(!TRAEPal)
+        //{
+        //    PalBuildup = 0;
+        //}
+        //if(Player.ghostHeal)
+        //{
+        //    if(Player.lifeSteal < 70)
+        //    {
+        //        float addAmt = Player.lifeRegen * (1/120f);
+        //        Player.lifeSteal += addAmt;
+        //        Player.lifeRegen = 0;
+        //    }
+        //}
+        //}
     }
+    //    public override void PostHurt(Player.HurtInfo info)
+    //    {
+    //        if(!Player.dead && Player.active)
+    //        {
+    //            int healRequest = Player.statLifeMax2 - Player.statLife;
+    //            for(int i = 0; i < Main.player.Length; i++)
+    //            {
+    //                if(healRequest <= 0)
+    //                {
+    //                    break;
+    //                }
+    //                if(Main.player[i].active && !Main.player[i].dead && Main.player[i].team == Player.team && Main.player[i].GetModPlayer<SetBonuses>().TRAEPal && (Main.player[i].Center - Player.Center).Length() < 3000)
+    //                {
+    //                    int amtGivable = Main.player[i].GetModPlayer<SetBonuses>().PalBuildup / 120;
+    //                    int amtGiven = (int)MathF.Min(amtGivable, healRequest);
+    //                    if(amtGiven <= 0)
+    //                    {
+    //                        continue;
+    //                    }
+    //                    healRequest -= amtGiven;
+    //                    Main.player[i].GetModPlayer<SetBonuses>().PalBuildup -= 120 * amtGiven;
+    //                    int leftHeal = amtGiven / 2;
+    //                    int rightHeal = amtGiven - leftHeal;
+    //                    for(int k = 0; k < 2; k++)
+    //                    {
+    //                        Vector2 position = Main.player[i].Center + Vector2.UnitX * (k == 0 ? -1 : 1) * 25 + Vector2.UnitY * MathF.Sin(Main.player[i].GetModPlayer<SetBonuses>().PalCounter * MathF.PI / 30) * (k == 0 ? -1 : 1) * 10;
+    //                        Projectile.NewProjectile(new EntitySource_Misc("Palladium"), position, (k == 0 ? -10 : 10) * Vector2.UnitX, ModContent.ProjectileType<PalProjectile>(), 0, 0, Main.player[i].whoAmI, Player.whoAmI, k == 0 ? leftHeal : rightHeal);
+    //                    }
+    //                }
+    //            }
+    //        }
+    //    }
+    //}
+    //public class PalLayer : PlayerDrawLayer
+    //{
+
+    //    public override bool GetDefaultVisibility(PlayerDrawSet drawInfo)
+    //    {
+    //        return true;
+    //    }
+    //    public override Position GetDefaultPosition() => new AfterParent(PlayerDrawLayers.BackAcc);
+
+    //    protected override void Draw(ref PlayerDrawSet drawInfo)
+    //    {
+    //        if(drawInfo.drawPlayer.TryGetModPlayer<SetBonuses>(out SetBonuses modPlayer))
+    //        {
+    //            if(modPlayer.TRAEPal)
+    //            {
+    //                Texture2D texture = Request<Texture2D>("TRAEProject/Changes/Armor/PalHeart").Value;
+    //                Player drawPlayer = drawInfo.drawPlayer;
+    //                float scale = ((float)modPlayer.PalBuildup / SetBonuses.PalMax) * 0.5f + 0.5f;
+    //                for(int i = 0; i < 2; i++)
+    //                {
+    //                    Vector2 position = drawPlayer.Center + Vector2.UnitX * (i == 0 ? -1 : 1) * 25 + Vector2.UnitY * MathF.Sin(modPlayer.PalCounter * MathF.PI / 30) * (i == 0 ? -1 : 1) * 10;
+                        
+
+    //                    DrawData drawData = 
+    //                    new DrawData(texture, position - Main.screenPosition, null, drawInfo.colorArmorBody, 0f, texture.Size() * 0.5f, scale, SpriteEffects.None, 0)
+    //                    {
+    //                        shader = drawPlayer.dye[1].dye
+    //                    };
+    //                    drawInfo.DrawDataCache.Add(drawData);
+    //                }
+    //            }
+    //        }
+    //    }
+    //}
+    //public class PalProjectile : ModProjectile
+    //{
+    //    public override void SetDefaults()
+    //    {
+    //        Projectile.width = Projectile.height = 22;
+    //        Projectile.extraUpdates = 1;
+    //        Projectile.tileCollide = false;
+    //        Projectile.timeLeft = 60 * 60;
+
+    //    }
+    //    public override void AI()
+    //    {
+    //        Player player = Main.player[(int)Projectile.ai[0]];
+    //        if(player.dead || !player.active)
+    //        {
+    //            Projectile.Kill();
+    //            return;
+    //        }
+    //        Projectile.rotation = Projectile.velocity.ToRotation();
+    //        Projectile.scale = ((float)(Projectile.ai[1] * 120) / SetBonuses.PalMax) * 0.5f + 0.5f;
+    //        //Main.NewText(Projectile.scale);
+    //        if(Projectile.timeLeft < (60 * 60) - 10)
+    //        {
+    //            Projectile.rotation.SlowRotation((player.Center - Projectile.Center).ToRotation(), MathF.PI / 15f);
+    //            Projectile.velocity = TRAEMethods.PolarVector(10, Projectile.rotation);
+    //            if(Collision.CheckAABBvAABBCollision(Projectile.position, Projectile.Size, player.position, player.Size))
+    //            {
+    //                player.statLife += (int)Projectile.ai[1];
+    //                player.HealEffect((int)Projectile.ai[1]);
+    //                Projectile.Kill();
+    //            }
+    //        }
+    //    }
+    //    public override void PostDraw(Color drawColor)
+    //    {
+    //        // As mentioned above, be sure not to forget this step.
+    //        Player player = Main.player[Projectile.owner];
+    //        int shader = player.dye[1].dye;
+    //        if (shader != 0)
+    //        {
+    //            Main.spriteBatch.End();
+    //            Main.spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, Main.DefaultSamplerState, DepthStencilState.None, RasterizerState.CullCounterClockwise, null, Main.Transform);
+    //        }
+    //    }
+
+    //    public override bool PreDraw(ref Color lightColor)
+    //    {
+    //        Player player = Main.player[Projectile.owner];
+    //        int shader = player.dye[1].dye;
+    //        if (shader != 0)
+    //        {
+    //            Main.spriteBatch.End();
+    //            Main.spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend, SamplerState.LinearClamp, DepthStencilState.Default, RasterizerState.CullNone, null, Main.GameViewMatrix.ZoomMatrix);
+
+    //            GameShaders.Armor.GetSecondaryShader(shader, player).Apply(null);
+    //        }
+    //        return true;
+    //    }
+    //}
 }

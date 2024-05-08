@@ -52,10 +52,10 @@ namespace TRAEProject.NewContent.Items.FlamethrowerAmmo
             dustID = DustID.BlueTorch;
             scalemodifier = 0.9f;
             dustScale = 0.5f;
-            ColorMiddle = new Color(82, 158, 218, 75);
-            ColorBack = new Color(91, 163, 245, 75);
+            ColorMiddle = new Color(82, 158, 218, 50);
+            ColorBack = new Color(91, 163, 245, 50);
             ColorLerp = Color.Lerp(ColorMiddle, ColorBack, 0.25f);
-            ColorSmoke = new Color(60, 80, 115, 75);
+            ColorSmoke = new Color(60, 80, 115, 50);
             Projectile.ArmorPenetration = 25;
             Projectile.GetGlobalProjectile<ProjectileStats>().dontHitTheSameEnemyMultipleTimes = true;
             Projectile.GetGlobalProjectile<ProjectileStats>().DamageFalloff = 0.15f;

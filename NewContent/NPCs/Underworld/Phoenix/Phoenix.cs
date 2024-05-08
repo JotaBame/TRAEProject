@@ -23,15 +23,9 @@ namespace TRAEProject.NewContent.NPCs.Underworld.Phoenix
 
         public override void SetStaticDefaults()
 		{
-			NPCDebuffImmunityData debuffData = new NPCDebuffImmunityData
-			{
-				SpecificallyImmuneTo = new int[] {
-					BuffID.OnFire,
-					BuffID.OnFire3,
-					BuffID.Confused // Most NPCs have this
-				}
-			};
-			NPCID.Sets.DebuffImmunitySets.Add(Type, debuffData);
+			NPCID.Sets.SpecificDebuffImmunity[Type][BuffID.OnFire] = true;
+            NPCID.Sets.SpecificDebuffImmunity[Type][BuffID.OnFire3] = true;
+            NPCID.Sets.SpecificDebuffImmunity[Type][BuffID.Confused] = true;
 			// DisplayName.SetDefault("Undying Phoenix"); 
             Main.npcFrameCount[NPC.type] = 5; // make sure to set this for your modnpcs.
         }
@@ -310,20 +304,14 @@ namespace TRAEProject.NewContent.NPCs.Underworld.Phoenix
 
 		public override void SetStaticDefaults()
 		{
-			NPCDebuffImmunityData debuffData = new NPCDebuffImmunityData
-			{
-				SpecificallyImmuneTo = new int[] {
-					BuffID.OnFire,
-					BuffID.OnFire3,
-					BuffID.Confused // Most NPCs have this
-				}
-			};
+			NPCID.Sets.SpecificDebuffImmunity[Type][BuffID.OnFire] = true;
+            NPCID.Sets.SpecificDebuffImmunity[Type][BuffID.OnFire3] = true;
+            NPCID.Sets.SpecificDebuffImmunity[Type][BuffID.Confused] = true;
             NPCID.Sets.NPCBestiaryDrawModifiers value = new NPCID.Sets.NPCBestiaryDrawModifiers(0)
             {
                 Hide = true // Hides this NPC from the Bestiary, useful for multi-part NPCs whom you only want one entry.
             };
             NPCID.Sets.NPCBestiaryDrawOffset.Add(NPC.type, value);
-            NPCID.Sets.DebuffImmunitySets.Add(Type, debuffData);
 			// DisplayName.SetDefault("Phoenix Ash"); // Automatic from .lang files
 			Main.npcFrameCount[NPC.type] = 6; // make sure to set this for your modnpcs.
 		}
@@ -355,6 +343,7 @@ namespace TRAEProject.NewContent.NPCs.Underworld.Phoenix
 			npcLoot.Add(ItemDropRule.Common(ItemID.ChickenNugget, 5));
 			npcLoot.Add(ItemDropRule.Common(ItemID.FireFeather, 10));
 			npcLoot.Add(ItemDropRule.Common(ItemType<MagicalAsh>(), 1, 1, 2));
+            npcLoot.Add(ItemDropRule.Common(ItemID.HelFire, 10));
 		}
         public override void HitEffect(NPC.HitInfo hit)
 		{

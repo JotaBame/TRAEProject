@@ -19,6 +19,7 @@ namespace TRAEProject.NewContent.Items.DreadItems.BossBag
             // DisplayName.SetDefault("Treasure Bag");
             // Tooltip.SetDefault("{$CommonItemTooltip.RightClickToOpen}");
             CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
+            ItemID.Sets.BossBag[Type] = true;
         }
 
         public override void SetDefaults()
@@ -37,13 +38,10 @@ namespace TRAEProject.NewContent.Items.DreadItems.BossBag
         {
             return true;
         }
-
         public override void ModifyItemLoot(ItemLoot itemLoot)
         {
-            int loot = Main.rand.NextFromList(new int[] { ItemType<ShellSpinner.ShellSpinner>(), ItemType<BloodBoiler.BloodBoiler>(), ItemType<Brimstone.Brimstone>(), ItemID.SanguineStaff });
-            if (loot == ItemType<BloodBoiler.BloodBoiler>())
-                itemLoot.Add(ItemDropRule.Common(ItemType<BloodyGel>(), 1, 80, 120));
-            itemLoot.Add(ItemDropRule.Common(loot, 1));
+
+            itemLoot.Add(ItemDropRule.OneFromOptions(1, ItemType<ShellSpinner.ShellSpinner>(), ItemType<BloodBoiler.BloodBoiler>(), ItemType<Brimstone.Brimstone>(), ItemID.SanguineStaff));
             itemLoot.Add(ItemDropRule.Common(ItemID.BloodHamaxe, 8));
             itemLoot.Add(ItemDropRule.Common(ItemType<BloodWings.BloodWings>(), 6));
             itemLoot.Add(ItemDropRule.Common(ItemID.BloodMoonMonolith, 9));

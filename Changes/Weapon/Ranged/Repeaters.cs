@@ -39,8 +39,8 @@ namespace TRAEProject.Changes.Weapon.Ranged
                     item.SetNameOverride("Mythril Ballista");
                     break;
                 case ItemID.OrichalcumRepeater:
-                    item.damage = 29;
-                    item.useTime = item.useAnimation = 24;
+                    item.damage = 36;
+                    item.useTime = item.useAnimation = 19;
                     item.SetNameOverride("Orichalcum Crossbow");
                     break;
                 case ItemID.TitaniumRepeater:
@@ -85,6 +85,15 @@ namespace TRAEProject.Changes.Weapon.Ranged
         {
             switch (item.type)
             {
+                case ItemID.PalladiumRepeater:
+                    foreach (TooltipLine line in tooltips)
+                    {
+                        if (line.Mod == "Terraria" && line.Name == "Knockback")
+                        {
+                            line.Text += "\nGreatly increases life regeneration after striking an enemy\nMore effective with Palladium armor equipped";
+                        }
+                    }
+                    break;
                 case ItemID.MythrilRepeater:
                     foreach (TooltipLine line in tooltips)
                     {
@@ -101,7 +110,7 @@ namespace TRAEProject.Changes.Weapon.Ranged
     {
         public override void OnHitNPC(Projectile projectile, NPC target, NPC.HitInfo hit, int damageDone)
         {
-            if(projectile.arrow)
+            if(projectile.arrow && !projectile.GetGlobalProjectile<ProjectileStats>().FirstHit)
             {
                 Player player = Main.player[projectile.owner];
                 switch (player.HeldItem.type)
@@ -128,7 +137,7 @@ namespace TRAEProject.Changes.Weapon.Ranged
                         num4 = 24f / num4;
                         num2 *= num4;
                         num3 *= num4;
-                        Projectile.NewProjectile(player.GetSource_FromThis(), k, y2, num2, num3, 221, 20, 0f, player.whoAmI);
+                        Projectile.NewProjectile(player.GetSource_FromThis(), k, y2, num2, num3, 221, 30, 0f, player.whoAmI);
                         return;
                 }
             }
@@ -143,12 +152,12 @@ namespace TRAEProject.Changes.Weapon.Ranged
             Projectile.aiStyle = 1;
             AIType = ProjectileID.Bullet;
             Projectile.timeLeft = 30;
-            Projectile.ArmorPenetration = 15;
+            Projectile.ArmorPenetration = 20;
             Projectile.extraUpdates = 1;
             Projectile.scale = 1.35f;
             Projectile.DamageType = DamageClass.Ranged;
         }
-        public override void Kill(int timeLeft)
+        public override void OnKill(int timeLeft)
         {
             for (int i = 0; i < 8; i++)
             {

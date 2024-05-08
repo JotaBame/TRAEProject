@@ -8,12 +8,11 @@ using System.Collections.Generic;
 using Terraria.Utilities;
 using TRAEProject.NewContent.Buffs;
 using TRAEProject.Changes;
-using TRAEProject.NewContent.Items.Accesories.EvilEye;
 using TRAEProject.NewContent.Items.Accesories.ShadowflameCharm;
 using TRAEProject.Changes.Items;
 using TRAEProject.Common.ModPlayers;
 using static Terraria.ModLoader.ModContent;
-
+using TRAEProject.NewContent.Items.Accesories;
 
 namespace TRAEProject.Changes.Accesory
 {
@@ -24,11 +23,43 @@ namespace TRAEProject.Changes.Accesory
         BuffID.Confused, BuffID.Slow, BuffID.OgreSpit, BuffID.Weak, BuffID.BrokenArmor,
         BuffID.CursedInferno,   BuffID.Frostburn,  BuffID.Chilled,  BuffID.Frozen,
         BuffID.Ichor,   BuffID.Stoned,  BuffID.VortexDebuff,  BuffID.Obstructed,
-        BuffID.Electrified, BuffID.ShadowFlame, BuffID.WitheredWeapon, BuffID.WitheredArmor, BuffID.Dazed, BuffID.Burning}; // 
+        BuffID.Electrified, BuffID.ShadowFlame, BuffID.WitheredWeapon, BuffID.WitheredArmor, BuffID.Dazed, BuffID.Burning}; //
 
-        void CelestialStoneStats(Player player)
+
+        
+        static void CelestialStoneStats(Player player)
         {
             player.skyStoneEffects = false;
+
+
+            //total stats: 
+            //4% increased damage critical strike chance, movement speed, and jump speed
+            //8% increased melee speed
+            //10% incresed mining speed and reduced ammo usage
+            //increases defense and armor penetration by 4
+            //increases max life and mana by 20
+            //increases life regen by 0.5hp/s
+            /*
+            player.GetDamage<GenericDamageClass>() += 0.04f;
+            player.GetCritChance<GenericDamageClass>() += 4;
+            player.moveSpeed += 0.04f;
+            player.jumpSpeedBoost += Mobility.JSV(0.04f);
+
+            player.GetAttackSpeed(DamageClass.Melee) += 0.08f;
+
+            player.GetModPlayer<RangedStats>().chanceNotToConsumeAmmo += 10;
+            
+
+            player.statDefense += 4;
+            player.GetArmorPenetration(DamageClass.Generic) += 4;
+
+            player.statLifeMax2 += 20;
+            player.statManaMax2 += 20;
+
+            player.lifeRegen++;
+            */
+            // total stats: +8% damage, +2% crit, +0.5 hp/s, +4 defense. +5% melee speed, +20 max mana, +5% movement speed, 10% chance not to consume ammo
+            player.pickSpeed -= 1.1f;
             player.GetDamage<GenericDamageClass>() += 0.08f;
             player.GetCritChance<GenericDamageClass>() += 2;
             player.statDefense += 4;
@@ -36,14 +67,17 @@ namespace TRAEProject.Changes.Accesory
             player.statManaMax2 += 20;
             player.GetAttackSpeed(DamageClass.Melee) += 0.05f;
             player.GetModPlayer<RangedStats>().chanceNotToConsumeAmmo += 10;
+            
         }
         public override void UpdateAccessory(Item item, Player player, bool hideVisual)
         {
             switch (item.type)
             {
+          
+
                 case ItemID.FastClock:
                     Main.time += 4;
-                    player.buffImmune[BuffID.Slow] = false;
+                     player.buffImmune[BuffID.Slow] = false;
                     break;
                 case ItemID.Bezoar:
                     player.GetModPlayer<Bezoar>().bezoar = true;
@@ -96,10 +130,7 @@ namespace TRAEProject.Changes.Accesory
                     player.GetModPlayer<ShadowflameCharmPlayer>().MoltenCharm += 1;
                     player.fireWalk = false;
                     break;
-                case ItemID.StarVeil:
-                    player.starCloakItem = null;
-                    player.GetModPlayer<OnHitItems>().NewstarsOnHit = true;
-                    break;
+
                 case ItemID.MechanicalGlove:
                     player.kbGlove = false;
                     player.meleeScaleGlove = false;
@@ -122,7 +153,7 @@ namespace TRAEProject.Changes.Accesory
                 case ItemID.CelestialStone:
                     CelestialStoneStats(player);
 
-                    // total stats: +8% damage, +2% crit, +0.5 hp/s, +4 defense. +5% melee speed, +20 max mana, +5% movement speed, 10% chance not to consume ammo
+                    
                     break;
                 case ItemID.MoonStone:
                     if (!Main.dayTime)
@@ -142,7 +173,8 @@ namespace TRAEProject.Changes.Accesory
                     player.wolfAcc = false;
                     break;
                 case ItemID.BandofStarpower:
-                    player.GetModPlayer<Mana>().manaRegenBoost += 0.1f;                    player.statManaMax2 -= 20;
+                    player.GetModPlayer<Mana>().manaRegenBoost += 0.1f;                    
+                    player.statManaMax2 -= 20;
                     break;
                 case ItemID.ManaRegenerationBand:
                     player.statManaMax2 -= 20;
@@ -150,21 +182,7 @@ namespace TRAEProject.Changes.Accesory
                     player.GetModPlayer<Mana>().manaRegenBoost += 0.1f;
                     player.lifeRegen += 2;
                     break;
-                case ItemID.MagicCuffs:
-                    player.GetModPlayer<OnHitItems>().magicCuffsCount += 1; // the duration of the buff is the Hit's damage multiplied by this number, then multiplied by 3. This also decides how much mana is recovered.
-                    player.statManaMax2 -= 20;
-                    player.magicCuffs = false;
-                    break;
-                case ItemID.CelestialCuffs:
-                    player.statManaMax2 -= 20;
-                    player.GetModPlayer<OnHitItems>().magicCuffsCount += 1;
-                    player.magicCuffs = false;
-                    player.GetModPlayer<Mana>().celestialCuffsOverload = true;
-                    break;
-                case ItemID.StarCloak:
-                    player.starCloakItem = null;
-                    player.GetModPlayer<OnHitItems>().NewstarsOnHit = true;
-                    break;
+
                 case ItemID.ManaCloak:
                     player.starCloakItem_manaCloakOverrideItem = item;
                     player.GetModPlayer<Mana>().manaCloak = true;
@@ -178,8 +196,8 @@ namespace TRAEProject.Changes.Accesory
                 case ItemID.ArcaneFlower:
                     player.manaCost += 0.08f;
                     player.GetModPlayer<Mana>().newManaFlower = true;
-                    player.GetDamage<MagicDamageClass>() += 0.05f;
-                    player.GetCritChance<MagicDamageClass>() += 5;
+                    player.GetDamage<MagicDamageClass>() += 0.04f;
+                    player.GetCritChance<MagicDamageClass>() += 4;
                     break;
                 case ItemID.CelestialEmblem:
                     player.GetDamage<MagicDamageClass>() -= 0.03f;
@@ -216,28 +234,20 @@ namespace TRAEProject.Changes.Accesory
                 case ItemID.ApprenticeScarf:
                     ++player.maxTurrets;
                     player.GetDamage<SummonDamageClass>() -= 0.1f;
-                    player.GetDamage<MagicDamageClass>() += 0.07f;
+                    player.GetDamage<MagicDamageClass>() += 0.1f;
                     player.dd2Accessory = false;
                     break;
                 case ItemID.MonkBelt:
                     ++player.maxTurrets;
-                    player.GetDamage<SummonDamageClass>() += 0.07f;
+                    player.GetDamage<SummonDamageClass>() += 0.1f;
                     player.dd2Accessory = false;
                     break;
                 case ItemID.HuntressBuckler:
                     ++player.maxTurrets;
-                    player.GetDamage<RangedDamageClass>() += 0.07f;
+                    player.GetDamage<RangedDamageClass>() += 0.1f;
                     player.dd2Accessory = false;
                     break;
-                case ItemID.RifleScope:
-                    player.GetModPlayer<RangedStats>().GunScope = true;
-                    player.GetModPlayer<RangedStats>().gunVelocity += 0.5f; 
-                    break;
-                case ItemID.SniperScope:
-                    player.GetModPlayer<RangedStats>().GunScope = true;
-                    player.GetModPlayer<RangedStats>().gunVelocity += 0.5f;
-                    player.GetDamage<RangedDamageClass>() -= 0.1f;
-                    break;
+   
     
             }
         }
@@ -255,15 +265,17 @@ namespace TRAEProject.Changes.Accesory
         }
         public override void ModifyTooltips(Item item, List<TooltipLine> tooltips)
         {
+            string celStone = "8% increased damage\n2% increased critical strike chance\n5% increased melee speed\n10% increased mining speed and reduced ammo usage\nIncreases defense by 4\nIncreases mana by 20\nIncreases life regen by 0.5hp/s";
+            //string celStone = "4% increased damage, critical strike chance, movement speed, and jump speed\n8% increased melee speed\n10% incresed mining speed and reduced ammo usage\nincreases defense and armor penetration by 4\nincreases max life and mana by 20\nincreases life regen by 0.5hp/s";
+
             switch (item.type)
             {
-                
                 case ItemID.SquireShield:
                     foreach (TooltipLine line in tooltips)
                     {
                         if (line.Mod == "Terraria" && line.Name == "Tooltip1")
                         {
-                            line.Text = "7% increased melee damage";
+                            line.Text = "10% increased melee damage";
                         }
                     }
                     break;
@@ -272,7 +284,7 @@ namespace TRAEProject.Changes.Accesory
                     {
                         if (line.Mod == "Terraria" && line.Name == "Tooltip1")
                         {
-                            line.Text = "7% increased magic damage";
+                            line.Text = "10% increased magic damage";
                         }
                     }
                     break;
@@ -281,7 +293,7 @@ namespace TRAEProject.Changes.Accesory
                     {
                         if (line.Mod == "Terraria" && line.Name == "Tooltip1")
                         {
-                            line.Text = "7% increased ranged damage";
+                            line.Text = "10% increased ranged damage";
                         }
                     }
                     break;
@@ -290,7 +302,7 @@ namespace TRAEProject.Changes.Accesory
                     {
                         if (line.Mod == "Terraria" && line.Name == "Tooltip1")
                         {
-                            line.Text = "7% increased summon damage";
+                            line.Text = "10% increased summon damage";
                         }
                     }
                     break;
@@ -299,7 +311,7 @@ namespace TRAEProject.Changes.Accesory
                     {
                         if (line.Mod == "Terraria" && line.Name == "Tooltip0")
                         {
-                            line.Text = "Significantly increases potency of friendly Poison";
+                            line.Text = "Significantly increases potency of friendly Poison and Venom";
                         }
                     }
                     break;
@@ -317,7 +329,7 @@ namespace TRAEProject.Changes.Accesory
                     {
                         if (line.Mod == "Terraria" && line.Name == "Tooltip0")
                         {
-                            line.Text = "Significantly increases potency of friendly Poison\nIncreases potency of friendly debuffs by 50%";
+                            line.Text = "Significantly increases potency of friendly Poison and Venom\nIncreases potency of friendly debuffs by 50%";
                         }
                     }
                     break;
@@ -358,40 +370,11 @@ namespace TRAEProject.Changes.Accesory
                         }
                     }
                     break;
-                case ItemID.HoneyComb:
-                    foreach (TooltipLine line in tooltips)
-                    {
-                        if (line.Mod == "Terraria" && line.Name == "Tooltip0")
-                        {
 
-                            line.Text = "Releases bees and increases life regeneration when damaged";
-                        }
-                    }
-                    break;
           
        
-                case ItemID.Shackle:
-                    foreach (TooltipLine line in tooltips)
-                    {
-                        if (line.Mod == "Terraria" && line.Name == "Defense")
-                        {
-                            line.Text += "\nTemporarily increases defense when damaged";
-                        }
-                    }
-                    break;
-                case ItemID.BandofStarpower:
-                    foreach (TooltipLine line in tooltips)
-                    {
-                        if (line.Mod == "Terraria" && line.Name == "Tooltip0")
-                        {
-                            line.Text = "Increases mana regeneration rate by 10%";
-                        }
-                        if (line.Mod == "Terraria" && line.Name == "Tooltip1")
-                        {
-                            line.Text = "";
-                        }
-                    }
-                    break;
+      
+         
                 case ItemID.ManaRegenerationBand:
                     foreach (TooltipLine line in tooltips)
                     {
@@ -418,36 +401,7 @@ namespace TRAEProject.Changes.Accesory
                         }
                     }
                     break;
-                case ItemID.MagicCuffs:
-                    foreach (TooltipLine line in tooltips)
-                    {
-                        if (line.Mod == "Terraria" && line.Name == "Tooltip0")
-                        {
-                            line.Text = "Restores mana when damaged";
-                        }
-                        if (line.Mod == "Terraria" && line.Name == "Tooltip1")
-                        {
-                            line.Text = "Can go over maximum mana";
-                        }
-                    }
-                    break;
-                case ItemID.CelestialCuffs:
-                    foreach (TooltipLine line in tooltips)
-                    {
-                        if (line.Mod == "Terraria" && line.Name == "Tooltip0")
-                        {
-                            line.Text = "Restores mana when damaged, can go over maximum mana";
-                        }
-                        if (line.Mod == "Terraria" && line.Name == "Tooltip1")
-                        {
-                            line.Text = "Increases pickup range for mana stars";
-                        }
-                        if (line.Mod == "Terraria" && line.Name == "Tooltip2")
-                        {
-                            line.Text = "";
-                        }
-                    }
-                    break;
+               
                 case ItemID.MechanicalGlove:
                     foreach (TooltipLine line in tooltips)
                     {
@@ -469,16 +423,7 @@ namespace TRAEProject.Changes.Accesory
                         }
                     }
                     break;
-                case ItemID.CrossNecklace:
-                case ItemID.StarVeil:
-                    foreach (TooltipLine line in tooltips)
-                    {
-                        if (line.Mod == "Terraria" && line.Name == "Tooltip0")
-                        {
-                            line.Text += "\nMore effective on strong hits";
-                        }
-                    }
-                    break;
+
                 case ItemID.MagnetFlower:
                 case ItemID.ManaFlower:
                     foreach (TooltipLine line in tooltips)
@@ -489,12 +434,21 @@ namespace TRAEProject.Changes.Accesory
                         }
                     }
                     break;
+                case ItemID.PutridScent:
+                    foreach (TooltipLine line in tooltips)
+                    {
+                        if (line.Mod == "Terraria" && line.Name == "Tooltip0")
+                        {
+                            line.Text = "4% increased magic damage and critical strike chance";
+                        }
+                    }
+                    break;
                 case ItemID.ArcaneFlower:
                     foreach (TooltipLine line in tooltips)
                     {
                         if (line.Mod == "Terraria" && line.Name == "Tooltip0")
                         {
-                            line.Text = "Magic critical strikes have a chance to spawn a mana star\n5% increased magic damage and critical strike chance";
+                            line.Text = "Magic critical strikes have a chance to spawn a mana star\n4% increased magic damage and critical strike chance";
                         }
                     }
                     break;
@@ -631,12 +585,27 @@ namespace TRAEProject.Changes.Accesory
                         }
                     }
                     break;
+                    //total stats: 
+                    //4% increased damage critical strike chance, movement speed, and jump speed
+                    //8% increased melee speed
+                    //10% incresed mining speed and reduced ammo usage
+                    //increases defense and armor penetration by 4
+                    //increases max life and mana by 20
+                    //increases life regen by 0.5hp/s
                 case ItemID.SunStone:
                     foreach (TooltipLine line in tooltips)
                     {
                         if (line.Mod == "Terraria" && line.Name == "Tooltip0")
                         {
-                            line.Text = "Minor increases to damage, maximum mana, chance not to consume ammo,";
+                            line.Text = "During the Day: ";
+                        }
+                        if (line.Mod == "Terraria" && line.Name == "Tooltip1")
+                        {
+                            line.Text = celStone;
+                        }
+                        if (line.Mod == "Terraria" && line.Name == "Tooltip2")
+                        {
+                            line.Text = "";
                         }
 
                     }
@@ -646,7 +615,15 @@ namespace TRAEProject.Changes.Accesory
                     {
                         if (line.Mod == "Terraria" && line.Name == "Tooltip0")
                         {
-                            line.Text = "Minor increases to damage, maximum mana, chance not to consume ammo,";
+                            line.Text = "During the Night: ";
+                        }
+                        if (line.Mod == "Terraria" && line.Name == "Tooltip1")
+                        {
+                            line.Text = celStone;
+                        }
+                        if (line.Mod == "Terraria" && line.Name == "Tooltip2")
+                        {
+                            line.Text = "";
                         }
 
                     }
@@ -656,11 +633,15 @@ namespace TRAEProject.Changes.Accesory
                     {
                         if (line.Mod == "Terraria" && line.Name == "Tooltip0")
                         {
-                            line.Text = "Minor increases to damage, maximum mana, chance not to consume ammo,";
+                            line.Text = celStone;
                         }
                         if (line.Mod == "Terraria" && line.Name == "Tooltip1")
                         {
-                            line.Text = "melee speed, critical strike chance, life regeneration,";
+                            line.Text = "";
+                        }
+                        if (line.Mod == "Terraria" && line.Name == "Tooltip2")
+                        {
+                            line.Text = "";
                         }
                     }
                     break;
@@ -673,11 +654,19 @@ namespace TRAEProject.Changes.Accesory
                         }
                         if (line.Mod == "Terraria" && line.Name == "Tooltip1")
                         {
-                            line.Text = "Minor increases to damage, maximum mana,";
+                            line.Text = celStone;
                         }
                         if (line.Mod == "Terraria" && line.Name == "Tooltip2")
                         {
-                            line.Text = "chance not to consume ammo, melee speed,";
+                            line.Text = "";
+                        }
+                        if (line.Mod == "Terraria" && line.Name == "Tooltip3")
+                        {
+                            line.Text = "";
+                        }
+                        if (line.Mod == "Terraria" && line.Name == "Tooltip4")
+                        {
+                            line.Text = "";
                         }
                     }
                     break;
@@ -712,73 +701,9 @@ namespace TRAEProject.Changes.Accesory
                         }
                     }
                     break;
-                case ItemID.MagicQuiver:
-                    foreach (TooltipLine line in tooltips)
-                    {
-                        if (line.Mod == "Terraria" && line.Name == "Tooltip0")
-                        {
-                            line.Text = "Your arrows will bounce towards nearby enemies, losing 33% damage in the process";
-                        }
-                        if (line.Mod == "Terraria" && line.Name == "Tooltip1")
-                        {
-                            line.Text = "";
-                        }
-                    }
-                    break;
-                case ItemID.StalkersQuiver:
-                    foreach (TooltipLine line in tooltips)
-                    {
-                        if (line.Mod == "Terraria" && line.Name == "Tooltip0")
-                        {
-                            line.Text = "Your arrows will bounce towards nearby enemies, losing 33% damage in the process";
 
-                        }
-                        if (line.Mod == "Terraria" && line.Name == "Tooltip1")
-                        {
-                            line.Text = "5% increased ranged damage and critical strike chance";
-                        }
-                    }
-                    break;
 
-                case ItemID.RifleScope:
-                    foreach (TooltipLine line in tooltips)
-                    {
-                        if (line.Mod == "Terraria" && line.Name == "Tooltip0")
-                        {
-                            line.Text = "Increases view range for guns (right click to zoom out!)";
-                        }
-                        if (line.Mod == "Terraria" && line.Name == "Tooltip1")
-                        {
-                            line.Text = "Increases ranged velocity and tightens gun spread";
-                        }
-                    }
-                    break;
-                case ItemID.SniperScope:
-                    foreach (TooltipLine line in tooltips)
-                    {
-                        if (line.Mod == "Terraria" && line.Name == "Tooltip1")
-                        {
-                            line.Text = "Increases ranged velocity and tightens gun spread\n10% increased ranged critical strike chance";
-                        }
-                    }
-                    break;
-                case ItemID.ReconScope:
-                    foreach (TooltipLine line in tooltips)
-                    {
-                        if (line.Mod == "Terraria" && line.Name == "Tooltip0")
-                        {
-                            line.Text = "Increases view range for guns (right click to zoom out!)";
-                        }
-                        if (line.Mod == "Terraria" && line.Name == "Tooltip1")
-                        {
-                            line.Text = "Increases ranged velocity and tightens gun spread";
-                        }
-                        if (line.Mod == "Terraria" && line.Name == "Tooltip2")
-                        {
-                            line.Text = "Your ranged attacks will bounce towards their nearby enemy";
-                        }
-                    }
-                    break;
+
                 case ItemID.ShinyStone:
                     foreach (TooltipLine line in tooltips)
                     {
@@ -791,6 +716,7 @@ namespace TRAEProject.Changes.Accesory
             }
         }
     }
+ 
 }
 
 

@@ -18,7 +18,7 @@ namespace TRAEProject.NewContent.Items.Armor.LeatherArmor
         }
         public override void SetDefaults()
         {
-            Item.value = Item.sellPrice(0, 0, 0, 35);
+            Item.value = Item.sellPrice(0, 0, 2, 30);
             Item.rare = ItemRarityID.Blue;
             Item.width = 26;
             Item.height = 14;

@@ -36,6 +36,10 @@ namespace TRAEProject.Changes.Accesory
                     break;
                
                 case ItemID.MoltenQuiver:
+                    player.magicQuiver = false;
+                    player.GetModPlayer<RangedStats>().Magicquiver += 1;
+                    if (player.HeldItem.useAmmo == AmmoID.Arrow || player.HeldItem.useAmmo == AmmoID.Stake)
+                        player.GetDamage<RangedDamageClass>() -= 0.1f; // 1.4.4 magic quiver uses a new bool and guess what it is not supported by tmod (at least at the time i'm writing this note)
                     player.GetModPlayer<ObsidianSkullEffect>().arrowsburn += 1;
                     break;
                 case ItemID.ObsidianRose:
@@ -149,7 +153,7 @@ namespace TRAEProject.Changes.Accesory
                     {
                         if (line.Mod == "Terraria" && line.Name == "Tooltip1")
                         {
-                            line.Text = "Hitting nearby enemies lowers their defense by 3, up to 3";
+                            line.Text = "Hitting nearby enemies lowers their defense by 3, up to 9";
                         }
                     }
                     break;
@@ -209,8 +213,8 @@ namespace TRAEProject.Changes.Accesory
             }
             if (hit.Crit && Player.magmaStone)
             {
-                int chance = 1600 / (damageDone * magmas); //On hit NPC ignores crits' boosted damage
-				if (chance <= 1)
+                int chance = 1600 / (damageDone / 2 * magmas);
+                if (chance <= 1)
                     chance = 1;
                 if (Main.rand.NextBool(chance))
                 {
@@ -243,7 +247,7 @@ namespace TRAEProject.Changes.Accesory
             {
                 if (proj.CountsAsClass<MeleeDamageClass>())
                 {
-                    int chance = 1600 / (damageDone * magmas);
+                    int chance = 1600 / (damageDone / 2 * magmas);
                     if (chance <= 1)
                         chance = 1;
                     if (Main.rand.NextBool(chance))
@@ -258,7 +262,7 @@ namespace TRAEProject.Changes.Accesory
                             Dust d = Dust.NewDustPerfect(target.Center, DustID.Torch, speed * 3, Scale: 1.5f);
                             d.noGravity = true;
                         }
-                        int duration = 180;
+                        int duration = 60 + 60 * magmas;
                         target.AddBuff(BuffID.Daybreak, duration);
                     }
                 }
@@ -279,7 +283,7 @@ namespace TRAEProject.Changes.Accesory
                 target.AddBuff(BuffID.OnFire3, Main.rand.Next(120, 360));
                 if (hit.Crit)
                 {
-                    int chance = 1600 / (damageDone * (arrowsburn + moltenskullrose));
+                    int chance = 1600 / (damageDone / 2 * arrowsburn);
                     if (Main.rand.NextBool(chance))
                     {
                         if (target.HasBuff(BuffID.Daybreak))

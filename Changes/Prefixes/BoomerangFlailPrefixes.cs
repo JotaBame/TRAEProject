@@ -244,7 +244,7 @@ namespace TRAEProject.Changes.Prefixes
                         }
                         if (pre == PrefixType<Brutal>())
                         {
-                            Player.GetAttackSpeed(DamageClass.Melee) *= 1.1f;
+                            Player.GetAttackSpeed(DamageClass.Melee) *=1.1f;
                         }
                         if (pre == PrefixType<Dense>() || pre == PrefixType<Pathetic>())
                         {

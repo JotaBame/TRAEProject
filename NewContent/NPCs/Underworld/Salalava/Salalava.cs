@@ -21,17 +21,12 @@ namespace TRAEProject.NewContent.NPCs.Underworld.Salalava
     {
         public override void SetStaticDefaults()
         {
-            NPCDebuffImmunityData debuffData = new NPCDebuffImmunityData
-            {
-                SpecificallyImmuneTo = new int[] {
-                    BuffID.OnFire,
-                    BuffID.OnFire3,
-                    BuffID.Confused // Most NPCs have this
-				}
-            };
-            NPCID.Sets.DebuffImmunitySets.Add(Type, debuffData);
+            NPCID.Sets.SpecificDebuffImmunity[Type][BuffID.OnFire] = true;
+            NPCID.Sets.SpecificDebuffImmunity[Type][BuffID.OnFire3] = true;
+            NPCID.Sets.SpecificDebuffImmunity[Type][BuffID.Confused] = true;
             // DisplayName.SetDefault("Salalava");
             Main.npcFrameCount[NPC.type] = 10;
+            NPCID.Sets.NoMultiplayerSmoothingByType[Type] = true;
         }
 
         public override void SetDefaults()
@@ -68,7 +63,7 @@ namespace TRAEProject.NewContent.NPCs.Underworld.Salalava
         public override void ModifyNPCLoot(NPCLoot npcLoot)
         {
             npcLoot.Add(ItemDropRule.Common(ItemType<SalamanderTail>(), 1));
-            npcLoot.Add(ItemDropRule.Common(ItemID.Hotdog, 33));
+            npcLoot.Add(ItemDropRule.Common(ItemID.Hotdog, 10));
         }
 
         float jump = 0;
@@ -109,6 +104,29 @@ namespace TRAEProject.NewContent.NPCs.Underworld.Salalava
             {
                 NPC.velocity.X = 0f;
             }
+            if(NPC.ai[2] != 0 && NPC.ai[3] != 0)
+            {
+                
+                NPC.position -= NPC.netOffset;
+                NPC.position.X = NPC.ai[2] * 16f - (float)(NPC.width / 2) + 8f;
+                NPC.position.Y = NPC.ai[3] * 16f - (float)NPC.height;
+                NPC.netOffset *= 0f;
+                NPC.velocity.X = 0f;
+                NPC.velocity.Y = 0f;
+                NPC.ai[2] = 0;
+                NPC.ai[3] = 0;
+                for (int num70 = 0; num70 < 30; num70++)
+                {
+
+                    int num78 = Dust.NewDust(new Vector2(NPC.position.X, NPC.position.Y), NPC.width, NPC.height, DustID.Torch, 0f, 0f, 100, default, 2.5f);
+                    Dust dust = Main.dust[num78];
+                    dust.velocity *= 3f;
+
+                }
+
+                NPC.position += NPC.netOffset;
+                SoundEngine.PlaySound(SoundID.Item8 with { MaxInstances = 0 }, NPC.position);
+            }
             if (teleportTimer >= 600f && Main.netMode != NetmodeID.MultiplayerClient)
             {
                 onlyOnce = false;
@@ -126,24 +144,7 @@ namespace TRAEProject.NewContent.NPCs.Underworld.Salalava
                     NPC.ai[3] = chosenTile.Y;
                     NPC.netUpdate = true;
 
-                    NPC.position -= NPC.netOffset;
-                    NPC.position.X = NPC.ai[2] * 16f - (float)(NPC.width / 2) + 8f;
-                    NPC.position.Y = NPC.ai[3] * 16f - (float)NPC.height;
-                    NPC.netOffset *= 0f;
-                    NPC.velocity.X = 0f;
-                    NPC.velocity.Y = 0f;
-
-                    for (int num70 = 0; num70 < 30; num70++)
-                    {
-
-                        int num78 = Dust.NewDust(new Vector2(NPC.position.X, NPC.position.Y), NPC.width, NPC.height, DustID.Torch, 0f, 0f, 100, default, 2.5f);
-                        Dust dust = Main.dust[num78];
-                        dust.velocity *= 3f;
-
-                    }
-
-                    NPC.position += NPC.netOffset;
-                    SoundEngine.PlaySound(SoundID.Item8 with { MaxInstances = 0 }, NPC.position);
+                    
                 }
 
             }
@@ -218,7 +219,7 @@ namespace TRAEProject.NewContent.NPCs.Underworld.Salalava
                                 SoundEngine.PlaySound(SoundID.DD2_DrakinShot with { MaxInstances = 0 }, NPC.Center);
                                 if (Main.netMode != NetmodeID.MultiplayerClient)
                                 {
-                                    Vector2 vector3 = Vector2.Normalize(Main.player[NPC.target].Center - NPC.Center) * (NPC.width/* + 20*/) / 2f + NPC.Center;
+                                    Vector2 vector3 = NPC.spriteDirection * (NPC.width / 2f) * Vector2.UnitX + NPC.Center;
                                     NPC.NewNPC(NPC.GetSource_FromAI(), (int)vector3.X, (int)vector3.Y - 17, NPCType<LavaBubble>());
 
                                 }
@@ -358,19 +359,12 @@ namespace TRAEProject.NewContent.NPCs.Underworld.Salalava
     {
         public override void SetStaticDefaults()
         {
-            NPCDebuffImmunityData debuffData = new NPCDebuffImmunityData
-            {
-                SpecificallyImmuneTo = new int[] {
-                    BuffID.OnFire,
-                    BuffID.OnFire3,
-                    BuffID.Daybreak,
-                    BuffID.Confused // Most NPCs have this
-				}
-            };
-            NPCID.Sets.DebuffImmunitySets.Add(Type, debuffData);
+            NPCID.Sets.SpecificDebuffImmunity[Type][BuffID.OnFire] = true;
+            NPCID.Sets.SpecificDebuffImmunity[Type][BuffID.OnFire3] = true;
+            NPCID.Sets.SpecificDebuffImmunity[Type][BuffID.Confused] = true;
             // DisplayName.SetDefault("Lava Bubble");
             Main.npcFrameCount[NPC.type] = 1;
-            NPCID.Sets.NPCBestiaryDrawModifiers value = new NPCID.Sets.NPCBestiaryDrawModifiers(0)
+            NPCID.Sets.NPCBestiaryDrawModifiers value = new NPCID.Sets.NPCBestiaryDrawModifiers()
             {
                 Hide = true // Hides this NPC from the Bestiary, useful for multi-part NPCs whom you only want one entry.
             };
@@ -401,7 +395,7 @@ namespace TRAEProject.NewContent.NPCs.Underworld.Salalava
                 onlyonce = false;
             }
            
-            NPC.velocity *= 0.98f;
+            //NPC.velocity *= 0.98f;
         }
         public override void OnKill()
         {
@@ -441,15 +435,9 @@ namespace TRAEProject.NewContent.NPCs.Underworld.Salalava
     {
         public override void SetStaticDefaults()
         {
-            NPCDebuffImmunityData debuffData = new NPCDebuffImmunityData
-            {
-                SpecificallyImmuneTo = new int[] {
-                    BuffID.OnFire,
-                    BuffID.OnFire3,
-                    BuffID.Confused // Most NPCs have this
-				}
-            };
-            NPCID.Sets.DebuffImmunitySets.Add(Type, debuffData);
+            NPCID.Sets.SpecificDebuffImmunity[Type][BuffID.OnFire] = true;
+            NPCID.Sets.SpecificDebuffImmunity[Type][BuffID.OnFire3] = true;
+            NPCID.Sets.SpecificDebuffImmunity[Type][BuffID.Confused] = true;
             // DisplayName.SetDefault("Magmander");
             Main.npcFrameCount[NPC.type] = 5;
 

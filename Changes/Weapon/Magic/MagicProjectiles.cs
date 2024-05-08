@@ -19,6 +19,13 @@ namespace TRAEProject.Changes.Items
         public override bool InstancePerEntity => true;
         public override void SetDefaults(Projectile projectile)
         {
+            if(TRAEMagicItem.otherModSidearmProjectile.Contains(projectile.type))
+            {
+                int index = TRAEMagicItem.otherModSidearmProjectile.IndexOf(projectile.type);
+                DrainManaPassively = TRAEMagicItem.otherModSidearmPassive[index];
+                DrainManaOnHit = TRAEMagicItem.otherModSidearmOnHit[index];
+                projectile.timeLeft = 60*60;
+            }
             if (projectile.aiStyle == 99)
             {
                 projectile.usesIDStaticNPCImmunity = true;
@@ -33,8 +40,9 @@ namespace TRAEProject.Changes.Items
                     projectile.penetrate = 3;
                     break;
                 case ProjectileID.BookOfSkullsSkull:
-                    projectile.timeLeft = 180;
-                    break;
+                    projectile.usesLocalNPCImmunity = true;
+                    projectile.localNPCHitCooldown = 10;
+                        break;
                 case ProjectileID.ShadowBeamFriendly:
                     projectile.GetGlobalProjectile<ProjectileStats>().SmartBouncesOffEnemies = true;
                     projectile.usesLocalNPCImmunity = true;
@@ -76,7 +84,7 @@ namespace TRAEProject.Changes.Items
                     projectile.GetGlobalProjectile<ProjectileStats>().dontHitTheSameEnemyMultipleTimes = true;
                     break;
                 case ProjectileID.SharpTears:
-                    projectile.penetrate = 5;
+                    projectile.penetrate = 4;
                     break;
                 case ProjectileID.WaterStream:
                     projectile.penetrate = 1;
@@ -88,8 +96,6 @@ namespace TRAEProject.Changes.Items
 
                 case ProjectileID.RainbowFront:
                 case ProjectileID.RainbowBack:
-                    projectile.usesIDStaticNPCImmunity = true;
-                    projectile.idStaticNPCHitCooldown = 10;
                     DrainManaOnHit = TRAEMagicItem.RainbowOnHitCost;
                     DrainManaPassively = TRAEMagicItem.RainbowPassiveCost;
                     break;
@@ -98,10 +104,12 @@ namespace TRAEProject.Changes.Items
 					projectile.timeLeft = 1200;
 					break;			
 				case ProjectileID.BloodRain:
-                case ProjectileID.RainFriendly:
                     projectile.penetrate = 1;
                     break;
-           
+                case ProjectileID.RainFriendly:
+                    projectile.penetrate = 2; projectile.usesLocalNPCImmunity = true;
+                    projectile.localNPCHitCooldown = -1;
+                    break;
                 case ProjectileID.Blizzard:
                     projectile.timeLeft = 150;
                     projectile.GetGlobalProjectile<ProjectileStats>().homesIn = true;
@@ -125,7 +133,7 @@ namespace TRAEProject.Changes.Items
 					projectile.usesLocalNPCImmunity = true;
                     projectile.localNPCHitCooldown = 10;
                     break;
-				case ProjectileID.NebulaArcanum:
+                case ProjectileID.NebulaArcanum:
                     projectile.extraUpdates = 2;
                     break;            
                 case ProjectileID.GoldenShowerFriendly:
@@ -137,10 +145,22 @@ namespace TRAEProject.Changes.Items
 				case ProjectileID.FrostBoltStaff:
                     projectile.penetrate = 2;
                     break;
+              
                 case ProjectileID.SapphireBolt:
+                    projectile.penetrate = 2;
+                    projectile.GetGlobalProjectile<ProjectileStats>().dontHitTheSameEnemyMultipleTimes = true;
+                    projectile.usesLocalNPCImmunity = true;
+                    break;
                 case ProjectileID.EmeraldBolt:
-                case ProjectileID.AmberBolt:
+                    projectile.penetrate = 2;
+                    projectile.GetGlobalProjectile<ProjectileStats>().dontHitTheSameEnemyMultipleTimes = true;
+                    projectile.usesLocalNPCImmunity = true;
+                    break;
                 case ProjectileID.RubyBolt:
+                case ProjectileID.AmberBolt:
+                    projectile.GetGlobalProjectile<ProjectileStats>().dontHitTheSameEnemyMultipleTimes = true;
+                    projectile.usesLocalNPCImmunity = true;
+                    break;
                 case ProjectileID.DiamondBolt:
                     projectile.penetrate = 2;
                     projectile.GetGlobalProjectile<ProjectileStats>().dontHitTheSameEnemyMultipleTimes = true;
@@ -158,7 +178,7 @@ namespace TRAEProject.Changes.Items
                     break;
                 case ProjectileID.InfernoFriendlyBolt:
                     projectile.GetGlobalProjectile<ProjectileStats>().AddsBuff = BuffID.Daybreak;
-                    projectile.GetGlobalProjectile<ProjectileStats>().AddsBuffDuration = 240;
+                    projectile.GetGlobalProjectile<ProjectileStats>().AddedBuffDuration = 240;
                     break;
                 case ProjectileID.InfernoFriendlyBlast:              
                     projectile.penetrate = 16;
@@ -215,6 +235,17 @@ namespace TRAEProject.Changes.Items
                 player.UseManaOverloadable((int)(DrainManaOnHit * player.manaCost));
 
             }
+        }
+        public override void ModifyHitNPC(Projectile projectile, NPC target, ref NPC.HitModifiers modifiers)
+        {
+            if (Main.expertMode && projectile.type == ProjectileID.GoldenShowerFriendly)
+            {
+                if (target.type == NPCID.TheDestroyer || target.type == NPCID.TheDestroyerBody || target.type == NPCID.TheDestroyerTail || target.type == NPCID.Probe)
+                {
+                    modifiers.FinalDamage /= 0.75f;
+                }
+            }
+
         }
         public override bool PreAI(Projectile projectile)
         {
@@ -354,7 +385,7 @@ namespace TRAEProject.Changes.Items
                     projectile.ai[0] = 0f;
                     if (projectile.owner == Main.myPlayer && player.statMana >= 6)
                     {
-                        player.statMana -= 3;
+                        player.statMana -= (int)(4 * player.manaCost);
                         PosX += Main.rand.Next(-14, 15);
                         Projectile.NewProjectile(projectile.GetSource_FromThis(), PosX, PosY, 0f, 5f, ProjectileID.BloodRain, projectile.damage, 0f, projectile.owner);
                     }
@@ -396,7 +427,7 @@ namespace TRAEProject.Changes.Items
                     projectile.ai[0] = 0f;
                     if (projectile.owner == Main.myPlayer && player.statMana >= 4)
                     {
-                        player.statMana -= 2;
+                        player.statMana -= (int)(4 * player.manaCost);
                         var += Main.rand.Next(-14, 15);
                         Projectile.NewProjectile(projectile.GetSource_FromThis(), var, projectile.Center.Y, 0f, 5f, 239, projectile.damage, 0f, projectile.owner);
                     }

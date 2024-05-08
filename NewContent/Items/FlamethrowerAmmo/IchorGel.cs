@@ -64,7 +64,7 @@ namespace TRAEProject.NewContent.Items.FlamethrowerAmmo
                 Dust.NewDustDirect(Projectile.Center, 1, 1, DustID.Smoke, 0, -1);
             }
         }        
-        public override void Kill(int timeLeft)
+        public override void OnKill(int timeLeft)
         {
             int spits = 1;
             for (int i = 0; i < spits; i++)
@@ -108,7 +108,7 @@ namespace TRAEProject.NewContent.Items.FlamethrowerAmmo
                 Projectile.GetGlobalProjectile<ProjectileStats>().BouncesOffTiles = true;
                 Projectile.GetGlobalProjectile<ProjectileStats>().DirectDamage = 0.7f;
                 Projectile.GetGlobalProjectile<ProjectileStats>().AddsBuff = BuffID.Ichor;
-                Projectile.GetGlobalProjectile<ProjectileStats>().AddsBuffDuration = 240;
+                Projectile.GetGlobalProjectile<ProjectileStats>().AddedBuffDuration = 240;
             }
             public override bool OnTileCollide(Vector2 oldVelocity)
             {

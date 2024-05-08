@@ -24,19 +24,14 @@ namespace TRAEProject.NewContent.Items.Misc.Potions
         }
         public override void SetDefaults()
         {
-            //Item.width = 22;
-            //Item.height = 32;
-            //Item.healLife = 80;
             Item.DefaultToHealingPotion(22, 32, 80);
             Item.consumable = true;
-Item.maxStack = 30;
-            //Item.useTime = Item.useAnimation = 30;
+            Item.maxStack = 30;
             Item.rare = ItemRarityID.LightPurple;
             Item.value = Item.buyPrice(silver: 20);
             Item.noMelee = true;
             Item.noUseGraphic = true;
             Item.useStyle = ItemUseStyleID.DrinkLiquid;
-            //Item.UseSound = SoundID.Item1;
         }
         public override void OnConsumeItem(Player player)
         {

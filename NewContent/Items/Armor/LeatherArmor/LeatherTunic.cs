@@ -19,11 +19,11 @@ namespace TRAEProject.NewContent.Items.Armor.LeatherArmor
 		}
 		public override void SetDefaults()
 		{
-			Item.value = Item.sellPrice(0, 0, 50, 0);
+			Item.value = Item.sellPrice(0, 3, 20, 0);
 			Item.rare = ItemRarityID.Blue;
 			Item.width = 36;
 			Item.height = 20;
-			Item.defense = 4;
+			Item.defense = 3;
 		}
 		public override void AddRecipes()
 		{
@@ -35,8 +35,10 @@ namespace TRAEProject.NewContent.Items.Armor.LeatherArmor
 		}
 
 		public override void UpdateEquip(Player player)
-		{
-			player.GetDamage<SummonDamageClass>() += 0.04f;
+        {
+            player.GetAttackSpeed(DamageClass.SummonMeleeSpeed) += 0.1f;
+
+          
 		}
 		public override bool IsArmorSet(Item head, Item body, Item legs)
 		{
@@ -45,9 +47,10 @@ namespace TRAEProject.NewContent.Items.Armor.LeatherArmor
 
 		public override void UpdateArmorSet(Player player)
 		{
-			player.setBonus = "Increased maximum number of minions by 1\n25% increased whip range";
-            player.whipRangeMultiplier += 0.25f;
-			player.maxMinions += 1;
+			player.setBonus = "Increased maximum number of minions by 2";
+ 
+
+            player.maxMinions += 2;
 		}
     }
 }

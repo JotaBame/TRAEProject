@@ -6,12 +6,13 @@ using System.Threading.Tasks;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
+using TRAEProject.NewContent.Items.Materials;
 
 namespace TRAEProject.Changes.Recipes
 {
     public static class WeaponRecipes
     {
-        public static void Load(Mod mod)
+        public static void Load()
         {
             Recipe StardustPortal = Recipe.Create(ItemID.MoonlordTurretStaff).AddIngredient(3459, 18).AddTile(TileID.LunarCraftingStation);
             StardustPortal.Register();
@@ -26,17 +27,27 @@ namespace TRAEProject.Changes.Recipes
             WaspGun.AddTile(TileID.MythrilAnvil);
             WaspGun.Register(); 
             Recipe MagicDagger = Recipe.Create(ItemID.MagicDagger);
-            MagicDagger.AddIngredient(ItemID.ThrowingKnife, 1);
-            MagicDagger.AddIngredient(ItemID.FallenStar, 5);
+            MagicDagger.AddIngredient(ItemID.ThrowingKnife, 100);
             MagicDagger.AddIngredient(ItemID.DemoniteBar, 10);
             MagicDagger.AddTile(TileID.Anvils);
             MagicDagger.Register(); 
             Recipe MagicDagger2 = Recipe.Create(ItemID.MagicDagger);
-            MagicDagger2.AddIngredient(ItemID.ThrowingKnife, 1);
-            MagicDagger2.AddIngredient(ItemID.FallenStar, 5);
+            MagicDagger2.AddIngredient(ItemID.ThrowingKnife, 100);
             MagicDagger2.AddIngredient(ItemID.CrimtaneBar, 10);
             MagicDagger2.AddTile(TileID.Anvils);
-            MagicDagger2.Register();
+            MagicDagger2.Register(); 
+            Recipe MagicMissile = Recipe.Create(ItemID.MagicMissile);
+            MagicMissile.AddRecipeGroup("GoldBar", 10);
+            MagicMissile.AddIngredient(ItemID.Diamond, 5);
+            MagicMissile.AddIngredient(ItemID.ShadowScale, 20);
+            MagicMissile.AddTile(TileID.Anvils);
+            MagicMissile.Register();
+            Recipe MagicMissile2 = Recipe.Create(ItemID.MagicMissile);
+            MagicMissile2.AddRecipeGroup("GoldBar", 10);
+            MagicMissile2.AddIngredient(ItemID.Diamond, 5);
+            MagicMissile2.AddIngredient(ItemID.TissueSample, 20);
+            MagicMissile2.AddTile(TileID.Anvils);
+            MagicMissile2.Register();
             Recipe IceSickle = Recipe.Create(ItemID.IceSickle);
             IceSickle.AddIngredient(ItemID.FrostCore, 1);
             IceSickle.AddIngredient(ItemID.SoulofNight, 15);
@@ -44,8 +55,8 @@ namespace TRAEProject.Changes.Recipes
             IceSickle.AddTile(TileID.MythrilAnvil);
             IceSickle.Register();
             Recipe PulseBow = Recipe.Create(ItemID.PulseBow);
-            PulseBow.AddIngredient(ItemID.ShroomiteBar, 20);
-            PulseBow.AddTile(TileID.Autohammer);
+            PulseBow.AddIngredient(ItemID.ShroomiteBar, 18);
+            PulseBow.AddTile(TileID.MythrilAnvil);
             PulseBow.Register(); 
             Recipe Rocket = Recipe.Create(ItemID.RocketI, 50);
             Rocket.AddIngredient(ItemID.IronBar, 1);
@@ -62,13 +73,18 @@ namespace TRAEProject.Changes.Recipes
             DestructiveRocket.AddIngredient(ItemID.ExplosivePowder, 1);
             DestructiveRocket.AddTile(TileID.Anvils);
             DestructiveRocket.Register();
-            Recipe SuperRocket = Recipe.Create(ItemID.RocketIII, 100);
-            SuperRocket.AddIngredient(ItemID.RocketI, 100);
-            SuperRocket.AddIngredient(ItemID.SoulofMight, 1);
+            Recipe SuperRocket = Recipe.Create(ItemID.RocketIII, 65);
+            SuperRocket.AddIngredient(ItemID.RocketI, 65);
+            SuperRocket.AddIngredient(ItemID.CobaltBar, 2);
             SuperRocket.AddTile(TileID.Anvils);
-            SuperRocket.Register();
-            Recipe DirectRocket = Recipe.Create(ItemID.RocketIV, 100);
-            DirectRocket.AddIngredient(ItemID.RocketI, 100);
+            SuperRocket.Register(); 
+			Recipe SuperRocket2 = Recipe.Create(ItemID.RocketIII, 50);
+            SuperRocket2.AddIngredient(ItemID.RocketI, 50);
+            SuperRocket2.AddIngredient(ItemID.PalladiumBar, 2);
+            SuperRocket2.AddTile(TileID.Anvils);
+            SuperRocket2.Register();
+            Recipe DirectRocket = Recipe.Create(ItemID.RocketIV, 75);
+            DirectRocket.AddIngredient(ItemID.RocketI, 75);
             DirectRocket.AddIngredient(ItemID.Cog, 1);
             DirectRocket.AddTile(TileID.Anvils);
             DirectRocket.Register(); 
@@ -92,6 +108,19 @@ namespace TRAEProject.Changes.Recipes
             TentacleSpike.AddIngredient(ItemID.Leather, 2);
             TentacleSpike.AddTile(TileID.Anvils);
             TentacleSpike.Register();
+
+            Recipe Yelets = Recipe.Create(ItemID.Yelets, 1);
+            Yelets.AddIngredient(ItemID.ChlorophyteBar, 12);
+            Yelets.AddTile(TileID.MythrilAnvil);
+            Yelets.Register();
+
+            Recipe HelFire = Recipe.Create(ItemID.HelFire, 1);
+            HelFire.AddIngredient(ModContent.ItemType<DriedRose>(), 3);
+            HelFire.AddIngredient(ModContent.ItemType<MagicalAsh>(), 3);
+            HelFire.AddIngredient(ModContent.ItemType<ObsidianScale>(), 3);
+            HelFire.AddIngredient(ModContent.ItemType<SalamanderTail>(), 3);
+            HelFire.AddTile(TileID.MythrilAnvil);
+            HelFire.Register();
         }
         public static void Modify(Recipe recipe)
         {

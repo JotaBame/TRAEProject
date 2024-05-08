@@ -2,7 +2,7 @@
 using Terraria.ID;
 using Terraria.ModLoader;
 using TRAEProject.NewContent.Items.Weapons.Summoner.AbsoluteZero;
-using TRAEProject.NewContent.Items.Weapons.Launchers.CryoCannon;
+using TRAEProject.NewContent.Items.Weapons.Ranged.Launchers.CryoCannon;
 using TRAEProject.Common;
 using TRAEProject.NewContent.Items.FlamethrowerAmmo;
 using static Terraria.ModLoader.ModContent;
@@ -33,10 +33,7 @@ namespace TRAEProject.Changes.Projectiles
             {
                 target.GetGlobalNPC<Freeze>().FreezeMe(target, 60);
             }
-            if (projectile.type == ProjectileType<AbsoluteZeroP>() && Main.rand.NextBool(5))
-            {
-                target.GetGlobalNPC<Freeze>().FreezeMe(target, 45);
-            }
+ 
             switch (projectile.type)
             {
 

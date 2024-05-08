@@ -117,7 +117,7 @@ namespace TRAEProject
                             drawAt.Y -= 2;
                         }
                     }
-
+                    drawAt.Y += drawInfo.mountOffSet / 2f;
                     DrawData drawData = new DrawData(texture, drawAt - Main.screenPosition, null, drawInfo.colorArmorBody, rotation, origin, 1f, drawInfo.playerEffect, 0)
                     {
                         shader = drawPlayer.dye[useShader].dye

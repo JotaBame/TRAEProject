@@ -9,6 +9,7 @@ using Terraria;
 using Terraria.GameContent;
 using Terraria.ID;
 using Terraria.ModLoader;
+using static Terraria.ModLoader.ModContent;
 
 namespace TRAEProject.Changes.NPCs.Boss.Plantera
 {
@@ -16,7 +17,7 @@ namespace TRAEProject.Changes.NPCs.Boss.Plantera
     {
         public override void SetDefaults(Projectile projectile)
         {
-            if(projectile.type == ProjectileID.ThornBall)
+            if(projectile.type == ProjectileID.ThornBall && GetInstance<TRAEConfig>().PlanteraRework)
             {
                 projectile.alpha = 0;
                 projectile.scale = 1.5f;
@@ -24,7 +25,7 @@ namespace TRAEProject.Changes.NPCs.Boss.Plantera
         }
         public override bool PreAI(Projectile projectile)
         {
-            if (projectile.type == ProjectileID.ThornBall && Main.netMode == NetmodeID.SinglePlayer)
+            if (projectile.type == ProjectileID.ThornBall && Main.netMode == NetmodeID.SinglePlayer && GetInstance<TRAEConfig>().PlanteraRework)
             {
                 if (projectile.ai[1] == 0)
                 {
@@ -42,7 +43,7 @@ namespace TRAEProject.Changes.NPCs.Boss.Plantera
         public override bool OnTileCollide(Projectile projectile, Vector2 oldVelocity)
         {
             
-            if (projectile.type == ProjectileID.ThornBall && Main.netMode == NetmodeID.SinglePlayer)
+            if (projectile.type == ProjectileID.ThornBall && Main.netMode == NetmodeID.SinglePlayer && GetInstance<TRAEConfig>().PlanteraRework)
             {
                 projectile.localAI[0] = 1;
                 if(projectile.ai[1] != 0)
@@ -64,7 +65,7 @@ namespace TRAEProject.Changes.NPCs.Boss.Plantera
         
         public override bool PreDraw(Projectile projectile, ref Color lightColor)
         {
-            if (projectile.type == ProjectileID.ThornBall && Main.netMode == NetmodeID.SinglePlayer)
+            if (projectile.type == ProjectileID.ThornBall && Main.netMode == NetmodeID.SinglePlayer && GetInstance<TRAEConfig>().PlanteraRework)
             {
                 Texture2D texture = TextureAssets.Projectile[projectile.type].Value;
                 Main.EntitySpriteDraw(texture, projectile.Center - Main.screenPosition,

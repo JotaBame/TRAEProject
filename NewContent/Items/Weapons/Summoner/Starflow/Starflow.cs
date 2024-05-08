@@ -18,8 +18,7 @@ namespace TRAEProject.NewContent.Items.Weapons.Summoner.Starflow
         public override void SetStaticDefaults()
         {
             // DisplayName.SetDefault("Stardust Trail");
-            // Tooltip.SetDefault("Your summons will focus struck enemies\n22 summon tag damage\nSummon flow invaders while attacking");
-             CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
+            CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
 		}
         public override void SetDefaults()
         {
@@ -76,7 +75,8 @@ namespace TRAEProject.NewContent.Items.Weapons.Summoner.Starflow
             // DisplayName.SetDefault("Starflow Tag");
             // Description.SetDefault("22 tag damage pogchamp");
             Main.debuff[Type] = true;
-  
+            BuffID.Sets.IsATagBuff[Type] = true;
+
         }
         public override void Update(NPC npc, ref int buffIndex)
         {
@@ -368,7 +368,7 @@ namespace TRAEProject.NewContent.Items.Weapons.Summoner.Starflow
 		
 		}
 
-		public override void Kill(int timeLeft)
+		public override void OnKill(int timeLeft)
         {
             for (int i = 0; i < 25; i++)
             {

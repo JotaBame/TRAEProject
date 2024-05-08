@@ -5,6 +5,7 @@ using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
 using TRAEProject.Common;
+using TRAEProject.NewContent.Items.BeholderItems;
 using TRAEProject.NewContent.Projectiles;
 using TRAEProject.NewContent.TRAEDebuffs;
 using static Terraria.ModLoader.ModContent;
@@ -18,29 +19,30 @@ namespace TRAEProject.Changes.Weapon.Melee
         {
             return base.Clone(item, itemClone);
         }
+        public override void SetStaticDefaults()
+        {
+            ItemID.Sets.ShimmerTransformToItem[ItemID.GoldBroadsword] = ItemID.EnchantedSword;
+            ItemID.Sets.ShimmerTransformToItem[ItemID.PlatinumBroadsword] = ItemID.EnchantedSword;
+
+        }
         public override void SetDefaults(Item item)
         {
             switch (item.type)
             {
                 // WOODEN 
                 case ItemID.WoodenSword:
-                    item.damage = 9; // up from 7
-                    item.scale = 1.15f; // up from 1
-                    item.useTime = 22; // down from 25
-                    item.useAnimation = 22;
+                    item.scale = 1.1f; // up from 1
+
                     break;
                 case ItemID.BorealWoodSword:
                 case ItemID.PalmWoodSword:
-                    item.damage = 10; // up from 8
-                    item.scale = 1.15f; // up from 1
-                    item.useTime = 22; // down from 23
-                    item.useAnimation = 22;
+                    item.scale = 1.1f; // up from 1
+
                     break;
                 case ItemID.RichMahoganySword:
                 case ItemID.EbonwoodSword:
                 case ItemID.ShadewoodSword:
-                    item.damage = 12; // up from 10
-                    item.scale = 1.15f; // up from 1
+                    item.scale = 1.1f; // up from 1
                     break;
                 case ItemID.CactusSword:
                     item.damage = 9; // up from 8
@@ -103,9 +105,14 @@ namespace TRAEProject.Changes.Weapon.Melee
                 case ItemID.PlatinumShortsword:
                     item.autoReuse = true;
                     break;
-                    
-                    // OTHER
-               
+
+                // OTHER
+                case ItemID.Cutlass:
+                case ItemID.Muramasa:
+                case ItemID.Katana:
+                case ItemID.ChlorophyteSaber:
+                    item.useTurn = false;
+                    break;
                                
                 case ItemID.AntlionClaw:
                     item.damage = 14;// down from 16
@@ -140,7 +147,7 @@ namespace TRAEProject.Changes.Weapon.Melee
                     item.useAnimation = 24;
                     item.shoot = 0;
                     item.useTurn = false;
- item.shootSpeed = 11f;
+                    item.shootSpeed = 11f;
                     break;
                    
 
@@ -149,18 +156,7 @@ namespace TRAEProject.Changes.Weapon.Melee
         
 
         /// SHOOT STUFF
-        public override bool Shoot(Item item, Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
-        {
-            Vector2 mousePosition = Main.screenPosition + new Vector2(Main.mouseX, Main.mouseY);
-            switch (item.type)
-            {
-                case ItemID.NightsEdge:
-                        Terraria.Audio.SoundEngine.PlaySound(SoundID.Item8 with { MaxInstances = 0 });
-                        return true;
-  
-            }
-            return true;       
-        }
+
         public override void ModifyTooltips(Item item, List<TooltipLine> tooltips)
         {
             switch (item.type)
@@ -198,6 +194,8 @@ namespace TRAEProject.Changes.Weapon.Melee
         {
             if (item.type == ItemID.LucyTheAxe && swung == false && player.altFunctionUse != 2)
             {
+                item.noUseGraphic = true;
+
                 swung = true;
             }
         }
@@ -228,7 +226,7 @@ namespace TRAEProject.Changes.Weapon.Melee
                         item.shoot = ProjectileID.None;
                     }
                 }
-
+            
             }
             return base.CanUseItem(item, player);
         }

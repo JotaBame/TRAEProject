@@ -18,7 +18,7 @@ namespace TRAEProject.NewContent.NPCs.Underworld
 
         public override bool InstancePerEntity => true;
 
-        public int[] MinibossList = new int[] { NPCType<PhoenixNPC>(), NPCType<SalalavaNPC>(), NPCType<PhoenixAsh>(), NPCType<ObsidianBasiliskHead>(), NPCType<ObsidianBasiliskBody>(), NPCType<ObsidianBasiliskTail>()};
+        public static int[] MinibossList = new int[] { NPCType<PhoenixNPC>(), NPCType<SalalavaNPC>(), NPCType<PhoenixAsh>(), NPCType<ObsidianBasiliskHead>(), NPCType<ObsidianBasiliskBody>(), NPCType<ObsidianBasiliskTail>()};
         // important to include the phoenix ash, else an NPC may spawn while the phoenix is in its Ash phase
         public bool HellMinibossThatSpawnsInPairs = false;
 

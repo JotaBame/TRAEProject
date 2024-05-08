@@ -8,7 +8,7 @@ using Terraria.GameContent.ItemDropRules;
 using Terraria.ID;
 using Terraria.ModLoader;
 using TRAEProject.NewContent.NPCs.Banners;
-using TRAEProject.NewContent.Items.Weapons.Underworld.WillOfTheWisp;
+using TRAEProject.NewContent.Items.Weapons.Magic.WillOfTheWisp;
 using static Terraria.ModLoader.ModContent;
 using Terraria.DataStructures;
 using Terraria.ModLoader.Utilities;
@@ -20,15 +20,9 @@ namespace TRAEProject.NewContent.NPCs.Underworld.Boomxie
     {
         public override void SetStaticDefaults()
         {
-            NPCDebuffImmunityData debuffData = new NPCDebuffImmunityData
-            {
-                SpecificallyImmuneTo = new int[] {
-                    BuffID.OnFire,
-                    BuffID.OnFire3,
-                    BuffID.Confused // Most NPCs have this
-				}
-            };
-            NPCID.Sets.DebuffImmunitySets.Add(Type, debuffData);
+            NPCID.Sets.SpecificDebuffImmunity[Type][BuffID.OnFire] = true;
+            NPCID.Sets.SpecificDebuffImmunity[Type][BuffID.OnFire3] = true;
+            NPCID.Sets.SpecificDebuffImmunity[Type][BuffID.Confused] = true;
             // DisplayName.SetDefault("Boom Pixie"); // Automatic from .lang files
             Main.npcFrameCount[NPC.type] = 4; // make sure to set this for your modnpcs.
         }
@@ -77,8 +71,7 @@ namespace TRAEProject.NewContent.NPCs.Underworld.Boomxie
         }
         public override float SpawnChance(NPCSpawnInfo spawnInfo)
         {
-            if (spawnInfo.Player.ZoneBeach && Main.remixWorld)
-                return SpawnCondition.Underworld.Chance * 0.25f;
+ 
             if (NPC.downedPlantBoss)
             {
                 return SpawnCondition.Underworld.Chance * 0.025f;
@@ -111,7 +104,7 @@ namespace TRAEProject.NewContent.NPCs.Underworld.Boomxie
     {
         public override void SetStaticDefaults()
         {
-            NPCID.Sets.NPCBestiaryDrawModifiers value = new NPCID.Sets.NPCBestiaryDrawModifiers(0)
+            NPCID.Sets.NPCBestiaryDrawModifiers value = new NPCID.Sets.NPCBestiaryDrawModifiers()
             {
                 Hide = true // Hides this NPC from the Bestiary, useful for multi-part NPCs whom you only want one entry.
             }; NPCID.Sets.NPCBestiaryDrawOffset.Add(NPC.type, value);

@@ -8,6 +8,8 @@ using TRAEProject.Common;
 using TRAEProject.NewContent.TRAEDebuffs;
 using Microsoft.Xna.Framework;
 using TRAEProject.Changes.Weapon.Ranged;
+using TRAEProject.NewContent.NPCs.Underworld.Phoenix;
+using TRAEProject.NewContent.Items.Materials;
 
 namespace TRAEProject.NewContent.Items.FlamethrowerAmmo
 {
@@ -23,7 +25,7 @@ namespace TRAEProject.NewContent.Items.FlamethrowerAmmo
 
         public override void SetDefaults()
         {
-            Item.damage = 40;
+            Item.damage = 48;
             Item.DamageType = DamageClass.Ranged;
             Item.knockBack = 7;
             Item.value = Item.sellPrice(0, 0, 10, 0);
@@ -39,8 +41,8 @@ namespace TRAEProject.NewContent.Items.FlamethrowerAmmo
 
         public override void AddRecipes()
         {
-            CreateRecipe(100).AddIngredient(ItemID.LunarTabletFragment)
-                .AddIngredient(ItemID.Gel, 20)
+            CreateRecipe(250).AddIngredient(ItemType<MagicalAsh>())
+                .AddIngredient(ItemID.Gel, 50)
                 .AddTile(TileID.Solidifier)
                 .Register();
         }
@@ -58,14 +60,14 @@ namespace TRAEProject.NewContent.Items.FlamethrowerAmmo
             dustID = DustID.HeatRay;
             scalemodifier = 0.67f;
 
-            ColorMiddle = new Color(222, 83, 43, 150);
-            ColorBack = new Color(250, 247, 86, 150);
+            ColorMiddle = new Color(222, 83, 43, 100);
+            ColorBack = new Color(250, 247, 86, 100);
             ColorLerp = Color.Lerp(ColorMiddle, ColorBack, 0.25f);
             ColorSmoke = new Color(150, 55, 27, 100);
             dustScale = 0.67f; 
 
             Projectile.GetGlobalProjectile<ProjectileStats>().AddsBuff = BuffID.Daybreak;
-            Projectile.GetGlobalProjectile<ProjectileStats>().AddsBuffDuration = 120;
+            Projectile.GetGlobalProjectile<ProjectileStats>().AddedBuffDuration = 120;
             Projectile.penetrate = 5;
             Projectile.GetGlobalProjectile<ProjectileStats>().DamageFalloff = 0.5f;
 

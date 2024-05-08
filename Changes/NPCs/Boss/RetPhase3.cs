@@ -1,127 +1,181 @@
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Terraria;
+using Terraria.Audio;
+using Terraria.GameContent;
 using Terraria.ID;
 using Terraria.ModLoader;
-using Terraria.DataStructures;
-using Terraria.Audio;
-using Microsoft.Xna.Framework.Graphics;
-using Terraria.GameContent;
 
-namespace TRAEProject.Changes.NPCs.Boss 
+namespace TRAEProject.Changes.NPCs.Boss
 {
     public static class RetPhase3
     {
-        static int tpTime = 60;
-        static int tpCount = 3;
-        static int shotTime = 10;
-        static int rapidShotTime = 3;
-        static int shotCount = 4;
-        static int waitTime = 80;
-        static int periodTime = (tpCount * tpTime + shotTime * shotCount + waitTime);
+        static int tpAnimTime = 8;
+        static int tpTime = 16;
+        static int tpCount = 6;
+        static int shotTime = 48;
+        static int rapidShotTime = 7;
+        static int shotCount = 2;
+        static float shootSpeed = 10f;
+        static int nukeTime = 220;
+        static int waitTime = 55; // make this divisible by the above
+        static int firstShotDelay = 10;
+        static int periodTime = (tpCount * tpTime + shotTime * shotCount + nukeTime + waitTime + firstShotDelay);
         public static void Update(NPC npc)
         {
-            npc.defense = npc.defDefense + 10;
-			npc.HitSound = SoundID.NPCHit4;
+
+            npc.HitSound = SoundID.NPCHit4;
             npc.velocity = Vector2.Zero;
             npc.ai[2]++;
-            if(npc.ai[1] != -1 && npc.ai[3] != -1)
+            if (npc.ai[1] != -1 && npc.ai[3] != -1)
             {
                 Teleport(npc);
             }
             int periodicTimer = (int)npc.ai[2] % periodTime;
             int periodCount = (int)npc.ai[2] / periodTime;
-            if(periodicTimer < tpCount * tpTime)
+
+            if (periodicTimer < tpCount * tpTime)
             {
-                if(periodicTimer % tpTime < 8)
+                if (periodicTimer % tpTime < tpAnimTime)
                 {
-                    npc.scale = ((periodicTimer % tpTime) / 8f);
+                    npc.scale = ((periodicTimer % tpTime) / (float)tpAnimTime);
+                    npc.scale = 0.5f - MathF.Cos(MathF.PI * npc.scale) * 0.5f;
                 }
-                else if(periodicTimer % tpTime > 32 && periodicTimer < (tpCount - 1) * tpTime)
+                else if (periodicTimer % tpTime > (tpTime - tpAnimTime) && periodicTimer < (tpCount - 1) * tpTime)
                 {
-                    npc.scale = (tpTime - (periodicTimer % tpTime)) / 8f;
+                    npc.scale = (tpTime - (periodicTimer % tpTime)) / (float)tpAnimTime;
+                    npc.scale = 0.5f - MathF.Cos(MathF.PI * npc.scale) * 0.5f;
                 }
                 else
                 {
                     npc.scale = 1f;
                 }
-                if(npc.scale <= 0)
+                if (npc.scale <= 0)
                 {
                     npc.scale = 0.01f;
                 }
-                if(periodicTimer % tpTime == 0)
+                if (periodicTimer % tpTime == 0)
                 {
                     SetupTeleport(npc);
                 }
             }
-            if(periodicTimer > tpCount * tpTime + shotTime * shotCount)
+
+            if (periodicTimer > tpCount * tpTime + firstShotDelay)
             {
-                if(periodicTimer == periodTime - 1 && periodCount % 3 == 1 && Main.netMode != NetmodeID.MultiplayerClient)
+                if (periodCount % 3 == 2)
                 {
-                    SpawnNukes(npc);
-                    
-                }
-                /*
-                if(npc.ai[2] > tpCount * tpTime + shotTime * shotCount + waitTime)
-                {
-                    Projectile.NewProjectile(npc.GetSource_ReleaseEntity(), npc.Center + Vector2.UnitY * -1000, Vector2.Zero, ModContent.ProjectileType<EyeNuke>(), npc.GetAttackDamage_ForProjectiles(35f, 30f), 0);
-                }
-                */
-            }
-            else if(periodicTimer > tpCount * tpTime)
-            {
-                if(periodCount % 3 == 2)
-                {
-                    if(periodicTimer % rapidShotTime == 0)
+                    if (periodicTimer % rapidShotTime == 0 && periodicTimer < periodTime - nukeTime - waitTime)
                     {
                         Shoot(npc);
                     }
+
+
                 }
                 else
                 {
-                    if(periodicTimer % shotTime == 0)
+                    if (periodicTimer % shotTime == 0)
                     {
                         Shoot(npc);
                     }
                 }
-            }
-            
-        }
-        public static float RotateModifer(NPC npc)
-        {
-            if(npc.ai[0] > 5)
-            {
-                int periodicTimer = (int)npc.ai[2] % periodTime;
-                int periodCount = (int)npc.ai[2] / periodTime;
-                if(periodicTimer >= (tpCount - 1) * tpTime && periodCount % 3 == 2 &&  periodicTimer < tpCount * tpTime + shotTime * shotCount)
+                if (periodicTimer > periodTime - nukeTime - waitTime && periodCount % 3 != 2)
                 {
-                    int timer = (tpCount * tpTime + shotTime * shotCount) - periodicTimer;
-                    if(timer > (shotTime * shotCount))
-                    {
-                        timer = (shotTime * shotCount);
-                    }
-                    float ratio = (float)timer / (shotTime * shotCount);
-                    float spread = MathF.PI;
-                    float angle = spread * ratio - spread / 2f;
-                    return angle;
+                    npc.ai[2] += periodTime - periodicTimer;
+                }
+                else
+                {
+                    SpawnNukes(npc);
+
+
+
                 }
             }
-            return 0f;
         }
+        public static void Rotate(NPC npc)
+        {
+            float angle = 0;
+            int periodicTimer = (int)npc.ai[2] % periodTime;
+            int startTime = periodTime - nukeTime - waitTime;
+            if (npc.ai[0] > 5)
+            {
+                if (periodicTimer > startTime)
+                {
+
+                    npc.rotation += (periodicTimer - startTime) / 400f;
+
+                    //Vector2 test = new Vector2(periodicTimer - startTime, npc.rotation);
+                    //Main.NewText(test);
+                }
+                else
+                {
+
+                    angle += TRAEMethods.PredictiveAimWithOffset(npc.Center, shootSpeed * 3, Main.player[npc.target].Center, Main.player[npc.target].velocity, npc.ai[1] == 0 ? 25 * 9 : 15 * 9) - MathF.PI / 2;
+
+                    int periodCount = (int)npc.ai[2] / periodTime;
+                    if (periodicTimer >= (tpCount - 1) * tpTime && periodCount % 3 == 2 && periodicTimer < tpCount * tpTime + shotTime * shotCount)
+                    {
+                        int timer = (tpCount * tpTime + shotTime * shotCount) - periodicTimer;
+                        if (timer > (shotTime * shotCount))
+                        {
+                            timer = (shotTime * shotCount);
+                        }
+                        float ratio = (float)timer / (shotTime * shotCount);
+                        float spread = MathF.PI;
+                        angle += spread * ratio - spread / 2f;
+                    }
+                    float rotSpeed = 0.1f;
+                    if (npc.ai[1] == 0)
+                    {
+                        rotSpeed *= 3;
+                    }
+                    if (npc.ai[0] == 0 && npc.ai[1] == 1)
+                    {
+                        npc.rotation += rotSpeed;
+                    }
+                    npc.rotation.SlowRotation(angle, rotSpeed);
+
+                }
+            }
+
+        }
+
         public static void SpawnNukes(NPC npc)
         {
-            for(int i =0; i < Main.player.Length; i++)
+            int periodicTimer = (int)npc.ai[2] % periodTime;
+            int startTime = periodTime - nukeTime - waitTime;
+
+            if (periodicTimer >= startTime + nukeTime / 4 && periodicTimer < startTime + nukeTime)
             {
-                if(Main.player[i].active && !Main.player[i].dead)
+                int eyeSpawnTimer = (nukeTime - nukeTime / 4) / 3;
+
+                if (periodicTimer % (float)eyeSpawnTimer == 0f)
                 {
-                    Projectile p = Main.projectile[Projectile.NewProjectile(npc.GetSource_ReleaseEntity(), Main.player[i].Center + Vector2.UnitY * -1000, Vector2.Zero, ModContent.ProjectileType<EyeNuke>(), npc.GetAttackDamage_ForProjectiles(35f, 30f), 0, 255, i)];
-                    //p.ai[0] = i;
+                    SoundEngine.PlaySound(SoundID.Item92, npc.Center);
+                    float num30 = 5f;
+                    Vector2 vector5 = new Vector2(npc.position.X + npc.width * 0.5f, npc.position.Y + npc.height * 0.5f);
+                    float num31 = Main.rand.Next(-200, 200);
+                    float num32 = Main.rand.Next(-200, 200);
+                    float num33 = (float)Math.Sqrt(num31 * num31 + num32 * num32);
+                    num33 = num30 / num33;
+                    Vector2 vector6 = vector5;
+                    Vector2 vector7 = default(Vector2);
+                    vector7.X = num31 * num33;
+                    vector7.Y = num32 * num33;
+                    vector6.X += vector7.X * 10f;
+                    vector6.Y += vector7.Y * 10f;
+                    if (Main.netMode != 1)
+                    {
+                        Projectile p = Main.projectile[Projectile.NewProjectile(npc.GetSource_ReleaseEntity(), vector5, Vector2.Zero, ModContent.ProjectileType<EyeNuke>(), npc.GetAttackDamage_ForProjectiles(45f, 40f), 0, 255)];
+                        p.velocity.X = vector7.X;
+                        p.velocity.Y = vector7.Y;
+
+                    }
+
                 }
             }
+
+
         }
         static void Teleport(NPC npc)
         {
@@ -132,18 +186,18 @@ namespace TRAEProject.Changes.NPCs.Boss
             SoundEngine.PlaySound(SoundID.Item8 with { MaxInstances = 0 });
             npc.TargetClosest(false);
             Player player = Main.player[npc.target];
-            npc.rotation = (player.Center - npc.Center).ToRotation() - MathF.PI /2;
+            npc.rotation = (player.Center - npc.Center).ToRotation() - MathF.PI / 2;
 
             npc.ai[1] = npc.ai[3] = -1;
         }
         static void SetupTeleport(NPC npc)
         {
-            if(Main.netMode != NetmodeID.MultiplayerClient)
+            if (Main.netMode != NetmodeID.MultiplayerClient)
             {
                 npc.TargetClosest(false);
                 Player player = Main.player[npc.target];
                 float r = Main.rand.NextFloat() * MathF.PI * 2;
-                Vector2 offset = TRAEMethods.PolarVector(400, r);
+                Vector2 offset = TRAEMethods.PolarVector(320, r);
                 offset.X *= 1.4f;
                 Vector2 teleToHere = player.Center + offset;
                 npc.ai[1] = teleToHere.X;
@@ -157,29 +211,31 @@ namespace TRAEProject.Changes.NPCs.Boss
             {
                 float theta = Main.rand.NextFloat(-MathF.PI, MathF.PI);
                 float radius = 160;
-                Dust dust = Dust.NewDustPerfect(center + (pullIn ? TRAEMethods.PolarVector(radius , theta): Vector2.Zero), DustID.SilverFlame, TRAEMethods.PolarVector( (pullIn ? -1 : 1) * radius / 10f, theta));
+                Dust dust = Dust.NewDustPerfect(center + (pullIn ? TRAEMethods.PolarVector(radius, theta) : Vector2.Zero), DustID.SilverFlame, TRAEMethods.PolarVector((pullIn ? -1 : 1) * radius / 10f, theta));
                 dust.color = Color.Red;
                 dust.noGravity = true;
             }
         }
         static void Shoot(NPC npc)
         {
+            //todo: fix laser spawning position
+            Vector2 shootPos = npc.Center + TRAEMethods.PolarVector(25 * 9, npc.rotation + MathF.PI / 2);
+            Vector2 shootVel = TRAEMethods.PolarVector(shootSpeed, npc.rotation + MathF.PI / 2);
+            DeathLaserShootDust(shootVel, shootPos - Vector2.Normalize(shootVel) * 140);
             if (Main.netMode != 1)
             {
-				float shootSpeed = 10f;
+
                 int attackDamage_ForProjectiles3 = npc.GetAttackDamage_ForProjectiles(35f, 30f);
-                int num413 = Projectile.NewProjectile(npc.GetSource_ReleaseEntity(), npc.Center + TRAEMethods.PolarVector(25 * 9, npc.rotation + MathF.PI /2), TRAEMethods.PolarVector(shootSpeed, npc.rotation + MathF.PI/2), ProjectileID.DeathLaser, attackDamage_ForProjectiles3, 0f, Main.myPlayer);
+                Projectile.NewProjectile(npc.GetSource_ReleaseEntity(), shootPos, shootVel, ProjectileID.DeathLaser, attackDamage_ForProjectiles3, 0f, Main.myPlayer);
             }
         }
+
         public static void Start(NPC npc)
         {
             if (npc.ai[0] == 4f)
             {
                 npc.ai[2] += 0.005f;
-                if ((double)npc.ai[2] > 0.5)
-                {
-                    npc.ai[2] = 0.5f;
-                }
+                npc.ai[2] = MathF.Min(.5f, npc.ai[2]);
             }
             else
             {
@@ -206,27 +262,33 @@ namespace TRAEProject.Changes.NPCs.Boss
                 {
                     for (int num477 = 0; num477 < 20; num477++)
                     {
-                        Dust.NewDust(npc.position, npc.width, npc.height, 5, (float)Main.rand.Next(-30, 31) * 0.2f, (float)Main.rand.Next(-30, 31) * 0.2f);
+                        Dust.NewDust(npc.position, npc.width, npc.height, 5, Main.rand.Next(-30, 31) * 0.2f, Main.rand.Next(-30, 31) * 0.2f);
                     }
 
                     Terraria.Audio.SoundEngine.PlaySound(SoundID.ForceRoarPitched with { MaxInstances = 0 }, npc.Center);
                 }
             }
-            Dust.NewDust(npc.position, npc.width, npc.height, 5, (float)Main.rand.Next(-30, 31) * 0.2f, (float)Main.rand.Next(-30, 31) * 0.2f);
+            Dust.NewDust(npc.position, npc.width, npc.height, 5, Main.rand.Next(-30, 31) * 0.2f, Main.rand.Next(-30, 31) * 0.2f);
             npc.velocity.X *= 0.98f;
             npc.velocity.Y *= 0.98f;
-            if ((double)npc.velocity.X > -0.1 && (double)npc.velocity.X < 0.1)
+            if (npc.velocity.X > -0.1 && npc.velocity.X < 0.1)
             {
                 npc.velocity.X = 0f;
             }
-            if ((double)npc.velocity.Y > -0.1 && (double)npc.velocity.Y < 0.1)
+            if (npc.velocity.Y > -0.1 && npc.velocity.Y < 0.1)
             {
                 npc.velocity.Y = 0f;
             }
         }
+
         public static void Phase3Draw(NPC npc, SpriteBatch spriteBatch, Vector2 screenPos, Color drawColor)
         {
-            
+            int periodicTimer = (int)npc.ai[2] % periodTime;
+
+            if (periodicTimer > tpCount * tpTime && (int)npc.ai[2] / periodTime % 3 != 2)
+            {
+                DrawLaser(npc, spriteBatch);
+            }
             Texture2D texture = TextureAssets.Npc[npc.type].Value;
             Color color = drawColor;
             Vector2 halfSize = new Vector2(55f, 107f);
@@ -234,80 +296,144 @@ namespace TRAEProject.Changes.NPCs.Boss
             float num36 = Main.NPCAddHeight(npc);
             Texture2D effectTexture = ModContent.Request<Texture2D>("TRAEProject/Changes/NPCs/Boss/RedEffect").Value;
             Vector2 Pos = new Vector2(
-                npc.position.X - screenPos.X + (float)(npc.width / 2) - (float)TextureAssets.Npc[npc.type].Width() * npc.scale / 2f + halfSize.X * npc.scale, 
-                npc.position.Y - screenPos.Y + (float)npc.height - (float)TextureAssets.Npc[npc.type].Height() * npc.scale / (float)Main.npcFrameCount[npc.type] + 4f + halfSize.Y * npc.scale + num36 + num35);
-            
-            if(npc.ai[0] == 4f)
+                npc.position.X - screenPos.X + npc.width / 2 - TextureAssets.Npc[npc.type].Width() * npc.scale / 2f + halfSize.X * npc.scale,
+                npc.position.Y - screenPos.Y + npc.height - TextureAssets.Npc[npc.type].Height() * npc.scale / Main.npcFrameCount[npc.type] + 4f + halfSize.Y * npc.scale + num36 + num35);
+            float opacity = Utils.GetLerpValue(.25f, .85f, npc.scale, true);
+            npc.Opacity = opacity;
+            if (npc.ai[0] == 4f)
             {
                 float prog = npc.ai[2] / 0.5f;
-                for(int i =0; i <4; i++)
+                for (int i = 0; i < 4; i++)
                 {
-                    float rot = ((float)i / 4f) * 2f * MathF.PI;
+                    float rot = (i / 4f) * 2f * MathF.PI;
                     rot += prog * MathF.PI / 2f;
-                    float radius = (1f-prog) * 200;
+                    float radius = (1f - prog) * 200;
                     float c = (1f * prog) * 0.3f;
                     Color color2 = new Color(c, c, c, c);
                     Vector2 effectPos = Pos + TRAEMethods.PolarVector(radius, rot);
-                    spriteBatch.Draw(effectTexture, effectPos, npc.frame, color2, npc.rotation, halfSize, npc.scale, SpriteEffects.None, 0f);
+                    spriteBatch.Draw(effectTexture, effectPos, npc.frame, color2 * opacity, npc.rotation, halfSize, npc.scale, SpriteEffects.None, 0f);
                 }
-                
+
             }
-            if(npc.ai[0] == 5f)
+            if (npc.ai[0] == 5f)
             {
                 float prog = npc.ai[2] / 0.5f;
-                for(int i =0; i <16; i++)
+                for (int i = 0; i < 16; i++)
                 {
-                    float rot = ((float)i / 16f) * 2f * MathF.PI;
-                    float radius = (1f-prog) * 8000;
+                    float rot = (i / 16f) * 2f * MathF.PI;
+                    float radius = (1f - prog) * 8000;
                     float c = (1f * prog) * 0.3f;
                     Color color2 = new Color(c, c, c, c);
                     Vector2 effectPos = Pos + TRAEMethods.PolarVector(radius, rot);
-                    spriteBatch.Draw(effectTexture, effectPos, npc.frame, color2, npc.rotation, halfSize, npc.scale, SpriteEffects.None, 0f);
+                    spriteBatch.Draw(effectTexture, effectPos, npc.frame, color2 * opacity, npc.rotation, halfSize, npc.scale, SpriteEffects.None, 0f);
                 }
             }
-            if(((byte)npc.ai[0] > 5f))
+            if (((byte)npc.ai[0] > 5f))
             {
-                for(int i =0; i < npc.oldPos.Length; i++)
+                for (int i = 0; i < npc.oldPos.Length; i++)
                 {
                     float c = 255f * ((float)i / npc.oldPos.Length);
-                    Color color2 = new Color(c, c, c, c)* 0.3f;
+                    Color color2 = new Color(c, c, c, c) * 0.3f;
                     Vector2 effectPos = (Pos - npc.position) + npc.oldPos[i];
                     /* new Vector2(
                     npc.oldPos[i].X - screenPos.X + (float)(npc.width / 2) - (float)TextureAssets.Npc[npc.type].Width() * npc.scale / 2f + halfSize.X * npc.scale, 
                     npc.oldPos[i].Y - screenPos.Y + (float)npc.height - (float)TextureAssets.Npc[npc.type].Height() * npc.scale / (float)Main.npcFrameCount[npc.type] + 4f + halfSize.Y * npc.scale + num36 + num35); */
-                    spriteBatch.Draw(effectTexture, effectPos, npc.frame, color2, npc.rotation, halfSize, npc.scale, SpriteEffects.None, 0f);
+                    spriteBatch.Draw(effectTexture, effectPos, npc.frame, color2 * opacity, npc.rotation, halfSize, npc.scale, SpriteEffects.None, 0f);
                 }
             }
-            
-            
-            spriteBatch.Draw(texture, Pos, npc.frame, color, npc.rotation, halfSize, npc.scale, SpriteEffects.None, 0f);
+
+
+            spriteBatch.Draw(texture, Pos, npc.frame, color * opacity, npc.rotation, halfSize, npc.scale, SpriteEffects.None, 0f);
         }
-        
+        public static void DrawLaser(NPC npc, SpriteBatch spriteBatch)
+        {
+
+            Vector2 retPosition = npc.Center - Main.screenPosition /*+ TRAEMethods.PolarVector(25 * 9, npc.rotation + MathF.PI / 2)*/;           
+            int timer = (int)npc.ai[2] % periodTime;
+            float opacity = Utils.GetLerpValue(202, 190, timer, true);
+            Texture2D blankTexture = TextureAssets.Extra[178].Value;
+            Vector2 texScale = new Vector2((retPosition).Length(), 1);//1/256, texture is 256x256
+            Main.EntitySpriteDraw(blankTexture, retPosition, null, Color.Red * opacity, npc.rotation + MathF.PI / 2, new Vector2(0, 1), texScale, SpriteEffects.None);
+
+
+        }
+        public static void DeathLaserShootDust(Vector2 shootVelocity, Vector2 origin)
+        {
+            shootVelocity.Normalize();
+            int dustAmount = 12;//change to what you want, this is the line
+            for (int i = 0; i < dustAmount; i++)
+            {
+                Vector2 dustVel = shootVelocity * Utils.Remap(i, 0, dustAmount, 2, 10);//arbitrary numbers, change 2 ad 10 to your liking
+                float scale = Utils.Remap(i, 0, dustAmount, 2, 1);
+                GlowyRedDust(origin, dustVel, scale);
+            }
+            dustAmount = 5;//change to what you want, this is the ring
+            for (int i = 0; i < dustAmount; i++)
+            {
+                Vector2 offset = Utils.Remap(i, 0, dustAmount, 0, MathF.Tau).ToRotationVector2();
+                offset.X *= .5f;
+                offset = offset.RotatedBy(shootVelocity.ToRotation());
+                GlowyRedDust(origin + offset, offset * 2, 2);
+            }
+            Vector2 sparkleScale = new(0.75f,1.5f);
+            for (int i = -1; i < 2; i += 2)
+            {
+                Sparkle.NewSparkle(origin, Color.Red, sparkleScale, shootVelocity.RotatedBy(MathF.PI / 2) * i * 5, 20, sparkleScale, rotation: shootVelocity.ToRotation(), friction: .9f);
+                Sparkle.NewSparkle(origin, Color.Red, sparkleScale, shootVelocity.RotatedBy(MathF.PI / 2) * i * 5, 20, sparkleScale, rotation: shootVelocity.ToRotation(), friction: .9f);
+            }
+        }
+        static void GlowyRedDust(Vector2 pos, Vector2 vel, float scale)
+        {
+            Dust dust = Dust.NewDustPerfect(pos, DustID.TheDestroyer, vel, 0, Color.White with { A = 0 }, scale);
+            dust.noGravity = true;
+        }
     }
     public class EyeNuke : ModProjectile
     {
         public override void SetStaticDefaults()
         {
             // DisplayName.SetDefault("Eye Nuke");
-            Main.projFrames[Projectile.type] = 3;
+            Main.projFrames[Projectile.type] = 4;
         }
         public override void SetDefaults()
         {
-            Projectile.width = Projectile.height = 60;
+            Projectile.width = 50;
+            Projectile.height = 114;
             Projectile.friendly = false;
             Projectile.hostile = true;
             Projectile.tileCollide = false;
-            Projectile.timeLeft = 10 * 60;
-            DrawOffsetX = 150;
-            DrawOriginOffsetX = 150;
+            Projectile.timeLeft = 180;
+            Projectile.alpha = 255;
+            //DrawOffsetX = 150;
+            //DrawOriginOffsetX = 150;
 
         }
-        void Explode(Projectile projectile)
+        void Explosion(Projectile projectile)
         {
-            projectile.width = projectile.height = 500;
-            projectile.position += Vector2.One * -1 * (500 - 60) / 2f;
             SoundEngine.PlaySound(SoundID.Item62 with { MaxInstances = 0 }, Projectile.position);
-            for (int i = 0; i < 200; i++)
+            for (int num731 = 0; num731 < 30; ++num731)
+            {
+                int num732 = Dust.NewDust(new Vector2(projectile.Center.X, projectile.Center.Y), projectile.width, projectile.height, 31, 0f, 0f, 100, default, 2f);
+                Dust dust = Main.dust[num732];
+                dust.velocity *= 2f;
+                if (Main.rand.NextBool(2))
+                {
+                    Main.dust[num732].scale = 0.5f;
+                    Main.dust[num732].fadeIn = 1f + Main.rand.Next(10) * 0.1f;
+                }
+            }
+            for (int num733 = 0; num733 < 30; ++num733)
+            {
+                int num734 = Dust.NewDust(new Vector2(projectile.Center.X, projectile.Center.Y), projectile.width, projectile.height, 6, 0f, 0f, 100, default, 3f);
+                Main.dust[num734].noGravity = true;
+                Dust dust = Main.dust[num734];
+                dust.velocity *= 4f;
+                num734 = Dust.NewDust(new Vector2(projectile.Center.X, projectile.Center.Y), projectile.width, projectile.height, 6, 0f, 0f, 100, default, 2f);
+                dust = Main.dust[num734];
+                dust.velocity *= 2f;
+            }
+
+            for (int i = 0; i < 80; i++)
             {
                 float theta = Main.rand.NextFloat(-MathF.PI, MathF.PI);
                 float radius = 250;
@@ -321,39 +447,56 @@ namespace TRAEProject.Changes.NPCs.Boss
         }
         public override void AI()
         {
-            if(Projectile.timeLeft == 1)
+            //fading in like the death laser does. looks nicer than it just suddenly popping into existence
+            Projectile.alpha -= 50;
+            Projectile.alpha = (int)MathF.Max(Projectile.alpha, 0);
+            if (Projectile.timeLeft == 5)
             {
-                Explode(Projectile);
+                TRAEMethods.Explode(Projectile, 180); Explosion(Projectile);
+
             }
-            if(Projectile.timeLeft % 12 == 0)
+            if (Projectile.timeLeft % 12 == 0)
             {
                 Projectile.frame += 1;
             }
-            if (Projectile.frame >= 3)
-            { 
+            if (Projectile.frame >= 4)
+            {
                 Projectile.frame = 0;
             }
-            if(Projectile.timeLeft < 60)
+            if (Projectile.timeLeft > 50)
             {
-            }
-            else
-            {
-                if(Projectile.ai[0] < 0 || Projectile.ai[0] > 255)
+                if (Projectile.ai[0] < 0 || Projectile.ai[0] > 255)
                 {
                     Projectile.timeLeft = 60;
                     return;
                 }
                 Player player = Main.player[(int)Projectile.ai[0]];
-                if(!player.active|| player.dead)
+                if (!player.active || player.dead)
                 {
                     Projectile.timeLeft = 60;
                     return;
                 }
                 float flytowards = (player.Center - Projectile.Center).ToRotation();
-                float speedBonus = (player.Center - Projectile.Center).Length() / 80f;
-                Projectile.rotation.SlowRotation( flytowards- MathF.PI/2, MathF.PI/60f);
-                Projectile.velocity = TRAEMethods.PolarVector(4f + speedBonus, Projectile.rotation + MathF.PI/2f);
+                float speedBonus = (player.Center - Projectile.Center).Length() / 100f;
+
+                //this is an easing so they lose homing strength over time so it looks nicer. it is a nerf overall so I increased the homing duration by 10 extra frames to compensate
+                float homingSpeedMultiplier = Utils.GetLerpValue(50, 90, Projectile.timeLeft, true);
+                homingSpeedMultiplier = .5f - MathF.Cos(homingSpeedMultiplier * MathF.PI) * .5f;
+                Projectile.rotation.SlowRotation(flytowards - MathF.PI / 2, MathF.PI / 45f * homingSpeedMultiplier);
+                Projectile.velocity = TRAEMethods.PolarVector(6.25f + speedBonus, Projectile.rotation + MathF.PI / 2f);
             }
+        }
+        public override void OnHitPlayer(Player target, Player.HurtInfo info)
+        {
+            TRAEMethods.Explode(Projectile, 180);
+            Explosion(Projectile);
+        }
+
+        static void AABBLineVisualizer(Vector2 lineStart, Vector2 lineEnd, float lineWidth)
+        {
+            Texture2D blankTexture = Terraria.GameContent.TextureAssets.Extra[195].Value;
+            Vector2 texScale = new Vector2((lineStart - lineEnd).Length(), lineWidth) * 0.00390625f;//1/256, texture is 256x256
+            Main.EntitySpriteDraw(blankTexture, (lineStart) - Main.screenPosition, null, Color.Red, (lineEnd - lineStart).ToRotation(), new Vector2(0, 128), texScale, SpriteEffects.None);
         }
 
         public static Entity FindTarget(Projectile projectile)
@@ -370,14 +513,24 @@ namespace TRAEProject.Changes.NPCs.Boss
             }
             return target;
         }
+        public override bool? Colliding(Rectangle projHitbox, Rectangle targetHitbox)
+        {
+            if (Projectile.timeLeft > 60)
+            {
+                return Collision.CheckAABBvLineCollision(targetHitbox.TopLeft(), targetHitbox.Size(), Projectile.Center, new Vector2(Projectile.Center.X, Projectile.Center.Y) + new Vector2(0, 60).RotatedBy(Projectile.rotation));
+            }
+            return null;
+        }
         public override bool PreDraw(ref Color lightColor)
         {
-            if(Projectile.timeLeft >1)
+            lightColor *= Projectile.Opacity;
+            if (Projectile.timeLeft > 1)
             {
+
                 Texture2D texture = TextureAssets.Projectile[Projectile.type].Value;
                 Texture2D glowTexture = ModContent.Request<Texture2D>("TRAEProject/Changes/NPCs/Boss/EyeNuke_Glow").Value;
                 Vector2 offset = Vector2.Zero;
-                if(Projectile.timeLeft < 60)
+                if (Projectile.timeLeft < 60)
                 {
                     offset = new Vector2(Main.rand.Next(-5, 5), Main.rand.Next(-5, 5));
                 }

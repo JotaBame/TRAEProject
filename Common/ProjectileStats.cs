@@ -8,6 +8,7 @@ using Terraria.ModLoader;
 using TRAEProject.NewContent.Items.Weapons.Summoner.Whip;
 
 using static Terraria.ModLoader.ModContent;
+using TRAEProject.Changes.Accesory;
 
 namespace TRAEProject.Common
 {
@@ -28,7 +29,6 @@ namespace TRAEProject.Common
         public bool cantCrit = false; // self-explanatory
         public bool dontHitTheSameEnemyMultipleTimes = false;// self-explanatory
                                                              // Bouncing
-        public bool onlyBounceOnce = false;
         public bool BouncesOffTiles = false;
         public bool BouncesBackOffTiles = false;
         public float DamageLossOffATileBounce = 0f;
@@ -42,8 +42,8 @@ namespace TRAEProject.Common
         // Adding Buffs
         public int AddsBuff = 0; // Adds a buff when hitting a target
         public int AddsBuffChance = 1; // 1 in [variable] chance of that buff being applied to the target
-        public int AddsBuffDuration = 300; // Measured in ticks, since the game runs at 60 frames per second, this base value is 5 seconds.
-        //
+        public int AddedBuffDuration = 300; // Measured in ticks, since the game runs at 60 frames per second, this base value is 5 seconds.
+        public int AddedBuffMinDuration = 0; // equals the max duration if it's left at 0. Used when you want some randomness in the duration.
         // Explosion
         public bool explodes = false; // set to true to make the projectile explode. 
         public int ExplosionRadius = 80; // Hitbox size of the base explosion. Base value is 80.
@@ -56,6 +56,8 @@ namespace TRAEProject.Common
         public override void AI(Projectile projectile)
         {
             Player player = Main.player[projectile.owner];
+            if (AddedBuffMinDuration == 0)
+                AddedBuffMinDuration = AddedBuffDuration;
             if (ProjectileID.Sets.IsAWhip[projectile.type] || projectile.type == ProjectileType<WhipProjectile>())
             {
                 for (int i = 0; i < 1000; i++)
@@ -111,55 +113,63 @@ namespace TRAEProject.Common
                 }
                 return false;
             }
-            if (BouncesOffTiles)
-            {
-                if (onlyBounceOnce)
+ 
+                if (BouncesOffTiles)
                 {
-                    BouncesOffTiles = false;
-                }
-                projectile.velocity.Y = -projectile.oldVelocity.Y;
-                return false;
-            }
-            if (BouncesBackOffTiles)
-            {
-                projectile.velocity.X = -projectile.oldVelocity.X;
-                projectile.velocity.Y = -projectile.oldVelocity.Y;
-            }
-            if (DamageLossOffATileBounce > 0)
-                projectile.damage -= (int)(projectile.damage * DamageLossOffATileBounce);
-            if (SmartBouncesOffTiles)
-            {
-                int[] array = new int[10];
-                int num6 = 0;
-                int Range = 700;
-                int num8 = 20;
-                for (int j = 0; j < 200; j++)
-                {
-                    if (Main.npc[j].CanBeChasedBy(this, false) && projectile.localNPCImmunity[j] != 1)
+                    // If the projectile hits the left or right side of the tile, reverse the X velocity
+                    if (Math.Abs(projectile.velocity.X - oldVelocity.X) > float.Epsilon)
                     {
-                        float DistanceBetweenProjectileAndEnemy = (projectile.Center - Main.npc[j].Center).Length();
-                        if (DistanceBetweenProjectileAndEnemy > num8 && DistanceBetweenProjectileAndEnemy < Range && Collision.CanHitLine(projectile.Center, 1, 1, Main.npc[j].Center, 1, 1))
+                        projectile.velocity.X = -oldVelocity.X;
+                    }
+
+                    // If the projectile hits the top or bottom side of the tile, reverse the Y velocity
+                    if (Math.Abs(projectile.velocity.Y - oldVelocity.Y) > float.Epsilon)
+                    {
+                        projectile.velocity.Y = -oldVelocity.Y;
+                    }
+                    return false;
+                }
+                if (BouncesBackOffTiles)
+                {
+                    projectile.velocity.X = -projectile.oldVelocity.X;
+                    projectile.velocity.Y = -projectile.oldVelocity.Y;
+                }
+                if (DamageLossOffATileBounce > 0)
+                    projectile.damage -= (int)(projectile.damage * DamageLossOffATileBounce);
+                if (SmartBouncesOffTiles)
+                {
+                    int[] array = new int[10];
+                    int num6 = 0;
+                    int Range = 700;
+                    int num8 = 20;
+                    for (int j = 0; j < 200; j++)
+                    {
+                        if (Main.npc[j].CanBeChasedBy(this, false) && projectile.localNPCImmunity[j] != -1)
                         {
-                            array[num6] = j;
-                            num6++;
-                            if (num6 >= 9)
+                            float DistanceBetweenProjectileAndEnemy = (projectile.Center - Main.npc[j].Center).Length();
+                            if (DistanceBetweenProjectileAndEnemy > num8 && DistanceBetweenProjectileAndEnemy < Range && Collision.CanHitLine(projectile.Center, 1, 1, Main.npc[j].Center, 1, 1))
                             {
-                                break;
+                                array[num6] = j;
+                                num6++;
+                                if (num6 >= 9)
+                                {
+                                    break;
+                                }
                             }
                         }
                     }
+                    if (num6 > 0)
+                    {
+                        num6 = Main.rand.Next(num6);
+                        Vector2 value2 = Main.npc[array[num6]].Center - projectile.Center;
+                        float scaleFactor2 = projectile.velocity.Length();
+                        value2.Normalize();
+                        projectile.velocity = value2 * scaleFactor2;
+                        projectile.netUpdate = true;
+                    }
+                    return false;
                 }
-                if (num6 > 0)
-                {
-                    num6 = Main.rand.Next(num6);
-                    Vector2 value2 = Main.npc[array[num6]].Center - projectile.Center;
-                    float scaleFactor2 = projectile.velocity.Length();
-                    value2.Normalize();
-                    projectile.velocity = value2 * scaleFactor2;
-                    projectile.netUpdate = true;
-                }
-                return false;
-            }
+            
             return true;
         }
         public override void ModifyHitNPC(Projectile projectile, NPC target, ref NPC.HitModifiers modifiers)
@@ -220,8 +230,10 @@ namespace TRAEProject.Common
 
             }
             if (AddsBuff != 0 && Main.rand.NextBool(AddsBuffChance))
-                target.AddBuff(AddsBuff, AddsBuffDuration);
-
+            {
+                int duration = Main.rand.Next(AddedBuffMinDuration, AddedBuffDuration + 1);
+                target.AddBuff(AddsBuff, duration);
+            }
             if (dontHitTheSameEnemyMultipleTimes)
                 projectile.localNPCImmunity[target.whoAmI] = -1; // this makes the enemy invincible to the projectile.
 
@@ -240,7 +252,7 @@ namespace TRAEProject.Common
                 int num8 = 20;
                 for (int j = 0; j < 200; j++)
                 {
-                    if (Main.npc[j].CanBeChasedBy(this, false) || Main.npc[j].type == NPCID.DetonatingBubble && projectile.localNPCImmunity[Main.npc[j].whoAmI] != -1/*see "dontHitTheSameEnemyMultipleTimes" above*/)
+                    if ((Main.npc[j].CanBeChasedBy(this, false) || Main.npc[j].type == NPCID.DetonatingBubble) && (!projectile.usesLocalNPCImmunity || projectile.localNPCImmunity[Main.npc[j].whoAmI] == 0))
                     {
                         float num9 = (projectile.Center - Main.npc[j].Center).Length();
                         if (num9 > num8 && num9 < num7 && Collision.CanHitLine(projectile.Center, 1, 1, Main.npc[j].Center, 1, 1))
@@ -292,6 +304,13 @@ namespace TRAEProject.Common
                         {
                             Dust dust = Dust.NewDustDirect(projectile.position, projectile.width, projectile.height, Main.rand.Next(DustTypes), projectile.velocity.X * 0.5f, projectile.velocity.Y * 0.5f, 150, default, 1.5f);
                             dust.noGravity = true;
+                        }
+                        for (int i = 0; i < DustCount / 2; i++)
+                        {
+                            Color sparkleColor = Color.Lerp(Color.Purple, Color.HotPink, Main.rand.NextFloat());
+                            Vector2 sparkleScale = new Vector2(2, 1);
+                            Vector2 sparkleVel = TRAEMethods.PolarVector(Main.rand.NextFloat() * 8 + 2, Main.rand.NextFloat() * MathF.Tau);
+                            Sparkle.NewSparkle(projectile.Center - sparkleVel, sparkleColor, sparkleScale, sparkleVel, Main.rand.Next(20, 40), sparkleScale, null, 1, sparkleVel.ToRotation(), .9f);
                         }
                         return false;
                     }

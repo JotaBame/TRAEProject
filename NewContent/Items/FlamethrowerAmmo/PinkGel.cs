@@ -46,7 +46,7 @@ namespace TRAEProject.NewContent.Items.FlamethrowerAmmo
             Projectile.GetGlobalProjectile<ProjectileStats>().dontHitTheSameEnemyMultipleTimes = true;
             Projectile.GetGlobalProjectile<ProjectileStats>().BouncesOffTiles = true;
             Projectile.GetGlobalProjectile<ProjectileStats>().AddsBuff = BuffID.OnFire;
-            Projectile.GetGlobalProjectile<ProjectileStats>().AddsBuffDuration = 300;
+            Projectile.GetGlobalProjectile<ProjectileStats>().AddedBuffDuration = 300;
             Projectile.GetGlobalProjectile<ProjectileStats>().DamageFalloff = 0.15f;
             dieInWater = true;
         }

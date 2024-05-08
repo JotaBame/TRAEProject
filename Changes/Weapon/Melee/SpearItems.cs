@@ -12,20 +12,31 @@ using Terraria.Utilities;
 using TRAEProject.NewContent.Items.Armor.Joter;
 using TRAEProject.Changes.Weapon.Melee.SpearProjectiles;
 using static Terraria.ModLoader.ModContent;
+using Terraria.GameContent.Prefixes;
+using Terraria.GameContent.Creative;
+using TRAEProject.Changes.Weapon.Melee;
 
 namespace TRAEProject.Changes.Weapon
 {
 	
 	class SpearItems : GlobalItem
 	{
-		public override bool InstancePerEntity => true;
-		public override GlobalItem Clone(Item item, Item itemClone)
+		public override bool InstancePerEntity => true; public int thrownSpear = -1;
+
+        public override GlobalItem Clone(Item item, Item itemClone)
 		{
 			return base.Clone(item, itemClone);
         }
-		public static int[] meleePrefixes = new int[] { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 36, 37, 38, 53, 54, 55, 39, 40, 56, 41, 57, 42, 43, 44, 45, 46, 47, 48, 49, 50, 51, 59, 60, 61, 81 };
-
-        public int altShoot = -1;
+		public static int[] spears = new int[] { ItemID.Spear, ItemID.Trident, ItemID.Javelin, ItemID.BoneJavelin, ItemID.TheRottedFork, ItemID.ThunderSpear,ItemID.DarkLance, ItemID.Swordfish, ItemID.ObsidianSwordfish, ItemID.CobaltNaginata, ItemID.PalladiumPike, ItemID.MythrilHalberd, ItemID.OrichalcumHalberd, ItemID.AdamantiteGlaive, ItemID.TitaniumTrident,ItemID.Gungnir,ItemID.ChlorophytePartisan,ItemID.NorthPole,ItemID.DayBreak,ItemID.MonkStaffT2,ItemID.ScourgeoftheCorruptor,ItemType<JoterTrident>() };
+		public override void SetStaticDefaults()
+		{
+			for (int i = 0; i < spears.Length; i++)
+			{
+                PrefixLegacy.ItemSets.SwordsHammersAxesPicks[spears[i]] = true;
+            }
+			CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[ItemID.Javelin] = 1;
+			CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[ItemID.BoneJavelin] = 1;
+        }
 		public bool canGetMeleeModifiers = false;
 		public override void SetDefaults(Item item)
 		{ 
@@ -34,9 +45,9 @@ namespace TRAEProject.Changes.Weapon
 
 				case ItemID.Spear:
 					item.useStyle = 1;
-					canGetMeleeModifiers = true;
+					
 					item.shoot = ProjectileType<BasicSpear>();
-					altShoot = ProjectileType<BasicSpearThrow>();
+					thrownSpear = ProjectileType<BasicSpearThrow>();
                     item.DamageType = DamageClass.MeleeNoSpeed;
 
                     item.useTime = item.useAnimation = 27;
@@ -45,25 +56,24 @@ namespace TRAEProject.Changes.Weapon
 
 				case ItemID.TheRottedFork:
 					item.useStyle = 1;
-					canGetMeleeModifiers = true;
+					
 					item.shoot = ProjectileType<RottedFork>();
-					altShoot = ProjectileType<RottedForkThrow>();
+					thrownSpear = ProjectileType<RottedForkThrow>();
                     item.DamageType = DamageClass.MeleeNoSpeed;
 
                     item.damage = 21;
-					item.shootSpeed = 6.5f; //only the throw uses this
+					item.shootSpeed = 8.5f; //only the throw uses this
 					break;
 
 				case ItemID.BoneJavelin:
 					item.useStyle = 1;
-					canGetMeleeModifiers = true;
+					
 					item.shoot = ProjectileType<BoneSpear>();
-					altShoot = ProjectileType<BoneSpearThrow>();
+					thrownSpear = ProjectileType<BoneSpearThrow>();
                     item.DamageType = DamageClass.MeleeNoSpeed;
 
                     item.useTime = item.useAnimation = 20;
 					item.damage = 16;
-					item.DamageType = DamageClass.Melee;
 					item.autoReuse = false;
 					item.consumable = false;
 					item.maxStack = 1;
@@ -72,11 +82,10 @@ namespace TRAEProject.Changes.Weapon
 				case ItemID.Javelin:
 					item.useStyle = 1; item.DamageType = DamageClass.MeleeNoSpeed;
 
-                    canGetMeleeModifiers = true;
+                    
 					item.shoot = ProjectileType<Javelin>();
-					altShoot = ProjectileType<JavelinThrow>();
-					item.useTime = item.useAnimation = 18;
-					item.DamageType = DamageClass.Melee;
+					thrownSpear = ProjectileType<JavelinThrow>();
+                    item.DamageType = DamageClass.MeleeNoSpeed;
 					item.autoReuse = false;
 					item.consumable = false;
 					item.maxStack = 1;
@@ -84,9 +93,9 @@ namespace TRAEProject.Changes.Weapon
 					break;
 				case ItemID.ThunderSpear:
 					item.useStyle = 1;
-					canGetMeleeModifiers = true;
+					
 					item.shoot = ProjectileType<StormSpear>();
-					altShoot = ProjectileType<StormSpearThrow>();
+					thrownSpear = ProjectileType<StormSpearThrow>();
                     item.DamageType = DamageClass.MeleeNoSpeed;
 
                     item.damage = 18;
@@ -94,18 +103,18 @@ namespace TRAEProject.Changes.Weapon
 					break;
 				case ItemID.Trident:
 					item.useStyle = 1;
-					canGetMeleeModifiers = true;
+					
 					item.shoot = ProjectileType<Trident>();
-					altShoot = ProjectileType<TridentThrow>();
+					thrownSpear = ProjectileType<TridentThrow>();
                     item.DamageType = DamageClass.MeleeNoSpeed;
 
                     item.shootSpeed = 9; //only the throw uses this
 					break;
 				case ItemID.DarkLance:
 					item.useStyle = 1;
-					canGetMeleeModifiers = true;
+					
 					item.shoot = ProjectileType<DarkLance>();
-					altShoot = ProjectileType<DarkLanceThrow>();
+					thrownSpear = ProjectileType<DarkLanceThrow>();
                     item.DamageType = DamageClass.MeleeNoSpeed;
 
                     item.shootSpeed = 11.5f; //only the throw uses this
@@ -116,25 +125,25 @@ namespace TRAEProject.Changes.Weapon
 				case ItemID.Swordfish:
 					item.useStyle = 1; item.DamageType = DamageClass.MeleeNoSpeed;
 
-                    canGetMeleeModifiers = true;
+                    
 					item.shoot = ProjectileType<Swordfish>();
-					altShoot = ProjectileType<SwordfishThrow>();
+					thrownSpear = ProjectileType<SwordfishThrow>();
 					break;
 				case ItemID.ObsidianSwordfish:
 					item.useStyle = 1;
-					canGetMeleeModifiers = true; item.DamageType = DamageClass.MeleeNoSpeed;
+					 item.DamageType = DamageClass.MeleeNoSpeed;
 
                     item.shoot = ProjectileType<ObsidianSwordfish>();
-					altShoot = ProjectileType<ObsidianSwordfishThrow>();
+					thrownSpear = ProjectileType<ObsidianSwordfishThrow>();
 					item.crit = 0;
 					item.damage = 22;
 					item.shootSpeed = 10; //only the throw uses this
 					break;
 				case ItemID.CobaltNaginata:
 					item.useStyle = 1;
-					canGetMeleeModifiers = true;
+					
 					item.shoot = ProjectileType<CobaltNaginata>();
-					altShoot = ProjectileType<CobaltNaginataThrow>();
+					thrownSpear = ProjectileType<CobaltNaginataThrow>();
                     item.DamageType = DamageClass.MeleeNoSpeed;
 
                     item.damage = 34;
@@ -145,18 +154,18 @@ namespace TRAEProject.Changes.Weapon
 				case ItemID.PalladiumPike:
 					item.useStyle = 1; item.DamageType = DamageClass.MeleeNoSpeed;
 
-                    canGetMeleeModifiers = true;
+                    
 					item.shoot = ProjectileType<PalladiumPike>();
-					altShoot = ProjectileType<PalladiumPikeThrow>();
+					thrownSpear = ProjectileType<PalladiumPikeThrow>();
 					item.useTime = item.useAnimation = 34;
 					item.channel = true;
 					item.damage = 45;
 					break;
 				case ItemID.MythrilHalberd:
 					item.useStyle = 1;
-					canGetMeleeModifiers = true;
+					
 					item.shoot = ProjectileType<MythrilHalberd>();
-					altShoot = ProjectileType<MythrilHalberdThrow>();
+					thrownSpear = ProjectileType<MythrilHalberdThrow>();
                     item.DamageType = DamageClass.MeleeNoSpeed;
 
                     item.damage = 49;
@@ -164,9 +173,9 @@ namespace TRAEProject.Changes.Weapon
 					break;
 				case ItemID.OrichalcumHalberd:
 					item.useStyle = 1;
-					canGetMeleeModifiers = true;
+					
 					item.shoot = ProjectileType<OrichalcumHookbill>();
-					altShoot = ProjectileType<OrichalcumHookbillThrow>();
+					thrownSpear = ProjectileType<OrichalcumHookbillThrow>();
                     item.DamageType = DamageClass.MeleeNoSpeed;
 
 
@@ -176,9 +185,9 @@ namespace TRAEProject.Changes.Weapon
 					break;
 				case ItemID.AdamantiteGlaive:
 					item.useStyle = 1;
-					canGetMeleeModifiers = true;
+					
 					item.shoot = ProjectileType<AdamantiteGlaive>();
-					altShoot = ProjectileType<AdamantiteGlaiveThrow>();
+					thrownSpear = ProjectileType<AdamantiteGlaiveThrow>();
                     item.DamageType = DamageClass.MeleeNoSpeed;
 
                     item.damage = 50;
@@ -186,9 +195,9 @@ namespace TRAEProject.Changes.Weapon
 					break;
 				case ItemID.TitaniumTrident:
 					item.useStyle = 1;
-					canGetMeleeModifiers = true;
+					
 					item.shoot = ProjectileType<TitaniumTrident>();
-					altShoot = ProjectileType<TitaniumTridentThrow>();
+					thrownSpear = ProjectileType<TitaniumTridentThrow>();
                     item.DamageType = DamageClass.MeleeNoSpeed;
 
                     item.damage = 47;
@@ -197,21 +206,21 @@ namespace TRAEProject.Changes.Weapon
 					break;
 				case ItemID.Gungnir:
 					item.useStyle = 1;
-					canGetMeleeModifiers = true;
+					
 					item.shoot = ProjectileType<Gungnir>();
-					altShoot = ProjectileType<GungnirThrow>();
+					thrownSpear = ProjectileType<GungnirThrow>();
                     item.DamageType = DamageClass.MeleeNoSpeed;
 
-                    item.damage = 56;
-					item.shootSpeed = 12; //only the throw uses this
+					item.shootSpeed = 15; //only the throw uses this
+item.damage = 47;					
 					item.useAnimation = 22;
-					item.useTime = 33;
+					item.useTime = 27;
 					break;
 				case ItemID.ChlorophytePartisan:
 					item.useStyle = 1;
-					canGetMeleeModifiers = true;
+					
 					item.shoot = ProjectileType<ChloroPartisan>();
-					altShoot = ProjectileType<ChloroPartisanThrow>();
+					thrownSpear = ProjectileType<ChloroPartisanThrow>();
                     item.DamageType = DamageClass.MeleeNoSpeed;
 
                     item.shootSpeed = 12f; //only the throw uses this
@@ -219,9 +228,9 @@ namespace TRAEProject.Changes.Weapon
 					break;
 				case ItemID.MonkStaffT2:
 					item.useStyle = 1;
-					canGetMeleeModifiers = true;
-					item.shoot = ProjectileType<GhastlyGlaive>();
-					altShoot = ProjectileType<GhastlyGlaiveThrow>();
+					
+ 					item.shoot = ProjectileType<GhastlyGlaive>();
+					thrownSpear = ProjectileType<GhastlyGlaiveThrow>();
                     item.DamageType = DamageClass.MeleeNoSpeed;
 
                     item.damage = 70;
@@ -230,9 +239,9 @@ namespace TRAEProject.Changes.Weapon
 					break;
 				case ItemID.MushroomSpear:
 					item.useStyle = 1;
-					canGetMeleeModifiers = true;
+					
 					item.shoot = ProjectileType<MushroomSpear>();
-					altShoot = ProjectileType<MushroomSpearThrow>();
+					thrownSpear = ProjectileType<MushroomSpearThrow>();
                     item.DamageType = DamageClass.MeleeNoSpeed;
 
                     item.shootSpeed = 8; //only the throw uses this
@@ -242,19 +251,19 @@ namespace TRAEProject.Changes.Weapon
 					break;
 				case ItemID.NorthPole:
 					item.useStyle = 1;
-					canGetMeleeModifiers = true; item.DamageType = DamageClass.MeleeNoSpeed;
+					 item.DamageType = DamageClass.MeleeNoSpeed;
 
                     item.shoot = ProjectileType<NorthPole>();
-					altShoot = ProjectileType<NorthPoleThrow>();
+					thrownSpear = ProjectileType<NorthPoleThrow>();
                     item.shootSpeed = 9; //only the throw uses this
 					item.damage = 100;
 					item.useTime = item.useAnimation = 24;
 					break;
 				case ItemID.ScourgeoftheCorruptor:
 					item.useStyle = 1;
-					canGetMeleeModifiers = true;
+					
 					item.shoot = ProjectileType<SoTC>();
-					altShoot = ProjectileType<SoTCThrow>();
+					thrownSpear = ProjectileType<SoTCThrow>();
                     item.DamageType = DamageClass.MeleeNoSpeed;
 
                     item.damage = 62;
@@ -264,9 +273,9 @@ namespace TRAEProject.Changes.Weapon
 					break;
 				case ItemID.DayBreak:
 					item.useStyle = 1;
-					canGetMeleeModifiers = true;
+					
 					item.shoot = ProjectileType<Daybreak>();
-					altShoot = ProjectileType<DaybreakThrow>();
+					thrownSpear = ProjectileType<DaybreakThrow>();
 					item.shootSpeed = 12.5f; //only the throw uses this
                     item.DamageType = DamageClass.MeleeNoSpeed;
 
@@ -277,13 +286,13 @@ namespace TRAEProject.Changes.Weapon
 			}
 			if (item.type == ItemType<JoterTrident>())
 			{
-				canGetMeleeModifiers = true;
+				
 
 				item.damage = 100;
 				item.shootSpeed = 12; //only the throw uses this
 				item.useTime = item.useAnimation = 24;
 				item.shoot = ProjectileType<JoterTridentSpear>();
-				altShoot = ProjectileType<JoterTridentThrow>();
+				thrownSpear = ProjectileType<JoterTridentThrow>();
 				item.useStyle = 1;
 				item.DamageType = DamageClass.MeleeNoSpeed;
 				item.autoReuse = false;
@@ -297,13 +306,13 @@ namespace TRAEProject.Changes.Weapon
 	
 		public override float UseAnimationMultiplier(Item item, Player player)
 		{
-			if (player.altFunctionUse != 2 && altShoot != -1) // is a spear and it's not right clicking
+			if (player.altFunctionUse != 2 && thrownSpear != -1) // is a spear and it's not right clicking
 				return 1 / player.GetAttackSpeed(DamageClass.Melee);
 			return base.UseSpeedMultiplier(item, player);
 		}
 		public override bool AltFunctionUse(Item item, Player player)
 		{
-			if (altShoot != -1)
+			if (thrownSpear != -1)
 			{
 				return true;
 			}
@@ -311,11 +320,11 @@ namespace TRAEProject.Changes.Weapon
 		}
 		public override void ModifyShootStats(Item item, Player player, ref Vector2 position, ref Vector2 velocity, ref int type, ref int damage, ref float knockback)
 		{
-			if (altShoot != -1)
+			if (thrownSpear != -1)
 			{
 				if (player.altFunctionUse == 2)
 				{
-					type = altShoot;
+					type = thrownSpear;
 					player.itemAnimation = player.itemAnimationMax = item.useTime / 3;
 				}
 				else if (item.type == ItemID.Trident)
@@ -324,12 +333,10 @@ namespace TRAEProject.Changes.Weapon
 				}
 			}
         }
-		
         public override int ChoosePrefix(Item item, UnifiedRandom rand)
         {
             if(canGetMeleeModifiers)
             {
-				
 				#region pick
 				int num9 = rand.Next(40);
                 if (num9 == 0)
@@ -497,7 +504,6 @@ namespace TRAEProject.Changes.Weapon
 
 				if (num9 == 39)
 				{
-					Main.NewText("Legendary");
 					return PrefixID.Legendary;
 				}
 				#endregion
@@ -506,8 +512,44 @@ namespace TRAEProject.Changes.Weapon
         }
         public override void ModifyTooltips(Item item, List<TooltipLine> tooltips)
         {
+			if (thrownSpear != -1)
+            {
+				foreach (TooltipLine line in tooltips)
+				{
+					if (line.Mod == "Terraria" && line.Name == "Speed")
+					{
+						Player player = Main.player[item.playerIndexTheItemIsReservedFor];
+						float roundedUseTime = MathF.Round(item.useAnimation / (1 + (player.GetAttackSpeed(item.DamageType) - 1 + player.GetAttackSpeed(DamageClass.Generic) - 1) * ItemID.Sets.BonusAttackSpeedMultiplier[item.type]));
+
+						if (item.CountsAsClass(DamageClass.SummonMeleeSpeed))
+						{
+							roundedUseTime = MathF.Round(item.useAnimation / (1 + ((player.GetAttackSpeed(item.DamageType) - 1 + player.GetAttackSpeed(DamageClass.Melee) - 1 + player.GetAttackSpeed(DamageClass.Generic) - 1) * ItemID.Sets.BonusAttackSpeedMultiplier[item.type])));
+						}
+						float attacksPerSecond = 60 / roundedUseTime;
+						if (item.reuseDelay > 0)
+						{
+							attacksPerSecond = 60 / (float)(roundedUseTime + item.reuseDelay);
+						}
+						line.Text = MathF.Round(attacksPerSecond, 1) + " attacks per second";
+                        float projUseTime = MathF.Round(item.useTime / (1 + (player.GetAttackSpeed(DamageClass.MeleeNoSpeed) - 1 + player.GetAttackSpeed(DamageClass.Generic) - 1) * ItemID.Sets.BonusAttackSpeedMultiplier[item.type]));
+                        attacksPerSecond = 60 / projUseTime;
+                         line.Text += "\n" + MathF.Round(attacksPerSecond / 1.33f, 1) + " thrown attacks per second";
+
+                    }
+				}
+            }
             switch (item.type)
             {
+                case ItemID.PalladiumPike:
+                    foreach (TooltipLine line in tooltips)
+                    {
+                        if (line.Mod == "Terraria" && line.Name == "Knockback")
+                        {
+                            line.Text += "\nGreatly increases life regeneration after striking an enemy\nMore effective with Palladium armor equipped";
+                        }
+                    }
+                    break; 
+
                 case ItemID.MythrilHalberd:
                     foreach (TooltipLine line in tooltips)
                     {

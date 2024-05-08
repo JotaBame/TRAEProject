@@ -41,6 +41,10 @@ namespace TRAEProject.Changes.Weapon
       
                 case ProjectileID.FlowerPetal: // what the fuck is this projectile, why can't i remember
                     projectile.usesLocalNPCImmunity = true;
+			projectile.ArmorPenetration = 50;  
+projectile.penetrate = 3;			
+					 projectile.usesLocalNPCImmunity = true;
+                    projectile.localNPCHitCooldown = 10;
                     projectile.GetGlobalProjectile<ProjectileStats>().homesIn = true;
                     projectile.GetGlobalProjectile<ProjectileStats>().dontHitTheSameEnemyMultipleTimes = true;
                     break;
@@ -89,6 +93,7 @@ namespace TRAEProject.Changes.Weapon
                 }
             }
         }
+
         public override bool CanHitPlayer(Projectile projectile, Player target)
         {
             if (projectile.type == ProjectileID.InsanityShadowHostile)

@@ -53,15 +53,15 @@ namespace TRAEProject.NewContent.Items.FlamethrowerAmmo
         public override string Texture => "Terraria/Images/Item_0";
         public override void FlamethrowerDefaults()
         {
-            ColorMiddle = new Color(95, 120, 255, 200);
-            ColorBack = new Color(215, 255, 249, 200);
-            ColorLerp = new Color(95, 160, 255, 200);
-            ColorSmoke = new Color(33, 125, 202, 100);
+            ColorMiddle = new Color(95, 120, 255, 240);
+            ColorBack = new Color(215, 255, 249, 240);
+            ColorLerp = new Color(95, 160, 255, 240);
+            ColorSmoke = new Color(33, 125, 202, 200);
             dustID = 135;
             scalemodifier = 0.2f;
             Projectile.GetGlobalProjectile<ProjectileStats>().DamageFalloff = 0.15f;
 			Projectile.GetGlobalProjectile<ProjectileStats>().AddsBuff = BuffID.Frostburn2;
-            Projectile.GetGlobalProjectile<ProjectileStats>().AddsBuffDuration = 180;
+            Projectile.GetGlobalProjectile<ProjectileStats>().AddedBuffDuration = 180;
 			Projectile.penetrate = 5;
         }
 

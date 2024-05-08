@@ -66,7 +66,7 @@ namespace TRAEProject.Changes.NPCs.Boss
 			{
 				if (npc.type == NPCID.SkeletronHead)
 				{
-					
+					npc.chaseable = true;
 					npc.defense = npc.defDefense;
 					if (npc.ai[0] == 0f && Main.netMode != NetmodeID.MultiplayerClient)
 					{
@@ -127,6 +127,10 @@ namespace TRAEProject.Changes.NPCs.Boss
 								Main.dust[num3].velocity *= 0.1f;
 								Main.dust[num3].noLight = true;
 							}
+							if (Hands >= 2)
+							{
+								npc.chaseable = false;
+							}
 						}
 						if ((Hands < 2 || (double)npc.life < (double)npc.lifeMax * 0.75) && npc.ai[1] == 0f)
 						{
@@ -183,7 +187,7 @@ namespace TRAEProject.Changes.NPCs.Boss
 
 						}
 					}
-					if (Main.masterMode && npc.life < (int)(npc.lifeMax * 0.10f) && Hands == 0 && !Main.dayTime)
+					if (Main.masterMode && npc.life < (int)(npc.lifeMax * 0.1f) && Hands == 0 && !Main.dayTime)
 					{
                         Rectangle r3 = Utils.CenteredRectangle(npc.Center, Vector2.One * npc.width);
                         Dust.NewDust(r3.TopLeft(), r3.Width, r3.Height, DustID.Shadowflame, 0f, 0f, 0, default, 1f);
@@ -212,7 +216,7 @@ namespace TRAEProject.Changes.NPCs.Boss
 						float playerX3 = Main.player[npc.target].position.X + (Main.player[npc.target].width / 2) - skeletronPosition.X;
 						float playerY3 = Main.player[npc.target].position.Y + (Main.player[npc.target].height / 2) - skeletronPosition.Y;
 						float distance3 = (float)Math.Sqrt(playerX3 * playerX3 + playerY3 * playerY3);
-						float spinVelocity = 6f;
+						float spinVelocity = 6.5f;
                         npc.damage = npc.GetAttackDamage_LerpBetweenFinalValues(npc.defDamage, npc.defDamage * 1.3f);
 
                         if (distance3 > 80f)
@@ -643,7 +647,7 @@ namespace TRAEProject.Changes.NPCs.Boss
 							}
 							if (Main.masterMode)
 							{
-								factor = 36f;
+								factor = 34f;
 							}
 							num187 = factor / num187;
 							npc.velocity.X = num185 * num187;
@@ -827,7 +831,7 @@ namespace TRAEProject.Changes.NPCs.Boss
 			
 
 		}
-		public override void Kill(int timeLeft)
+		public override void OnKill(int timeLeft)
 		{
 			SoundEngine.PlaySound(SoundID.Dig with { MaxInstances = 0 }, Projectile.Center);
 			for (int index1 = 0; index1 < 20; ++index1)

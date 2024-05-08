@@ -3,9 +3,10 @@ using Terraria.ID;
 using Terraria.ModLoader;
 using TRAEProject;
 using System.Collections.Generic;
-using TRAEProject.Changes.Items;
+using TRAEProject.Changes.Accesory;
 using TRAEProject.Changes.Armor;
 using Microsoft.Xna.Framework;
+using Terraria.GameContent;
 
 namespace ChangesArmor
 {
@@ -16,10 +17,154 @@ namespace ChangesArmor
         {
             return base.Clone(item, itemClone);
         }
+        public override void SetDefaults(Item item)
+        {
+            switch (item.type)
+            {
+                case ItemID.PharaohsMask:
+                    item.defense = 2;
+                    item.vanity = false;
+                    return;
+                case ItemID.PharaohsRobe:
+                    item.defense = 2;
+                    item.vanity = false;
+                    return;
+                case ItemID.RuneHat:
+                    item.defense = 4;
+                    item.vanity = false;
+                    return;
+                case ItemID.RuneRobe:
+                    item.defense = 8;
+                    item.vanity = false;
+                    return;
+                case ItemID.PirateHat:
+                    item.defense = 7;
+                    item.rare = ItemRarityID.Orange;
+                    item.vanity = false;
+                    return;
+                case ItemID.PirateShirt:
+                    item.defense = 12;
+                    item.rare = ItemRarityID.Orange;
+                    item.vanity = false;
+                    return;
+                case ItemID.PiratePants:
+                    item.defense = 9;
+                    item.rare = ItemRarityID.Orange;
+                    item.vanity = false;
+                    return;
+
+                case ItemID.WoodGreaves:
+                    item.defense = 1;
+                    return;
+                case ItemID.BorealWoodBreastplate:
+                case ItemID.PalmWoodBreastplate:
+                case ItemID.EbonwoodHelmet:
+                case ItemID.EbonwoodGreaves:
+                case ItemID.ShadewoodHelmet:
+                case ItemID.ShadewoodGreaves:
+                case ItemID.RichMahoganyHelmet:
+                case ItemID.RichMahoganyBreastplate:
+                case ItemID.RichMahoganyGreaves:
+                    item.defense = 2;
+                    return;
+                case ItemID.CopperHelmet:
+                case ItemID.CopperGreaves:
+                case ItemID.TinGreaves:
+                    item.defense = 3;
+                    return;
+                case ItemID.CopperChainmail:
+                case ItemID.TinHelmet:
+                case ItemID.TinChainmail:
+                case ItemID.IronHelmet:
+                case ItemID.AncientIronHelmet:
+                case ItemID.IronGreaves:
+                case ItemID.LeadGreaves:
+                    item.defense = 4;
+                    return;
+                case ItemID.IronChainmail:
+                case ItemID.LeadChainmail:
+                case ItemID.LeadHelmet:
+                case ItemID.SilverGreaves:
+                case ItemID.TungstenGreaves:
+                case ItemID.SilverHelmet:
+                    item.defense = 5;
+                    return;
+                case ItemID.JungleHat:
+                case ItemID.TungstenHelmet:
+                case ItemID.TungstenChainmail:
+                case ItemID.SilverChainmail:
+                case ItemID.GoldHelmet:
+                case ItemID.GoldGreaves:
+                case ItemID.AncientGoldHelmet:
+                case ItemID.PlatinumGreaves:
+                case ItemID.GladiatorHelmet:
+                case ItemID.GladiatorLeggings:
+                    item.defense = 6;
+                    return;
+                case ItemID.MythrilHat:
+                case ItemID.GoldChainmail:
+                case ItemID.PlatinumChainmail:
+                case ItemID.PlatinumHelmet:
+                case ItemID.ShadowHelmet:
+                case ItemID.AncientShadowHelmet:
+                case ItemID.ShadowGreaves:
+                case ItemID.CrimsonGreaves:
+                case ItemID.AncientShadowGreaves:
+                case ItemID.GladiatorBreastplate:
+                    item.defense = 7;
+                    return;
+                case ItemID.PearlwoodHelmet:
+                    item.defense = 6;
+                    return;
+                case ItemID.PearlwoodBreastplate:
+                    item.defense = 8;
+                    return;
+                case ItemID.PearlwoodGreaves:
+                    item.defense = 6;
+                    return;
+                case ItemID.FleshKnuckles:
+                case ItemID.BerserkerGlove:
+                    item.defense = 10;
+                    return;
+                case ItemID.ChlorophytePlateMail:
+                    item.defense = 13;
+                    return;
+                case ItemID.SWATHelmet:
+                    item.defense = 11;
+                    item.vanity = false;
+                    return;
+                case ItemID.AncientArmorHat:
+                    item.defense = 13;
+                    item.vanity = false;
+                    return;
+                case ItemID.AncientArmorShirt:
+                    item.defense = 8;
+                    item.vanity = false;
+                    return;
+                case ItemID.AncientArmorPants:
+                    item.defense = 7;
+                    item.vanity = false;
+                    return;
+                case ItemID.DjinnsCurse:
+                    item.defense = 12;
+                    item.vanity = false;
+                    return;
+                case ItemID.SpectreMask:
+                case ItemID.SpectreHood:
+                    item.defense = 12;
+                    return;
+
+            }
+
+            return;
+        }
         public override void UpdateEquip(Item item, Player player)
     {
             switch (item.type)
             {
+                case ItemID.SWATHelmet:
+                    player.GetDamage<RangedDamageClass>() *= 1.15f;
+                    break;
                 case ItemID.SpiderBreastplate:
                     player.moveSpeed += 0.1f;
                     break;
@@ -54,10 +199,6 @@ namespace ChangesArmor
                     break;
                 case ItemID.PharaohsRobe:
                     player.moveSpeed += 0.05f;
-                    break;
-                case ItemID.CrimsonHelmet:
-                case ItemID.CrimsonGreaves:
-                    player.GetDamage<GenericDamageClass>() -= 0.01f;
                     break;
                 case ItemID.MeteorHelmet:
                 case ItemID.MeteorSuit:
@@ -144,6 +285,12 @@ namespace ChangesArmor
                 case ItemID.ApprenticeAltPants:
                     player.moveSpeed -= 0.15f;
                     break;
+                case ItemID.ApprenticeHat:
+                    player.statManaMax2 += 40;
+                    break;
+                case ItemID.ApprenticeAltHead:
+                    player.statManaMax2 += 60;
+                    break;
 ///////////////// end of OOA
                 case ItemID.NinjaHood:
                 case ItemID.NinjaShirt:
@@ -158,11 +305,14 @@ namespace ChangesArmor
                     player.manaCost -= 0.10f;
                     break;
                 case ItemID.SpectreMask:
-                    player.manaCost += 0.13f;
+                    player.manaCost += 0.04f; // now -9% instead of -13%
                     break;
                 case ItemID.SpectreHood:
                     player.statManaMax2 += 100;
-                    player.manaCost -= 0.20f;
+                    player.manaCost -= 0.13f;
+                     break;
+                case ItemID.Goggles:
+                    player.GetCritChance<GenericDamageClass>() += 8;
                     break;
             }
         }
@@ -205,7 +355,7 @@ namespace ChangesArmor
             if (head.type == ItemID.TurtleHelmet && body.type == ItemID.TurtleScaleMail && legs.type == ItemID.TurtleLeggings)
                 return "TurtleSet";
          
-            if (head.type == ItemID.AdamantiteMask && body.type == ItemID.AdamantiteBreastplate && legs.type == ItemID.AdamantiteLeggings)
+            if (head.type == ItemID.AdamantiteHelmet && body.type == ItemID.AdamantiteBreastplate && legs.type == ItemID.AdamantiteLeggings)
                 return "AdamantiteSet";
 
             if (head.type == ItemID.CobaltMask && body.type == ItemID.CobaltBreastplate && legs.type == ItemID.CobaltLeggings)
@@ -219,17 +369,18 @@ namespace ChangesArmor
 
             if (head.type == ItemID.SpectreHood && body.type == ItemID.SpectreRobe && legs.type == ItemID.SpectrePants)
                 return "SpectreHoodSet";
-            if ((head.type == ItemID.ShroomiteHeadgear || head.type == ItemID.ShroomiteHelmet || head.type == ItemID.ShroomiteMask) && body.type == ItemID.ShroomiteBreastplate && legs.type == ItemID.ShroomiteLeggings)
-                return "ShroomiteSet";
-
+            if (head.type == ItemID.SpectreMask && body.type == ItemID.SpectreRobe && legs.type == ItemID.SpectrePants)
+                return "SpectreMaskSet";
             if (head.type == ItemID.PirateHat && body.type == ItemID.PirateShirt && legs.type == ItemID.PiratePants)
                 return "PirateSet"; 
             if (head.type == ItemID.GladiatorHelmet && body.type == ItemID.GladiatorBreastplate && legs.type == ItemID.GladiatorLeggings)
                 return "GladiatorSet"; 
             if (head.type == ItemID.FossilHelm && body.type == ItemID.FossilShirt && legs.type == ItemID.FossilPants)
                 return "FossilSet";
-            if (head.type == ItemID.CrimsonHelmet&& body.type == ItemID.CrimsonScalemail && legs.type == ItemID.CrimsonGreaves)
+            if (head.type == ItemID.CrimsonHelmet && body.type == ItemID.CrimsonScalemail && legs.type == ItemID.CrimsonGreaves)
                 return "CrimsonSet";
+                if ((head.type == ItemID.ShadowHelmet || head.type == ItemID.AncientShadowHelmet) && (body.type == ItemID.ShadowScalemail || body.type == ItemID.AncientShadowScalemail) && (legs.type == ItemID.ShadowGreaves || legs.type == ItemID.AncientShadowGreaves))
+                return "ShadowSet";
             if (head.type == ItemID.FrostHelmet && body.type == ItemID.FrostBreastplate && legs.type == ItemID.FrostLeggings)
                 return "FrostSet";
             if (head.type == ItemID.CrystalNinjaHelmet && body.type == ItemID.CrystalNinjaChestplate && legs.type == ItemID.CrystalNinjaLeggings)
@@ -301,19 +452,22 @@ namespace ChangesArmor
             if (armorSet == "PharaohSet")
             {
                 player.setBonus = "Grants an improved double jump and the ability to float for a few seconds";
-                player.hasJumpOption_Sandstorm = true;
+                player.GetJumpState(ExtraJump.SandstormInABottle).Enable();
                 player.carpet = true;
             }
             if (armorSet == "WizardSetHM")
             {
                 player.setBonus = "Return quintuple damage taken to near enemies";
-                player.GetModPlayer<OnHitItems>().runethorns += 5f;
+                player.GetModPlayer<OnHitEffects>().runethorns += 5f;
             }
-
+            if (armorSet == "ShadowSet")
+            {
+                player.setBonus = "Increases Movement speed by 20%\nGreatly increases acceleration";
+            }
             if (armorSet == "CrimsonSet")
             {
                 player.lifeRegenTime += 2; 
-                player.setBonus = "Dramatically increases natural healing rate";
+                player.setBonus = "Greatly increases natural healing rate";
             }
             if (armorSet == "AncientSet")
             {
@@ -324,7 +478,7 @@ namespace ChangesArmor
             if (armorSet == "TurtleSet")
             {
                 player.setBonus = "Damage taken is reflected to nearby enemies with thrice the strength\nReduces damage taken by 15%";
-                player.GetModPlayer<OnHitItems>().newthorns += 3f;
+                player.GetModPlayer<OnHitEffects>().newthorns += 3f;
                 player.thorns -= 2f;
                 player.turtleThorns = false;
             }
@@ -333,26 +487,23 @@ namespace ChangesArmor
                 player.setBonus = "Summons a powerful leaf crystal to shoot at nearby enemies";
                 player.endurance -= 0.05f;
             }
-            if (armorSet == "HallowedSetSummon")
+            if (armorSet == "AdamantiteSet")
             {
-                player.setBonus = "You gain immunity to the next attack after taking a hit\nIncreases your maximum number of minions by 2";
-                player.GetModPlayer<SetBonuses>().HolyProtection = true;
-                player.onHitDodge = false;
+                player.setBonus = "20% increased melee speed";
+                player.moveSpeed -= 0.2f;
             }
-            if (armorSet == "HallowedSet")
-            {
-                player.setBonus = "You gain immunity to the next attack after taking a hit";
-                player.GetModPlayer<SetBonuses>().HolyProtection = true;
-                player.onHitDodge = false;
-            }
+
 
             if (armorSet == "PirateSet")
             {
-                player.setBonus = "All whips gain a stackable 2% minion crit tag";
+                player.setBonus = "Increases your maximum number of minions by 1\nAll whips gain a stackable 4% minion crit tag";
 				player.GetModPlayer<SetBonuses>().PirateSet = true;
+				player.maxMinions++;
             }
             if (armorSet == "SpectreHoodSet")
             {
+ 
+
                 player.setBonus = "Magic attacks heal the player and allies";
                 player.GetDamage<MagicDamageClass>() += 0.4f; // +0.4 to negate the reduction
             }
@@ -386,6 +537,24 @@ namespace ChangesArmor
         {
             switch (item.type)
             {
+                case ItemID.Goggles:
+                    foreach (TooltipLine line in tooltips)
+                    {
+                        if (line.Mod == "Terraria" && line.Name == "Defense")
+                        {
+                            line.Text += "\n8% increased critical strike chance";
+                        }
+                    }
+                    break;
+                case ItemID.SWATHelmet:
+                    foreach (TooltipLine line in tooltips)
+                    {
+                        if (line.Mod == "Terraria" && line.Name == "Defense")
+                        {
+                            line.Text += "\n1.15x ranged damage";
+                        }
+                    }
+                    break;
                 case ItemID.GladiatorHelmet:
                 case ItemID.GladiatorBreastplate:
                 case ItemID.GladiatorLeggings:
@@ -438,7 +607,7 @@ namespace ChangesArmor
                     {
                         if (line.Mod == "Terraria" && line.Name == "Defense")
                         {
-                            line.Text += "\nIncreases maximum mana by 100 and reduces mana costs by 20%";
+                            line.Text += "\nIncreases maximum mana by 100 and 13% reduced mana cost";
                         }
                     }
                     return;
@@ -447,7 +616,7 @@ namespace ChangesArmor
                     {
                         if (line.Mod == "Terraria" && line.Name == "Tooltip0")
                         {
-                            line.Text = "Increases maximum mana by 60";
+                            line.Text = "Increases maximum mana by 60 and 9% reduced mana cost";
                         }
                     }
                     return;

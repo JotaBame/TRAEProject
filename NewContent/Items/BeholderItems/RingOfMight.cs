@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
+using static Terraria.ModLoader.ModContent;
 
 namespace TRAEProject.NewContent.Items.BeholderItems
 {
@@ -15,6 +16,7 @@ namespace TRAEProject.NewContent.Items.BeholderItems
         public override void SetStaticDefaults()
         {
             Terraria.GameContent.Creative.CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
+            ItemID.Sets.ShimmerTransformToItem[Type] = ItemType<RingOfTenacity>();
 
             // DisplayName.SetDefault("Ring of Might");
             // Tooltip.SetDefault("9% increased maximum health\n6% increased total damage");

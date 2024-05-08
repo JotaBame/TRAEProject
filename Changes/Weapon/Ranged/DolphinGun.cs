@@ -3,6 +3,7 @@ using Microsoft.Xna.Framework.Graphics;
 using ReLogic.Content;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -38,7 +39,7 @@ namespace TRAEProject.Changes.Weapon.Ranged
         int dolphincount = 0;
         public override void PostItemCheck()
         {
-            if (Player.HeldItem.type == ItemID.SDMG && Player.itemTime == Player.itemAnimationMax - 1)
+            if (Player.HeldItem.type == ItemID.SDMG && Player.itemTime == Player.itemAnimationMax - 1 && Main.myPlayer == Player.whoAmI)
             {
                 ++dolphincount;
                 if (dolphincount == 20)
@@ -51,7 +52,7 @@ namespace TRAEProject.Changes.Weapon.Ranged
                         int projToShoot = 14;
                         float speed = 14f;
                         int usedAmmoItemID = 0;
-                        int Damage = form.GetWeaponDamage(form.inventory[form.selectedItem]) / 2;
+                        int Damage = form.GetWeaponDamage(form.inventory[form.selectedItem]) / 5;
                         float KnockBack = form.inventory[form.selectedItem].knockBack;
                         if (canShoot)
                         {

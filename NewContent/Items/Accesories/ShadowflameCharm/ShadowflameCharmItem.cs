@@ -5,10 +5,8 @@ using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.GameContent.Creative;
 using TRAEProject.NewContent.Items.Weapons.Summoner.Whip;
-using TRAEProject.NewContent.Buffs;
 using TRAEProject.Common;
 using static Terraria.ModLoader.ModContent;
-using TRAEProject.NewContent.TRAEDebuffs;
 
 namespace TRAEProject.NewContent.Items.Accesories.ShadowflameCharm
 {
@@ -24,7 +22,9 @@ namespace TRAEProject.NewContent.Items.Accesories.ShadowflameCharm
         {
             Item.accessory = true;
             Item.rare = ItemRarityID.Pink;
-            Item.value = 20000;
+            Item.width = 36;
+            Item.height = 44;
+            Item.value = Item.sellPrice(gold:3);
         }
         public override void UpdateAccessory(Player player, bool hideVisual)
         {
@@ -155,7 +155,7 @@ namespace TRAEProject.NewContent.Items.Accesories.ShadowflameCharm
             Projectile.localNPCHitCooldown = 10;
             Projectile.GetGlobalProjectile<ProjectileStats>().homesIn = true;
             Projectile.GetGlobalProjectile<ProjectileStats>().AddsBuff = BuffID.ShadowFlame;
-            Projectile.GetGlobalProjectile<ProjectileStats>().AddsBuffDuration = 240;
+            Projectile.GetGlobalProjectile<ProjectileStats>().AddedBuffDuration = 240;
         }
         public override void AI()
         {
@@ -194,7 +194,7 @@ namespace TRAEProject.NewContent.Items.Accesories.ShadowflameCharm
 			Projectile.GetGlobalProjectile<ProjectileStats>().AddsBuff = BuffID.Daybreak;
             Projectile.GetGlobalProjectile<ProjectileStats>().AddsBuffChance = 2;
 
-            Projectile.GetGlobalProjectile<ProjectileStats>().AddsBuffDuration = 60;
+            Projectile.GetGlobalProjectile<ProjectileStats>().AddedBuffDuration = 60;
         }
 
 

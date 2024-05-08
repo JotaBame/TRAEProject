@@ -13,7 +13,6 @@ using Terraria.ModLoader;
 using static Terraria.ModLoader.ModContent;
 using System.IO;
 using Terraria.Localization;
-using TRAEProject.NewContent.Items.Accesories.MagicalCarpet;
 
 namespace TRAEProject.Changes.NPCs.Boss.Plantera
 {
@@ -201,10 +200,11 @@ namespace TRAEProject.Changes.NPCs.Boss.Plantera
         bool playedCharge = false;
         void Charge(NPC npc, Player player)
         {
-            if (!playedCharge)
-            {
-                SoundEngine.PlaySound(SoundID.Roar with { MaxInstances = 0 }, npc.Center);
-            }
+            //if (!playedCharge)
+            //{
+            //    SoundEngine.PlaySound(SoundID.Roar with { MaxInstances = 0 }, npc.Center);
+            //    playedCharge = false
+            //}
             npc.velocity = TRAEMethods.PolarVector(16, npc.rotation - MathF.PI / 2);
             npc.ai[1] += expertSpeedBonus;
             Dust(npc);

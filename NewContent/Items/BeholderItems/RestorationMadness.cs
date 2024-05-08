@@ -1,9 +1,10 @@
+using Microsoft.Xna.Framework;
 using System.Collections.Generic;
 using Terraria;
+using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
-using TRAEProject;
-using TRAEProject.Changes.Prefixes;
+
 using static Terraria.ModLoader.ModContent;
 
 namespace TRAEProject.NewContent.Items.BeholderItems
@@ -24,7 +25,7 @@ namespace TRAEProject.NewContent.Items.BeholderItems
             Item.maxStack = 9999;
             Item.DefaultToHealingPotion(20, 28, 3);
             Item.rare = ItemRarityID.LightPurple;
-            Item.value = Item.buyPrice(silver: 50);
+            Item.value = Item.buyPrice(silver: 20);
             Item.noMelee = true;
             Item.noUseGraphic = true;
             Item.useStyle = ItemUseStyleID.DrinkLiquid;
@@ -48,7 +49,7 @@ namespace TRAEProject.NewContent.Items.BeholderItems
             }
             player.AddBuff(BuffID.PotionSickness, potionSickness);
 
-            player.AddBuff(BuffType<Restoring2>(), 1764);
+            player.AddBuff(BuffType<Restoring2>(), 1800);
         }
         public override void ModifyTooltips(List<TooltipLine> tooltips)
         {
@@ -59,6 +60,14 @@ namespace TRAEProject.NewContent.Items.BeholderItems
                     line.Text = "Restores 150 HP over 30 seconds\nReduced Potion Cooldown";
                 }
             }
+        }
+        public override void AddRecipes()
+        {
+            CreateRecipe(1).AddIngredient(ItemID.GelBalloon, 2)
+                .AddIngredient(ItemID.BottledWater, 1)
+                .AddIngredient(ItemID.CrystalShard, 1)
+                .AddTile(TileID.Bottles)
+                .Register();
         }
     }
 
@@ -92,19 +101,24 @@ namespace TRAEProject.NewContent.Items.BeholderItems
             if (Player.HasBuff<Restoring1>() || Player.HasBuff<Restoring2>())
             {
                 timer += 1;
-                if (timer == 36 && Player.HasBuff<Restoring2>())
+                if (timer >= 40)
                 {
+                    Vector2 position4 = Vector2.Zero;
+                    position4.X = Player.Center.X + Main.rand.Next(-10, 11) - 6;
+                    position4.Y = Player.Center.Y + Main.rand.Next(-20, 21) - 6;
+                    Gore.NewGore(Player.GetSource_None(), position4, new Vector2(Main.rand.Next(-5, 6) * 0.1f, Main.rand.Next(-10, -5) * 0.1f), Mod.Find<ModGore>("RestorationHeart").Type, Main.rand.Next(80, 100) * 0.01f);
+                    if (Player.HasBuff<Restoring2>())
+                    {
+                        Player.HealEffect(3, true);
+                        Player.statLife += 3;
+                    }
+                    if (Player.HasBuff<Restoring1>())
+                    {
+                        Player.HealEffect(2, true);
+                        Player.statLife += 2;
+                    }
                     timer = 0;
-                    Player.HealEffect(3, true);
-                    Player.statLife += 3;
                 }
-                if (timer == 36 && Player.HasBuff<Restoring1>())
-                {
-                    timer = 0;
-                    Player.HealEffect(2, true);
-                    Player.statLife += 2;
-                }
-            
             }
         }
     }
@@ -143,7 +157,7 @@ namespace TRAEProject.NewContent.Items.BeholderItems
         {
             if (item.type == ItemID.RestorationPotion)
             {
-                player.AddBuff(BuffType<Restoring1>(), 1764);
+                player.AddBuff(BuffType<Restoring1>(), 1800);
             }
         }
         public override void ModifyTooltips(Item item, List<TooltipLine> tooltips)
@@ -155,12 +169,22 @@ namespace TRAEProject.NewContent.Items.BeholderItems
                     {
                         if (line.Mod == "Terraria" && line.Name == "HealLife")
                         {
-                            line.Text = "Heals 100 HP over 30 seconds";
+                            line.Text = "Heals 90 HP over 30 seconds";
                         }
                     }
                     break;
 
             }
         }
-    }        
+    }       
+    public class RestorationHeart : ModGore
+    {
+        public override string Texture => "TRAEProject/NewContent/NPCs/Gores/RestorationHeart";
+
+        public override void OnSpawn(Gore gore, IEntitySource source)
+        {
+            
+                UpdateType = 331;
+        }
+    }
 }

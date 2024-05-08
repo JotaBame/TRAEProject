@@ -36,7 +36,7 @@ namespace TRAEProject.Changes.Weapon.Melee.SpearProjectiles
             holdAt = 85f;
             maxSticks = 1;
             stickingDps = 0;
-            floatTime = 10;
+            floatTime = 12;
             DustOnDeath = DustID.ChlorophyteWeapon; DustOnDeathCount = 40;
 
 
@@ -52,21 +52,13 @@ namespace TRAEProject.Changes.Weapon.Melee.SpearProjectiles
                 SporeBurst();
             }
         }
-        int timer = 1;
-        public override void StuckEffects(NPC victim)
-        {
-            timer++;
-            if(timer % 180 == 0)
-            {
-                SporeBurst();
-            }
-        }
+
         void SporeBurst()
         {
             for (int i =0; i <6; i++)
             {
                 float direction = MathF.PI * 2f * ((float)i / 6f);
-                Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.Center, TRAEMethods.PolarVector(4f, direction), ProjectileID.SporeCloud, Projectile.damage, Projectile.knockBack, Projectile.owner);
+                Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.Center, TRAEMethods.PolarVector(4f, direction), ProjectileID.SporeCloud, Projectile.damage / 3 * 2, Projectile.knockBack, Projectile.owner);
             }
         }
     }

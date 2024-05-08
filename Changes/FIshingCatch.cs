@@ -47,16 +47,15 @@ namespace TRAEProject.Changes
 				}
 			}
 		}
-
+        
 		public override void CatchFish(FishingAttempt attempt, ref int itemDrop, ref int npcSpawn, ref AdvancedPopupRequest sonar, ref Vector2 sonarPosition)
         {
             if(Main.bloodMoon)
             {
-				Fishing_GetBait(out _, out int baitID, out int baitIndex);
-				if(baitID == ItemType<DreadSummon>())
+				if(attempt.playerFishingConditions.BaitItemType == ItemType<DreadSummon>())
                 {
 					npcSpawn = NPCID.BloodNautilus; 
-					Player.inventory[baitIndex].stack--;
+					attempt.playerFishingConditions.Bait.stack--;
 				}
 			
             }

@@ -31,7 +31,6 @@ namespace TRAEProject
                 player.slowFall = true;
             }
         }
-        /*
         public override int ChoosePrefix(Item item, UnifiedRandom rand)
         {
             if(item.type == ItemID.Umbrella || item.type == ItemID.TragicUmbrella)
@@ -40,6 +39,5 @@ namespace TRAEProject
             }
             return base.ChoosePrefix(item, rand);
         }
-        */
     }
 }

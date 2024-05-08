@@ -14,6 +14,7 @@ using TRAEProject.NewContent.NPCs.Banners;
 using TRAEProject.NewContent.Items.Materials;
 using static Terraria.ModLoader.ModContent;
 using TRAEProject.Common;
+using Terraria.Net;
 namespace TRAEProject.NewContent.NPCs.GraniteOvergrowth
 
 {
@@ -187,7 +188,7 @@ namespace TRAEProject.NewContent.NPCs.GraniteOvergrowth
             {
                 RingRange = 250;
             }
-            if (!isPlayernottargetable && Main.netMode != 1)
+            if (!isPlayernottargetable)
             {
                 if (NPC.ai[1] % 150 == 0 && NPC.ai[1] < 900)
                 {
@@ -196,7 +197,11 @@ namespace TRAEProject.NewContent.NPCs.GraniteOvergrowth
                         healAmount = 1000;
                     if (healAmount > 0)
                     {
-                        NPC.HealEffect(NPC.Hitbox, healAmount, true);
+                        if(Main.netMode != NetmodeID.MultiplayerClient)
+                        {
+                            NPC.HealEffect(NPC.Hitbox, healAmount, true);
+                            NPC.netUpdate = true;
+                        }
                         NPC.life += healAmount;
                     }
                     
@@ -205,7 +210,11 @@ namespace TRAEProject.NewContent.NPCs.GraniteOvergrowth
                 {
                     int i = (int)NPC.Center.X * 1;
                     int y = (int)NPC.Center.Y * 1;
-                    NPC.NewNPC(NPC.GetSource_FromAI(), i, y, NPCType<GraniteCore>());
+
+                    if(Main.netMode != NetmodeID.MultiplayerClient)
+                    {
+                        NPC.NewNPC(NPC.GetSource_FromAI(), i, y, NPCType<GraniteCore>());
+                    }
                 }
                 if (NPC.ai[1] == 1000)
                 {
@@ -230,7 +239,11 @@ namespace TRAEProject.NewContent.NPCs.GraniteOvergrowth
                 {
                     SoundEngine.PlaySound(SoundID.Item14 with { MaxInstances = 0 }, NPC.position);
                     NPC.ai[1] = 0;
-                    Projectile.NewProjectile(NPC.GetSource_FromAI(), NPC.Center, new Vector2(0, 0), ProjectileType<GraniteBoom>(), 100, 0f);
+                    if(Main.netMode != NetmodeID.MultiplayerClient)
+                    {
+                        Projectile.NewProjectile(NPC.GetSource_FromAI(), NPC.Center, new Vector2(0, 0), ProjectileType<GraniteBoom>(), 100, 0f, ai0: RingRange);
+                        NPC.netUpdate = true;
+                    }
                 }
                 // ring
 
@@ -257,7 +270,7 @@ namespace TRAEProject.NewContent.NPCs.GraniteOvergrowth
                 float shootToX = player.position.X + player.width * 0.5f - NPC.Center.X;
                 float shootToY = player.position.Y + player.height * 0.5f - NPC.Center.Y;
                 float distance2 = MathF.Sqrt((shootToX * shootToX + shootToY * shootToY));
-                if (NPC.ai[1] % 30 == 0)
+                if ((int)NPC.ai[1] % 30 == 0 && NPC.ai[1] < 1000)
                 {
                     if (distance2 < (RingRange + 25))
                     {
@@ -270,8 +283,12 @@ namespace TRAEProject.NewContent.NPCs.GraniteOvergrowth
                             //Multiplying the shoot trajectory with distance2 times a multiplier if you so choose to
                             shootToX *= distance2 * 5f;
                             shootToY *= distance2 * 5f;
-                            Vector2 perturbedSpeed = new Vector2(shootToX, shootToY).RotatedByRandom(MathHelper.ToRadians(0));
-                            Projectile.NewProjectile(NPC.GetSource_FromAI(), NPC.Center.X, NPC.Center.Y, perturbedSpeed.X, perturbedSpeed.Y, ProjectileType<GraniteBolt>(), 50, 0);
+                            Vector2 perturbedSpeed = new Vector2(shootToX, shootToY);
+
+                            if(Main.netMode != NetmodeID.MultiplayerClient)
+                            {
+                                Projectile.NewProjectile(NPC.GetSource_FromAI(), NPC.Center, perturbedSpeed, ProjectileType<GraniteBolt>(), 50, 0);
+                            }
                         }
 
                     }
@@ -323,13 +340,15 @@ namespace TRAEProject.NewContent.NPCs.GraniteOvergrowth
                 float f2 = num852 + c * (MathF.PI * 2f);
                 Vector2 velocity = f2.ToRotationVector2() * (4f + Main.rand.NextFloat() * 2f);
                 velocity += Vector2.UnitY * -1f;
-                Projectile.NewProjectile(NPC.GetSource_FromAI(), NPC.Center, velocity, bolt, 25, 0f);
+                if(Main.netMode != NetmodeID.MultiplayerClient)
+                {
+                    Projectile.NewProjectile(NPC.GetSource_FromAI(), NPC.Center, velocity, bolt, 25, 0f);
+                }
             }
 
         }
 
         public override void PostDraw(SpriteBatch spriteBatch, Vector2 screenPos, Color drawColor)
-
         {
             Texture2D texture = (Texture2D)Mod.Assets.Request<Texture2D>("NewContent/NPCs/GraniteOvergrowth/GraniteCore_Glow");
 
@@ -366,9 +385,9 @@ namespace TRAEProject.NewContent.NPCs.GraniteOvergrowth
             Projectile.hostile = true;
             Projectile.friendly = false;
             Projectile.tileCollide = false;
-            Projectile.extraUpdates = 100;
-            Projectile.timeLeft = 50;
-            Projectile.penetrate = 1;
+            Projectile.extraUpdates = 49;
+            Projectile.timeLeft = 100;
+            Projectile.penetrate = -1;
             Projectile.alpha = 255;
         }
         public override void OnHitPlayer(Player target, Player.HurtInfo info)
@@ -377,6 +396,7 @@ namespace TRAEProject.NewContent.NPCs.GraniteOvergrowth
         }
         public override void AI()
         {
+            
             Projectile.localAI[0] += 1f;
             if (Projectile.localAI[0] > 9f)
             {
@@ -412,6 +432,10 @@ namespace TRAEProject.NewContent.NPCs.GraniteOvergrowth
             Projectile.timeLeft = 3;
             Projectile.penetrate = -1;
             Projectile.alpha = 255;
+        }
+        public override bool? Colliding(Rectangle projHitbox, Rectangle targetHitbox)
+        {
+            return Vector2.Distance(targetHitbox.Center(), Projectile.Center) < Projectile.ai[0];
         }
         bool runonce = false;
         public override void AI()

@@ -1,8 +1,6 @@
 
 using Microsoft.Xna.Framework;
 using Terraria;
-using Microsoft.Xna.Framework;
-using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 using static Terraria.ModLoader.ModContent;
@@ -13,7 +11,6 @@ using Microsoft.Xna.Framework.Graphics;
 using System;
 using Terraria.GameContent;
 using TRAEProject.Changes.Weapons.Ranged;
-using System.Collections.Generic;
 
 namespace TRAEProject.NewContent.Items.FlamethrowerAmmo
 {
@@ -39,20 +36,19 @@ namespace TRAEProject.NewContent.Items.FlamethrowerAmmo
         }
         public virtual void FlamethrowerDefaults()
         {
-
-        }
-        protected Color ColorMiddle = new Color(255, 80, 20, 75);
-        protected Color ColorBack = new Color(255, 255, 20, 75);
-        protected Color ColorLerp = Color.Lerp(new Color(80, 255, 20, 75), new Color(255, 255, 20, 70), 0.25f);
-        protected Color ColorSmoke = new Color(80, 80, 80, 75);
+         }
+        protected Color ColorMiddle = new Color(255, 80, 20, 200);
+        protected Color ColorBack = new Color(255, 255, 20, 70);
+        protected Color ColorLerp = Color.Lerp(new Color(80, 255, 20, 100), new Color(255, 255, 20, 70), 0.25f);
+        protected Color ColorSmoke = new Color(80, 80, 80, 100);
         protected short dustID = DustID.Torch;
         protected float dustScale = 1;
         protected bool dieInWater = false;
         protected float scalemodifier = 1f;
         protected float dustAmount = 0.25f;
+
         public override bool PreDraw(ref Color lightColor)
         {
-            Color[] palette = new Color[] { ColorMiddle, ColorBack, ColorLerp, ColorSmoke };
             DrawFlamethrower(ColorMiddle, ColorBack, ColorLerp, ColorSmoke);
             return false;
         }
@@ -64,7 +60,7 @@ namespace TRAEProject.NewContent.Items.FlamethrowerAmmo
             float num2 = 12f;
             float fromMax = num + num2;
             Texture2D value = TextureAssets.Projectile[ProjectileID.Flames].Value;
-            Color transparent = Color.Transparent;
+            Color baseFIreColor = Color.Transparent;
             float num3 = 0.35f;
             float num4 = 0.7f;
             float num5 = 0.85f;
@@ -93,10 +89,10 @@ namespace TRAEProject.NewContent.Items.FlamethrowerAmmo
             {
                 for (float j = 1; j >= 0f; j -= incrementForAfterImages)
                 {
-                    transparent = ((num13 < 0.1f) ? Color.Lerp(Color.Transparent, color1, Utils.GetLerpValue(0f, 0.1f, num13, clamped: true)) : ((num13 < 0.2f) ? Color.Lerp(color1, color2, Utils.GetLerpValue(0.1f, 0.2f, num13, clamped: true)) : ((num13 < num3) ? color2 : ((num13 < num4) ? Color.Lerp(color2, color3, Utils.GetLerpValue(num3, num4, num13, clamped: true)) : ((num13 < num5) ? Color.Lerp(color3, color4, Utils.GetLerpValue(num4, num5, num13, clamped: true)) : ((!(num13 < 1f)) ? Color.Transparent : Color.Lerp(color4, Color.Transparent, Utils.GetLerpValue(num5, 1f, num13, clamped: true))))))));
+                    baseFIreColor = ((num13 < 0.1f) ? Color.Lerp(Color.Transparent, color1, Utils.GetLerpValue(0f, 0.1f, num13, clamped: true)) : ((num13 < 0.2f) ? Color.Lerp(color1, color2, Utils.GetLerpValue(0.1f, 0.2f, num13, clamped: true)) : ((num13 < num3) ? color2 : ((num13 < num4) ? Color.Lerp(color2, color3, Utils.GetLerpValue(num3, num4, num13, clamped: true)) : ((num13 < num5) ? Color.Lerp(color3, color4, Utils.GetLerpValue(num4, num5, num13, clamped: true)) : ((!(num13 < 1f)) ? Color.Transparent : Color.Lerp(color4, Color.Transparent, Utils.GetLerpValue(num5, 1f, num13, clamped: true))))))));
                     float num16 = (1f - j) * Utils.Remap(num13, 0f, 0.2f, 0f, 1f);
                     Vector2 vector = Projectile.Center - Main.screenPosition + Projectile.velocity * (0f - num12) * j;
-                    Color color5 = transparent * num16;
+                    Color color5 = baseFIreColor * num16;
                     Color color6 = color5;
                     if (!elfMelterProjectile)
                     {
@@ -129,8 +125,11 @@ namespace TRAEProject.NewContent.Items.FlamethrowerAmmo
                                 Main.EntitySpriteDraw(value, vector + Projectile.velocity * (0f - num12) * incrementForAfterImages * 0.2f, rectangle, color5 * num11 * 0.25f, num19 + MathF.PI / 2f, rectangle.Size() / 2f, scale * 0.75f, SpriteEffects.None);
                                 Main.EntitySpriteDraw(value, vector, rectangle, color5 * num11, num20 + MathF.PI / 2f, rectangle.Size() / 2f, scale * 0.75f, SpriteEffects.None);
                             }
-                            Main.EntitySpriteDraw(value, vector, rectangle, new Color(255, 255, 255, 0) * (num11 * num11) * num16 * 0.35f, -num20 + MathF.PI / 2f, rectangle.Size() / 2f, scale * 0.75f * 0.6f, SpriteEffects.None);
-                            Main.EntitySpriteDraw(value, vector, rectangle, new Color(255, 255, 255, 0) * (num11 * num11) * num16 * 0.35f, num20 - MathF.PI / 2f, rectangle.Size() / 2f, scale * 0.75f * 0.4f, SpriteEffects.None);
+                            //magic numbers!! yipee
+                            float whiteOpacity =  1 - Utils.GetLerpValue(num4, num5, num13 - .05f, clamped: true);
+                            whiteOpacity *= whiteOpacity;
+                            Main.EntitySpriteDraw(value, vector, rectangle, new Color(255, 255, 255, 0) * (num11 * num11) * num16 * 0.35f * whiteOpacity, -num20 + MathF.PI / 2f, rectangle.Size() / 2f, scale * 0.45f, SpriteEffects.None);
+                            Main.EntitySpriteDraw(value, vector, rectangle, new Color(255, 255, 255, 0) * (num11 * num11) * num16 * 0.35f * whiteOpacity, num20 - MathF.PI / 2f, rectangle.Size() / 2f, scale * 0.4f, SpriteEffects.None);
                             break;
                     }
                 }
@@ -162,8 +161,7 @@ namespace TRAEProject.NewContent.Items.FlamethrowerAmmo
         }
         public override bool OnTileCollide(Vector2 oldVelocity)
         {
-
-            Projectile.velocity = oldVelocity * 0.95f;
+             Projectile.velocity = oldVelocity * 0.95f;
             Projectile.position -= Projectile.velocity;
             return false;
         }
@@ -209,7 +207,6 @@ namespace TRAEProject.NewContent.Items.FlamethrowerAmmo
                 dust.velocity *= 1.2f;
                 dust.velocity += Projectile.velocity * 1f * Utils.Remap(Projectile.localAI[0], 0f, timeBeforeItSlowsDown * 0.75f, 1f, 0.1f) * Utils.Remap(Projectile.localAI[0], 0f, (float)timeBeforeItSlowsDown * 0.1f, 0.1f, 1f);
                 dust.customData = 1;
-
             }
             if (dustTimer > 0 && Projectile.localAI[0] >= dustTimer && Main.rand.NextFloat() < dustAmount)
             {
@@ -225,7 +222,6 @@ namespace TRAEProject.NewContent.Items.FlamethrowerAmmo
         }
         public override void ModifyDamageHitbox(ref Rectangle hitbox)
         {
-
             int num = (int)(Utils.Remap(Projectile.localAI[0], 0f, 72f, 10f, 40f) * scalemodifier);
             hitbox.Inflate(num, num);
         }

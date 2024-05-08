@@ -109,10 +109,18 @@ namespace TRAEProject.Changes.NPCs
                     break;
             }
         }
+
         public override void OnHitPlayer(NPC npc, Player target, Player.HurtInfo hurtInfo)
         {
             switch (npc.type)
             {
+                case NPCID.JungleCreeper:
+                case NPCID.JungleCreeperWall:
+                    if (target.HasBuff(BuffID.Venom))
+                    {
+                        target.ClearBuff(BuffID.Venom); // this is jank but the odds you'll have acid venom and be hit by a Jungle Creeper in a realistic scenario are practically null
+                    }    
+                    break;
                 case NPCID.StardustCellBig:
                     {
                         int length = Main.rand.Next(90, 180);
@@ -165,7 +173,15 @@ namespace TRAEProject.Changes.NPCs
         //    }
         //    return default;
         //}
+        public override void EditSpawnPool(IDictionary<int, float> pool, NPCSpawnInfo spawnInfo)
+        {
 
+            if (spawnInfo.Player.ZoneJungle && spawnInfo.SpawnTileY <= Main.maxTilesY - 200 && spawnInfo.SpawnTileY > Main.rockLayer)
+                pool.Add(NPCID.JungleCreeper, 0.2f);
+
+
+
+        }
         public float braintimer = 0;
         public override void AI(NPC npc)
         {
@@ -473,13 +489,13 @@ namespace TRAEProject.Changes.NPCs
         }
         public override void OnKill(NPC npc)
         {
-            if (npc.type == NPCID.WallofFlesh)
-            {
-                NPC.downedMechBoss1 = true;
-                NPC.downedMechBoss2 = true;
-                NPC.downedMechBoss3 = true;
-                NPC.downedMechBossAny = true;
-            }
+            //if (npc.type == NPCID.WallofFlesh)
+            //{
+            //    NPC.downedMechBoss1 = true;
+            //    NPC.downedMechBoss2 = true;
+            //    NPC.downedMechBoss3 = true;
+            //    NPC.downedMechBossAny = true;
+            //}
             if (npc.type == NPCID.Plantera)
             {
                 TRAEWorld.downedOvergrowth = true;

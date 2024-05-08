@@ -10,9 +10,10 @@ using MonoMod.Cil;
 using Terraria;
 using Terraria.GameContent.UI.ResourceSets;
 using Terraria.ModLoader;
-using TRAEProject.NewContent.Items.Weapons.OnyxCurseDoll;
+using TRAEProject.NewContent.Items.Weapons.Magic.OnyxCurseDoll;
 using static Terraria.ModLoader.ModContent;
 using Terraria.ID;
+using Terraria.DataStructures;
 
 namespace TRAEProject.Changes
 {
@@ -54,18 +55,25 @@ namespace TRAEProject.Changes
             {
                 if (Main.rand.NextBool(3))
                 {
-                    Item.NewItem(Player.GetSource_OnHit(target), target.getRect(), ItemID.Star, 1);
+                    
+                    QuickSpawnStar(Player.GetSource_OnHit(target), target.getRect());
                     ++manaFlowerLimit;
                 }
             }
         }
+        static void QuickSpawnStar(IEntitySource source, Rectangle rect)
+        {
+            int number = Item.NewItem(source, rect, ItemID.Star, 1, noBroadcast: false, -1);
+			if (Main.netMode == NetmodeID.MultiplayerClient)
+				NetMessage.SendData(MessageID.SyncItem, -1, -1, null, number, 1f);
+        }
         public override void PostUpdateEquips()
         {
-            //Main.NewText("PUE: " + Player.statManaMax2);
             maxManaOverride = Player.statManaMax2;
             if (Player.statMana > 400)
             {
                 manaOver400 = Player.statMana - 400;
+
             }
             else
             {
@@ -87,7 +95,6 @@ namespace TRAEProject.Changes
 
             //Main.NewText("PU: " + Player.statManaMax2);
             Player.statManaMax2 = maxManaOverride;
-            Player.statMana += manaOver400;
             if (overloadedMana > Player.statManaMax2 * 2)
             {
                 overloadedMana = Player.statManaMax2 * 2;
@@ -100,6 +107,7 @@ namespace TRAEProject.Changes
             if (Player.statMana < Player.statManaMax2)
             {
                 newManaRegen += Player.statManaMax2 * 0.1f * manaRegenBoost;
+                newManaRegen += Player.usedArcaneCrystal ? 0.02f : 0f;
                 if (newManaRegen >= reachThisNumberAndThenIncreaseManaBy1)
                 {
                     newManaRegen -= 60;
@@ -116,6 +124,7 @@ namespace TRAEProject.Changes
             }
             return base.PreItemCheck();
         }
+ 
         public void GiveManaOverloadable(int amount)
         {
             Player.statMana += amount;

@@ -1,22 +1,18 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 using TRAEProject.NewContent.Items.Accesories.ShadowflameCharm;
-using TRAEProject.NewContent.Items.Accesories.CounterweightString;
 using static Terraria.ModLoader.ModContent;
 using TRAEProject.NewContent.Items.Materials;
+using TRAEProject.NewContent.Items.Accesories;
 
 namespace TRAEProject.Changes.Recipes
 {
     public static class AccesoryRecipes
     {
 
-        public static void Load(Mod mod)
+        public static void Load()
         { 
             Recipe MoltenSkullRoseMagmaSkull = Recipe.Create(ItemID.MoltenSkullRose).AddIngredient(ItemID.MagmaStone, 1).AddIngredient(ItemID.ObsidianSkull, 1).AddIngredient(ItemID.ObsidianRose).AddTile(TileID.TinkerersWorkbench);
             MoltenSkullRoseMagmaSkull.Register();
@@ -26,7 +22,7 @@ namespace TRAEProject.Changes.Recipes
             HermesBoots.Register(); 
             Recipe Mantra = Recipe.Create(ItemID.CountercurseMantra).AddIngredient(ItemID.Nazar, 1).AddIngredient(ItemID.AnkhCharm, 1).AddTile(TileID.TinkerersWorkbench);
             Mantra.Register();
-            Recipe Waders = Recipe.Create(ItemID.LavaWaders).AddIngredient(ItemID.WaterWalkingBoots, 1).AddIngredient(ItemID.LavaCharm, 1).AddTile(TileID.Loom);
+            Recipe Waders = Recipe.Create(ItemID.LavaWaders).AddIngredient(ItemID.WaterWalkingBoots, 1).AddIngredient(ItemID.LavaCharm, 1).AddTile(TileID.TinkerersWorkbench);
             Waders.Register();
             Recipe BoBrecipe = Recipe.Create(ItemID.BundleofBalloons);
             BoBrecipe.AddRecipeGroup("CloudBalloon");
@@ -71,7 +67,17 @@ namespace TRAEProject.Changes.Recipes
         public static void Modify(Recipe recipe)
         {
             Item ingredientToRemove;
+            if (recipe.HasResult(ItemID.ReflectiveShades))
+            {
+                recipe.TryGetIngredient(ItemID.Blindfold, out ingredientToRemove);
+                recipe.RemoveIngredient(ingredientToRemove);
+                recipe.AddIngredient(ItemID.Goggles, 1);
 
+            }
+            if (recipe.HasResult(ItemID.HorseshoeBundle))
+            {
+                recipe.DisableRecipe();
+            }
             if (recipe.HasResult(ItemID.MechanicalGlove))
             {
                 recipe.TryGetIngredient(ItemID.PowerGlove, out ingredientToRemove);
@@ -121,7 +127,8 @@ namespace TRAEProject.Changes.Recipes
                 recipe.AddIngredient(ItemID.RocketBoots, 1);
                 recipe.AddIngredient(ItemID.LuckyHorseshoe, 1);
             }
-            if (recipe.HasResult(ItemID.LavaWaders))
+            if (recipe.HasResult(ItemID.LavaWaders) && recipe.HasIngredient(ItemID.ObsidianRose) || recipe.HasIngredient(ItemID.MoltenCharm) || recipe.HasIngredient(ItemID.MoltenSkullRose) || recipe.HasIngredient(ItemID.ObsidianWaterWalkingBoots))
+
             {
                 recipe.TryGetIngredient(ItemID.ObsidianWaterWalkingBoots, out ingredientToRemove);
                 recipe.RemoveIngredient(ingredientToRemove);
@@ -130,9 +137,14 @@ namespace TRAEProject.Changes.Recipes
                 recipe.TryGetIngredient(ItemID.MoltenCharm, out ingredientToRemove);
                 recipe.RemoveIngredient(ingredientToRemove);
                 recipe.TryGetIngredient(ItemID.MoltenSkullRose, out ingredientToRemove);
+                recipe.RemoveIngredient(ingredientToRemove); 
+                recipe.TryGetIngredient(ItemID.WaterWalkingBoots, out ingredientToRemove);
                 recipe.RemoveIngredient(ingredientToRemove);
+                recipe.TryGetIngredient(ItemID.LavaCharm, out ingredientToRemove);
+                recipe.RemoveIngredient(ingredientToRemove);
+
                 recipe.DisableRecipe();
-           
+
             }
             if (recipe.HasResult(ItemID.MoonShell))
             {
@@ -184,7 +196,8 @@ namespace TRAEProject.Changes.Recipes
                 recipe.RemoveIngredient(ingredientToRemove);
                 recipe.TryGetIngredient(ItemID.SniperScope, out ingredientToRemove);
                 recipe.RemoveIngredient(ingredientToRemove);
-                recipe.AddIngredient(ItemID.RifleScope, 1);
+                recipe.AddIngredient(ItemID.RifleScope, 1); recipe.AddIngredient(ItemID.SoulofSight, 10);
+
                 recipe.AddIngredient(ItemID.MagicQuiver, 1);
             }
             if (recipe.HasResult(ItemID.AnkhShield))
@@ -218,12 +231,6 @@ namespace TRAEProject.Changes.Recipes
             if (recipe.HasResult(ItemID.MoltenSkullRose) && recipe.HasIngredient(ItemID.ObsidianSkullRose) && !recipe.HasIngredient(3999))
             {
                 recipe.AddIngredient(ItemID.MagmaStone);
-            }
-            if (recipe.HasResult(ItemID.HeroShield))
-            {
-                recipe.TryGetIngredient(ItemID.PaladinsShield, out ingredientToRemove);
-                recipe.RemoveIngredient(ingredientToRemove);
-                recipe.AddIngredient(ItemID.CobaltShield, 1);
             }
             if (recipe.HasResult(ItemID.FrogGear))
             {

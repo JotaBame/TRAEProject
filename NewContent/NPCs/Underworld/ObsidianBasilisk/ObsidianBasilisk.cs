@@ -21,17 +21,9 @@ namespace TRAEProject.NewContent.NPCs.Underworld.ObsidianBasilisk
 
 		public override void SetStaticDefaults() {
 			// DisplayName.SetDefault("Obsidian Basilisk");
-			NPCDebuffImmunityData debuffData = new NPCDebuffImmunityData
-			{
-				SpecificallyImmuneTo = new int[] {
-					BuffID.OnFire,
-					BuffID.OnFire3,
-                    BuffID.Venom,
-
-                    BuffID.Confused // Most NPCs have this
-				}
-            };
-            NPCID.Sets.DebuffImmunitySets.Add(Type, debuffData);
+			NPCID.Sets.SpecificDebuffImmunity[Type][BuffID.OnFire] = true;
+            NPCID.Sets.SpecificDebuffImmunity[Type][BuffID.OnFire3] = true;
+            NPCID.Sets.SpecificDebuffImmunity[Type][BuffID.Confused] = true;
             //var drawModifier = new NPCID.Sets.NPCBestiaryDrawModifiers(0) { // Influences how the NPC looks in the Bestiary
             //	//CustomTexturePath = "ExampleMod/Content/NPCs/ExampleWorm_Bestiary", // If the NPC is multiple parts like a worm, a custom texture for the Bestiary is encouraged.
             //	Position = new Vector2(40f, 24f),
@@ -68,7 +60,7 @@ namespace TRAEProject.NewContent.NPCs.Underworld.ObsidianBasilisk
         public override void ModifyNPCLoot(NPCLoot npcLoot)
         {
             npcLoot.Add(ItemDropRule.Common(ItemType<ObsidianScale>(), 1, 2, 3));
-            npcLoot.Add(ItemDropRule.Common(ItemID.Spaghetti, 33));
+            npcLoot.Add(ItemDropRule.Common(ItemID.Spaghetti, 10));
         }
 
         public override void SetBestiary(BestiaryDatabase database, BestiaryEntry bestiaryEntry) {
@@ -129,19 +121,13 @@ namespace TRAEProject.NewContent.NPCs.Underworld.ObsidianBasilisk
         public override void SetStaticDefaults()
         {
             // DisplayName.SetDefault("Obsidian Basilisk");
-            NPCDebuffImmunityData debuffData = new NPCDebuffImmunityData
-            {
-                SpecificallyImmuneTo = new int[] {
-                    BuffID.OnFire,
-                    BuffID.OnFire3,
-                    BuffID.Daybreak,
-                    BuffID.Venom,
-                    BuffID.Confused // Most NPCs have this
-				}
-            };
-            NPCID.Sets.DebuffImmunitySets.Add(Type, debuffData);
+            NPCID.Sets.SpecificDebuffImmunity[Type][BuffID.OnFire] = true;
+            NPCID.Sets.SpecificDebuffImmunity[Type][BuffID.OnFire3] = true;
+            NPCID.Sets.SpecificDebuffImmunity[Type][BuffID.Confused] = true;
+            NPCID.Sets.SpecificDebuffImmunity[Type][BuffID.Daybreak] = true;
+            NPCID.Sets.SpecificDebuffImmunity[Type][BuffID.Venom] = true;
 
-            NPCID.Sets.NPCBestiaryDrawModifiers value = new NPCID.Sets.NPCBestiaryDrawModifiers(0)
+            NPCID.Sets.NPCBestiaryDrawModifiers value = new NPCID.Sets.NPCBestiaryDrawModifiers()
             {
                 Hide = true // Hides this NPC from the Bestiary, useful for multi-part NPCs whom you only want one entry.
             };
@@ -163,30 +149,32 @@ namespace TRAEProject.NewContent.NPCs.Underworld.ObsidianBasilisk
         {
             ObsidianBasiliskHead.CommonWormInit(this);
         }
-        public override bool PreKill()
+        public override void PostAI()
         {
-            Gore.NewGore(NPC.GetSource_Death(), NPC.Center, NPC.velocity, Mod.Find<ModGore>("ObsidianBasiliskBody_Gore").Type, 1f);
+            if (Main.netMode != NetmodeID.MultiplayerClient)
+            {
+                // Some of these conditions are possble if the body/tail segment was spawned individually
+                // Kill the segment if the segment NPC it's following is no longer valid
+                if (NPC.life == 0 && !NPC.active)
+                {
+                    Gore.NewGore(NPC.GetSource_Death(), NPC.Center, NPC.velocity, Mod.Find<ModGore>("ObsidianBasiliskBody_Gore").Type, 1f);
 
-            return base.PreKill();
+                }
+            }
         }
 
     }
 
     internal class ObsidianBasiliskTail : WormTail
 	{
-		public override void SetStaticDefaults() {
-			// DisplayName.SetDefault("Obsidian Basilisk");
-            NPCDebuffImmunityData debuffData = new NPCDebuffImmunityData
-            {
-                SpecificallyImmuneTo = new int[] {
-                    BuffID.OnFire,
-                    BuffID.OnFire3,
-                    BuffID.Daybreak,
-                    BuffID.Confused // Most NPCs have this
-				}
-            }; NPCID.Sets.DebuffImmunitySets.Add(Type, debuffData);
+		public override void SetStaticDefaults() 
+        {
+            NPCID.Sets.SpecificDebuffImmunity[Type][BuffID.OnFire] = true;
+            NPCID.Sets.SpecificDebuffImmunity[Type][BuffID.OnFire3] = true;
+            NPCID.Sets.SpecificDebuffImmunity[Type][BuffID.Confused] = true;
+            NPCID.Sets.SpecificDebuffImmunity[Type][BuffID.Venom] = true;
 
-            NPCID.Sets.NPCBestiaryDrawModifiers value = new NPCID.Sets.NPCBestiaryDrawModifiers(0) {
+            NPCID.Sets.NPCBestiaryDrawModifiers value = new NPCID.Sets.NPCBestiaryDrawModifiers() {
 				Hide = true // Hides this NPC from the Bestiary, useful for multi-part NPCs whom you only want one entry.
 			};
 			NPCID.Sets.NPCBestiaryDrawOffset.Add(NPC.type, value);
@@ -202,12 +190,21 @@ namespace TRAEProject.NewContent.NPCs.Underworld.ObsidianBasilisk
             NPC.GetGlobalNPC<Stun>().stunImmune = true;
 
         }
-
-        public override bool PreKill()
+        public override void PostAI()
         {
-            Gore.NewGore(NPC.GetSource_Death(), NPC.Center, NPC.velocity, Mod.Find<ModGore>("ObsidianBasiliskTail_Gore").Type, 1f);
-            return base.PreKill();
+            if (Main.netMode != NetmodeID.MultiplayerClient)
+            {
+                // Some of these conditions are possble if the body/tail segment was spawned individually
+                // Kill the segment if the segment NPC it's following is no longer valid
+                if (NPC.life == 0 && !NPC.active)
+                {
+                    Gore.NewGore(NPC.GetSource_Death(), NPC.Center, NPC.velocity, Mod.Find<ModGore>("ObsidianBasiliskTail_Gore").Type, 1f);
+
+                }
+            }
+
         }
+
 
         public override void Init() {
 			ObsidianBasiliskHead.CommonWormInit(this);

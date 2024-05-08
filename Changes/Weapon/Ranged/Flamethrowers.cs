@@ -82,9 +82,10 @@ namespace TRAEProject.Changes.Weapons.Ranged
             ColorLerp = Color.Lerp(ColorMiddle, ColorBack, 0.25f);
             ColorSmoke = new Color(80, 80, 80, 100);
             dustID = DustID.Torch;
+            Projectile.ArmorPenetration = 3;
             Projectile.GetGlobalProjectile<ProjectileStats>().dontHitTheSameEnemyMultipleTimes = true;
             Projectile.GetGlobalProjectile<ProjectileStats>().AddsBuff = BuffID.OnFire;
-            Projectile.GetGlobalProjectile<ProjectileStats>().AddsBuffDuration = 1200;
+            Projectile.GetGlobalProjectile<ProjectileStats>().AddedBuffDuration = 1200;
             Projectile.ai[0] = 1f;
             dieInWater = true;
         }
@@ -104,11 +105,11 @@ namespace TRAEProject.Changes.Weapons.Ranged
             ColorLerp = Color.Lerp(ColorMiddle, ColorBack, 0.25f);
             ColorSmoke = new Color(80, 80, 80, 100);
             dustID = 135;
-            Projectile.ArmorPenetration = 40;
+            Projectile.ArmorPenetration = 50;
             Projectile.penetrate = 5;
             Projectile.GetGlobalProjectile<ProjectileStats>().dontHitTheSameEnemyMultipleTimes = true;
             Projectile.GetGlobalProjectile<ProjectileStats>().AddsBuff = BuffID.Frostburn2;
-            Projectile.GetGlobalProjectile<ProjectileStats>().AddsBuffDuration = 1200;
+            Projectile.GetGlobalProjectile<ProjectileStats>().AddedBuffDuration = 1200;
         }
     }
 }

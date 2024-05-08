@@ -11,7 +11,7 @@ namespace TRAEProject.Changes.Recipes
 {
     public static class MiscRecipes
     {
-        public static void Load(Mod mod)
+        public static void Load()
         {
             Recipe BloodyTear = Recipe.Create(ItemID.BloodMoonStarter).AddIngredient(ItemID.Lens, 5).AddIngredient(ItemID.VilePowder, 50).AddIngredient(ItemID.Deathweed, 10).AddTile(TileID.DemonAltar);
             BloodyTear.Register();
@@ -21,7 +21,7 @@ namespace TRAEProject.Changes.Recipes
             Sashimi.Register();
             Recipe Leather = Recipe.Create(ItemID.Leather).AddIngredient(ItemID.Vertebrae, 5).AddTile(TileID.Tables);
             Leather.Register();
-            
+     
             Recipe Wire = 
             Recipe.Create(ItemID.Wire, 3).
             AddIngredient(ItemID.CopperBar, 1).
@@ -66,6 +66,10 @@ namespace TRAEProject.Changes.Recipes
                 recipe.RemoveIngredient(ingredientToRemove);
                 recipe.AddIngredient(ItemID.Waterleaf, 1);
                 recipe.AddIngredient(ItemID.PrincessFish, 1);
+            }
+            if (recipe.HasResult(ItemID.RestorationPotion))
+            {
+                recipe.ReplaceResult(ItemID.RestorationPotion, 2);
             }
             if (recipe.HasResult(ItemID.WormFood))
             {

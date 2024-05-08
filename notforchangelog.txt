@@ -1,7 +1,0 @@
-* [NOT FOR CHANGELOG] Purple Clubberfish no longer has increased damage
-* [NOT FOR CHANGELOG] Obsidian armor reverted
-* [NOT FOR CHANGELOG] Purple Clubberfish no longer has increased damage
-* [NOT FOR CHANGELOG] Obsidian armor reverted
-* [NOT FOR CHANGELOG] reverted max ammo stack size change
-* [NOT FOR CHANGELOG] correct changelog on moon phases for skeleton merchant
-* [NOT FOR CHANGELOG] frost staff no longer inflicts frostbite

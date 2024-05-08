@@ -102,7 +102,7 @@ namespace TRAEProject.Changes.Weapon.Melee.SpearProjectiles
             AIType = ProjectileID.Bullet;
             Projectile.extraUpdates = 1;
         }
-        public override void Kill(int timeLeft)
+        public override void OnKill(int timeLeft)
         {
             SoundEngine.PlaySound(SoundID.Item27 with { MaxInstances = 0 }, Projectile.position);
             for (int num427 = 4; num427 < 10; num427++)
