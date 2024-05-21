@@ -1,18 +1,19 @@
-using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
-using System;
+using Steamworks;
 using Terraria;
-using Terraria.Audio;
-using Terraria.GameContent;
 using Terraria.ID;
 using Terraria.ModLoader;
-using static Terraria.ModLoader.ModContent;
+using Microsoft.Xna.Framework;
+using System;
+using Terraria.Audio;
+using Microsoft.Xna.Framework.Graphics;
+using Terraria.GameContent;
+ using static Terraria.ModLoader.ModContent;
 
-namespace TRAEProject.Changes.NPCs.Boss.DestroyerChanges
+namespace TRAEProject.Changes.NPCs.Boss
 {
     public class Destroyer : GlobalNPC
     {
-
+        
         //segmentation
         const int ActiveSegmentDenominator = 3; //when set to n every nth segment will be active
         const int ActiveSegmentShifter = 0; //move all active segments back or forward on destroyer
@@ -46,9 +47,9 @@ namespace TRAEProject.Changes.NPCs.Boss.DestroyerChanges
         const int probesToSpawn = 20; //how many probes the tail and head each spawn of the course of the fight
 
         // master (unused, for now)
-        const int MasterAimedLaserWarnTime = 75;
-        const int MasterPerpiLaserWarnTime = 120;
-        const int MasterBaseLaserCooldown = 300;
+        const int MasterAimedLaserWarnTime = 75;  
+        const int MasterPerpiLaserWarnTime = 120;  
+        const int MasterBaseLaserCooldown = 300; 
 
         //don't mess with these
         const int segmentActive = 2;
@@ -74,34 +75,34 @@ namespace TRAEProject.Changes.NPCs.Boss.DestroyerChanges
         }
         public override bool PreAI(NPC npc)
         {
-            if (npc.type == NPCID.TheDestroyer && GetInstance<TRAEConfig>().DestroyerRework && !Main.zenithWorld)
+            if(npc.type == NPCID.TheDestroyer && GetInstance<TRAEConfig>().DestroyerRework && !Main.zenithWorld)
             {
                 //recreated modified vanilla movement
                 //Main.NewText("AI0: " + npc.ai[0] + " AI1: " + npc.ai[1] + " AI2: " + npc.ai[2] + " AI3: " + npc.ai[2] + " LAI0: " + npc.localAI[0] + " LAI1: " + npc.localAI[1] + " LAI2: " + npc.localAI[2] + " LAI3: " + npc.localAI[2] );
-                float hpRatio = Main.expertMode ? (1f - (float)npc.life / npc.lifeMax) * 0.4f + 0.5f : 1f;
+                float hpRatio = Main.expertMode ? (1f - ((float)npc.life / npc.lifeMax)) * 0.4f + 0.5f : 1f;
                 npc.ai[2] += MathF.PI * 2f / MoodPeriod;
                 float currentMood = MathF.Sin(npc.ai[2]) * hpRatio;
                 //Main.NewText("Mood: " + MathF.Round(currentMood, 2) + "/" + MathF.Round(hpRatio, 2));
                 float currentSpeedMultiplier = 1f;
                 float laserCooldownModifer = 1f;
                 float moodModifer = currentMood * hpRatio;
-
-                if (moodModifer > 0)
-                {
-                    currentSpeedMultiplier = 1 + moodModifer * (SpeedMoodSpeedBonus - 1);
-                    laserCooldownModifer = 1f / (1 + moodModifer * (LaserMoodCooldownBonus - 1));
-                }
-                else
-                {
-                    currentSpeedMultiplier = 1f / (1 + Math.Abs(moodModifer) * (SpeedMoodSpeedBonus - 1));
-                    laserCooldownModifer = 1 + Math.Abs(moodModifer) * (LaserMoodCooldownBonus - 1);
-                }
-
+              
+                    if (moodModifer > 0)
+                    {
+                        currentSpeedMultiplier = 1 + moodModifer * (SpeedMoodSpeedBonus - 1);
+                        laserCooldownModifer = 1f / (1 + moodModifer * (LaserMoodCooldownBonus - 1));
+                    }
+                    else
+                    {
+                        currentSpeedMultiplier = 1f / (1 + Math.Abs(moodModifer) * (SpeedMoodSpeedBonus - 1));
+                        laserCooldownModifer = 1 + Math.Abs(moodModifer) * (LaserMoodCooldownBonus - 1);
+                    }
+               
                 npc.localAI[3]++;
-
-                if (npc.localAI[3] > Math.Max(0, BaseLaserCooldown / laserCooldownModifer - AimedLaserWarnTime))
+                
+                if(npc.localAI[3] > Math.Max(0, (BaseLaserCooldown / laserCooldownModifer) - AimedLaserWarnTime))
                 {
-                    if (npc.localAI[2] % PerpiFireFrequency == PerpiFireFrequency - 1)
+                    if(npc.localAI[2] % PerpiFireFrequency == (PerpiFireFrequency - 1))
                     {
                         npc.localAI[3] = -1 * PerpiLaserWarnTime;
                     }
@@ -111,15 +112,15 @@ namespace TRAEProject.Changes.NPCs.Boss.DestroyerChanges
 
                     }
                 }
-                if (npc.localAI[3] == 0)
+                if(npc.localAI[3] == 0)
                 {
                     npc.localAI[2]++;
                 }
-                if (npc.localAI[2] % PerpiFireFrequency == PerpiFireFrequency - 1)
+                if(npc.localAI[2] % PerpiFireFrequency == (PerpiFireFrequency - 1))
                 {
-                    if (npc.localAI[3] == -1)
+                    if(npc.localAI[3] == -1)
                     {
-                        for (int i = -1; i < 2; i++)
+                        for(int i = -1; i < 2; i++)
                         {
                             float r = npc.rotation - MathF.PI / 2f + i * MathF.PI / 8f;
                             Vector2 laserVel = TRAEMethods.PolarVector(11f, r);
@@ -129,12 +130,12 @@ namespace TRAEProject.Changes.NPCs.Boss.DestroyerChanges
                     }
                 }
                 AI_Destroyer_Head(npc, currentSpeedMultiplier);
-                if (npc.ai[1] * (1f / probesToSpawn) < 1f - (float)npc.life / npc.lifeMax)
+                if(npc.ai[1] * (1f / probesToSpawn)  <  1f - ((float)npc.life / npc.lifeMax))
                 {
                     npc.ai[1]++;
-                    if (Main.netMode != NetmodeID.MultiplayerClient)
+                    if(Main.netMode != NetmodeID.MultiplayerClient)
                     {
-                        int num763 = NPC.NewNPC(npc.GetSource_FromAI(), (int)(npc.position.X + npc.width / 2), (int)(npc.position.Y + npc.height), 139);
+                        int num763 = NPC.NewNPC(npc.GetSource_FromAI(), (int)(npc.position.X + (float)(npc.width / 2)), (int)(npc.position.Y + (float)npc.height), 139);
                         if (Main.netMode == NetmodeID.Server && num763 < 200)
                             NetMessage.SendData(MessageID.SyncNPC, -1, -1, null, num763);
 
@@ -151,12 +152,12 @@ namespace TRAEProject.Changes.NPCs.Boss.DestroyerChanges
             {
                 if (npc.type == NPCID.TheDestroyerTail)
                 {
-                    if (npc.localAI[3] * (1f / probesToSpawn) < 1f - (float)npc.life / npc.lifeMax)
+                    if (npc.localAI[3] * (1f / probesToSpawn) < 1f - ((float)npc.life / npc.lifeMax))
                     {
                         npc.localAI[3]++;
                         if (Main.netMode != NetmodeID.MultiplayerClient)
                         {
-                            int num763 = NPC.NewNPC(npc.GetSource_FromAI(), (int)(npc.position.X + npc.width / 2), (int)(npc.position.Y + npc.height), 139);
+                            int num763 = NPC.NewNPC(npc.GetSource_FromAI(), (int)(npc.position.X + (float)(npc.width / 2)), (int)(npc.position.Y + (float)npc.height), 139);
                             if (Main.netMode == NetmodeID.Server && num763 < 200)
                                 NetMessage.SendData(MessageID.SyncNPC, -1, -1, null, num763);
 
@@ -175,13 +176,13 @@ namespace TRAEProject.Changes.NPCs.Boss.DestroyerChanges
                     }
                     //make only every few segments active
                     //in vanilla ai[2] = 0 means it hasn't launched a probe, ai[2] = 1 means it has, we use 2 for active and 1 for innactive to prevent probe spawning
-                    npc.ai[2] = (int)(npc.localAI[3] + ActiveSegmentShifter) % ActiveSegmentDenominator == 0 ? segmentActive : segmentInactive;
+                    npc.ai[2] = ((int)(npc.localAI[3] + ActiveSegmentShifter) % ActiveSegmentDenominator == 0) ? segmentActive : segmentInactive;
                     if (npc.ai[2] == segmentActive)
                     {
                         Lighting.AddLight(npc.Center, TorchID.Red);
                         npc.TargetClosest();
                         int activeSegID = (int)npc.localAI[3] / ActiveSegmentDenominator;
-                        if ((int)Main.npc[(int)npc.ai[3]].localAI[2] % PerpiFireFrequency == PerpiFireFrequency - 1)
+                        if ((int)Main.npc[(int)npc.ai[3]].localAI[2] % PerpiFireFrequency == (PerpiFireFrequency - 1))
                         {
                             if (Main.npc[(int)npc.ai[3]].localAI[3] == -1 && (activeSegID + (int)Main.npc[(int)npc.ai[3]].localAI[2]) % PerpFiringSegmentDenominator == 0)
                             {
@@ -209,8 +210,6 @@ namespace TRAEProject.Changes.NPCs.Boss.DestroyerChanges
                     }
                     else
                     {
-                        //Dust.NewDustPerfect(npc.Center, DustID.MagnetSphere, Vector2.Zero, 0, Color.White, 2);
-
                         npc.dontTakeDamage = true;
                     }
                 }
@@ -218,13 +217,11 @@ namespace TRAEProject.Changes.NPCs.Boss.DestroyerChanges
         }
         public override void PostDraw(NPC npc, SpriteBatch spriteBatch, Vector2 screenPos, Color drawColor)
         {
-
             if (GetInstance<TRAEConfig>().DestroyerRework && !Main.zenithWorld)
             {
-
                 if (npc.type == NPCID.TheDestroyer)
                 {
-                    if (npc.localAI[2] % PerpiFireFrequency == PerpiFireFrequency - 1)
+                    if (npc.localAI[2] % PerpiFireFrequency == (PerpiFireFrequency - 1))
                     {
                         if (npc.localAI[3] < 0)
                         {
@@ -241,7 +238,7 @@ namespace TRAEProject.Changes.NPCs.Boss.DestroyerChanges
                     if (npc.ai[2] == segmentActive)
                     {
                         int activeSegID = (int)npc.localAI[3] / ActiveSegmentDenominator;
-                        if ((int)Main.npc[(int)npc.ai[3]].localAI[2] % PerpiFireFrequency == PerpiFireFrequency - 1)
+                        if ((int)Main.npc[(int)npc.ai[3]].localAI[2] % PerpiFireFrequency == (PerpiFireFrequency - 1))
                         {
                             if (Main.npc[(int)npc.ai[3]].localAI[3] < 0 && (activeSegID + (int)Main.npc[(int)npc.ai[3]].localAI[2]) % PerpFiringSegmentDenominator == 0)
                             {
@@ -265,24 +262,24 @@ namespace TRAEProject.Changes.NPCs.Boss.DestroyerChanges
         }
         public static void DrawLaser(NPC npc, SpriteBatch spriteBatch, float dir, float opacity, float length)
         {
-            Vector2 segPos = npc.Center - Main.screenPosition;
+            Vector2 segPos = npc.Center - Main.screenPosition;          
             Texture2D blankTexture = TextureAssets.Extra[178].Value;
             Vector2 texScale = new Vector2(length, 6 * opacity);
-            spriteBatch.Draw(blankTexture, segPos, new Rectangle(0, 0, 1, 1), Color.Red * opacity * 0.75f, dir, new Vector2(0, 0.5f), texScale, SpriteEffects.None, 0);
+            spriteBatch.Draw(blankTexture, segPos, new Rectangle(0, 0, 1, 1), Color.Red * opacity  * 0.75f, dir, new Vector2(0, 0.5f), texScale, SpriteEffects.None, 0);
         }
         public static void DrawPointedLaser(NPC npc, SpriteBatch spriteBatch, float dir, float opacity, float length)
         {
-            Vector2 segPos = npc.Center - Main.screenPosition;
-            Texture2D blankTexture = Request<Texture2D>("TRAEProject/Changes/NPCs/Boss/PointedWarning").Value;
-            Vector2 texScale = new Vector2(length / 10, 6 * opacity / 9);
-            spriteBatch.Draw(blankTexture, segPos, new Rectangle(0, 0, 10, 9), Color.Red * opacity * 0.75f, dir, new Vector2(0, 4.5f), texScale, SpriteEffects.None, 0);
+            Vector2 segPos = npc.Center - Main.screenPosition;          
+            Texture2D blankTexture = ModContent.Request<Texture2D>("TRAEProject/Changes/NPCs/Boss/PointedWarning").Value;
+            Vector2 texScale = new Vector2(length / 10, (6 * opacity) / 9);
+            spriteBatch.Draw(blankTexture, segPos, new Rectangle(0, 0, 10, 9), Color.Red * opacity  * 0.75f, dir, new Vector2(0, 4.5f), texScale, SpriteEffects.None, 0);
         }
         public override void FindFrame(NPC npc, int frameHeight)
         {
-            if (npc.type == NPCID.TheDestroyerBody && GetInstance<TRAEConfig>().DestroyerRework && !Main.zenithWorld)
+            if(npc.type == NPCID.TheDestroyerBody && GetInstance<TRAEConfig>().DestroyerRework && !Main.zenithWorld)
             {
                 //we manually set frameY = 0 when on 2 to for it to use the not probe launched frame for active segments
-                if (npc.ai[2] == segmentActive)
+                if(npc.ai[2] == segmentActive)
                 {
                     npc.frame.Y = 0;
                 }
@@ -298,11 +295,11 @@ namespace TRAEProject.Changes.NPCs.Boss.DestroyerChanges
         static int FindIDByWhoAmI(NPC npc)
         {
             int segmentId = 1;
-            for (int i = 0; i < Main.npc.Length; i++)
+            for(int i = 0; i < Main.npc.Length; i++)
             {
-                if (Main.npc[i].active && Main.npc[i].type == NPCID.TheDestroyerBody)
+                if(Main.npc[i].active && Main.npc[i].type == NPCID.TheDestroyerBody)
                 {
-                    if (i == npc.whoAmI)
+                    if(i == npc.whoAmI)
                     {
                         break;
                     }
@@ -319,9 +316,9 @@ namespace TRAEProject.Changes.NPCs.Boss.DestroyerChanges
         {
             int segmentId = 1;
             int attachedTo = (int)npc.ai[1];
-            for (int i = 0; i < 200; i++)
+            for(int i = 0; i < 200; i++)
             {
-                if (attachedTo == (int)npc.ai[3])
+                if(attachedTo == (int)npc.ai[3])
                 {
                     break;
                 }
@@ -331,112 +328,107 @@ namespace TRAEProject.Changes.NPCs.Boss.DestroyerChanges
             return segmentId;
         }
         //copied and modified from vanilla
-        private void AI_Destroyer_Head(NPC npc, float speedBonus)
+        private void AI_Destroyer_Head(NPC npc, float speedBonus) 
         {
-            
             if (npc.ai[3] > 0f)
-                npc.realLife = (int)npc.ai[3];
+				npc.realLife = (int)npc.ai[3];
 
-            if (npc.target < 0 || npc.target == 255 || Main.player[npc.target].dead)
-                npc.TargetClosest();
+			if (npc.target < 0 || npc.target == 255 || Main.player[npc.target].dead)
+				npc.TargetClosest();
 
-            if (npc.alpha != 0)
+            if (npc.alpha != 0) 
             {
-                for (int i = 0; i < 2; i++)
+                for (int i = 0; i < 2; i++) 
                 {
-                    int dustIndex = Dust.NewDust(new Vector2(npc.position.X, npc.position.Y), npc.width, npc.height, DustID.TheDestroyer, 0f, 0f, 100, default, 2f);
+                    int dustIndex = Dust.NewDust(new Vector2(npc.position.X, npc.position.Y), npc.width, npc.height, DustID.TheDestroyer, 0f, 0f, 100, default(Color), 2f);
                     Main.dust[dustIndex].noGravity = true;
                     Main.dust[dustIndex].noLight = true;
                 }
             }
-            npc.alpha -= 42;
+                npc.alpha -= 42;
             if (npc.alpha < 0)
                 npc.alpha = 0;
 
-            if (Main.netMode != NetmodeID.MultiplayerClient)
+			if (Main.netMode != NetmodeID.MultiplayerClient) 
             {
-                if (npc.ai[0] == 0f)
+				if (npc.ai[0] == 0f) 
                 {
-                    npc.ai[3] = npc.whoAmI;
-                    npc.realLife = npc.whoAmI;
-                    int prevSegIndex = npc.whoAmI;
-                    int num4 = 80;
-                    if (Main.getGoodWorld)
-                        num4 *= 2;
+					npc.ai[3] = npc.whoAmI;
+					npc.realLife = npc.whoAmI;
+					int prevSegIndex = npc.whoAmI;
+					int num4 = 80;
+					if (Main.getGoodWorld)
+						num4 *= 2;
 
-                    for (int j = 0; j <= num4; j++)
-                    {
-                        int segType = 135;
-                        if (j == num4)
-                            segType = 136;
+					for (int j = 0; j <= num4; j++) {
+						int segType = 135;
+						if (j == num4)
+							segType = 136;
 
-                        int segIndex = NPC.NewNPC(npc.GetSource_FromAI(), (int)(npc.position.X + npc.width / 2), (int)(npc.position.Y + npc.height), segType, npc.whoAmI);
-                        Main.npc[segIndex].ai[3] = npc.whoAmI;
-                        Main.npc[segIndex].realLife = npc.whoAmI;
-                        Main.npc[segIndex].ai[1] = prevSegIndex;
-                        Main.npc[prevSegIndex].ai[0] = segIndex;
-                        NetMessage.SendData(MessageID.SyncNPC, -1, -1, null, segIndex);
-                        prevSegIndex = segIndex;
-                    }
-                }
-            }
+						int segIndex = NPC.NewNPC(npc.GetSource_FromAI(), (int)(npc.position.X + (float)(npc.width / 2)), (int)(npc.position.Y + (float)npc.height), segType, npc.whoAmI);
+						Main.npc[segIndex].ai[3] = npc.whoAmI;
+						Main.npc[segIndex].realLife = npc.whoAmI;
+						Main.npc[segIndex].ai[1] = prevSegIndex;
+						Main.npc[prevSegIndex].ai[0] = segIndex;
+						NetMessage.SendData(MessageID.SyncNPC, -1, -1, null, segIndex);
+						prevSegIndex = segIndex;
+					}
+				}
+			}
 
             //detect tile region
-            int tileToLeft = (int)(npc.position.X / 16f) - 1;
-            int tileToRight = (int)((npc.position.X + npc.width) / 16f) + 2;
-            int tileAbove = (int)(npc.position.Y / 16f) - 1;
-            int tileBelow = (int)((npc.position.Y + npc.height) / 16f) + 2;
-            if (tileToLeft < 0)
-                tileToLeft = 0;
+			int tileToLeft = (int)(npc.position.X / 16f) - 1;
+			int tileToRight = (int)((npc.position.X + (float)npc.width) / 16f) + 2;
+			int tileAbove = (int)(npc.position.Y / 16f) - 1;
+			int tileBelow = (int)((npc.position.Y + (float)npc.height) / 16f) + 2;
+			if (tileToLeft < 0)
+				tileToLeft = 0;
 
-            if (tileToRight > Main.maxTilesX)
-                tileToRight = Main.maxTilesX;
+			if (tileToRight > Main.maxTilesX)
+				tileToRight = Main.maxTilesX;
 
-            if (tileAbove < 0)
-                tileAbove = 0;
+			if (tileAbove < 0)
+				tileAbove = 0;
 
-            if (tileBelow > Main.maxTilesY)
-                tileBelow = Main.maxTilesY;
+			if (tileBelow > Main.maxTilesY)
+				tileBelow = Main.maxTilesY;
 
-            bool isBurrowing = false;
-            if (!isBurrowing)
+			bool isBurrowing = false;
+			if (!isBurrowing) 
             {
-                Vector2 vector2 = default;
-                for (int k = tileToLeft; k < tileToRight; k++)
-                {
-                    for (int l = tileAbove; l < tileBelow; l++)
-                    {
-                        if (Main.tile[k, l] != null && (Main.tile[k, l].HasUnactuatedTile && (Main.tileSolid[Main.tile[k, l].TileType] || Main.tileSolidTop[Main.tile[k, l].TileType] && Main.tile[k, l].TileFrameY == 0) || Main.tile[k, l].LiquidAmount > 64))
-                        {
-                            vector2.X = k * 16;
-                            vector2.Y = l * 16;
-                            if (npc.position.X + npc.width > vector2.X && npc.position.X < vector2.X + 16f && npc.position.Y + npc.height > vector2.Y && npc.position.Y < vector2.Y + 16f)
+				Vector2 vector2 = default(Vector2);
+				for (int k = tileToLeft; k < tileToRight; k++) {
+					for (int l = tileAbove; l < tileBelow; l++) {
+						if (Main.tile[k, l] != null && ((Main.tile[k, l].HasUnactuatedTile && (Main.tileSolid[Main.tile[k, l].TileType] || (Main.tileSolidTop[Main.tile[k, l].TileType] && Main.tile[k, l].TileFrameY == 0))) || Main.tile[k, l].LiquidAmount > 64)) {
+							vector2.X = k * 16;
+							vector2.Y = l * 16;
+							if (npc.position.X + (float)npc.width > vector2.X && npc.position.X < vector2.X + 16f && npc.position.Y + (float)npc.height > vector2.Y && npc.position.Y < vector2.Y + 16f) 
                             {
-                                isBurrowing = true;
-                                break;
-                            }
-                        }
-                    }
-                }
-            }
+								isBurrowing = true;
+								break;
+							}
+						}
+					}
+				}
+			}
 
             //detect player proximity region
-            if (!isBurrowing)
+			if (!isBurrowing) 
             {
 
-                Lighting.AddLight((int)((npc.position.X + npc.width / 2) / 16f), (int)((npc.position.Y + npc.height / 2) / 16f), 0.3f, 0.1f, 0.05f);
+				Lighting.AddLight((int)((npc.position.X + (float)(npc.width / 2)) / 16f), (int)((npc.position.Y + (float)(npc.height / 2)) / 16f), 0.3f, 0.1f, 0.05f);
 
-                npc.localAI[1] = 1f;
+				npc.localAI[1] = 1f;
                 Rectangle rectangle = new Rectangle((int)npc.position.X, (int)npc.position.Y, npc.width, npc.height);
                 bool airBurrow = true;
-                if (npc.position.Y > Main.player[npc.target].position.Y)
+                if (npc.position.Y > Main.player[npc.target].position.Y) 
                 {
-                    for (int m = 0; m < 255; m++)
+                    for (int m = 0; m < 255; m++) 
                     {
-                        if (Main.player[m].active)
+                        if (Main.player[m].active) 
                         {
                             Rectangle rectangle2 = new Rectangle((int)Main.player[m].position.X - PlayerDetectionRegionSize, (int)Main.player[m].position.Y - PlayerDetectionRegionSize, PlayerDetectionRegionSize * 2, PlayerDetectionRegionSize * 2);
-                            if (rectangle.Intersects(rectangle2))
+                            if (rectangle.Intersects(rectangle2)) 
                             {
                                 airBurrow = false;
                                 break;
@@ -447,198 +439,195 @@ namespace TRAEProject.Changes.NPCs.Boss.DestroyerChanges
                     if (airBurrow)
                         isBurrowing = true;
                 }
-
-            }
-            else
+				
+			}
+			else 
             {
-                npc.localAI[1] = 0f;
-            }
+				npc.localAI[1] = 0f;
+			}
 
-            float terminalVelocity = BaseTerminalVelocity * speedBonus;
-            if (Main.dayTime || Main.player[npc.target].dead)
+			float terminalVelocity = BaseTerminalVelocity * speedBonus;
+			if (Main.dayTime || Main.player[npc.target].dead) 
             {
-                isBurrowing = false;
-                npc.velocity.Y += 1f;
-                if (npc.position.Y > Main.worldSurface * 16.0)
-                {
-                    npc.velocity.Y += 1f;
-                    terminalVelocity = BaseTerminalVelocity * 2;
-                }
+				isBurrowing = false;
+				npc.velocity.Y += 1f;
+				if ((double)npc.position.Y > Main.worldSurface * 16.0) {
+					npc.velocity.Y += 1f;
+					terminalVelocity = BaseTerminalVelocity * 2;
+				}
 
-                if (npc.position.Y > Main.rockLayer * 16.0)
+				if ((double)npc.position.Y > Main.rockLayer * 16.0) 
                 {
-                    for (int n = 0; n < 200; n++)
+					for (int n = 0; n < 200; n++) 
                     {
-                        if (Main.npc[n].aiStyle == npc.aiStyle)
-                            Main.npc[n].active = false;
-                    }
-                }
-            }
+						if (Main.npc[n].aiStyle == npc.aiStyle)
+							Main.npc[n].active = false;
+					}
+				}
+			}
 
-            float acceleration = BaseAccelration * speedBonus;
-            float extraBurrowAccleration = BaseBurrowAccelration * speedBonus;
-            if (Main.getGoodWorld)
+			float acceleration = BaseAccelration * speedBonus;
+			float extraBurrowAccleration = BaseBurrowAccelration * speedBonus;
+			if (Main.getGoodWorld) 
             {
-                acceleration *= 1.2f;
-                extraBurrowAccleration *= 1.2f;
-            }
+				acceleration *= 1.2f;
+				extraBurrowAccleration *= 1.2f;
+			}
 
-            Vector2 center = npc.Center;
-            float distToPlayerX = Main.player[npc.target].position.X + Main.player[npc.target].width / 2;
-            float distToPlayerY = Main.player[npc.target].position.Y + Main.player[npc.target].height / 2 - OverPlayerBurrowTarget;
-            distToPlayerX = (int)(distToPlayerX / 16f) * 16;
-            distToPlayerY = (int)(distToPlayerY / 16f) * 16;
-            center.X = (int)(center.X / 16f) * 16;
-            center.Y = (int)(center.Y / 16f) * 16;
-            distToPlayerX -= center.X;
-            distToPlayerY -= center.Y;
-            float distToPlayer = (float)Math.Sqrt(distToPlayerX * distToPlayerX + distToPlayerY * distToPlayerY);
+			Vector2 vector3 = npc.Center;
+			float distToPlayerX = Main.player[npc.target].position.X + (float)(Main.player[npc.target].width / 2);
+			float distToPlayerY = Main.player[npc.target].position.Y + (float)(Main.player[npc.target].height / 2) - OverPlayerBurrowTarget;
+			distToPlayerX = (int)(distToPlayerX / 16f) * 16;
+			distToPlayerY = (int)(distToPlayerY / 16f) * 16;
+			vector3.X = (int)(vector3.X / 16f) * 16;
+			vector3.Y = (int)(vector3.Y / 16f) * 16;
+			distToPlayerX -= vector3.X;
+			distToPlayerY -= vector3.Y;
+			float distToPlayer = (float)Math.Sqrt(distToPlayerX * distToPlayerX + distToPlayerY * distToPlayerY);
+			
 
-
-            if (!isBurrowing)
+			if (!isBurrowing) 
             {
-                npc.TargetClosest();
-                npc.velocity.Y += speedBonus * DestroyerGravity * (npc.Center.Y > Main.player[npc.target].Center.Y && npc.velocity.Y < 0 ? GravityReductionWhenBelowPlayer : 1f);
-                if (npc.velocity.Y > terminalVelocity)
-                    npc.velocity.Y = terminalVelocity;
+				npc.TargetClosest();
+				npc.velocity.Y += speedBonus * DestroyerGravity * ((npc.Center.Y > Main.player[npc.target].Center.Y && npc.velocity.Y < 0) ? GravityReductionWhenBelowPlayer : 1f);
+				if (npc.velocity.Y > terminalVelocity)
+					npc.velocity.Y = terminalVelocity;
 
-                if ((double)(Math.Abs(npc.velocity.X) + Math.Abs(npc.velocity.Y)) < (double)terminalVelocity * 0.4)
+				if ((double)(Math.Abs(npc.velocity.X) + Math.Abs(npc.velocity.Y)) < (double)terminalVelocity * 0.4) 
                 {
-                    if (npc.velocity.X < 0f)
-                        npc.velocity.X -= acceleration * 1.1f;
-                    else
-                        npc.velocity.X += acceleration * 1.1f;
-                }
-                else if (npc.velocity.Y == terminalVelocity)
+					if (npc.velocity.X < 0f)
+						npc.velocity.X -= acceleration * 1.1f;
+					else
+						npc.velocity.X += acceleration * 1.1f;
+				}
+				else if (npc.velocity.Y == terminalVelocity) 
                 {
-                    if (npc.velocity.X < distToPlayerX)
-                        npc.velocity.X += acceleration;
-                    else if (npc.velocity.X > distToPlayerX)
-                        npc.velocity.X -= acceleration;
-                }
-                else if (npc.velocity.Y > 4f)
+					if (npc.velocity.X < distToPlayerX)
+						npc.velocity.X += acceleration;
+					else if (npc.velocity.X > distToPlayerX)
+						npc.velocity.X -= acceleration;
+				}
+				else if (npc.velocity.Y > 4f) 
                 {
-                    if (npc.velocity.X < 0f)
-                        npc.velocity.X += acceleration * 0.9f;
-                    else
-                        npc.velocity.X -= acceleration * 0.9f;
-                }
-            }
-            else
+					if (npc.velocity.X < 0f)
+						npc.velocity.X += acceleration * 0.9f;
+					else
+						npc.velocity.X -= acceleration * 0.9f;
+				}
+			}
+			else 
             {
-                if (npc.soundDelay == 0)
+				if (npc.soundDelay == 0) 
                 {
-                    float num23 = distToPlayer / 40f;
-                    if (num23 < 10f)
-                        num23 = 10f;
+					float num23 = distToPlayer / 40f;
+					if (num23 < 10f)
+						num23 = 10f;
 
-                    if (num23 > 20f)
-                        num23 = 20f;
+					if (num23 > 20f)
+						num23 = 20f;
 
-                    npc.soundDelay = (int)num23;
-                    SoundEngine.PlaySound(SoundID.WormDig, npc.position);
-                }
+					npc.soundDelay = (int)num23;
+					SoundEngine.PlaySound(SoundID.WormDig, npc.position);
+				}
 
-                float num24 = Math.Abs(distToPlayerX);
-                float num25 = Math.Abs(distToPlayerY);
-                float multiplier = terminalVelocity / distToPlayer;
+				float num24 = Math.Abs(distToPlayerX);
+				float num25 = Math.Abs(distToPlayerY);
+				float multiplier = terminalVelocity / distToPlayer;
                 float maxSpeedX = distToPlayerX * multiplier;
                 float maxSpeedY = distToPlayerY * multiplier;
-                //distToPlayerX *= num26;
-                //distToPlayerY *= num26;
-                if ((npc.velocity.X > 0f && maxSpeedX > 0f || npc.velocity.X < 0f && maxSpeedX < 0f) && (npc.velocity.Y > 0f && maxSpeedY > 0f || npc.velocity.Y < 0f && maxSpeedY < 0f))
+				//distToPlayerX *= num26;
+				//distToPlayerY *= num26;
+				if (((npc.velocity.X > 0f && maxSpeedX > 0f) || (npc.velocity.X < 0f && maxSpeedX < 0f)) && ((npc.velocity.Y > 0f && maxSpeedY > 0f) || (npc.velocity.Y < 0f && maxSpeedY < 0f))) 
                 {
-                    if (npc.velocity.X < maxSpeedX)
-                        npc.velocity.X += extraBurrowAccleration;
-                    else if (npc.velocity.X > maxSpeedX)
-                        npc.velocity.X -= extraBurrowAccleration;
+					if (npc.velocity.X < maxSpeedX)
+						npc.velocity.X += extraBurrowAccleration;
+					else if (npc.velocity.X > maxSpeedX)
+						npc.velocity.X -= extraBurrowAccleration;
 
-                    if (npc.velocity.Y < maxSpeedY)
-                        npc.velocity.Y += extraBurrowAccleration;
-                    else if (npc.velocity.Y > maxSpeedY)
-                        npc.velocity.Y -= extraBurrowAccleration;
-                }
+					if (npc.velocity.Y < maxSpeedY)
+						npc.velocity.Y += extraBurrowAccleration;
+					else if (npc.velocity.Y > maxSpeedY)
+						npc.velocity.Y -= extraBurrowAccleration;
+				}
 
-                if (npc.velocity.X > 0f && maxSpeedX > 0f || npc.velocity.X < 0f && maxSpeedX < 0f || npc.velocity.Y > 0f && maxSpeedY > 0f || npc.velocity.Y < 0f && maxSpeedY < 0f)
+				if ((npc.velocity.X > 0f && maxSpeedX > 0f) || (npc.velocity.X < 0f && maxSpeedX < 0f) || (npc.velocity.Y > 0f && maxSpeedY > 0f) || (npc.velocity.Y < 0f && maxSpeedY < 0f)) 
                 {
-                    if (npc.velocity.X < maxSpeedX)
-                        npc.velocity.X += acceleration;
-                    else if (npc.velocity.X > maxSpeedX)
-                        npc.velocity.X -= acceleration;
+					if (npc.velocity.X < maxSpeedX)
+						npc.velocity.X += acceleration;
+					else if (npc.velocity.X > maxSpeedX)
+						npc.velocity.X -= acceleration;
 
-                    if (npc.velocity.Y < maxSpeedY)
-                        npc.velocity.Y += acceleration;
-                    else if (npc.velocity.Y > maxSpeedY)
-                        npc.velocity.Y -= acceleration;
+					if (npc.velocity.Y < maxSpeedY)
+						npc.velocity.Y += acceleration;
+					else if (npc.velocity.Y > maxSpeedY)
+						npc.velocity.Y -= acceleration;
 
-                    if ((double)Math.Abs(maxSpeedY) < (double)terminalVelocity * 0.2 && (npc.velocity.X > 0f && maxSpeedX < 0f || npc.velocity.X < 0f && maxSpeedX > 0f))
-                    {
-                        if (npc.velocity.Y > 0f)
-                            npc.velocity.Y += acceleration * 2f;
-                        else
-                            npc.velocity.Y -= acceleration * 2f;
-                    }
+					if ((double)Math.Abs(maxSpeedY) < (double)terminalVelocity * 0.2 && ((npc.velocity.X > 0f && maxSpeedX < 0f) || (npc.velocity.X < 0f && maxSpeedX > 0f))) {
+						if (npc.velocity.Y > 0f)
+							npc.velocity.Y += acceleration * 2f;
+						else
+							npc.velocity.Y -= acceleration * 2f;
+					}
 
-                    if ((double)Math.Abs(maxSpeedX) < (double)terminalVelocity * 0.2 && (npc.velocity.Y > 0f && maxSpeedY < 0f || npc.velocity.Y < 0f && maxSpeedY > 0f))
-                    {
-                        if (npc.velocity.X > 0f)
-                            npc.velocity.X += acceleration * 2f;
-                        else
-                            npc.velocity.X -= acceleration * 2f;
-                    }
-                }
-                else if (num24 > num25)
+					if ((double)Math.Abs(maxSpeedX) < (double)terminalVelocity * 0.2 && ((npc.velocity.Y > 0f && maxSpeedY < 0f) || (npc.velocity.Y < 0f && maxSpeedY > 0f))) {
+						if (npc.velocity.X > 0f)
+							npc.velocity.X += acceleration * 2f;
+						else
+							npc.velocity.X -= acceleration * 2f;
+					}
+				}
+				else if (num24 > num25) 
                 {
-                    if (npc.velocity.X < maxSpeedX)
-                        npc.velocity.X += acceleration * 1.1f;
-                    else if (npc.velocity.X > maxSpeedX)
-                        npc.velocity.X -= acceleration * 1.1f;
+					if (npc.velocity.X < maxSpeedX)
+						npc.velocity.X += acceleration * 1.1f;
+					else if (npc.velocity.X > maxSpeedX)
+						npc.velocity.X -= acceleration * 1.1f;
 
-                    if ((double)(Math.Abs(npc.velocity.X) + Math.Abs(npc.velocity.Y)) < (double)terminalVelocity * 0.5)
+					if ((double)(Math.Abs(npc.velocity.X) + Math.Abs(npc.velocity.Y)) < (double)terminalVelocity * 0.5) 
                     {
-                        if (npc.velocity.Y > 0f)
-                            npc.velocity.Y += acceleration;
-                        else
-                            npc.velocity.Y -= acceleration;
-                    }
-                }
-                else
+						if (npc.velocity.Y > 0f)
+							npc.velocity.Y += acceleration;
+						else
+							npc.velocity.Y -= acceleration;
+					}
+				}
+				else 
                 {
-                    if (npc.velocity.Y < maxSpeedY)
-                        npc.velocity.Y += acceleration * 1.1f;
-                    else if (npc.velocity.Y > maxSpeedY)
-                        npc.velocity.Y -= acceleration * 1.1f;
+					if (npc.velocity.Y < maxSpeedY)
+						npc.velocity.Y += acceleration * 1.1f;
+					else if (npc.velocity.Y > maxSpeedY)
+						npc.velocity.Y -= acceleration * 1.1f;
 
-                    if ((double)(Math.Abs(npc.velocity.X) + Math.Abs(npc.velocity.Y)) < (double)terminalVelocity * 0.5)
-                    {
-                        if (npc.velocity.X > 0f)
-                            npc.velocity.X += acceleration;
-                        else
-                            npc.velocity.X -= acceleration;
-                    }
-                }
-            }
+					if ((double)(Math.Abs(npc.velocity.X) + Math.Abs(npc.velocity.Y)) < (double)terminalVelocity * 0.5) {
+						if (npc.velocity.X > 0f)
+							npc.velocity.X += acceleration;
+						else
+							npc.velocity.X -= acceleration;
+					}
+				}
+			}
 
-            npc.rotation = (float)Math.Atan2(npc.velocity.Y, npc.velocity.X) + 1.57f;
+			npc.rotation = (float)Math.Atan2(npc.velocity.Y, npc.velocity.X) + 1.57f;
 
-            if (isBurrowing)
+			if (isBurrowing) 
             {
-                if (npc.localAI[0] != 1f)
-                    npc.netUpdate = true;
+				if (npc.localAI[0] != 1f)
+					npc.netUpdate = true;
 
-                npc.localAI[0] = 1f;
-            }
-            else
+				npc.localAI[0] = 1f;
+			}
+			else 
             {
-                if (npc.localAI[0] != 0f)
-                    npc.netUpdate = true;
+				if (npc.localAI[0] != 0f)
+					npc.netUpdate = true;
 
-                npc.localAI[0] = 0f;
-            }
+				npc.localAI[0] = 0f;
+			}
 
-            if ((npc.velocity.X > 0f && npc.oldVelocity.X < 0f || npc.velocity.X < 0f && npc.oldVelocity.X > 0f || npc.velocity.Y > 0f && npc.oldVelocity.Y < 0f || npc.velocity.Y < 0f && npc.oldVelocity.Y > 0f) && !npc.justHit)
-                npc.netUpdate = true;
-        }
+			if (((npc.velocity.X > 0f && npc.oldVelocity.X < 0f) || (npc.velocity.X < 0f && npc.oldVelocity.X > 0f) || (npc.velocity.Y > 0f && npc.oldVelocity.Y < 0f) || (npc.velocity.Y < 0f && npc.oldVelocity.Y > 0f)) && !npc.justHit)
+				npc.netUpdate = true;
+		}
+
         public override bool PreKill(NPC npc)
         {
             if (npc.type == NPCID.Probe && Main.expertMode)
@@ -648,18 +637,12 @@ namespace TRAEProject.Changes.NPCs.Boss.DestroyerChanges
             }
             return true;
         }
-        public override bool PreDraw(NPC npc, SpriteBatch spriteBatch, Vector2 screenPos, Color drawColor)
-        {
-            if (GetInstance<TRAEConfig>().DestroyerRework && !Main.zenithWorld)
-                return DestroyerBeamDrawing.Draw(npc, spriteBatch, screenPos, drawColor);
-            return true;
-        }
     }
     public class DestroyerProjectiles : GlobalProjectile
     {
         public override void SetDefaults(Projectile projectile)
         {
-            if (projectile.type == ProjectileID.PinkLaser && GetInstance<TRAEConfig>().DestroyerRework && !Main.zenithWorld)
+            if(projectile.type == ProjectileID.PinkLaser && GetInstance<TRAEConfig>().DestroyerRework && !Main.zenithWorld)
             {
                 projectile.scale *= 2f;
             }
