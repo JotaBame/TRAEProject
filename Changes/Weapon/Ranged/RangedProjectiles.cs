@@ -23,6 +23,7 @@ namespace TRAEProject.Changes.Projectiles
         {
             switch (projectile.type)
             {
+ 
                 case ProjectileID.NailFriendly:
                     projectile.penetrate = 3;
                     projectile.usesLocalNPCImmunity = true;
@@ -119,7 +120,9 @@ namespace TRAEProject.Changes.Projectiles
                     projectile.penetrate = 3; 
                     projectile.GetGlobalProjectile<ProjectileStats>().BouncesOffTiles = true;
                     return;
-   
+                case ProjectileID.Grenade:
+                    projectile.penetrate = 5;
+                     return;
                 case ProjectileID.MechanicalPiranha:
                     projectile.ContinuouslyUpdateDamageStats = true;
                     break;

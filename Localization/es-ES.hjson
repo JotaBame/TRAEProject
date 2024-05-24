@@ -270,6 +270,8 @@ Mods: {
 			SpamatizmFire.DisplayName: Spamatizm Fire
 			RailShot.DisplayName: Rail Shot
 			PrimeMissile.DisplayName: Prime Missile
+			// MirrorShot.DisplayName: Mirror Shot
+			// MirrorShotEvil.DisplayName: Mirror Shot Evil
 		}
 
 		Prefixes: {
@@ -1741,6 +1743,16 @@ Mods: {
 
 				DestroyerRework: {
 					// Label: Destroyer Rework
+					// Tooltip: ""
+				}
+
+				BoCChanges: {
+					// Label: Bo C Changes
+					// Tooltip: ""
+				}
+
+				EoWChanges: {
+					// Label: Eo W Changes
 					// Tooltip: ""
 				}
 			}

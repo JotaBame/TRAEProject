@@ -21,12 +21,7 @@ namespace TRAEProject.Changes.NPCs
 				npc.knockBackResist = 0f;
 			}
 		}
-        public override void OnHitPlayer(NPC npc, Player target, Player.HurtInfo hurtInfo)
-		{
-		}
-		public override void ApplyDifficultyAndPlayerScaling(NPC npc, int numPlayers, float balance, float bossAdjustment)/* tModPorter Note:bossAdjustment -> balance (bossAdjustment is different, see the docs for details) */
-		{
-		}
+ 
 		public override void AI(NPC npc)
 		{
 			if (npc.type == NPCID.IceGolem)

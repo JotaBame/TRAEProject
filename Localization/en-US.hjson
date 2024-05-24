@@ -270,6 +270,8 @@ Mods: {
 			SpamatizmFire.DisplayName: Spamatizm Fire
 			RailShot.DisplayName: Rail Shot
 			PrimeMissile.DisplayName: Prime Missile
+			MirrorShot.DisplayName: Mirror Shot
+			MirrorShotEvil.DisplayName: Mirror Shot Evil
 		}
 
 		Prefixes: {
@@ -539,7 +541,9 @@ Mods: {
 				Tooltip:
 					'''
 					Unleashes curses to the wielder and nearby enemies when damaged
-					Projectiles deal 15% less damage and curse all enemies
+					Projectiles deal 1% less damage for every 10 damage
+					Maxes out at 25% damage reduction
+					Reduced damage is reflected at the enemy with 10x strength, inflicts all curses
 					'''
 			}
 
@@ -666,7 +670,7 @@ Mods: {
 				Tooltip:
 					'''
 					Increases ranged velocity and tightens gun spread
-					Rockets, bullets and arrows smart bounce and stun enemies on critical strikes
+					Rockets, bullets and arrows smart bounce and deal 1.05x damage on direct hits
 					'Prepare to be Terminated'
 					'''
 			}
@@ -675,14 +679,14 @@ Mods: {
 				DisplayName: Eye Of The Destroyer
 				Tooltip:
 					'''
-					10% increased critical strike chance
-					Rocket critical strikes stun enemies for 1 second
+					10% increased ranged critical strike chance
+					Direct hits with rockets deal 1.1x damage and stun enemies for 1 second 
 					'''
 			}
 
 			MechanicalEyeItem: {
 				DisplayName: Cyber Eye
-				Tooltip: Rocket critical strikes stun enemies for 1 second
+				Tooltip: Direct hits with rockets deal 1.1x damage and stun enemies for 1 second
 			}
 
 			MirrorShield: {
@@ -690,7 +694,9 @@ Mods: {
 				Tooltip:
 					'''
 					Increases max life by 50
-					Reduces damage taken from projectiles by 12%
+					Projectiles deal 1% less damage for every 10 damage
+					Maxes out at 25% damage reduction
+					Reduced damage is reflected at the enemy with 10x strength
 					'''
 			}
 
@@ -1755,6 +1761,16 @@ Mods: {
 
 				DestroyerRework: {
 					Label: Destroyer Rework
+					Tooltip: ""
+				}
+
+				BoCChanges: {
+					Label: Bo C Changes
+					Tooltip: ""
+				}
+
+				EoWChanges: {
+					Label: Eo W Changes
 					Tooltip: ""
 				}
 			}

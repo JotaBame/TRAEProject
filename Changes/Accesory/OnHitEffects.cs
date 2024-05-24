@@ -178,7 +178,8 @@ namespace TRAEProject.Changes.Accesory
                 Player.immuneTime += invintime;
 
             }
-        }
+           
+         }
         public override void OnHurt(Player.HurtInfo info)
         {
             LastHitDamage = info.Damage;

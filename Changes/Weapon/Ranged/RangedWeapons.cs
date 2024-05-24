@@ -24,7 +24,13 @@ namespace TRAEProject.Changes.Weapons
         {
             switch (item.type)
             {
-
+             
+                case ItemID.Grenade:
+                    item.damage = 50; // down from 60				
+                    item.useAnimation = 50; // up from 45
+                    item.useTime = 50; // up from 45    
+ 
+                    return;
                 case ItemID.Beenade:
                     item.damage = 8; // down from 12				
                     item.useAnimation = 45; // up from 15
