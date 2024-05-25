@@ -11,11 +11,6 @@ namespace TRAEProject.NewContent.Projectiles
 {
     internal class EchoStalkerSonicWave : ModProjectile
     {
-        public override string Texture => "TRAEProject/NewContent/NPCs/EchoStalker/EchoStalker";
-        static Rectangle smallRing = new Rectangle(228, 6, 12, 19);
-        static Rectangle mediumRing = new Rectangle(242, 4, 14, 24);
-        static Rectangle bigRing = new Rectangle(258, 0, 18, 32);
-        static Asset<Texture2D> texture;
         public override void SetStaticDefaults()
         {
             ProjectileID.Sets.TrailCacheLength[Type] = 20;
@@ -29,7 +24,7 @@ namespace TRAEProject.NewContent.Projectiles
             Projectile.Size = new(30);
             Projectile.alpha = 255;
         }
-        Color GetCircleDotColor(float i, params Color[] color)
+        static Color GetCircleDotColor(float i, params Color[] color)
         {
             i *= color.Length;
             for (int j = 0; j < color.Length + 1; j++)
@@ -46,17 +41,22 @@ namespace TRAEProject.NewContent.Projectiles
 
             scalingRate = Main.expertMode ? 1f : Main.masterMode ? 1.2f : Main.getGoodWorld ? 2 : 0.6f;
             scalingRate *= Projectile.ai[0];
+            Projectile.localAI[2]++;
             Projectile.rotation = Projectile.velocity.ToRotation();
             Projectile.localAI[0] += scalingRate;
+            int minSize = 8;
+            if (Projectile.localAI[0] < minSize)
+                Projectile.localAI[0] = minSize;
             Projectile.Opacity = Projectile.localAI[0];
+            opacityMult = Utils.GetLerpValue(110, 80, Projectile.localAI[2], true) * Utils.GetLerpValue(0, 5, Projectile.localAI[2], true);
             if (opacityMult < float.Epsilon && Projectile.localAI[0] > 10)
                 Projectile.Kill();
         }
         public override bool? Colliding(Rectangle projHitbox, Rectangle targetHitbox)
         {
             Vector2 rectSize = new Vector2(4);
-
-            for (float i = 0; i < 1; i += 1f / (int)(Projectile.localAI[0] * 0.8f + 1))
+            float increment = 1f / (int)(Projectile.localAI[0] * 0.8f + 1);
+            for (float i = 0; i < 1; i += increment)
             {
                 float rotation = i * MathF.Tau;
                 Vector2 posOffset = rotation.ToRotationVector2() * Projectile.localAI[0] * 2;
@@ -82,28 +82,33 @@ namespace TRAEProject.NewContent.Projectiles
         }
         public override bool PreDraw(ref Color lightColor)
         {
-            if (texture == null)
-                texture = TextureAssets.Projectile[ProjectileID.CultistBossLightningOrbArc];//small dot texture
-            float lifetime = 100000 * scalingRate;
-            float fadeOutTime = 20 * scalingRate;
-            opacityMult = Utils.GetLerpValue(lifetime + fadeOutTime, lifetime, Projectile.localAI[0], true);
-            for (float i = 0; i < 1; i += 1f / (int)(Projectile.localAI[0] * 3 + 1))
+            Asset<Texture2D> texture = TextureAssets.Projectile[Type];
+            float increment = 1f / (int)(Projectile.localAI[0] * 6 + 2);
+
+            for (float i = 0; i < 1; i += increment)
             {
-                float rotation = i * MathF.Tau + Main.GlobalTimeWrappedHourly * -5;
+                float rotation = i * MathF.Tau + MathF.PI / 2;
+                Vector2 posOffset = rotation.ToRotationVector2() * Projectile.localAI[0] * 2;
+                posOffset.X *= 0.5f;
+                posOffset = posOffset.RotatedBy(Projectile.rotation);
+                Color color = Color.Lerp(Color.Purple, Color.Black, .5f);
+                color *= opacityMult;
+                color *= Projectile.Opacity;
+                Main.EntitySpriteDraw(texture.Value, Projectile.Center - Main.screenPosition + posOffset, null, color * Projectile.Opacity, Main.rand.NextFloat(MathF.Tau), texture.Size() / 2, 1f / texture.Width() * 8 /* new Vector2(0.4f, 0.6f)*/, SpriteEffects.None);
+            }
+
+            for (float i = 0; i < 1; i += increment)
+            {
+                float rotation = i * MathF.Tau + MathF.PI / 2;
                 Vector2 posOffset = rotation.ToRotationVector2() * Projectile.localAI[0] * 2;
                 posOffset.X *= 0.5f;
                 posOffset = posOffset.RotatedBy(Projectile.rotation);
                 Color color = GetCircleDotColor(i, Color.Magenta * 1.2f, Color.Purple * 1.3f, Color.White);//Color.Lerp(Color.Magenta, Color.Purple, MathF.Sin(i * MathF.Tau + Main.GlobalTimeWrappedHourly * 3) * 0.5f + 0.5f);
-                color *= 0.7f;
                 color *= opacityMult;
                 color *= Projectile.Opacity;
-                Main.EntitySpriteDraw(texture, Projectile.Center - Main.screenPosition + posOffset, null, color * Projectile.Opacity, Projectile.rotation + rotation, texture.Size() / 2, 1f / texture.Width() * 10 /* new Vector2(0.4f, 0.6f)*/, SpriteEffects.None);
+                Main.EntitySpriteDraw(texture.Value, Projectile.Center - Main.screenPosition + posOffset, null, color * Projectile.Opacity, Main.rand.NextFloat(MathF.Tau), texture.Size() / 2, 1f / texture.Width() * 5 /* new Vector2(0.4f, 0.6f)*/, SpriteEffects.None);
             }
             return false;// base.PreDraw(ref lightColor);
-        }
-        public override void Unload()
-        {
-            texture = null;
         }
     }
 }

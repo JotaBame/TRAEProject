@@ -23,7 +23,7 @@ namespace TRAEProject.Changes.NPCs.Boss.DestroyerChanges
                     NPCID.TheDestroyerBody => new Rectangle(0, 28, 50, 46),
                     _ => new Rectangle(6, 28, 38, 64),//tail
                 };
-                if (npc.type != NPCID.TheDestroyer)
+                if (npc.type != NPCID.TheDestroyer && !npc.IsABestiaryIconDummy)
                 {
                     NPC nextVisibleSegment = Main.npc[(int)Main.npc[(int)Main.npc[(int)npc.ai[1]].ai[1]].ai[1]];//walk forward 3 npcs on the chain
                     float nextVisibleSegmentFrameHeight = nextVisibleSegment.type switch
