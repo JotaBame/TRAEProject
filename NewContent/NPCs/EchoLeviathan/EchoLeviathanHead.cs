@@ -25,7 +25,6 @@ namespace TRAEProject.NewContent.NPCs.EchoLeviathan
             Idle,
             WormMovement,
             SonicWave,
-            MoveStraight,
             MoveToPortal,
             EnteringPortal,
             ExitingPortal,
@@ -138,8 +137,6 @@ namespace TRAEProject.NewContent.NPCs.EchoLeviathan
                     break;
                 case AIState.SonicWave:
                     State_SonicWave();
-                    break;
-                case AIState.MoveStraight:
                     break;
                 case AIState.MoveToPortal:
                     State_MoveToPortal();
@@ -450,8 +447,6 @@ namespace TRAEProject.NewContent.NPCs.EchoLeviathan
         {
             Texture2D texture = TextureAssets.Npc[Type].Value;
             drawColor *= NPC.Opacity;
-            if (State == AIState.Idle)
-                drawColor *= .5f;
             Main.EntitySpriteDraw(texture, NPC.Center - screenPos, null, drawColor, NPC.rotation, texture.Size() / 2, NPC.scale, NPC.spriteDirection == -1 ? SpriteEffects.FlipVertically : SpriteEffects.None);
             texture = ModContent.Request<Texture2D>("TRAEProject/NewContent/NPCs/EchoLeviathan/EchoLeviathanJaw").Value;
             Main.EntitySpriteDraw(texture, NPC.Center - screenPos, null, drawColor, NPC.rotation, texture.Size() / 2, NPC.scale, NPC.spriteDirection == -1 ? SpriteEffects.FlipVertically : SpriteEffects.None);
