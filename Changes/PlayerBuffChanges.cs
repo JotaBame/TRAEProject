@@ -31,7 +31,11 @@ namespace TRAEProject
         {
             switch (type)
             {
-
+                case BuffID.Weak:
+                    player.GetDamage<GenericDamageClass>() -= 0.1f;
+                    player.GetDamage<MeleeDamageClass>() += 0.051f;
+                    
+                    return;
                 case BuffID.ObsidianSkin:
                     player.buffImmune[BuffID.OnFire] = false;
                     player.buffImmune[BuffID.Burning] = true;

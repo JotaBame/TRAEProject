@@ -630,7 +630,7 @@ namespace TRAEProject.Changes.NPCs.Boss
 
         public override bool PreKill(NPC npc)
         {
-            if (npc.type == NPCID.Probe && Main.expertMode)
+            if (npc.type == NPCID.Probe && Main.expertMode && GetInstance<TRAEConfig>().DestroyerRework)
             {
                 NPCLoader.blockLoot.Add(ItemID.Heart);
                 return false;

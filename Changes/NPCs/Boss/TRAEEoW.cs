@@ -8,6 +8,7 @@ using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
 using TRAEProject.Changes.NPCs.Miniboss.Santa;
+using TRAEProject.NewContent.Items.Accesories.LifeCuffs;
 using static Terraria.ModLoader.ModContent;
 
 namespace TRAEProject.Changes.NPCs.Boss
@@ -17,26 +18,32 @@ namespace TRAEProject.Changes.NPCs.Boss
         public override bool InstancePerEntity => true;
         public override void SetStaticDefaults()
         {
-            NPCID.Sets.ImmuneToRegularBuffs[NPCID.EaterofWorldsHead] = true;
-            NPCID.Sets.ImmuneToRegularBuffs[NPCID.EaterofWorldsBody] = true;
-            NPCID.Sets.ImmuneToRegularBuffs[NPCID.EaterofWorldsTail] = true;
+            if (GetInstance<TRAEConfig>().EoWChanges)
+            {
+                NPCID.Sets.ImmuneToRegularBuffs[NPCID.EaterofWorldsHead] = true;
+                NPCID.Sets.ImmuneToRegularBuffs[NPCID.EaterofWorldsBody] = true;
+                NPCID.Sets.ImmuneToRegularBuffs[NPCID.EaterofWorldsTail] = true;
+            }
         }
         public override void SetDefaults(NPC npc)
         {
-            if (npc.type == NPCID.EaterofWorldsHead || npc.type == NPCID.EaterofWorldsBody || npc.type == NPCID.EaterofWorldsTail)
+            if (GetInstance<TRAEConfig>().EoWChanges)
             {
-                npc.lifeMax = 180; // up from 150
- 
-            }
-            if (npc.type == NPCID.EaterofWorldsBody)
-            {
-                npc.defense = 8;
+                if (npc.type == NPCID.EaterofWorldsHead || npc.type == NPCID.EaterofWorldsBody || npc.type == NPCID.EaterofWorldsTail)
+                {
+                    npc.lifeMax = 180; // up from 150
+
+                }
+                if (npc.type == NPCID.EaterofWorldsBody)
+                {
+                    npc.defense = 8;
+                }
             }
 
         }
         public override bool CanHitPlayer(NPC npc, Player target, ref int cooldownSlot)
         {
-            if (npc.type == NPCID.VileSpitEaterOfWorlds)
+            if (npc.type == NPCID.VileSpitEaterOfWorlds && GetInstance<TRAEConfig>().EoWChanges)
             {
         
                 return false;
@@ -45,34 +52,37 @@ namespace TRAEProject.Changes.NPCs.Boss
         }
         public override void ApplyDifficultyAndPlayerScaling(NPC npc, int numPlayers, float balance, float bossAdjustment)
         {
-            if (Main.masterMode)
+            if (Main.masterMode && GetInstance<TRAEConfig>().EoWChanges)
             {
                 if (npc.type == NPCID.EaterofWorldsHead || npc.type == NPCID.EaterofWorldsBody || npc.type == NPCID.EaterofWorldsTail)
                 {
-                    npc.lifeMax = (int)((float)(npc.lifeMax * 0.92f));
+                    npc.lifeMax = (int)((float)(npc.lifeMax * 0.88f));
                 }
             }
         }
         public override void OnHitByProjectile(NPC npc, Projectile projectile, NPC.HitInfo hit, int damageDone)
         {
-            if (npc.type == NPCID.VileSpitEaterOfWorlds)
+            if (npc.type == NPCID.VileSpitEaterOfWorlds && GetInstance<TRAEConfig>().EoWChanges)
             {
                 npc.localAI[1] -= damageDone * 4;
 }
         }
         public override void ModifyHitByProjectile(NPC npc, Projectile projectile, ref NPC.HitModifiers modifiers)
         {
+			if (GetInstance<TRAEConfig>().EoWChanges)
+            {
+ 
             if ((projectile.type == 30 || projectile.type == 397 || projectile.type == 517 || projectile.type == 28 || projectile.type == 37 || projectile.type == 516 || projectile.type == 29 || projectile.type == 470 || projectile.type == 637 || projectile.type == 108 || projectile.type == 281 || projectile.type == 588 || projectile.type == 519 || projectile.type == 773 || projectile.type == 183 || projectile.type == 181 || projectile.type == 566 || projectile.type == 1002) && npc.type >= 13 && npc.type <= 15)
                 modifiers.FinalDamage *= 5f;
+			}
         }
-
-        public override bool PreAI(NPC npc)
+         public override bool PreAI(NPC npc)
         {
             if (GetInstance<TRAEConfig>().EoWChanges)
             {
                 if (npc.type == NPCID.EaterofWorldsHead || npc.type == NPCID.EaterofWorldsBody || npc.type == NPCID.EaterofWorldsTail)
                 {
-                    if (Main.netMode != 1 && Main.expertMode)
+                     if (Main.netMode != 1 && Main.expertMode)
                     {
                         npc.localAI[1]++;
                         int healTime = 240;
@@ -125,7 +135,7 @@ namespace TRAEProject.Changes.NPCs.Boss
                         if (npc.type == NPCID.EaterofWorldsHead)
                         {
                             npc.localAI[2]++;
-                            if (npc.localAI[2] >= 240)
+                            if (npc.localAI[2] >= 300)
                             {
                                 npc.localAI[2] = 0;
                                 npc.TargetClosest();
@@ -349,7 +359,7 @@ namespace TRAEProject.Changes.NPCs.Boss
                     if (Main.masterMode)
                     {
                         speed = 15f;
-                        if (npc.Distance(Main.player[npc.target].Center) > 500f)
+                        if (npc.Distance(Main.player[npc.target].Center) > 450f)
                             acceleration *= 1.6f;
                     }
                  
@@ -361,8 +371,8 @@ namespace TRAEProject.Changes.NPCs.Boss
                     }
                     if ((double)(npc.position.Y / 16f) < Main.worldSurface)
                     {
-                        acceleration *= 1.3f;
-                        speed *= 1.15f;
+                        acceleration *= 1.45f;
+                      
 
                     }
                     Vector2 vector5 = new Vector2(npc.position.X + (float)npc.width * 0.5f, npc.position.Y + (float)npc.height * 0.5f);
@@ -418,7 +428,8 @@ namespace TRAEProject.Changes.NPCs.Boss
                             npc.TargetClosest();
                             float gravity = 0.11f; // vanilla value
                             if (Main.expertMode)
-                                gravity = 0.08f;
+                                gravity = 0.095f;
+				 
                             npc.velocity.Y += gravity;
 
                             if (npc.velocity.Y > speed)
@@ -652,8 +663,7 @@ namespace TRAEProject.Changes.NPCs.Boss
                 }
                 if (npc.type == NPCID.VileSpitEaterOfWorlds)
                 {
-					npc.dontTakeDamage = true;
-                    Rectangle rectangle = npc.Hitbox;
+                     Rectangle rectangle = npc.Hitbox;
                     for (int index1 = 0; index1 < 255; index1++)
                     {
                         Player player = Main.player[index1];
@@ -664,7 +674,7 @@ namespace TRAEProject.Changes.NPCs.Boss
                             if (rectangle.Intersects(player.Hitbox))
                             {
                                 player.AddBuff(BuffID.Weak, Main.rand.Next(180, 240));
-                                player.AddBuff(BuffID.OgreSpit, 60);
+                                 player.AddBuff(BuffID.OgreSpit, 150);
 
                                 SoundEngine.PlaySound(SoundID.NPCDeath1 with { MaxInstances = 0 });
                                 for (int i = 0; i < 25; ++i)
@@ -684,6 +694,14 @@ namespace TRAEProject.Changes.NPCs.Boss
 
                  
                 }
+            }
+            return true;
+        }
+        public override bool PreKill(NPC npc)
+        {
+            if ((npc.type == NPCID.EaterofWorldsHead || npc.type == NPCID.EaterofWorldsBody || npc.type == NPCID.EaterofWorldsTail) && Main.expertMode && GetInstance<TRAEConfig>().EoWChanges)
+            {
+                NPCLoader.blockLoot.Add(ItemID.Heart);
             }
             return true;
         }

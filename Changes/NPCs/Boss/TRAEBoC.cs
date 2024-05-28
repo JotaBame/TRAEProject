@@ -169,6 +169,12 @@ namespace TRAEProject.NPCs.Boss
                             {
                                 npc.ai[3] += 25f;
                             }
+                            if (Main.masterMode && npc.ai[3] > 125f)
+                            {
+                                npc.knockBackResist = 0f;
+                            }
+                            else
+                                npc.knockBackResist = 0.45f;
                             // teleports when it reaches 255
                             if (npc.ai[3] >= 255f)
                             {
@@ -210,7 +216,7 @@ namespace TRAEProject.NPCs.Boss
                         float num853 = Main.player[npc.target].Center.X - vector105.X;
                         float num854 = Main.player[npc.target].Center.Y - vector105.Y;
                         float num855 = (float)Math.Sqrt(num853 * num853 + num854 * num854);
-                        float num856 = 5f; // up from 1
+                        float num856 = 1f; // up from 1
                         if (Main.getGoodWorld)
                         {
                             num856 *= 3f;
@@ -360,7 +366,7 @@ namespace TRAEProject.NPCs.Boss
                             npc.velocity.Y *= 1.05f;
                             npc.velocity.X *= 1.05f;
                         }
-                        if (Main.netMode != 1 && ((Main.expertMode && Main.rand.Next(100) == 0) || Main.rand.Next(200) == 0))
+                        if (Main.netMode != 1 && ((Main.expertMode && Main.rand.Next(80) == 0) || Main.rand.Next(160) == 0))
                         {
                             npc.TargetClosest();
                             vector106 = new Vector2(npc.Center.X, npc.Center.Y);
