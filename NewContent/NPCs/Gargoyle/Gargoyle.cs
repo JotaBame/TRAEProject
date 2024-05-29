@@ -1,0 +1,261 @@
+﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
+using System;
+using Terraria;
+using Terraria.GameContent;
+using Terraria.GameContent.ItemDropRules;
+using Terraria.ID;
+using Terraria.ModLoader;
+
+namespace TRAEProject.NewContent.NPCs.Gargoyle
+{
+    public class Gargoyle : ModNPC
+    {
+        public override void SetStaticDefaults()
+        {
+            Main.npcFrameCount[Type] = 6;
+
+            //debuff immunity pending
+            //don't make immune to confused, was really easy to add to AI
+        }
+        public override void SetDefaults()
+        {
+            NPC.lifeMax = 90;
+            NPC.damage = 35;
+            NPC.defense = 18;
+            NPC.knockBackResist = 0.1f;
+        }
+        bool Passive => NPC.ai[0] == 0;
+        public override void AI()
+        {
+            float maxVelX = 4;
+            float accelX = .1f;
+            float maxVelY = 3;
+            float accelY = .05f;
+
+            NPC.noGravity = true;
+            if (NPC.ai[0] == 0f)
+            {
+                NPC.noGravity = false;
+                NPC.TargetClosest();
+                if (Main.netMode != NetmodeID.MultiplayerClient)
+                {
+                    if (NPC.velocity.X != 0f || NPC.velocity.Y < 0f || NPC.velocity.Y > 0.3)
+                    {
+                        NPC.ai[0] = 1f;
+                        NPC.netUpdate = true;
+                    }
+                    else
+                    {
+                        Rectangle rectangle = new Rectangle((int)Main.player[NPC.target].position.X, (int)Main.player[NPC.target].position.Y, Main.player[NPC.target].width, Main.player[NPC.target].height);
+                        if (new Rectangle((int)NPC.position.X - 100, (int)NPC.position.Y - 100, NPC.width + 200, NPC.height + 200).Intersects(rectangle) || NPC.life < NPC.lifeMax)
+                        {
+                            NPC.ai[0] = 1f;
+                            NPC.velocity.Y -= 6f;
+                            NPC.netUpdate = true;
+                        }
+                    }
+                }
+            }
+            else if (!Main.player[NPC.target].dead)
+            {
+                if (NPC.collideX)
+                {
+                    NPC.velocity.X = NPC.oldVelocity.X * -0.5f;
+                    if (NPC.direction == -1 && NPC.velocity.X > 0f && NPC.velocity.X < 2f)
+                    {
+                        NPC.velocity.X = 2f;
+                    }
+                    if (NPC.direction == 1 && NPC.velocity.X < 0f && NPC.velocity.X > -2f)
+                    {
+                        NPC.velocity.X = -2f;
+                    }
+                }
+                if (NPC.collideY)
+                {
+                    NPC.velocity.Y = NPC.oldVelocity.Y * -0.5f;
+                    if (NPC.velocity.Y > 0f && NPC.velocity.Y < 1f)
+                    {
+                        NPC.velocity.Y = 1f;
+                    }
+                    if (NPC.velocity.Y < 0f && NPC.velocity.Y > -1f)
+                    {
+                        NPC.velocity.Y = -1f;
+                    }
+                }
+                NPC.TargetClosest();
+                if (NPC.confused)
+                {
+                    NPC.direction *= -1;
+                }
+                if (NPC.direction == -1 && NPC.velocity.X > -maxVelX)
+                {
+                    NPC.velocity.X -= accelX;
+                    if (NPC.velocity.X > maxVelX)
+                    {
+                        NPC.velocity.X -= accelX;
+                    }
+                    else if (NPC.velocity.X > 0f)
+                    {
+                        NPC.velocity.X -= accelX * .5f;
+                    }
+                    if (NPC.velocity.X < -maxVelX)
+                    {
+                        NPC.velocity.X = -maxVelX;
+                    }
+                }
+                else if (NPC.direction == 1 && NPC.velocity.X < maxVelX)
+                {
+                    NPC.velocity.X += 0.1f;
+                    if (NPC.velocity.X < -maxVelX)
+                    {
+                        NPC.velocity.X += accelX;
+                    }
+                    else if (NPC.velocity.X < 0f)
+                    {
+                        NPC.velocity.X += accelX * .5f;
+                    }
+                    if (NPC.velocity.X > maxVelX)
+                    {
+                        NPC.velocity.X = maxVelX;
+                    }
+                }
+                float xDist = Math.Abs(NPC.position.X + NPC.width / 2 - (Main.player[NPC.target].position.X + Main.player[NPC.target].width / 2));
+
+                float yDist = Main.player[NPC.target].position.Y - NPC.height / 2;
+                if (NPC.confused)
+                {
+                    //xDist is inside abs function, so don't invert it
+                    //yDist is not inside abs function, so invert for proper confusion
+                    yDist *= -1;
+                }
+                if (xDist > 50f)
+                {
+                    yDist -= 100f;
+                }
+                if (NPC.position.Y < yDist)
+                {
+                    NPC.velocity.Y += accelY;
+                    if (NPC.velocity.Y < 0f)
+                    {
+                        NPC.velocity.Y += accelY * 0.2f;
+                    }
+                }
+                else
+                {
+                    NPC.velocity.Y -= accelY;
+                    if (NPC.velocity.Y > 0f)
+                    {
+                        NPC.velocity.Y -= accelY * 0.2f;
+                    }
+                }
+                if (NPC.velocity.Y < -maxVelY)
+                {
+                    NPC.velocity.Y = -maxVelY;
+                }
+                if (NPC.velocity.Y > maxVelY)
+                {
+                    NPC.velocity.Y = maxVelY;
+                }
+            }
+            if (NPC.wet)
+            {
+                if (NPC.velocity.Y > 0f)
+                {
+                    NPC.velocity.Y *= 0.95f;
+                }
+                NPC.velocity.Y -= 0.5f;
+                if (NPC.velocity.Y < -4f)
+                {
+                    NPC.velocity.Y = -4f;
+                }
+                NPC.TargetClosest();
+            }
+            NPC.rotation = NPC.velocity.X * .1f;
+            NPC.spriteDirection = -NPC.direction;
+        }
+        public override void FindFrame(int frameHeight)
+        {
+            if (Passive && !NPC.IsABestiaryIconDummy)
+            {
+                NPC.frame.Y = 0;
+            }
+            else
+            {
+                NPC.frameCounter++;
+                int frameSpeed = 6;
+                int frameY = (int)(((NPC.frameCounter / frameSpeed) % (Main.npcFrameCount[Type] - 1)) + 1) * frameHeight;
+                NPC.frame.Y = frameY;
+            }
+        }
+        public override bool PreDraw(SpriteBatch spriteBatch, Vector2 screenPos, Color drawColor)
+        {
+            Texture2D texture = TextureAssets.Npc[Type].Value;
+
+            Main.EntitySpriteDraw(texture, NPC.Center - screenPos, NPC.frame, drawColor, NPC.rotation, NPC.frame.Size() / 2, NPC.scale, NPC.spriteDirection == -1 ? SpriteEffects.FlipHorizontally : SpriteEffects.None);
+
+            if (NPC.ai[0] != 0)
+            DrawEyeSparkles(screenPos);
+            return false;
+        }
+
+        private void DrawEyeSparkles(Vector2 screenPos)
+        {
+            int frameSpeed = 6;
+            int index = (int)((NPC.frameCounter / frameSpeed) % (Main.npcFrameCount[Type] - 1));//-1 to compensate for idle frame being at the top of the sheet
+            Vector2[] leftEyeOffsets = new Vector2[]
+            {
+                new(-33, -11),
+                new(-33, -11),
+                new(-33, -9),
+                new(-33, -9),
+                new(-33, -11)
+            };
+            Vector2[] rightEyeOffsets = new Vector2[]
+            {
+                new(-25, -11),
+                new(-25, -11),
+                new(-25, -9),
+                new(-25, -9),
+                new(-25, -11)
+            };
+            Vector2 offset = leftEyeOffsets[index];
+            offset.X *= NPC.spriteDirection;
+            offset = offset.RotatedBy(NPC.rotation);
+            Vector2 fatness = new Vector2(0.2f);
+            Vector2 scale = new Vector2(.75f, .4f);
+            Vector2 drawpos = NPC.Center - screenPos;
+            Color red = new Color(255, 20, 20, 0) * .3f;
+            DrawSparkle(drawpos + offset, 0, red, red, scale, scale);
+            offset = rightEyeOffsets[index];
+            offset.X *= NPC.spriteDirection;
+            offset = offset.RotatedBy(NPC.rotation);
+            DrawSparkle(drawpos + offset, 0, red, red, scale, fatness);
+        }
+
+        static void DrawSparkle(Vector2 drawpos, float rotation, Color outerColor, Color innerColor, Vector2 scale, Vector2 fatness)
+        {
+            SpriteEffects dir = default;
+            Texture2D texture = TextureAssets.Extra[98].Value;
+            Vector2 origin = texture.Size() / 2f;
+            Vector2 yScale = new Vector2(fatness.X * 0.5f, scale.X);
+            Vector2 xScale = new Vector2(fatness.Y * 0.5f, scale.Y);
+            Main.EntitySpriteDraw(texture, drawpos, null, outerColor, MathF.PI / 2f + rotation, origin, yScale, dir);
+            Main.EntitySpriteDraw(texture, drawpos, null, outerColor, 0f + rotation, origin, xScale, dir);
+            Main.EntitySpriteDraw(texture, drawpos, null, innerColor, MathF.PI / 2f + rotation, origin, yScale * 0.6f, dir);
+            Main.EntitySpriteDraw(texture, drawpos, null, innerColor, 0f + rotation, origin, xScale * 0.6f, dir);
+        }
+        public override void ModifyNPCLoot(NPCLoot npcLoot)
+        {
+            npcLoot.Add(ItemDropRule.Common(ItemID.PotatoChips, 10));
+        }
+        public override float SpawnChance(NPCSpawnInfo spawnInfo)
+        {
+            if (spawnInfo.Player.ZoneNormalSpace)
+            {
+                return 0.001f;//placeholder value
+            }
+            return 0;
+        }
+    }
+}
