@@ -6,5 +6,36 @@
     <LangVersion>latest</LangVersion>
   </PropertyGroup>
   <ItemGroup>
+    <None Remove="Changes\TextureSwaps\Buff_188.png" />
+    <None Remove="Changes\TextureSwaps\Extra_36.png" />
+    <None Remove="Changes\TextureSwaps\Extra_50.png" />
+    <None Remove="Changes\TextureSwaps\FlameRing.png" />
+    <None Remove="Changes\TextureSwaps\Item_274.png" />
+    <None Remove="Changes\TextureSwaps\Item_3065.png" />
+    <None Remove="Changes\TextureSwaps\Item_3531.png" />
+    <None Remove="Changes\TextureSwaps\Item_659.png" />
+    <None Remove="Changes\TextureSwaps\Item_660.png" />
+    <None Remove="Changes\TextureSwaps\Item_661.png" />
+    <None Remove="Changes\TextureSwaps\Projectile_503.png" />
+    <None Remove="Changes\TextureSwaps\Projectile_625.png" />
+    <None Remove="Changes\TextureSwaps\Projectile_626.png" />
+    <None Remove="Changes\TextureSwaps\Projectile_627.png" />
+    <None Remove="Changes\TextureSwaps\Projectile_628.png" />
+    <None Remove="Changes\TextureSwaps\Projectile_641.png" />
+    <None Remove="Changes\TextureSwaps\Projectile_642.png" />
+    <None Remove="NewContent\NPCs\EchoLeviathan\EchoLeviathanBody1(2).png" />
+    <None Remove="NewContent\NPCs\EchoLeviathan\EchoLeviathanBody1.png" />
+    <None Remove="NewContent\NPCs\EchoLeviathan\EchoLeviathanBody2.png" />
+    <None Remove="NewContent\NPCs\EchoLeviathan\EchoLeviathanBody2Glow.png" />
+    <None Remove="NewContent\NPCs\EchoLeviathan\EchoLeviathanBody3.png" />
+    <None Remove="NewContent\NPCs\EchoLeviathan\EchoLeviathanBody3Glow.png" />
+    <None Remove="NewContent\NPCs\EchoLeviathan\EchoLeviathanHead.png" />
+    <None Remove="NewContent\NPCs\EchoLeviathan\EchoLeviathanHeadGlow.png" />
+    <None Remove="NewContent\NPCs\EchoLeviathan\EchoLeviathanJaw.png" />
+    <None Remove="NewContent\NPCs\EchoLeviathan\EchoLeviathanSingle.png" />
+    <None Remove="NewContent\NPCs\EchoLeviathan\EchoLeviathanTail.png" />
+    <None Remove="NewContent\Projectiles\EchoLeviathanPortal\EchoLeviathanPortal.png" />
+    <None Remove="NewContent\Projectiles\EchoLeviathanPortal\EchoLeviathanPortalBack.png" />
+    <None Remove="NewContent\Projectiles\EchoStalkerSonicWave.png" />
   </ItemGroup>
 </Project>

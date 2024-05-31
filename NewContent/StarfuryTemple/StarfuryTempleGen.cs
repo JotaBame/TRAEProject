@@ -8,16 +8,150 @@ using System.Threading.Tasks;
 
 namespace TRAEProject.NewContent.StarfuryTemple
 {
-	public static class StarfuryTempleGen
+	public static partial class StarfuryTempleGen
     {
+		static bool HasTileAbove(Point point) => Main.tile[point - new Point(0, 1)].HasTile;
+		static bool HasTileBelow(Point point) => Main.tile[point + new Point(0, 1)].HasTile;
+		static bool HasTileRight(Point point) => Main.tile[point + new Point(1, 0)].HasTile;
+		static bool HasTileLeft(Point point) => Main.tile[point - new Point(1, 0)].HasTile;
+		static bool CanBeHammeredLikeThis(BlockType blockType, Point tileCoord)
+        {
+            return blockType switch
+            {
+                BlockType.HalfBlock => !HasTileAbove(tileCoord) && HasTileBelow(tileCoord),
+                BlockType.SlopeDownLeft => !HasTileRight(tileCoord) && !HasTileAbove(tileCoord) && HasTileBelow(tileCoord) && HasTileLeft(tileCoord),
+                BlockType.SlopeDownRight => !HasTileLeft(tileCoord) && !HasTileAbove(tileCoord) && HasTileRight(tileCoord) && HasTileBelow(tileCoord),
+                BlockType.SlopeUpLeft => !HasTileRight(tileCoord) && !HasTileBelow(tileCoord) && HasTileAbove(tileCoord) && HasTileLeft(tileCoord),
+                BlockType.SlopeUpRight => !HasTileLeft(tileCoord) && !HasTileBelow(tileCoord) && HasTileAbove(tileCoord) && HasTileRight(tileCoord),
+                _ => true,
+            };
+        }
+		static BlockType RandomBlockType(Point coord)
+        {
+			BlockType blockTypeGenerated = (BlockType)Main.rand.Next(1, 6);
+			if (CanBeHammeredLikeThis(blockTypeGenerated, coord))
+				return blockTypeGenerated;
+			return BlockType.Solid;
+        }
+		static void RandomlyHammerTilesFromList(List<Point> tilePositions)
+        {
+            for (int i = 0; i < tilePositions.Count; i++)
+            {
+				Point point = tilePositions[i];
+				Tile tile = Main.tile[point];
+				tile.BlockType = RandomBlockType(point);
+            }
+        }
+		public static void RLERainCloudLine2(ref List<Point> tilePositions, Point start, params int[] rleData)//CHANGE RLE STUFF TO INCLUDE A REF POINT LIST
+		{
+			for (int i = 0; i < rleData.Length; i++)
+			{
+				for (int j = i == 0 ? 0 : rleData[i - 1]; j < rleData[i]; j++)
+				{
+					if (i % 2 == 1)
+					{
+						WorldGen.PlaceTile(start.X + j, start.Y, TileID.RainCloud);
+						tilePositions.Add(new Point(start.X + j, start.Y));
+					}
+				}
+			}
+		}
+		/// <summary>
+		/// length based on the start and not where it previously stopped
+		/// </summary>
+		/// <param name="start"></param>
+		/// <param name="rleData"></param>
+		public static void RLECloudLine2(ref List<Point> tilePositions, Point start, params int[] rleData)
+		{
+			for (int i = 0; i < rleData.Length; i++)
+			{
+				for (int j = i == 0 ? 0 : rleData[i - 1] ; j < rleData[i]; j++)
+				{
+					if (i % 2 == 1)
+					{
+						WorldGen.PlaceTile(start.X + j, start.Y, TileID.Cloud);
+						tilePositions.Add(new Point(start.X + j, start.Y));
+					}
+				}
+			}
+		}       
+		/// <summary>
+		/// rleData is first how many tiles to skip ahead, ad then how many tiles to place, how many tiles to skip ahead, how many tiles to place and so on
+		/// </summary>
+		/// <param name="start"></param>
+		/// <param name="rleData"></param>
+		public static void RLECloudLine(ref List<Point> tilePositions, Point start, params int[] rleData)
+        {
+			int xOffset = 0;
+            for (int i = 0; i < rleData.Length; i++)
+            {
+                for (int j = 0;j < rleData[i]; j++)
+                {
+					if(i % 2 == 1)
+                    {
+						Point coord = new(start.X + xOffset, start.Y);
+						WorldGen.PlaceTile(coord.X, coord.Y, TileID.Cloud);
+						tilePositions.Add(coord);
+                    }
+					xOffset++;
+                }
+            }
+        }
+		public static void CloudForSundialIsland(ref List<Point> tilePositions, Point topLeft)
+        {
+			RLECloudLine(ref tilePositions, topLeft, 1, 6);
+			RLECloudLine(ref tilePositions, topLeft + new Point(0, 1), 0, 9);
+			RLECloudLine(ref tilePositions, topLeft + new Point(0, 2), 1, 10, 20, 5);
+			RLECloudLine(ref tilePositions, topLeft + new Point(0, 3), 0, 15, 10, 13);
+			RLECloudLine(ref tilePositions, topLeft + new Point(0, 4), 0, 38);
+			RLECloudLine(ref tilePositions, topLeft + new Point(0, 5), 1, 38);
+			RLECloudLine(ref tilePositions, topLeft + new Point(0, 6), 2, 39);
+			RLECloudLine(ref tilePositions, topLeft + new Point(0, 7), 3, 38);
+			RLECloudLine(ref tilePositions, topLeft + new Point(0, 8), 3, 37);
+			RLECloudLine(ref tilePositions, topLeft + new Point(0, 9), 6, 34);
+			RLECloudLine(ref tilePositions, topLeft + new Point(0, 10), 9, 31);
+			RLECloudLine(ref tilePositions, topLeft + new Point(0, 11), 10, 28);
+			RLECloudLine(ref tilePositions, topLeft + new Point(0, 12), 10, 27);
+			RLECloudLine(ref tilePositions, topLeft + new Point(0, 13), 13, 34 - 13);
+			RLECloudLine(ref tilePositions, topLeft + new Point(0, 14), 15, 31 - 15);
+		}
 
+		static void RainCloudForMediumLakeIsland(ref List<Point> tilePositions, Point start)
+        {
+			RLERainCloudLine2(ref tilePositions, start, 1, 6);
+			RLERainCloudLine2(ref tilePositions, start + new Point(0, 1), 0, 10, 53, 54);
+			RLERainCloudLine2(ref tilePositions, start + new Point(0, 2), 0, 12, 51, 54);
+			RLERainCloudLine2(ref tilePositions, start + new Point(0, 3), 2, 14, 18, 22, 27, 32, 48, 53);
+			RLERainCloudLine2(ref tilePositions, start + new Point(0, 4), 1, 34, 42, 54);
+			RLERainCloudLine2(ref tilePositions, start + new Point(0, 5), 1, 52);
+			RLERainCloudLine2(ref tilePositions, start + new Point(0, 6), 2, 53);
+			RLERainCloudLine2(ref tilePositions, start + new Point(0, 7), 4, 52);
+			RLERainCloudLine2(ref tilePositions, start + new Point(0, 8), 6, 52);
+			RLERainCloudLine2(ref tilePositions, start + new Point(0, 9), 7, 51);
+			RLERainCloudLine2(ref tilePositions, start + new Point(0, 10), 9, 50);
+			RLERainCloudLine2(ref tilePositions, start + new Point(0, 11), 11, 12, 13, 16, 17, 20, 22, 50);
+			RLERainCloudLine2(ref tilePositions, start + new Point(0, 12), 23, 24, 26, 48);
+			RLERainCloudLine2(ref tilePositions, start + new Point(0, 13), 27, 43, 44, 46);
+			RLERainCloudLine2(ref tilePositions, start + new Point(0, 14), 30, 42);
+			RLERainCloudLine2(ref tilePositions, start + new Point(0, 15), 33, 35, 37, 41);
+
+
+		}
 		public  static void MainGeneration()
 		{
+			//List<Point> tilePositionsToBeHammered = new();
 			Point center = Main.MouseWorld.ToTileCoordinates();
 			Vector2 start = Main.MouseWorld.ToTileCoordinates().ToWorldCoordinates();
+			//CloudForSundialIsland(center);
+			//RainCloudForMediumLakeIsland(ref tilePositionsToBeHammered, center);
+			//RandomlyHammerTilesFromList(tilePositionsToBeHammered);
+			//CloudIsland(center.X, center.Y);
+			start.Y -= 16 * 12;
+			center.Y -= 12;
 			PlaceRectangle(start - new Vector2(16, -16), TileID.Sunplate, 3, 10);
 			PlaceRectangle(start - new Vector2(9 * 16, -64), TileID.Sunplate, 19, 7);
-			WorldGen.PlaceTile(center.X, center.Y, 187, true, true, -1, 17);//ENCHANTED SWORD
+			Point enchSwordBottom = center;
+			WorldGen.PlaceTile(center.X, center.Y, 187, true, true, -1, 17);//ENCHANTED SWORD, CHANGE TO STARFURY IN STONE LATER
 			for (int i = -1; i < 2; i += 1)
 			{
 				for (int j = -4; j < 2; j++)
@@ -33,22 +167,24 @@ namespace TRAEProject.NewContent.StarfuryTemple
 					PlaceLamp(10, center + new Point(i * 9, 3));//this places the lamps near the enchanted sword
 				}
 			}
+
+			center.Y += 1;
+			start.Y += 16;
 			WorldGen.PlaceTile(center.X, center.Y - 4, TileID.Torches, true, true, -1, 14);//Rainbow torch
 			WorldGen.PlaceTile(center.X, center.Y - 22, TileID.Platforms, style: 22);
-			WorldGen.PlaceObject(center.X, center.Y - 21, TileID.SoulBottles, true, style: 3);
+			WorldGen.PlaceObject(center.X, center.Y - 21, TileID.SoulBottles, true, style: 3);//soul of flight in a bottle
 			WorldGen.PlaceTile(center.X, center.Y - 23, TileID.PeaceCandle);
-
-			return;
 			#region RightRoofAndPillarsAndFloor
 			GetHammerPattern(2, new int[] { 7, 5, 1 }, new BlockType?[] { BlockType.Solid, BlockType.HalfBlock, BlockType.Solid }, out BlockType?[] hammerPattern);
 			start += new Vector2(20, -25) * 16;
 			PlaceLineWithTileUnits(start, 47, 0, 1, TileID.Sunplate, hammerPattern);//roof
 			PlaceRectangle(start + new Vector2(0, 16), TileID.Sunplate, 47, 6);//roof//23,29
 			PlaceStructureMiniManaCrystal(start.ToTileCoordinates() + new Point(23, 28));
-			PlaceHorizontalLine(start.ToTileCoordinates() + new Point(-7, 28), 53, TileID.Grass);//grass floor
-			PlaceLineWithTileUnits(start + new Vector2(-7 * 16, 29 * 16), 53, 0, 1, TileID.Dirt);//floor
-			PlaceLineWithTileUnits(start + new Vector2(-8 * 16, 30 * 16), 54, 0, 1, TileID.GoldBrick);//gold line below it
+			PlaceHorizontalLine(start.ToTileCoordinates() + new Point(-7, 28), 55, TileID.Grass);//grass floor
+			PlaceLineWithTileUnits(start + new Vector2(-7 * 16, 29 * 16), 54, 0, 1, TileID.Dirt);//floor
+			PlaceLineWithTileUnits(start + new Vector2(-8 * 16, 30 * 16), 32, 0, 1, TileID.GoldBrick);//gold line below it
 			PlaceLineWithTileUnits(start + new Vector2(-8 * 16, 30 * 16), 3, -1, 0, TileID.GoldBrick);//gold line that goes up
+			PlaceLineWithTileUnits(start + new Vector2(-8 * 16, 28 * 16), 3, 0, -1, TileID.GoldBrick);//gold line that goes up
 			GetHammerPattern(2, new int[] { 1, 1 }, new BlockType?[] { BlockType.Solid, BlockType.HalfBlock }, out hammerPattern);
 			Point lastTileCoord = PlaceRightTriangle(start, 7, 1, -2, TileID.Sunplate, false, hammerPattern);
 			Tile lastTile = Main.tile[lastTileCoord.X - 2, lastTileCoord.Y];//it didn't actually give the last tile coord for some reason so this fixes that
@@ -62,7 +198,59 @@ namespace TRAEProject.NewContent.StarfuryTemple
 				if (i < 3)
 					PlaceStructureStarfuryTempleChandelier(new Point(9 + 13 * i, 7) + start.ToTileCoordinates());
 			}
-			#endregion
+			start -= new Vector2(20, -25) * 16;
+
+			start.Y += 5 * 16;			
+			PlaceRectangle(start, TileID.Sunplate, 70, 10, true);
+			PlaceRectangle(start, TileID.Sunplate, -70, 10, true);
+			start.X -= 16 * 11;
+			start.Y -= 16;
+			PlaceRectangle(start, TileID.Sunplate, 33);
+			start.X += 16 * 33;
+            #endregion
+
+
+
+            for (int i = 0; i < 70; i++)
+            {
+                for (int j = -30; j < 20; j++)
+                {
+					Point coordToMirror = enchSwordBottom + new Point(i, j);
+					Tile tile = Main.tile[coordToMirror];
+					if (tile.TileType == TileID.Cloud || tile.TileType == TileID.Banners || tile.TileType == TileID.Chandeliers || tile.TileType == TileID.ManaCrystal || tile.TileType == TileID.Lamps)
+						if(tile.WallType == 0 || tile.TileType == 187)//ENCHANTED SWORD ID
+                        continue;
+                    Point targetCoord = enchSwordBottom + new Point(-i, j);
+					if(Collision.SolidTiles(coordToMirror.ToWorldCoordinates(), 1, 1) || tile.TileType == TileID.Platforms)
+					WorldGen.PlaceTile(targetCoord.X, targetCoord.Y, TileID.Dirt);
+					Tile tileToAssign = Main.tile[targetCoord];
+					tileToAssign.TileType = tile.TileType;
+					BlockType blockTypeToAssign = tile.BlockType;
+                    switch (blockTypeToAssign)
+                    {
+                        case BlockType.SlopeDownLeft:
+							blockTypeToAssign = BlockType.SlopeDownRight;
+                            break;
+                        case BlockType.SlopeDownRight:
+							blockTypeToAssign = BlockType.SlopeDownLeft;
+                            break;
+                        case BlockType.SlopeUpLeft:
+							blockTypeToAssign = BlockType.SlopeUpRight;
+                            break;
+                        case BlockType.SlopeUpRight:
+							blockTypeToAssign = BlockType.SlopeUpLeft;
+                            break;
+                    }
+					tileToAssign.BlockType = blockTypeToAssign;
+					tileToAssign.TileFrameX = tile.TileFrameX;
+					tileToAssign.TileFrameY = tile.TileFrameY;
+					if (tile.WallType == 0)
+						continue;
+					tileToAssign.WallType = tile.WallType;
+					tileToAssign.WallFrameX = tile.WallFrameX;
+					tileToAssign.WallFrameY = tile.WallFrameY;
+				}
+			}
 		}
 		public  static void PlaceStructureMiniManaCrystal(Point center)
         {
@@ -249,13 +437,18 @@ namespace TRAEProject.NewContent.StarfuryTemple
 			Tile tile = Main.tile[tileCoord];
 			tile.BlockType = hammerPattern[tilesPlaced % hammerPattern.Length].GetValueOrDefault();	
 		}
-		public static void PlaceRectangle(Vector2 start, int tileType, int length = 1, int height = 1)
+		public static void PlaceRectangle(Vector2 start, int tileType, int length = 1, int height = 1,bool overwriteDirtTile = false)
 		{
 			for (int i = 0; i < MathF.Abs(length); i++)
 			{
 				for (int j = 0; j < MathF.Abs(height); j++)
 				{
 					Point pos = start.ToTileCoordinates() + new Point(i * MathF.Sign(length), j * MathF.Sign(height));
+					if (overwriteDirtTile && Main.tile[pos].TileType == TileID.Dirt)
+					{
+						Main.tile[pos].Clear(Terraria.DataStructures.TileDataType.Tile);
+						Main.tile[pos].Clear(Terraria.DataStructures.TileDataType.TilePaint);
+					}
 					WorldGen.PlaceTile(pos.X, pos.Y, tileType);
 				}
 			}
