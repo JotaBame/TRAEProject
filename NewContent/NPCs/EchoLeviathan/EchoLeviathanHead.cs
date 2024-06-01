@@ -91,7 +91,6 @@ namespace TRAEProject.NewContent.NPCs.EchoLeviathan
             //}
             //typeslist.Add(tail);
             //int[] types = typeslist.ToArray();
-            Main.NewText("amount spawned:" + types.Length);
             for (int i = 1; i < types.Length + 1; i++)
             {
                 NPC.NewNPC(NPC.GetSource_NaturalSpawn(), (int)NPC.Center.X - i * 40, (int)NPC.Center.Y, types[i - 1], NPC.whoAmI, NPC.whoAmI, i * 11, i);

@@ -28,15 +28,23 @@ namespace TRAEProject.NewContent.NPCs.EchoSprite
             NPC.defense = 33;
             NPC.lifeMax = 400;
         }
+        ref float TurnaroundTimer => ref NPC.ai[1];
         public override void AI()
         {
             NPC.TargetClosest();
             Player player = Main.player[NPC.target];
             int firerate = 120;
+            if (NPC.confused)
+            {
+                //I AM PANICKING AAA WHERE DO I SHOOT
+                firerate /= 7;
+            }
             float distToTargetPosRequired = 600;//so it doesn't shoot from offscreen
             Movement(out float distToTargetPos);
-
+            TurnaroundTimer++;
+            TurnaroundTimer %= 600;
             NPC.ai[0]++;
+            NPC.spriteDirection = MathF.Sign(NPC.Center.X - player.Center.X);
             if (Main.expertMode && NPC.life < NPC.lifeMax * 0.8f)//from spaz code
             {
                 NPC.ai[0] += 0.6f;
@@ -57,11 +65,34 @@ namespace TRAEProject.NewContent.NPCs.EchoSprite
                         shootSpeed = 14;
                     }
                     shootSpeed /= ContentSamples.ProjectilesByType[projID].MaxUpdates;
+                    Vector2 projVel = NPC.DirectionTo(player.Center) * shootSpeed;
+                    if (NPC.confused)
+                    {
+                        //AAAA HELP I AM AN IDIOT I CANT AIM
+                        projVel = -projVel;
+                        projVel = projVel.RotatedByRandom(2);
+                        projVel *= Main.rand.NextFloat(0.5f, 2f);
+                    }
                     if (Main.netMode != NetmodeID.MultiplayerClient)
                     {
-                        Projectile.NewProjectile(NPC.GetSource_FromAI(), NPC.Center, NPC.DirectionTo(player.Center) * shootSpeed, projID, 100 / 2, 0, Main.myPlayer);
+                        int damage = 100;
+                        if (NPC.confused)
+                        {
+                            damage = 40;
+                        }
+                        Projectile.NewProjectile(NPC.GetSource_FromAI(), NPC.Center, projVel, projID, damage / 2, 0, Main.myPlayer);
                     }
                     SoundEngine.PlaySound(SoundID.Item125 with { PitchVariance = 0.3f, MaxInstances = 8 }, NPC.Center);//pew pew (phantasmal bolt when shot from true eoc)
+                    for (float i = 0; i < 0.999f; i+= 1f/ 32)
+                    {
+                        Vector2 rotation = (i * MathF.Tau).ToRotationVector2();
+                        rotation.X *= .5f;
+                        rotation = rotation.RotatedBy(projVel.ToRotation());
+
+                        Dust d = Dust.NewDustPerfect(NPC.Center + rotation * 8, DustID.PinkTorch, rotation * 5 + projVel);
+                        d.scale += 1;
+                        d.noGravity = true;
+                    }
                 }
             }
             else
@@ -80,16 +111,17 @@ namespace TRAEProject.NewContent.NPCs.EchoSprite
                 moveSpeed *= 1.15f;
                 acceleration *= 1.15f;
             }
-            int offsetDirection = 1;
-            if (NPC.Center.X < player.position.X + player.width)
-            {
-                offsetDirection = -1;
-            }
-            float offsetX = player.Center.X - offsetDirection * -400 - NPC.Center.X;
-            float offsetY = player.Center.Y - NPC.Center.Y;
 
+            Vector2 offset = new Vector2(400, 0);                           
+            float offsetRotation = Utils.GetLerpValue(200, 300, TurnaroundTimer,  true) * Utils.GetLerpValue(600, 500, TurnaroundTimer, true);
+            offsetRotation *= MathF.PI;
+            offset = offset.RotatedBy(offsetRotation);
+            offset.Y *= .5f;
+
+            float offsetX = player.Center.X - NPC.Center.X + offset.X;
+            float offsetY = player.Center.Y - NPC.Center.Y + offset.Y;
             //out parameter assignment
-            distToTargetPos = (player.Center - NPC.Center).Distance(new Vector2(offsetDirection * -400, 0));
+            distToTargetPos = (NPC.Center - player.Center).Distance(offset);
 
             float normalizingFactor = moveSpeed / MathF.Sqrt(offsetX * offsetX + offsetY * offsetY);
             offsetX *= normalizingFactor;
@@ -173,17 +205,21 @@ namespace TRAEProject.NewContent.NPCs.EchoSprite
             for (int i = 0; i < NPC.oldPos.Length; i++)
             {
                 Vector2 offset = dotPositions[i];
-               offset.X += NPC.velocity.X * Utils.Remap(i, 0, NPC.oldPos.Length - 1, 0, .9f);
-               offset.Y -= NPC.velocity.Y * Utils.Remap(i, 0, NPC.oldPos.Length - 1, 0, .9f);
+                offset.X += NPC.velocity.X * Utils.Remap(i, 0, NPC.oldPos.Length - 1, 0, .9f);
+                offset.Y -= NPC.velocity.Y * Utils.Remap(i, 0, NPC.oldPos.Length - 1, 0, .9f);
 
                 offset *= NPC.scale;
                 offset.X *= NPC.spriteDirection;
                 offset -= screenPos;
-                offset = offset.RotatedBy(NPC.rotation * NPC.spriteDirection);
+                offset = offset.RotatedBy(NPC.rotation);
                 float rotation = NPC.rotation;
                 if (i == NPC.oldPos.Length - 1)
                     rotation -= MathF.PI / 2 * NPC.spriteDirection;
                 offset += NPC.position;
+                if(NPC.spriteDirection == 1)
+                {
+                    offset.X += NPC.width;
+                }
                 Main.EntitySpriteDraw(texture, offset, null, drawColor, rotation, texture.Size() / 2, NPC.scale, NPC.spriteDirection == -1 ? SpriteEffects.FlipHorizontally : SpriteEffects.None, 0);
             }
         }

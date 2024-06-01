@@ -24,37 +24,17 @@ namespace TRAEProject.NewContent.NPCs.EchoLeviathan
             NPC.dontTakeDamage = true;//initially invincible
             NPC.alpha = 255;//initially invisible
         }
-
-        public override void AI()
+        public override void OnHitByItem(Player player, Item item, NPC.HitInfo hit, int damageDone)
         {
-            //bool die = false;
-            //if (NPC.ai[0] <= 0f)
-            //{
-            //    die = true;
-            //}
-            //else if (Main.npc[(int)NPC.ai[0]].life <= 0)
-            //{
-            //    die = true;
-            //}
-            //if (die)
-            //{
-            //    NPC.life = 0;
-            //    NPC.HitEffect();
-            //    NPC.checkDead();
-            //}
+
         }
         public override void OnHitByProjectile(Projectile projectile, NPC.HitInfo hit, int damageDone)
         {
-            //List<int> types = new() { ModContent.NPCType<EchoLeviathanHead>(), ModContent.NPCType<EchoLeviathanBody1>(), ModContent.NPCType<EchoLeviathanBody2>(), ModContent.NPCType<EchoLeviathanBody3>(), ModContent.NPCType<EchoLeviathanTail>() };
-            //for (int i = 0; i < Main.maxNPCs; i++)
-            //{
-            //    NPC npc = Main.npc[i];
 
-            //    if (npc.active && i != NPC.whoAmI && types.Contains(npc.type) && npc.ai[0] == NPC.ai[0])
-            //    {
-            //        Main.npc[i].ApplyInteraction(projectile.owner);
-            //    }
-            //}
+        }
+        public override void AI()
+        {
+
         }
         public override bool PreDraw(SpriteBatch spriteBatch, Vector2 screenPos, Color drawColor)
         {

@@ -23,6 +23,18 @@ namespace TRAEProject.NewContent.NPCs.EchoLeviathan
             NPC.dontTakeDamage = true;//initially invincible
             NPC.alpha = 255;//initially invisible
         }
+        public override void OnHitByItem(Player player, Item item, NPC.HitInfo hit, int damageDone)
+        {
+
+        }
+        public override void OnHitByProjectile(Projectile projectile, NPC.HitInfo hit, int damageDone)
+        {
+
+        }
+        public override void AI()
+        {
+
+        }
         public override bool PreDraw(SpriteBatch spriteBatch, Vector2 screenPos, Color drawColor)
         {
             Texture2D texture = TextureAssets.Npc[Type].Value;
