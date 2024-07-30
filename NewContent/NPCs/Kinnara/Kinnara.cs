@@ -26,7 +26,6 @@ namespace TRAEProject.NewContent.NPCs.Kinnara
             NPC.DeathSound = SoundID.NPCDeath1;
             NPC.value = 1000f;
             NPC.aiStyle = -1;
-            AIType = 0;
             NPC.defense = 22;
             NPC.lifeMax = 300;
             NPC.damage = 80;
@@ -50,7 +49,6 @@ namespace TRAEProject.NewContent.NPCs.Kinnara
                     {
                         if (Main.netMode != NetmodeID.MultiplayerClient)
                         {
-                            //ca
                             SpreadShot_VampireKnivesCode(player, i);
                         }
                     }

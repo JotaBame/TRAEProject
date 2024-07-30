@@ -12,7 +12,7 @@ using Terraria.ModLoader;
 using TRAEProject.NewContent.Projectiles;
 using TRAEProject.NewContent.Projectiles.EchoLeviathanPortal;
 
-namespace TRAEProject.NewContent.NPCs.EchoLeviathan
+namespace TRAEProject.NewContent.NPCs.Echosphere.EchoLeviathan
 {
     /// <summary>
     /// UNFINISHED!!
@@ -64,7 +64,7 @@ namespace TRAEProject.NewContent.NPCs.EchoLeviathan
             NPC.alpha = 255;
         }
 
-        //REMEMBER, THIS ONLY CALLED ON SIDE THAT SPAWNED THE NPC
+        //REMEMBER, ONSPAWN IS ONLY CALLED ON SIDE THAT SPAWNED THE NPC
         public override void OnSpawn(IEntitySource source)
         {
 
@@ -93,7 +93,7 @@ namespace TRAEProject.NewContent.NPCs.EchoLeviathan
             //int[] types = typeslist.ToArray();
             for (int i = 1; i < types.Length + 1; i++)
             {
-                NPC.NewNPC(NPC.GetSource_NaturalSpawn(), (int)NPC.Center.X - i * 40, (int)NPC.Center.Y, types[i - 1], NPC.whoAmI, NPC.whoAmI, i * 11, i);
+                NPC.NewNPC(Terraria.Entity.GetSource_NaturalSpawn(), (int)NPC.Center.X - i * 40, (int)NPC.Center.Y, types[i - 1], NPC.whoAmI, NPC.whoAmI, i * 11, i);
             }
             SpawnPortal(NPC.Center, 200);
         }
@@ -108,7 +108,7 @@ namespace TRAEProject.NewContent.NPCs.EchoLeviathan
         }
         public override void AI()
         {
-            SearchForPlayersConsiderAggro();
+            EchosphereHelper.SearchForAirbornePlayers(NPC);
             if (State == AIState.Spawning)
             {
                 State_Spawning();
@@ -192,6 +192,7 @@ namespace TRAEProject.NewContent.NPCs.EchoLeviathan
         {
             int totalWidth = SegmentWidths.Sum();
             OpacityCutoffFromFront = totalWidth;
+            NPC.direction = 1;
             if (NPC.velocity == default)
             {
                 NPC.velocity = new Vector2(0, 7);
@@ -212,11 +213,14 @@ namespace TRAEProject.NewContent.NPCs.EchoLeviathan
             {
                 Timer = 0;
                 State = AIState.WormMovement;
-                SearchForPlayersConsiderAggro();
+                EchosphereHelper.SearchForAirbornePlayers(NPC);
             }
             SetSegmentPositionRotationSpriteDirectionAndOpacity();
             NPC.rotation = NPC.velocity.ToRotation();
             NPC.spriteDirection = MathF.Sign(NPC.velocity.X);
+            if (NPC.spriteDirection == 0)
+                NPC.spriteDirection = -1;
+
         }
         private void State_MoveToPortal()
         {
@@ -244,7 +248,7 @@ namespace TRAEProject.NewContent.NPCs.EchoLeviathan
                 if (Main.netMode != NetmodeID.MultiplayerClient)
                 {
                     int indexForTarget = NPC.target;
-                    if ( indexForTarget < 0)
+                    if (indexForTarget < 0)
                     {
                         indexForTarget = ClosestPlayerConsiderAggro();
                     }
@@ -387,29 +391,6 @@ namespace TRAEProject.NewContent.NPCs.EchoLeviathan
             }
             return result;
         }
-        void SearchForPlayersConsiderAggro()
-        {
-            if (Main.npc.IndexInRange(NPC.target))
-            {
-                Player player = Main.player[NPC.target];
-                if (!Collision.SolidTiles(player.BottomLeft, player.width, 16))//current player is valid
-                {
-                    return;
-                }
-            }
-            int target = -1;
-            for (int i = 0; i < Main.maxPlayers; i++)
-            {
-                Player player = Main.player[i];
-                //readability!!!!!!!!!!!!!!!!!!!!!!!
-                if (!player.active || player.dead || Collision.SolidTiles(player.BottomLeft, player.width, 16) || target != -1 && player.DistanceSQ(NPC.Center) + player.aggro < Main.player[target].Distance(NPC.Center) + Main.player[target].aggro)
-                {
-                    continue;
-                }
-                target = i;
-            }
-            NPC.target = target;
-        }
         void SetSegmentPositionRotationSpriteDirectionAndOpacity()
         {
             NPC[] segments = SearchForBodySegments();
@@ -427,7 +408,7 @@ namespace TRAEProject.NewContent.NPCs.EchoLeviathan
                 segmentCenter = lastSegmentCenter - rotation.ToRotationVector2() * segmentWidth;
                 rotation = (lastSegmentCenter - segmentCenter).ToRotation() + MathF.PI / 2f;
                 Vector2 snapPos = segmentCenter;
-                int spriteDir = (segmentCenter.X >= lastSegmentCenter.X) ? -1 : 1;//    -1 should be flip vertically remember!!
+                int spriteDir = segmentCenter.X >= lastSegmentCenter.X ? -1 : 1;//    -1 should be flip vertically remember!!
                 segments[i].Center = snapPos;
                 segments[i].spriteDirection = spriteDir;
                 segments[i].rotation = rotation - MathF.PI / 2;
@@ -442,14 +423,61 @@ namespace TRAEProject.NewContent.NPCs.EchoLeviathan
                 lastSegmentCenter = segmentCenter;
             }
         }
+        public static void SpectralDraw(NPC NPC, SpriteBatch spriteBatch, Vector2 screenPos, Texture2D texture)
+        {
+            Color drawColor = new Color(255, 52, 242, 0) * NPC.Opacity * .5f;
+            for (int i = 0; i < 4; i++)
+            {
+                float rotation = Main.GlobalTimeWrappedHourly * 5 + i * .25f * MathF.Tau;
+                Vector2 offset = rotation.ToRotationVector2() * 2;
+                if (MathF.Abs(offset.X) > MathF.Abs(offset.Y))
+                {
+                    offset.X = MathF.Max(MathF.Abs(offset.X), 2) * MathF.Sign(offset.X);
+                }
+                else
+                {
+                    offset.Y = MathF.Max(MathF.Abs(offset.Y), 2) * MathF.Sign(offset.Y);
+                }
+                offset = offset.RotatedBy(NPC.rotation);
+                spriteBatch.Draw(texture, NPC.Center - screenPos + offset, NPC.frame, drawColor, NPC.rotation, NPC.frame.Size() / 2, NPC.scale, NPC.spriteDirection == -1 ? SpriteEffects.FlipHorizontally : SpriteEffects.None, 0);
+            }
+        }
+        public static void SpectralDrawVerticalFlip(NPC NPC, SpriteBatch spriteBatch, Vector2 screenPos, Texture2D texture)
+        {
+            Color drawColor = new Color(255, 52, 242, 0) * NPC.Opacity * .5f;
+            for (int i = 0; i < 4; i++)
+            {
+                float rotation = Main.GlobalTimeWrappedHourly * 5 + i * .25f * MathF.Tau;
+                Vector2 offset = rotation.ToRotationVector2() * 2;
+                if (MathF.Abs(offset.X) > MathF.Abs(offset.Y))
+                {
+                    offset.X = MathF.Max(MathF.Abs(offset.X), 2) * MathF.Sign(offset.X);
+                }
+                else
+                {
+                    offset.Y = MathF.Max(MathF.Abs(offset.Y), 2) * MathF.Sign(offset.Y);
+                }
+                offset = offset.RotatedBy(NPC.rotation);
+                spriteBatch.Draw(texture, NPC.Center - screenPos + offset, NPC.frame, drawColor, NPC.rotation, NPC.frame.Size() / 2, NPC.scale, NPC.spriteDirection == -1 ? SpriteEffects.FlipVertically : SpriteEffects.None, 0);
+            }
+        }
         public override bool PreDraw(SpriteBatch spriteBatch, Vector2 screenPos, Color drawColor)
         {
             Texture2D texture = TextureAssets.Npc[Type].Value;
-            drawColor *= NPC.Opacity;
-            Main.EntitySpriteDraw(texture, NPC.Center - screenPos, null, drawColor, NPC.rotation, texture.Size() / 2, NPC.scale, NPC.spriteDirection == -1 ? SpriteEffects.FlipVertically : SpriteEffects.None);
-            texture = ModContent.Request<Texture2D>("TRAEProject/NewContent/NPCs/EchoLeviathan/EchoLeviathanJaw").Value;
-            Main.EntitySpriteDraw(texture, NPC.Center - screenPos, null, drawColor, NPC.rotation, texture.Size() / 2, NPC.scale, NPC.spriteDirection == -1 ? SpriteEffects.FlipVertically : SpriteEffects.None);
+            if (NPC.Opacity != 1)
+            {
+                SpectralDrawVerticalFlip(NPC, spriteBatch, screenPos, texture);
+                texture = ModContent.Request<Texture2D>("TRAEProject/NewContent/NPCs/EchoLeviathan/EchoLeviathanJaw").Value;
+                SpectralDrawVerticalFlip(NPC, spriteBatch, screenPos, texture);
 
+            }
+            else
+            {
+                drawColor *= NPC.Opacity;
+                Main.EntitySpriteDraw(texture, NPC.Center - screenPos, null, drawColor, NPC.rotation, texture.Size() / 2, NPC.scale, NPC.spriteDirection == -1 ? SpriteEffects.FlipVertically : SpriteEffects.None);
+                texture = ModContent.Request<Texture2D>("TRAEProject/NewContent/NPCs/EchoLeviathan/EchoLeviathanJaw").Value;
+                Main.EntitySpriteDraw(texture, NPC.Center - screenPos, null, drawColor, NPC.rotation, texture.Size() / 2, NPC.scale, NPC.spriteDirection == -1 ? SpriteEffects.FlipVertically : SpriteEffects.None);
+            }
             return false;
         }
         static float Magnitude(Vector2 vec)
@@ -458,24 +486,24 @@ namespace TRAEProject.NewContent.NPCs.EchoLeviathan
         }
         void WormMovement(Player player, Vector2 targetPos, float topSpeed = 5, float acceleration = .3f)
         {
-            Vector2 vector5 = new Vector2(NPC.position.X + NPC.width * 0.5f, NPC.position.Y + NPC.height * 0.5f);
+            Vector2 npcTilePos = new Vector2(NPC.position.X + NPC.width * 0.5f, NPC.position.Y + NPC.height * 0.5f);
             float maxSpeedX = player.position.X + player.width / 2;
             float maxSpeedY = player.position.Y + player.height / 2;
             maxSpeedX = (int)(maxSpeedX / 16f) * 16;
             maxSpeedY = (int)(maxSpeedY / 16f) * 16;
-            vector5.X = (int)(vector5.X / 16f) * 16;
-            vector5.Y = (int)(vector5.Y / 16f) * 16;
-            maxSpeedX -= vector5.X;
-            maxSpeedY -= vector5.Y;
-            float num68 = (float)Math.Sqrt(maxSpeedX * maxSpeedX + maxSpeedY * maxSpeedY);
+            npcTilePos.X = (int)(npcTilePos.X / 16f) * 16;
+            npcTilePos.Y = (int)(npcTilePos.Y / 16f) * 16;
+            maxSpeedX -= npcTilePos.X;
+            maxSpeedY -= npcTilePos.Y;
+            float distLength = (float)Math.Sqrt(maxSpeedX * maxSpeedX + maxSpeedY * maxSpeedY);
             float num71 = Math.Abs(maxSpeedX);
             float num72 = Math.Abs(maxSpeedY);
-            float normalizingFactor = topSpeed / num68;
+            float normalizingFactor = topSpeed / distLength;
             maxSpeedX *= normalizingFactor;
             maxSpeedY *= normalizingFactor;
 
             bool goDown = false;
-            if (((NPC.velocity.X > 0f && maxSpeedX < 0f) || (NPC.velocity.X < 0f && maxSpeedX > 0f) || (NPC.velocity.Y > 0f && maxSpeedY < 0f) || (NPC.velocity.Y < 0f && maxSpeedY > 0f)) && Magnitude(NPC.velocity) > acceleration / 2f && num68 < 300f)
+            if ((NPC.velocity.X > 0f && maxSpeedX < 0f || NPC.velocity.X < 0f && maxSpeedX > 0f || NPC.velocity.Y > 0f && maxSpeedY < 0f || NPC.velocity.Y < 0f && maxSpeedY > 0f) && Magnitude(NPC.velocity) > acceleration / 2f && distLength < 300f)
             {
                 goDown = true;
                 if (Magnitude(NPC.velocity) < topSpeed)
@@ -483,7 +511,7 @@ namespace TRAEProject.NewContent.NPCs.EchoLeviathan
                     NPC.velocity *= 1.1f;
                 }
             }
-            if (NPC.position.Y > targetPos.Y || (targetPos.Y / 16f) > Main.worldSurface || player.dead)
+            if (NPC.position.Y > targetPos.Y || targetPos.Y / 16f > Main.worldSurface || player.dead)
             {
                 goDown = true;
                 if (Math.Abs(NPC.velocity.X) < topSpeed / 2f)
@@ -503,7 +531,7 @@ namespace TRAEProject.NewContent.NPCs.EchoLeviathan
 
             if (!goDown)
             {
-                if ((NPC.velocity.X > 0f && maxSpeedX > 0f) || (NPC.velocity.X < 0f && maxSpeedX < 0f) || (NPC.velocity.Y > 0f && maxSpeedY > 0f) || (NPC.velocity.Y < 0f && maxSpeedY < 0f))
+                if (NPC.velocity.X > 0f && maxSpeedX > 0f || NPC.velocity.X < 0f && maxSpeedX < 0f || NPC.velocity.Y > 0f && maxSpeedY > 0f || NPC.velocity.Y < 0f && maxSpeedY < 0f)
                 {
                     if (NPC.velocity.X < maxSpeedX)
                     {
@@ -521,7 +549,7 @@ namespace TRAEProject.NewContent.NPCs.EchoLeviathan
                     {
                         NPC.velocity.Y -= acceleration;
                     }
-                    if (Math.Abs(maxSpeedY) < topSpeed * 0.2 && ((NPC.velocity.X > 0f && maxSpeedX < 0f) || (NPC.velocity.X < 0f && maxSpeedX > 0f)))
+                    if (Math.Abs(maxSpeedY) < topSpeed * 0.2 && (NPC.velocity.X > 0f && maxSpeedX < 0f || NPC.velocity.X < 0f && maxSpeedX > 0f))
                     {
                         if (NPC.velocity.Y > 0f)
                         {
@@ -532,7 +560,7 @@ namespace TRAEProject.NewContent.NPCs.EchoLeviathan
                             NPC.velocity.Y -= acceleration * 2f;
                         }
                     }
-                    if (Math.Abs(maxSpeedX) < topSpeed * 0.2 && ((NPC.velocity.Y > 0f && maxSpeedY < 0f) || (NPC.velocity.Y < 0f && maxSpeedY > 0f)))
+                    if (Math.Abs(maxSpeedX) < topSpeed * 0.2 && (NPC.velocity.Y > 0f && maxSpeedY < 0f || NPC.velocity.Y < 0f && maxSpeedY > 0f))
                     {
                         if (NPC.velocity.X > 0f)
                         {
@@ -554,7 +582,7 @@ namespace TRAEProject.NewContent.NPCs.EchoLeviathan
                     {
                         NPC.velocity.X -= acceleration * 1.1f;
                     }
-                    if ((Magnitude(NPC.velocity)) < topSpeed * 0.5)
+                    if (Magnitude(NPC.velocity) < topSpeed * 0.5)
                     {
                         if (NPC.velocity.Y > 0f)
                         {
@@ -576,7 +604,7 @@ namespace TRAEProject.NewContent.NPCs.EchoLeviathan
                     {
                         NPC.velocity.Y -= acceleration * 1.1f;
                     }
-                    if ((Magnitude(NPC.velocity)) < topSpeed * 0.5)
+                    if (Magnitude(NPC.velocity) < topSpeed * 0.5)
                     {
                         if (NPC.velocity.X > 0f)
                         {

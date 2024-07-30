@@ -8,13 +8,14 @@ using Terraria.ID;
 using Terraria.ModLoader;
 using TRAEProject.NewContent.Projectiles.EchoSpriteProj;
 
-namespace TRAEProject.NewContent.NPCs.EchoSprite
+namespace TRAEProject.NewContent.NPCs.Echosphere.EchoSprite
 {
     /// <summary>
     /// UNTESTED
     /// </summary>
     public class EchoSprite : ModNPC
     {
+        const float Phi = 1.61803398875f;
         public override void SetStaticDefaults()
         {
             NPCID.Sets.TrailCacheLength[Type] = 10;
@@ -23,15 +24,50 @@ namespace TRAEProject.NewContent.NPCs.EchoSprite
         }
         public override void SetDefaults()
         {
-            NPC.width = 10;
-            NPC.height = 16;
+            NPC.width = 20;
+            NPC.height = 32;
             NPC.defense = 33;
             NPC.lifeMax = 400;
+            NPC.noGravity = true;
         }
         ref float TurnaroundTimer => ref NPC.ai[1];
+        ref float IdleMovementTimer => ref NPC.localAI[0];
+        static bool SolidTile(Vector2 worldPos)
+        {
+            Tile tile = Main.tile[(int)(worldPos.X / 16), (int)(worldPos.Y / 16)];
+            return tile.HasTile && tile.HasUnactuatedTile && Main.tileSolid[tile.TileType] && !Main.tileSolidTop[tile.TileType];
+        }
         public override void AI()
         {
-            NPC.TargetClosest();
+            EchosphereHelper.SearchForAirbornePlayers(NPC);
+            if (NPC.target < 0 || NPC.target >= Main.maxPlayers)
+            {
+                NPC.ai[0] = 0;
+                NPC.dontTakeDamage = true;
+                NPC.Opacity = .5f;
+                IdleMovementTimer++;
+                NPC.velocity = Vector2.Lerp(NPC.velocity, new Vector2(MathF.Sin(IdleMovementTimer * 0.2f) * .02f, MathF.Cos(IdleMovementTimer * Phi * 0.2f)), .1f);
+                if (Main.rand.NextFloat() < 0.8f)//8% chance of dust
+                {
+                    Dust d = Dust.NewDustDirect(NPC.position, NPC.width, NPC.height, DustID.PinkTorch, NPC.velocity.X, NPC.velocity.Y, 0, default, 1.5f);
+                    d.noGravity = true;
+                }
+                NPC.spriteDirection = MathF.Sign(NPC.velocity.X);
+                if ((int)IdleMovementTimer % 30 == 0)
+                {
+                    for (float i = 0; i < 0.999f; i += 1f / 12)
+                    {
+                        Vector2 rotation = (i * MathF.Tau).ToRotationVector2();
+                        rotation.Y *= .5f;
+                        Dust d = Dust.NewDustPerfect(NPC.Center + new Vector2(0, 12) + rotation, DustID.PinkTorch, rotation);
+                        d.scale += .75f;
+                        d.noGravity = true;
+                    }
+                }
+                return;
+            }
+            NPC.dontTakeDamage = false;
+            NPC.Opacity = 1;
             Player player = Main.player[NPC.target];
             int firerate = 120;
             if (NPC.confused)
@@ -82,8 +118,9 @@ namespace TRAEProject.NewContent.NPCs.EchoSprite
                         }
                         Projectile.NewProjectile(NPC.GetSource_FromAI(), NPC.Center, projVel, projID, damage / 2, 0, Main.myPlayer);
                     }
-                    SoundEngine.PlaySound(SoundID.Item125 with { PitchVariance = 0.3f, MaxInstances = 8 }, NPC.Center);//pew pew (phantasmal bolt when shot from true eoc)
-                    for (float i = 0; i < 0.999f; i+= 1f/ 32)
+                    //pew pew (phantasmal bolt when shot from true eoc)
+                    SoundEngine.PlaySound(SoundID.Item125 with { PitchVariance = 0.3f, MaxInstances = 8 }, NPC.Center);
+                    for (float i = 0; i < 0.999f; i += 1f / 32)
                     {
                         Vector2 rotation = (i * MathF.Tau).ToRotationVector2();
                         rotation.X *= .5f;
@@ -112,8 +149,8 @@ namespace TRAEProject.NewContent.NPCs.EchoSprite
                 acceleration *= 1.15f;
             }
 
-            Vector2 offset = new Vector2(400, 0);                           
-            float offsetRotation = Utils.GetLerpValue(200, 300, TurnaroundTimer,  true) * Utils.GetLerpValue(600, 500, TurnaroundTimer, true);
+            Vector2 offset = new Vector2(400, 0);
+            float offsetRotation = Utils.GetLerpValue(200, 300, TurnaroundTimer, true) * Utils.GetLerpValue(600, 500, TurnaroundTimer, true);
             offsetRotation *= MathF.PI;
             offset = offset.RotatedBy(offsetRotation);
             offset.Y *= .5f;
@@ -169,9 +206,32 @@ namespace TRAEProject.NewContent.NPCs.EchoSprite
         public override bool PreDraw(SpriteBatch spriteBatch, Vector2 screenPos, Color drawColor)
         {
             Texture2D texture = TextureAssets.Npc[Type].Value;
-            spriteBatch.Draw(texture, NPC.Center - screenPos, NPC.frame, drawColor, NPC.rotation, NPC.frame.Size() / 2, NPC.scale, NPC.spriteDirection == -1 ? SpriteEffects.FlipHorizontally : SpriteEffects.None, 0);
-            texture = ModContent.Request<Texture2D>("TRAEProject/NewContent/NPCs/EchoSprite/EchoSpriteTrail").Value;
-            DrawTrail(screenPos, drawColor);
+            drawColor *= NPC.Opacity;
+            if (NPC.Opacity != 1)
+            {
+                drawColor = new Color(255, 52, 242, 0) * NPC.Opacity * .5f;
+                for (int i = 0; i < 4; i++)
+                {
+                    float rotation = Main.GlobalTimeWrappedHourly * 5 + i * .25f * MathF.Tau;
+                    Vector2 offset = rotation.ToRotationVector2() * 2;
+                    if (MathF.Abs(offset.X) > MathF.Abs(offset.Y))
+                    {
+                        offset.X = MathF.Max(MathF.Abs(offset.X), 2) * MathF.Sign(offset.X);
+                    }
+                    else
+                    {
+                        offset.Y = MathF.Max(MathF.Abs(offset.Y), 2) * MathF.Sign(offset.Y);
+                    }
+                    offset = offset.RotatedBy(NPC.rotation);
+                    spriteBatch.Draw(texture, NPC.Center - screenPos + offset, NPC.frame, drawColor, NPC.rotation, NPC.frame.Size() / 2, NPC.scale, NPC.spriteDirection == -1 ? SpriteEffects.None : SpriteEffects.FlipHorizontally, 0);
+                    DrawTrail(screenPos + offset, drawColor);
+                }
+            }
+            else
+            {
+                spriteBatch.Draw(texture, NPC.Center - screenPos, NPC.frame, drawColor, NPC.rotation, NPC.frame.Size() / 2, NPC.scale, NPC.spriteDirection == -1 ? SpriteEffects.FlipHorizontally : SpriteEffects.None, 0);
+                DrawTrail(screenPos, drawColor);
+            }
             return false;
         }
 
@@ -216,9 +276,12 @@ namespace TRAEProject.NewContent.NPCs.EchoSprite
                 if (i == NPC.oldPos.Length - 1)
                     rotation -= MathF.PI / 2 * NPC.spriteDirection;
                 offset += NPC.position;
-                if(NPC.spriteDirection == 1)
+                offset += NPC.Size / 2;
+                offset.X -= 4;
+                offset.Y -= 10;
+                if (NPC.spriteDirection == 1)
                 {
-                    offset.X += NPC.width;
+                    offset.X += 10;
                 }
                 Main.EntitySpriteDraw(texture, offset, null, drawColor, rotation, texture.Size() / 2, NPC.scale, NPC.spriteDirection == -1 ? SpriteEffects.FlipHorizontally : SpriteEffects.None, 0);
             }
