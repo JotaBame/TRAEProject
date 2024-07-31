@@ -260,7 +260,7 @@ namespace TRAEProject.NewContent.NPCs.Echosphere.EchoSprite
 
         void DrawTrail(Vector2 screenPos, Color drawColor)
         {
-            Texture2D texture = ModContent.Request<Texture2D>("TRAEProject/NewContent/NPCs/EchoSprite/EchoSpriteTrail").Value;
+            Texture2D texture = ModContent.Request<Texture2D>("TRAEProject/NewContent/NPCs/Echosphere/EchoSprite/EchoSpriteTrail").Value;
             Vector2[] dotPositions = new Vector2[10] { new(0, 0), new(2, 0), new(4, 0), new(6, 2), new(8, 2), new(10, 2), new(12, 0), new(14, 0), new(14, 0), new(13, -4) };
             for (int i = 0; i < NPC.oldPos.Length; i++)
             {

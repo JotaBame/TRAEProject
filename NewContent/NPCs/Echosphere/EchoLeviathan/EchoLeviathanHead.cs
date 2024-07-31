@@ -467,7 +467,7 @@ namespace TRAEProject.NewContent.NPCs.Echosphere.EchoLeviathan
             if (NPC.Opacity != 1)
             {
                 SpectralDrawVerticalFlip(NPC, spriteBatch, screenPos, texture);
-                texture = ModContent.Request<Texture2D>("TRAEProject/NewContent/NPCs/EchoLeviathan/EchoLeviathanJaw").Value;
+                texture = ModContent.Request<Texture2D>("TRAEProject/NewContent/NPCs/Echosphere/EchoLeviathan/EchoLeviathanJaw").Value;
                 SpectralDrawVerticalFlip(NPC, spriteBatch, screenPos, texture);
 
             }
@@ -475,7 +475,7 @@ namespace TRAEProject.NewContent.NPCs.Echosphere.EchoLeviathan
             {
                 drawColor *= NPC.Opacity;
                 Main.EntitySpriteDraw(texture, NPC.Center - screenPos, null, drawColor, NPC.rotation, texture.Size() / 2, NPC.scale, NPC.spriteDirection == -1 ? SpriteEffects.FlipVertically : SpriteEffects.None);
-                texture = ModContent.Request<Texture2D>("TRAEProject/NewContent/NPCs/EchoLeviathan/EchoLeviathanJaw").Value;
+                texture = ModContent.Request<Texture2D>("TRAEProject/NewContent/NPCs/Echosphere/EchoLeviathan/EchoLeviathanJaw").Value;
                 Main.EntitySpriteDraw(texture, NPC.Center - screenPos, null, drawColor, NPC.rotation, texture.Size() / 2, NPC.scale, NPC.spriteDirection == -1 ? SpriteEffects.FlipVertically : SpriteEffects.None);
             }
             return false;

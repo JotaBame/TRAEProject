@@ -5,7 +5,7 @@ using System.Collections.Generic;
 using Terraria;
 using Terraria.GameContent;
 using Terraria.ModLoader;
-using TRAEProject.NewContent.NPCs.EchoLeviathan;
+using TRAEProject.NewContent.NPCs.Echosphere.EchoLeviathan;
 
 namespace TRAEProject.NewContent.Projectiles.EchoLeviathanPortal
 {

@@ -298,15 +298,15 @@ namespace TRAEProject.NewContent.NPCs.Echosphere.EchoStalker
         }
         private static void TextureLoading()
         {
-            head ??= ModContent.Request<Texture2D>("TRAEProject/NewContent/NPCs/EchoStalker/EchoStalkerHead");
-            jaw ??= ModContent.Request<Texture2D>("TRAEProject/NewContent/NPCs/EchoStalker/EchoStalkerJaw");
-            hair ??= ModContent.Request<Texture2D>("TRAEProject/NewContent/NPCs/EchoStalker/EchoStalkerHair");
-            body ??= ModContent.Request<Texture2D>("TRAEProject/NewContent/NPCs/EchoStalker/EchoStalkerBody");
-            bodyGlow ??= ModContent.Request<Texture2D>("TRAEProject/NewContent/NPCs/EchoStalker/EchoStalkerBodyGlow");
-            body2 ??= ModContent.Request<Texture2D>("TRAEProject/NewContent/NPCs/EchoStalker/EchoStalkerBody2");
-            body2Glow ??= ModContent.Request<Texture2D>("TRAEProject/NewContent/NPCs/EchoStalker/EchoStalkerBody2Glow");
-            tail ??= ModContent.Request<Texture2D>("TRAEProject/NewContent/NPCs/EchoStalker/EchoStalkerTail");
-            tailGlow ??= ModContent.Request<Texture2D>("TRAEProject/NewContent/NPCs/EchoStalker/EchoStalkerTailGlow");
+            head ??= ModContent.Request<Texture2D>("TRAEProject/NewContent/NPCs/Echosphere/EchoStalker/EchoStalkerHead");
+            jaw ??= ModContent.Request<Texture2D>("TRAEProject/NewContent/NPCs/Echosphere/EchoStalker/EchoStalkerJaw");
+            hair ??= ModContent.Request<Texture2D>("TRAEProject/NewContent/NPCs/Echosphere/EchoStalker/EchoStalkerHair");
+            body ??= ModContent.Request<Texture2D>("TRAEProject/NewContent/NPCs/Echosphere/EchoStalker/EchoStalkerBody");
+            bodyGlow ??= ModContent.Request<Texture2D>("TRAEProject/NewContent/NPCs/Echosphere/EchoStalker/EchoStalkerBodyGlow");
+            body2 ??= ModContent.Request<Texture2D>("TRAEProject/NewContent/NPCs/Echosphere/EchoStalker/EchoStalkerBody2");
+            body2Glow ??= ModContent.Request<Texture2D>("TRAEProject/NewContent/NPCs/Echosphere/EchoStalker/EchoStalkerBody2Glow");
+            tail ??= ModContent.Request<Texture2D>("TRAEProject/NewContent/NPCs/Echosphere/EchoStalker/EchoStalkerTail");
+            tailGlow ??= ModContent.Request<Texture2D>("TRAEProject/NewContent/NPCs/Echosphere/EchoStalker/EchoStalkerTailGlow");
         }
         void DrawGlowy(Texture2D texture, Vector2 drawPos, Vector2 origin, SpriteEffects spriteFX, float rotation)
         {

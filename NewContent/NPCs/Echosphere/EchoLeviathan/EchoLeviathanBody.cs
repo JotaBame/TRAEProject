@@ -69,15 +69,15 @@ namespace TRAEProject.NewContent.NPCs.Echosphere.EchoLeviathan
             return false;
         }
         protected virtual int SegmentWidth => 80;
-        protected virtual string GlowPathTexture => "TRAEProject/NewContent/NPCs/EchoLeviathan/EchoLeviathanBody1Glow";
+        protected virtual string GlowPathTexture => "TRAEProject/NewContent/NPCs/Echosphere/EchoLeviathan/EchoLeviathanBody1Glow";
     }
     public class EchoLeviathanBody2 : EchoLeviathanBody1
     {
-        protected override string GlowPathTexture => "TRAEProject/NewContent/NPCs/EchoLeviathan/EchoLeviathanBody2Glow";
+        protected override string GlowPathTexture => "TRAEProject/NewContent/NPCs/Echosphere/EchoLeviathan/EchoLeviathanBody2Glow";
 
     }
     public class EchoLeviathanBody3 : EchoLeviathanBody1
     {
-        protected override string GlowPathTexture => "TRAEProject/NewContent/NPCs/EchoLeviathan/EchoLeviathanBody3Glow";
+        protected override string GlowPathTexture => "TRAEProject/NewContent/NPCs/Echosphere/EchoLeviathan/EchoLeviathanBody3Glow";
     }
 }
