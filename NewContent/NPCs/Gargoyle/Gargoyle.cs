@@ -23,6 +23,9 @@ namespace TRAEProject.NewContent.NPCs.Gargoyle
             NPC.lifeMax = 90;
             NPC.damage = 35;
             NPC.defense = 18;
+            NPC.noGravity = true;
+            NPC.width = 50;
+            NPC.height = 50;
             NPC.knockBackResist = 0.1f;
         }
         bool Passive => NPC.ai[0] == 0;

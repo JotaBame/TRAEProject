@@ -34,14 +34,6 @@ namespace TRAEProject.NewContent.NPCs.Echosphere.EchoLeviathan
         {
             return false;
         }
-        public override void OnHitByItem(Player player, Item item, NPC.HitInfo hit, int damageDone)
-        {
-
-        }
-        public override void OnHitByProjectile(Projectile projectile, NPC.HitInfo hit, int damageDone)
-        {
-
-        }
         public override void AI()
         {
             int parent = (int)NPC.ai[0];
@@ -62,9 +54,7 @@ namespace TRAEProject.NewContent.NPCs.Echosphere.EchoLeviathan
                 EchosphereHelper.SpectralDrawVerticalFlip(NPC, spriteBatch, screenPos, texture);
                 return false;
             }
-
             drawColor *= NPC.Opacity;
-
             Main.EntitySpriteDraw(texture, NPC.Center - screenPos, null, drawColor, NPC.rotation, texture.Size() / 2, NPC.scale, NPC.spriteDirection == -1 ? SpriteEffects.FlipVertically : SpriteEffects.None);
             return false;
         }

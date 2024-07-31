@@ -42,7 +42,6 @@ namespace TRAEProject.NewContent.NPCs.Griffin
             NPC.TargetClosest();
             Movement();
             CheckForTransformation();
-
             SpeedUpMaybe();
         }
 

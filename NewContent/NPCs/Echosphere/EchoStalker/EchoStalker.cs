@@ -43,7 +43,7 @@ namespace TRAEProject.NewContent.NPCs.Echosphere.EchoStalker
         {
 
             EchosphereHelper.SearchForAirbornePlayers(NPC);
-            if(NPC.target == -1 || NPC.target >= Main.maxPlayers)//TODO: NEED TO TEST THIS
+            if(NPC.target == -1 || NPC.target >= Main.maxPlayers)
             {
                 NPC.dontTakeDamage = true;
                 NPC.Opacity = .5f;
@@ -264,7 +264,7 @@ namespace TRAEProject.NewContent.NPCs.Echosphere.EchoStalker
             jawOffset += NPC.rotation.ToRotationVector2() * MathF.Abs(jawRot) * 10;
             jawRot += NPC.rotation;
             origin = head.Size() / 2;
-            Main.EntitySpriteDraw(jaw.Value, NPC.Center - screenPos + jawOffset, null, drawColor, jawRot, origin, NPC.scale, spriteFX);
+            DrawWithSpectralCheck(jaw.Value, NPC.Center - screenPos + jawOffset, null, drawColor, jawRot, origin, NPC.scale, spriteFX, spriteBatch);
             if (opacity > 0)
             {
                 for (float i = 0; i < 17; i++)
@@ -273,8 +273,8 @@ namespace TRAEProject.NewContent.NPCs.Echosphere.EchoStalker
                     Main.EntitySpriteDraw(jaw.Value, NPC.Center - screenPos + blurOffset + jawOffset, null, additiveWhite * opacity, jawRot, origin, NPC.scale, spriteFX);
                 }
             }
-            Main.EntitySpriteDraw(head.Value, NPC.Center - screenPos, null, drawColor, NPC.rotation + headRot, origin, NPC.scale, spriteFX);
-            Main.EntitySpriteDraw(hair.Value, NPC.Center - screenPos, null, drawColor, NPC.rotation + headRot, origin, NPC.scale, spriteFX);
+            DrawWithSpectralCheck(head.Value, NPC.Center - screenPos, null, drawColor, NPC.rotation + headRot, origin, NPC.scale, spriteFX, spriteBatch);
+            DrawWithSpectralCheck(hair.Value, NPC.Center - screenPos, null, drawColor, NPC.rotation + headRot, origin, NPC.scale, spriteFX, spriteBatch);
             if (opacity > 0)
             {
                 for (float i = 0; i < 17; i++)
@@ -284,6 +284,17 @@ namespace TRAEProject.NewContent.NPCs.Echosphere.EchoStalker
                 }
             }
             return false;
+        }
+        void DrawWithSpectralCheck(Texture2D texture, Vector2 drawPos, Rectangle? frame, Color drawColor, float rotation, Vector2 origin, float scale, SpriteEffects spriteFX, SpriteBatch spriteBatch)
+        {
+            if (NPC.dontTakeDamage)
+            {
+                EchosphereHelper.SpectralDraw(spriteBatch, NPC.Opacity, NPC.scale, rotation, drawPos, texture, spriteFX, frame, origin);
+            }
+            else
+            {
+                Main.EntitySpriteDraw(texture, drawPos, null, drawColor, rotation, origin, NPC.scale, spriteFX);
+            }
         }
         static Vector2 AngleLerp(Vector2 a, Vector2 b, float t)
         {
@@ -311,7 +322,7 @@ namespace TRAEProject.NewContent.NPCs.Echosphere.EchoStalker
         void DrawGlowy(Texture2D texture, Vector2 drawPos, Vector2 origin, SpriteEffects spriteFX, float rotation)
         {
             Color additiveWhite = new Color(255, 255, 255, 0);
-            float opacity = Utils.GetLerpValue(60, 110, NPC.ai[0], true) * Utils.GetLerpValue(160, 140, NPC.ai[0], true) * 0.2f;
+            float opacity = Utils.GetLerpValue(60, 110, NPC.ai[0], true) * Utils.GetLerpValue(160, 140, NPC.ai[0], true) * 0.2f * NPC.Opacity;
             if (opacity > 0)
             {
                 for (float i = 0; i < 17; i++)
@@ -379,8 +390,16 @@ namespace TRAEProject.NewContent.NPCs.Echosphere.EchoStalker
                 float rotation = rotations[i];
                 rotation -= MathF.PI / 2;
                 Color segmentDrawColor = colors[i];
-                Main.EntitySpriteDraw(texture, drawPos, null, segmentDrawColor, rotation, origin, NPC.scale, spriteDir);
-                Main.EntitySpriteDraw(glow, drawPos, null, segmentDrawColor, rotation, origin, NPC.scale, spriteDir);
+                if (NPC.dontTakeDamage)
+                {
+                    EchosphereHelper.SpectralDraw(Main.spriteBatch, NPC.Opacity, NPC.scale, rotation, drawPos, texture, spriteDir, null, origin);
+                    EchosphereHelper.SpectralDraw(Main.spriteBatch, NPC.Opacity, NPC.scale, rotation, drawPos, glow, spriteDir, null, origin);
+                }
+                else
+                {
+                    Main.EntitySpriteDraw(texture, drawPos, null, segmentDrawColor, rotation, origin, NPC.scale, spriteDir);
+                    Main.EntitySpriteDraw(glow, drawPos, null, segmentDrawColor, rotation, origin, NPC.scale, spriteDir);
+                }
                 DrawGlowy(glow, drawPos, origin, spriteDir, rotation);
             }
         }
@@ -389,6 +408,10 @@ namespace TRAEProject.NewContent.NPCs.Echosphere.EchoStalker
             headRot = 0;
             jawRot = 0;
             animationProgress = Utils.Remap(NPC.ai[0], 0, 60 * 3, 0, 5);
+            if (NPC.dontTakeDamage)
+            {
+                return;
+            }
             switch ((int)animationProgress)
             {
                 case 1:

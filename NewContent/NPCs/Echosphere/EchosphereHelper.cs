@@ -9,60 +9,15 @@ namespace TRAEProject.NewContent.NPCs.Echosphere
     {
         public static void SpectralDraw(NPC NPC, SpriteBatch spriteBatch, Vector2 screenPos, Texture2D texture)
         {
-            Color drawColor = new Color(255, 52, 242, 0) * NPC.Opacity * .5f;
-            for (int i = 0; i < 4; i++)
-            {
-                float rotation = Main.GlobalTimeWrappedHourly * 5 + i * .25f * MathF.Tau;
-                Vector2 offset = rotation.ToRotationVector2() * 2;
-                if (MathF.Abs(offset.X) > MathF.Abs(offset.Y))
-                {
-                    offset.X = MathF.Max(MathF.Abs(offset.X), 2) * MathF.Sign(offset.X);
-                }
-                else
-                {
-                    offset.Y = MathF.Max(MathF.Abs(offset.Y), 2) * MathF.Sign(offset.Y);
-                }
-                offset = offset.RotatedBy(NPC.rotation);
-                spriteBatch.Draw(texture, NPC.Center - screenPos + offset, NPC.frame, drawColor, NPC.rotation, NPC.frame.Size() / 2, NPC.scale, NPC.spriteDirection == -1 ? SpriteEffects.FlipHorizontally : SpriteEffects.None, 0);
-            }
+            InternalSpectralDraw(NPC, spriteBatch, screenPos, texture, NPC.spriteDirection == -1 ? SpriteEffects.FlipHorizontally : SpriteEffects.None);
         }
         public static void SpectralDrawMinusOneIsNoFlip(NPC NPC, SpriteBatch spriteBatch, Vector2 screenPos, Texture2D texture)
         {
-            Color drawColor = new Color(255, 52, 242, 0) * NPC.Opacity * .5f;
-            for (int i = 0; i < 4; i++)
-            {
-                float rotation = Main.GlobalTimeWrappedHourly * 5 + i * .25f * MathF.Tau;
-                Vector2 offset = rotation.ToRotationVector2() * 2;
-                if (MathF.Abs(offset.X) > MathF.Abs(offset.Y))
-                {
-                    offset.X = MathF.Max(MathF.Abs(offset.X), 2) * MathF.Sign(offset.X);
-                }
-                else
-                {
-                    offset.Y = MathF.Max(MathF.Abs(offset.Y), 2) * MathF.Sign(offset.Y);
-                }
-                offset = offset.RotatedBy(NPC.rotation);
-                spriteBatch.Draw(texture, NPC.Center - screenPos + offset, NPC.frame, drawColor, NPC.rotation, NPC.frame.Size() / 2, NPC.scale, NPC.spriteDirection == -1 ? SpriteEffects.None : SpriteEffects.FlipHorizontally, 0);
-            }
+            InternalSpectralDraw(NPC, spriteBatch, screenPos, texture, NPC.spriteDirection == -1 ? SpriteEffects.None : SpriteEffects.FlipHorizontally);
         }
         public static void SpectralDrawVerticalFlip(NPC NPC, SpriteBatch spriteBatch, Vector2 screenPos, Texture2D texture)
         {
-            Color drawColor = new Color(255, 52, 242, 0) * NPC.Opacity * .5f;
-            for (int i = 0; i < 4; i++)
-            {
-                float rotation = Main.GlobalTimeWrappedHourly * 5 + i * .25f * MathF.Tau;
-                Vector2 offset = rotation.ToRotationVector2() * 2;
-                if (MathF.Abs(offset.X) > MathF.Abs(offset.Y))
-                {
-                    offset.X = MathF.Max(MathF.Abs(offset.X), 2) * MathF.Sign(offset.X);
-                }
-                else
-                {
-                    offset.Y = MathF.Max(MathF.Abs(offset.Y), 2) * MathF.Sign(offset.Y);
-                }
-                offset = offset.RotatedBy(NPC.rotation);
-                spriteBatch.Draw(texture, NPC.Center - screenPos + offset, NPC.frame, drawColor, NPC.rotation, NPC.frame.Size() / 2, NPC.scale, NPC.spriteDirection == -1 ? SpriteEffects.FlipVertically : SpriteEffects.None, 0);
-            }
+            InternalSpectralDraw(NPC, spriteBatch, screenPos, texture, NPC.spriteDirection == -1 ? SpriteEffects.FlipVertically : SpriteEffects.None);
         }
         public static void SearchForAirbornePlayers(NPC NPC)
         {
@@ -86,6 +41,44 @@ namespace TRAEProject.NewContent.NPCs.Echosphere
                 target = i;
             }
             NPC.target = target;
+        }
+        public static void SpectralDraw(SpriteBatch spriteBatch, float opacity, float scale, float rotation, Vector2 drawPos, Texture2D texture, SpriteEffects spriteDir, Rectangle? frame, Vector2 origin)
+        {
+            Color drawColor = new Color(255, 52, 242, 0) * opacity * .5f;
+            for (int i = 0; i < 4; i++)
+            {
+                float spectralRotation = Main.GlobalTimeWrappedHourly * 5 + i * .25f * MathF.Tau;
+                Vector2 offset = spectralRotation.ToRotationVector2() * 2;
+                if (MathF.Abs(offset.X) > MathF.Abs(offset.Y))
+                {
+                    offset.X = MathF.Max(MathF.Abs(offset.X), 2) * MathF.Sign(offset.X);
+                }
+                else
+                {
+                    offset.Y = MathF.Max(MathF.Abs(offset.Y), 2) * MathF.Sign(offset.Y);
+                }
+                offset = offset.RotatedBy(rotation);
+                spriteBatch.Draw(texture, drawPos + offset, frame, drawColor, rotation, origin, scale, spriteDir, 0);
+            }
+        }
+        private static void InternalSpectralDraw(NPC NPC, SpriteBatch spriteBatch, Vector2 screenPos, Texture2D texture, SpriteEffects spriteDir)
+        {
+            Color drawColor = new Color(255, 52, 242, 0) * NPC.Opacity * .5f;
+            for (int i = 0; i < 4; i++)
+            {
+                float rotation = Main.GlobalTimeWrappedHourly * 5 + i * .25f * MathF.Tau;
+                Vector2 offset = rotation.ToRotationVector2() * 2;
+                if (MathF.Abs(offset.X) > MathF.Abs(offset.Y))
+                {
+                    offset.X = MathF.Max(MathF.Abs(offset.X), 2) * MathF.Sign(offset.X);
+                }
+                else
+                {
+                    offset.Y = MathF.Max(MathF.Abs(offset.Y), 2) * MathF.Sign(offset.Y);
+                }
+                offset = offset.RotatedBy(NPC.rotation);
+                spriteBatch.Draw(texture, NPC.Center - screenPos + offset, NPC.frame, drawColor, NPC.rotation, NPC.frame.Size() / 2, NPC.scale, spriteDir, 0);
+            }
         }
     }
 }

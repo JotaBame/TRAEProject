@@ -1,6 +1,8 @@
 ﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
 using System;
 using Terraria;
+using Terraria.GameContent;
 using Terraria.ID;
 using Terraria.ModLoader;
 
@@ -438,6 +440,19 @@ namespace TRAEProject.NewContent.NPCs.Griffin
                     NPC.Transform(ModContent.NPCType<GriffinFlier>());
                 }
             }
+        }
+        public override bool PreDraw(SpriteBatch spriteBatch, Vector2 screenPos, Color drawColor)
+        {
+            Texture2D texture = TextureAssets.Npc[Type].Value;
+            screenPos -= new Vector2(0, DrawOffsetY + NPC.gfxOffY);
+            Rectangle frame = NPC.frame;
+            if (NPC.velocity.Y != 0)
+            {
+                texture = TextureAssets.Npc[ModContent.NPCType<GriffinFlier>()].Value;
+                frame = texture.Frame(1, Main.npcFrameCount[ModContent.NPCType<GriffinFlier>()]);
+            }
+            spriteBatch.Draw(texture, NPC.Center - screenPos, frame, drawColor, NPC.rotation, frame.Size() / 2, NPC.scale, NPC.spriteDirection == -1 ? SpriteEffects.None : SpriteEffects.FlipHorizontally, 0);
+            return false;
         }
     }
 }

@@ -1639,8 +1639,8 @@ Mods: {
 			// EchoStalker.DisplayName: Echo Stalker
 			// Gargoyle.DisplayName: Gargoyle
 			// Kinnara.DisplayName: Kinnara
-			// GriffinFlier.DisplayName: Griffin Flier
-			// GriffinWalker.DisplayName: Griffin Walker
+			// GriffinFlier.DisplayName: Griffin
+			// GriffinWalker.DisplayName: Griffin
 		}
 
 		Tiles: {
@@ -1781,7 +1781,7 @@ Mods: {
 			}
 
 			TRAERetextureConfig: {
-				// DisplayName: T R A E Retexture Config
+				// DisplayName: TRAE Retexture Config
 				// Headers.TextureSwaps: Texture Swaps Header
 
 				StardustDragon: {
