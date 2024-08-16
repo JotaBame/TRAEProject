@@ -14,6 +14,7 @@ namespace TRAEProject.Changes.Weapon.Summon.Minions
 {
     public class SummonStaffs : GlobalItem
     {
+ 
         public override bool InstancePerEntity => true;
         public override void SetDefaults(Item item)
         {
@@ -265,17 +266,7 @@ namespace TRAEProject.Changes.Weapon.Summon.Minions
             }
             base.PostAI(projectile);
         }
-        //public override bool? CanHitNPC(Projectile projectile, NPC target)
-        //{
-        //    if(projectile.type == ProjectileID.VampireFrog)
-        //    {
-        //        if(projectile.ai[0] != 2 || projectile.ai[1] <= 0)
-        //        {
-        //            return false;
-        //        }
-        //    }
-        //    return base.CanHitNPC(projectile, target);
-        //}
+
         public override bool TileCollideStyle(Projectile projectile, ref int width, ref int height, ref bool fallThrough, ref Vector2 hitboxCenterFrac)
         {
             if (projectile.type == ProjectileID.Pygmy || projectile.type == ProjectileID.Pygmy2 || projectile.type == ProjectileID.Pygmy3 || projectile.type == ProjectileID.Pygmy4)

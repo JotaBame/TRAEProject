@@ -1,4 +1,8 @@
 ﻿using MonoMod.Cil;
+using System;
+using Terraria.ID;
+using Terraria;
+using TRAEProject.Changes.NPCs.Miniboss.Santa;
 
 //Feel free to kill off this one if you don't want it
 
@@ -27,5 +31,7 @@ namespace TRAEilHooks {
 
             return;
         }
+    
+
     }
 }

@@ -31,16 +31,20 @@ namespace TRAEProject
         {
             switch (type)
             {
+                case BuffID.Silenced:
+                    player.GetDamage<MagicDamageClass>() -= 0.25f;
+                     player.silence = false;
+
+                    return;
                 case BuffID.Weak:
-                    player.GetDamage<GenericDamageClass>() -= 0.1f;
+                    player.GetDamage<GenericDamageClass>() -= 0.11f;
                     player.GetDamage<MeleeDamageClass>() += 0.051f;
                     
                     return;
                 case BuffID.ObsidianSkin:
                     player.buffImmune[BuffID.OnFire] = false;
                     player.buffImmune[BuffID.Burning] = true;
-                    player.fireWalk = false;
-                    return;
+                     return;
                 case BuffID.StarInBottle:
                     player.statManaMax2 += 20;
                     return;
@@ -100,6 +104,9 @@ namespace TRAEProject
         {
             switch (type)
             {
+                case BuffID.Silenced:
+                    tip = "25% reduced magic damage";
+                    return;
                 case BuffID.StardustDragonMinion:
                     tip = "The Lunar Dragon will fight for you";
                     return;

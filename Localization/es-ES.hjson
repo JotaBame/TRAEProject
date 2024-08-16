@@ -272,6 +272,10 @@ Mods: {
 			PrimeMissile.DisplayName: Prime Missile
 			// MirrorShot.DisplayName: Mirror Shot
 			// MirrorShotEvil.DisplayName: Mirror Shot Evil
+			// EchoLeviathanPortal.DisplayName: Echo Leviathan Portal
+			// EchoSpriteProj.DisplayName: Echo Sprite Proj
+			// EchoStalkerSonicWave.DisplayName: Echo Stalker Sonic Wave
+			// KinnaraFeather.DisplayName: Kinnara Feather
 		}
 
 		Prefixes: {
@@ -1427,7 +1431,7 @@ Mods: {
 				Tooltip:
 					'''
 					Tus invocaciones se concentran en enemigos golpeados
-					5 de daño de conexión por invocación
+					4 de daño de conexión por invocación
 					8% de probabilidad de golpe crítico de conexión por invocación
 					Desempeña mejor contra múltiples enemigos que otros látigos
 					'''
@@ -1625,6 +1629,16 @@ Mods: {
 			PrimeRail.DisplayName: Riel Mayor
 			PrimeMace.DisplayName: Maza Mayor
 			PrimeLauncher.DisplayName: Lanzador Mayor
+			// EchoLeviathanBody1.DisplayName: Echo Leviathan Body1
+			// EchoLeviathanBody2.DisplayName: Echo Leviathan Body2
+			// EchoLeviathanBody3.DisplayName: Echo Leviathan Body3
+			// EchoLeviathanHead.DisplayName: Echo Leviathan Head
+			// EchoLeviathanTail.DisplayName: Echo Leviathan Tail
+			// EchoLocator.DisplayName: Echo Locator
+			// EchoSprite.DisplayName: Echo Sprite
+			// EchoStalker.DisplayName: Echo Stalker
+			// Gargoyle.DisplayName: Gargoyle
+			// Kinnara.DisplayName: Kinnara
 		}
 
 		Tiles: {
@@ -1762,6 +1776,51 @@ Mods: {
 				Classic.Label: Classic
 				BameNerf.Label: Bame Nerf
 				QwertyNerf.Label: Qwerty Nerf
+			}
+
+			TRAERetextureConfig: {
+				// DisplayName: T R A E Retexture Config
+				// Headers.TextureSwaps: Texture Swaps Header
+
+				StardustDragon: {
+					// Label: Stardust Dragon
+					// Tooltip: ""
+				}
+
+				InfernoRing: {
+					// Label: Inferno Ring
+					// Tooltip: ""
+				}
+
+				DarkLance: {
+					// Label: Dark Lance
+					// Tooltip: ""
+				}
+
+				StarWrath: {
+					// Label: Star Wrath
+					// Tooltip: ""
+				}
+
+				PearlwoodSword: {
+					// Label: Pearlwood Sword
+					// Tooltip: ""
+				}
+
+				PearlwoodHammer: {
+					// Label: Pearlwood Hammer
+					// Tooltip: ""
+				}
+
+				PearlwoodBow: {
+					// Label: Pearlwood Bow
+					// Tooltip: ""
+				}
+
+				LunarPortal: {
+					// Label: Lunar Portal
+					// Tooltip: ""
+				}
 			}
 		}
 	}

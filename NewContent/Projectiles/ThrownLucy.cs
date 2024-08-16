@@ -20,6 +20,7 @@ namespace TRAEProject.NewContent.Projectiles
             //Projectile.localNPCHitCooldown = 10;
             Projectile.penetrate = -1;
         }
+   
     }
     public class LucyJank : ModPlayer
     {

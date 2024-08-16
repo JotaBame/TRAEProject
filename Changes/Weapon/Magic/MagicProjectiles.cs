@@ -104,7 +104,7 @@ namespace TRAEProject.Changes.Items
 					projectile.timeLeft = 1200;
 					break;			
 				case ProjectileID.BloodRain:
-                    projectile.penetrate = 1;
+                    projectile.penetrate = 2; projectile.GetGlobalProjectile<ProjectileStats>().DamageFalloff = 0.25f;
                     break;
                 case ProjectileID.RainFriendly:
                     projectile.penetrate = 2; projectile.usesLocalNPCImmunity = true;

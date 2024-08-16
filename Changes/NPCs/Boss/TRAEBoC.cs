@@ -1,36 +1,73 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics.PackedVector;
+using ReLogic.Content;
 using System;
 using Terraria;
 using Terraria.Audio;
 using Terraria.ID;
 using Terraria.ModLoader;
- using static Terraria.ModLoader.ModContent;
+using static Terraria.ModLoader.ModContent;
 
 namespace TRAEProject.NPCs.Boss
 {
     public class BrainOfCthulhu : GlobalNPC
     {
         public override bool InstancePerEntity => true;
+        public override void SetStaticDefaults()
+        {
+           
+         }
         public override void SetDefaults(NPC npc)
         {
             if (npc.type == NPCID.Creeper)
             {
-                npc.lifeMax = 130; // up from 100
-            }
+                npc.buffImmune[BuffID.Poisoned] = true;
+                npc.buffImmune[BuffID.OnFire] = true;
 
+                npc.lifeMax = 150; // up from 100
+             }
+            if (npc.type == NPCID.BrainofCthulhu)
+            {
+                npc.lifeMax = 1650; // up from 100
+             }
+
+        }
+        public override void ModifyHitByProjectile(NPC npc, Projectile projectile, ref NPC.HitModifiers modifiers)
+        {
+            if (GetInstance<TRAEConfig>().BoCChanges)
+            {
+                if (projectile.type == ProjectileID.VampireFrog && npc.type == NPCID.BrainofCthulhu)
+                    modifiers.FinalDamage *= 0.67f;
+            }
         }
         public override void OnHitPlayer(NPC npc, Player target, Player.HurtInfo hurtInfo)
         {
+            if (GetInstance<TRAEConfig>().BoCChanges && npc.type == NPCID.BrainofCthulhu )
+            {
 
+               
+                if (Main.masterMode)
+                {
+                    npc.localAI[1] = 500;
+                    int buff = Main.rand.NextFromList(BuffID.Weak, BuffID.BrokenArmor, BuffID.Slow, BuffID.Bleeding);
+                    int duration = Main.rand.Next(240, 360);
+                    if (buff == BuffID.Slow)
+                        duration = duration * 2 / 5;
+                    if (buff == BuffID.Bleeding)
+                        duration = duration * 4 / 3;
+                    target.AddBuff(buff, duration);
+                }
+            }
         }
+
+        
         public override bool PreAI(NPC npc)
         {
             if (GetInstance<TRAEConfig>().BoCChanges)
             {
                 if (npc.type == NPCID.BrainofCthulhu)
                 {
-
+                    npc.knockBackResist = 0.45f;
                     NPC.crimsonBoss = npc.whoAmI;
                     if (Main.netMode != 1 && npc.localAI[0] == 0f)
                     {
@@ -91,20 +128,42 @@ namespace TRAEProject.NPCs.Boss
                         float num841 = Main.player[npc.target].Center.X - vector104.X;
                         float num842 = Main.player[npc.target].Center.Y - vector104.Y;
                         float num843 = (float)Math.Sqrt(num841 * num841 + num842 * num842);
-                        float baseSpeed = 12f; // up from 8
+                        float baseSpeed = 11.25f; // up from 8
+                        if (Main.masterMode )
+                        {
+                            if (npc.life >= (int)(npc.lifeMax * 2 / 3))
+                            {
+                                npc.knockBackResist = 0f;
+
+                            }
+                            else
+                            {
+            
+                                baseSpeed *= 0.9f;
+                                if (npc.localAI[2] == 1f)
+                                {
+                                    SoundEngine.PlaySound(SoundID.ForceRoarPitched, npc.Center);
+                                    npc.localAI[2] = 2f;
+                                }
+                            }
+                        }
+         
                         num843 = baseSpeed / num843;
                         num841 *= num843;
                         num842 *= num843;
                         npc.velocity.X = (npc.velocity.X * 50f + num841) / 51f;
                         npc.velocity.Y = (npc.velocity.Y * 50f + num842) / 51f;
+
                         if (npc.ai[0] == -1f)
                         {
                             if (Main.netMode != 1)
                             {
                                 npc.localAI[1] += 1f;
+                                if (Main.masterMode && npc.life <= (int)(npc.lifeMax * 2 / 3))
+                                    npc.localAI[1] += 0.5f;
                                 if (npc.justHit)
                                 {
-                                    npc.localAI[1] -= Main.rand.Next(5);
+                                    npc.localAI[1] += Main.rand.Next(3);
                                 }
                                 int num845 = 60 + Main.rand.Next(120);
                                 if (Main.netMode != 0)
@@ -115,18 +174,18 @@ namespace TRAEProject.NPCs.Boss
                                 {
                                     npc.localAI[1] = 0f;
                                     npc.TargetClosest();
-                                    int num846 = 0;
+                                    int teleportTime = 0;
                                     Player player2 = Main.player[npc.target];
                                     do
                                     {
-                                        num846++;
-                                        int num847 = (int)player2.Center.X / 16;
+                                        teleportTime++;
+                                         int num847 = (int)player2.Center.X / 16;
                                         int num848 = (int)player2.Center.Y / 16;
-                                        int minValue = 12;
-                                        int maxValue = 15;
+                                        int minValue = 15;
+                                        int maxValue = 16;
                                         float num850 = 16f;
-                                        int num851 = Main.rand.Next(minValue, maxValue + 1);
-                                        int num852 = Main.rand.Next(minValue, maxValue + 1);
+                                        int num851 = Main.rand.Next(minValue, maxValue);
+                                        int num852 = Main.rand.Next(minValue, maxValue);
                                         if (Main.rand.Next(2) == 0)
                                         {
                                             num851 *= -1;
@@ -142,7 +201,7 @@ namespace TRAEProject.NPCs.Boss
                                         }
                                         num847 += (int)(v.X / 16f);
                                         num848 += (int)(v.Y / 16f);
-                                        if (num846 > 100 || !WorldGen.SolidTile(num847, num848))
+                                        if (teleportTime > 100 || !WorldGen.SolidTile(num847, num848))
                                         {
                                             npc.ai[3] = 0f;
                                             npc.ai[0] = -2f;
@@ -153,7 +212,7 @@ namespace TRAEProject.NPCs.Boss
                                             break;
                                         }
                                     }
-                                    while (num846 <= 100);
+                                    while (teleportTime <= 100);
                                 }
                             }
                         }
@@ -169,12 +228,17 @@ namespace TRAEProject.NPCs.Boss
                             {
                                 npc.ai[3] += 25f;
                             }
-                            if (Main.masterMode && npc.ai[3] > 125f)
+                           
+                            if (Main.masterMode)
+
                             {
-                                npc.knockBackResist = 0f;
+                                if (npc.life <= (int)(npc.lifeMax * 2 / 3))
+                                {
+
+                                    npc.ai[3] += 12.5f;
+                                }
                             }
-                            else
-                                npc.knockBackResist = 0.45f;
+ 
                             // teleports when it reaches 255
                             if (npc.ai[3] >= 255f)
                             {
@@ -216,19 +280,19 @@ namespace TRAEProject.NPCs.Boss
                         float num853 = Main.player[npc.target].Center.X - vector105.X;
                         float num854 = Main.player[npc.target].Center.Y - vector105.Y;
                         float num855 = (float)Math.Sqrt(num853 * num853 + num854 * num854);
-                        float num856 = 1f; // up from 1
+                        float phase1MoveSpeed = 1f; // up from 1
                         if (Main.getGoodWorld)
                         {
-                            num856 *= 3f;
+                            phase1MoveSpeed *= 3f;
                         }
-                        if (num855 < num856)
+                        if (num855 < phase1MoveSpeed)
                         {
                             npc.velocity.X = num853;
                             npc.velocity.Y = num854;
                         }
                         else
                         {
-                            num855 = num856 / num855;
+                            num855 = phase1MoveSpeed / num855;
                             npc.velocity.X = num853 * num855;
                             npc.velocity.Y = num854 * num855;
                         }
@@ -263,7 +327,7 @@ namespace TRAEProject.NPCs.Boss
                                         num859++;
                                         int num860 = (int)player3.Center.X / 16;
                                         int num861 = (int)player3.Center.Y / 16;
-                                        int minValue2 = 12;
+                                        int minValue2 = 14;
                                         int num862 = 40;
                                         float num863 = 16f;
                                         int num864 = Main.rand.Next(minValue2, num862 + 1);
@@ -351,12 +415,12 @@ namespace TRAEProject.NPCs.Boss
                         Vector2 vector106 = new Vector2(npc.Center.X, npc.Center.Y);
                         float num866 = Main.npc[NPC.crimsonBoss].Center.X - vector106.X;
                         float num867 = Main.npc[NPC.crimsonBoss].Center.Y - vector106.Y;
-                        float num868 = (float)Math.Sqrt(num866 * num866 + num867 * num867);
-                        if (num868 > 90f)
+                        float creeperVel = (float)Math.Sqrt(num866 * num866 + num867 * num867);
+                        if (creeperVel > 90f)
                         {
-                            num868 = 8f / num868;
-                            num866 *= num868;
-                            num867 *= num868;
+                            creeperVel = 8f / creeperVel; // vanilla value: 8
+                            num866 *= creeperVel;
+                            num867 *= creeperVel;
                             npc.velocity.X = (npc.velocity.X * 15f + num866) / 16f;
                             npc.velocity.Y = (npc.velocity.Y * 15f + num867) / 16f;
                             return false;
@@ -372,10 +436,10 @@ namespace TRAEProject.NPCs.Boss
                             vector106 = new Vector2(npc.Center.X, npc.Center.Y);
                             num866 = Main.player[npc.target].Center.X - vector106.X;
                             num867 = Main.player[npc.target].Center.Y - vector106.Y;
-                            num868 = (float)Math.Sqrt(num866 * num866 + num867 * num867);
-                            num868 = 8f / num868;
-                            npc.velocity.X = num866 * num868;
-                            npc.velocity.Y = num867 * num868;
+                            creeperVel = (float)Math.Sqrt(num866 * num866 + num867 * num867);
+                            creeperVel = 8f / creeperVel;
+                            npc.velocity.X = num866 * creeperVel;
+                            npc.velocity.Y = num867 * creeperVel;
                             npc.ai[0] = 1f;
                             npc.netUpdate = true;
                         }
@@ -385,7 +449,7 @@ namespace TRAEProject.NPCs.Boss
                     {
                         Vector2 vector107 = Main.player[npc.target].Center - npc.Center;
                         vector107.Normalize();
-                        if (Main.getGoodWorld)
+                        if (Main.getGoodWorld || Main.masterMode)
                         {
                             vector107 *= 12f;
                             npc.velocity = (npc.velocity * 49f + vector107) / 50f;

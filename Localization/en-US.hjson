@@ -272,6 +272,10 @@ Mods: {
 			PrimeMissile.DisplayName: Prime Missile
 			MirrorShot.DisplayName: Mirror Shot
 			MirrorShotEvil.DisplayName: Mirror Shot Evil
+			EchoLeviathanPortal.DisplayName: Echo Leviathan Portal
+			EchoSpriteProj.DisplayName: Echo Sprite Proj
+			EchoStalkerSonicWave.DisplayName: Echo Stalker Sonic Wave
+			KinnaraFeather.DisplayName: Kinnara Feather
 		}
 
 		Prefixes: {
@@ -662,7 +666,7 @@ Mods: {
 
 			MasochistChains: {
 				DisplayName: Masochist Chains
-				Tooltip: Getting hit will temporarily increase damage by 20% and movement speed
+				Tooltip: Getting hit will temporarily increase damage by 20% and movement speed by 40%
 			}
 
 			AlphaScope: {
@@ -720,7 +724,7 @@ Mods: {
 				Tooltip:
 					'''
 					Increases armor penetration by 5
-						4% increased damage and critical strike chance
+					4% increased damage and critical strike chance
 					Enemies are less likely to target you
 					'''
 			}
@@ -1443,7 +1447,7 @@ Mods: {
 				Tooltip:
 					'''
 					Your summons will focus struck enemies
-					5 summon tag damage
+					4 summon tag damage
 					8% summon tag critical strike chance
 					Performs better against multiple targets than most whips
 					'''
@@ -1643,6 +1647,16 @@ Mods: {
 			PrimeRail.DisplayName: Prime Rail
 			PrimeMace.DisplayName: Prime Mace
 			PrimeLauncher.DisplayName: Prime Launcher
+			EchoLeviathanBody1.DisplayName: Echo Leviathan Body1
+			EchoLeviathanBody2.DisplayName: Echo Leviathan Body2
+			EchoLeviathanBody3.DisplayName: Echo Leviathan Body3
+			EchoLeviathanHead.DisplayName: Echo Leviathan Head
+			EchoLeviathanTail.DisplayName: Echo Leviathan Tail
+			EchoLocator.DisplayName: Echo Locator
+			EchoSprite.DisplayName: Echo Sprite
+			EchoStalker.DisplayName: Echo Stalker
+			Gargoyle.DisplayName: Gargoyle
+			Kinnara.DisplayName: Kinnara
 		}
 
 		Tiles: {
@@ -1780,6 +1794,51 @@ Mods: {
 				Classic.Label: Classic
 				BameNerf.Label: Bame Nerf
 				QwertyNerf.Label: Qwerty Nerf
+			}
+
+			TRAERetextureConfig: {
+				DisplayName: T R A E Retexture Config
+				Headers.TextureSwaps: Texture Swaps Header
+
+				StardustDragon: {
+					Label: Stardust Dragon
+					Tooltip: ""
+				}
+
+				InfernoRing: {
+					Label: Inferno Ring
+					Tooltip: ""
+				}
+
+				DarkLance: {
+					Label: Dark Lance
+					Tooltip: ""
+				}
+
+				StarWrath: {
+					Label: Star Wrath
+					Tooltip: ""
+				}
+
+				PearlwoodSword: {
+					Label: Pearlwood Sword
+					Tooltip: ""
+				}
+
+				PearlwoodHammer: {
+					Label: Pearlwood Hammer
+					Tooltip: ""
+				}
+
+				PearlwoodBow: {
+					Label: Pearlwood Bow
+					Tooltip: ""
+				}
+
+				LunarPortal: {
+					Label: Lunar Portal
+					Tooltip: ""
+				}
 			}
 		}
 	}

@@ -139,7 +139,8 @@ public class TRAEProj : Mod
         static ILHook _EclipseHook;
         static ILHook _OOA2Hook;
         static ILHook _MountHook;
-        static ILHook _CreeperHook;
+        static ILHook _CreeperHook; static ILHook _CreeperHook2;
+
         static ILHook _EoWHook;
 
 
@@ -156,6 +157,8 @@ public class TRAEProj : Mod
             if (GetInstance<TRAEConfig>().BoCChanges)
             {
                 _CreeperHook = new ILHook(typeof(Terraria.NPC).GetMethod("GetBrainOfCthuluCreepersCount"), ILBOC.DoStuff);
+                _CreeperHook2 = new ILHook(typeof(Terraria.Player).GetMethod("StatusFromNPC"), ILBOC2.DoDebuffStuff);
+
             }
             if (GetInstance<TRAEConfig>().EoWChanges)
             {
@@ -248,7 +251,9 @@ public class TRAEProj : Mod
             _EclipseHook?.Dispose();
             _OOA2Hook?.Dispose();
             _MountHook?.Dispose();
-            _CreeperHook?.Dispose(); 
+            _CreeperHook?.Dispose();
+            _CreeperHook2?.Dispose();
+
             _EoWHook?.Dispose();
 
             Main.QueueMainThreadAction(() =>

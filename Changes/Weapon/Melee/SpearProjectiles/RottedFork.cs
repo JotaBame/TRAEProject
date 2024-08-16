@@ -13,10 +13,10 @@ namespace TRAEProject.Changes.Weapon.Melee.SpearProjectiles
     {
         public override void SpearDefaults()
         {
-            spearLength = 119f;
+            spearLength = 137f;
             stabStart = 85f;
             stabEnd = -10;
-            swingAmount = MathF.PI / 16;
+            swingAmount = MathF.PI / 12;
         }
         public override void SpearActive()
         {
@@ -32,7 +32,8 @@ namespace TRAEProject.Changes.Weapon.Melee.SpearProjectiles
         {
             spearLength = 119f;
             holdAt = 59f;
-            Projectile.penetrate = 6;
+            maxSticks = 2;
+            stickingDps = 6;
             floatTime = 65;
             DustOnDeath = 115;
         }

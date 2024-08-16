@@ -45,7 +45,7 @@ namespace TRAEProject.Changes.NPCs.Boss
         {
             if (npc.type == NPCID.VileSpitEaterOfWorlds && GetInstance<TRAEConfig>().EoWChanges)
             {
-        
+
                 return false;
             }
             return true;
@@ -62,27 +62,30 @@ namespace TRAEProject.Changes.NPCs.Boss
         }
         public override void OnHitByProjectile(NPC npc, Projectile projectile, NPC.HitInfo hit, int damageDone)
         {
-            if (npc.type == NPCID.VileSpitEaterOfWorlds && GetInstance<TRAEConfig>().EoWChanges)
+            if ((npc.type == NPCID.EaterofWorldsHead || npc.type == NPCID.EaterofWorldsBody || npc.type == NPCID.EaterofWorldsTail) && GetInstance<TRAEConfig>().EoWChanges)
             {
                 npc.localAI[1] -= damageDone * 4;
-}
+            }
         }
         public override void ModifyHitByProjectile(NPC npc, Projectile projectile, ref NPC.HitModifiers modifiers)
         {
-			if (GetInstance<TRAEConfig>().EoWChanges)
+            if (GetInstance<TRAEConfig>().EoWChanges && npc.type >= 13 && npc.type <= 15)
             {
- 
-            if ((projectile.type == 30 || projectile.type == 397 || projectile.type == 517 || projectile.type == 28 || projectile.type == 37 || projectile.type == 516 || projectile.type == 29 || projectile.type == 470 || projectile.type == 637 || projectile.type == 108 || projectile.type == 281 || projectile.type == 588 || projectile.type == 519 || projectile.type == 773 || projectile.type == 183 || projectile.type == 181 || projectile.type == 566 || projectile.type == 1002) && npc.type >= 13 && npc.type <= 15)
-                modifiers.FinalDamage *= 5f;
-			}
+                if (projectile.type == ProjectileID.VampireFrog)
+                    modifiers.FinalDamage *= 0.6f;
+                if (projectile.type == ProjectileID.VilethornTip || projectile.type == ProjectileID.VilethornBase)
+                    modifiers.FinalDamage *= 0.33f;
+                if (projectile.type == ProjectileID.Grenade || projectile.type == ProjectileID.StickyGrenade || projectile.type == ProjectileID.BouncyGrenade || projectile.type == ProjectileID.Bee || projectile.type == ProjectileID.GiantBee || projectile.type == ProjectileID.Beenade)
+                    modifiers.FinalDamage *= 5f;
+            }
         }
-         public override bool PreAI(NPC npc)
+        public override bool PreAI(NPC npc)
         {
             if (GetInstance<TRAEConfig>().EoWChanges)
             {
                 if (npc.type == NPCID.EaterofWorldsHead || npc.type == NPCID.EaterofWorldsBody || npc.type == NPCID.EaterofWorldsTail)
                 {
-                     if (Main.netMode != 1 && Main.expertMode)
+                    if (Main.netMode != 1 && Main.expertMode)
                     {
                         npc.localAI[1]++;
                         int healTime = 240;
@@ -362,7 +365,7 @@ namespace TRAEProject.Changes.NPCs.Boss
                         if (npc.Distance(Main.player[npc.target].Center) > 450f)
                             acceleration *= 1.6f;
                     }
-                 
+
 
                     if (Main.getGoodWorld)
                     {
@@ -372,7 +375,7 @@ namespace TRAEProject.Changes.NPCs.Boss
                     if ((double)(npc.position.Y / 16f) < Main.worldSurface)
                     {
                         acceleration *= 1.45f;
-                      
+
 
                     }
                     Vector2 vector5 = new Vector2(npc.position.X + (float)npc.width * 0.5f, npc.position.Y + (float)npc.height * 0.5f);
@@ -429,7 +432,7 @@ namespace TRAEProject.Changes.NPCs.Boss
                             float gravity = 0.11f; // vanilla value
                             if (Main.expertMode)
                                 gravity = 0.095f;
-				 
+
                             npc.velocity.Y += gravity;
 
                             if (npc.velocity.Y > speed)
@@ -663,18 +666,18 @@ namespace TRAEProject.Changes.NPCs.Boss
                 }
                 if (npc.type == NPCID.VileSpitEaterOfWorlds)
                 {
-                     Rectangle rectangle = npc.Hitbox;
+                    Rectangle rectangle = npc.Hitbox;
                     for (int index1 = 0; index1 < 255; index1++)
                     {
                         Player player = Main.player[index1];
                         if (index1 >= 0 && player.active && !player.dead)
                         {
- 
+
 
                             if (rectangle.Intersects(player.Hitbox))
                             {
                                 player.AddBuff(BuffID.Weak, Main.rand.Next(180, 240));
-                                 player.AddBuff(BuffID.OgreSpit, 150);
+                                player.AddBuff(BuffID.OgreSpit, 150);
 
                                 SoundEngine.PlaySound(SoundID.NPCDeath1 with { MaxInstances = 0 });
                                 for (int i = 0; i < 25; ++i)
@@ -692,7 +695,7 @@ namespace TRAEProject.Changes.NPCs.Boss
                     Main.dust[num81].noGravity = true;
                     return true;
 
-                 
+
                 }
             }
             return true;
@@ -708,4 +711,3 @@ namespace TRAEProject.Changes.NPCs.Boss
     }
  
 }
- 

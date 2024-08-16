@@ -313,11 +313,11 @@ namespace TRAEProject.Changes.Items
                     break;
                 case ItemID.CrimsonRod:
                     item.damage = 12; // down from 12
-                    item.mana = 75; // up from 10
+                    item.mana = 25; // up from 10
                     rightClickSideWeapon = true;
                     break;
                 case ItemID.NimbusRod:
-                    item.mana = 75; // up from 22
+                    item.mana = 25; // up from 22
                     rightClickSideWeapon = true;
                     break;
                 case ItemID.WeatherPain:

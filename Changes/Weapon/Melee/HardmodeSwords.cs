@@ -182,8 +182,10 @@ namespace TRAEProject.Changes.Weapon.Melee
 
 
                 case ItemID.EnchantedSword:
-                    aura = ModContent.ProjectileType<EnchantedAura>();
-                    item.damage = 24;
+                    aura = ProjectileType<EnchantedAura>();
+                    item.damage = 24; 
+                    item.useTurn = false;
+
                     item.useAnimation = 18;
                     item.noMelee = true;
                     break;
@@ -200,11 +202,16 @@ namespace TRAEProject.Changes.Weapon.Melee
                 Vector2 mousePosition = Main.screenPosition + new Vector2(Main.mouseX, Main.mouseY);
                 if (player.whoAmI == Main.myPlayer)
                 {
+
                     Vector2 velocity = new Vector2(Math.Sign(mousePosition.X - player.Center.X), 0); // determines direction
                     int damage = (int)(player.GetTotalDamage(item.DamageType).ApplyTo(item.damage));
                     Projectile spawnedProj = Projectile.NewProjectileDirect(player.GetSource_ItemUse(item), player.MountedCenter - velocity * 2, velocity * 5, aura, damage, item.knockBack, Main.myPlayer,
                             Math.Sign(mousePosition.X - player.Center.X) * player.gravDir, player.itemAnimationMax, player.GetAdjustedItemScale(item));
                     NetMessage.SendData(MessageID.PlayerControls, -1, -1, null, player.whoAmI);
+                    if (player.position.X - mousePosition.X > 0)
+                        player.direction = -1;
+                    else
+                        player.direction = 1;
 
                 }
                 return;

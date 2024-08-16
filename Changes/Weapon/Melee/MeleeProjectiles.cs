@@ -564,6 +564,7 @@ namespace TRAEProject.Changes.Weapon.Melee
 
             //    Main.NewText(spawnCenter);
             //}
+            
 
             if (projectile.type == ProjectileID.HelFire && projectile.ai[2] == 0)
             {
@@ -577,6 +578,7 @@ namespace TRAEProject.Changes.Weapon.Melee
             }
             switch (projectile.type)
             {
+             
                 case ProjectileID.Shroomerang:
                     ++timer;
 					if (timer > 20)
