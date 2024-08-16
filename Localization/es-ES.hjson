@@ -270,6 +270,8 @@ Mods: {
 			SpamatizmFire.DisplayName: Spamatizm Fire
 			RailShot.DisplayName: Rail Shot
 			PrimeMissile.DisplayName: Prime Missile
+			// MirrorShot.DisplayName: Mirror Shot
+			// MirrorShotEvil.DisplayName: Mirror Shot Evil
 		}
 
 		Prefixes: {
@@ -663,7 +665,8 @@ Mods: {
 				Tooltip:
 					'''
 					Incrementa velocidad de rango y reduce la dispersión de pistolas
-					Los cohetes, balas y flechas saltan hacia el enemigo y paralizan en golpes críticos 
+					Los cohetes, balas y flechas saltan hacia el enemigo
+					Golpes directos con ataques a distancia hacen 1.05x más de daño y paralizan por 1 segundo 
 					'Prepárate a ser terminado'
 					'''
 			}
@@ -673,13 +676,13 @@ Mods: {
 				Tooltip:
 					'''
 					Incrementa la probabilidad de golpe crítico en 10%
-					Los cohetes críticos paralizan por 1 segundo 
+					Golpes directos con un cohete hacen 1.1x más de daño y paralizan por 1 segundo 
 					'''
 			}
 
 			MechanicalEyeItem: {
 				DisplayName: Ojo Cibernético
-				Tooltip: Los cohetes críticos paralizan por 1 segundo
+				Tooltip: Golpes directos con un cohete hacen 1.1x más de daño y paralizan por 1 segundo
 			}
 
 			MirrorShield: {

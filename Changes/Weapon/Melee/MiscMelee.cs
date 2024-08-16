@@ -48,9 +48,8 @@ namespace TRAEProject.Changes.Weapon.Melee
                     item.damage = 102; // up from 90
                     return;
                 case ItemID.VampireKnives:
-                    item.damage = 29; // up from 29
-                    item.useTime = 19; // up from 16
-                    item.useAnimation = 19; // up from 19
+                    item.damage = 24; // down from 29
+            
                     break;
                 case ItemID.PossessedHatchet:
                     item.damage = 102; // up from 80

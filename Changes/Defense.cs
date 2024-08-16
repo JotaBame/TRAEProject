@@ -10,6 +10,8 @@ using Terraria.ModLoader;
 using static Terraria.ModLoader.ModContent;
 using TRAEProject.Changes;
 using System.Collections.Generic;
+using TRAEProject.Changes.Accesory;
+using TRAEProject.NewContent.Items.Accesories;
 
 namespace TRAEProject
 {
@@ -22,6 +24,7 @@ namespace TRAEProject
         public bool EndurancePot = false;
         public bool IceBarrier = false;
         public bool pocketMirror = false;
+        public float mirrorReflectDamage = 0;
         public bool RoyalGel = false;
         public int RoyalGelCooldown = 0;
         public int FlatDamageReduction = 0;
@@ -63,6 +66,11 @@ namespace TRAEProject
         {
             Player.endurance = 0;
         }
+        public override void ModifyHurt(ref Player.HurtModifiers modifiers)
+        {
+ 
+
+        }
         public override bool FreeDodge(Player.HurtInfo info)
         {
             if (newBrain && Main.rand.NextBool(6) && Player.FindBuffIndex(321) == -1)
@@ -91,7 +99,6 @@ namespace TRAEProject
         public override void ModifyHitByNPC(NPC npc, ref Player.HurtModifiers modifiers)
         {
             Player.DefenseEffectiveness *= 0f;
-
             float defense = Player.statDefense;
             float DefenseDamageReduction = defense / (defense + 80); // Formula for defense
 
@@ -108,6 +115,7 @@ namespace TRAEProject
                     dust.velocity *= 3f;
                 }
             }
+
             modifiers.SourceDamage.Flat -= FlatDamageReduction;
             if (EndurancePot)
             {
@@ -121,20 +129,20 @@ namespace TRAEProject
             {
                 modifiers.FinalDamage *= 0.75f;
             }
+
             if (Player.beetleDefense)
             {
                 float beetleEndurance = (1 - 0.15f * Player.beetleOrbs) / (1 - 0.10f * Player.beetleOrbs);
 
                 modifiers.FinalDamage *= beetleEndurance;
             }
-            DamageAfterDefenseAndDR += (int)(modifiers.FinalDamage.Flat);
         }
         public override void ModifyHitByProjectile(Projectile proj, ref Player.HurtModifiers modifiers)
         {
             Player.DefenseEffectiveness *= 0f;
-
             float defense = Player.statDefense;
             float DefenseDamageReduction = defense / (defense + 80); // Formula for defense
+
             modifiers.FinalDamage *= 1 - DefenseDamageReduction;
             if (RoyalGel && RoyalGelCooldown == 0)
             {
@@ -148,6 +156,7 @@ namespace TRAEProject
                     dust.velocity *= 3f;
                 }
             }
+
             modifiers.SourceDamage.Flat -= FlatDamageReduction;
             if (EndurancePot)
             {
@@ -161,17 +170,31 @@ namespace TRAEProject
             {
                 modifiers.FinalDamage *= 0.75f;
             }
-            if (pocketMirror)
-            {
-                modifiers.FinalDamage *= 0.88f;
-            }
+   
             if (Player.beetleDefense)
             {
-                float beetleEndurance = (1 - 0.15f * Player.beetleOrbs) / (1 - 0.10f * Player.beetleOrbs); 
+                float beetleEndurance = (1 - 0.15f * Player.beetleOrbs) / (1 - 0.10f * Player.beetleOrbs);
 
                 modifiers.FinalDamage *= beetleEndurance;
             }
-            DamageAfterDefenseAndDR += (int)(modifiers.FinalDamage.Flat);
+            if (pocketMirror)
+            {
+                modifiers.ModifyHurtInfo += (ref Player.HurtInfo info) =>
+                {
+                    float damageReduction = info.Damage / 1000f;
+                    if (damageReduction > 0.25f)
+                        damageReduction = 0.25f;
+                    mirrorReflectDamage = info.Damage * damageReduction;
+
+                    info.Damage = (int)(info.Damage - mirrorReflectDamage);
+                    mirrorReflectDamage = MathF.Round(mirrorReflectDamage, 0);
+                    if (Player.GetModPlayer<NazarDebuffs>().NazarMirror)
+                        Projectile.NewProjectile(Player.GetSource_FromThis(), Player.Center, Vector2.Zero, ProjectileType<MirrorShotEvil>(), (int)(mirrorReflectDamage * 10), 5f);
+                    else
+                        Projectile.NewProjectile(Player.GetSource_FromThis(), Player.Center, Vector2.Zero, ProjectileType<MirrorShot>(), (int)(mirrorReflectDamage * 10), 5f);
+
+                };
+            }
         }
     }
     public class DRAccessories : GlobalItem
@@ -234,7 +257,7 @@ namespace TRAEProject
                     {
                         if (line.Mod == "Terraria" && line.Name == "Tooltip0")
                         {
-                            line.Text = "12% reduced damage from projectiles\nGrants immunity to Petrified";
+                            line.Text = "Projectiles deal 1% less damage for every 10 damage\nMaxes out at 25% damage reduction\nReduced damage is reflected at the enemy\nGrants immunity to Petrified";
                         }
                     }
                     return;

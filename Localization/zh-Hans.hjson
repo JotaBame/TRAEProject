@@ -1,0 +1,1772 @@
+Mods: {
+	TRAEProject: {
+		Projectiles: {
+			BouncingFlames.DisplayName: Bouncing Flames
+			BloodBeam.DisplayName: Blood Beam
+			BloodSnipe.DisplayName: Blood Snipe
+			EyeNuke.DisplayName: Eye Nuke
+			HostileCloud.DisplayName: Hostile Cloud
+			PlanteraHook.DisplayName: Plantera's Hook
+			PlanteraHook2.DisplayName: Plantera's Hook
+			VineRing.DisplayName: Vine Ring
+			ShadowflameSkull.DisplayName: Shadowflame Skull
+			Everstar.DisplayName: Everstar
+			Ornament.DisplayName: Ornament
+			Scanline.DisplayName: Scanline
+			Target.DisplayName: Target
+			AdamantiteGlaive.DisplayName: Adamantite Glaive
+			AdamantiteGlaiveThrow.DisplayName: Adamantite Glaive Throw
+			BasicSpear.DisplayName: Basic Spear
+			BasicSpearThrow.DisplayName: Basic Spear Throw
+			BoneSpear.DisplayName: Bone Spear
+			BoneSpearThrow.DisplayName: Bone Spear Throw
+			ChloroPartisan.DisplayName: Chloro Partisan
+			ChloroPartisanThrow.DisplayName: Chloro Partisan Throw
+			CobaltNaginata.DisplayName: Cobalt Naginata
+			CobaltNaginataThrow.DisplayName: Cobalt Naginata Throw
+			DarkLance.DisplayName: Dark Lance
+			DarkLanceThrow.DisplayName: Dark Lance Throw
+			Daybreak.DisplayName: Daybreak
+			DaybreakThrow.DisplayName: Daybreak Throw
+			GhastlyGlaive.DisplayName: Ghastly Glaive
+			GhastlyGlaiveThrow.DisplayName: Ghastly Glaive Throw
+			Gungnir.DisplayName: Gungnir
+			GungnirThrow.DisplayName: Gungnir Throw
+			Javelin.DisplayName: Javelin
+			JavelinThrow.DisplayName: Javelin Throw
+			MushroomSpear.DisplayName: Mushroom Spear
+			MushroomSpearThrow.DisplayName: Mushroom Spear Throw
+			MythrilHalberd.DisplayName: Mythril Halberd
+			MythrilHalberdThrow.DisplayName: Mythril Halberd Throw
+			NorthPole.DisplayName: North Pole
+			NorthPoleThrow.DisplayName: North Pole Throw
+			NorthStar.DisplayName: North Star
+			ObsidianSwordfish.DisplayName: Obsidian Swordfish
+			ObsidianSwordfishThrow.DisplayName: Obsidian Swordfish Throw
+			OrichalcumHookbill.DisplayName: Orichalcum Hookbill
+			OrichalcumHookbillThrow.DisplayName: Orichalcum Hookbill Throw
+			PalladiumPike.DisplayName: Palladium Pike
+			PalladiumPikeThrow.DisplayName: Palladium Pike Throw
+			RottedFork.DisplayName: Rotted Fork
+			RottedForkThrow.DisplayName: Rotted Fork Throw
+			SoTC.DisplayName: So T C
+			SoTCThrow.DisplayName: So T C Throw
+			StormSpear.DisplayName: Storm Spear
+			StormSpearThrow.DisplayName: Storm Spear Throw
+			Swordfish.DisplayName: Swordfish
+			SwordfishThrow.DisplayName: Swordfish Throw
+			TitaniumTrident.DisplayName: Titanium Trident
+			TitaniumTridentThrow.DisplayName: Titanium Trident Throw
+			Trident.DisplayName: Trident
+			TridentThrow.DisplayName: Trident Throw
+			ClusterGrenade.DisplayName: Cluster Grenade
+			ClusterMine.DisplayName: Cluster Mine
+			ClusterRocket.DisplayName: Cluster Rocket
+			ClusterSnowmanRocket.DisplayName: Cluster Snowman Rocket
+			DestructiveGrenade.DisplayName: Destructive Grenade
+			DestructiveMine.DisplayName: Destructive Mine
+			DestructiveMiniNuke.DisplayName: Destructive Mini Nuke
+			DestructiveMiniNukeGrenade.DisplayName: Destructive Mini Nuke Grenade
+			DestructiveMiniNukeMine.DisplayName: Destructive Mini Nuke Mine
+			DestructiveMiniNukeSnowman.DisplayName: Destructive Mini Nuke Snowman
+			DestructiveRocket.DisplayName: Destructive Rocket
+			DestructiveSnowmanRocket.DisplayName: Destructive Snowman Rocket
+			DirectGrenade.DisplayName: Direct Grenade
+			DirectMine.DisplayName: Direct Mine
+			DirectRocket.DisplayName: Direct Rocket
+			DirectSnowmanRocket.DisplayName: Direct Snowman Rocket
+			Grenade.DisplayName: Grenade
+			HeavyGrenade.DisplayName: Heavy Grenade
+			HeavyMine.DisplayName: Heavy Mine
+			HeavyRocket.DisplayName: Heavy Rocket
+			HeavySnowmanRocket.DisplayName: Heavy Snowman Rocket
+			LuminiteBoom.DisplayName: Luminite Boom
+			LuminiteGrenade.DisplayName: Luminite Grenade
+			LuminiteMine.DisplayName: Luminite Mine
+			LuminiteRocketP.DisplayName: Luminite Rocket P
+			LuminiteSnowmanRocket.DisplayName: Luminite Snowman Rocket
+			Mine.DisplayName: Mine
+			MiniNuke.DisplayName: Mini Nuke
+			MiniNukeGrenade.DisplayName: Mini Nuke Grenade
+			MiniNukeMine.DisplayName: Mini Nuke Mine
+			MiniNukeSnowman.DisplayName: Mini Nuke Snowman
+			Rocket.DisplayName: Rocket
+			SnowmanRocket.DisplayName: Snowman Rocket
+			SuperGrenade.DisplayName: Super Grenade
+			SuperMine.DisplayName: Super Mine
+			SuperRocket.DisplayName: Super Rocket
+			SuperSnowmanRocket.DisplayName: Super Snowman Rocket
+			TitaniumShrapnel.DisplayName: Titanium Shrapnel
+			PirateHook.DisplayName: Pirate Hook
+			MoltenApparition.DisplayName: ShadowflameApparition
+			ShadowflameApparition.DisplayName: ShadowflameApparition
+			MadFlocko.DisplayName: MadFlocko
+			JoterTridentSpear.DisplayName: Joter Trident Spear
+			JoterTridentThrow.DisplayName: Joter Trident Throw
+			Jottie.DisplayName: Jottie
+			DisintegrationBeam.DisplayName: Disintegration Beam
+			EvilLookingEyePet.DisplayName: Baby Beholder
+			BloodSquidPet.DisplayName: Baby Blood Squid
+			BrimstoneBeam.DisplayName: Brimstone Beam
+			ShellSpinnerP.DisplayName: Shell Spinner P
+			BlessedGelP.DisplayName: BlessedFlamethrower
+			BloodyGelP.DisplayName: BloodyGel
+			CrystalGelP.DisplayName: Crystal Flamethrower
+			CursedGelP.DisplayName: CursedFlamethrower
+			FrozenGelP.DisplayName: GlacialFlamethrower
+			IchorGelP.DisplayName: Ichorthrower
+			Ichorthrower.DisplayName: Ichorthrower
+			LavaGelP.DisplayName: Lavaflamethrower
+			PinkGelP.DisplayName: PinkFlamethrower
+			SolarGelP.DisplayName: Solar Flamethrower
+			BeetleArrowShot.DisplayName: Beetle Arrow
+			BeetleDartShot.DisplayName: BeetleSHot
+			BloodyArrowDrop.DisplayName: Blood Drop
+			BloodyArrowShot.DisplayName: BloodyArrow
+			BoneBulletShot.DisplayName: BoneSHot
+			ChargedArrowShot.DisplayName: ChargedArrow
+			ChargedBulletShot.DisplayName: ChargedSHot
+			GhostDartShot.DisplayName: GhostSHot
+			GhostDartSubShot.DisplayName: GhostSHot
+			GhostShot.DisplayName: GhostSHot
+			ShroomiteShot.DisplayName: ShroomitSHot
+			SolarArrowShot.DisplayName: SolarArrow
+			BAMGel.DisplayName: BAMGel
+			BAMRocket.DisplayName: BAM Rocket
+			BAMRocketCluster.DisplayName: BAM Rocket Cluster
+			BAMRocketDestructive.DisplayName: BAM Rocket Destructive
+			BAMRocketDirect.DisplayName: BAM Rocket Direct
+			BAMRocketDMiniNuke.DisplayName: BAM Rocket D Mini Nuke
+			BAMRocketDry.DisplayName: BAM Rocket Dry
+			BAMRocketHeavy.DisplayName: BAM Rocket Heavy
+			BAMRocketHoney.DisplayName: BAM Rocket Honey
+			BAMRocketLava.DisplayName: BAM Rocket Lava
+			BAMRocketLuminite.DisplayName: BAM Rocket Luminite
+			BAMRocketMiniNuke.DisplayName: BAM Rocket Mini Nuke
+			BAMRocketSuper.DisplayName: BAM Rocket Super
+			BAMRocketWet.DisplayName: BAM Rocket Wet
+			HaxorBig.DisplayName: Haxor Big
+			HaxorSmall.DisplayName: Haxor Small
+			ElectricRIng.DisplayName: Electricity Ring
+			FlamingScythe.DisplayName: Flaming Scythe
+			ClusterCryo.DisplayName: Cluster Cryo
+			CryoRocket.DisplayName: Cryo Rocket
+			DestructiveCryo.DisplayName: Destructive Cryo
+			DestructiveMiniNukeCryo.DisplayName: Destructive Mini Nuke Cryo
+			DirectCryo.DisplayName: Direct Cryo
+			DryCryo.DisplayName: Dry Cryo
+			HeavyCryo.DisplayName: Heavy Cryo
+			HoneyCryo.DisplayName: Honey Cryo
+			LavaCryo.DisplayName: Lava Cryo
+			LuminiteCryo.DisplayName: Luminite Cryo
+			MiniNukeCryo.DisplayName: Mini Nuke Cryo
+			SuperCryo.DisplayName: Super Cryo
+			WetCryo.DisplayName: Wet Cryo
+			ClusterPixie.DisplayName: Cluster Pixie
+			DestructiveMiniNukePixie.DisplayName: Destructive Mini Nuke Pixie
+			DestructivePixie.DisplayName: Destructive Pixie
+			DirectPixie.DisplayName: Direct Pixie
+			DryPixie.DisplayName: Dry Pixie
+			HeavyPixie.DisplayName: Heavy Pixie
+			HoneyPixie.DisplayName: Honey Pixie
+			LavaPixie.DisplayName: Lava Pixie
+			LuminitePixie.DisplayName: Luminite Pixie
+			MiniNukePixie.DisplayName: Mini Nuke Pixie
+			PixieRocket.DisplayName: Pixie Rocket
+			SuperPixie.DisplayName: Super Pixie
+			WetPixie.DisplayName: Wet Pixie
+			MaelstromBall.DisplayName: Nebula Ball
+			MaelstromLaser.DisplayName: Nebula Laser
+			MaelstromSubshot.DisplayName: Nebula Bolt
+			MaelstromZap.DisplayName: Nebula Zap
+			CurseDollArmorflame.DisplayName: Curse Doll Armor Flame
+			CurseDollShadowflame.DisplayName: Curse Doll Shadowflame
+			CurseDollWeaponflame.DisplayName: Curse Doll Weapon Flame
+			FlamingWood.DisplayName: Flaming Wood
+			AbsoluteZeroP.DisplayName: AbsoluteZero
+			Boomfrog.DisplayName: Boomfrog
+			Froggy.DisplayName: Froggy
+			GraniteShock.DisplayName: Granite Shock
+			GraniteShockerSentry.DisplayName: GraniteShocker
+			YoungQueenBee.DisplayName: Young Queen Bee
+			SpikedWhipP.DisplayName: SpikedWhip
+			StarflowInvader.DisplayName: Starflow Invader
+			StarflowP.DisplayName: Starflow
+			TailWhipP.DisplayName: Tail Whip
+			FirePetalFriendly.DisplayName: Fire Petal
+			PetalFriendly.DisplayName: Petal
+			SuperRoseProj.DisplayName: PetalSpawner
+			WillOfTheWispFlame.DisplayName: Will O' Wisp Flame
+			BomberBonesGrenade.DisplayName: Bomber Bones Grenade
+			GraniteBolt.DisplayName: Granite Bolt
+			GraniteBoom.DisplayName: Granite Boom
+			DeathgazeBeam.DisplayName: Deathgaze
+			GreenScythe.DisplayName: Green Scythe
+			OrangeScythe.DisplayName: Orange Scythe
+			WhiteScythe.DisplayName: White Scythe
+			YellowScythe.DisplayName: Yellow Scythe
+			Boom.DisplayName: Boom
+			OniFirePetal.DisplayName: Fire Petal
+			OniFirePetal2.DisplayName: Fire Petal
+			OniPetal.DisplayName: Oni Petal
+			OniPetal2.DisplayName: Oni Petal
+			BigBubble.DisplayName: BigBubble
+			Blank.DisplayName: Blank
+			Blizzard.DisplayName: Blizzard
+			BuzzyStar.DisplayName: BuzzyStar
+			CosmicStingy.DisplayName: CosmicStingy
+			Harpoon.DisplayName: Harpoon
+			LightningBolt.DisplayName: LightningBolt
+			LightsLong.DisplayName: LightsLong
+			LilRocket.DisplayName: LilRocket
+			NightsBeam.DisplayName: NightsBeam
+			PhantomTentacle.DisplayName: Phantom Tentacle
+			SolarExplosion.DisplayName: Solar Explosion
+			Star1.DisplayName: Star1
+			Starrow.DisplayName: Starrow
+			Stynger.DisplayName: Stynger
+			StyngerShrapnel.DisplayName: StyngerShrapnel
+			ThrownLucy.DisplayName: Thrown Lucy
+			ToxicCloud.DisplayName: ToxicCloud
+			ToxicDrop.DisplayName: ToxicDrop
+			KeybrandAura.DisplayName: Keybrand Aura
+			AdamantiteAura.DisplayName: Adamantite Aura
+			CobaltAura.DisplayName: Cobalt Aura
+			MythrilAura.DisplayName: Mythril Aura
+			BrandAura.DisplayName: Brand Aura
+			DrgngnAura.DisplayName: Drgngn Aura
+			InfluxAura.DisplayName: Influx Aura
+			StarWrathAura.DisplayName: Star Wrath Aura
+			OniPetalCircling.DisplayName: Oni Petal Circling
+			OniPetalCirclingFire.DisplayName: Oni Petal Circling Fire
+			OniPetalSpiraling.DisplayName: Oni Petal Spiraling
+			OniPetalSpiralingFire.DisplayName: Oni Petal Spiraling Fire
+			FlameP.DisplayName: Flame P
+			FrostFlameP.DisplayName: Frost Flame P
+			CrystaP.DisplayName: Crysta P
+			CrystalGelSplitP.DisplayName: Crystal Gel Split P
+			BeekeeperAura.DisplayName: Beekeeper Aura
+			BreakerAura.DisplayName: Breaker Aura
+			OrichalcumAura.DisplayName: Orichalcum Aura
+			PallaAura.DisplayName: Palla Aura
+			ShortAura.DisplayName: Short Aura
+			TitaniumAura.DisplayName: Titanium Aura
+			PearlwoodAura.DisplayName: Pearlwood Aura
+			BloodFlameP.DisplayName: Blood Flame P
+			CrystalGelSplitPink.DisplayName: Crystal Gel Split Pink
+			CrystalGelSplitPurple.DisplayName: Crystal Gel Split Purple
+			HelAura.DisplayName: Hel Aura
+			SaberAura.DisplayName: Saber Aura
+			ClaymoreAura.DisplayName: Claymore Aura
+			EnchantedAura.DisplayName: Enchanted Aura
+			BezierCurveProjThing.DisplayName: Bezier Curve Proj Thing
+			PhaseSwordProjectile.DisplayName: Phase Sword Projectile
+			PhaseBladeProjectile.DisplayName: Phase Blade Projectile
+			PhaseSaberProjectile.DisplayName: Phase Saber Projectile
+			PalProjectile.DisplayName: Pal Projectile
+			ConfuseRayBeam.DisplayName: Confuse Ray Beam
+			MagicGrenadeP.DisplayName: Magic Grenade P
+			FlashRayBeam.DisplayName: Flash Ray Beam
+			SpamatizmFire.DisplayName: Spamatizm Fire
+			RailShot.DisplayName: Rail Shot
+			PrimeMissile.DisplayName: Prime Missile
+			// MirrorShot.DisplayName: Mirror Shot
+			// MirrorShotEvil.DisplayName: Mirror Shot Evil
+		}
+
+		Prefixes: {
+			Aerodynamic.DisplayName: 空气动力
+			Bad.DisplayName: 有名无实
+			Brutal.DisplayName: 血肉横飞
+			Dense.DisplayName: 密不透风
+			Devastating.DisplayName: 摧枯拉朽
+			Enchanted.DisplayName: 神秘莫测
+			Extended.DisplayName: 长驱直入
+			Extreme.DisplayName: 出类拔萃
+			Kinetic.DisplayName: 势不可挡
+			Pathetic.DisplayName: 力不从心
+			Piercing.DisplayName: 锐不可当
+			Pounding.DisplayName: 震天撼地
+			Radical.DisplayName: 破旧立新
+			Relentless.DisplayName: 铁石心肠
+			Spiked.DisplayName: 锋利无匹
+			Tricky.DisplayName: 巧夺天工
+			Zoned.DisplayName: 故障频出
+		}
+
+		Buffs: {
+			Celled: {
+				DisplayName: 细胞化
+				Description: 正在被细胞侵蚀
+			}
+
+			Impaled: {
+				DisplayName: 身体被尖物穿透
+				Description: 哎哟！
+			}
+
+			KaleidoscopeSecondTag: {
+				DisplayName: KaleidoscopeNewDebuff
+				Description: Mods.TRAEProject.Buffs.KaleidoscopeSecondTag.Description
+			}
+
+			LavaShield: {
+				DisplayName: 熔岩护盾
+				Description: 防御力增加12
+			}
+
+			MagicBoost: {
+				DisplayName: 魔法增幅
+				Description: 魔法伤害提高20%
+			}
+
+			NanoHealing: {
+				DisplayName: 纳米治疗
+				Description: 通过纳米机器人正在进行身体修复
+			}
+
+			NeoFeralBite: {
+				DisplayName: 野性咬噬
+				Description: 野性咬噬导致了混乱状态
+			}
+
+			SandRush: {
+				DisplayName: 沙地冲刺
+				Description: 移动速度提高20%
+			}
+
+			SBandAidFix: {
+				DisplayName: 创口贴
+				Description: 创可贴确实有助于治疗外部的创伤
+			}
+
+			ShackledDefenses: {
+				DisplayName: 镣铐防卫
+				Description: 防御力增加10
+			}
+
+			StrongerPoisoned: {
+				DisplayName: 猛毒
+				Description: 是的，我完全知道这与牛黄的用途完全相反。
+			}
+
+			WaterAffinity: {
+				DisplayName: 亲水性
+				Description: 跑步速度增加
+			}
+
+			HeartAttack: {
+				DisplayName: 心脏病发作！
+				Description: 伤害提高20%
+			}
+
+			MadFlockos: {
+				DisplayName: 雪花怪
+				Description: 召唤雪花怪来为你战斗
+			}
+
+			PhoenixRush: {
+				DisplayName: 灰烬冲刺
+				Description: 移动和跳跃速度提高15%
+			}
+
+			ReptilianMight: {
+				DisplayName: 龙鳞之力
+				Description: 近战速度提高30%
+			}
+
+			BurntOut: {
+				DisplayName: 能量耗竭
+				Description: 需要充能
+			}
+
+			EvilLookingEyeBuff: {
+				DisplayName: 看守者宝宝
+				Description: 它还不能发射激光，对吗？
+			}
+
+			Restoring1: {
+				DisplayName: 恢复中
+				Description: 正在恢复健康
+			}
+
+			Restoring2: {
+				DisplayName: 恢复中
+				Description: 正在恢复健康
+			}
+
+			Wipeout: {
+				DisplayName: 筋疲力尽
+				Description: 卷轴需要充能
+			}
+
+			BloodSquidBuff: {
+				DisplayName: 血乌贼宝宝
+				Description: 它滴滴答答地跳着！
+			}
+
+			BloodRush: {
+				DisplayName: 热血沸腾
+				Description: 飞吧
+			}
+
+			LavamanderBuff: {
+				DisplayName: 熔岩蜥蜴
+				Description: 别再临阵退缩
+			}
+
+			Power: {
+				DisplayName: 力量
+				Description: 伤害提高30%
+			}
+
+			AbsoluteZeroTag: {
+				DisplayName: 绝对零度标记
+				Description: 目标被暴击时，会被冻结
+			}
+
+			SpikedTag: {
+				DisplayName: 尖刺标记
+				Description: 你觉得还有比“倒刺鞭”更酷的名字吗？我想，有时候简单一点会更好。
+			}
+
+			StarflowTag: {
+				DisplayName: 星流标记
+				Description: 22召唤标记伤害，震惊！
+			}
+
+			TailWhipTag: {
+				DisplayName: 尾鞭标记
+				Description: 我希望这个的召唤标记暴击率能等同于宝可梦的基础暴击率，但那只有6.25%，实在是太低了。
+			}
+
+			Surge: {
+				Description: Mods.TRAEProject.Buffs.Surge.Description
+				DisplayName: 浪涌
+			}
+
+			AZSecondTag: {
+				DisplayName: A Z Second Tag
+				Description: Mods.TRAEProject.Buffs.AZSecondTag.Description
+			}
+
+			WishForSpeedBuff: {
+				DisplayName: 速度之愿
+				Description: 移动速度永久提高15%
+			}
+		}
+
+		Items: {
+			AlligatorBalloon: {
+				DisplayName: 鳄鱼气球
+				Tooltip:
+					'''
+					可让持有者二连跳
+					大幅提高跳跃速度并减少掉落伤害
+					能通过按住跳键连续自动跳跃
+					'''
+			}
+
+			AngelicStone: {
+				DisplayName: 天使之石
+				Tooltip:
+					'''
+					魔力再生速度提高10%
+					需要时自动使用魔力药水
+					耐魔性持续时间降低50%
+					'''
+			}
+
+			BalanceCuffs: {
+				DisplayName: 均衡手铐
+				Tooltip:
+					'''
+					被攻击时，会获得20%的伤害提升，持续时间为伤害值除以10的秒数
+					被攻击时，每受到1点伤害，都会恢复3点法力值
+					'''
+			}
+
+			BigBundle: {
+				DisplayName: 大气球束
+				Tooltip:
+					'''
+					可让持有者六连跳
+					增加跳跃高度，消除掉落伤害
+					按住上键来减慢下降速度
+					受到伤害后释放蜜蜂并将使用者浸入蜂蜜中
+					搭配蜂窝可以加速生命再生
+					'''
+			}
+
+			BlizzardSkates: {
+				DisplayName: 暴风雪溜冰鞋
+				Tooltip:
+					'''
+					在地面上双击可以实现滑行
+					可让持有者二连跳
+					玩家可以通过二连跳来进行强力的空中冲刺
+					'''
+			}
+
+			ChainShield: {
+				DisplayName: 链盾
+				Tooltip:
+					'''
+					最大生命值增加50
+					受到伤害时暂时增加防御力
+					'''
+			}
+
+			CounterweightString: {
+				DisplayName: 配重绳
+				Tooltip:
+					'''
+					扩大悠悠球效力范围
+					用悠悠球击中一个敌怪后，投掷平衡锤
+					'''
+			}
+
+			DemonShield: {
+				DisplayName: 恶魔护盾
+				Tooltip:
+					'''
+					当生命值高于25%时，吸收团队中其他玩家所受伤害的25%
+					对击退免疫
+					对附近的敌怪提高8%的伤害
+					'''
+			}
+
+			EvilEye: {
+				DisplayName: 邪恶之眼
+				Tooltip:
+					'''
+					受到伤害时，对持有者和附近的敌怪施加诅咒
+					射弹造成的伤害降低15%，并诅咒所有敌怪
+					'''
+			}
+
+			AdvFlightBoots: {
+				DisplayName: 高级飞行靴
+				Tooltip:
+					'''
+					火箭靴和翅膀的激活键是上键，而非跳跃键
+					飞行时间提高40%
+					延长火箭靴的飞行时间
+					消除掉落伤害
+					'''
+			}
+
+			AdvFlightSystem: {
+				DisplayName: 高级飞行系统
+				Tooltip:
+					'''
+					火箭靴和翅膀的激活键是上键，而非跳跃键
+					飞行时间提高40%
+					消除掉落伤害
+					'''
+			}
+
+			Booster: {
+				DisplayName: 圣诞飞行背包
+				Tooltip:
+					'''
+					这是一个全方位助推器
+					“圣诞老人用了都说好”
+					'''
+			}
+
+			FaeInABalloon: {
+				DisplayName: 妖精气球
+				Tooltip:
+					'''
+					可在半空中进行提供无敌帧的弱化二连跳
+					增加跳跃高度
+					按住上键来减慢下降速度
+					'''
+			}
+
+			FaeInABottle: {
+				DisplayName: 妖精瓶
+				Tooltip: 可在半空中进行提供无敌帧的弱化二连跳
+			}
+
+			FantasyPack: {
+				DisplayName: 奇幻飞行背包
+				Tooltip: 提供助推器，旋转型附加跳，以及妖精型附加跳的能力
+			}
+
+			FlightForecast: {
+				DisplayName: 逃跑计划
+				Tooltip:
+					'''
+					火箭靴和翅膀的激活键是上键，而非跳跃键
+					飞行时间提高40%
+					消除掉落伤害
+
+					可让持有者二连跳
+					'''
+			}
+
+			JetBoots: {
+				DisplayName: 喷气靴
+				Tooltip:
+					'''
+					火箭靴和翅膀的激活键是上键，而非跳跃键
+					飞行时间提高40%
+					消除掉落伤害
+					提供火箭靴型飞行
+					提供全方位助推器
+					'''
+			}
+
+			LevitatingSoles: {
+				DisplayName: 浮动袜
+				Tooltip:
+					'''
+					给予在半空中进行旋转型附加跳的能力
+					移动速度提高20% 
+					跳跃速度提高24%
+					'''
+			}
+
+			LevitationJuice: {
+				DisplayName: 浮动液
+				Tooltip: 给予在半空中进行旋转型附加跳的能力
+			}
+
+			GravityTabi: {
+				DisplayName: 牛顿牌分趾厚底袜
+				Tooltip:
+					'''
+					可控制重力，快速下落和猛冲
+					消除掉落伤害
+					'''
+			}
+
+			LifeCuffs: {
+				DisplayName: 生命手铐
+				Tooltip: 被攻击时，会获得20%的伤害提升，持续时间为伤害值除以10的秒数
+			}
+
+			MagicalCarpet: {
+				DisplayName: 魔法飞毯
+				Tooltip:
+					'''
+					给予飞行和缓慢下落的能力
+					按住下键悬停，移动速度提高25%
+					“朕将挥手间，示卿八荒四海……”
+					'''
+			}
+
+			MasochistChains: {
+				DisplayName: 受虐者之链
+				Tooltip: 被攻击时，伤害会暂时提高20%并增加移动速度
+			}
+
+			AlphaScope: {
+				DisplayName: 阿尔法瞄准镜
+				Tooltip:
+					'''
+					增加远程攻击速度并缩小枪械射击散布
+					发射器、枪和弓/连弩会进行智能反弹，并在暴击时令敌怪眩晕
+					“准备好被终结吧”
+					'''
+			}
+
+			EyeOfTheDestroyer: {
+				DisplayName: 毁灭者之眼
+				Tooltip:
+					'''
+					暴击率提高10%
+					火箭暴击会使敌怪眩晕，持续1秒
+					'''
+			}
+
+			MechanicalEyeItem: {
+				DisplayName: 仿生眼
+				Tooltip: 火箭暴击会使敌怪眩晕，持续1秒
+			}
+
+			MirrorShield: {
+				DisplayName: 镜盾
+				Tooltip:
+					'''
+					最大生命值增加50
+					射弹造成的伤害降低12%
+					'''
+			}
+
+			Moonwalkers: {
+				DisplayName: 月球漫步者
+				Tooltip:
+					'''
+					增加跳跃高度，消除掉落伤害并延长飞行时间
+					按住下键以快速下落
+					按住上键来减慢下落速度
+					'''
+			}
+
+			PalladiumShield: {
+				DisplayName: 钯金盾
+				Tooltip: 最大生命值增加50
+			}
+
+			PutridToothNecklace: {
+				DisplayName: 噬骨项链
+				Tooltip:
+					'''
+					盔甲穿透力增加5点
+					伤害和暴击率各提高5%
+					敌怪不太可能以你为目标
+					'''
+			}
+
+			RuneCobra: {
+				DisplayName: 符文眼镜蛇
+				Tooltip:
+					'''
+					仆从数量上限提高1个，仆从的暴击率提高5%
+					仆从伤害以暗影焰能量的形式存储，最高可达3000
+					鞭子每造成750点伤害，生成一只友好的暗影焰幻影
+					'''
+			}
+
+			SandstormBoots: {
+				DisplayName: 沙暴靴
+				Tooltip:
+					'''
+					移动速度提高20%
+					可让持有者二连跳
+					在沙地上的移动速度提高20%
+					'''
+			}
+
+			ShadowClaws: {
+				DisplayName: 暗影利爪
+				Tooltip:
+					'''
+					近战速度提高12%，并给予所有近战武器和鞭子自动挥舞的能力
+					仆从伤害以暗影焰能量的形式存储，最高可达3000
+					鞭子每造成750点伤害，生成一只友好的暗影焰幻影
+					'''
+			}
+
+			ShadowflameCharmItem: {
+				DisplayName: 暗影焰护身符
+				Tooltip:
+					'''
+					仆从伤害以暗影焰能量的形式存储，最高可达3000
+					鞭子每造成750点伤害，生成一只友好的暗影焰幻影
+					'''
+			}
+
+			ShamanNecklace: {
+				DisplayName: 萨满项链
+				Tooltip:
+					'''
+					仆从数量上限提高1个
+					召唤伤害提高12%
+					'''
+			}
+
+			SkeletonBeetle: {
+				DisplayName: 部落甲虫
+				Tooltip:
+					'''
+					哨兵数量上限提高2个
+					召唤击退增加
+					'''
+			}
+
+			SoaringCarpet: {
+				DisplayName: 飞毯
+				Tooltip:
+					'''
+					给予飞毯的能力，按住上键即可使用
+					用飞毯悬停时，移动速度提高30%
+					增加加速度
+					消除掉落伤害
+					'''
+			}
+
+			SpaceBalloonItem: {
+				DisplayName: 太空气球
+				Tooltip:
+					'''
+					增加跳跃高度
+					按住上键来减慢下落速度
+					'''
+			}
+
+			TheBlackCross: {
+				DisplayName: 黑十字勋章
+				Tooltip:
+					'''
+					延长受伤后的无敌状态时间
+					有机会避开攻击
+					'''
+			}
+
+			TwoFlowers: {
+				DisplayName: 姊妹魔力花
+				Tooltip:
+					'''
+					魔法暴击伤害提高10%，并有机会生成一个魔力星
+					需要时自动使用魔力药水
+
+					'''
+			}
+
+			BundleOfWeirdBalloons: {
+				DisplayName: 奇异气球束
+				Tooltip:
+					'''
+					可让持有者三连跳
+					增加跳跃高度
+					受到伤害后释放蜜蜂并将使用者浸入蜂蜜中
+					搭配蜂窝可以加速生命再生
+
+					'''
+			}
+
+			ChlorophyteHood: {
+				DisplayName: 叶绿兜帽
+				Tooltip: 仆从数量上限提高2个
+			}
+
+			IceMajestyBreastplate: {
+				DisplayName: 冰川胸甲
+				Tooltip:
+					'''
+					召唤伤害提高15%
+					鞭子攻击范围扩大30%
+					'''
+			}
+
+			IceMajestyCrown: {
+				DisplayName: 冰川王冠
+				Tooltip:
+					'''
+					仆从数量上限提高1个
+					鞭子攻击速度提高20%
+					'''
+			}
+
+			IceMajestyLeggings: {
+				DisplayName: 冰川护腿
+				Tooltip:
+					'''
+					召唤伤害和鞭子攻击速度各提高10%
+					移动速度提高20%
+					'''
+			}
+
+			FinalBoss: {
+				DisplayName: 最终头目
+				Tooltip: ！者发开充冒合适常非
+			}
+
+			JoterMask: {
+				DisplayName: 乔特面具
+				Tooltip: 非常适合冒充开发者！
+			}
+
+			JoterTrident: {
+				DisplayName: 乔特三叉戟
+				Tooltip: 乔特·伊特
+			}
+
+			LeatherHat: {
+				DisplayName: 皮革兜帽
+				Tooltip: 召唤伤害提高4%
+			}
+
+			LeatherPants: {
+				DisplayName: 皮革裤
+				Tooltip: 召唤伤害提高4%
+			}
+
+			LeatherTunic: {
+				DisplayName: 皮革外衣
+				Tooltip: 鞭子的攻击速度提高 8%
+			}
+
+			PhoenixHeadgear: {
+				DisplayName: 凤凰头饰
+				Tooltip:
+					'''
+					远程伤害和召唤伤害各提高11%
+					远程暴击率提高7%
+					跳跃速度提高10%
+					'''
+			}
+
+			PhoenixLeggings: {
+				DisplayName: 凤凰护腿
+				Tooltip:
+					'''
+					远程伤害和召唤伤害各提高11%
+					移动速度提高11%
+					'''
+			}
+
+			PhoenixTunic: {
+				DisplayName: 凤凰外衣
+				Tooltip:
+					'''
+					远程伤害和召唤伤害提高11%
+					仆从数量上限提高1个
+					'''
+			}
+
+			ReptilianBulwark: {
+				DisplayName: 龙鳞铠甲
+				Tooltip:
+					'''
+					近战和召唤伤害各提高11%
+					仆从数量上限提高1个
+					'''
+			}
+
+			ReptilianGreaves: {
+				DisplayName: 龙鳞战靴
+				Tooltip:
+					'''
+					近战和召唤伤害各提高11%
+					移动速度提高11%
+					'''
+			}
+
+			ReptilianMask: {
+				DisplayName: 龙鳞面具
+				Tooltip:
+					'''
+					近战和召唤伤害各提高11%
+					近战暴击率提高7%
+					鞭子攻击范围扩大15%
+					'''
+			}
+
+			AshRoninHat: {
+				DisplayName: 灰烬浪人面具
+				Tooltip:
+					'''
+					魔法和召唤伤害提高11%
+					魔法暴击率提高7%
+					最大魔力值增加80
+					'''
+			}
+
+			AshRoninPants: {
+				DisplayName: 灰烬浪人裤
+				Tooltip:
+					'''
+					魔法和召唤伤害各提高11%
+					移动速度提高11%
+					'''
+			}
+
+			AshRoninRobes: {
+				DisplayName: 灰烬浪人长袍
+				Tooltip:
+					'''
+					魔法和召唤伤害提高11%
+					仆从数量上限提高1个
+					'''
+			}
+
+			UnderworldWarriorChestplate: {
+				DisplayName: 幽冥武士胸甲
+				Tooltip:
+					'''
+					伤害提高15%
+					远程速度提高25%
+					'''
+			}
+
+			UnderworldWarriorGreaves: {
+				DisplayName: 幽冥武士护腿
+				Tooltip:
+					'''
+					暴击率提高15%
+					近战速度提高25%
+					'''
+			}
+
+			UnderworldWarriorHelmet: {
+				DisplayName: 幽冥武士头盔
+				Tooltip:
+					'''
+					伤害提高15%
+					减少25%的魔力消耗
+					'''
+			}
+
+			BeholderBag: {
+				DisplayName: 宝藏袋
+				Tooltip: "{$CommonItemTooltip.RightClickToOpen}"
+			}
+
+			BeholderMask: {
+				DisplayName: 看守者面具
+				Tooltip: ""
+			}
+
+			BeholderRelicItem: {
+				DisplayName: 看守者圣物
+				Tooltip: ""
+			}
+
+			BeholderTrophyItem: {
+				DisplayName: 看守者纪念章
+				Tooltip: ""
+			}
+
+			EvilLookingEye: {
+				DisplayName: 邪恶的蛋
+				Tooltip: 召唤看守者宝宝
+			}
+
+			GreaterRestorationPotion: {
+				DisplayName: 强效恢复药水
+				Tooltip: ""
+			}
+
+			MasterEmblem: {
+				DisplayName: 大师徽章
+				Tooltip:
+					'''
+					近战速度提高12%
+					远程暴击伤害提高12%
+					魔力再生速度提高12%
+					仆从数量上限提高1个
+					'''
+			}
+
+			RingOfFuror: {
+				DisplayName: 狂怒之戒
+				Tooltip:
+					'''
+					伤害提高12%
+					最大生命值降低11%
+					'''
+			}
+
+			RingOfMight: {
+				DisplayName: 力量之戒
+				Tooltip:
+					'''
+					最大生命值提高 11%
+					伤害提高6%
+					'''
+			}
+
+			RingOfTenacity: {
+				DisplayName: 坚韧之戒
+				Tooltip:
+					'''
+					最大生命值提高22%
+					伤害降低6%
+					'''
+			}
+
+			ScrollOfWipeout: {
+				DisplayName: 歼灭之卷
+				Tooltip: 对附近的所有敌怪造成大量伤害
+			}
+
+			WandOfDisintegration: {
+				DisplayName: 瓦解之杖
+				Tooltip:
+					'''
+					凡阻我者，皆碎为尘埃！
+					慎用此物，后果自负！
+					'''
+			}
+
+			BloodBoiler: {
+				DisplayName: 热血沸腾者
+				Tooltip: 这就是真正的血脉偾张之意！
+			}
+
+			BloodSquidEgg: {
+				DisplayName: 血乌贼的蛋
+				Tooltip: 召唤血乌贼宝宝
+			}
+
+			BloodWings: {
+				DisplayName: 血鳍之翼
+				Tooltip:
+					'''
+					给予飞行和缓慢下落的能力
+					受到伤害时会提升飞行速度
+					'''
+			}
+
+			DreadBag: {
+				DisplayName: 宝藏袋
+				Tooltip: "{$CommonItemTooltip.RightClickToOpen}"
+			}
+
+			BottomlessChumBucket: {
+				DisplayName: 无底鱼饵桶
+				Tooltip:
+					'''
+					扔入水中可提高渔力，最多3次
+					笑死，根本用不完！
+					'''
+			}
+
+			Brimstone: {
+				DisplayName: 炼狱之石
+				Tooltip: 血液激光弹幕
+			}
+
+			DreadMask: {
+				DisplayName: 恐惧鹦鹉螺面具
+				Tooltip: ""
+			}
+
+			DreadnautilusRelic: {
+				DisplayName: 恐惧鹦鹉螺圣物
+				Tooltip: ""
+			}
+
+			DreadSummon: {
+				DisplayName: 血腥箱形水母
+				Tooltip: 用于捕获强大的血月怪物
+			}
+
+			DreadTrophy: {
+				DisplayName: 恐惧鹦鹉螺纪念章
+				Tooltip: ""
+			}
+
+			RedPearl: {
+				DisplayName: 红珍珠
+				Tooltip: 增加刷怪率和运气值
+			}
+
+			ShellSpinner: {
+				DisplayName: 贝壳旋转器
+				Tooltip: 旋转就能赢!
+			}
+
+			BlessedGel: {
+				DisplayName: 水凝胶
+				Tooltip: 火焰会向目标反弹
+			}
+
+			BloodyGel: {
+				DisplayName: 血腥凝胶
+				Tooltip: 从内部摧毁你的敌怪
+			}
+
+			CrystalGel: {
+				DisplayName: 水晶凝胶
+				Tooltip: 分裂成3道火焰，无视25点防御力
+			}
+
+			CursedGel: {
+				DisplayName: 诅咒凝胶
+				Tooltip: 火焰会追踪它们的目标
+			}
+
+			FrozenGel: {
+				DisplayName: 冰川凝胶
+				Tooltip: 创造最冷的火焰
+			}
+
+			IchorGel: {
+				DisplayName: 灵液凝胶
+				Tooltip: 高度不稳定
+			}
+
+			LavaGel: {
+				DisplayName: 熔岩凝胶
+				Tooltip: 燃烧吧，让你领略什么叫做真正的王者之火！
+			}
+
+			SolarGel: {
+				DisplayName: 噬火凝胶
+				Tooltip: 发射聚合的耀斑
+			}
+
+			DriedRose: {
+				DisplayName: 干玫瑰
+				Tooltip: 尚存一丝魔力
+			}
+
+			GraniteBattery: {
+				DisplayName: 花岗岩电池
+				Tooltip: 比看上去更强大
+			}
+
+			IceQueenJewel: {
+				DisplayName: 冰川钻石
+				Tooltip: 拥有冰雪女王的力量
+			}
+
+			LuminiteFeather: {
+				DisplayName: 光之羽
+				Tooltip: 用于制作终极翅膀
+			}
+
+			MagicalAsh: {
+				DisplayName: 魔法灰烬
+				Tooltip: 但愿凤凰不会因此而诞生
+			}
+
+			ObsidianScale: {
+				DisplayName: 黑曜龙鳞
+				Tooltip: 铁壁难攻
+			}
+
+			SalamanderTail: {
+				DisplayName: 蝾螈尾巴
+				Tooltip: 它还在动……
+			}
+
+			HeatproofSaddle: {
+				DisplayName: 炽热防护鞍
+				Tooltip: 召唤可骑乘的熔岩行者坐骑
+			}
+
+			SpeedWish: {
+				DisplayName: 速度之愿
+				Tooltip:
+					'''
+					移动速度永久提高15%
+					“你若渴望飞翔，那么愿我赠予你巨翼。”
+					'''
+			}
+
+			PowerBrew: {
+				DisplayName: 力量秘酿
+				Tooltip: 饮用后，伤害提高30%，持续20秒
+			}
+
+			SweetElixir: {
+				DisplayName: 糖霜秘酿
+				Tooltip: 提供蜂蜜增益，持续45秒
+			}
+
+			TeleportationVial: {
+				DisplayName: 传送之露
+				Tooltip: 将你传送到鼠标所在的位置
+			}
+
+			BeetleArrow: {
+				DisplayName: 甲虫箭
+				Tooltip: 25%的几率击晕敌怪并产生伤害性冲击波
+			}
+
+			BeetleDart: {
+				DisplayName: 甲虫飞镖
+				Tooltip: 33%的几率击晕敌怪并造成三倍伤害
+			}
+
+			BloodyArrow: {
+				DisplayName: 血腥箭
+				Tooltip: 沿途留下血滴
+			}
+
+			BoneBullet: {
+				DisplayName: 骨子弹
+				Tooltip: 一触即发，灰飞烟灭
+			}
+
+			ChargedArrow: {
+				DisplayName: 带电箭
+				Tooltip:
+					'''
+					在击中敌怪处生成伤害环
+					该环可叠加五次，每次叠加均会增加范围
+					'''
+			}
+
+			ChargedBullet: {
+				DisplayName: 带电子弹
+				Tooltip: 在被击中的敌怪之间跳跃
+			}
+
+			GhostBullet: {
+				DisplayName: 幽灵子弹
+				Tooltip:
+					'''
+					能穿透地形和敌怪
+					在敌怪体内留下多达9颗幽灵子弹，在敌怪被击败时释放
+					'''
+			}
+
+			GhostDart: {
+				DisplayName: 幽灵飞镖
+				Tooltip:
+					'''
+					能穿透地形和敌怪
+					在靠近目标时分裂成6个
+					'''
+			}
+
+			LuminiteRocket: {
+				DisplayName: 光辉火箭
+				Tooltip:
+					'''
+					大爆炸
+					多次爆炸
+					'''
+			}
+
+			ShroomiteBullet: {
+				DisplayName: 蘑菇子弹
+				Tooltip: 暴击伤害提高25%
+			}
+
+			SolarArrow: {
+				DisplayName: 光之箭
+				Tooltip: 有5%的几率造成极大的伤害
+			}
+
+			BAM: {
+				DisplayName: B.A.M.
+				Tooltip:
+					'''
+					“多功能炮击工具”
+					发射凝胶、火箭和飞镖
+					'''
+			}
+
+			DoubleHaxor: {
+				DisplayName: 追踪斧锤双重手
+				Tooltip: 一柄追踪之斧与一柄强力之锤
+			}
+
+			GraniteBook: {
+				DisplayName: 电磁护盾
+				Tooltip: 在你周围生成环状电流
+			}
+
+			HeadHarvester: {
+				DisplayName: 头颅收割者
+				Tooltip: ""
+			}
+
+			Jungla: {
+				DisplayName: 丛林根蔓
+				Tooltip: 一次射出三支飞镖
+			}
+
+			CryoCannon: {
+				DisplayName: 冷冻炮
+				Tooltip: 发射冷冻火箭
+			}
+
+			H410WFLASH: {
+				DisplayName: HA-110W FLASH
+				Tooltip:
+					'''
+					“发射爆炸性顽皮火箭的肩扛式突击武器”
+					发射爆炸性的顽皮火箭，这些火箭会跟随并绕着你的光标转动
+					'''
+			}
+
+			SkullCannon: {
+				DisplayName: 骷髅炮
+				Tooltip: 发射火箭
+			}
+
+			AdamantiteLauncher: {
+				DisplayName: 精金发射器
+				Tooltip: 发射火箭
+			}
+
+			TitaniumBazooka: {
+				DisplayName: 钛金火箭筒
+				Tooltip: 一次发射两到三枚火箭
+			}
+
+			NebulaMaelstrom: {
+				DisplayName: 星云漩涡
+				Tooltip:
+					'''
+					向你的对手发动一场粒子风暴
+					右键以取消施法
+					'''
+			}
+
+			OnyxCurseDoll: {
+				DisplayName: 缟玛瑙巫毒娃娃
+				Tooltip:
+					'''
+					召唤三个火球围绕你旋转
+					它们会诅咒附近的敌怪，造成持续伤害，并降低敌怪的伤害或防御力
+					右键以取消施法
+					'''
+			}
+
+			SharpLament: {
+				DisplayName: 锐利之泪
+				Tooltip: 发射燃烧的木材
+			}
+
+			AbsoluteZero: {
+				DisplayName: 绝对零度
+				Tooltip:
+					'''
+					你的召唤物将集中攻击被打中的敌怪
+					12召唤标记伤害
+					25%召唤标记暴击率
+					'''
+			}
+
+			BoomfrogStaff: {
+				DisplayName: 爆炸蛙杖
+				Tooltip: 召唤爆炸蛙哨兵，它会孵化出自爆式青蛙
+			}
+
+			GraniteShockerStaff: {
+				DisplayName: 花岗岩震荡杖
+				Tooltip: 召唤震荡哨兵，能够发射链状闪电
+			}
+
+			YoungQueenBeeStaff: {
+				DisplayName: 幼年蜂后杖
+				Tooltip: 召唤蜜蜂哨兵，它会向你的敌怪射出蜂群
+			}
+
+			SpikedWhip: {
+				DisplayName: 倒刺鞭
+				Tooltip:
+					'''
+					你的召唤物将集中攻击被打中的敌怪
+					5召唤标记伤害
+					8%召唤标记暴击率
+					与大多数鞭子相比，它能更好地对付多个目标
+					'''
+			}
+
+			Starflow: {
+				DisplayName: 星尘轨迹
+				Tooltip:
+					'''
+					你的召唤物将集中攻击被打中的敌怪
+					22召唤标记伤害
+					攻击时唤醒飞掠的入侵者
+					'''
+			}
+
+			TailWhip: {
+				DisplayName: 尾鞭
+				Tooltip:
+					'''
+					你的召唤物将集中攻击被打中的敌怪
+					11召唤标记伤害
+					被击中的敌怪防御力降低16点
+					'''
+			}
+
+			SuperRose: {
+				DisplayName: 诅咒之花
+				Tooltip: 蓄力以释放寻找敌人的花瓣
+			}
+
+			WillOfTheWisp: {
+				DisplayName: 鬼火
+				Tooltip: 发射智能弹跳火球
+			}
+
+			BomberBonesBanner: {
+				DisplayName: 骷髅爆破手旗帜
+				Tooltip: 提高对以下怪的伤害和防御力：骷髅爆破手
+			}
+
+			BoomxieBanner: {
+				DisplayName: 自爆妖精旗帜
+				Tooltip: 提高对以下怪的伤害和防御力：自爆妖精
+			}
+
+			FroggabombaBanner: {
+				DisplayName: 自爆蛙旗帜
+				Tooltip: 提高对以下怪的伤害和防御力：自爆蛙
+			}
+
+			GraniteOvergrowthBanner: {
+				DisplayName: 紊乱花岗岩旗帜
+				Tooltip: 提高对以下怪的伤害和防御力：紊乱花岗岩
+			}
+
+			LavamanderBanner: {
+				DisplayName: 熔岩蜥蜴旗帜
+				Tooltip: 提高对以下怪的伤害和防御力：熔岩蜥蜴
+			}
+
+			MagmanderBanner: {
+				DisplayName: 岩浆蜥蜴旗帜
+				Tooltip: 提高对以下怪的伤害和防御力：岩浆蜥蜴
+			}
+
+			ObsidianBasiliskBanner: {
+				DisplayName: 黑曜石蜥蜴旗帜
+				Tooltip: 提高对以下怪的伤害和防御力：黑曜石蜥蜴
+			}
+
+			OniRoninBanner: {
+				DisplayName: 鬼武士旗帜
+				Tooltip: 提高对以下怪的伤害和防御力：鬼武士
+			}
+
+			PhoenixBanner: {
+				DisplayName: 不灭火凰旗帜
+				Tooltip: 提高对以下怪的伤害和防御力：不灭火凰
+			}
+
+			SalalavaBanner: {
+				DisplayName: 萨拉拉瓦旗帜
+				Tooltip: 提高对以下怪的伤害和防御力：萨拉拉瓦
+			}
+
+			AlligatorBalloonItem: {
+				DisplayName: 鳄鱼气球
+				Tooltip:
+					'''
+					可让持有者二连跳
+					大幅提高跳跃速度并减少掉落伤害
+					可以自动跳跃
+					'''
+			}
+
+			MagicBundle: {
+				DisplayName: 魔法气球束
+				Tooltip:
+					'''
+					可让持有者三连跳，且初次跳跃会有短暂的无敌效果
+					大幅提高跳跃速度并减少掉落伤害
+					可以自动跳跃和缓慢下落
+					'''
+			}
+
+			StarfuryTempleTestItem: {
+				Tooltip: ""
+				DisplayName: 星怒神殿测试物品
+			}
+
+			ManaSurgePotion: {
+				Tooltip: 这神奇的药水将赋予你无与伦比的力量，让你在4秒内成为世界的统治者，尽情施展你的魔法，主宰一切！
+				DisplayName: 魔力之泉
+			}
+
+			ConfuseRay: {
+				DisplayName: 混乱光线
+				Tooltip: 发射令敌人困惑的能量光线
+			}
+
+			MagicGrenade: {
+				DisplayName: 魔法手雷
+				Tooltip: 秒炸必定暴击
+			}
+
+			FlashRay: {
+				Tooltip: 发射惊艳的能量射线
+				DisplayName: 闪光射线
+			}
+
+			HeartOfGold: {
+				Tooltip:
+					'''
+					受到伤害后释放蜜蜂并将使用者浸入蜂蜜中
+					搭配蜂窝可以加速生命再生
+					延长受伤后的无敌状态时间
+					'''
+				DisplayName: 黄金之心
+			}
+
+			HeartcrossNecklace: {
+				Tooltip:
+					'''
+					受到伤害后提高移动速度
+					延长受伤后的无敌状态时间
+					'''
+				DisplayName: 心形十字架项链
+			}
+
+			FroststrideBoots: {
+				Tooltip:
+					'''
+					移动速度提高20%
+					在地面上双击可以实现滑行
+					可让持有者二连跳
+					玩家可以通过二连跳来进行强力的空中冲刺
+					'''
+				DisplayName: 寒霜靴
+			}
+
+			CloudChasers: {
+				DisplayName: 追云者
+				Tooltip:
+					'''
+					移动速度提高20%
+					可让持有者三连跳
+					在沙地上的移动速度提高20%
+					火箭靴和翅膀的激活键是上键，而非跳跃键
+					飞行时间提高40%
+					消除掉落伤害
+
+					'''
+			}
+		}
+
+		NPCs: {
+			BomberBones.DisplayName: 骷髅爆破手
+			GraniteCore.DisplayName: 花岗岩核心
+			GraniteOvergrowth.DisplayName: 紊乱花岗岩
+			BeholderNPC.DisplayName: 看守者
+			Boomxie.DisplayName: 自爆妖精
+			LittleBoomxie.DisplayName: 爆破粉尘
+			Froggabomba.DisplayName: 自爆蛙
+			FroggabombaClone.DisplayName: 克隆自爆蛙
+			LavamanderNPC.DisplayName: 熔岩蜥蜴
+			ObsidianBasiliskBody.DisplayName: 黑曜石蛇怪
+			ObsidianBasiliskHead.DisplayName: 黑曜石蛇怪
+			ObsidianBasiliskTail.DisplayName: 黑曜石蛇怪
+			OniRoninNPC.DisplayName: 鬼武士
+			PhoenixAsh.DisplayName: 凤凰余烬
+			PhoenixNPC.DisplayName: 不灭火凰
+			LavaBubble.DisplayName: 熔岩气泡
+			Lavalarva.DisplayName: 岩浆蜥蜴
+			SalalavaNPC.DisplayName: 萨拉拉瓦
+			BomberBonesNPC.DisplayName: 骷髅爆破手
+			GraniteOvergrowthNPC.DisplayName: 紊乱花岗岩
+			PrimeRail.DisplayName: Prime Rail
+			PrimeMace.DisplayName: Prime Mace
+			PrimeLauncher.DisplayName: Prime Launcher
+		}
+
+		Tiles: {
+			BomberBonesBannerPlaced.MapEntry: 骷髅爆破手旗帜
+			BoomxieBannerPlaced.MapEntry: 自爆妖精旗帜
+			FroggabombaBannerPlaced.MapEntry: 自爆蛙旗帜
+			GraniteOvergrowthBannerPlaced.MapEntry: 紊乱花岗岩旗帜
+			LavamanderBannerPlaced.MapEntry: 熔岩蜥蜴旗帜
+			MagmanderBannerPlaced.MapEntry: 岩浆蜥蜴旗帜
+			ObsidianBasiliskBannerPlaced.MapEntry: 黑曜石蛇怪旗帜
+			OniRoninBannerPlaced.MapEntry: 鬼武士旗帜
+			PhoenixBannerPlaced.MapEntry: 凤凰旗帜
+			SalalavaBannerPlaced.MapEntry: 萨拉拉瓦旗帜
+		}
+
+		Configs: {
+			TRAEConfig: {
+				DisplayName: 配置
+
+				Headers: {
+					BossChanges: 头目改动
+					PrimeRail: Prime Rail Header
+					BameRail: Bame Rail Header
+					QwertyRail: Qwerty Rail Header
+				}
+
+				PlanteraRework: {
+					Label: 世纪之花重制
+					Tooltip: 实验性质的世纪之花重制，存在诸多问题
+				}
+
+				TwinsRework: {
+					Label: 双子魔眼重制
+					Tooltip: ""
+				}
+
+				CultistChanges: {
+					Label: 邪教徒改动
+					Tooltip: ""
+				}
+
+				DeerclopsChanges: {
+					Label: 独眼巨鹿改动
+					Tooltip: ""
+				}
+
+				FishronChanges: {
+					Label: 猪龙鱼公爵改动
+					Tooltip: ""
+				}
+
+				QBChanges: {
+					Label: 蜂王改动
+					Tooltip: ""
+				}
+
+				SkeletronChanges: {
+					Label: 骷髅王改动
+					Tooltip: ""
+				}
+
+				EOCChanges: {
+					Tooltip: ""
+					Label: 克苏鲁之眼改动
+				}
+
+				railMode: {
+					Label: rail Mode
+					Tooltip: ""
+				}
+
+				bRailVel: {
+					Label: b Rail Vel
+					Tooltip: ""
+				}
+
+				bRailEUpdates: {
+					Label: b Rail E Updates
+					Tooltip: ""
+				}
+
+				bRailTurnSpeed: {
+					Label: b Rail Turn Speed
+					Tooltip: ""
+				}
+
+				qRailVel: {
+					Label: q Rail Vel
+					Tooltip: ""
+				}
+
+				qRailEUpdates: {
+					Label: q Rail E Updates
+					Tooltip: ""
+				}
+
+				qRailTurnSpeed: {
+					Label: q Rail Turn Speed
+					Tooltip: ""
+				}
+
+				railStopAimTime: {
+					Label: rail Stop Aim Time
+					Tooltip: ""
+				}
+
+				holdFireOnRage: {
+					Label: hold Fire On Rage
+					Tooltip: ""
+				}
+
+				PrimeRework: {
+					Label: Prime Rework
+					Tooltip: ""
+				}
+
+				DestroyerRework: {
+					Label: Destroyer Rework
+					Tooltip: ""
+				}
+			}
+
+			RailMode: {
+				Tooltip: ""
+				Classic.Label: Classic
+				BameNerf.Label: Bame Nerf
+				QwertyNerf.Label: Qwerty Nerf
+			}
+		}
+	}
+}

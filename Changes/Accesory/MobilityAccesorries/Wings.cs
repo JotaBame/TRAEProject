@@ -188,8 +188,8 @@ namespace TRAEProject.Changes.Accesory
                     player.jumpSpeedBoost += Mobility.JSV(0.4f);
                     break;
                 case ItemID.BetsyWings:
-                    player.moveSpeed += 0.15f;
-                    player.jumpSpeedBoost += Mobility.JSV(0.25f);
+                    player.moveSpeed += 0.25f;
+                    player.jumpSpeedBoost += Mobility.JSV(0.15f);
                     break;
                 case ItemID.WingsSolar:
                     player.moveSpeed += 0.4f;
@@ -478,7 +478,7 @@ namespace TRAEProject.Changes.Accesory
                     {
                         if (line.Mod == "Terraria" && line.Name == "Tooltip0")
                         {
-                            line.Text += "\n15% increased movement speed\n25% increased jump speed" + "\nHold down to hover for 45% more movement speed";
+                            line.Text += "\n25% increased movement speed\n15% increased jump speed" + "\nHold down to hover for 45% more movement speed";
                         }
                     }
                     break;

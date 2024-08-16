@@ -197,6 +197,10 @@ namespace TRAEProject.Changes.Accesory
                 {
                     smartbounces += player.GetModPlayer<RangedStats>().AlphaScope;
                 }
+                if (projectile.CountsAsClass(DamageClass.Ranged) && player.GetModPlayer<RangedStats>().AlphaScope > 0)
+                {
+                    projectile.GetGlobalProjectile<ProjectileStats>().FirstHitDamage += 0.05f * player.GetModPlayer<RangedStats>().AlphaScope;
+                }
             }
         }
         public override void OnHitNPC(Projectile projectile, NPC target, NPC.HitInfo hit, int damageDone)

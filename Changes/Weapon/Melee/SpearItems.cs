@@ -266,8 +266,7 @@ item.damage = 47;
 					thrownSpear = ProjectileType<SoTCThrow>();
                     item.DamageType = DamageClass.MeleeNoSpeed;
 
-                    item.damage = 62;
-					item.useTime = item.useAnimation = 24;
+ 					item.useTime = item.useAnimation = 24;
 					item.autoReuse = false;
 					item.shootSpeed = 9;
 					break;

@@ -132,7 +132,7 @@ namespace ChangesArmor
         int noRangedTimer = 0;
         int headgearStartStealthTime = 15;
         int timeToMax = 120 - 15;
-        float maxHeadDamage = 3f;
+        float maxHeadDamage = 3.33f;
         public float damageMult = 1f;
         float traeStealth = 0f;
         bool maskSet = false;
@@ -148,7 +148,7 @@ namespace ChangesArmor
                 switch (Player.armor[0].type)
                 {
                     case ItemID.ShroomiteMask:
-                        Player.setBonus = "Build up stealth while on the ground\nStealth provides up to 35% ranged damage, 10% ranged critical strike chance and a reduced chance for enemies to target you\nStealth slowly depletes when off the ground";
+                        Player.setBonus = "Build up stealth while on the ground\nStealth provides up to 35% ranged damage, 10% ranged critical strike chance, 20% movement speed and a reduced chance for enemies to target you\nStealth slowly depletes when off the ground";
                         if (traeStealth < 1f && Player.velocity.Y == 0)
                         {
                             traeStealth += 1f / 60f;
@@ -162,11 +162,12 @@ namespace ChangesArmor
                             Player.GetDamage(DamageClass.Ranged) += 0.35f * traeStealth;
                             Player.GetCritChance(DamageClass.Ranged) += 10f * traeStealth;
                             Player.aggro += (int)(-750 * traeStealth);
+                            Player.moveSpeed += 0.2f * traeStealth;
                         }
                         break;
                     case ItemID.ShroomiteHeadgear:
                         maskSet = true;
-                        Player.setBonus = "Build up stealth while not using ranged attacks\nStealth provides up to 3x increased ranged damage\nStealth depletes while using ranged attacks";
+                        Player.setBonus = "Build up stealth while not using ranged attacks\nStealth provides up to 3.33x increased ranged damage\nStealth depletes while using ranged attacks";
                         if (noRangedTimer < headgearStartStealthTime + timeToMax && Player.itemAnimation == 0)
                         {
                             noRangedTimer++;
@@ -257,9 +258,7 @@ namespace ChangesArmor
         {
             if(maskSet && Player.HeldItem.DamageType == DamageClass.Ranged && Player.itemAnimation > 0)
             {
-                if(damageMult > 1f)
-                {
-                }
+ 
                 if(noRangedTimer > 0)
                 {
                     if(noRangedTimer < headgearStartStealthTime)

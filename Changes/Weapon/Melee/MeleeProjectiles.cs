@@ -91,7 +91,7 @@ namespace TRAEProject.Changes.Weapon.Melee
                     break;
  
                 case ProjectileID.VampireKnife:
-                    projectile.ArmorPenetration = 15;
+                    projectile.ArmorPenetration = 20;
                     break;
                 case ProjectileID.Shroomerang:
                     projectile.usesIDStaticNPCImmunity = true;

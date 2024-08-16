@@ -26,7 +26,7 @@ namespace TRAEProject.NewContent.Items.Accesories.MechanicalEye
         }
         public override void UpdateAccessory(Player player, bool hideVisual)
         {
-            player.GetModPlayer<RangedStats>().RocketsStun += 1;
+            player.GetModPlayer<RangedStats>().CyberEye += 1;
         }
     }
 }
