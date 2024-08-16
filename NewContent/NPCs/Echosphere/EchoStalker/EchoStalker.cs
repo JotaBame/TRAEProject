@@ -8,7 +8,7 @@ using Terraria.ID;
 using Terraria.ModLoader;
 using TRAEProject.NewContent.Projectiles;
 
-namespace TRAEProject.NewContent.NPCs.EchoStalker
+namespace TRAEProject.NewContent.NPCs.Echosphere.EchoStalker
 {
     public class EchoStalker : ModNPC
     {
@@ -27,6 +27,7 @@ namespace TRAEProject.NewContent.NPCs.EchoStalker
             NPCID.Sets.TrailingMode[Type] = 3;
         }
         Vector2 MouthCenter { get => NPC.Center + new Vector2(0, 4); }
+        ref float IdlingTimer => ref NPC.localAI[2];
         public override void SetDefaults()
         {
             NPC.friendly = false;
@@ -41,8 +42,19 @@ namespace TRAEProject.NewContent.NPCs.EchoStalker
         public override void AI()
         {
 
-            if (NPC.target < 0 || NPC.target > 255 || Main.player[NPC.target].dead || !Main.player[NPC.target].active)
-                NPC.TargetClosest();
+            EchosphereHelper.SearchForAirbornePlayers(NPC);
+            if(NPC.target == -1 || NPC.target >= Main.maxPlayers)
+            {
+                NPC.dontTakeDamage = true;
+                NPC.Opacity = .5f;
+                IdlingTimer += .01f;
+                NPC.velocity = Vector2.Lerp(NPC.velocity, new Vector2(MathF.Sin(IdlingTimer), MathF.Cos(IdlingTimer * 1.61f) * .75f) * 5, .1f);
+                NPC.rotation = NPC.velocity.ToRotation();
+                NPC.spriteDirection = MathF.Sign(NPC.velocity.X);
+                return;
+            }
+            NPC.Opacity = 1;
+            NPC.dontTakeDamage = false;
             Player player = Main.player[NPC.target];
 
             Movement(player);
@@ -78,14 +90,14 @@ namespace TRAEProject.NewContent.NPCs.EchoStalker
             }
             NPC.ai[0]++;
             float diff = MathF.Abs(NPC.velocity.ToRotation() - (player.Center - NPC.Center).ToRotation());
-            if (diff > MathF.PI) 
+            if (diff > MathF.PI)
                 diff = MathF.Tau - diff;
-            if(diff > .6f && NPC.ai[0] == 100)
+            if (diff > .6f && NPC.ai[0] == 100)
             {
                 NPC.ai[0] = 99;
             }
             NPC.ai[0] %= 60 * 4;//loop
-            
+
         }
         static float Magnitude(Vector2 vec)
         {
@@ -93,12 +105,12 @@ namespace TRAEProject.NewContent.NPCs.EchoStalker
         }
         void Movement(Player player)
         {
-         
+
             float topSpeed = 5;
             float acceleration = 0.3f;
             if (NPC.ai[0] >= 100 && NPC.ai[0] < 140)
             {
-                topSpeed = 3;        
+                topSpeed = 3;
             }
             Vector2 vector5 = new Vector2(NPC.position.X + NPC.width * 0.5f, NPC.position.Y + NPC.height * 0.5f);
             float maxSpeedX = player.position.X + player.width / 2;
@@ -119,7 +131,7 @@ namespace TRAEProject.NewContent.NPCs.EchoStalker
             Vector2 targetCenter = player.Center;
             Vector2 targetPos = player.position;
             bool goDown = false;
-            if (((NPC.velocity.X > 0f && maxSpeedX < 0f) || (NPC.velocity.X < 0f && maxSpeedX > 0f) || (NPC.velocity.Y > 0f && maxSpeedY < 0f) || (NPC.velocity.Y < 0f && maxSpeedY > 0f)) && Magnitude(NPC.velocity) > acceleration / 2f && num68 < 300f)
+            if ((NPC.velocity.X > 0f && maxSpeedX < 0f || NPC.velocity.X < 0f && maxSpeedX > 0f || NPC.velocity.Y > 0f && maxSpeedY < 0f || NPC.velocity.Y < 0f && maxSpeedY > 0f) && Magnitude(NPC.velocity) > acceleration / 2f && num68 < 300f)
             {
                 goDown = true;
                 if (Magnitude(NPC.velocity) < topSpeed)
@@ -127,7 +139,7 @@ namespace TRAEProject.NewContent.NPCs.EchoStalker
                     NPC.velocity *= 1.1f;
                 }
             }
-            if (NPC.position.Y > targetPos.Y || (targetPos.Y / 16f) > Main.worldSurface || player.dead)
+            if (NPC.position.Y > targetPos.Y || targetPos.Y / 16f > Main.worldSurface || player.dead)
             {
                 goDown = true;
                 if (Math.Abs(NPC.velocity.X) < topSpeed / 2f)
@@ -147,7 +159,7 @@ namespace TRAEProject.NewContent.NPCs.EchoStalker
 
             if (!goDown)
             {
-                if ((NPC.velocity.X > 0f && maxSpeedX > 0f) || (NPC.velocity.X < 0f && maxSpeedX < 0f) || (NPC.velocity.Y > 0f && maxSpeedY > 0f) || (NPC.velocity.Y < 0f && maxSpeedY < 0f))
+                if (NPC.velocity.X > 0f && maxSpeedX > 0f || NPC.velocity.X < 0f && maxSpeedX < 0f || NPC.velocity.Y > 0f && maxSpeedY > 0f || NPC.velocity.Y < 0f && maxSpeedY < 0f)
                 {
                     if (NPC.velocity.X < maxSpeedX)
                     {
@@ -165,7 +177,7 @@ namespace TRAEProject.NewContent.NPCs.EchoStalker
                     {
                         NPC.velocity.Y -= acceleration;
                     }
-                    if (Math.Abs(maxSpeedY) < topSpeed * 0.2 && ((NPC.velocity.X > 0f && maxSpeedX < 0f) || (NPC.velocity.X < 0f && maxSpeedX > 0f)))
+                    if (Math.Abs(maxSpeedY) < topSpeed * 0.2 && (NPC.velocity.X > 0f && maxSpeedX < 0f || NPC.velocity.X < 0f && maxSpeedX > 0f))
                     {
                         if (NPC.velocity.Y > 0f)
                         {
@@ -176,7 +188,7 @@ namespace TRAEProject.NewContent.NPCs.EchoStalker
                             NPC.velocity.Y -= acceleration * 2f;
                         }
                     }
-                    if (Math.Abs(maxSpeedX) < topSpeed * 0.2 && ((NPC.velocity.Y > 0f && maxSpeedY < 0f) || (NPC.velocity.Y < 0f && maxSpeedY > 0f)))
+                    if (Math.Abs(maxSpeedX) < topSpeed * 0.2 && (NPC.velocity.Y > 0f && maxSpeedY < 0f || NPC.velocity.Y < 0f && maxSpeedY > 0f))
                     {
                         if (NPC.velocity.X > 0f)
                         {
@@ -198,7 +210,7 @@ namespace TRAEProject.NewContent.NPCs.EchoStalker
                     {
                         NPC.velocity.X -= acceleration * 1.1f;
                     }
-                    if ((Magnitude(NPC.velocity)) < topSpeed * 0.5)
+                    if (Magnitude(NPC.velocity) < topSpeed * 0.5)
                     {
                         if (NPC.velocity.Y > 0f)
                         {
@@ -220,7 +232,7 @@ namespace TRAEProject.NewContent.NPCs.EchoStalker
                     {
                         NPC.velocity.Y -= acceleration * 1.1f;
                     }
-                    if ((Magnitude(NPC.velocity)) < topSpeed * 0.5)
+                    if (Magnitude(NPC.velocity) < topSpeed * 0.5)
                     {
                         if (NPC.velocity.X > 0f)
                         {
@@ -243,7 +255,7 @@ namespace TRAEProject.NewContent.NPCs.EchoStalker
 
             SpriteEffects spriteFX = NPC.spriteDirection == -1 ? SpriteEffects.FlipVertically : SpriteEffects.None;
 
-            Vector2 origin = new Vector2((NPC.spriteDirection == 1) ? 8 : 4, (NPC.spriteDirection == 1) ? -5 : -5);
+            Vector2 origin = new Vector2(NPC.spriteDirection == 1 ? 8 : 4, NPC.spriteDirection == 1 ? -5 : -5);
             origin *= 0.5f;
             GetHeadRotationOffset(out float headRot, out float jawRot, out float rotationProgress);
 
@@ -252,31 +264,42 @@ namespace TRAEProject.NewContent.NPCs.EchoStalker
             jawOffset += NPC.rotation.ToRotationVector2() * MathF.Abs(jawRot) * 10;
             jawRot += NPC.rotation;
             origin = head.Size() / 2;
-            Main.EntitySpriteDraw(jaw.Value, NPC.Center - screenPos + jawOffset, null, drawColor, jawRot, origin, NPC.scale, spriteFX);
+            DrawWithSpectralCheck(jaw.Value, NPC.Center - screenPos + jawOffset, null, drawColor, jawRot, origin, NPC.scale, spriteFX, spriteBatch);
             if (opacity > 0)
             {
                 for (float i = 0; i < 17; i++)
                 {
-                    Vector2 blurOffset = new Vector2(i * 3f % 5f).RotatedBy((i / 5.5f) * MathF.Tau + NPC.ai[0] * 0.1f);
+                    Vector2 blurOffset = new Vector2(i * 3f % 5f).RotatedBy(i / 5.5f * MathF.Tau + NPC.ai[0] * 0.1f);
                     Main.EntitySpriteDraw(jaw.Value, NPC.Center - screenPos + blurOffset + jawOffset, null, additiveWhite * opacity, jawRot, origin, NPC.scale, spriteFX);
                 }
             }
-            Main.EntitySpriteDraw(head.Value, NPC.Center - screenPos, null, drawColor, NPC.rotation + headRot, origin, NPC.scale, spriteFX);
-            Main.EntitySpriteDraw(hair.Value, NPC.Center - screenPos, null, drawColor, NPC.rotation + headRot, origin, NPC.scale, spriteFX);
+            DrawWithSpectralCheck(head.Value, NPC.Center - screenPos, null, drawColor, NPC.rotation + headRot, origin, NPC.scale, spriteFX, spriteBatch);
+            DrawWithSpectralCheck(hair.Value, NPC.Center - screenPos, null, drawColor, NPC.rotation + headRot, origin, NPC.scale, spriteFX, spriteBatch);
             if (opacity > 0)
             {
                 for (float i = 0; i < 17; i++)
                 {
-                    Vector2 blurOffset = new Vector2(i * 3f % 5f).RotatedBy((i / 5.5f) * MathF.Tau + NPC.ai[0] * 0.1f);
+                    Vector2 blurOffset = new Vector2(i * 3f % 5f).RotatedBy(i / 5.5f * MathF.Tau + NPC.ai[0] * 0.1f);
                     Main.EntitySpriteDraw(hair.Value, NPC.Center - screenPos + blurOffset, null, additiveWhite * opacity, NPC.rotation + headRot, origin, NPC.scale, spriteFX);
                 }
             }
             return false;
         }
+        void DrawWithSpectralCheck(Texture2D texture, Vector2 drawPos, Rectangle? frame, Color drawColor, float rotation, Vector2 origin, float scale, SpriteEffects spriteFX, SpriteBatch spriteBatch)
+        {
+            if (NPC.dontTakeDamage)
+            {
+                EchosphereHelper.SpectralDraw(spriteBatch, NPC.Opacity, NPC.scale, rotation, drawPos, texture, spriteFX, frame, origin);
+            }
+            else
+            {
+                Main.EntitySpriteDraw(texture, drawPos, null, drawColor, rotation, origin, NPC.scale, spriteFX);
+            }
+        }
         static Vector2 AngleLerp(Vector2 a, Vector2 b, float t)
         {
             float length = MathHelper.Lerp(a.Length(), b.Length(), t);
-            float angle = Utils.AngleLerp(a.ToRotation(), b.ToRotation(), t);
+            float angle = a.ToRotation().AngleLerp(b.ToRotation(), t);
             return angle.ToRotationVector2() * length;
         }
         Vector2 GetOrigin(float rotation)
@@ -286,25 +309,25 @@ namespace TRAEProject.NewContent.NPCs.EchoStalker
         }
         private static void TextureLoading()
         {
-            head ??= ModContent.Request<Texture2D>("TRAEProject/NewContent/NPCs/EchoStalker/EchoStalkerHead");
-            jaw ??= ModContent.Request<Texture2D>("TRAEProject/NewContent/NPCs/EchoStalker/EchoStalkerJaw");
-            hair ??= ModContent.Request<Texture2D>("TRAEProject/NewContent/NPCs/EchoStalker/EchoStalkerHair");
-            body ??= ModContent.Request<Texture2D>("TRAEProject/NewContent/NPCs/EchoStalker/EchoStalkerBody");
-            bodyGlow ??= ModContent.Request<Texture2D>("TRAEProject/NewContent/NPCs/EchoStalker/EchoStalkerBodyGlow");
-            body2 ??= ModContent.Request<Texture2D>("TRAEProject/NewContent/NPCs/EchoStalker/EchoStalkerBody2");
-            body2Glow ??= ModContent.Request<Texture2D>("TRAEProject/NewContent/NPCs/EchoStalker/EchoStalkerBody2Glow");
-            tail ??= ModContent.Request<Texture2D>("TRAEProject/NewContent/NPCs/EchoStalker/EchoStalkerTail");
-            tailGlow ??= ModContent.Request<Texture2D>("TRAEProject/NewContent/NPCs/EchoStalker/EchoStalkerTailGlow");
+            head ??= ModContent.Request<Texture2D>("TRAEProject/NewContent/NPCs/Echosphere/EchoStalker/EchoStalkerHead");
+            jaw ??= ModContent.Request<Texture2D>("TRAEProject/NewContent/NPCs/Echosphere/EchoStalker/EchoStalkerJaw");
+            hair ??= ModContent.Request<Texture2D>("TRAEProject/NewContent/NPCs/Echosphere/EchoStalker/EchoStalkerHair");
+            body ??= ModContent.Request<Texture2D>("TRAEProject/NewContent/NPCs/Echosphere/EchoStalker/EchoStalkerBody");
+            bodyGlow ??= ModContent.Request<Texture2D>("TRAEProject/NewContent/NPCs/Echosphere/EchoStalker/EchoStalkerBodyGlow");
+            body2 ??= ModContent.Request<Texture2D>("TRAEProject/NewContent/NPCs/Echosphere/EchoStalker/EchoStalkerBody2");
+            body2Glow ??= ModContent.Request<Texture2D>("TRAEProject/NewContent/NPCs/Echosphere/EchoStalker/EchoStalkerBody2Glow");
+            tail ??= ModContent.Request<Texture2D>("TRAEProject/NewContent/NPCs/Echosphere/EchoStalker/EchoStalkerTail");
+            tailGlow ??= ModContent.Request<Texture2D>("TRAEProject/NewContent/NPCs/Echosphere/EchoStalker/EchoStalkerTailGlow");
         }
         void DrawGlowy(Texture2D texture, Vector2 drawPos, Vector2 origin, SpriteEffects spriteFX, float rotation)
         {
             Color additiveWhite = new Color(255, 255, 255, 0);
-            float opacity = Utils.GetLerpValue(60, 110, NPC.ai[0], true) * Utils.GetLerpValue(160, 140, NPC.ai[0], true) * 0.2f;
+            float opacity = Utils.GetLerpValue(60, 110, NPC.ai[0], true) * Utils.GetLerpValue(160, 140, NPC.ai[0], true) * 0.2f * NPC.Opacity;
             if (opacity > 0)
             {
                 for (float i = 0; i < 17; i++)
                 {
-                    Vector2 blurOffset = new Vector2(i * 3f % 5f).RotatedBy((i / 5.5f) * MathF.Tau + NPC.ai[0] * 0.1f);
+                    Vector2 blurOffset = new Vector2(i * 3f % 5f).RotatedBy(i / 5.5f * MathF.Tau + NPC.ai[0] * 0.1f);
                     Main.EntitySpriteDraw(texture, drawPos + blurOffset, null, additiveWhite * opacity, rotation, origin, NPC.scale, spriteFX);
                 }
             }
@@ -339,7 +362,7 @@ namespace TRAEProject.NewContent.NPCs.EchoStalker
                 segmentCenter = lastSegmentCenter - rotation.ToRotationVector2() * segmentWidth;
                 rotation = (lastSegmentCenter - segmentCenter).ToRotation() + MathF.PI / 2f;
                 Vector2 drawPos = segmentCenter - screenPos;
-                SpriteEffects spriteDir = (segmentCenter.X >= lastSegmentCenter.X) ? SpriteEffects.FlipVertically : SpriteEffects.None;
+                SpriteEffects spriteDir = segmentCenter.X >= lastSegmentCenter.X ? SpriteEffects.FlipVertically : SpriteEffects.None;
                 lastSegmentCenter = segmentCenter;
                 colors[i] = NPC.GetAlpha(Lighting.GetColor(segmentCenter.ToTileCoordinates()));
                 positions[i] = drawPos;
@@ -367,8 +390,16 @@ namespace TRAEProject.NewContent.NPCs.EchoStalker
                 float rotation = rotations[i];
                 rotation -= MathF.PI / 2;
                 Color segmentDrawColor = colors[i];
-                Main.EntitySpriteDraw(texture, drawPos, null, segmentDrawColor, rotation, origin, NPC.scale, spriteDir);
-                Main.EntitySpriteDraw(glow, drawPos, null, segmentDrawColor, rotation, origin, NPC.scale, spriteDir);
+                if (NPC.dontTakeDamage)
+                {
+                    EchosphereHelper.SpectralDraw(Main.spriteBatch, NPC.Opacity, NPC.scale, rotation, drawPos, texture, spriteDir, null, origin);
+                    EchosphereHelper.SpectralDraw(Main.spriteBatch, NPC.Opacity, NPC.scale, rotation, drawPos, glow, spriteDir, null, origin);
+                }
+                else
+                {
+                    Main.EntitySpriteDraw(texture, drawPos, null, segmentDrawColor, rotation, origin, NPC.scale, spriteDir);
+                    Main.EntitySpriteDraw(glow, drawPos, null, segmentDrawColor, rotation, origin, NPC.scale, spriteDir);
+                }
                 DrawGlowy(glow, drawPos, origin, spriteDir, rotation);
             }
         }
@@ -377,6 +408,10 @@ namespace TRAEProject.NewContent.NPCs.EchoStalker
             headRot = 0;
             jawRot = 0;
             animationProgress = Utils.Remap(NPC.ai[0], 0, 60 * 3, 0, 5);
+            if (NPC.dontTakeDamage)
+            {
+                return;
+            }
             switch ((int)animationProgress)
             {
                 case 1:

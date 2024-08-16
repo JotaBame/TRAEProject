@@ -23,6 +23,9 @@ namespace TRAEProject.NewContent.NPCs.Gargoyle
             NPC.lifeMax = 90;
             NPC.damage = 35;
             NPC.defense = 18;
+            NPC.noGravity = true;
+            NPC.width = 50;
+            NPC.height = 50;
             NPC.knockBackResist = 0.1f;
         }
         bool Passive => NPC.ai[0] == 0;
@@ -222,11 +225,11 @@ namespace TRAEProject.NewContent.NPCs.Gargoyle
             Vector2 offset = leftEyeOffsets[index];
             offset.X *= NPC.spriteDirection;
             offset = offset.RotatedBy(NPC.rotation);
-            Vector2 fatness = new Vector2(0.2f);
+            Vector2 fatness = new Vector2(0.4f);
             Vector2 scale = new Vector2(.75f, .4f);
             Vector2 drawpos = NPC.Center - screenPos;
             Color red = new Color(255, 20, 20, 0) * .3f;
-            DrawSparkle(drawpos + offset, 0, red, red, scale, scale);
+            DrawSparkle(drawpos + offset, 0, red, red, scale, fatness);
             offset = rightEyeOffsets[index];
             offset.X *= NPC.spriteDirection;
             offset = offset.RotatedBy(NPC.rotation);

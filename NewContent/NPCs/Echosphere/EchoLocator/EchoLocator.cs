@@ -6,7 +6,7 @@ using Terraria.GameContent;
 using Terraria.ID;
 using Terraria.ModLoader;
 
-namespace TRAEProject.NewContent.NPCs.EchoLocator
+namespace TRAEProject.NewContent.NPCs.Echosphere.EchoLocator
 {
     /// <summary>
     /// UNTESTED
@@ -26,24 +26,73 @@ namespace TRAEProject.NewContent.NPCs.EchoLocator
             NPC.damage = 70;
             NPC.noGravity = true;
         }
-        static int RegularStateDuration => 700;
+        static int RegularStateDuration => 500;
         static int FastStateDuration => 200;
         bool FastState => NPC.ai[0] % (RegularStateDuration + FastStateDuration) >= RegularStateDuration;
         bool JustEnteredFastState => NPC.ai[0] % (RegularStateDuration + FastStateDuration) == RegularStateDuration;
+        Vector2 IdlePosition
+        {
+            get => new Vector2(NPC.ai[1], NPC.ai[2]);
+            set
+            {
+                NPC.ai[1] = value.X;
+                NPC.ai[2] = value.Y;
+            }
+        }
+        bool JustStartedIdling { get => NPC.localAI[0] == 1; set => NPC.localAI[0] = value ? 1 : 0; }
         public override void AI()
         {
-            NPC.TargetClosest();
-            NPC.ai[0]++;
             float maxSpeedX = 4;
             float accelerationX = 0.1f;
             float maxSpeedY = 1.5f;
             float accelerationY = 0.04f;
+            FindTargetAndSetJustStartedIdlingFlag();
+            if (IdlePosition == default)
+            {
+                IdlePosition = NPC.Center;
+            }
+            if (NPC.target < 0 || NPC.target >= Main.maxPlayers)
+            {
+                if (JustStartedIdling)
+                {
+                    NPC.netUpdate = true;
+                    JustStartedIdling = false;
+                    Dust.QuickDust(IdlePosition, Color.White);
+
+                }
+                if (Main.rand.NextFloat() < 0.8f)//8% chance of dust
+                {
+                    Dust d = Dust.NewDustDirect(NPC.position, NPC.width, NPC.height, DustID.PinkTorch, NPC.velocity.X, NPC.velocity.Y, 0, default, 1.5f);
+                    d.noGravity = true;
+                }
+                NPC.direction = MathF.Sign(IdlePosition.X - NPC.Center.X);
+                NPC.directionY = MathF.Sign(IdlePosition.Y - NPC.Center.Y);
+                BatMovement(maxSpeedX, accelerationX, maxSpeedY, accelerationY);
+                NPC.rotation = NPC.velocity.X * .1f;
+                NPC.spriteDirection = MathF.Sign(NPC.velocity.X);
+                if (FastState)
+                {
+                    NPC.ai[0] = RegularStateDuration - 1;
+                }
+                NPC.Opacity = .5f;
+                NPC.dontTakeDamage = true;
+                return;
+            }
+            IdlePosition = NPC.Center;
+            NPC.Opacity = 1;
+            NPC.dontTakeDamage = false;
+            Player player = Main.player[NPC.target];
+            NPC.direction = MathF.Sign(player.Center.X - NPC.Center.X);
+            NPC.directionY = MathF.Sign(player.Center.Y - NPC.Center.Y);
+            NPC.ai[0]++;
+
             if (FastState)
             {
                 if (JustEnteredFastState)
                 {
+                    NPC.netUpdate = true;
                     int numDots = 32;
-                    for (float i = 0; i < 1; i += 1f/numDots)
+                    for (float i = 0; i < 1; i += 1f / numDots)
                     {
                         Vector2 offset = (i * MathF.Tau).ToRotationVector2() * 20;
                         offset.X *= .5f;
@@ -54,12 +103,15 @@ namespace TRAEProject.NewContent.NPCs.EchoLocator
                 }
                 Dust dust = Dust.NewDustDirect(NPC.position, NPC.width, NPC.height, DustID.PinkTorch, NPC.velocity.X, NPC.velocity.Y);
                 dust.noGravity = true;
+                dust.scale += 1;
                 maxSpeedX *= 3;
                 accelerationX *= 3;
                 maxSpeedY *= 3;
-                accelerationY *= 3;
+                accelerationY *= 8;
             }
             BatMovement(maxSpeedX, accelerationX, maxSpeedY, accelerationY);
+            NPC.rotation = NPC.velocity.X * .1f;
+            NPC.spriteDirection = MathF.Sign(NPC.velocity.X);
         }
         public override void FindFrame(int frameHeight)
         {
@@ -69,7 +121,7 @@ namespace TRAEProject.NewContent.NPCs.EchoLocator
                 NPC.frameCounter++;
             }
             int frameSpeed = 7;
-            int framey = (int)((NPC.frameCounter / frameSpeed) % Main.npcFrameCount[Type]) * frameHeight;
+            int framey = (int)(NPC.frameCounter / frameSpeed % Main.npcFrameCount[Type]) * frameHeight;
             NPC.frame.Y = framey;
         }
         private void BatMovement(float maxSpeedX, float accelerationX, float maxSpeedY, float accelerationY)
@@ -173,7 +225,7 @@ namespace TRAEProject.NewContent.NPCs.EchoLocator
                 {
                     NPC.velocity.Y = -4f;
                 }
-                NPC.TargetClosest();
+               FindTargetAndSetJustStartedIdlingFlag();
             }
             else
             {
@@ -247,20 +299,40 @@ namespace TRAEProject.NewContent.NPCs.EchoLocator
         {
             Texture2D texture = TextureAssets.Npc[Type].Value;
 
-            Main.EntitySpriteDraw(texture, NPC.Center - screenPos, NPC.frame, drawColor, NPC.rotation, NPC.frame.Size() / 2, NPC.scale, NPC.spriteDirection == -1 ? SpriteEffects.FlipHorizontally : SpriteEffects.None);
-
+            if (NPC.Opacity != 1)
+            {
+                EchosphereHelper.SpectralDrawMinusOneIsNoFlip(NPC, spriteBatch, screenPos, texture);
+            }
+            else
+            {
+                float opacity = 1;
+                if (FastState)
+                {
+                    drawColor.A = 0;
+                    opacity = .3f;
+                }
+                spriteBatch.Draw(texture, NPC.Center - screenPos, NPC.frame, drawColor * opacity, NPC.rotation, NPC.frame.Size() / 2, NPC.scale, NPC.spriteDirection == -1 ? SpriteEffects.None : SpriteEffects.FlipHorizontally, 0);
+            }
             if (FastState)
             {
                 drawColor.A = 0;
                 for (float i = 1; i <= 10; i++)
                 {
                     Vector2 offset = Vector2.Normalize(NPC.velocity) * i;
-                    Main.EntitySpriteDraw(texture, NPC.Center - screenPos + offset, NPC.frame, drawColor * .3f, NPC.rotation, NPC.frame.Size() / 2, NPC.scale, NPC.spriteDirection == -1 ? SpriteEffects.FlipHorizontally : SpriteEffects.None);
-                    Main.EntitySpriteDraw(texture, NPC.Center - screenPos - offset, NPC.frame, drawColor * .3f, NPC.rotation, NPC.frame.Size() / 2, NPC.scale, NPC.spriteDirection == -1 ? SpriteEffects.FlipHorizontally : SpriteEffects.None);
-
+                    spriteBatch.Draw(texture, NPC.Center - screenPos + offset, NPC.frame, drawColor * .3f, NPC.rotation, NPC.frame.Size() / 2, NPC.scale, NPC.spriteDirection == -1 ? SpriteEffects.None : SpriteEffects.FlipHorizontally, 0);
+                    spriteBatch.Draw(texture, NPC.Center - screenPos - offset, NPC.frame, drawColor * .3f, NPC.rotation, NPC.frame.Size() / 2, NPC.scale, NPC.spriteDirection == -1 ? SpriteEffects.None : SpriteEffects.FlipHorizontally, 0);
                 }
             }
             return false;
+        }
+        void FindTargetAndSetJustStartedIdlingFlag()
+        {
+            int oldTarget = NPC.target;
+            EchosphereHelper.SearchForAirbornePlayers(NPC);
+            if(NPC.target == -1 && oldTarget != -1)
+            {
+                JustStartedIdling = true;
+            }
         }
     }
 }
