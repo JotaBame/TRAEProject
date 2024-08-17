@@ -58,7 +58,5 @@ namespace TRAEProject.Changes.Accesory
             base.PreUpdate();
         }
     }
-    public class GravitationSystem : ModSystem
-    {
-    }
+ 
 }

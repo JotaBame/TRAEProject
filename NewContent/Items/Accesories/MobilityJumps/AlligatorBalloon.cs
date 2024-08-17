@@ -6,7 +6,7 @@ using Terraria.ModLoader;
 namespace TRAEProject.NewContent.Items.Accesories.MobilityJumps
 {
     [AutoloadEquip(EquipType.Balloon)]
-    class AlligatorBalloonItem : ModItem
+   public class AlligatorBalloonItem : ModItem
     {
         public override void SetStaticDefaults()
         {

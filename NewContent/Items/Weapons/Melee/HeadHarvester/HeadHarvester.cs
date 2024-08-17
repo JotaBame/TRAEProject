@@ -8,7 +8,7 @@ using static Terraria.ModLoader.ModContent;
 
 namespace TRAEProject.NewContent.Items.Weapons.Melee.HeadHarvester
 {
-    class HeadHarvester : ModItem
+    public class HeadHarvester : ModItem
     {
         public override void SetStaticDefaults()
         {
@@ -39,7 +39,7 @@ namespace TRAEProject.NewContent.Items.Weapons.Melee.HeadHarvester
 			return 1 / player.GetAttackSpeed(DamageClass.Melee);
         }
     }
-    class FlamingScythe : ModProjectile
+    public class FlamingScythe : ModProjectile
     {
         public override void SetDefaults()
         {

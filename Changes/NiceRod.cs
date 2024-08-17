@@ -12,36 +12,16 @@ using Terraria.GameContent.Shaders;
 using Terraria.GameContent;
 using Terraria.Graphics.Shaders;
 using TRAEProject.NewContent.Items.Accesories.MobilityJumps;
+using Microsoft.Xna.Framework.Graphics;
 
 namespace TRAEProject.Changes
 {
-    class NiceRod : GlobalItem
+ 
+    class NiceRodEffect : GlobalProjectile
     {
-        public override void SetDefaults(Item item)
+        public override void ModifyHitNPC(Projectile projectile, NPC target, ref NPC.HitModifiers modifiers)
         {
-            if(item.type == ItemID.IceRod)
-            {
-                item.accessory = true;
-            }
-        }
-        public override void UpdateAccessory(Item item, Player player, bool hideVisual)
-        {
-            if(item.type == ItemID.IceRod)
-            {
-                player.GetModPlayer<NiceRodEffect>().effect = true;
-            }
-        }
-    }
-    class NiceRodEffect : ModPlayer
-    {
-        public bool effect = false;
-        public override void ResetEffects()
-        {
-            effect = false;
-        }
-        public override void ModifyHitNPCWithProj(Projectile proj, NPC target, ref NPC.HitModifiers modifiers)
-        {
-            if(effect && Main.rand.NextBool(1000))
+            if (projectile.type == ProjectileID.IceBlock && Main.rand.NextBool(1000))
             {
                 modifiers.FinalDamage += 6969 - modifiers.FinalDamage.Base;
                 modifiers.DisableCrit();
@@ -51,12 +31,7 @@ namespace TRAEProject.Changes
                 SoundEngine.PlaySound(new SoundStyle("TRAEProject/Assets/Sounds/noice") with { MaxInstances = 0 });
             }
         }
-        public override void PostUpdateRunSpeeds()
-        {
-            if(effect)
-            {
-                Player.runAcceleration *= -1;
-            }
-        }
+ 
+ 
     }
 }

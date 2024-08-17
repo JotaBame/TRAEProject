@@ -38,7 +38,7 @@ namespace TRAEProject.Changes.Weapons
                     item.shootSpeed = 12f; // up from 6
                     item.autoReuse = true;
                     return;
-               
+
 
                 case ItemID.Harpoon:
                     item.shoot = ProjectileType<Harpoon>();
@@ -74,7 +74,7 @@ namespace TRAEProject.Changes.Weapons
                     item.damage = 13; //down from 24
                     item.useAnimation = 45; // up from 45
                     item.useTime = 45; // up from 45
-					item.rare = ItemRarityID.Green;
+                    item.rare = ItemRarityID.Green;
 
                     break;
                 case ItemID.BeesKnees:
@@ -86,9 +86,9 @@ namespace TRAEProject.Changes.Weapons
                     item.damage = 19; // down from 21
                     item.value = Item.buyPrice(gold: 90);
 
- 
-                     return;
- 
+
+                    return;
+
                 case ItemID.Gatligator:
                     item.damage = 18; // down from 21
 
@@ -127,7 +127,7 @@ namespace TRAEProject.Changes.Weapons
                     item.useAnimation = 50;
                     item.autoReuse = true;
                     return;
- 
+
                 case ItemID.JackOLanternLauncher:
                     item.shootSpeed = 14f; // up from 7
                     return;
@@ -148,27 +148,24 @@ namespace TRAEProject.Changes.Weapons
                     item.knockBack = 1f; // up from 0
                     return;
                 case ItemID.Tsunami:
-                    item.damage = 79;
+                    item.damage = 70;
                     item.useTime = 40;
                     item.useAnimation = 40;
                     return;
-                case ItemID.FairyQueenRangedItem:
+                case ItemID.FairyQueenRangedItem: 
+                    item.damage = 24;
                      item.useTime = 2;// unchanged
                     item.useAnimation = 10; // down from 30
-                    item.reuseDelay = 20; // up from 0
-                    // THIS IS THE EXACT SAME FIRE RATE, IT SEEMS THE DEVS FORGOT REUSEDELAY EXISTED WHEN CODING THIS THING
-                    return;
+                    item.reuseDelay = 10; // up from 0
+                    // note that vanilla doesnt use reuseDelay for this, for whatever reason
+                     return;
                 case ItemID.DD2BetsyBow:
-                    item.damage = 19; //down from 39
-                    item.useTime = 22; // down from 30
-                    item.useAnimation = 22;
-                    return;
-                case ItemID.Phantasm:
-                    item.damage = 60;
-                    return;
+                    item.damage = 31; // down from 39
+                    return;              
+ ;
 
                 case ItemID.ChainGun:
-                    item.damage = 38; // up from 31
+                    item.damage = 41; // up from 31
                     return;
 
                 // AMMO

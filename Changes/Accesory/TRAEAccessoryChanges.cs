@@ -32,33 +32,7 @@ namespace TRAEProject.Changes.Accesory
             player.skyStoneEffects = false;
 
 
-            //total stats: 
-            //4% increased damage critical strike chance, movement speed, and jump speed
-            //8% increased melee speed
-            //10% incresed mining speed and reduced ammo usage
-            //increases defense and armor penetration by 4
-            //increases max life and mana by 20
-            //increases life regen by 0.5hp/s
-            /*
-            player.GetDamage<GenericDamageClass>() += 0.04f;
-            player.GetCritChance<GenericDamageClass>() += 4;
-            player.moveSpeed += 0.04f;
-            player.jumpSpeedBoost += Mobility.JSV(0.04f);
-
-            player.GetAttackSpeed(DamageClass.Melee) += 0.08f;
-
-            player.GetModPlayer<RangedStats>().chanceNotToConsumeAmmo += 10;
             
-
-            player.statDefense += 4;
-            player.GetArmorPenetration(DamageClass.Generic) += 4;
-
-            player.statLifeMax2 += 20;
-            player.statManaMax2 += 20;
-
-            player.lifeRegen++;
-            */
-            // total stats: +8% damage, +2% crit, +0.5 hp/s, +4 defense. +5% melee speed, +20 max mana, +5% movement speed, 10% chance not to consume ammo
             player.pickSpeed -= 1.1f;
             player.GetDamage<GenericDamageClass>() += 0.08f;
             player.GetCritChance<GenericDamageClass>() += 2;
@@ -265,11 +239,34 @@ namespace TRAEProject.Changes.Accesory
         }
         public override void ModifyTooltips(Item item, List<TooltipLine> tooltips)
         {
-            string celStone = "8% increased damage\n2% increased critical strike chance\n5% increased melee speed\n10% increased mining speed and reduced ammo usage\nIncreases defense by 4\nIncreases mana by 20\nIncreases life regen by 0.5hp/s";
+            string celStone = "8% increased damage\n2% increased critical strike chance\n5% increased melee speed\n10% increased mining speed and reduced ammo usage\nIncreases defense by 4\nIncreases mana by 20\nIncreases life regen by 0.5 per second";
             //string celStone = "4% increased damage, critical strike chance, movement speed, and jump speed\n8% increased melee speed\n10% incresed mining speed and reduced ammo usage\nincreases defense and armor penetration by 4\nincreases max life and mana by 20\nincreases life regen by 0.5hp/s";
 
             switch (item.type)
             {
+                case ItemID.BandofStarpower:
+                    foreach (TooltipLine line in tooltips)
+                    {
+                        if (line.Mod == "Terraria" && line.Name == "Tooltip0")
+                        {
+                            line.Text = "10% increased mana regeneration";
+
+                        }
+                    }
+                    break;
+                case ItemID.ManaRegenerationBand:
+                    foreach (TooltipLine line in tooltips)
+                    {
+                        if (line.Mod == "Terraria" && line.Name == "Tooltip0")
+                        {
+                            line.Text = "Increased life regeneration";
+                        }
+                        if (line.Mod == "Terraria" && line.Name == "Tooltip1")
+                        {
+                            line.Text = "10% increased mana regeneration";
+                        }
+                    }
+                    break;
                 case ItemID.SquireShield:
                     foreach (TooltipLine line in tooltips)
                     {
@@ -375,19 +372,7 @@ namespace TRAEProject.Changes.Accesory
        
       
          
-                case ItemID.ManaRegenerationBand:
-                    foreach (TooltipLine line in tooltips)
-                    {
-                        if (line.Mod == "Terraria" && line.Name == "Tooltip0")
-                        {
-                            line.Text = "Increases mana and health regeneration rate";
-                        }
-                        if (line.Mod == "Terraria" && line.Name == "Tooltip1")
-                        {
-                            line.Text = "";
-                        }
-                    }
-                    break;
+            
                 case ItemID.AnkhShield:
                     foreach (TooltipLine line in tooltips)
                     {
@@ -585,13 +570,6 @@ namespace TRAEProject.Changes.Accesory
                         }
                     }
                     break;
-                    //total stats: 
-                    //4% increased damage critical strike chance, movement speed, and jump speed
-                    //8% increased melee speed
-                    //10% incresed mining speed and reduced ammo usage
-                    //increases defense and armor penetration by 4
-                    //increases max life and mana by 20
-                    //increases life regen by 0.5hp/s
                 case ItemID.SunStone:
                     foreach (TooltipLine line in tooltips)
                     {

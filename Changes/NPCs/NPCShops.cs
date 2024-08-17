@@ -22,7 +22,7 @@ using TRAEProject.NewContent.Items.Weapons.Ranged.Ammo;
 namespace TRAEProject.Changes.NPCs
 {
 
-    class NPCShops : GlobalNPC
+    public class NPCShops : GlobalNPC
     {
         public override void SetupTravelShop(int[] shop, ref int nextSlot)
         {

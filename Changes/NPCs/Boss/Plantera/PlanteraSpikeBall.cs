@@ -13,7 +13,7 @@ using static Terraria.ModLoader.ModContent;
 
 namespace TRAEProject.Changes.NPCs.Boss.Plantera
 {
-    class PlanteraSpikeBall : GlobalProjectile
+   public class PlanteraSpikeBall : GlobalProjectile
     {
         public override void SetDefaults(Projectile projectile)
         {

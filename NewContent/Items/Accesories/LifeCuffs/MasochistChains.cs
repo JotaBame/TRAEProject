@@ -8,7 +8,7 @@ using static Terraria.ModLoader.ModContent;
 namespace TRAEProject.NewContent.Items.Accesories.LifeCuffs
 {    
     [AutoloadEquip(EquipType.HandsOn, EquipType.Neck, EquipType.HandsOff)]
-	class MasochistChains : ModItem
+	public class MasochistChains : ModItem
     {
         public override void SetStaticDefaults()
         {

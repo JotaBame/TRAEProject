@@ -7,7 +7,7 @@ using Terraria.ModLoader;
 namespace TRAEProject.NewContent.Items.BeholderItems
 {
 
-    class RingOfFuror : ModItem
+   public class RingOfFuror : ModItem
     {
         public override void SetStaticDefaults()
         {

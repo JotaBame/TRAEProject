@@ -7,7 +7,7 @@ using static Terraria.ModLoader.ModContent;
 
 namespace TRAEProject.NewContent.Items.Accesories.PalladiumShield
 {    [AutoloadEquip(EquipType.Shield)]
-    class ChainShield : ModItem
+   public class ChainShield : ModItem
     {
         public override void SetStaticDefaults()
         {

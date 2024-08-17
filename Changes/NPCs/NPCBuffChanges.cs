@@ -22,6 +22,10 @@ namespace TRAEProject.Changes.NPCs
         public override void UpdateLifeRegen(NPC npc, ref int damage)
         {
             npc.netUpdate = true;
+       
+        
+   
+ 
             if (npc.HasBuff(BuffID.CursedInferno))
             {
                 npc.lifeRegen -= 16; // 32 DoT

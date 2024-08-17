@@ -5,7 +5,7 @@ using Terraria.ModLoader;
 
 namespace TRAEProject.NewContent.Items.Weapons.Ranged.Launchers.SkullCannon
 {
-    class SkullCannon : ModItem
+    public class SkullCannon : ModItem
     {
         public override void SetStaticDefaults()
         {

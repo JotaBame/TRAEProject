@@ -16,7 +16,7 @@ using System.Collections;
 
 namespace TRAEProject.Changes.Weapon.Melee
 {
-    class HardmodeSwords : GlobalItem
+   public class HardmodeSwords : GlobalItem
     {
         public override bool InstancePerEntity => true;
         public int aura = 0; // for use for those swords that also shoot a projectile on top of the aura

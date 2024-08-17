@@ -5,7 +5,7 @@ using Terraria.ModLoader;
 
 namespace TRAEProject.NewContent.Projectiles
 {
-    class LightningBolt : ModProjectile
+   public class LightningBolt : ModProjectile
     {
         public override void SetStaticDefaults()
         {

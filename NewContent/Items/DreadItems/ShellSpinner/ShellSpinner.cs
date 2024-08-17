@@ -13,7 +13,7 @@ using static Terraria.ModLoader.ModContent;
 
 namespace TRAEProject.NewContent.Items.DreadItems.ShellSpinner
 {
-    class ShellSpinner : ModItem
+    public class ShellSpinner : ModItem
     {
         public override void SetStaticDefaults()
         {

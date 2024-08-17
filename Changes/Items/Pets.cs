@@ -1,31 +1,14 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+ 
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
-using static Terraria.ModLoader.ModContent;
-using TRAEProject.NewContent.Items.Misc.Potions;
-using System.IO;
-using Terraria.ModLoader.IO;
-using TRAEProject.Common;
-using TRAEProject.NewContent.NPCs.Underworld.ObsidianBasilisk;
-using TRAEProject.NewContent.NPCs.Underworld.Phoenix;
-using TRAEProject.NewContent.NPCs.Underworld.Salalava;
-using static Terraria.GameContent.Bestiary.IL_BestiaryDatabaseNPCsPopulator.CommonTags.SpawnConditions;
-using Mono.CompilerServices.SymbolWriter;
-using Terraria.GameContent.Bestiary;
+ 
 using Microsoft.Xna.Framework;
 
-namespace TRAEProject.Changes
+namespace TRAEProject.Changes.Items
 {
-
-    class PetItems : GlobalItem
-    {
-    }
-    class PetProjectiles : GlobalProjectile
+ 
+   public class PetProjectiles : GlobalProjectile
     {
         public override void SetStaticDefaults()
         {

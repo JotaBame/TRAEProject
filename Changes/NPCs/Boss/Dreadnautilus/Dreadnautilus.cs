@@ -23,7 +23,7 @@ using TRAEProject.NewContent.Items.DreadItems.DreadMask;
 using static Terraria.ModLoader.ModContent;
 namespace TRAEProject.Changes.NPCs.Boss.Dreadnautilus
 {
-	class Dreadnautilus : GlobalNPC
+	public class Dreadnautilus : GlobalNPC
 	{
 		public override void SetDefaults(NPC npc)
 		{

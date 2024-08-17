@@ -8,7 +8,7 @@ using Terraria.ModLoader;
 
 namespace TRAEProject.Changes.NPCs.Boss.Plantera
 {
-    class HostileCloud : ModProjectile
+   public class HostileCloud : ModProjectile
     {
         public override void SetStaticDefaults()
         {

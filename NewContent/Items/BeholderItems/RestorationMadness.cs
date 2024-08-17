@@ -9,7 +9,7 @@ using static Terraria.ModLoader.ModContent;
 
 namespace TRAEProject.NewContent.Items.BeholderItems
 {
-    class GreaterRestorationPotion : ModItem
+   public class GreaterRestorationPotion : ModItem
     {
         public override void SetStaticDefaults()
         {
@@ -71,7 +71,7 @@ namespace TRAEProject.NewContent.Items.BeholderItems
         }
     }
 
-    class Restoring1 : ModBuff
+    public class Restoring1 : ModBuff
     {
         public override void SetStaticDefaults()
         {
@@ -82,7 +82,7 @@ namespace TRAEProject.NewContent.Items.BeholderItems
         }
 
     }
-    class Restoring2 : ModBuff
+    public class Restoring2 : ModBuff
     {
         public override void SetStaticDefaults()
         {

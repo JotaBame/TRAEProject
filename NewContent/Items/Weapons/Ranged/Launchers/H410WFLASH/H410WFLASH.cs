@@ -9,7 +9,7 @@ using TRAEProject.NewContent.Items.Weapons.Ranged.Launchers.H410WFLASH;
 
 namespace TRAEProject.NewContent.Items.Weapons.Ranged.Launchers.H410WFLASH
 {
-    class H410WFLASH : ModItem
+    public class H410WFLASH : ModItem
     {
         public override void SetStaticDefaults()
         {

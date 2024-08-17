@@ -7,7 +7,7 @@ using static Terraria.ModLoader.ModContent;
 
 namespace TRAEProject.NewContent.Items.Misc.Potions
 {
-    class ManaSurgePotion : ModItem
+    public class ManaSurgePotion : ModItem
     {
         public override void SetStaticDefaults()
         {
@@ -45,7 +45,7 @@ namespace TRAEProject.NewContent.Items.Misc.Potions
                 .Register();
         }
     }
-    class Surge : ModBuff
+    public class Surge : ModBuff
     {
         public override void SetStaticDefaults()
         {

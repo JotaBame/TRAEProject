@@ -19,7 +19,7 @@ using TRAEProject.Changes.Weapon.Melee;
 namespace TRAEProject.Changes.Weapon
 {
 	
-	class SpearItems : GlobalItem
+	public class SpearItems : GlobalItem
 	{
 		public override bool InstancePerEntity => true; public int thrownSpear = -1;
 
@@ -268,8 +268,7 @@ item.damage = 47;
 					thrownSpear = ProjectileType<SoTCThrow>();
                     item.DamageType = DamageClass.MeleeNoSpeed;
 
-                    item.damage = 62;
-					item.useTime = item.useAnimation = 24;
+ 					item.useTime = item.useAnimation = 24;
 					item.autoReuse = false;
 					item.shootSpeed = 9;
 					break;
@@ -289,17 +288,17 @@ item.damage = 47;
 			if (item.type == ItemType<JoterTrident>())
 			{
 				
-
-				item.damage = 100;
+ 				item.damage = 133;
 				item.shootSpeed = 12; //only the throw uses this
-				item.useTime = item.useAnimation = 24;
+				item.useTime = item.useAnimation = 30;
 				item.shoot = ProjectileType<JoterTridentSpear>();
 				thrownSpear = ProjectileType<JoterTridentThrow>();
 				item.useStyle = 1;
 				item.DamageType = DamageClass.MeleeNoSpeed;
-				item.autoReuse = false;
+				item.autoReuse = true;
 				item.rare = ItemRarityID.Cyan;
 				item.maxStack = 1;
+				item.knockBack = 5f;
 				item.noMelee = true;
 				item.noUseGraphic = true;
 				item.value = Item.sellPrice(silver: 30);

@@ -69,9 +69,7 @@ namespace TRAEProject.Changes.Recipes
             Item ingredientToRemove;
             if (recipe.HasResult(ItemID.ReflectiveShades))
             {
-                recipe.TryGetIngredient(ItemID.Blindfold, out ingredientToRemove);
-                recipe.RemoveIngredient(ingredientToRemove);
-                recipe.AddIngredient(ItemID.Goggles, 1);
+                recipe.DisableRecipe();
 
             }
             if (recipe.HasResult(ItemID.HorseshoeBundle))

@@ -9,7 +9,7 @@ using Terraria.DataStructures;
 
 namespace TRAEProject.NewContent.Items.Accesories.MobilityMisc
 {
-    class SoaringCarpet : ModItem
+    public class SoaringCarpet : ModItem
     {
         public override void SetStaticDefaults()
 		{

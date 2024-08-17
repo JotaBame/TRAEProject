@@ -26,6 +26,19 @@ namespace TRAEProject.Changes
         {
             return base.Clone(item, itemClone);
         }
+        public override void SetStaticDefaults()
+        {
+            ItemID.Sets.ShimmerTransformToItem[ItemID.FastClock] = 0;
+            ItemID.Sets.ShimmerTransformToItem[ItemID.TrifoldMap] = 0;
+            ItemID.Sets.ShimmerTransformToItem[ItemID.Bezoar] = 0;
+            ItemID.Sets.ShimmerTransformToItem[ItemID.MedicatedBandage] = 0;
+            ItemID.Sets.ShimmerTransformToItem[ItemID.Vitamins] = 0;
+            ItemID.Sets.ShimmerTransformToItem[ItemID.ArmorPolish] = 0;
+            ItemID.Sets.ShimmerTransformToItem[ItemID.Blindfold] = 0;
+            ItemID.Sets.ShimmerTransformToItem[ItemID.PocketMirror] = 0;
+            ItemID.Sets.ShimmerTransformToItem[ItemID.Nazar] = 0;
+            ItemID.Sets.ShimmerTransformToItem[ItemID.Megaphone] = 0;
+        }
         public override void SetDefaults(Item item)
         {
             if(item.createTile >= 0 && item.damage <=0)

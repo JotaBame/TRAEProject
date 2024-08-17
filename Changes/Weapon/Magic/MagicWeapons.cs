@@ -264,8 +264,7 @@ namespace TRAEProject.Changes.Items
 				    item.damage = 60; //  up from 48
 					return;
 				case ItemID.HeatRay:
-				    item.damage = 88; //  up from 80
-                    item.mana = 12; // up from 8
+                     item.mana = 12; // up from 8
 					return;
                 case ItemID.StaffofEarth:
                     item.mana = 25; // up from 18

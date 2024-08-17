@@ -7,7 +7,7 @@ using TRAEProject.Changes.Accesory;
 namespace TRAEProject.NewContent.Items.Accesories.CrossNecklace
 {    
 	[AutoloadEquip(EquipType.Neck)]
-    class TheBlackCross : ModItem
+    public class TheBlackCross : ModItem
     {
         public override void SetStaticDefaults()
         {

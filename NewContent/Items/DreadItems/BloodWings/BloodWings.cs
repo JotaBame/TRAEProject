@@ -13,7 +13,7 @@ using static Terraria.ModLoader.ModContent;
 namespace TRAEProject.NewContent.Items.DreadItems.BloodWings
 {
 	[AutoloadEquip(EquipType.Wings)]
-	class BloodWings : ModItem
+public	class BloodWings : ModItem
     {
 		public override void SetStaticDefaults()
 		{

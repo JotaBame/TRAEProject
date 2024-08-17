@@ -11,7 +11,7 @@ using static Terraria.ModLoader.ModContent;
 namespace TRAEProject.NewContent.Items.BeholderItems
 {
 
-    class RingOfMight : ModItem
+public    class RingOfMight : ModItem
     {
         public override void SetStaticDefaults()
         {

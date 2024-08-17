@@ -194,8 +194,12 @@ namespace TRAEProject.NewContent.NPCs.Underworld.Boomxie
         {
             if (!runonce)
             {
+                if (Projectile.ai[0] == 0)
+                {
+                    Projectile.ai[0] = 150;
+                }
                 runonce = true;
-                TRAEMethods.Explode(Projectile, 150);
+                TRAEMethods.Explode(Projectile, (int)(Projectile.ai[0]));
                 TRAEMethods.DefaultExplosion(Projectile);
             }
         }  

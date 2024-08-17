@@ -9,7 +9,7 @@ using TRAEProject.NewContent.Items.Materials;
 
 namespace TRAEProject.NewContent.Items.Accesories
 {[AutoloadEquip(EquipType.Shield)]
-    class DemonShield : ModItem
+    public class DemonShield : ModItem
     {
         public override void SetStaticDefaults()
         {

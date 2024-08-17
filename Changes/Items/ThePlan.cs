@@ -9,7 +9,7 @@ using Terraria.ModLoader;
 
 namespace TRAEProject.Changes.Items
 {
-    class ThePlan : GlobalItem
+    public class ThePlan : GlobalItem
     {
         public override void SetDefaults(Item item)
         {

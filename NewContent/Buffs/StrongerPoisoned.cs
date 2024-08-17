@@ -28,15 +28,13 @@ namespace TRAEProject.NewContent.Buffs
             {
                 if (npc.HasBuff(BuffID.Poisoned))
                 {
-                    npc.lifeRegen -= 18;
-                    damage *= 3;
-                    damage /= 2;
+                    npc.lifeRegen -= 24;
+                    damage = npc.lifeRegen / -12; // divide by a negative number, else the result is below 1!
+
                 }
                 if (npc.HasBuff(BuffID.Venom))
                 {
                     npc.lifeRegen -= 80;
-                    damage *= 3;
-                    damage /= 2;
 
                 }
 

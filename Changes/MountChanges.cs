@@ -15,7 +15,7 @@ using TRAEProject.NewContent.Items.Accesories.MobilityJumps;
 
 namespace TRAEProject
 {
-    class MountChanges : ModPlayer
+    public class MountChanges : ModPlayer
     {
         public override void SetStaticDefaults()
         {

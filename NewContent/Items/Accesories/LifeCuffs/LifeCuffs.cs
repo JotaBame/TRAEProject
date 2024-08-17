@@ -7,7 +7,7 @@ using static Terraria.ModLoader.ModContent;
 namespace TRAEProject.NewContent.Items.Accesories.LifeCuffs
 {
     [AutoloadEquip(EquipType.HandsOn, EquipType.HandsOff)]
-    class LifeCuffs : ModItem
+    public class LifeCuffs : ModItem
     {
         public override void SetStaticDefaults()
         {
@@ -37,7 +37,7 @@ namespace TRAEProject.NewContent.Items.Accesories.LifeCuffs
                 .Register();
         }
     }
-    class LifeCuffsEffect : ModPlayer
+    public class LifeCuffsEffect : ModPlayer
     {
         public int  cuffs = 0;
         public override void ResetEffects()
@@ -54,7 +54,7 @@ namespace TRAEProject.NewContent.Items.Accesories.LifeCuffs
             }
         }
     }
-    class HeartAttack : ModBuff
+    public class HeartAttack : ModBuff
     {
         public override void Update(Player player, ref int buffIndex)
         {
