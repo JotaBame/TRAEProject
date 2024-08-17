@@ -11,7 +11,7 @@ using Terraria.ID;
 
 namespace TRAEProject.NewContent.Items.BeholderItems
 {
-    class BeholderBag : ModItem
+    public class BeholderBag : ModItem
     {
         public override void SetStaticDefaults()
         {

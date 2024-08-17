@@ -9,7 +9,7 @@ namespace TRAEProject.NewContent.Items.Accesories.MobilityMisc
 {
 
 	[AutoloadEquip(EquipType.Wings)]
-	class MagicalCarpet : ModItem
+public class MagicalCarpet : ModItem
 	{
 
 		public override void SetStaticDefaults()

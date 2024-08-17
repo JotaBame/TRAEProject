@@ -8,6 +8,8 @@ using Terraria.ModLoader;
 using TRAEProject.Changes.Prefixes;
 using TRAEProject.Common;
 using static Terraria.ModLoader.ModContent;
+using System.Collections.Generic;
+using Terraria.GameContent.Prefixes;
 
 namespace TRAEProject.NewContent.Items.Armor.Joter
 {
@@ -18,9 +20,26 @@ namespace TRAEProject.NewContent.Items.Armor.Joter
     {
         public override void SetStaticDefaults()
         {
+ 
             // Tooltip.SetDefault("Feed the Joter");
             CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
             // DisplayName.SetDefault("Joter Trident");
+        }
+        public override bool MeleePrefix()
+        {
+            return true;
+        }
+ 
+        public override void ModifyTooltips(List<TooltipLine> tooltips)
+        {
+             foreach (TooltipLine line in tooltips)
+            {
+                if (line.Mod == "Terraria" && line.Name == "Tooltip0" && Main.player[Item.playerIndexTheItemIsReservedFor].armor[0].type == ItemType<FinalBoss>() && NPC.downedMoonlord)
+                {
+                    line.Text = "I shall devour mankind";
+
+                }
+            }
         }
         // STATS IN SpearItems.cs
     }
@@ -28,8 +47,8 @@ namespace TRAEProject.NewContent.Items.Armor.Joter
     {
         public override void SpearDefaults()
         {
-            spearLength = 99f;
-            stabStart = 79;
+            spearLength = 151f;
+            stabStart = 106;
             stabEnd = -10;
             swingAmount = MathF.PI / 32;
 
@@ -38,28 +57,27 @@ namespace TRAEProject.NewContent.Items.Armor.Joter
         {
             Player player = Main.player[Projectile.owner];
 
-            if (target.life <= 0) // this hook is run directly after the damage has been dealt, so you can just make it 0
+            if (target.life <= 0 || (player.armor[0].type == ItemType<FinalBoss>() && NPC.downedMoonlord)) // this hook is run directly after the damage has been dealt, so you can just make it 0
             {
                 JoterEat(player, target, hit.Damage);
             }
         }
         public void JoterEat(Player player, NPC target, int damage)
         {
-            int duration = target.lifeMax;
+            int duration = target.lifeMax / 10;
             if (duration > 60 * 60)
                 duration = 3600;
             player.AddBuff(BuffID.HeartyMeal, duration);
-            if (target.type == NPCID.MoonLordHead)
-                player.QuickSpawnItem(target.GetSource_FromThis(), ItemType<FinalBoss>());
+    
             SoundEngine.PlaySound(SoundID.Item2 with { MaxInstances = 0 }, Projectile.position);
             int JottieCount = target.lifeMax / 50;
-            if (JottieCount > 25)
-                JottieCount = 25;
+            if (JottieCount > 15)
+                JottieCount = 15;
             for (int i = 0; i < JottieCount; ++i)
             {
                 float velX = Main.rand.Next(-35, 36) * 0.1f;
                 float velY = Main.rand.Next(-35, 36) * 0.1f;
-                Projectile.NewProjectile(player.GetSource_FromAI(), player.Center.X, player.Center.Y, velX, velY, ProjectileType<Jottie>(), damage, 0f, Main.myPlayer, 0f, 0f);
+                Projectile.NewProjectile(player.GetSource_FromAI(), target.Center.X, target.Center.Y, velX, velY, ProjectileType<Jottie>(), damage, 0f, Main.myPlayer, 0f, 0f);
             }
         }
     }
@@ -67,9 +85,9 @@ namespace TRAEProject.NewContent.Items.Armor.Joter
     {
         public override void SpearDefaults()
         {
-            spearLength = 99f;
-            holdAt = 45f;
-            maxSticks = 3;
+            spearLength = 151f;
+            holdAt = 65f;
+            maxSticks = 1;
             stickingDps = 0;
             DustOnDeath = DustID.t_Flesh;
         }
@@ -79,23 +97,22 @@ namespace TRAEProject.NewContent.Items.Armor.Joter
         {
             Player player = Main.player[Projectile.owner];
 
-            if (target.life <= 0) // this hook is run directly after the damage has been dealt, so you can just make it 0
+            if (target.life <= 0 || (player.armor[0].type == ItemType<FinalBoss>() && NPC.downedMoonlord)) // this hook is run directly after the damage has been dealt, so you can just make it 0
             {
-                int duration = target.lifeMax;
+                int duration = target.lifeMax / 10;
                 if (duration > 60 * 60)
                     duration = 3600;
                 player.AddBuff(BuffID.HeartyMeal, duration);
-                if (target.type == NPCID.MoonLordHead)
-                    player.QuickSpawnItem(target.GetSource_FromThis(), ItemType<FinalBoss>());
+      
                 SoundEngine.PlaySound(SoundID.Item2 with { MaxInstances = 0 }, Projectile.position);
                 int JottieCount = target.lifeMax / 50;
-                if (JottieCount > 25)
-                    JottieCount = 25;
+                if (JottieCount > 15)
+                    JottieCount = 15;
                 for (int i = 0; i < JottieCount; ++i)
                 {
                     float velX = Main.rand.Next(-35, 36) * 0.1f;
                     float velY = Main.rand.Next(-35, 36) * 0.1f;
-                    Projectile.NewProjectile(player.GetSource_FromAI(), player.Center.X, player.Center.Y, velX, velY, ProjectileType<Jottie>(), damageDone, 0f, Main.myPlayer, 0f, 0f);
+                    Projectile.NewProjectile(player.GetSource_FromAI(), target.Center.X, target.Center.Y, velX, velY, ProjectileType<Jottie>(), damageDone, 0f, Main.myPlayer, 0f, 0f);
                 }
             }
         }
@@ -148,21 +165,20 @@ namespace TRAEProject.NewContent.Items.Armor.Joter
 
             if (target.life <= 0) // this hook is run directly after the damage has been dealt, so you can just make it 0
             {
-                int duration = target.lifeMax;
+                int duration = target.lifeMax / 10;
                 if (duration > 60 * 60)
                     duration = 3600;
                 player.AddBuff(BuffID.HeartyMeal, duration);
-                if (target.type == NPCID.MoonLordHead)
-                    player.QuickSpawnItem(target.GetSource_FromThis(), ItemType<FinalBoss>());
+         
                 SoundEngine.PlaySound(SoundID.Item2 with { MaxInstances = 0 }, Projectile.position);
                 int JottieCount = target.lifeMax / 100;
-                if (JottieCount > 25)
-                    JottieCount = 25;
+                if (JottieCount > 15)
+                    JottieCount = 15;
                 for (int i = 0; i < JottieCount; ++i)
                 {
                     float velX = Main.rand.Next(-35, 36) * 0.1f;
                     float velY = Main.rand.Next(-35, 36) * 0.1f;
-                    Projectile.NewProjectile(player.GetSource_FromAI(), player.Center.X, player.Center.Y, velX, velY, ProjectileType<Jottie>(), damageDone, 0f, Main.myPlayer, 0f, 0f);
+                    Projectile.NewProjectile(player.GetSource_FromAI(), target.Center.X, target.Center.Y, velX, velY, ProjectileType<Jottie>(), Projectile.damage, 0f, Main.myPlayer, 0f, 0f);
                 }
             }
         }

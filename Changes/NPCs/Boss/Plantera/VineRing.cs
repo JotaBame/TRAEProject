@@ -13,7 +13,7 @@ using Terraria.ID;
 
 namespace TRAEProject.Changes.NPCs.Boss.Plantera
 {
-    class VineRing : ModProjectile
+   public class VineRing : ModProjectile
     {
         public const float Radius = 600f;
         public override void SetStaticDefaults()

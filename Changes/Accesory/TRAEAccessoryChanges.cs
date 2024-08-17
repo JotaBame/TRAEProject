@@ -244,6 +244,29 @@ namespace TRAEProject.Changes.Accesory
 
             switch (item.type)
             {
+                case ItemID.BandofStarpower:
+                    foreach (TooltipLine line in tooltips)
+                    {
+                        if (line.Mod == "Terraria" && line.Name == "Tooltip0")
+                        {
+                            line.Text = "10% increased mana regeneration";
+
+                        }
+                    }
+                    break;
+                case ItemID.ManaRegenerationBand:
+                    foreach (TooltipLine line in tooltips)
+                    {
+                        if (line.Mod == "Terraria" && line.Name == "Tooltip0")
+                        {
+                            line.Text = "Increased life regeneration";
+                        }
+                        if (line.Mod == "Terraria" && line.Name == "Tooltip1")
+                        {
+                            line.Text = "10% increased mana regeneration";
+                        }
+                    }
+                    break;
                 case ItemID.SquireShield:
                     foreach (TooltipLine line in tooltips)
                     {
@@ -349,19 +372,7 @@ namespace TRAEProject.Changes.Accesory
        
       
          
-                case ItemID.ManaRegenerationBand:
-                    foreach (TooltipLine line in tooltips)
-                    {
-                        if (line.Mod == "Terraria" && line.Name == "Tooltip0")
-                        {
-                            line.Text = "Increases mana and health regeneration rate";
-                        }
-                        if (line.Mod == "Terraria" && line.Name == "Tooltip1")
-                        {
-                            line.Text = "";
-                        }
-                    }
-                    break;
+            
                 case ItemID.AnkhShield:
                     foreach (TooltipLine line in tooltips)
                     {

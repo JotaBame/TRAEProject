@@ -39,10 +39,13 @@ namespace TRAEProject.Changes.Weapon.Ranged
         int dolphincount = 0;
         public override void PostItemCheck()
         {
+   
+            if (Player.releaseUseItem)
+                dolphincount = 0;
             if (Player.HeldItem.type == ItemID.SDMG && Player.itemTime == Player.itemAnimationMax - 1 && Main.myPlayer == Player.whoAmI)
             {
                 ++dolphincount;
-                if (dolphincount == 20)
+                if (dolphincount == 40)
                 {
                     dolphincount = 0;
                     for (int b = 0; b < Dolhphin.Count; b++)
@@ -75,13 +78,5 @@ namespace TRAEProject.Changes.Weapon.Ranged
             }
         }
     }
-    public class SDMGChange : GlobalItem
-    {
-        public override void SetDefaults(Item item)
-        {
-            if (item.type == ItemID.SDMG)
-            {           
-            }
-        }
-    }
+ 
 }

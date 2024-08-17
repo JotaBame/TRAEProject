@@ -12,7 +12,7 @@ using static Terraria.ModLoader.ModContent;
 
 namespace TRAEProject.Changes.NPCs.Boss.Plantera
 {
-	class Seeds : GlobalProjectile
+	public class Seeds : GlobalProjectile
 	{
 		public override bool InstancePerEntity => true;
 		int down = 360;

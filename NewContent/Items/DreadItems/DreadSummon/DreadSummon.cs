@@ -7,7 +7,7 @@ using static Terraria.ModLoader.ModContent;
 
 namespace TRAEProject.NewContent.Items.DreadItems.DreadSummon
 {
-    class DreadSummon : ModItem
+    public class DreadSummon : ModItem
     {
         public override void SetStaticDefaults()
         {
@@ -28,7 +28,7 @@ namespace TRAEProject.NewContent.Items.DreadItems.DreadSummon
             Item.bait = 50;
         }
     }
-    class BatiDrop : GlobalNPC
+    public  class BatiDrop : GlobalNPC
     {
         public override void ModifyNPCLoot(NPC npc, NPCLoot npcLoot)
         {

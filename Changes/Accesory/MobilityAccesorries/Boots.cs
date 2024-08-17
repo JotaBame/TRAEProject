@@ -7,6 +7,7 @@ using Terraria.DataStructures;
 using Microsoft.Xna.Framework;
 using Terraria.Graphics.Shaders;
 using TRAEProject.NewContent.Items.Accesories.MobilityJumps;
+using TRAEProject.Changes.Weapon.Ranged.Rockets;
 
 namespace TRAEProject.Changes.Accesory
 {
@@ -136,13 +137,26 @@ namespace TRAEProject.Changes.Accesory
                 case ItemID.HermesBoots:
                 case ItemID.SailfishBoots:
                 case ItemID.FlurryBoots:
-                case ItemID.HellfireTreads:
-                    foreach (TooltipLine line in tooltips)
+                     foreach (TooltipLine line in tooltips)
                     {
                         
                         if (line.Mod == "Terraria" && line.Name == "Tooltip0")
                         {
                             line.Text = Mobility.bootSpeed + "% increased movement speed";
+                        }
+                    }
+                    break;
+                case ItemID.HellfireTreads:
+                    foreach (TooltipLine line in tooltips)
+                    {
+
+                        if (line.Mod == "Terraria" && line.Name == "Tooltip0")
+                        {
+                            line.Text = Mobility.bootSpeed + "% increased movement speed";
+                        }
+                        if (line.Mod == "Terraria" && line.Name == "Tooltip1")
+                        {
+                            line.Text = "Provides rocket boot flight";
                         }
                     }
                     break;

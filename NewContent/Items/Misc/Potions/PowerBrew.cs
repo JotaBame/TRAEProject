@@ -13,7 +13,7 @@ using static Terraria.ModLoader.ModContent;
 
 namespace TRAEProject.NewContent.Items.Misc.Potions
 {
-    class PowerBrew : ModItem
+    public class PowerBrew : ModItem
     {
         public override void SetStaticDefaults()
         {
@@ -44,7 +44,7 @@ namespace TRAEProject.NewContent.Items.Misc.Potions
             player.AddBuff(BuffID.PotionSickness, potionSickness * 60);
         }
     }
-    class Power : ModBuff
+    public class Power : ModBuff
     {
         public override void SetStaticDefaults()
         {

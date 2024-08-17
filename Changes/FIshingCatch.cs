@@ -15,7 +15,7 @@ using Microsoft.Xna.Framework;
 
 namespace TRAEProject.Changes
 {
-    class FIshingCatch : ModPlayer
+    public class FIshingCatch : ModPlayer
     {
 		private void Fishing_GetBait(out int baitPower, out int baitType, out int baitIndex)
 		{

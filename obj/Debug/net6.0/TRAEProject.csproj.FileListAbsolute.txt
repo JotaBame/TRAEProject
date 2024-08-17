@@ -314,3 +314,12 @@ C:\Users\lenovo\Documents\My Games\Terraria\tModLoader\ModSources\TRAEProject\bi
 C:\Users\lenovo\Documents\My Games\Terraria\tModLoader\ModSources\TRAEProject\obj\Debug\net6.0\TRAEProject.csproj.CopyComplete
 C:\Users\lenovo\Documents\My Games\Terraria\tModLoader\ModSources\TRAEProject\obj\Debug\net6.0\ref\TRAEProject.dll
 C:\Users\lenovo\Documents\My Games\Terraria\tModLoader\ModSources\TRAEProject\obj\Debug\net6.0\TRAEProject.sourcelink.json
+C:\Users\Juan Bouvier\Documents\My Games\Terraria\tModLoader\ModSources\TRAEProject\obj\Debug\net6.0\TRAEProject.csproj.AssemblyReference.cache
+C:\Users\Juan Bouvier\Documents\My Games\Terraria\tModLoader\ModSources\TRAEProject\obj\Debug\net6.0\TRAEProject.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Juan Bouvier\Documents\My Games\Terraria\tModLoader\ModSources\TRAEProject\obj\Debug\net6.0\TRAEProject.AssemblyInfoInputs.cache
+C:\Users\Juan Bouvier\Documents\My Games\Terraria\tModLoader\ModSources\TRAEProject\obj\Debug\net6.0\TRAEProject.AssemblyInfo.cs
+C:\Users\Juan Bouvier\Documents\My Games\Terraria\tModLoader\ModSources\TRAEProject\obj\Debug\net6.0\TRAEProject.csproj.CoreCompileInputs.cache
+C:\Users\Juan Bouvier\Documents\My Games\Terraria\tModLoader\ModSources\TRAEProject\obj\Debug\net6.0\TRAEProject.sourcelink.json
+C:\Users\Juan Bouvier\Documents\My Games\Terraria\tModLoader\ModSources\TRAEProject\obj\Debug\net6.0\TRAEProject.dll
+C:\Users\Juan Bouvier\Documents\My Games\Terraria\tModLoader\ModSources\TRAEProject\obj\Debug\net6.0\refint\TRAEProject.dll
+C:\Users\Juan Bouvier\Documents\My Games\Terraria\tModLoader\ModSources\TRAEProject\obj\Debug\net6.0\TRAEProject.pdb

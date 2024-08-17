@@ -14,7 +14,7 @@ using Terraria.Audio;
 
 namespace TRAEProject.NewContent.Items.DreadItems.Brimstone
 {
-    class Brimstone : ModItem
+    public class Brimstone : ModItem
     {
         public override void SetStaticDefaults()
         {

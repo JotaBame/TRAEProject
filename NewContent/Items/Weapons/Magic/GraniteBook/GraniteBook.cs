@@ -12,7 +12,7 @@ using static Terraria.ModLoader.ModContent;
 
 namespace TRAEProject.NewContent.Items.Weapons.Magic.GraniteBook
 {
-    class GraniteBook : ModItem
+    public class GraniteBook : ModItem
     {
         public override void SetStaticDefaults()
         {

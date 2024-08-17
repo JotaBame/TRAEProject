@@ -13,7 +13,7 @@ using static Terraria.ModLoader.ModContent;
 
 namespace TRAEProject.NewContent.Items.BeholderItems
 {
-    class BeholderTrophyItem : ModItem
+  public  class BeholderTrophyItem : ModItem
     {
         public override void SetStaticDefaults()
         {

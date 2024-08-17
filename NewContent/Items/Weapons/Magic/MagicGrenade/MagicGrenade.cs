@@ -9,7 +9,7 @@ using static Terraria.ModLoader.ModContent;
 
 namespace TRAEProject.NewContent.Items.Weapons.Magic.MagicGrenade
 {
-    class MagicGrenade : ModItem
+    public class MagicGrenade : ModItem
     {
         public override void SetStaticDefaults()
         {
@@ -34,7 +34,7 @@ namespace TRAEProject.NewContent.Items.Weapons.Magic.MagicGrenade
 
         }
     }
-    class MagicGrenadeP : ModProjectile
+    public class MagicGrenadeP : ModProjectile
     {
 
         public override void SetDefaults()

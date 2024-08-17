@@ -11,7 +11,7 @@ using static Terraria.ModLoader.ModContent;
 namespace TRAEProject.NewContent.Items.BeholderItems
 {
 
-    class RingOfTenacity : ModItem
+public    class RingOfTenacity : ModItem
     {
 
         public override void SetStaticDefaults()

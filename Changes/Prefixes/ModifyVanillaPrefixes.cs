@@ -11,7 +11,7 @@ using TRAEProject.Common.ModPlayers;
 
 namespace TRAEProject.Changes.Prefixes
 {
-    class ModifyVanillaPrefixes : ModPlayer
+   public class ModifyVanillaPrefixes : ModPlayer
     {
         #region damage
         public const float T1Damage = 1.05f;
@@ -216,7 +216,7 @@ namespace TRAEProject.Changes.Prefixes
 
         
     }
-    class PrefixTooltips : GlobalItem
+  public  class PrefixTooltips : GlobalItem
     {
         string ModifyDamage(Item item, float current, float wanted)
         {

@@ -11,7 +11,7 @@ using TRAEProject.Common.ModPlayers;
 
 namespace TRAEProject.Changes.Accesory
 {
-    class TitanGlove : GlobalItem
+    public class TitanGlove : GlobalItem
     {
         public override void UpdateAccessory(Item item, Player player, bool hideVisual)
         {

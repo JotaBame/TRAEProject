@@ -36,7 +36,7 @@ namespace TRAEProject.NewContent.NPCs.Underworld.Froggabomba
             AnimationType = NPCID.Pixie;
             NPC.damage = 30;
             NPC.defense = 10;
-            NPC.lifeMax = 150;
+            NPC.lifeMax = 200;
             NPC.lavaImmune = true;
             NPC.HitSound = SoundID.NPCHit33; 
             NPC.DeathSound = SoundID.NPCDeath36; 
@@ -51,7 +51,7 @@ namespace TRAEProject.NewContent.NPCs.Underworld.Froggabomba
             bestiaryEntry.Info.AddRange(new List<IBestiaryInfoElement>
             {
                 BestiaryDatabaseNPCsPopulator.CommonTags.SpawnConditions.Biomes.TheUnderworld,
-                new FlavorTextBestiaryInfoElement("Speedy, explodey and self-duplicating, these frog-like creatures hunt their prey with their own lives.")
+                new FlavorTextBestiaryInfoElement("Speedy, explodey and self-duplicating, these frog-like creatures carry their offspring on their stomachs.")
             }); 
         }
         public override float SpawnChance(NPCSpawnInfo spawnInfo)
@@ -63,39 +63,9 @@ namespace TRAEProject.NewContent.NPCs.Underworld.Froggabomba
             }
             return SpawnCondition.Underworld.Chance * 0.17f;
         }
-        int damagestored = 0;
-        int frogsSpawned = 0;
-        public override void OnHitByItem(Player player, Item item, NPC.HitInfo hit, int damageDone)
-        {
-            damagestored += damageDone;
-            if (damagestored > 30 && frogsSpawned < 5)
-            {
-                int smallBoomxiesToSpawn = damagestored / 30;
-                for (int i = 0; i < smallBoomxiesToSpawn; i++)
-                {
-                    damagestored -= 30;
-                    NPC.life -= 30;
-                    NPC.NewNPC(NPC.GetSource_FromAI(), (int)NPC.Center.X, (int)NPC.Center.Y, NPCType<FroggabombaClone>());
-                    frogsSpawned++;
-                }
-            }
-        }
-        public override void OnHitByProjectile(Projectile projectile, NPC.HitInfo hit, int damageDone)
-
-        {
-            damagestored += damageDone;
-            if (damagestored > 30)
-            {
-                int smallBoomxiesToSpawn = damagestored / 30;
-                for (int i = 0; i < smallBoomxiesToSpawn; i++)
-                {
-                    damagestored -= 30;
-                    NPC.life -= 30;
-                    NPC.NewNPC(NPC.GetSource_FromAI(), (int)NPC.Center.X, (int)NPC.Center.Y, NPCType<FroggabombaClone>());
-                    frogsSpawned++;
-                }
-            }
-        }
+    
+   
+ 
         public override void ModifyNPCLoot(NPCLoot npcLoot)
         {
             npcLoot.Add(ItemDropRule.Common(ItemID.ExplosivePowder, 2)); 
@@ -112,8 +82,13 @@ namespace TRAEProject.NewContent.NPCs.Underworld.Froggabomba
         }
         public override void OnKill()
         {
-            Vector2 zero = new Vector2(0, 0);
-            Projectile.NewProjectile(NPC.GetSource_FromAI(), NPC.Center, zero, ProjectileType<Boom>(), 30, 0);
+            int count = Main.rand.Next(3, 6);
+            for (int i = 0; i < count; i++)
+            {
+                NPC.NewNPC(NPC.GetSource_FromAI(), (int)NPC.Center.X + Main.rand.Next(-10, 10), (int)NPC.Center.Y, NPCType<FroggabombaClone>());
+            }
+ 
+            Projectile.NewProjectile(NPC.GetSource_FromAI(), NPC.Center, new Vector2(0, 0), ProjectileType<Boom>(), 30, 0, ai0: 100);
         }
     }
     public class FroggabombaClone : ModNPC
@@ -142,7 +117,7 @@ namespace TRAEProject.NewContent.NPCs.Underworld.Froggabomba
             NPC.damage = 30;
             NPC.defense = 10;
             NPC.lifeMax = 30;
-			NPC.scale = 0.8f;
+			NPC.scale = 0.85f;
             NPC.lavaImmune = true;
             NPC.HitSound = SoundID.NPCHit33;
             NPC.DeathSound = SoundID.NPCDeath36;
@@ -154,6 +129,7 @@ namespace TRAEProject.NewContent.NPCs.Underworld.Froggabomba
             npcLoot.Add(ItemDropRule.Common(ItemType<BoomfrogStaff>(), 80));
 
         }
+     
         public override void AI()
         {
             NPC.dontTakeDamage = false;
@@ -193,7 +169,7 @@ namespace TRAEProject.NewContent.NPCs.Underworld.Froggabomba
         public override void OnKill()
         {
             Vector2 zero = new Vector2(0, 0);
-            Projectile.NewProjectile(NPC.GetSource_FromAI(), NPC.Center, zero, ProjectileType<Boom>(), 30, 0);
+            Projectile.NewProjectile(NPC.GetSource_FromAI(), NPC.Center, zero, ProjectileType<Boom>(), 30, 0, ai0: 100);
         }
     }
 

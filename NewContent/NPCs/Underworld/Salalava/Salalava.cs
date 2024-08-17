@@ -160,7 +160,8 @@ namespace TRAEProject.NewContent.NPCs.Underworld.Salalava
                 {
                     if (Main.tile[j, k].LiquidAmount > 200 && Main.tile[j, k].LiquidType == 0 ||
                         Main.tile[j, k].LiquidAmount > 200 && Main.tile[j, k].LiquidType == 2 ||
-                        Main.tile[j, k].LiquidAmount > 200 && Main.tile[j, k].LiquidType == 1
+                        Main.tile[j, k].LiquidAmount > 200 && Main.tile[j, k].LiquidType == 1 ||
+                        Main.tile[j, k].LiquidAmount > 200 && Main.tile[j, k].LiquidType == 3
                         )
                     {
                         if (NPC.velocity.Y > 0)
@@ -489,7 +490,8 @@ namespace TRAEProject.NewContent.NPCs.Underworld.Salalava
                 {
                     if (Main.tile[j, k].LiquidAmount > 200 && Main.tile[j, k].LiquidType == 0 ||
                         Main.tile[j, k].LiquidAmount > 200 && Main.tile[j, k].LiquidType == 2 ||
-                        Main.tile[j, k].LiquidAmount > 200 && Main.tile[j, k].LiquidType == 1
+                        Main.tile[j, k].LiquidAmount > 200 && Main.tile[j, k].LiquidType == 1 ||
+                        Main.tile[j, k].LiquidAmount > 200 && Main.tile[j, k].LiquidType == 3
                         )
                     {
                         if (NPC.velocity.Y > 0)

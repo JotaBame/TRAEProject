@@ -9,7 +9,7 @@ using TRAEProject.NewContent.Items.Weapons.Ranged.Launchers.CryoCannon;
 
 namespace TRAEProject.NewContent.Items.Weapons.Ranged.Launchers.CryoCannon
 {
-    class CryoCannon : ModItem
+    public class CryoCannon : ModItem
     {
         public override void SetStaticDefaults()
         {

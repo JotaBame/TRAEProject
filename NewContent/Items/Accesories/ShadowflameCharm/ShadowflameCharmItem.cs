@@ -57,8 +57,6 @@ namespace TRAEProject.NewContent.Items.Accesories.ShadowflameCharm
 
         public override void PostUpdate()
         {
-            ShadowflameCharmLimit *= ShadowflameCharm;
-			MoltenCharmLimit *= MoltenCharmLimit;
 			if (ShadowflameCharmCharge > ShadowflameCharmLimit)
             {
                 ShadowflameCharmCharge = ShadowflameCharmLimit;
@@ -99,7 +97,7 @@ namespace TRAEProject.NewContent.Items.Accesories.ShadowflameCharm
                         num4 = 24f / num4;
                         num2 *= num4;
                         num3 *= num4;
-                        Projectile.NewProjectile(player.GetSource_FromThis(), k, y2, num2, num3, ProjectileType<ShadowflameApparition>(), 50, 0f, player.whoAmI);
+                        Projectile.NewProjectile(player.GetSource_FromThis(), k, y2, num2, num3, ProjectileType<ShadowflameApparition>(), 50 * ShadowflameCharm, 0f, player.whoAmI);
                         ShadowflameCharmCharge -= 750;
                     }
                 }
@@ -125,7 +123,7 @@ namespace TRAEProject.NewContent.Items.Accesories.ShadowflameCharm
                         num4 = 24f / num4;
                         num2 *= num4;
                         num3 *= num4;
-                        Projectile.NewProjectile(player.GetSource_FromThis(), k, y2, num2, num3, ProjectileType<MoltenApparition>(), 50, 0f, player.whoAmI);
+                        Projectile.NewProjectile(player.GetSource_FromThis(), k, y2, num2, num3, ProjectileType<MoltenApparition>(), 50 + 25 * MoltenCharm, 0f, player.whoAmI);
                         MoltenCharmCharge -= 750;
                     }
                 }    

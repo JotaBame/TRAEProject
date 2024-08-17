@@ -12,7 +12,7 @@ using static Terraria.ModLoader.ModContent;
 
 namespace TRAEProject.NewContent.Items.Weapons.Magic.ConfuseRay
 {
-    class ConfuseRay : ModItem
+    public class ConfuseRay : ModItem
     {
         public override void SetStaticDefaults()
         {
@@ -44,7 +44,7 @@ namespace TRAEProject.NewContent.Items.Weapons.Magic.ConfuseRay
 
         }
     }
-    class ConfuseRayBeam : ModProjectile
+    public class ConfuseRayBeam : ModProjectile
     {
 
         public override void SetDefaults()

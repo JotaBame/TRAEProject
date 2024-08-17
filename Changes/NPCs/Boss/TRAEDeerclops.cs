@@ -336,17 +336,12 @@ namespace TRAEProject.NPCs.Boss
 									if (mustard)
 									{
 										debuff = BuffID.Chilled;
-										timeToAdd = Main.rand.Next(50, 100);
+										timeToAdd = Main.rand.Next(60, 120);
 										if (!player.dead && player.active && player.FindBuffIndex(debuff) == -1 && (player.Center - npc.Center).Length() < 800f && !player.creativeGodMode)
 										{
 											player.AddBuff(debuff, timeToAdd);
 										}
-										debuff = BuffID.Frozen;
-										timeToAdd = 10;
-										if (!player.dead && player.active && player.FindBuffIndex(debuff) == -1 && (player.Center - npc.Center).Length() < 800f && !player.creativeGodMode)
-										{
-											player.AddBuff(debuff, timeToAdd);
-										}
+					 
 									}
 								}
 							}

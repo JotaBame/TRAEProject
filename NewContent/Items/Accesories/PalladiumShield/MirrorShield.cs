@@ -6,7 +6,7 @@ using static Terraria.ModLoader.ModContent;
 
 namespace TRAEProject.NewContent.Items.Accesories.PalladiumShield
 {    [AutoloadEquip(EquipType.Shield)]
-    class MirrorShield : ModItem
+  public  class MirrorShield : ModItem
     {
         public override void SetStaticDefaults()
         {

@@ -13,7 +13,7 @@ using static Terraria.ModLoader.ModContent;
 
 namespace TRAEProject.NewContent.Items.Misc.Potions
 {
-    class SweetElixir : ModItem
+    public class SweetElixir : ModItem
     {
         public override void SetStaticDefaults()
         {

@@ -6,7 +6,7 @@ using Terraria.ModLoader;
 
 namespace TRAEProject.NewContent.Items.Weapons.Ranged.Jungla
 {
-    class Jungla : ModItem
+    public class Jungla : ModItem
     {
         public override void SetStaticDefaults()
         {

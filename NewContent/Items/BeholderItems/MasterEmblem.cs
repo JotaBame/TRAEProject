@@ -7,7 +7,7 @@ using TRAEProject.Common.ModPlayers;
 
 namespace TRAEProject.NewContent.Items.BeholderItems
 {
-    class MasterEmblem : ModItem
+ public   class MasterEmblem : ModItem
     {
         public override void SetStaticDefaults()
         {

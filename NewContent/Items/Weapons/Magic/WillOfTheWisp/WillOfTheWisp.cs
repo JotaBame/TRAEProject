@@ -11,7 +11,7 @@ using TRAEProject;using TRAEProject.Common;
 using System.Collections.Generic;
 namespace TRAEProject.NewContent.Items.Weapons.Magic.WillOfTheWisp
 {
-    class WillOfTheWisp : ModItem
+    public class WillOfTheWisp : ModItem
     {
         public const int DrainManaOnHit = 10;
         public const int DrainManaPassively = 0;

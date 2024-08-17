@@ -5,7 +5,7 @@ using Terraria.ModLoader;
 
 namespace TRAEProject.NewContent.Items.Accesories
 {
-    class CounterweightString : ModItem
+   public class CounterweightString : ModItem
     {
         public override void SetStaticDefaults()
         {

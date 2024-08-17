@@ -7,11 +7,8 @@ using Microsoft.Xna.Framework;
 
 namespace TRAEProject.Changes.Items
 {
-
-    class PetItems : GlobalItem
-    {
-    }
-    class PetProjectiles : GlobalProjectile
+ 
+   public class PetProjectiles : GlobalProjectile
     {
         public override void SetStaticDefaults()
         {

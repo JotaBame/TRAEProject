@@ -6,7 +6,7 @@ using TRAEProject.Common.ModPlayers;
 
 namespace TRAEProject.NewContent.Items.Accesories
 {    [AutoloadEquip(EquipType.Waist)]
-    class TwoFlowers : ModItem
+   public class TwoFlowers : ModItem
     {
         public override void SetStaticDefaults()
         {

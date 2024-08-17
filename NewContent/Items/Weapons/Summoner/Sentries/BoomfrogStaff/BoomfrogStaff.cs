@@ -75,14 +75,14 @@ namespace TRAEProject.NewContent.Items.Weapons.Summoner.Sentries.BoomfrogStaff
         public override void SetStaticDefaults()
         {
             // DisplayName.SetDefault("Boomfrog");
-            Main.projFrames[Projectile.type] = 8;
+            Main.projFrames[Projectile.type] = 3;
             ProjectileID.Sets.MinionTargettingFeature[Projectile.type] = true;
 
         }
         public override void SetDefaults()
         {
-            Projectile.width = 46;
-            Projectile.height = 40;
+            Projectile.width = 50;
+            Projectile.height = 38;
             Projectile.friendly = true;
             Projectile.ignoreWater = false;
             Projectile.sentry = true; Projectile.DamageType = DamageClass.Summon;
@@ -179,14 +179,17 @@ namespace TRAEProject.NewContent.Items.Weapons.Summoner.Sentries.BoomfrogStaff
                 }
             }
             Projectile.frameCounter++;
-            if (Projectile.frameCounter >= 6)
+            if (Projectile.frameCounter >= 121)
             {
-                Projectile.frame++;
-                Projectile.frameCounter = 0;
+                if (Projectile.frameCounter % 8 == 0)
+                {
+                    Projectile.frame++;
+                }
             }
-            if (Projectile.frame == 8)
+            if (Projectile.frame == 3)
             {
                 Projectile.frame = 0;
+                Projectile.frameCounter = 0;
             }
         }
 

@@ -4,7 +4,7 @@ using Terraria.ModLoader;
 using TRAEProject.Common;
 namespace TRAEProject.NewContent.Projectiles
 {
-    class PhantomTentacle : ModProjectile
+   public class PhantomTentacle : ModProjectile
     {
         public override void SetDefaults()
         {

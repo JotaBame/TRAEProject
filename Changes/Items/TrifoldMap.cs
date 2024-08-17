@@ -7,7 +7,7 @@ using Terraria.ModLoader;
 
 namespace TRAEProject.Changes.Items
 {
-    class TrifoldMap : GlobalItem
+    public class TrifoldMap : GlobalItem
     {
         public override void SetDefaults(Item item)
         {
