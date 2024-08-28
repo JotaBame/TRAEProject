@@ -13,7 +13,7 @@ using Terraria.DataStructures;
 using TRAEProject.Changes.Accesory;
 using static Terraria.ModLoader.PlayerDrawLayer;
 using Terraria.WorldBuilding;
-
+ 
 namespace TRAEProject.Changes.Projectiles
 {
     public class RangedProjectile : GlobalProjectile
@@ -458,6 +458,113 @@ namespace TRAEProject.Changes.Projectiles
                 player.SetDummyItemTime(num2);
                 player.itemRotation = MathHelper.WrapAngle((float)Math.Atan2(projectile.velocity.Y * (float)projectile.direction, projectile.velocity.X * (float)projectile.direction) + num3);
                 return false;
+            }
+            if (projectile.type == ProjectileID.DD2PhoenixBow)
+            {
+                float num = 0f;
+                if (projectile.spriteDirection == -1)
+                {
+                    num = (float)Math.PI;
+                }
+                projectile.ai[0] += 1f;
+                int itemAnimationMax = player.itemAnimationMax;
+                projectile.ai[1] -= 1f;
+                bool flag14 = false;
+                if (projectile.ai[1] <= 0f)
+                {
+                    projectile.ai[1] = itemAnimationMax;
+                    flag14 = true;
+                }
+                bool canShoot4 = player.channel && player.HasAmmo(player.inventory[player.selectedItem], canUse: true) && !player.noItems && !player.CCed;
+                if (projectile.localAI[0] > 0f)
+                {
+                    projectile.localAI[0] -= 1f;
+                }
+                if (projectile.soundDelay <= 0 && canShoot4)
+                {
+                    projectile.soundDelay = itemAnimationMax;
+                    if (projectile.ai[0] != 1f)
+                    {
+                        SoundEngine.PlaySound(SoundID.Item5, projectile.position);
+                    }
+                    projectile.localAI[0] = 12f;
+                }
+                if (flag14 && Main.myPlayer == projectile.owner)
+                {
+                    Vector2 vector = player.RotatedRelativePoint(player.MountedCenter);
+                    int projToShoot4 = 14;
+                    float speed4 = 12f;
+                    int Damage4 = player.GetWeaponDamage(player.inventory[player.selectedItem]);
+                    float KnockBack4 = player.inventory[player.selectedItem].knockBack;
+                    int projectileCount = 2;
+                    float num79 = 1.5f;
+                    if (canShoot4)
+                    {
+                        player.PickAmmo(player.inventory[player.selectedItem], ref projToShoot4, ref speed4, ref canShoot4, ref Damage4, ref KnockBack4, out var usedAmmoItemId4);
+                        IEntitySource projectileSource_Item_WithPotentialAmmo4 = player.GetSource_ItemUse_WithPotentialAmmo(player.HeldItem, usedAmmoItemId4);
+                        KnockBack4 = player.GetWeaponKnockback(player.inventory[player.selectedItem], KnockBack4);
+                        if (projToShoot4 == 1)
+                        {
+                            projToShoot4 = 2;
+                        }
+                 
+                        float num80 = player.inventory[player.selectedItem].shootSpeed * projectile.scale;
+                        Vector2 vector34 = vector;
+                        Vector2 value12 = Main.screenPosition + new Vector2(Main.mouseX, Main.mouseY) - vector34;
+                        if (player.gravDir == -1f)
+                        {
+                            value12.Y = (float)(Main.screenHeight - Main.mouseY) + Main.screenPosition.Y - vector34.Y;
+                        }
+                        Vector2 vector35 = Vector2.Normalize(value12);
+                        if (float.IsNaN(vector35.X) || float.IsNaN(vector35.Y))
+                        {
+                            vector35 = -Vector2.UnitY;
+                        }
+                        vector35 *= num80;
+                        if (vector35.X != projectile.velocity.X || vector35.Y != projectile.velocity.Y)
+                        {
+                            projectile.netUpdate = true;
+                        }
+                        projectile.velocity = vector35 * 0.55f;
+                        
+                        for (int num81 = 0; num81 < projectileCount; num81++)
+                        {
+                            Vector2 vector36 = Vector2.Normalize(projectile.velocity) * speed4;
+                            vector36 += Main.rand.NextVector2Square(0f - num79, num79);
+                            if (float.IsNaN(vector36.X) || float.IsNaN(vector36.Y))
+                            {
+                                vector36 = -Vector2.UnitY;
+                            }
+                            Vector2 vector37 = vector34;
+                            int num82 = projectile.NewProjectile(projectileSource_Item_WithPotentialAmmo4, vector37.X, vector37.Y, vector36.X, vector36.Y, projToShoot4, Damage4, KnockBack4, projectile.owner);
+                            Main.projectile[num82].noDropItem = true;
+                        }
+                        if (++player.phantomPhoneixCounter >= 3)
+                        {
+                            player.phantomPhoneixCounter = 0;
+                            projectileCount = 1;
+                            Damage4 *= 2;
+                            num79 = 0f;
+                            projectile.ai[1] *= 1.5f;
+                            projToShoot4 = 706;
+                            speed4 = 16f;
+                            Vector2 vector36 = Vector2.Normalize(projectile.velocity) * speed4;
+                            vector36 += Main.rand.NextVector2Square(0f - num79, num79);
+                            if (float.IsNaN(vector36.X) || float.IsNaN(vector36.Y))
+                            {
+                                vector36 = -Vector2.UnitY;
+                            }
+                            Vector2 vector37 = vector34;
+                            int num82 = projectile.NewProjectile(projectileSource_Item_WithPotentialAmmo4, vector37.X, vector37.Y, vector36.X, vector36.Y, projToShoot4, Damage4, KnockBack4, projectile.owner);
+
+                            
+                        }
+                    }
+                    else
+                    {
+                        Kill();
+                    }
+                }
             }
             /*if (projectile.type == 615)
             {

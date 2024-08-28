@@ -8,7 +8,7 @@ using Terraria.ID;
 using Terraria.ModLoader;
 using static Terraria.ModLoader.ModContent;
 using Terraria.DataStructures;
-using TRAEProject.Changes.NPCs.Boss.Plantera;
+ using System;
 
 namespace TRAEProject.Changes.Weapons
 {
@@ -199,6 +199,59 @@ namespace TRAEProject.Changes.Weapons
 
                 Projectile.NewProjectile(source, position.X, position.Y, perturbedSpeed.X, perturbedSpeed.Y, type, damage, knockback, player.whoAmI);
                 return false;
+            }
+            if (item.type == ItemID.DD2PhoenixBow)
+            {
+                Vector2 perturbedSpeed = new Vector2(velocity.X, velocity.Y).RotatedByRandom(MathHelper.ToRadians(10));
+
+                Projectile.NewProjectile(source, position.X, position.Y, perturbedSpeed.X, perturbedSpeed.Y, type, damage, knockback, player.whoAmI);
+                return false;
+            }
+            if (item.type == ItemID.DaedalusStormbow)
+            {
+                float num4 = (float)Main.mouseX + Main.screenPosition.X - Main.pointPoisition.X;
+                float num5 = (float)Main.mouseY + Main.screenPosition.Y - Main.pointPoisition.Y; 
+                float num6 = (float)Math.Sqrt(num4 * num4 + num5 * num5);
+                float num7 = num6;
+                Vector2 vector6 = new Vector2(num4, num5);
+                vector6.X = (float)Main.mouseX + Main.screenPosition.X - Main.pointPoisition.X;
+                vector6.Y = (float)Main.mouseY + Main.screenPosition.Y - Main.pointPoisition.Y - 1000f;
+               player.itemRotation = (float)Math.Atan2(vector6.Y * (float)player.direction, vector6.X * (float)player.direction);
+
+                int num13 = 3;
+  
+                if (Main.rand.Next(3) == 0)
+                {
+                    num13++;
+                }
+                for (int k = 0; k < num13; k++)
+                {
+                    Main.pointPoisition = new Vector2(position.X + (float)player.width * 0.5f + (float)(Main.rand.Next(201) * -player.direction) + ((float)Main.mouseX + Main.screenPosition.X - position.X), player.MountedCenter.Y - 600f);
+                    Main.pointPoisition.X = (Main.pointPoisition.X * 10f + player.Center.X) / 11f + (float)Main.rand.Next(-100, 101);
+                    Main.pointPoisition.Y -= 150 * k;
+                    num4 = (float)Main.mouseX + Main.screenPosition.X - Main.pointPoisition.X;
+                    num5 = (float)Main.mouseY + Main.screenPosition.Y - Main.pointPoisition.Y;
+                    if (num5 < 0f)
+                    {
+                        num5 *= -1f;
+                    }
+                    if (num5 < 20f)
+                    {
+                        num5 = 20f;
+                    }
+                    num6 = (float)Math.Sqrt(num4 * num4 + num5 * num5);
+                    num6 =  item.shootSpeed / num6;
+                    num4 *= num6;
+                    num5 *= num6;
+                    float num14 = num4 + (float)Main.rand.Next(-40, 41) * 0.03f;
+                    float speedY = num5 + (float)Main.rand.Next(-40, 41) * 0.03f;
+                    num14 *= (float)Main.rand.Next(75, 150) * 0.01f;
+                   Main.pointPoisition.X += Main.rand.Next(-50, 51);
+                    int num15 = Projectile.NewProjectile(item.GetSource_FromThis(), Main.pointPoisition.X, Main.pointPoisition.Y, num14, speedY, type, damage, knockback, player.whoAmI);
+                    Main.projectile[num15].noDropItem = true;
+                }
+                return false;
+       
             }
             return base.Shoot(item, player, source, position, velocity, type, damage, knockback);
         }

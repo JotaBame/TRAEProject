@@ -31,6 +31,14 @@ namespace TRAEProject.Changes.NPCs.Boss.Plantera
                     npc.behindTiles = true;
                 }
             }
+            if (GetInstance<TRAEConfig>().PlanteraTentacle)
+            {
+                if (npc.type == NPCID.PlanteraTentacle)
+                {
+                    npc.lifeMax = (int)(npc.lifeMax * ((float)300 / 1000));
+
+                }
+            }
         }
         float speed = 6;
         int currentAtk = 0;

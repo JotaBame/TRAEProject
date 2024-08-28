@@ -385,6 +385,18 @@ namespace TRAEProject.Changes
                 case ItemID.BottledHoney:
                     player.AddBuff(BuffID.Honey, 1800, false);
                     return;
+                case ItemID.GoldenDelight:
+                    player.ClearBuff(BuffID.WellFed3);
+                    player.AddBuff(BuffID.WellFed3, 43200, false);
+                    player.AddBuff(BuffID.Ironskin, 43200, false);
+                    player.AddBuff(BuffID.Regeneration, 43200, false);
+                    player.AddBuff(BuffID.Swiftness, 43200, false);
+                    player.AddBuff(BuffID.Endurance, 43200, false);
+                    player.AddBuff(BuffID.Shine, 43200, false);
+                    player.AddBuff(BuffID.NightOwl, 43200, false);
+                    player.AddBuff(BuffID.Lifeforce, 43200, false);
+ 
+                    return;
             }
             return;
         }

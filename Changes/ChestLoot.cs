@@ -58,7 +58,12 @@ public class ChestLoot : ModSystem
                         }
                     }
                 }
-                if (Main.tile[chest.x, chest.y].TileType == TileID.Containers && Main.tile[chest.x, chest.y].TileFrameX == 1 * 36 && chest.item[0].type != ItemID.FlareGun)
+                if (Main.tile[chest.x, chest.y].TileType == TileID.Containers && Main.tile[chest.x, chest.y].TileFrameX == 1 * 36 
+                    && chest.item[0].type != ItemID.FlareGun 
+                    && chest.item[0].type != ItemID.SandstorminaBottle
+                    && chest.item[0].type != ItemID.FlyingCarpet
+                    && chest.item[0].type != ItemID.PharaohsMask
+                    && chest.item[0].type != ItemID.PharaohsRobe)
                 {
                     chest.item[0].SetDefaults(Main.rand.Next(GoldChestItems), false);
                     if (chest.item[0].type == ItemID.FlintlockPistol)
@@ -103,11 +108,7 @@ public class ChestLoot : ModSystem
                     }
 
                 }
-                if (Main.tile[chest.x, chest.y].TileFrameX == 1 * 36)
-                {
 
-
-                }
                 if (chest.item[0].type == ItemID.MagicMissile)
                 {
                     chest.item[0].SetDefaults(Main.rand.Next(DungeonItems), false);
