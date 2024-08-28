@@ -61,8 +61,10 @@ namespace TRAEProject.Changes.Weapon
 					thrownSpear = ProjectileType<RottedForkThrow>();
                     item.DamageType = DamageClass.MeleeNoSpeed;
 
-                    item.damage = 21;
-					item.shootSpeed = 8.5f; //only the throw uses this
+                    item.damage = 21; 
+					item.useTime = item.useAnimation = 31;
+
+                    item.shootSpeed = 8.5f; //only the throw uses this
 					break;
 
 				case ItemID.BoneJavelin:
@@ -99,7 +101,7 @@ namespace TRAEProject.Changes.Weapon
                     item.DamageType = DamageClass.MeleeNoSpeed;
 
                     item.damage = 18;
-					item.shootSpeed = 7; //only the throw uses this
+					item.shootSpeed = 10; //only the throw uses this
 					break;
 				case ItemID.Trident:
 					item.useStyle = 1;

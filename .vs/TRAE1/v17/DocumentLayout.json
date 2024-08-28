@@ -3,16 +3,20 @@
   "WorkspaceRootPath": "C:\\Users\\Juan Bouvier\\Documents\\My Games\\Terraria\\tModLoader\\ModSources\\TRAEProject\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{92F48D59-1E12-4C6B-9068-91155C93B293}|TRAEProject.csproj|c:\\users\\juan bouvier\\documents\\my games\\terraria\\tmodloader\\modsources\\traeproject\\changes\\weapon\\ranged\\rangedweapons.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{92F48D59-1E12-4C6B-9068-91155C93B293}|TRAEProject.csproj|solutionrelative:changes\\weapon\\ranged\\rangedweapons.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{92F48D59-1E12-4C6B-9068-91155C93B293}|TRAEProject.csproj|c:\\users\\juan bouvier\\documents\\my games\\terraria\\tmodloader\\modsources\\traeproject\\changes\\weapon\\melee\\miscmelee.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{92F48D59-1E12-4C6B-9068-91155C93B293}|TRAEProject.csproj|solutionrelative:changes\\weapon\\melee\\miscmelee.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{92F48D59-1E12-4C6B-9068-91155C93B293}|TRAEProject.csproj|c:\\users\\juan bouvier\\documents\\my games\\terraria\\tmodloader\\modsources\\traeproject\\changes\\npcs\\enemydrops.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{92F48D59-1E12-4C6B-9068-91155C93B293}|TRAEProject.csproj|solutionrelative:changes\\npcs\\enemydrops.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{92F48D59-1E12-4C6B-9068-91155C93B293}|TRAEProject.csproj|c:\\users\\juan bouvier\\documents\\my games\\terraria\\tmodloader\\modsources\\traeproject\\changes\\weapon\\melee\\miscmelee.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{92F48D59-1E12-4C6B-9068-91155C93B293}|TRAEProject.csproj|solutionrelative:changes\\weapon\\melee\\miscmelee.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{92F48D59-1E12-4C6B-9068-91155C93B293}|TRAEProject.csproj|c:\\users\\juan bouvier\\documents\\my games\\terraria\\tmodloader\\modsources\\traeproject\\changes\\npcs\\boss\\traedeerclops.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{92F48D59-1E12-4C6B-9068-91155C93B293}|TRAEProject.csproj|solutionrelative:changes\\npcs\\boss\\traedeerclops.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{92F48D59-1E12-4C6B-9068-91155C93B293}|TRAEProject.csproj|c:\\users\\juan bouvier\\documents\\my games\\terraria\\tmodloader\\modsources\\traeproject\\changes\\weapon\\ranged\\rangedweapons.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{92F48D59-1E12-4C6B-9068-91155C93B293}|TRAEProject.csproj|solutionrelative:changes\\weapon\\ranged\\rangedweapons.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{92F48D59-1E12-4C6B-9068-91155C93B293}|TRAEProject.csproj|c:\\users\\juan bouvier\\documents\\my games\\terraria\\tmodloader\\modsources\\traeproject\\changes\\weapon\\melee\\hardmodeswords.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
@@ -419,10 +423,6 @@
       "RelativeMoniker": "D:0:0:{92F48D59-1E12-4C6B-9068-91155C93B293}|TRAEProject.csproj|solutionrelative:changes\\weapon\\melee\\phaseswords.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{92F48D59-1E12-4C6B-9068-91155C93B293}|TRAEProject.csproj|c:\\users\\juan bouvier\\documents\\my games\\terraria\\tmodloader\\modsources\\traeproject\\changes\\weapon\\melee\\meleeprojectiles.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{92F48D59-1E12-4C6B-9068-91155C93B293}|TRAEProject.csproj|solutionrelative:changes\\weapon\\melee\\meleeprojectiles.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
       "AbsoluteMoniker": "D:0:0:{92F48D59-1E12-4C6B-9068-91155C93B293}|TRAEProject.csproj|c:\\users\\juan bouvier\\documents\\my games\\terraria\\tmodloader\\modsources\\traeproject\\changes\\weapon\\magic\\magicprojectiles.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{92F48D59-1E12-4C6B-9068-91155C93B293}|TRAEProject.csproj|solutionrelative:changes\\weapon\\magic\\magicprojectiles.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
@@ -469,10 +469,6 @@
     {
       "AbsoluteMoniker": "D:0:0:{92F48D59-1E12-4C6B-9068-91155C93B293}|TRAEProject.csproj|c:\\users\\juan bouvier\\documents\\my games\\terraria\\tmodloader\\modsources\\traeproject\\changes\\npcs\\boss\\traeeoc.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{92F48D59-1E12-4C6B-9068-91155C93B293}|TRAEProject.csproj|solutionrelative:changes\\npcs\\boss\\traeeoc.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{92F48D59-1E12-4C6B-9068-91155C93B293}|TRAEProject.csproj|c:\\users\\juan bouvier\\documents\\my games\\terraria\\tmodloader\\modsources\\traeproject\\changes\\npcs\\boss\\traedeerclops.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{92F48D59-1E12-4C6B-9068-91155C93B293}|TRAEProject.csproj|solutionrelative:changes\\npcs\\boss\\traedeerclops.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{92F48D59-1E12-4C6B-9068-91155C93B293}|TRAEProject.csproj|c:\\users\\juan bouvier\\documents\\my games\\terraria\\tmodloader\\modsources\\traeproject\\changes\\npcs\\boss\\retphase3.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
@@ -586,17 +582,17 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 8,
+          "SelectedChildIndex": 0,
           "Children": [
             {
               "$type": "Document",
-              "DocumentIndex": 2,
+              "DocumentIndex": 0,
               "Title": "MiscMelee.cs",
               "DocumentMoniker": "C:\\Users\\Juan Bouvier\\Documents\\My Games\\Terraria\\tModLoader\\ModSources\\TRAEProject\\Changes\\Weapon\\Melee\\MiscMelee.cs",
               "RelativeDocumentMoniker": "Changes\\Weapon\\Melee\\MiscMelee.cs",
               "ToolTip": "C:\\Users\\Juan Bouvier\\Documents\\My Games\\Terraria\\tModLoader\\ModSources\\TRAEProject\\Changes\\Weapon\\Melee\\MiscMelee.cs",
               "RelativeToolTip": "Changes\\Weapon\\Melee\\MiscMelee.cs",
-              "ViewState": "AQIAABoAAAAAAAAAAAAwwDAAAAAUAAAA",
+              "ViewState": "AQIAABoAAAAAAAAAAAAwwCgAAAAgAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2024-08-28T14:12:25.411Z",
               "EditorCaption": ""
@@ -607,31 +603,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 8,
-              "Title": "ShadowflameCharmItem.cs",
-              "DocumentMoniker": "C:\\Users\\Juan Bouvier\\Documents\\My Games\\Terraria\\tModLoader\\ModSources\\TRAEProject\\NewContent\\Items\\Accesories\\ShadowflameCharm\\ShadowflameCharmItem.cs",
-              "RelativeDocumentMoniker": "NewContent\\Items\\Accesories\\ShadowflameCharm\\ShadowflameCharmItem.cs",
-              "ToolTip": "C:\\Users\\Juan Bouvier\\Documents\\My Games\\Terraria\\tModLoader\\ModSources\\TRAEProject\\NewContent\\Items\\Accesories\\ShadowflameCharm\\ShadowflameCharmItem.cs",
-              "RelativeToolTip": "NewContent\\Items\\Accesories\\ShadowflameCharm\\ShadowflameCharmItem.cs",
-              "ViewState": "AQIAAFMAAAAAAAAAAAAAwGMAAACNAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-08-17T18:37:32.772Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 7,
-              "Title": "BAMFire.cs",
-              "DocumentMoniker": "C:\\Users\\Juan Bouvier\\Documents\\My Games\\Terraria\\tModLoader\\ModSources\\TRAEProject\\NewContent\\TRAEDebuffs\\BAMFire.cs",
-              "RelativeDocumentMoniker": "NewContent\\TRAEDebuffs\\BAMFire.cs",
-              "ToolTip": "C:\\Users\\Juan Bouvier\\Documents\\My Games\\Terraria\\tModLoader\\ModSources\\TRAEProject\\NewContent\\TRAEDebuffs\\BAMFire.cs",
-              "RelativeToolTip": "NewContent\\TRAEDebuffs\\BAMFire.cs",
-              "ViewState": "AQIAAAoAAAAAAAAAAAAiwA8AAAAsAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-08-17T18:19:24.833Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 5,
+              "DocumentIndex": 6,
               "Title": "JoterTrident.cs",
               "DocumentMoniker": "C:\\Users\\Juan Bouvier\\Documents\\My Games\\Terraria\\tModLoader\\ModSources\\TRAEProject\\NewContent\\Items\\Armor\\Joter\\JoterTrident.cs",
               "RelativeDocumentMoniker": "NewContent\\Items\\Armor\\Joter\\JoterTrident.cs",
@@ -643,20 +615,20 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 4,
+              "DocumentIndex": 5,
               "Title": "SpearItems.cs",
               "DocumentMoniker": "C:\\Users\\Juan Bouvier\\Documents\\My Games\\Terraria\\tModLoader\\ModSources\\TRAEProject\\Changes\\Weapon\\Melee\\SpearItems.cs",
               "RelativeDocumentMoniker": "Changes\\Weapon\\Melee\\SpearItems.cs",
               "ToolTip": "C:\\Users\\Juan Bouvier\\Documents\\My Games\\Terraria\\tModLoader\\ModSources\\TRAEProject\\Changes\\Weapon\\Melee\\SpearItems.cs",
               "RelativeToolTip": "Changes\\Weapon\\Melee\\SpearItems.cs",
-              "ViewState": "AQIAABsAAAAAAAAAAAAowB4BAAAEAAAA",
+              "ViewState": "AQIAABsAAAAAAAAAAAAowCABAAAEAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2024-08-17T13:45:30.702Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 12,
+              "DocumentIndex": 13,
               "Title": "AccesoryEffects.cs",
               "DocumentMoniker": "C:\\Users\\Juan Bouvier\\Documents\\My Games\\Terraria\\tModLoader\\ModSources\\TRAEProject\\Changes\\Accesory\\AccesoryEffects.cs",
               "RelativeDocumentMoniker": "Changes\\Accesory\\AccesoryEffects.cs",
@@ -674,27 +646,64 @@
               "RelativeDocumentMoniker": "Changes\\NPCs\\EnemyDrops.cs",
               "ToolTip": "C:\\Users\\Juan Bouvier\\Documents\\My Games\\Terraria\\tModLoader\\ModSources\\TRAEProject\\Changes\\NPCs\\EnemyDrops.cs",
               "RelativeToolTip": "Changes\\NPCs\\EnemyDrops.cs",
-              "ViewState": "AQIAADcAAAAAAAAAAAAgwFAAAAAoAAAA",
+              "ViewState": "AQIAAC4AAAAAAAAAAAAgwD8AAABKAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2024-08-17T13:09:19.496Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 0,
+              "DocumentIndex": 3,
               "Title": "RangedWeapons.cs",
               "DocumentMoniker": "C:\\Users\\Juan Bouvier\\Documents\\My Games\\Terraria\\tModLoader\\ModSources\\TRAEProject\\Changes\\Weapon\\Ranged\\RangedWeapons.cs",
               "RelativeDocumentMoniker": "Changes\\Weapon\\Ranged\\RangedWeapons.cs",
               "ToolTip": "C:\\Users\\Juan Bouvier\\Documents\\My Games\\Terraria\\tModLoader\\ModSources\\TRAEProject\\Changes\\Weapon\\Ranged\\RangedWeapons.cs",
               "RelativeToolTip": "Changes\\Weapon\\Ranged\\RangedWeapons.cs",
-              "ViewState": "AQIAAHoAAAAAAAAAAAAwwJgAAAAoAAAA",
+              "ViewState": "AQIAAIAAAAAAAAAAAAAwwJ4AAAAoAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2024-08-17T13:09:19.415Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "TRAEDeerclops.cs",
+              "DocumentMoniker": "C:\\Users\\Juan Bouvier\\Documents\\My Games\\Terraria\\tModLoader\\ModSources\\TRAEProject\\Changes\\NPCs\\Boss\\TRAEDeerclops.cs",
+              "RelativeDocumentMoniker": "Changes\\NPCs\\Boss\\TRAEDeerclops.cs",
+              "ToolTip": "C:\\Users\\Juan Bouvier\\Documents\\My Games\\Terraria\\tModLoader\\ModSources\\TRAEProject\\Changes\\NPCs\\Boss\\TRAEDeerclops.cs",
+              "RelativeToolTip": "Changes\\NPCs\\Boss\\TRAEDeerclops.cs",
+              "ViewState": "AQIAADwBAAAAAAAAAADwv1EBAAAhAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-08-17T13:38:57.394Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 8,
+              "Title": "BAMFire.cs",
+              "DocumentMoniker": "C:\\Users\\Juan Bouvier\\Documents\\My Games\\Terraria\\tModLoader\\ModSources\\TRAEProject\\NewContent\\TRAEDebuffs\\BAMFire.cs",
+              "RelativeDocumentMoniker": "NewContent\\TRAEDebuffs\\BAMFire.cs",
+              "ToolTip": "C:\\Users\\Juan Bouvier\\Documents\\My Games\\Terraria\\tModLoader\\ModSources\\TRAEProject\\NewContent\\TRAEDebuffs\\BAMFire.cs",
+              "RelativeToolTip": "NewContent\\TRAEDebuffs\\BAMFire.cs",
+              "ViewState": "AQIAAAoAAAAAAAAAAAAiwA8AAAAsAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-08-17T18:19:24.833Z"
+            },
+            {
+              "$type": "Document",
               "DocumentIndex": 9,
+              "Title": "ShadowflameCharmItem.cs",
+              "DocumentMoniker": "C:\\Users\\Juan Bouvier\\Documents\\My Games\\Terraria\\tModLoader\\ModSources\\TRAEProject\\NewContent\\Items\\Accesories\\ShadowflameCharm\\ShadowflameCharmItem.cs",
+              "RelativeDocumentMoniker": "NewContent\\Items\\Accesories\\ShadowflameCharm\\ShadowflameCharmItem.cs",
+              "ToolTip": "C:\\Users\\Juan Bouvier\\Documents\\My Games\\Terraria\\tModLoader\\ModSources\\TRAEProject\\NewContent\\Items\\Accesories\\ShadowflameCharm\\ShadowflameCharmItem.cs",
+              "RelativeToolTip": "NewContent\\Items\\Accesories\\ShadowflameCharm\\ShadowflameCharmItem.cs",
+              "ViewState": "AQIAAFMAAAAAAAAAAAAAwGMAAACNAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-08-17T18:37:32.772Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 10,
               "Title": "TRAEAccessoryChanges.cs",
               "DocumentMoniker": "C:\\Users\\Juan Bouvier\\Documents\\My Games\\Terraria\\tModLoader\\ModSources\\TRAEProject\\Changes\\Accesory\\TRAEAccessoryChanges.cs",
               "RelativeDocumentMoniker": "Changes\\Accesory\\TRAEAccessoryChanges.cs",
@@ -706,7 +715,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 10,
+              "DocumentIndex": 11,
               "Title": "FinalBoss.cs",
               "DocumentMoniker": "C:\\Users\\Juan Bouvier\\Documents\\My Games\\Terraria\\tModLoader\\ModSources\\TRAEProject\\NewContent\\Items\\Armor\\Joter\\FinalBoss.cs",
               "RelativeDocumentMoniker": "NewContent\\Items\\Armor\\Joter\\FinalBoss.cs",
@@ -718,7 +727,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 3,
+              "DocumentIndex": 4,
               "Title": "HardmodeSwords.cs",
               "DocumentMoniker": "C:\\Users\\Juan Bouvier\\Documents\\My Games\\Terraria\\tModLoader\\ModSources\\TRAEProject\\Changes\\Weapon\\Melee\\HardmodeSwords.cs",
               "RelativeDocumentMoniker": "Changes\\Weapon\\Melee\\HardmodeSwords.cs",
@@ -731,7 +740,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 6,
+              "DocumentIndex": 7,
               "Title": "DolphinGun.cs",
               "DocumentMoniker": "C:\\Users\\Juan Bouvier\\Documents\\My Games\\Terraria\\tModLoader\\ModSources\\TRAEProject\\Changes\\Weapon\\Ranged\\DolphinGun.cs",
               "RelativeDocumentMoniker": "Changes\\Weapon\\Ranged\\DolphinGun.cs",
@@ -743,7 +752,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 13,
+              "DocumentIndex": 14,
               "Title": "WaterAffinity.cs",
               "DocumentMoniker": "C:\\Users\\Juan Bouvier\\Documents\\My Games\\Terraria\\tModLoader\\ModSources\\TRAEProject\\NewContent\\Buffs\\WaterAffinity.cs",
               "RelativeDocumentMoniker": "NewContent\\Buffs\\WaterAffinity.cs",
@@ -755,7 +764,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 14,
+              "DocumentIndex": 15,
               "Title": "Wings.cs",
               "DocumentMoniker": "C:\\Users\\Juan Bouvier\\Documents\\My Games\\Terraria\\tModLoader\\ModSources\\TRAEProject\\Changes\\Accesory\\MobilityAccesorries\\Wings.cs",
               "RelativeDocumentMoniker": "Changes\\Accesory\\MobilityAccesorries\\Wings.cs",
@@ -767,7 +776,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 15,
+              "DocumentIndex": 16,
               "Title": "BoomfrogStaff.cs",
               "DocumentMoniker": "C:\\Users\\Juan Bouvier\\Documents\\My Games\\Terraria\\tModLoader\\ModSources\\TRAEProject\\NewContent\\Items\\Weapons\\Summoner\\Sentries\\BoomfrogStaff\\BoomfrogStaff.cs",
               "RelativeDocumentMoniker": "NewContent\\Items\\Weapons\\Summoner\\Sentries\\BoomfrogStaff\\BoomfrogStaff.cs",
@@ -779,7 +788,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 22,
+              "DocumentIndex": 23,
               "Title": "Blank.cs",
               "DocumentMoniker": "C:\\Users\\Juan Bouvier\\Documents\\My Games\\Terraria\\tModLoader\\ModSources\\TRAEProject\\NewContent\\Projectiles\\Blank.cs",
               "RelativeDocumentMoniker": "NewContent\\Projectiles\\Blank.cs",
@@ -791,7 +800,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 20,
+              "DocumentIndex": 21,
               "Title": "HelAura.cs",
               "DocumentMoniker": "C:\\Users\\Juan Bouvier\\Documents\\My Games\\Terraria\\tModLoader\\ModSources\\TRAEProject\\NewContent\\Projectiles\\HelAura.cs",
               "RelativeDocumentMoniker": "NewContent\\Projectiles\\HelAura.cs",
@@ -803,7 +812,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 11,
+              "DocumentIndex": 12,
               "Title": "Froggabomba.cs",
               "DocumentMoniker": "C:\\Users\\Juan Bouvier\\Documents\\My Games\\Terraria\\tModLoader\\ModSources\\TRAEProject\\NewContent\\NPCs\\Underworld\\Froggabomba\\Froggabomba.cs",
               "RelativeDocumentMoniker": "NewContent\\NPCs\\Underworld\\Froggabomba\\Froggabomba.cs",
@@ -815,7 +824,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 27,
+              "DocumentIndex": 28,
               "Title": "H410WFLASH.cs",
               "DocumentMoniker": "C:\\Users\\Juan Bouvier\\Documents\\My Games\\Terraria\\tModLoader\\ModSources\\TRAEProject\\NewContent\\Items\\Weapons\\Ranged\\Launchers\\H410WFLASH\\H410WFLASH.cs",
               "RelativeDocumentMoniker": "NewContent\\Items\\Weapons\\Ranged\\Launchers\\H410WFLASH\\H410WFLASH.cs",
@@ -827,7 +836,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 25,
+              "DocumentIndex": 26,
               "Title": "SkullCannon.cs",
               "DocumentMoniker": "C:\\Users\\Juan Bouvier\\Documents\\My Games\\Terraria\\tModLoader\\ModSources\\TRAEProject\\NewContent\\Items\\Weapons\\Ranged\\Launchers\\SkullCannon\\SkullCannon.cs",
               "RelativeDocumentMoniker": "NewContent\\Items\\Weapons\\Ranged\\Launchers\\SkullCannon\\SkullCannon.cs",
@@ -839,7 +848,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 23,
+              "DocumentIndex": 24,
               "Title": "Lightning Bolt.cs",
               "DocumentMoniker": "C:\\Users\\Juan Bouvier\\Documents\\My Games\\Terraria\\tModLoader\\ModSources\\TRAEProject\\NewContent\\Projectiles\\Lightning Bolt.cs",
               "RelativeDocumentMoniker": "NewContent\\Projectiles\\Lightning Bolt.cs",
@@ -851,7 +860,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 21,
+              "DocumentIndex": 22,
               "Title": "Blizzard.cs",
               "DocumentMoniker": "C:\\Users\\Juan Bouvier\\Documents\\My Games\\Terraria\\tModLoader\\ModSources\\TRAEProject\\NewContent\\Projectiles\\Blizzard.cs",
               "RelativeDocumentMoniker": "NewContent\\Projectiles\\Blizzard.cs",
@@ -863,7 +872,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 18,
+              "DocumentIndex": 19,
               "Title": "PhantomTentacle.cs",
               "DocumentMoniker": "C:\\Users\\Juan Bouvier\\Documents\\My Games\\Terraria\\tModLoader\\ModSources\\TRAEProject\\NewContent\\Projectiles\\PhantomTentacle.cs",
               "RelativeDocumentMoniker": "NewContent\\Projectiles\\PhantomTentacle.cs",
@@ -875,7 +884,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 16,
+              "DocumentIndex": 17,
               "Title": "Mobility.cs",
               "DocumentMoniker": "C:\\Users\\Juan Bouvier\\Documents\\My Games\\Terraria\\tModLoader\\ModSources\\TRAEProject\\Changes\\Mobility.cs",
               "RelativeDocumentMoniker": "Changes\\Mobility.cs",
@@ -887,7 +896,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 17,
+              "DocumentIndex": 18,
               "Title": "Stynger.cs",
               "DocumentMoniker": "C:\\Users\\Juan Bouvier\\Documents\\My Games\\Terraria\\tModLoader\\ModSources\\TRAEProject\\NewContent\\Projectiles\\Stynger.cs",
               "RelativeDocumentMoniker": "NewContent\\Projectiles\\Stynger.cs",
@@ -899,7 +908,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 29,
+              "DocumentIndex": 30,
               "Title": "Jungla.cs",
               "DocumentMoniker": "C:\\Users\\Juan Bouvier\\Documents\\My Games\\Terraria\\tModLoader\\ModSources\\TRAEProject\\NewContent\\Items\\Weapons\\Ranged\\Jungla\\Jungla.cs",
               "RelativeDocumentMoniker": "NewContent\\Items\\Weapons\\Ranged\\Jungla\\Jungla.cs",
@@ -911,7 +920,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 19,
+              "DocumentIndex": 20,
               "Title": "MirrorShot.cs",
               "DocumentMoniker": "C:\\Users\\Juan Bouvier\\Documents\\My Games\\Terraria\\tModLoader\\ModSources\\TRAEProject\\NewContent\\Projectiles\\MirrorShot.cs",
               "RelativeDocumentMoniker": "NewContent\\Projectiles\\MirrorShot.cs",
@@ -923,7 +932,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 30,
+              "DocumentIndex": 31,
               "Title": "HeadHarvester.cs",
               "DocumentMoniker": "C:\\Users\\Juan Bouvier\\Documents\\My Games\\Terraria\\tModLoader\\ModSources\\TRAEProject\\NewContent\\Items\\Weapons\\Melee\\HeadHarvester\\HeadHarvester.cs",
               "RelativeDocumentMoniker": "NewContent\\Items\\Weapons\\Melee\\HeadHarvester\\HeadHarvester.cs",
@@ -935,7 +944,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 31,
+              "DocumentIndex": 32,
               "Title": "DoubleHaxor.cs",
               "DocumentMoniker": "C:\\Users\\Juan Bouvier\\Documents\\My Games\\Terraria\\tModLoader\\ModSources\\TRAEProject\\NewContent\\Items\\Weapons\\Melee\\DoubleHaxor\\DoubleHaxor.cs",
               "RelativeDocumentMoniker": "NewContent\\Items\\Weapons\\Melee\\DoubleHaxor\\DoubleHaxor.cs",
@@ -947,7 +956,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 24,
+              "DocumentIndex": 25,
               "Title": "UnderworldEnemies.cs",
               "DocumentMoniker": "C:\\Users\\Juan Bouvier\\Documents\\My Games\\Terraria\\tModLoader\\ModSources\\TRAEProject\\NewContent\\NPCs\\Underworld\\UnderworldEnemies.cs",
               "RelativeDocumentMoniker": "NewContent\\NPCs\\Underworld\\UnderworldEnemies.cs",
@@ -959,7 +968,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 32,
+              "DocumentIndex": 33,
               "Title": "WillOfTheWisp.cs",
               "DocumentMoniker": "C:\\Users\\Juan Bouvier\\Documents\\My Games\\Terraria\\tModLoader\\ModSources\\TRAEProject\\NewContent\\Items\\Weapons\\Magic\\WillOfTheWisp\\WillOfTheWisp.cs",
               "RelativeDocumentMoniker": "NewContent\\Items\\Weapons\\Magic\\WillOfTheWisp\\WillOfTheWisp.cs",
@@ -971,7 +980,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 33,
+              "DocumentIndex": 34,
               "Title": "SuperRose.cs",
               "DocumentMoniker": "C:\\Users\\Juan Bouvier\\Documents\\My Games\\Terraria\\tModLoader\\ModSources\\TRAEProject\\NewContent\\Items\\Weapons\\Magic\\SuperRose\\SuperRose.cs",
               "RelativeDocumentMoniker": "NewContent\\Items\\Weapons\\Magic\\SuperRose\\SuperRose.cs",
@@ -983,7 +992,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 34,
+              "DocumentIndex": 35,
               "Title": "SharpLament.cs",
               "DocumentMoniker": "C:\\Users\\Juan Bouvier\\Documents\\My Games\\Terraria\\tModLoader\\ModSources\\TRAEProject\\NewContent\\Items\\Weapons\\Magic\\SharpLament\\SharpLament.cs",
               "RelativeDocumentMoniker": "NewContent\\Items\\Weapons\\Magic\\SharpLament\\SharpLament.cs",
@@ -995,7 +1004,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 26,
+              "DocumentIndex": 27,
               "Title": "T3Launcher.cs",
               "DocumentMoniker": "C:\\Users\\Juan Bouvier\\Documents\\My Games\\Terraria\\tModLoader\\ModSources\\TRAEProject\\NewContent\\Items\\Weapons\\Ranged\\Launchers\\T3Launcher\\T3Launcher.cs",
               "RelativeDocumentMoniker": "NewContent\\Items\\Weapons\\Ranged\\Launchers\\T3Launcher\\T3Launcher.cs",
@@ -1007,7 +1016,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 35,
+              "DocumentIndex": 36,
               "Title": "OnyxCurseDoll.cs",
               "DocumentMoniker": "C:\\Users\\Juan Bouvier\\Documents\\My Games\\Terraria\\tModLoader\\ModSources\\TRAEProject\\NewContent\\Items\\Weapons\\Magic\\OnyxCurseDoll\\OnyxCurseDoll.cs",
               "RelativeDocumentMoniker": "NewContent\\Items\\Weapons\\Magic\\OnyxCurseDoll\\OnyxCurseDoll.cs",
@@ -1019,7 +1028,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 28,
+              "DocumentIndex": 29,
               "Title": "CryoCannon.cs",
               "DocumentMoniker": "C:\\Users\\Juan Bouvier\\Documents\\My Games\\Terraria\\tModLoader\\ModSources\\TRAEProject\\NewContent\\Items\\Weapons\\Ranged\\Launchers\\CryoCannon\\CryoCannon.cs",
               "RelativeDocumentMoniker": "NewContent\\Items\\Weapons\\Ranged\\Launchers\\CryoCannon\\CryoCannon.cs",
@@ -1031,7 +1040,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 37,
+              "DocumentIndex": 38,
               "Title": "MagicGrenade.cs",
               "DocumentMoniker": "C:\\Users\\Juan Bouvier\\Documents\\My Games\\Terraria\\tModLoader\\ModSources\\TRAEProject\\NewContent\\Items\\Weapons\\Magic\\MagicGrenade\\MagicGrenade.cs",
               "RelativeDocumentMoniker": "NewContent\\Items\\Weapons\\Magic\\MagicGrenade\\MagicGrenade.cs",
@@ -1043,7 +1052,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 38,
+              "DocumentIndex": 39,
               "Title": "GraniteBook.cs",
               "DocumentMoniker": "C:\\Users\\Juan Bouvier\\Documents\\My Games\\Terraria\\tModLoader\\ModSources\\TRAEProject\\NewContent\\Items\\Weapons\\Magic\\GraniteBook\\GraniteBook.cs",
               "RelativeDocumentMoniker": "NewContent\\Items\\Weapons\\Magic\\GraniteBook\\GraniteBook.cs",
@@ -1055,7 +1064,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 41,
+              "DocumentIndex": 42,
               "Title": "TeleportationVial.cs",
               "DocumentMoniker": "C:\\Users\\Juan Bouvier\\Documents\\My Games\\Terraria\\tModLoader\\ModSources\\TRAEProject\\NewContent\\Items\\Misc\\Potions\\TeleportationVial.cs",
               "RelativeDocumentMoniker": "NewContent\\Items\\Misc\\Potions\\TeleportationVial.cs",
@@ -1067,7 +1076,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 42,
+              "DocumentIndex": 43,
               "Title": "SweetElixir.cs",
               "DocumentMoniker": "C:\\Users\\Juan Bouvier\\Documents\\My Games\\Terraria\\tModLoader\\ModSources\\TRAEProject\\NewContent\\Items\\Misc\\Potions\\SweetElixir.cs",
               "RelativeDocumentMoniker": "NewContent\\Items\\Misc\\Potions\\SweetElixir.cs",
@@ -1079,7 +1088,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 43,
+              "DocumentIndex": 44,
               "Title": "PowerBrew.cs",
               "DocumentMoniker": "C:\\Users\\Juan Bouvier\\Documents\\My Games\\Terraria\\tModLoader\\ModSources\\TRAEProject\\NewContent\\Items\\Misc\\Potions\\PowerBrew.cs",
               "RelativeDocumentMoniker": "NewContent\\Items\\Misc\\Potions\\PowerBrew.cs",
@@ -1091,7 +1100,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 44,
+              "DocumentIndex": 45,
               "Title": "ManaSurgePotion.cs",
               "DocumentMoniker": "C:\\Users\\Juan Bouvier\\Documents\\My Games\\Terraria\\tModLoader\\ModSources\\TRAEProject\\NewContent\\Items\\Misc\\Potions\\ManaSurgePotion.cs",
               "RelativeDocumentMoniker": "NewContent\\Items\\Misc\\Potions\\ManaSurgePotion.cs",
@@ -1103,7 +1112,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 47,
+              "DocumentIndex": 48,
               "Title": "ShellSpinner.cs",
               "DocumentMoniker": "C:\\Users\\Juan Bouvier\\Documents\\My Games\\Terraria\\tModLoader\\ModSources\\TRAEProject\\NewContent\\Items\\DreadItems\\ShellSpinner\\ShellSpinner.cs",
               "RelativeDocumentMoniker": "NewContent\\Items\\DreadItems\\ShellSpinner\\ShellSpinner.cs",
@@ -1115,7 +1124,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 36,
+              "DocumentIndex": 37,
               "Title": "NebulaMaelstrom.cs",
               "DocumentMoniker": "C:\\Users\\Juan Bouvier\\Documents\\My Games\\Terraria\\tModLoader\\ModSources\\TRAEProject\\NewContent\\Items\\Weapons\\Magic\\NebulaMaelstrom\\NebulaMaelstrom.cs",
               "RelativeDocumentMoniker": "NewContent\\Items\\Weapons\\Magic\\NebulaMaelstrom\\NebulaMaelstrom.cs",
@@ -1127,7 +1136,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 48,
+              "DocumentIndex": 49,
               "Title": "RedPearl.cs",
               "DocumentMoniker": "C:\\Users\\Juan Bouvier\\Documents\\My Games\\Terraria\\tModLoader\\ModSources\\TRAEProject\\NewContent\\Items\\DreadItems\\RedPearl\\RedPearl.cs",
               "RelativeDocumentMoniker": "NewContent\\Items\\DreadItems\\RedPearl\\RedPearl.cs",
@@ -1139,7 +1148,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 49,
+              "DocumentIndex": 50,
               "Title": "DreadTrophy.cs",
               "DocumentMoniker": "C:\\Users\\Juan Bouvier\\Documents\\My Games\\Terraria\\tModLoader\\ModSources\\TRAEProject\\NewContent\\Items\\DreadItems\\DreadTrophy\\DreadTrophy.cs",
               "RelativeDocumentMoniker": "NewContent\\Items\\DreadItems\\DreadTrophy\\DreadTrophy.cs",
@@ -1151,7 +1160,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 40,
+              "DocumentIndex": 41,
               "Title": "ConfuseRay.cs",
               "DocumentMoniker": "C:\\Users\\Juan Bouvier\\Documents\\My Games\\Terraria\\tModLoader\\ModSources\\TRAEProject\\NewContent\\Items\\Weapons\\Magic\\ConfuseRay\\ConfuseRay.cs",
               "RelativeDocumentMoniker": "NewContent\\Items\\Weapons\\Magic\\ConfuseRay\\ConfuseRay.cs",
@@ -1163,7 +1172,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 39,
+              "DocumentIndex": 40,
               "Title": "FlashRay.cs",
               "DocumentMoniker": "C:\\Users\\Juan Bouvier\\Documents\\My Games\\Terraria\\tModLoader\\ModSources\\TRAEProject\\NewContent\\Items\\Weapons\\Magic\\FlashRay\\FlashRay.cs",
               "RelativeDocumentMoniker": "NewContent\\Items\\Weapons\\Magic\\FlashRay\\FlashRay.cs",
@@ -1175,7 +1184,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 50,
+              "DocumentIndex": 51,
               "Title": "DreadSummon.cs",
               "DocumentMoniker": "C:\\Users\\Juan Bouvier\\Documents\\My Games\\Terraria\\tModLoader\\ModSources\\TRAEProject\\NewContent\\Items\\DreadItems\\DreadSummon\\DreadSummon.cs",
               "RelativeDocumentMoniker": "NewContent\\Items\\DreadItems\\DreadSummon\\DreadSummon.cs",
@@ -1187,7 +1196,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 51,
+              "DocumentIndex": 52,
               "Title": "Brimstone.cs",
               "DocumentMoniker": "C:\\Users\\Juan Bouvier\\Documents\\My Games\\Terraria\\tModLoader\\ModSources\\TRAEProject\\NewContent\\Items\\DreadItems\\Brimstone\\Brimstone.cs",
               "RelativeDocumentMoniker": "NewContent\\Items\\DreadItems\\Brimstone\\Brimstone.cs",
@@ -1199,7 +1208,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 52,
+              "DocumentIndex": 53,
               "Title": "DreadBag.cs",
               "DocumentMoniker": "C:\\Users\\Juan Bouvier\\Documents\\My Games\\Terraria\\tModLoader\\ModSources\\TRAEProject\\NewContent\\Items\\DreadItems\\BossBag\\DreadBag.cs",
               "RelativeDocumentMoniker": "NewContent\\Items\\DreadItems\\BossBag\\DreadBag.cs",
@@ -1211,7 +1220,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 53,
+              "DocumentIndex": 54,
               "Title": "BloodWings.cs",
               "DocumentMoniker": "C:\\Users\\Juan Bouvier\\Documents\\My Games\\Terraria\\tModLoader\\ModSources\\TRAEProject\\NewContent\\Items\\DreadItems\\BloodWings\\BloodWings.cs",
               "RelativeDocumentMoniker": "NewContent\\Items\\DreadItems\\BloodWings\\BloodWings.cs",
@@ -1223,7 +1232,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 46,
+              "DocumentIndex": 47,
               "Title": "CursedGel.cs",
               "DocumentMoniker": "C:\\Users\\Juan Bouvier\\Documents\\My Games\\Terraria\\tModLoader\\ModSources\\TRAEProject\\NewContent\\Items\\FlamethrowerAmmo\\CursedGel.cs",
               "RelativeDocumentMoniker": "NewContent\\Items\\FlamethrowerAmmo\\CursedGel.cs",
@@ -1235,7 +1244,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 45,
+              "DocumentIndex": 46,
               "Title": "SpeedWish.cs",
               "DocumentMoniker": "C:\\Users\\Juan Bouvier\\Documents\\My Games\\Terraria\\tModLoader\\ModSources\\TRAEProject\\NewContent\\Items\\Misc\\PermaBuffs\\SpeedWish.cs",
               "RelativeDocumentMoniker": "NewContent\\Items\\Misc\\PermaBuffs\\SpeedWish.cs",
@@ -1247,7 +1256,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 54,
+              "DocumentIndex": 55,
               "Title": "BloodBoiler.cs",
               "DocumentMoniker": "C:\\Users\\Juan Bouvier\\Documents\\My Games\\Terraria\\tModLoader\\ModSources\\TRAEProject\\NewContent\\Items\\DreadItems\\BloodBoiler\\BloodBoiler.cs",
               "RelativeDocumentMoniker": "NewContent\\Items\\DreadItems\\BloodBoiler\\BloodBoiler.cs",
@@ -1259,7 +1268,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 55,
+              "DocumentIndex": 56,
               "Title": "ScrollOfWipeout.cs",
               "DocumentMoniker": "C:\\Users\\Juan Bouvier\\Documents\\My Games\\Terraria\\tModLoader\\ModSources\\TRAEProject\\NewContent\\Items\\BeholderItems\\ScrollOfWipeout.cs",
               "RelativeDocumentMoniker": "NewContent\\Items\\BeholderItems\\ScrollOfWipeout.cs",
@@ -1271,7 +1280,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 56,
+              "DocumentIndex": 57,
               "Title": "RingOfTenacity.cs",
               "DocumentMoniker": "C:\\Users\\Juan Bouvier\\Documents\\My Games\\Terraria\\tModLoader\\ModSources\\TRAEProject\\NewContent\\Items\\BeholderItems\\RingOfTenacity.cs",
               "RelativeDocumentMoniker": "NewContent\\Items\\BeholderItems\\RingOfTenacity.cs",
@@ -1283,7 +1292,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 57,
+              "DocumentIndex": 58,
               "Title": "RingOfMight.cs",
               "DocumentMoniker": "C:\\Users\\Juan Bouvier\\Documents\\My Games\\Terraria\\tModLoader\\ModSources\\TRAEProject\\NewContent\\Items\\BeholderItems\\RingOfMight.cs",
               "RelativeDocumentMoniker": "NewContent\\Items\\BeholderItems\\RingOfMight.cs",
@@ -1295,7 +1304,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 58,
+              "DocumentIndex": 59,
               "Title": "RingOfFuror.cs",
               "DocumentMoniker": "C:\\Users\\Juan Bouvier\\Documents\\My Games\\Terraria\\tModLoader\\ModSources\\TRAEProject\\NewContent\\Items\\BeholderItems\\RingOfFuror.cs",
               "RelativeDocumentMoniker": "NewContent\\Items\\BeholderItems\\RingOfFuror.cs",
@@ -1307,7 +1316,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 60,
+              "DocumentIndex": 61,
               "Title": "MasterEmblem.cs",
               "DocumentMoniker": "C:\\Users\\Juan Bouvier\\Documents\\My Games\\Terraria\\tModLoader\\ModSources\\TRAEProject\\NewContent\\Items\\BeholderItems\\MasterEmblem.cs",
               "RelativeDocumentMoniker": "NewContent\\Items\\BeholderItems\\MasterEmblem.cs",
@@ -1319,7 +1328,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 61,
+              "DocumentIndex": 62,
               "Title": "BeholderTrophy.cs",
               "DocumentMoniker": "C:\\Users\\Juan Bouvier\\Documents\\My Games\\Terraria\\tModLoader\\ModSources\\TRAEProject\\NewContent\\Items\\BeholderItems\\BeholderTrophy.cs",
               "RelativeDocumentMoniker": "NewContent\\Items\\BeholderItems\\BeholderTrophy.cs",
@@ -1331,7 +1340,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 62,
+              "DocumentIndex": 63,
               "Title": "BeholderBag.cs",
               "DocumentMoniker": "C:\\Users\\Juan Bouvier\\Documents\\My Games\\Terraria\\tModLoader\\ModSources\\TRAEProject\\NewContent\\Items\\BeholderItems\\BeholderBag.cs",
               "RelativeDocumentMoniker": "NewContent\\Items\\BeholderItems\\BeholderBag.cs",
@@ -1343,7 +1352,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 63,
+              "DocumentIndex": 64,
               "Title": "AngelicStone.cs",
               "DocumentMoniker": "C:\\Users\\Juan Bouvier\\Documents\\My Games\\Terraria\\tModLoader\\ModSources\\TRAEProject\\NewContent\\Items\\Accesories\\AngelicStone.cs",
               "RelativeDocumentMoniker": "NewContent\\Items\\Accesories\\AngelicStone.cs",
@@ -1355,7 +1364,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 59,
+              "DocumentIndex": 60,
               "Title": "RestorationMadness.cs",
               "DocumentMoniker": "C:\\Users\\Juan Bouvier\\Documents\\My Games\\Terraria\\tModLoader\\ModSources\\TRAEProject\\NewContent\\Items\\BeholderItems\\RestorationMadness.cs",
               "RelativeDocumentMoniker": "NewContent\\Items\\BeholderItems\\RestorationMadness.cs",
@@ -1367,7 +1376,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 69,
+              "DocumentIndex": 70,
               "Title": "CounterweightString.cs",
               "DocumentMoniker": "C:\\Users\\Juan Bouvier\\Documents\\My Games\\Terraria\\tModLoader\\ModSources\\TRAEProject\\NewContent\\Items\\Accesories\\CounterweightString.cs",
               "RelativeDocumentMoniker": "NewContent\\Items\\Accesories\\CounterweightString.cs",
@@ -1379,7 +1388,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 68,
+              "DocumentIndex": 69,
               "Title": "DemonShield.cs",
               "DocumentMoniker": "C:\\Users\\Juan Bouvier\\Documents\\My Games\\Terraria\\tModLoader\\ModSources\\TRAEProject\\NewContent\\Items\\Accesories\\DemonShield.cs",
               "RelativeDocumentMoniker": "NewContent\\Items\\Accesories\\DemonShield.cs",
@@ -1391,7 +1400,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 67,
+              "DocumentIndex": 68,
               "Title": "PutridToothNecklace.cs",
               "DocumentMoniker": "C:\\Users\\Juan Bouvier\\Documents\\My Games\\Terraria\\tModLoader\\ModSources\\TRAEProject\\NewContent\\Items\\Accesories\\PutridToothNecklace.cs",
               "RelativeDocumentMoniker": "NewContent\\Items\\Accesories\\PutridToothNecklace.cs",
@@ -1403,7 +1412,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 66,
+              "DocumentIndex": 67,
               "Title": "ShamanNecklace.cs",
               "DocumentMoniker": "C:\\Users\\Juan Bouvier\\Documents\\My Games\\Terraria\\tModLoader\\ModSources\\TRAEProject\\NewContent\\Items\\Accesories\\ShamanNecklace.cs",
               "RelativeDocumentMoniker": "NewContent\\Items\\Accesories\\ShamanNecklace.cs",
@@ -1415,7 +1424,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 65,
+              "DocumentIndex": 66,
               "Title": "SkeletonBeetle.cs",
               "DocumentMoniker": "C:\\Users\\Juan Bouvier\\Documents\\My Games\\Terraria\\tModLoader\\ModSources\\TRAEProject\\NewContent\\Items\\Accesories\\SkeletonBeetle.cs",
               "RelativeDocumentMoniker": "NewContent\\Items\\Accesories\\SkeletonBeetle.cs",
@@ -1427,7 +1436,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 64,
+              "DocumentIndex": 65,
               "Title": "TwoFlowers.cs",
               "DocumentMoniker": "C:\\Users\\Juan Bouvier\\Documents\\My Games\\Terraria\\tModLoader\\ModSources\\TRAEProject\\NewContent\\Items\\Accesories\\TwoFlowers.cs",
               "RelativeDocumentMoniker": "NewContent\\Items\\Accesories\\TwoFlowers.cs",
@@ -1439,7 +1448,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 70,
+              "DocumentIndex": 71,
               "Title": "ShadowClaws.cs",
               "DocumentMoniker": "C:\\Users\\Juan Bouvier\\Documents\\My Games\\Terraria\\tModLoader\\ModSources\\TRAEProject\\NewContent\\Items\\Accesories\\ShadowflameCharm\\ShadowClaws.cs",
               "RelativeDocumentMoniker": "NewContent\\Items\\Accesories\\ShadowflameCharm\\ShadowClaws.cs",
@@ -1451,7 +1460,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 71,
+              "DocumentIndex": 72,
               "Title": "RuneCobra.cs",
               "DocumentMoniker": "C:\\Users\\Juan Bouvier\\Documents\\My Games\\Terraria\\tModLoader\\ModSources\\TRAEProject\\NewContent\\Items\\Accesories\\ShadowflameCharm\\RuneCobra.cs",
               "RelativeDocumentMoniker": "NewContent\\Items\\Accesories\\ShadowflameCharm\\RuneCobra.cs",
@@ -1463,7 +1472,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 72,
+              "DocumentIndex": 73,
               "Title": "PalladiumShield.cs",
               "DocumentMoniker": "C:\\Users\\Juan Bouvier\\Documents\\My Games\\Terraria\\tModLoader\\ModSources\\TRAEProject\\NewContent\\Items\\Accesories\\PalladiumShield\\PalladiumShield.cs",
               "RelativeDocumentMoniker": "NewContent\\Items\\Accesories\\PalladiumShield\\PalladiumShield.cs",
@@ -1475,7 +1484,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 73,
+              "DocumentIndex": 74,
               "Title": "MirrorShield.cs",
               "DocumentMoniker": "C:\\Users\\Juan Bouvier\\Documents\\My Games\\Terraria\\tModLoader\\ModSources\\TRAEProject\\NewContent\\Items\\Accesories\\PalladiumShield\\MirrorShield.cs",
               "RelativeDocumentMoniker": "NewContent\\Items\\Accesories\\PalladiumShield\\MirrorShield.cs",
@@ -1487,7 +1496,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 74,
+              "DocumentIndex": 75,
               "Title": "ChainShield.cs",
               "DocumentMoniker": "C:\\Users\\Juan Bouvier\\Documents\\My Games\\Terraria\\tModLoader\\ModSources\\TRAEProject\\NewContent\\Items\\Accesories\\PalladiumShield\\ChainShield.cs",
               "RelativeDocumentMoniker": "NewContent\\Items\\Accesories\\PalladiumShield\\ChainShield.cs",
@@ -1499,7 +1508,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 75,
+              "DocumentIndex": 76,
               "Title": "SoaringCarpet.cs",
               "DocumentMoniker": "C:\\Users\\Juan Bouvier\\Documents\\My Games\\Terraria\\tModLoader\\ModSources\\TRAEProject\\NewContent\\Items\\Accesories\\MobilityMisc\\SoaringCarpet.cs",
               "RelativeDocumentMoniker": "NewContent\\Items\\Accesories\\MobilityMisc\\SoaringCarpet.cs",
@@ -1511,7 +1520,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 76,
+              "DocumentIndex": 77,
               "Title": "SandstormBoots.cs",
               "DocumentMoniker": "C:\\Users\\Juan Bouvier\\Documents\\My Games\\Terraria\\tModLoader\\ModSources\\TRAEProject\\NewContent\\Items\\Accesories\\MobilityMisc\\SandstormBoots.cs",
               "RelativeDocumentMoniker": "NewContent\\Items\\Accesories\\MobilityMisc\\SandstormBoots.cs",
@@ -1523,7 +1532,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 79,
+              "DocumentIndex": 80,
               "Title": "FroststrideBoots.cs",
               "DocumentMoniker": "C:\\Users\\Juan Bouvier\\Documents\\My Games\\Terraria\\tModLoader\\ModSources\\TRAEProject\\NewContent\\Items\\Accesories\\MobilityMisc\\FroststrideBoots.cs",
               "RelativeDocumentMoniker": "NewContent\\Items\\Accesories\\MobilityMisc\\FroststrideBoots.cs",
@@ -1535,7 +1544,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 80,
+              "DocumentIndex": 81,
               "Title": "CloudChasers.cs",
               "DocumentMoniker": "C:\\Users\\Juan Bouvier\\Documents\\My Games\\Terraria\\tModLoader\\ModSources\\TRAEProject\\NewContent\\Items\\Accesories\\MobilityMisc\\CloudChasers.cs",
               "RelativeDocumentMoniker": "NewContent\\Items\\Accesories\\MobilityMisc\\CloudChasers.cs",
@@ -1547,7 +1556,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 83,
+              "DocumentIndex": 84,
               "Title": "FaeInABottle.cs",
               "DocumentMoniker": "C:\\Users\\Juan Bouvier\\Documents\\My Games\\Terraria\\tModLoader\\ModSources\\TRAEProject\\NewContent\\Items\\Accesories\\MobilityJumps\\FaeInABottle.cs",
               "RelativeDocumentMoniker": "NewContent\\Items\\Accesories\\MobilityJumps\\FaeInABottle.cs",
@@ -1559,7 +1568,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 84,
+              "DocumentIndex": 85,
               "Title": "AlligatorBalloon.cs",
               "DocumentMoniker": "C:\\Users\\Juan Bouvier\\Documents\\My Games\\Terraria\\tModLoader\\ModSources\\TRAEProject\\NewContent\\Items\\Accesories\\MobilityJumps\\AlligatorBalloon.cs",
               "RelativeDocumentMoniker": "NewContent\\Items\\Accesories\\MobilityJumps\\AlligatorBalloon.cs",
@@ -1571,7 +1580,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 85,
+              "DocumentIndex": 86,
               "Title": "AlphaScope.cs",
               "DocumentMoniker": "C:\\Users\\Juan Bouvier\\Documents\\My Games\\Terraria\\tModLoader\\ModSources\\TRAEProject\\NewContent\\Items\\Accesories\\MechanicalEye\\AlphaScope.cs",
               "RelativeDocumentMoniker": "NewContent\\Items\\Accesories\\MechanicalEye\\AlphaScope.cs",
@@ -1583,7 +1592,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 86,
+              "DocumentIndex": 87,
               "Title": "MasochistChains.cs",
               "DocumentMoniker": "C:\\Users\\Juan Bouvier\\Documents\\My Games\\Terraria\\tModLoader\\ModSources\\TRAEProject\\NewContent\\Items\\Accesories\\LifeCuffs\\MasochistChains.cs",
               "RelativeDocumentMoniker": "NewContent\\Items\\Accesories\\LifeCuffs\\MasochistChains.cs",
@@ -1595,7 +1604,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 78,
+              "DocumentIndex": 79,
               "Title": "GravityTabi.cs",
               "DocumentMoniker": "C:\\Users\\Juan Bouvier\\Documents\\My Games\\Terraria\\tModLoader\\ModSources\\TRAEProject\\NewContent\\Items\\Accesories\\MobilityMisc\\GravityTabi.cs",
               "RelativeDocumentMoniker": "NewContent\\Items\\Accesories\\MobilityMisc\\GravityTabi.cs",
@@ -1607,7 +1616,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 77,
+              "DocumentIndex": 78,
               "Title": "MagicalCarpet.cs",
               "DocumentMoniker": "C:\\Users\\Juan Bouvier\\Documents\\My Games\\Terraria\\tModLoader\\ModSources\\TRAEProject\\NewContent\\Items\\Accesories\\MobilityMisc\\MagicalCarpet.cs",
               "RelativeDocumentMoniker": "NewContent\\Items\\Accesories\\MobilityMisc\\MagicalCarpet.cs",
@@ -1619,7 +1628,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 87,
+              "DocumentIndex": 88,
               "Title": "BalanceCuffs.cs",
               "DocumentMoniker": "C:\\Users\\Juan Bouvier\\Documents\\My Games\\Terraria\\tModLoader\\ModSources\\TRAEProject\\NewContent\\Items\\Accesories\\LifeCuffs\\BalanceCuffs.cs",
               "RelativeDocumentMoniker": "NewContent\\Items\\Accesories\\LifeCuffs\\BalanceCuffs.cs",
@@ -1631,7 +1640,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 89,
+              "DocumentIndex": 90,
               "Title": "TheBlackCross.cs",
               "DocumentMoniker": "C:\\Users\\Juan Bouvier\\Documents\\My Games\\Terraria\\tModLoader\\ModSources\\TRAEProject\\NewContent\\Items\\Accesories\\CrossNecklace\\TheBlackCross.cs",
               "RelativeDocumentMoniker": "NewContent\\Items\\Accesories\\CrossNecklace\\TheBlackCross.cs",
@@ -1643,7 +1652,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 82,
+              "DocumentIndex": 83,
               "Title": "SpaceBalloonItem.cs",
               "DocumentMoniker": "C:\\Users\\Juan Bouvier\\Documents\\My Games\\Terraria\\tModLoader\\ModSources\\TRAEProject\\NewContent\\Items\\Accesories\\MobilityJumps\\SpaceBalloonItem.cs",
               "RelativeDocumentMoniker": "NewContent\\Items\\Accesories\\MobilityJumps\\SpaceBalloonItem.cs",
@@ -1655,7 +1664,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 81,
+              "DocumentIndex": 82,
               "Title": "BlizzardSkates.cs",
               "DocumentMoniker": "C:\\Users\\Juan Bouvier\\Documents\\My Games\\Terraria\\tModLoader\\ModSources\\TRAEProject\\NewContent\\Items\\Accesories\\MobilityMisc\\BlizzardSkates.cs",
               "RelativeDocumentMoniker": "NewContent\\Items\\Accesories\\MobilityMisc\\BlizzardSkates.cs",
@@ -1667,7 +1676,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 90,
+              "DocumentIndex": 91,
               "Title": "HeartOfGold.cs",
               "DocumentMoniker": "C:\\Users\\Juan Bouvier\\Documents\\My Games\\Terraria\\tModLoader\\ModSources\\TRAEProject\\NewContent\\Items\\Accesories\\CrossNecklace\\HeartOfGold.cs",
               "RelativeDocumentMoniker": "NewContent\\Items\\Accesories\\CrossNecklace\\HeartOfGold.cs",
@@ -1679,7 +1688,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 91,
+              "DocumentIndex": 92,
               "Title": "HeartcrossNecklace.cs",
               "DocumentMoniker": "C:\\Users\\Juan Bouvier\\Documents\\My Games\\Terraria\\tModLoader\\ModSources\\TRAEProject\\NewContent\\Items\\Accesories\\CrossNecklace\\HeartcrossNecklace.cs",
               "RelativeDocumentMoniker": "NewContent\\Items\\Accesories\\CrossNecklace\\HeartcrossNecklace.cs",
@@ -1691,7 +1700,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 92,
+              "DocumentIndex": 93,
               "Title": "NiceRod.cs",
               "DocumentMoniker": "C:\\Users\\Juan Bouvier\\Documents\\My Games\\Terraria\\tModLoader\\ModSources\\TRAEProject\\Changes\\NiceRod.cs",
               "RelativeDocumentMoniker": "Changes\\NiceRod.cs",
@@ -1703,7 +1712,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 93,
+              "DocumentIndex": 94,
               "Title": "MountChanges.cs",
               "DocumentMoniker": "C:\\Users\\Juan Bouvier\\Documents\\My Games\\Terraria\\tModLoader\\ModSources\\TRAEProject\\Changes\\MountChanges.cs",
               "RelativeDocumentMoniker": "Changes\\MountChanges.cs",
@@ -1715,7 +1724,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 94,
+              "DocumentIndex": 95,
               "Title": "FIshingCatch.cs",
               "DocumentMoniker": "C:\\Users\\Juan Bouvier\\Documents\\My Games\\Terraria\\tModLoader\\ModSources\\TRAEProject\\Changes\\FIshingCatch.cs",
               "RelativeDocumentMoniker": "Changes\\FIshingCatch.cs",
@@ -1727,7 +1736,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 97,
+              "DocumentIndex": 98,
               "Title": "FreezingProjectile.cs",
               "DocumentMoniker": "C:\\Users\\Juan Bouvier\\Documents\\My Games\\Terraria\\tModLoader\\ModSources\\TRAEProject\\Changes\\Weapon\\FreezingProjectile.cs",
               "RelativeDocumentMoniker": "Changes\\Weapon\\FreezingProjectile.cs",
@@ -1739,7 +1748,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 88,
+              "DocumentIndex": 89,
               "Title": "LifeCuffs.cs",
               "DocumentMoniker": "C:\\Users\\Juan Bouvier\\Documents\\My Games\\Terraria\\tModLoader\\ModSources\\TRAEProject\\NewContent\\Items\\Accesories\\LifeCuffs\\LifeCuffs.cs",
               "RelativeDocumentMoniker": "NewContent\\Items\\Accesories\\LifeCuffs\\LifeCuffs.cs",
@@ -1751,7 +1760,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 98,
+              "DocumentIndex": 99,
               "Title": "Whips.cs",
               "DocumentMoniker": "C:\\Users\\Juan Bouvier\\Documents\\My Games\\Terraria\\tModLoader\\ModSources\\TRAEProject\\Changes\\Weapon\\Summon\\Whips.cs",
               "RelativeDocumentMoniker": "Changes\\Weapon\\Summon\\Whips.cs",
@@ -1763,7 +1772,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 99,
+              "DocumentIndex": 100,
               "Title": "Tempest.cs",
               "DocumentMoniker": "C:\\Users\\Juan Bouvier\\Documents\\My Games\\Terraria\\tModLoader\\ModSources\\TRAEProject\\Changes\\Weapon\\Summon\\Minions\\Tempest.cs",
               "RelativeDocumentMoniker": "Changes\\Weapon\\Summon\\Minions\\Tempest.cs",
@@ -1775,7 +1784,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 100,
+              "DocumentIndex": 101,
               "Title": "MinionChanges.cs",
               "DocumentMoniker": "C:\\Users\\Juan Bouvier\\Documents\\My Games\\Terraria\\tModLoader\\ModSources\\TRAEProject\\Changes\\Weapon\\Summon\\Minions\\MinionChanges.cs",
               "RelativeDocumentMoniker": "Changes\\Weapon\\Summon\\Minions\\MinionChanges.cs",
@@ -1787,7 +1796,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 101,
+              "DocumentIndex": 102,
               "Title": "Repeaters.cs",
               "DocumentMoniker": "C:\\Users\\Juan Bouvier\\Documents\\My Games\\Terraria\\tModLoader\\ModSources\\TRAEProject\\Changes\\Weapon\\Ranged\\Repeaters.cs",
               "RelativeDocumentMoniker": "Changes\\Weapon\\Ranged\\Repeaters.cs",
@@ -1799,7 +1808,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 96,
+              "DocumentIndex": 97,
               "Title": "ClasslessProjectileChanges.cs",
               "DocumentMoniker": "C:\\Users\\Juan Bouvier\\Documents\\My Games\\Terraria\\tModLoader\\ModSources\\TRAEProject\\Changes\\Weapon\\ClasslessProjectileChanges.cs",
               "RelativeDocumentMoniker": "Changes\\Weapon\\ClasslessProjectileChanges.cs",
@@ -1811,7 +1820,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 95,
+              "DocumentIndex": 96,
               "Title": "ChestLoot.cs",
               "DocumentMoniker": "C:\\Users\\Juan Bouvier\\Documents\\My Games\\Terraria\\tModLoader\\ModSources\\TRAEProject\\Changes\\ChestLoot.cs",
               "RelativeDocumentMoniker": "Changes\\ChestLoot.cs",
@@ -1823,7 +1832,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 102,
+              "DocumentIndex": 103,
               "Title": "Flamethrowers.cs",
               "DocumentMoniker": "C:\\Users\\Juan Bouvier\\Documents\\My Games\\Terraria\\tModLoader\\ModSources\\TRAEProject\\Changes\\Weapon\\Ranged\\Flamethrowers.cs",
               "RelativeDocumentMoniker": "Changes\\Weapon\\Ranged\\Flamethrowers.cs",
@@ -1835,7 +1844,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 103,
+              "DocumentIndex": 104,
               "Title": "PhaseSwords.cs",
               "DocumentMoniker": "C:\\Users\\Juan Bouvier\\Documents\\My Games\\Terraria\\tModLoader\\ModSources\\TRAEProject\\Changes\\Weapon\\Melee\\PhaseSwords.cs",
               "RelativeDocumentMoniker": "Changes\\Weapon\\Melee\\PhaseSwords.cs",
@@ -1907,18 +1916,6 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 104,
-              "Title": "MeleeProjectiles.cs",
-              "DocumentMoniker": "C:\\Users\\Juan Bouvier\\Documents\\My Games\\Terraria\\tModLoader\\ModSources\\TRAEProject\\Changes\\Weapon\\Melee\\MeleeProjectiles.cs",
-              "RelativeDocumentMoniker": "Changes\\Weapon\\Melee\\MeleeProjectiles.cs",
-              "ToolTip": "C:\\Users\\Juan Bouvier\\Documents\\My Games\\Terraria\\tModLoader\\ModSources\\TRAEProject\\Changes\\Weapon\\Melee\\MeleeProjectiles.cs",
-              "RelativeToolTip": "Changes\\Weapon\\Melee\\MeleeProjectiles.cs",
-              "ViewState": "AQIAAAkAAAAAAAAAAAAUwF0AAAA0AAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-08-17T13:09:19.454Z"
-            },
-            {
-              "$type": "Document",
               "DocumentIndex": 112,
               "Title": "AccessoryPrefixChange.cs",
               "DocumentMoniker": "C:\\Users\\Juan Bouvier\\Documents\\My Games\\Terraria\\tModLoader\\ModSources\\TRAEProject\\Changes\\Prefixes\\AccessoryPrefixChange.cs",
@@ -1979,18 +1976,6 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 117,
-              "Title": "TRAEDeerclops.cs",
-              "DocumentMoniker": "C:\\Users\\Juan Bouvier\\Documents\\My Games\\Terraria\\tModLoader\\ModSources\\TRAEProject\\Changes\\NPCs\\Boss\\TRAEDeerclops.cs",
-              "RelativeDocumentMoniker": "Changes\\NPCs\\Boss\\TRAEDeerclops.cs",
-              "ToolTip": "C:\\Users\\Juan Bouvier\\Documents\\My Games\\Terraria\\tModLoader\\ModSources\\TRAEProject\\Changes\\NPCs\\Boss\\TRAEDeerclops.cs",
-              "RelativeToolTip": "Changes\\NPCs\\Boss\\TRAEDeerclops.cs",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAAFcBAAAGAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-08-17T13:38:57.394Z"
-            },
-            {
-              "$type": "Document",
               "DocumentIndex": 111,
               "Title": "GiveWeaponsPrefixes.cs",
               "DocumentMoniker": "C:\\Users\\Juan Bouvier\\Documents\\My Games\\Terraria\\tModLoader\\ModSources\\TRAEProject\\Changes\\Prefixes\\GiveWeaponsPrefixes.cs",
@@ -2003,7 +1988,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 118,
+              "DocumentIndex": 117,
               "Title": "RetPhase3.cs",
               "DocumentMoniker": "C:\\Users\\Juan Bouvier\\Documents\\My Games\\Terraria\\tModLoader\\ModSources\\TRAEProject\\Changes\\NPCs\\Boss\\RetPhase3.cs",
               "RelativeDocumentMoniker": "Changes\\NPCs\\Boss\\RetPhase3.cs",
@@ -2015,7 +2000,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 119,
+              "DocumentIndex": 118,
               "Title": "PrimeLauncher.cs",
               "DocumentMoniker": "C:\\Users\\Juan Bouvier\\Documents\\My Games\\Terraria\\tModLoader\\ModSources\\TRAEProject\\Changes\\NPCs\\Boss\\Prime\\PrimeLauncher.cs",
               "RelativeDocumentMoniker": "Changes\\NPCs\\Boss\\Prime\\PrimeLauncher.cs",
@@ -2039,7 +2024,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 120,
+              "DocumentIndex": 119,
               "Title": "PlanteraTentacle.cs",
               "DocumentMoniker": "C:\\Users\\Juan Bouvier\\Documents\\My Games\\Terraria\\tModLoader\\ModSources\\TRAEProject\\Changes\\NPCs\\Boss\\Plantera\\PlanteraTentacle.cs",
               "RelativeDocumentMoniker": "Changes\\NPCs\\Boss\\Plantera\\PlanteraTentacle.cs",
@@ -2051,7 +2036,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 121,
+              "DocumentIndex": 120,
               "Title": "Seeds.cs",
               "DocumentMoniker": "C:\\Users\\Juan Bouvier\\Documents\\My Games\\Terraria\\tModLoader\\ModSources\\TRAEProject\\Changes\\NPCs\\Boss\\Plantera\\Seeds.cs",
               "RelativeDocumentMoniker": "Changes\\NPCs\\Boss\\Plantera\\Seeds.cs",
@@ -2063,7 +2048,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 122,
+              "DocumentIndex": 121,
               "Title": "VineRing.cs",
               "DocumentMoniker": "C:\\Users\\Juan Bouvier\\Documents\\My Games\\Terraria\\tModLoader\\ModSources\\TRAEProject\\Changes\\NPCs\\Boss\\Plantera\\VineRing.cs",
               "RelativeDocumentMoniker": "Changes\\NPCs\\Boss\\Plantera\\VineRing.cs",
@@ -2075,7 +2060,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 123,
+              "DocumentIndex": 122,
               "Title": "PlanteraSpikeBall.cs",
               "DocumentMoniker": "C:\\Users\\Juan Bouvier\\Documents\\My Games\\Terraria\\tModLoader\\ModSources\\TRAEProject\\Changes\\NPCs\\Boss\\Plantera\\PlanteraSpikeBall.cs",
               "RelativeDocumentMoniker": "Changes\\NPCs\\Boss\\Plantera\\PlanteraSpikeBall.cs",
@@ -2087,7 +2072,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 124,
+              "DocumentIndex": 123,
               "Title": "PlanteraHook2.cs",
               "DocumentMoniker": "C:\\Users\\Juan Bouvier\\Documents\\My Games\\Terraria\\tModLoader\\ModSources\\TRAEProject\\Changes\\NPCs\\Boss\\Plantera\\PlanteraHook2.cs",
               "RelativeDocumentMoniker": "Changes\\NPCs\\Boss\\Plantera\\PlanteraHook2.cs",
@@ -2099,7 +2084,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 125,
+              "DocumentIndex": 124,
               "Title": "HostileCloud.cs",
               "DocumentMoniker": "C:\\Users\\Juan Bouvier\\Documents\\My Games\\Terraria\\tModLoader\\ModSources\\TRAEProject\\Changes\\NPCs\\Boss\\Plantera\\HostileCloud.cs",
               "RelativeDocumentMoniker": "Changes\\NPCs\\Boss\\Plantera\\HostileCloud.cs",
@@ -2111,7 +2096,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 126,
+              "DocumentIndex": 125,
               "Title": "TrifoldMap.cs",
               "DocumentMoniker": "C:\\Users\\Juan Bouvier\\Documents\\My Games\\Terraria\\tModLoader\\ModSources\\TRAEProject\\Changes\\Items\\TrifoldMap.cs",
               "RelativeDocumentMoniker": "Changes\\Items\\TrifoldMap.cs",
@@ -2123,7 +2108,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 127,
+              "DocumentIndex": 126,
               "Title": "ThePlan.cs",
               "DocumentMoniker": "C:\\Users\\Juan Bouvier\\Documents\\My Games\\Terraria\\tModLoader\\ModSources\\TRAEProject\\Changes\\Items\\ThePlan.cs",
               "RelativeDocumentMoniker": "Changes\\Items\\ThePlan.cs",
@@ -2135,7 +2120,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 128,
+              "DocumentIndex": 127,
               "Title": "Pets.cs",
               "DocumentMoniker": "C:\\Users\\Juan Bouvier\\Documents\\My Games\\Terraria\\tModLoader\\ModSources\\TRAEProject\\Changes\\Items\\Pets.cs",
               "RelativeDocumentMoniker": "Changes\\Items\\Pets.cs",
@@ -2147,7 +2132,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 130,
+              "DocumentIndex": 129,
               "Title": "ArmorPolish.cs",
               "DocumentMoniker": "C:\\Users\\Juan Bouvier\\Documents\\My Games\\Terraria\\tModLoader\\ModSources\\TRAEProject\\Changes\\Items\\ArmorPolish.cs",
               "RelativeDocumentMoniker": "Changes\\Items\\ArmorPolish.cs",
@@ -2159,7 +2144,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 133,
+              "DocumentIndex": 132,
               "Title": "SoTC.cs",
               "DocumentMoniker": "C:\\Users\\Juan Bouvier\\Documents\\My Games\\Terraria\\tModLoader\\ModSources\\TRAEProject\\Changes\\Weapon\\Melee\\SpearProjectiles\\SoTC.cs",
               "RelativeDocumentMoniker": "Changes\\Weapon\\Melee\\SpearProjectiles\\SoTC.cs",
@@ -2171,7 +2156,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 134,
+              "DocumentIndex": 133,
               "Title": "CryoCannon.cs",
               "DocumentMoniker": "C:\\Users\\lenovo\\AppData\\Local\\SourceServer\\b2facb07ee9db00399736cf67bac0f62a46f8ea09e074489c0c84a99c083015c\\NewContent\\Items\\Weapons\\Ranged\\Launchers\\CryoCannon\\CryoCannon.cs",
               "RelativeDocumentMoniker": "..\\..\\..\\..\\..\\..\\..\\lenovo\\AppData\\Local\\SourceServer\\b2facb07ee9db00399736cf67bac0f62a46f8ea09e074489c0c84a99c083015c\\NewContent\\Items\\Weapons\\Ranged\\Launchers\\CryoCannon\\CryoCannon.cs",
@@ -2183,7 +2168,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 132,
+              "DocumentIndex": 131,
               "Title": "ArmorChanges.cs",
               "DocumentMoniker": "C:\\Users\\Juan Bouvier\\Documents\\My Games\\Terraria\\tModLoader\\ModSources\\TRAEProject\\Changes\\Armor\\ArmorChanges.cs",
               "RelativeDocumentMoniker": "Changes\\Armor\\ArmorChanges.cs",
@@ -2195,7 +2180,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 129,
+              "DocumentIndex": 128,
               "Title": "Drills.cs",
               "DocumentMoniker": "C:\\Users\\Juan Bouvier\\Documents\\My Games\\Terraria\\tModLoader\\ModSources\\TRAEProject\\Changes\\Items\\Drills.cs",
               "RelativeDocumentMoniker": "Changes\\Items\\Drills.cs",
@@ -2207,7 +2192,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 131,
+              "DocumentIndex": 130,
               "Title": "SetBonuses.cs",
               "DocumentMoniker": "C:\\Users\\Juan Bouvier\\Documents\\My Games\\Terraria\\tModLoader\\ModSources\\TRAEProject\\Changes\\Armor\\SetBonuses.cs",
               "RelativeDocumentMoniker": "Changes\\Armor\\SetBonuses.cs",
@@ -2219,7 +2204,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 135,
+              "DocumentIndex": 134,
               "Title": "RangedStats.cs",
               "DocumentMoniker": "C:\\Users\\Juan Bouvier\\Documents\\My Games\\Terraria\\tModLoader\\ModSources\\TRAEProject\\Common\\ModPlayers\\RangedStats.cs",
               "RelativeDocumentMoniker": "Common\\ModPlayers\\RangedStats.cs",
@@ -2231,7 +2216,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 136,
+              "DocumentIndex": 135,
               "Title": "Destroyer.cs",
               "DocumentMoniker": "C:\\Users\\lenovo\\AppData\\Local\\SourceServer\\77a5879ac9ac8bd80c36c62c01e87d2f4a75e86e83e3d7c5769e331546992a4c\\Changes\\NPCs\\Boss\\Destroyer.cs",
               "RelativeDocumentMoniker": "..\\..\\..\\..\\..\\..\\..\\lenovo\\AppData\\Local\\SourceServer\\77a5879ac9ac8bd80c36c62c01e87d2f4a75e86e83e3d7c5769e331546992a4c\\Changes\\NPCs\\Boss\\Destroyer.cs",
@@ -2243,7 +2228,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 137,
+              "DocumentIndex": 136,
               "Title": "Shroomite.cs",
               "DocumentMoniker": "C:\\Users\\lenovo\\AppData\\Local\\SourceServer\\72819473bae13c2dd866cac45a73a484397a21a411ef1686f7d59bed8022c525\\Changes\\Armor\\Shroomite.cs",
               "RelativeDocumentMoniker": "..\\..\\..\\..\\..\\..\\..\\lenovo\\AppData\\Local\\SourceServer\\72819473bae13c2dd866cac45a73a484397a21a411ef1686f7d59bed8022c525\\Changes\\Armor\\Shroomite.cs",
@@ -2255,7 +2240,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 138,
+              "DocumentIndex": 137,
               "Title": "SpearItems.cs",
               "DocumentMoniker": "C:\\Users\\lenovo\\AppData\\Local\\SourceServer\\f869b8fd627407fd838405be6ac187057753ce9caa564f81810f57be46b2f9fc\\Changes\\Weapon\\Melee\\SpearItems.cs",
               "RelativeDocumentMoniker": "..\\..\\..\\..\\..\\..\\..\\lenovo\\AppData\\Local\\SourceServer\\f869b8fd627407fd838405be6ac187057753ce9caa564f81810f57be46b2f9fc\\Changes\\Weapon\\Melee\\SpearItems.cs",
@@ -2267,7 +2252,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 139,
+              "DocumentIndex": 138,
               "Title": "AZ.cs",
               "DocumentMoniker": "C:\\Users\\Juan Bouvier\\Documents\\My Games\\Terraria\\tModLoader\\ModSources\\TRAEProject\\NewContent\\Buffs\\AZ.cs",
               "RelativeDocumentMoniker": "NewContent\\Buffs\\AZ.cs",
@@ -2279,7 +2264,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 140,
+              "DocumentIndex": 139,
               "Title": "TRAEMethods.cs",
               "DocumentMoniker": "C:\\Users\\Juan Bouvier\\Documents\\My Games\\Terraria\\tModLoader\\ModSources\\TRAEProject\\TRAEMethods.cs",
               "RelativeDocumentMoniker": "TRAEMethods.cs",
@@ -2291,7 +2276,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 141,
+              "DocumentIndex": 140,
               "Title": "Gungnir.cs",
               "DocumentMoniker": "C:\\Users\\Juan Bouvier\\Documents\\My Games\\Terraria\\tModLoader\\ModSources\\TRAEProject\\Changes\\Weapon\\Melee\\SpearProjectiles\\Gungnir.cs",
               "RelativeDocumentMoniker": "Changes\\Weapon\\Melee\\SpearProjectiles\\Gungnir.cs",
@@ -2303,7 +2288,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 142,
+              "DocumentIndex": 141,
               "Title": "Freeze.cs",
               "DocumentMoniker": "C:\\Users\\Juan Bouvier\\Documents\\My Games\\Terraria\\tModLoader\\ModSources\\TRAEProject\\Common\\Freeze.cs",
               "RelativeDocumentMoniker": "Common\\Freeze.cs",
@@ -2315,7 +2300,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 143,
+              "DocumentIndex": 142,
               "Title": "Daybreak.cs",
               "DocumentMoniker": "C:\\Users\\Juan Bouvier\\Documents\\My Games\\Terraria\\tModLoader\\ModSources\\TRAEProject\\Changes\\Weapon\\Melee\\SpearProjectiles\\Daybreak.cs",
               "RelativeDocumentMoniker": "Changes\\Weapon\\Melee\\SpearProjectiles\\Daybreak.cs",
@@ -2327,7 +2312,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 144,
+              "DocumentIndex": 143,
               "Title": "ChloroPartisan.cs",
               "DocumentMoniker": "C:\\Users\\Juan Bouvier\\Documents\\My Games\\Terraria\\tModLoader\\ModSources\\TRAEProject\\Changes\\Weapon\\Melee\\SpearProjectiles\\ChloroPartisan.cs",
               "RelativeDocumentMoniker": "Changes\\Weapon\\Melee\\SpearProjectiles\\ChloroPartisan.cs",

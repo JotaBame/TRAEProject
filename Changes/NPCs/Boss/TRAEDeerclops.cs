@@ -327,7 +327,7 @@ namespace TRAEProject.NPCs.Boss
 								{
 									Player player = Main.player[Main.myPlayer];
 									_ = Main.myPlayer;
-									int debuff = 32;
+									int debuff = BuffID.Slow;
 									int timeToAdd = 720;
 									if (!player.dead && player.active && player.FindBuffIndex(debuff) == -1 && (player.Center - npc.Center).Length() < 800f && !player.creativeGodMode)
 									{

@@ -60,6 +60,10 @@ namespace TRAEProject.Changes.NPCs
                     });
                     npcLoot.Remove(ItemDropRule.Common(ItemID.ApprenticeScarf));
                     break;
+                case NPCID.SporeSkeleton:
+                    npcLoot.Add(ItemDropRule.Common(ItemID.Shroomerang, 40));
+                    break;
+
                 case NPCID.DD2OgreT2:
                 case NPCID.DD2OgreT3:
                     npcLoot.Add(ItemDropRule.OneFromOptions(6, ItemID.MonkBelt, ItemID.HuntressBuckler, ItemID.SquireShield, ItemID.ApprenticeScarf));
@@ -77,9 +81,6 @@ namespace TRAEProject.Changes.NPCs
                         return drop.itemId == ItemID.HuntressBuckler; // compare more fields if needed
                     });
                     npcLoot.Remove(ItemDropRule.Common(ItemID.HuntressBuckler));
-                    break;
-                case NPCID.SporeSkeleton:
-                    npcLoot.Add(ItemDropRule.Common(ItemID.Shroomerang, 40));
                     break;
                 case NPCID.RedDevil:
                     npcLoot.Add(ItemDropRule.Common(ItemID.GuideVoodooDoll, 80));

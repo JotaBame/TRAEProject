@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("TRAEProject")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+095a7b4a213639de2af11d0074bdae9ff3e836dd")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+ed0164a6f7d4bd4730b0ba4546e6c27dd7723ce6")]
 [assembly: System.Reflection.AssemblyProductAttribute("TRAEProject")]
 [assembly: System.Reflection.AssemblyTitleAttribute("TRAEProject")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

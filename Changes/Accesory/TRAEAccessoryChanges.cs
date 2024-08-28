@@ -422,9 +422,9 @@ namespace TRAEProject.Changes.Accesory
                 case ItemID.PutridScent:
                     foreach (TooltipLine line in tooltips)
                     {
-                        if (line.Mod == "Terraria" && line.Name == "Tooltip0")
+                        if (line.Mod == "Terraria" && line.Name == "Tooltip1")
                         {
-                            line.Text = "4% increased magic damage and critical strike chance";
+                            line.Text = "4% increased damage and critical strike chance";
                         }
                     }
                     break;
