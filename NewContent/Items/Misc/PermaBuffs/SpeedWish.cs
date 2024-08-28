@@ -6,7 +6,7 @@ using Terraria.ModLoader;
 
 namespace TRAEProject.NewContent.Items.Misc.PermaBuffs
 {
-    class SpeedWish : ModItem
+    public class SpeedWish : ModItem
     {
         public override void SetStaticDefaults() 
         {

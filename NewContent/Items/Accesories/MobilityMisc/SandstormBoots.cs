@@ -6,7 +6,7 @@ using Terraria.ModLoader;
 namespace TRAEProject.NewContent.Items.Accesories.MobilityMisc
 {
 	[AutoloadEquip(EquipType.Shoes)]
-    class SandstormBoots : ModItem
+  public  class SandstormBoots : ModItem
     {
         public override void SetStaticDefaults()
         {

@@ -5,7 +5,7 @@ using Terraria.ModLoader;
 
 namespace TRAEProject.NewContent.Items.Accesories
 {    [AutoloadEquip(EquipType.Neck)]
-    class ShamanNecklace : ModItem
+   public class ShamanNecklace : ModItem
     {
         public override void SetStaticDefaults()
         {

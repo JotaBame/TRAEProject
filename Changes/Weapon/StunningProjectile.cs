@@ -28,35 +28,32 @@ namespace TRAEProject.Changes.Weapon
                 }
                 if (player.GetModPlayer<RangedStats>().AlphaScope > 0  
                     && projectile.CountsAsClass(DamageClass.Ranged) 
-                    && hit.Crit
+                    && projectile.GetGlobalProjectile<ProjectileStats>().FirstHit 
                     && damageDone >= 20)
                 {
-                    int chance = 1000 / (damageDone * player.GetModPlayer<RangedStats>().AlphaScope);
-                    if (Main.rand.NextBool(chance))
-                    {
+               
                         int duration = 60; 
                         if (projectile.GetGlobalProjectile<NewRockets>().HeavyRocket)
                         {
                             duration += 30;
                         }
                         target.GetGlobalNPC<Stun>().StunMe(target, duration);
-                    }
+                   
                 }
-                if (player.GetModPlayer<RangedStats>().RocketsStun > 0 
+                if (player.GetModPlayer<RangedStats>().CyberEye > 0 
                     && projectile.GetGlobalProjectile<NewRockets>().IsARocket
-                    && hit.Crit
+                    && projectile.GetGlobalProjectile<ProjectileStats>().FirstHit
                     && damageDone >= 20)
                 {
-                    int chance = 100 / (damageDone / 10 * (player.GetModPlayer<RangedStats>().AlphaScope + player.GetModPlayer<RangedStats>().RocketsStun));
-                    if (Main.rand.NextBool(chance))
-                    {
+                    int chance = 100 / (damageDone / 10 * (player.GetModPlayer<RangedStats>().AlphaScope + player.GetModPlayer<RangedStats>().CyberEye));
+                   
                         int duration = 60;
                         if (projectile.GetGlobalProjectile<NewRockets>().HeavyRocket)
                         {
                             duration += 30;
                         }
                         target.GetGlobalNPC<Stun>().StunMe(target, duration);
-                    }
+                    
                    
                 }
                 if (projectile.type == ProjectileType<MagicGrenadeP>() && projectile.ai[0] >= 75f)

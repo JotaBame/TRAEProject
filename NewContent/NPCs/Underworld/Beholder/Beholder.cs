@@ -677,12 +677,8 @@ namespace TRAEProject.NewContent.NPCs.Underworld.Beholder
         }
         public override bool PreDraw(ref Color lightColor)
         {
-            Texture2D blackBall = ModContent.Request<Texture2D>("TRAEProject/Assets/SpecialTextures/GlowBallTransparent").Value;
-            Main.spriteBatch.End();
-            Main.spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.NonPremultiplied, Main.DefaultSamplerState, DepthStencilState.None, Main.Rasterizer, null, Main.Transform);
-            Main.EntitySpriteDraw(blackBall, Projectile.Center - Main.screenPosition + new Vector2(0, Projectile.gfxOffY), null, Color.Black * 0.6f, Projectile.rotation, blackBall.Size() / 2, Projectile.scale * 0.07f, Projectile.spriteDirection == -1 ? SpriteEffects.None : SpriteEffects.FlipHorizontally);
-            Main.spriteBatch.End();
-            Main.spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, Main.DefaultSamplerState, DepthStencilState.None, Main.Rasterizer, null, Main.Transform);
+            Texture2D blackBall = ModContent.Request<Texture2D>("TRAEProject/Assets/SpecialTextures/GlowBallSmallPremultiplied").Value;
+            Main.EntitySpriteDraw(blackBall, Projectile.Center - Main.screenPosition + new Vector2(0, Projectile.gfxOffY), null, Color.Black * 0.6f, Projectile.rotation, blackBall.Size() / 2, Projectile.scale * 1.07f, Projectile.spriteDirection == -1 ? SpriteEffects.None : SpriteEffects.FlipHorizontally);
             return base.PreDraw(ref lightColor);
         }
         public override void AI()
@@ -784,12 +780,9 @@ namespace TRAEProject.NewContent.NPCs.Underworld.Beholder
         }
         public override bool PreDraw(ref Color lightColor)
         {
-            Texture2D blackBall = ModContent.Request<Texture2D>("TRAEProject/Assets/SpecialTextures/GlowBallTransparent").Value;
-            Main.spriteBatch.End();
-            Main.spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.NonPremultiplied, Main.DefaultSamplerState, DepthStencilState.None, Main.Rasterizer, null, Main.Transform);
-            Main.EntitySpriteDraw(blackBall, Projectile.Center - Main.screenPosition + new Vector2(0, Projectile.gfxOffY), null, Color.Black * 0.6f, Projectile.rotation, blackBall.Size() / 2, Projectile.scale * 0.07f, Projectile.spriteDirection == -1 ? SpriteEffects.None : SpriteEffects.FlipHorizontally);
-            Main.spriteBatch.End();
-            Main.spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, Main.DefaultSamplerState, DepthStencilState.None, Main.Rasterizer, null, Main.Transform);
+            Texture2D blackBall = ModContent.Request<Texture2D>("TRAEProject/Assets/SpecialTextures/GlowBallSmallPremultiplied").Value;
+           
+            Main.EntitySpriteDraw(blackBall, Projectile.Center - Main.screenPosition + new Vector2(0, Projectile.gfxOffY), null, Color.Black * 0.6f, Projectile.rotation, blackBall.Size() / 2, Projectile.scale * 1.07f, Projectile.spriteDirection == -1 ? SpriteEffects.None : SpriteEffects.FlipHorizontally);
             return base.PreDraw(ref lightColor);
         }
         public override void OnKill(int timeLeft)
@@ -819,12 +812,8 @@ namespace TRAEProject.NewContent.NPCs.Underworld.Beholder
         }
         public override bool PreDraw(ref Color lightColor)
         {
-            Texture2D blackBall = ModContent.Request<Texture2D>("TRAEProject/Assets/SpecialTextures/GlowBallTransparent").Value;
-            Main.spriteBatch.End();
-            Main.spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.NonPremultiplied, Main.DefaultSamplerState, DepthStencilState.None, Main.Rasterizer, null, Main.Transform);
-            Main.EntitySpriteDraw(blackBall, Projectile.Center - Main.screenPosition + new Vector2(0, Projectile.gfxOffY), null, Color.Black * 0.6f, Projectile.rotation, blackBall.Size() / 2, Projectile.scale * 0.07f, Projectile.spriteDirection == -1 ? SpriteEffects.None : SpriteEffects.FlipHorizontally);
-            Main.spriteBatch.End();
-            Main.spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, Main.DefaultSamplerState, DepthStencilState.None, Main.Rasterizer, null, Main.Transform);
+            Texture2D blackBall = ModContent.Request<Texture2D>("TRAEProject/Assets/SpecialTextures/GlowBallSmallPremultiplied").Value;
+            Main.EntitySpriteDraw(blackBall, Projectile.Center - Main.screenPosition + new Vector2(0, Projectile.gfxOffY), null, Color.Black * 0.6f, Projectile.rotation, blackBall.Size() / 2, Projectile.scale * 1.07f, Projectile.spriteDirection == -1 ? SpriteEffects.None : SpriteEffects.FlipHorizontally);
             return base.PreDraw(ref lightColor);
         }
         public override void AI()
@@ -876,12 +865,8 @@ namespace TRAEProject.NewContent.NPCs.Underworld.Beholder
         }
         public override bool PreDraw(ref Color lightColor)
         {
-            Texture2D blackBall = ModContent.Request<Texture2D>("TRAEProject/Assets/SpecialTextures/GlowBallTransparent").Value;
-            Main.spriteBatch.End();
-            Main.spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.NonPremultiplied, Main.DefaultSamplerState, DepthStencilState.None, Main.Rasterizer, null, Main.Transform);
-            Main.EntitySpriteDraw(blackBall, Projectile.Center - Main.screenPosition + new Vector2(0, Projectile.gfxOffY), null, Color.Black * 0.6f, Projectile.rotation, blackBall.Size() / 2, Projectile.scale * 0.07f, Projectile.spriteDirection == -1 ? SpriteEffects.None : SpriteEffects.FlipHorizontally);
-            Main.spriteBatch.End();
-            Main.spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, Main.DefaultSamplerState, DepthStencilState.None, Main.Rasterizer, null, Main.Transform);
+            Texture2D blackBall = ModContent.Request<Texture2D>("TRAEProject/Assets/SpecialTextures/GlowBallSmallPremultiplied").Value;
+            Main.EntitySpriteDraw(blackBall, Projectile.Center - Main.screenPosition + new Vector2(0, Projectile.gfxOffY), null, Color.Black * 0.6f, Projectile.rotation, blackBall.Size() / 2, Projectile.scale * 1.07f, Projectile.spriteDirection == -1 ? SpriteEffects.None : SpriteEffects.FlipHorizontally);
             return base.PreDraw(ref lightColor);
         }
         float speed = 10f;

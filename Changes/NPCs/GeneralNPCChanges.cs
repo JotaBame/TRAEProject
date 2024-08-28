@@ -502,13 +502,7 @@ namespace TRAEProject.Changes.NPCs
         }
         public override void OnKill(NPC npc)
         {
-            //if (npc.type == NPCID.WallofFlesh)
-            //{
-            //    NPC.downedMechBoss1 = true;
-            //    NPC.downedMechBoss2 = true;
-            //    NPC.downedMechBoss3 = true;
-            //    NPC.downedMechBossAny = true;
-            //}
+  
             if (npc.type == NPCID.Plantera)
             {
                 TRAEWorld.downedOvergrowth = true;

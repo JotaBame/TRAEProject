@@ -14,9 +14,10 @@ namespace TRAEProject.NewContent.Items.Armor.Joter
         public override void SetStaticDefaults()
         {
             // DisplayName.SetDefault("Joter Mask");
-           
+
             // Tooltip.SetDefault("Great for impersonating abominations impersonating developers!");
             CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
+            ItemID.Sets.ShimmerTransformToItem[Item.type] = ItemType<FinalBoss>();
         }
         public override void SetDefaults()
         {

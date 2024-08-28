@@ -13,7 +13,7 @@ using static Terraria.ModLoader.ModContent;
 
 namespace TRAEProject.NewContent.Items.Weapons.Magic.SharpLament
 {
-    class SharpLament : ModItem
+    public class SharpLament : ModItem
     {
         public override void SetStaticDefaults()
         {
@@ -40,7 +40,7 @@ namespace TRAEProject.NewContent.Items.Weapons.Magic.SharpLament
             velocity = velocity.RotatedByRandom(MathHelper.ToRadians(8));
         }
     }
-    class FlamingWood : ModProjectile
+    public class FlamingWood : ModProjectile
     {
         public override void SetDefaults()
         {

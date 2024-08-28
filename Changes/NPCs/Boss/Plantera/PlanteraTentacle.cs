@@ -13,7 +13,7 @@ using static Terraria.ModLoader.ModContent;
 
 namespace TRAEProject.Changes.NPCs.Boss.Plantera
 {
-    class PlanteraTentacle : GlobalNPC
+    public class PlanteraTentacle : GlobalNPC
     {
         public override bool InstancePerEntity => true;
         public Vector2? anchor = null;

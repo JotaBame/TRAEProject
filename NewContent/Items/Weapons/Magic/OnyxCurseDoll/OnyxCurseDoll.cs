@@ -12,7 +12,7 @@ using TRAEProject.Changes.Items;
 
 namespace TRAEProject.NewContent.Items.Weapons.Magic.OnyxCurseDoll
 {
-    class OnyxCurseDoll : ModItem
+    public class OnyxCurseDoll : ModItem
     {
         public const int DrainManaOnHit = 3;
         public const int DrainManaPassively = 50;

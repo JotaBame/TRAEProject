@@ -117,10 +117,7 @@ namespace TRAEProject.NewContent.Items.Accesories
                 }
                 Player.AddBuff(debuffToApply, duration); 
                 float distance = 300f;
-				if (NazarMirror)
-				{
-					distance = 3000f;
-				}
+ 
                 for (int i = 0; i < 50; i++)
                 {
                     Vector2 speed = Main.rand.NextVector2CircularEdge(distance / 41.67f, distance / 41.67f);

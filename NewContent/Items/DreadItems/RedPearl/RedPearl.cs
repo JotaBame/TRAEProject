@@ -9,7 +9,7 @@ using Terraria.ModLoader;
 
 namespace TRAEProject.NewContent.Items.DreadItems.RedPearl
 {
-    class RedPearl : ModItem
+    public class RedPearl : ModItem
     {
         public override void SetStaticDefaults()
         {

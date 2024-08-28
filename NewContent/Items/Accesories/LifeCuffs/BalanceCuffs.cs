@@ -8,7 +8,7 @@ using TRAEProject.Changes.Accesory;
 namespace TRAEProject.NewContent.Items.Accesories.LifeCuffs
 {    
 [AutoloadEquip(EquipType.HandsOn, EquipType.HandsOff)]
-    class BalanceCuffs : ModItem
+   public class BalanceCuffs : ModItem
     {
         public override void SetStaticDefaults()
         {

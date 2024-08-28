@@ -22,13 +22,17 @@ namespace TRAEProject.Changes.Weapon.Melee.SpearProjectiles
         }
         public override void SpearHitNPCMelee(NPC target, NPC.HitInfo hit)
         {
-            StormSpearShot.MakeBolt(Projectile, target);
+             if (pierceLimit >= 3)
+            {
+                StormSpearShot.MakeBolt(Projectile, target, Projectile.damage);
+            }
         }
     }
     class StormSpearThrow : SpearThrow
     {
         public override void SpearDefaults()
         {
+            Projectile.penetrate = 2;
             spearLength = 99f;
             holdAt = 46f;
             floatTime = 60; DustOnDeath = DustID.Electric;
@@ -38,25 +42,23 @@ namespace TRAEProject.Changes.Weapon.Melee.SpearProjectiles
         {
             if(atMaxCharge)
             {
-                StormSpearShot.MakeBolt(Projectile, target);
+            StormSpearShot.MakeBolt(Projectile, target, damageDone);
             }
         }
     }
     class StormSpearShot : GlobalProjectile
     {
         public override void SetDefaults(Projectile projectile)
-        {
-            if(projectile.type == ProjectileID.ThunderSpearShot)
-            {
-                projectile.usesLocalNPCImmunity = true;
-             }
+        {          
+            projectile.usesLocalNPCImmunity = true;
+            projectile.localNPCHitCooldown = -1;
         }
-        public static void MakeBolt(Projectile projectile, NPC target)
+        public static void MakeBolt(Projectile projectile, NPC target, int damage)
         {
             NPC npc = null;
             if (TRAEMethods.ClosestNPC(ref npc, 400, projectile.Center, false, -1, delegate(NPC possibleTarget) { return possibleTarget != target; }))
             {
-                Projectile p = Main.projectile[Projectile.NewProjectile(projectile.GetSource_FromThis(), projectile.Center, TRAEMethods.PolarVector(12, (npc.Center - projectile.Center).ToRotation()), ProjectileID.ThunderSpearShot, projectile.damage, 0, projectile.owner)];
+                Projectile p = Main.projectile[Projectile.NewProjectile(projectile.GetSource_FromThis(), projectile.Center, TRAEMethods.PolarVector(12, (npc.Center - projectile.Center).ToRotation()), ProjectileID.ThunderSpearShot, damage, 0, projectile.owner)];
                 for (int n = 0; n < 200; n++)
                 {
                     if (Main.npc[n] != npc)

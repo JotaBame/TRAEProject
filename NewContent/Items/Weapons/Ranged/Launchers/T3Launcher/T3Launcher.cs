@@ -7,7 +7,7 @@ using Terraria.GameContent.Creative;
 
 namespace TRAEProject.NewContent.Items.Weapons.Ranged.Launchers.T3Launcher
 {
-    class AdamantiteLauncher : ModItem
+    public class AdamantiteLauncher : ModItem
     {
         public override void SetStaticDefaults()
         {
@@ -45,7 +45,7 @@ namespace TRAEProject.NewContent.Items.Weapons.Ranged.Launchers.T3Launcher
 			return new Vector2(-16f, -5f);
 		}
     }
-    class TitaniumBazooka : ModItem
+    public class TitaniumBazooka : ModItem
     {
         public override void SetStaticDefaults()
         {

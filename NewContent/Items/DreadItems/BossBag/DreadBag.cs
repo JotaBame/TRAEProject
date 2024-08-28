@@ -12,7 +12,7 @@ using Terraria.GameContent;
 
 namespace TRAEProject.NewContent.Items.DreadItems.BossBag
 {
-    class DreadBag : ModItem
+  public  class DreadBag : ModItem
     {
         public override void SetStaticDefaults()
         {

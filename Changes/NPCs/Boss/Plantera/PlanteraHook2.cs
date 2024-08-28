@@ -11,7 +11,7 @@ using Terraria.ModLoader;
 
 namespace TRAEProject.Changes.NPCs.Boss.Plantera
 {
-    class PlanteraHook2 : ModProjectile
+  public  class PlanteraHook2 : ModProjectile
     {
         public override void SetStaticDefaults()
         {

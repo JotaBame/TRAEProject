@@ -5,7 +5,7 @@ using Terraria.ModLoader;
 
 namespace TRAEProject.NewContent.Items.Accesories
 {
-	class SkeletonBeetle : ModItem
+	public class SkeletonBeetle : ModItem
 	{
 		public override void SetStaticDefaults()
 		{

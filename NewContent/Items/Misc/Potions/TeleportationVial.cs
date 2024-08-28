@@ -13,7 +13,7 @@ using static Terraria.ModLoader.ModContent;
 
 namespace TRAEProject.NewContent.Items.Misc.Potions
 {
-    class TeleportationVial : ModItem
+    public class TeleportationVial : ModItem
     {
         public override void SetStaticDefaults()
         {

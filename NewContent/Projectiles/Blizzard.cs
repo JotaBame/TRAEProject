@@ -6,7 +6,7 @@ using Terraria.ModLoader;
 using TRAEProject.Common;
 namespace TRAEProject.NewContent.Projectiles
 {
-    class Blizzard : ModProjectile
+   public class Blizzard : ModProjectile
     {
         public override void SetDefaults()
         {

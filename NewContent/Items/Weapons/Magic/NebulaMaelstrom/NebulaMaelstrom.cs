@@ -13,7 +13,7 @@ using TRAEProject.Changes.Items;
 
 namespace TRAEProject.NewContent.Items.Weapons.Magic.NebulaMaelstrom
 {
-    class NebulaMaelstrom : ModItem
+    public class NebulaMaelstrom : ModItem
     {
         public override void SetStaticDefaults()
         {

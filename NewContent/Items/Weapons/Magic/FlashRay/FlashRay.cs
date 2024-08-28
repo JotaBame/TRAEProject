@@ -12,7 +12,7 @@ using static Terraria.ModLoader.ModContent;
 
 namespace TRAEProject.NewContent.Items.Weapons.Magic.FlashRay
 {
-    class FlashRay : ModItem
+    public class FlashRay : ModItem
     {
         public override void SetStaticDefaults()
         {
@@ -44,7 +44,7 @@ namespace TRAEProject.NewContent.Items.Weapons.Magic.FlashRay
                 .Register();
         }
     }
-    class FlashRayBeam : ModProjectile
+    public class FlashRayBeam : ModProjectile
     {
 
         public override void SetDefaults()

@@ -10,7 +10,8 @@ using Terraria.ModLoader;
 using static Terraria.ModLoader.ModContent;
 using TRAEProject;
 using System.Collections.Generic;
- 
+using Microsoft.CodeAnalysis.Emit;
+
 namespace TRAEProject.Changes.Accesory
 {
     public class OnHitAccessories : GlobalItem
@@ -178,10 +179,11 @@ namespace TRAEProject.Changes.Accesory
                 Player.immuneTime += invintime;
 
             }
-        }
+           
+         }
         public override void OnHurt(Player.HurtInfo info)
         {
-            LastHitDamage = info.Damage;
+              LastHitDamage = info.Damage;
             BaghnakhHeal = 0;
             if (info.Damage > 1)
             {

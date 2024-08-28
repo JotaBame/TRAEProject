@@ -16,7 +16,7 @@ using static Terraria.ModLoader.ModContent;
 
 namespace TRAEProject.NewContent.Items.Weapons.Melee.DoubleHaxor
 {
-    class DoubleHaxor : ModItem
+    public class DoubleHaxor : ModItem
     {
         public override void SetStaticDefaults()
         {
@@ -63,7 +63,7 @@ namespace TRAEProject.NewContent.Items.Weapons.Melee.DoubleHaxor
                 .Register();
         }
     }
-    class HaxorSmall : ModProjectile
+    public class HaxorSmall : ModProjectile
     {
         public override void SetDefaults()
         {
@@ -89,7 +89,7 @@ namespace TRAEProject.NewContent.Items.Weapons.Melee.DoubleHaxor
 		}
 		
     }
-    class HaxorBig : ModProjectile
+    public class HaxorBig : ModProjectile
     {
         public override void SetDefaults()
         {

@@ -6,7 +6,7 @@ using Terraria.ModLoader;
 namespace TRAEProject.NewContent.Items.Accesories.PalladiumShield
 {   
     [AutoloadEquip(EquipType.Shield)]
-    class PalladiumShield : ModItem
+   public class PalladiumShield : ModItem
     {
         public override void SetStaticDefaults()
         {

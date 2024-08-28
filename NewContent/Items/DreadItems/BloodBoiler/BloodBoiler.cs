@@ -17,7 +17,7 @@ using static TRAEProject.NewContent.Items.FlamethrowerAmmo.IchorGelP;
 
 namespace TRAEProject.NewContent.Items.DreadItems.BloodBoiler
 {
-    class BloodBoiler : ModItem
+  public  class BloodBoiler : ModItem
     {
         public override void SetStaticDefaults()
         {

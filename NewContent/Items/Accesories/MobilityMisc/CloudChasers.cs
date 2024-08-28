@@ -10,7 +10,7 @@ using static Terraria.ModLoader.ModContent;
 namespace TRAEProject.NewContent.Items.Accesories.MobilityMisc
 {
 	[AutoloadEquip(EquipType.Shoes)]
-    class CloudChasers: ModItem
+    public class CloudChasers: ModItem
     {
         public override void SetStaticDefaults()
         {

@@ -164,7 +164,7 @@ namespace ChangesArmor
             {
                 case ItemID.SWATHelmet:
                     player.GetDamage<RangedDamageClass>() *= 1.15f;
-                    break;
+                     break;
                 case ItemID.SpiderBreastplate:
                     player.moveSpeed += 0.1f;
                     break;
@@ -262,12 +262,9 @@ namespace ChangesArmor
                     player.moveSpeed -= 0.1f;
                     break;
 ////////// T2: VK, SHINOBI, RED RIDING, DARK ARTIST
-                case ItemID.SquireAltHead:
-                    player.lifeRegen += 4;
-                    ++player.maxMinions;
-                    break;
+ 
                 case ItemID.SquireAltShirt:
-                    player.lifeRegen -= 4;
+                    player.lifeRegen -= 3;
                     break;
                 case ItemID.SquireAltPants:
                     player.moveSpeed -= 0.2f;
@@ -764,7 +761,16 @@ namespace ChangesArmor
                     {
                         if (line.Mod == "Terraria" && line.Name == "Tooltip0")
                         {
-                            line.Text = "10% increased melee and minion damage\nIncreases life regeneration";
+                            line.Text = "10% increased melee and minion damage\nIncreases life regeneration by 1 per second";
+                        }
+                    }
+                    return;
+                case ItemID.SquireGreatHelm:
+                    foreach (TooltipLine line in tooltips)
+                    {
+                        if (line.Mod == "Terraria" && line.Name == "Tooltip0")
+                        {
+                            line.Text += "Increases your maximum number of sentries by 1\nIncreases life regeneration by 1 per second";
                         }
                     }
                     return;
@@ -799,21 +805,13 @@ namespace ChangesArmor
                         }
                     }
                     return;
-                case ItemID.SquireAltHead:
-                    foreach (TooltipLine line in tooltips)
-                    {
-                        if (line.Mod == "Terraria" && line.Name == "Tooltip0")
-                        {
-                            line.Text += "\nGreatly increased life regeneration";
-                        }
-                    }
-                    return;
+ 
                 case ItemID.SquireAltShirt:
                     foreach (TooltipLine line in tooltips)
                     {
                         if (line.Mod == "Terraria" && line.Name == "Tooltip0")
                         {
-                            line.Text = "30% increased minion damage and greatly increased life regeneration";
+                            line.Text = "30% increased minion damage\nIncreased life regeneration by 2.5 per second";
                         }
                     }
                     return;

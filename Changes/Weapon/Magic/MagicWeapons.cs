@@ -264,8 +264,7 @@ namespace TRAEProject.Changes.Items
 				    item.damage = 60; //  up from 48
 					return;
 				case ItemID.HeatRay:
-				    item.damage = 88; //  up from 80
-                    item.mana = 12; // up from 8
+                     item.mana = 12; // up from 8
 					return;
                 case ItemID.StaffofEarth:
                     item.mana = 25; // up from 18
@@ -313,11 +312,11 @@ namespace TRAEProject.Changes.Items
                     break;
                 case ItemID.CrimsonRod:
                     item.damage = 12; // down from 12
-                    item.mana = 75; // up from 10
+                    item.mana = 25; // up from 10
                     rightClickSideWeapon = true;
                     break;
                 case ItemID.NimbusRod:
-                    item.mana = 75; // up from 22
+                    item.mana = 25; // up from 22
                     rightClickSideWeapon = true;
                     break;
                 case ItemID.WeatherPain:

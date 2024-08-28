@@ -15,7 +15,7 @@ using static Terraria.ModLoader.PlayerDrawLayer;
 
 namespace TRAEProject.NewContent.Items.BeholderItems
 {
-    class ScrollOfWipeout : ModItem
+  public  class ScrollOfWipeout : ModItem
     {
         public override void SetStaticDefaults()
         {

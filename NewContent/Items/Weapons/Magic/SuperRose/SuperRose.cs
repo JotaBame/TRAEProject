@@ -13,7 +13,7 @@ using Terraria.Audio;
 
 namespace TRAEProject.NewContent.Items.Weapons.Magic.SuperRose
 {
-    class SuperRose : ModItem
+    public class SuperRose : ModItem
     {
         public override void SetStaticDefaults()
         {

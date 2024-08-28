@@ -13,7 +13,7 @@ using static Terraria.ModLoader.ModContent;
 
 namespace TRAEProject.NewContent.Items.DreadItems.DreadTrophy
 {
-    class DreadTrophy : ModItem
+    public class DreadTrophy : ModItem
     {
         public override void SetStaticDefaults()
         {
@@ -38,7 +38,7 @@ namespace TRAEProject.NewContent.Items.DreadItems.DreadTrophy
             Item.placeStyle = 0;
         }
     }
-    class DreadTrophyTile : ModTile
+    public class DreadTrophyTile : ModTile
     {
         public override void SetStaticDefaults()
         {

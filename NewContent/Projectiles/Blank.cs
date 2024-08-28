@@ -3,7 +3,7 @@ using Terraria.ModLoader;
 
 namespace TRAEProject.NewContent.Projectiles
 {
-    class Blank : ModProjectile
+  public  class Blank : ModProjectile
     {
         public override void SetDefaults()
         {

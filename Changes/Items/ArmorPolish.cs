@@ -11,7 +11,7 @@ using Terraria.ModLoader;
 
 namespace TRAEProject.Changes.Items
 {
-    class ArmorPolish : GlobalItem
+    public class ArmorPolish : GlobalItem
     {
 
         public override void SetDefaults(Item item)

@@ -78,8 +78,8 @@ namespace TRAEProject.Changes.Recipes
             SuperRocket.AddIngredient(ItemID.CobaltBar, 2);
             SuperRocket.AddTile(TileID.Anvils);
             SuperRocket.Register(); 
-			Recipe SuperRocket2 = Recipe.Create(ItemID.RocketIII, 50);
-            SuperRocket2.AddIngredient(ItemID.RocketI, 50);
+			Recipe SuperRocket2 = Recipe.Create(ItemID.RocketIII, 65);
+            SuperRocket2.AddIngredient(ItemID.RocketI, 65);
             SuperRocket2.AddIngredient(ItemID.PalladiumBar, 2);
             SuperRocket2.AddTile(TileID.Anvils);
             SuperRocket2.Register();
@@ -115,10 +115,10 @@ namespace TRAEProject.Changes.Recipes
             Yelets.Register();
 
             Recipe HelFire = Recipe.Create(ItemID.HelFire, 1);
-            HelFire.AddIngredient(ModContent.ItemType<DriedRose>(), 3);
+            HelFire.AddIngredient(ModContent.ItemType<DriedRose>(), 1);
             HelFire.AddIngredient(ModContent.ItemType<MagicalAsh>(), 3);
-            HelFire.AddIngredient(ModContent.ItemType<ObsidianScale>(), 3);
-            HelFire.AddIngredient(ModContent.ItemType<SalamanderTail>(), 3);
+            HelFire.AddIngredient(ModContent.ItemType<ObsidianScale>(), 4);
+            HelFire.AddIngredient(ModContent.ItemType<SalamanderTail>(), 2);
             HelFire.AddTile(TileID.MythrilAnvil);
             HelFire.Register();
         }
