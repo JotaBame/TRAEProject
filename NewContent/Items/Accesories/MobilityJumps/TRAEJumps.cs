@@ -133,7 +133,7 @@ namespace TRAEProject.NewContent.Items.Accesories.MobilityJumps
 			player.fullRotation += player.direction * player.gravDir * MathF.PI / 15f;
 			player.fullRotationOrigin = player.Size * 0.5f;
 			
-			for(int i = 0; i < 30; i++)
+			for(int i = 0; i < 3; i++)
 			{
 				Dust d = Dust.NewDustPerfect(player.Center + TRAEMethods.PolarVector(30, MathF.PI * 2f * ((float)i / 3f) + player.fullRotation), DustID.SilverFlame, Vector2.UnitY * player.gravDir * -6);
 			}

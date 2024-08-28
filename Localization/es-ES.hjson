@@ -270,6 +270,7 @@ Mods: {
 			SpamatizmFire.DisplayName: Spamatizm Fire
 			RailShot.DisplayName: Rail Shot
 			PrimeMissile.DisplayName: Prime Missile
+			// NeoShadowbeam.DisplayName: Neo Shadowbeam
 		}
 
 		Prefixes: {
@@ -451,6 +452,21 @@ Mods: {
 			WishForSpeedBuff: {
 				DisplayName: Deseo por velocidad
 				Description: Puedes pedir cualquier deseo... siempre que sea 15% más velocidad de movimiento
+			}
+
+			TheFlysEndurance: {
+				// DisplayName: The Flys Endurance
+				// Description: Mods.TRAEProject.Buffs.TheFlysEndurance.Description
+			}
+
+			TheFlysLevitation: {
+				// DisplayName: The Flys Levitation
+				// Description: Mods.TRAEProject.Buffs.TheFlysLevitation.Description
+			}
+
+			TheFlysSpeed: {
+				// Description: Mods.TRAEProject.Buffs.TheFlysSpeed.Description
+				// DisplayName: The Flys Speed
 			}
 		}
 

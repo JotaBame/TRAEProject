@@ -107,6 +107,19 @@ namespace TRAEProject.Changes.NPCs
                     npc.damage = 30;
                     npc.noGravity = true;
                     break;
+                //remove contact damage from caster enemies
+                case NPCID.DarkCaster:
+                case NPCID.GoblinSorcerer:
+                case NPCID.Tim:
+                case NPCID.RuneWizard:
+                case NPCID.DiabolistRed:
+                case NPCID.DiabolistWhite:
+                case NPCID.Necromancer:
+                case NPCID.NecromancerArmored:
+                case NPCID.RaggedCaster:
+                case NPCID.RaggedCasterOpenCoat:
+                    npc.damage = 0;
+                    break;
             }
         }
 

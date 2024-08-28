@@ -82,7 +82,7 @@ namespace TRAEProject.NewContent.Projectiles
                         num956 = 8f / num956;
                         num954 *= num956;
                         num955 *= num956;
-                        Projectile shrapnel = Projectile.NewProjectileDirect(Projectile.GetSource_FromThis(), new(Projectile.Center.X - Projectile.oldVelocity.X, Projectile.Center.Y - Projectile.oldVelocity.Y), new(num954, num955), ProjectileType<StyngerShrapnel>(), Projectile.damage, Projectile.knockBack, Projectile.owner);
+                        Projectile shrapnel = Projectile.NewProjectileDirect(Projectile.GetSource_FromThis(), new(Projectile.Center.X - Projectile.oldVelocity.X, Projectile.Center.Y - Projectile.oldVelocity.Y), new Vector2(num954, num955), ProjectileType<StyngerShrapnel>(), Projectile.damage, Projectile.knockBack, Projectile.owner);
                         shrapnel.frame = Main.rand.Next(5);
                     }
                 }
@@ -139,7 +139,7 @@ namespace TRAEProject.NewContent.Projectiles
                         num956 = 8f / num956;
                         num954 *= num956;
                         num955 *= num956;
-                        Projectile shrapnel = Projectile.NewProjectileDirect(Projectile.GetSource_FromThis(), new(Projectile.Center.X - Projectile.oldVelocity.X, Projectile.Center.Y - Projectile.oldVelocity.Y), new(num954, num955), ProjectileType<StyngerShrapnel>(), Projectile.damage, Projectile.knockBack, Projectile.owner);
+                        Projectile shrapnel = Projectile.NewProjectileDirect(Projectile.GetSource_FromThis(), new(Projectile.Center.X - Projectile.oldVelocity.X, Projectile.Center.Y - Projectile.oldVelocity.Y), new Vector2(num954, num955), ProjectileType<StyngerShrapnel>(), Projectile.damage, Projectile.knockBack, Projectile.owner);
                         shrapnel.frame = Main.rand.Next(5);
                     }
                 }
