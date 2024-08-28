@@ -44,6 +44,9 @@ namespace TRAEProject.Changes.Weapon.Melee
                     item.useTime = 12; // down from 14
                     item.useAnimation = 12; // up from 14
                     break;
+                case ItemID.Trimarang:
+                    item.damage = 24; // up from 16
+                    return;
                 case ItemID.PaladinsHammer:
                     item.damage = 102; // up from 90
                     return;

@@ -160,7 +160,7 @@ namespace TRAEProject.Changes.Recipes
                 recipe.RemoveIngredient(ingredientToRemove);
                 recipe.TryGetIngredient(ItemID.ObsidianSkull, out ingredientToRemove);
                 recipe.RemoveIngredient(ingredientToRemove);
-                recipe.AddIngredient(ItemID.LavaCharm);
+                recipe.AddIngredient(ItemID.MagmaStone);
                 recipe.AddIngredient(ItemType<ShadowflameCharmItem>());
             }
             if (recipe.HasResult(ItemID.MagicCuffs))

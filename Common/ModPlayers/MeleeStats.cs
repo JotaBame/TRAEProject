@@ -15,7 +15,7 @@ using static Terraria.ModLoader.ModContent;
 
 namespace TRAEProject.Common.ModPlayers
 {
-    class MeleeStats : ModPlayer
+	public class MeleeStats : ModPlayer
     {
 
         public float weaponSize = 1f;

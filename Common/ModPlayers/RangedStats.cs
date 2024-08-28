@@ -9,7 +9,7 @@ using static Terraria.ModLoader.ModContent;
 
 namespace TRAEProject.Common.ModPlayers
 {
-    class RangedStats : ModPlayer
+   public class RangedStats : ModPlayer
     {
         public int CyberEye = 0;
         public int Magicquiver = 0;
@@ -58,7 +58,7 @@ namespace TRAEProject.Common.ModPlayers
             return true;
         }
     }
-    class RangedStatsProjectile : GlobalProjectile
+   public class RangedStatsProjectile : GlobalProjectile
     {
         public override void OnSpawn(Projectile projectile, IEntitySource source)
         {

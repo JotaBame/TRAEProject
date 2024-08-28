@@ -78,6 +78,9 @@ namespace TRAEProject.Changes.NPCs
                     });
                     npcLoot.Remove(ItemDropRule.Common(ItemID.HuntressBuckler));
                     break;
+                case NPCID.SporeSkeleton:
+                    npcLoot.Add(ItemDropRule.Common(ItemID.Shroomerang, 40));
+                    break;
                 case NPCID.RedDevil:
                     npcLoot.Add(ItemDropRule.Common(ItemID.GuideVoodooDoll, 80));
                     npcLoot.RemoveWhere(rule =>
