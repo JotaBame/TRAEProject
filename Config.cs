@@ -66,7 +66,7 @@ namespace TRAEProject
         [DefaultValue(false)]
         public bool PlanteraRework { get; set; }
         
-        [DefaultValue(false)]
+        [DefaultValue(true)]
         public bool PlanteraTentacle { get; set; }
 
         [DefaultValue(true)]

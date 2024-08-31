@@ -138,7 +138,7 @@ namespace TRAEProject.NPCs.Boss
                             }
                             else
                             {
-            
+                                baseSpeed *= 1.1f;
                                 if (npc.localAI[2] == 1f)
                                 {
                                     SoundEngine.PlaySound(SoundID.ForceRoarPitched, npc.Center);
@@ -158,8 +158,8 @@ namespace TRAEProject.NPCs.Boss
                             if (Main.netMode != 1)
                             {
                                 npc.localAI[1] += 1f;
-                                if (Main.masterMode && npc.life <= (int)(npc.lifeMax * 2))
-                                    npc.localAI[1] += 0.5f;
+                                //if (Main.masterMode && npc.life <= (int)(npc.lifeMax * 2))
+                                //    npc.localAI[1] += 0.5f;
                                 if (npc.justHit)
                                 {
                                     npc.localAI[1] += Main.rand.Next(3);
@@ -180,7 +180,7 @@ namespace TRAEProject.NPCs.Boss
                                         teleportTime++;
                                          int num847 = (int)player2.Center.X / 16;
                                         int num848 = (int)player2.Center.Y / 16;
-                                        int minValue = 15;
+                                        int minValue = 16;
                                         int maxValue = 16;
                                         float num850 = 16f;
                                         int num851 = Main.rand.Next(minValue, maxValue);
@@ -448,7 +448,12 @@ namespace TRAEProject.NPCs.Boss
                     {
                         Vector2 vector107 = Main.player[npc.target].Center - npc.Center;
                         vector107.Normalize();
-                        if (Main.getGoodWorld || Main.masterMode)
+                        if (Main.masterMode)
+                        {
+                            vector107 *= 12f;
+                            npc.velocity = (npc.velocity * 39f + vector107) / 40f;
+                        }
+                        else if (Main.getGoodWorld)
                         {
                             vector107 *= 12f;
                             npc.velocity = (npc.velocity * 49f + vector107) / 50f;

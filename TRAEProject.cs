@@ -139,16 +139,31 @@ public class TRAEProj : Mod
         static ILHook _EclipseHook;
         static ILHook _OOA2Hook;
         static ILHook _MountHook;
+        static ILHook _CreeperHook; static ILHook _CreeperHook2;
 
- 
+        static ILHook _EoWHook;
 
- 
+
+
+
         public override void Load()
         {            
             //I ain't got anything special to say here; check the other classes for specific hook info
             //_NPCHook = new ILHook(typeof(Terraria.NPC).GetMethod("SpawnNPC"), ILNPC.DoStuff); //You can remove this hook if you want
             _GrassHook = new ILHook(typeof(Terraria.WorldGen).GetMethod("UpdateWorld_GrassGrowth", BindingFlags.NonPublic | BindingFlags.Static), ILPlantBulb.DoStuff);
             _EclipseHook = new ILHook(typeof(Terraria.Main).GetMethod("UpdateTime_StartDay"), ILEclipse.DoStuff);
+
+
+            if (GetInstance<BossConfig>().BoCChanges)
+            {
+                _CreeperHook = new ILHook(typeof(Terraria.NPC).GetMethod("GetBrainOfCthuluCreepersCount"), ILBOC.DoStuff);
+                _CreeperHook2 = new ILHook(typeof(Terraria.Player).GetMethod("StatusFromNPC"), ILBOC2.DoDebuffStuff);
+
+            }
+            if (GetInstance<BossConfig>().EoWChanges)
+            {
+                _EoWHook = new ILHook(typeof(Terraria.NPC).GetMethod("GetEaterOfWorldsSegmentsCount"), ILEoW.DoStuff);
+            }
             _OOA2Hook = new ILHook(typeof(Terraria.GameContent.Events.DD2Event).GetMethod("FindProperDifficulty", BindingFlags.NonPublic | BindingFlags.Static), ILOOAT2.DoStuff);
             _MountHook = new ILHook(typeof(Terraria.Mount).GetMethod("UpdateEffects"), ILMounts.DoStuff);
             Terraria.IL_Projectile.StatusNPC += (il) => {
@@ -236,6 +251,11 @@ public class TRAEProj : Mod
             _EclipseHook?.Dispose();
             _OOA2Hook?.Dispose();
             _MountHook?.Dispose();
+            _CreeperHook?.Dispose();
+            _CreeperHook2?.Dispose();
+
+            _EoWHook?.Dispose();
+
             Main.QueueMainThreadAction(() =>
             {
                 if (!Main.dedServ)
