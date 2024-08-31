@@ -1,10 +1,12 @@
 ﻿
+using System.Collections.Generic;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 using TRAEProject.NewContent.Items.Accesories.AdvFlight;
 using TRAEProject.NewContent.Items.Accesories.MobilityJumps;
 using TRAEProject.NewContent.Items.Accesories.MobilityMisc;
+using TRAEProject.NewContent.Items.Armor.Joter;
 using static Terraria.ModLoader.ModContent;
 
 namespace TRAEProject.NewContent.Items.Accesories.MobilityMisc
@@ -34,7 +36,12 @@ namespace TRAEProject.NewContent.Items.Accesories.MobilityMisc
             player.GetJumpState(ExtraJump.CloudInABottle).Enable();
             player.GetModPlayer<Mobility>().flightTimeBonus += 0.4f;
             player.accRunSpeed = 4.8f;
-            player.moveSpeed += 0.20f;
+            if (!GetInstance<TRAEConfig>().MobilityRework)
+            {
+                player.accRunSpeed = 6f;
+            }
+            else
+                player.moveSpeed += 0.20f;
             player.desertBoots = false;
             player.sailDash = false;
             player.coldDash = false;
@@ -43,6 +50,17 @@ namespace TRAEProject.NewContent.Items.Accesories.MobilityMisc
 
             player.GetJumpState(ExtraJump.SandstormInABottle).Enable();
         }
+        public override void ModifyTooltips(List<TooltipLine> tooltips)
+        {
+            foreach (TooltipLine line in tooltips)
+            {
+                if (line.Mod == "Terraria" && line.Name == "Tooltip0" && !GetInstance<TRAEConfig>().MobilityRework)
+                {
+                    line.Text = "Allows fast running";
+
+                }
+            }
+         }
         public override void AddRecipes()
         {
             CreateRecipe().AddIngredient(ItemID.SandBoots, 1)

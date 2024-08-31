@@ -26,7 +26,7 @@ namespace TRAEProject.Changes.Accesory
                     player.GetModPlayer<MeleeStats>().TRAEAutoswing = true; // is this even needed anymore
                     break;
             }
-            if (item.type == ItemID.TitanGlove || item.type == ItemID.PowerGlove || item.type == ItemID.FireGauntlet)
+            if (item.type == ItemID.TitanGlove || item.type == ItemID.PowerGlove || item.type == ItemID.BerserkerGlove|| item.type == ItemID.FireGauntlet)
             {
                 player.kbGlove = false;
                 player.meleeScaleGlove = false;
@@ -70,7 +70,8 @@ namespace TRAEProject.Changes.Accesory
                         line.Text = "";
                     }
                 }
-				if (item.type == ItemID.PowerGlove )
+               
+                if (item.type == ItemID.PowerGlove )
                 {
                     if (line.Mod == "Terraria" && line.Name == "Tooltip0")
                     {
@@ -89,7 +90,31 @@ namespace TRAEProject.Changes.Accesory
                         line.Text = "";
                     }
                 }
-				
+                if (item.type == ItemID.BerserkerGlove)
+                {
+
+                    if (line.Mod == "Terraria" && line.Name == "Tooltip0")
+                    {
+                        line.Text = "12% increased melee speed";
+                    }
+                    if (line.Mod == "Terraria" && line.Name == "Tooltip1")
+                    {
+                        line.Text = "20% increased melee weapon size and velocity";
+                    }
+                    if (line.Mod == "Terraria" && line.Name == "Tooltip2")
+                    {
+                        line.Text = "Enables auto swing for melee weapons\nEnemies are more likely to target you";
+                    }
+                    if (line.Mod == "Terraria" && line.Name == "Tooltip3")
+                    {
+                        line.Text = "";
+                    }
+                    if (line.Mod == "Terraria" && line.Name == "Tooltip4")
+                    {
+                        line.Text = "";
+                    }
+
+                }
                 if (item.type == ItemID.FireGauntlet)
                 {
                     if (line.Mod == "Terraria" && line.Name == "Tooltip0")

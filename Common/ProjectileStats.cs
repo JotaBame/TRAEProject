@@ -84,7 +84,7 @@ namespace TRAEProject.Common
                     Vector2 diff = target.Center - projectile.Center;
                     diff.Normalize();
                     diff *= scaleFactor2;
-                    projectile.velocity = (projectile.velocity * 24f + diff) / 25f;
+                    projectile.velocity = (projectile.velocity * 8f + diff) / 9f;
                     projectile.velocity.Normalize();
                     projectile.velocity *= scaleFactor2;
                 }

@@ -10,7 +10,7 @@ namespace TRAEProject.NewContent.Buffs
 
 		public override void Update(Player player, ref int buffIndex)
 		{
-			player.moveSpeed += 0.33f;
+			player.moveSpeed += 0.3f;
 		}
 	}
 }

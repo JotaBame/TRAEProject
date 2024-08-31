@@ -39,7 +39,9 @@ namespace TRAEProject.Changes.Weapon.Summon
                 case ItemID.DD2FlameburstTowerT3Popper:
                     item.damage = 123; // up from 88
                     break;
-
+                case ItemID.StaffoftheFrostHydra:
+                    item.damage = 88; // down from 100
+                    break;
                 case ItemID.RainbowCrystalStaff:
                     item.damage = 30; // down from 150
                     break;
@@ -74,6 +76,12 @@ namespace TRAEProject.Changes.Weapon.Summon
         {
             switch(projectile.type)
             {
+                case ProjectileID.DD2LightningAuraT1:
+                case ProjectileID.DD2LightningAuraT2:
+                case ProjectileID.DD2LightningAuraT3:
+                    projectile.usesLocalNPCImmunity = true;
+                    projectile.localNPCHitCooldown = 25;
+                    break;
                 case ProjectileID.FrostBlastFriendly:
                     projectile.usesLocalNPCImmunity = true;
                     projectile.localNPCHitCooldown = -1;
@@ -101,32 +109,38 @@ namespace TRAEProject.Changes.Weapon.Summon
                 break;
             }
         }
-
+        public override bool? CanDamage(Projectile projectile)
+        {
+            if (projectile.aiStyle == 137 && projectile.ai[0] != 0)
+            {
+                return false;
+            }
+            return base.CanDamage(projectile);
+        }
         public override bool PreAI(Projectile projectile)
         {
             Player player = Main.player[projectile.owner];
             if (projectile.aiStyle == 137)
             {
-
-                int width = 10;
+                int num = 10;
                 int num2 = 999;
                 int num3 = 30;
                 int num4 = 40;
-                int height = 4;
+                int num5 = 4;
                 projectile.knockBack = 0f;
-                if (player.setMonkT2)
+                if (Main.player[projectile.owner].setMonkT2)
                 {
                     num3 -= 5; 
-                    width = 12;
-
-                    height = 6;
+                    num = 12;
+                    num5 = 6;
                 }
-                if (player.setMonkT3)
+                if (Main.player[projectile.owner].setMonkT3)
                 {
-                    width = 14;
-                    height = 8;
+                    num = 14;
+                    num5 = 8;
                 }
-               projectile.ai[0] += 1f;
+ 
+                projectile.ai[0] += 1f;
                 if (projectile.ai[0] >= (float)num3)
                 {
                     projectile.ai[0] = 0f;
@@ -137,7 +151,7 @@ namespace TRAEProject.Changes.Weapon.Summon
                     for (int i = 0; i < Main.maxNPCs; i++)
                     {
                         NPC nPC = Main.npc[i];
-                        if (nPC.CanBeChasedBy(this) && nPC.Hitbox.Distance(projectile.Center) < (float)(projectile.width / 2) && Colliding(projectile.Hitbox, nPC.Hitbox))
+                        if (nPC.CanBeChasedBy(this) && nPC.Hitbox.Distance(projectile.Center) < (float)(projectile.width / 2) && projectile.Colliding(projectile.Hitbox, nPC.Hitbox))
                         {
                             flag = true;
                             break;
@@ -145,7 +159,7 @@ namespace TRAEProject.Changes.Weapon.Summon
                     }
                     if (flag)
                     {
-                        SoundEngine.PlayTrackedSound(SoundID.DD2_LightningAuraZap, projectile.Center);
+                        SoundEngine.PlaySound(SoundID.DD2_LightningAuraZap, projectile.Center);
                     }
                 }
                 if (projectile.localAI[0] == 0f)
@@ -154,39 +168,39 @@ namespace TRAEProject.Changes.Weapon.Summon
                     projectile.velocity = Vector2.Zero;
                     Point origin = projectile.Center.ToTileCoordinates();
                     bool flag2 = true;
-                    if (!WorldUtils.Find(origin, Searches.Chain(new Searches.Down(500), Main._cachedConditions_notNull, Main._cachedConditions_solid), out var result))
+                    if (!WorldUtils.Find(origin, Searches.Chain(new Searches.Down(500), new Conditions.NotNull(), new Conditions.IsSolid()), out var result))
                     {
                         flag2 = false;
                        projectile.position.Y += 16f;
                         return false;
                     }
-                    if (!WorldUtils.Find(new Point(result.X, result.Y - 1), Searches.Chain(new Searches.Up(width), Main._cachedConditions_notNull, Main._cachedConditions_solid), out var result2))
+                    if (!WorldUtils.Find(new Point(result.X, result.Y - 1), Searches.Chain(new Searches.Up(num), new Conditions.NotNull(), new Conditions.IsSolid()), out var result2))
                     {
-                        result2 = new Point(origin.X, origin.Y - width - 1);
+                        result2 = new Point(origin.X, origin.Y - num - 1);
                     }
                     int num6 = 0;
-                    if (flag2 && Main.tile[result.X, result.Y] != null && Main.tile[result.X, result.Y].blockType() == 1)
+                    if (flag2 && Main.tile[result.X, result.Y] != null && Main.tile[result.X, result.Y].BlockType == BlockType.HalfBlock)
                     {
                         num6 += 8;
                     }
                     Vector2 center = result.ToWorldCoordinates(8f, num6);
                     Vector2 vector = result2.ToWorldCoordinates(8f, 0f);
                     projectile.Size = new Vector2(1f, center.Y - vector.Y);
-                    if (height > width * 16)
+                    if (projectile.height > num * 16)
                     {
-                        height = width * 16;
+                        projectile.height = num * 16;
                     }
-                    if (height < height * 16)
+                    if (projectile.height < num5 * 16)
                     {
-                        height = height * 16;
+                        projectile.height = num5 * 16;
                     }
-                    height *= 2;
-                    width = (int)((float)height * 1f);
-                    if (width > num2)
+                    projectile.height *= 2;
+                    projectile.width = (int)((float)projectile.height * 1f);
+                    if (projectile.width > num2)
                     {
-                        width = num2;
+                        projectile.width = num2;
                     }
-                   projectile.Center = center;
+                    projectile.Center = center;
                 }
                 if (++projectile.frameCounter >= 8)
                 {
@@ -198,7 +212,7 @@ namespace TRAEProject.Changes.Weapon.Summon
                 }
                 DelegateMethods.v3_1 = new Vector3(0.2f, 0.7f, 1f);
                 Utils.PlotTileLine(projectile.Center + Vector2.UnitX * -40f, projectile.Center + Vector2.UnitX * 40f, 80f, DelegateMethods.CastLightOpen);
-                Vector2 vector2 = new Vector2(projectile.Top.X, projectile.position.Y + (float)num4);
+                Vector2 vector2 = new Vector2(projectile.Top.X,projectile.position.Y + (float)num4);
                 for (int j = 0; j < 4; j++)
                 {
                     if (Main.rand.Next(6) != 0)
@@ -208,7 +222,7 @@ namespace TRAEProject.Changes.Weapon.Summon
                     Vector2 vector3 = Main.rand.NextVector2Unit();
                     if (!(Math.Abs(vector3.X) < 0.12f))
                     {
-                        Vector2 targetPosition = projectile.Center + vector3 * new Vector2((height - num4) / 2);
+                        Vector2 targetPosition = projectile.Center + vector3 * new Vector2((projectile.height - num4) / 2);
                         if (!WorldGen.SolidTile((int)targetPosition.X / 16, (int)targetPosition.Y / 16) && projectile.AI_137_CanHit(targetPosition))
                         {
                             Dust dust = Dust.NewDustDirect(targetPosition, 0, 0, 226, 0f, 0f, 100);
@@ -230,7 +244,7 @@ namespace TRAEProject.Changes.Weapon.Summon
                     Vector2 vector4 = Main.rand.NextVector2Unit();
                     if (!(Math.Abs(vector4.X) < 0.12f))
                     {
-                        Vector2 targetPosition2 = projectile.Center + vector4 * new Vector2((height - num4) / 2) * Main.rand.NextFloat();
+                        Vector2 targetPosition2 = projectile.Center + vector4 * new Vector2((projectile.height - num4) / 2) * Main.rand.NextFloat();
                         if (!WorldGen.SolidTile((int)targetPosition2.X / 16, (int)targetPosition2.Y / 16) && projectile.AI_137_CanHit(targetPosition2))
                         {
                             Dust dust2 = Dust.NewDustDirect(targetPosition2, 0, 0, 226, 0f, 0f, 100);
@@ -245,7 +259,7 @@ namespace TRAEProject.Changes.Weapon.Summon
                 {
                     if (Main.rand.Next(10) == 0)
                     {
-                        Dust dust3 = Dust.NewDustDirect(vector2 - new Vector2(8f, 0f), 16, height / 2 - 40, 226, 0f, 0f, 100);
+                        Dust dust3 = Dust.NewDustDirect(vector2 - new Vector2(8f, 0f), 16, projectile.height / 2 - 40, 226, 0f, 0f, 100);
                         dust3.velocity *= 0.6f;
                         dust3.velocity += Vector2.UnitY * -2f;
                         dust3.scale = 0.7f;
@@ -257,10 +271,10 @@ namespace TRAEProject.Changes.Weapon.Summon
                 projectile.velocity.Y += 0.2f;
                 return false;
             }
-            if (projectile.aiStyle = 134 && Main.player[projectile.owner].ballistaPanic)
+            if (projectile.aiStyle == 134 && Main.player[projectile.owner].ballistaPanic && projectile.ai[1] > 0f && projectile.ai[0] == 1f)
             {
                 projectile.ai[1] += 0.33f;
-                return true;
+                
             }
             return true;
         }

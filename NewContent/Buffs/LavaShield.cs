@@ -13,7 +13,11 @@ namespace TRAEProject.NewContent.Buffs
 
 		public override void Update(Player player, ref int buffIndex)
 		{
-			player.statDefense += 12;
-		}
+			player.statDefense += 10;
+			if (!GetInstance<TRAEConfig>().DefenseRework)
+            {
+                player.statDefense -= 5;
+            }
+        }
 	}
 }

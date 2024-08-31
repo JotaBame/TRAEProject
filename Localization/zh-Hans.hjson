@@ -272,6 +272,7 @@ Mods: {
 			PrimeMissile.DisplayName: Prime Missile
 			// MirrorShot.DisplayName: Mirror Shot
 			// MirrorShotEvil.DisplayName: Mirror Shot Evil
+			// NeoShadowbeam.DisplayName: Neo Shadowbeam
 		}
 
 		Prefixes: {
@@ -453,6 +454,21 @@ Mods: {
 			WishForSpeedBuff: {
 				DisplayName: 速度之愿
 				Description: 移动速度永久提高15%
+			}
+
+			TheFlysEndurance: {
+				// DisplayName: The Flys Endurance
+				// Description: Mods.TRAEProject.Buffs.TheFlysEndurance.Description
+			}
+
+			TheFlysLevitation: {
+				// DisplayName: The Flys Levitation
+				// Description: Mods.TRAEProject.Buffs.TheFlysLevitation.Description
+			}
+
+			TheFlysSpeed: {
+				// DisplayName: The Flys Speed
+				// Description: Mods.TRAEProject.Buffs.TheFlysSpeed.Description
 			}
 		}
 
@@ -1658,114 +1674,117 @@ Mods: {
 			TRAEConfig: {
 				DisplayName: 配置
 
-				Headers: {
-					BossChanges: 头目改动
-					PrimeRail: Prime Rail Header
-					BameRail: Bame Rail Header
-					QwertyRail: Qwerty Rail Header
+				ManaRework: {
+					// Label: Mana Rework
+					// Tooltip: Disables the Mana rework and all the related item changes. Aims to improve compatibility with other mods, as TRAE changes and additions are designed with the reworks in mind.
 				}
 
-				PlanteraRework: {
-					Label: 世纪之花重制
-					Tooltip: 实验性质的世纪之花重制，存在诸多问题
+				MobilityRework: {
+					// Label: Mobility Rework
+					// Tooltip: Disables the mobility rework and all related item changes. Aims to improve compatibility with other mods, as TRAE changes and additions are designed with the reworks in mind.
 				}
 
-				TwinsRework: {
-					Label: 双子魔眼重制
-					Tooltip: ""
+				TerrasparkLineRework: {
+					// Label: Terraspark Line Rework
+					// Tooltip: Disable to revert the rework to the Terraspark Boot line. TRAE is designed around this setting enabled.
 				}
 
-				CultistChanges: {
-					Label: 邪教徒改动
-					Tooltip: ""
+				DefenseRework: {
+					// Label: Defense Rework
+					// Tooltip: Disables the Defense rework and all related item changes. Aims to improve compatibility with other mods, TRAE changes and additions are designed with the reworks in mind.
 				}
 
-				DeerclopsChanges: {
-					Label: 独眼巨鹿改动
-					Tooltip: ""
+				// Headers.GameMechanics: Game Mechanics Header
+
+				Resprites: {
+					// Label: Resprites
+					// Tooltip: Disables the forced sprite changes. THIS DOES NOT REVERT THE CHANGES DONE TO THE ITEMS.
 				}
 
-				FishronChanges: {
-					Label: 猪龙鱼公爵改动
-					Tooltip: ""
-				}
-
-				QBChanges: {
-					Label: 蜂王改动
-					Tooltip: ""
-				}
-
-				SkeletronChanges: {
-					Label: 骷髅王改动
-					Tooltip: ""
-				}
-
-				EOCChanges: {
-					Tooltip: ""
-					Label: 克苏鲁之眼改动
-				}
-
-				railMode: {
-					Label: rail Mode
-					Tooltip: ""
-				}
-
-				bRailVel: {
-					Label: b Rail Vel
-					Tooltip: ""
-				}
-
-				bRailEUpdates: {
-					Label: b Rail E Updates
-					Tooltip: ""
-				}
-
-				bRailTurnSpeed: {
-					Label: b Rail Turn Speed
-					Tooltip: ""
-				}
-
-				qRailVel: {
-					Label: q Rail Vel
-					Tooltip: ""
-				}
-
-				qRailEUpdates: {
-					Label: q Rail E Updates
-					Tooltip: ""
-				}
-
-				qRailTurnSpeed: {
-					Label: q Rail Turn Speed
-					Tooltip: ""
-				}
-
-				railStopAimTime: {
-					Label: rail Stop Aim Time
-					Tooltip: ""
-				}
-
-				holdFireOnRage: {
-					Label: hold Fire On Rage
-					Tooltip: ""
-				}
-
-				PrimeRework: {
-					Label: Prime Rework
-					Tooltip: ""
-				}
-
-				DestroyerRework: {
-					Label: Destroyer Rework
-					Tooltip: ""
+				FurtherImprovedMovement: {
+					// Label: Better Base Acceleration
+					// Tooltip: Doubles player acceleration and deceleration. TRAE is not balanced around this setting enabled.
 				}
 			}
 
-			RailMode: {
-				Tooltip: ""
-				Classic.Label: Classic
-				BameNerf.Label: Bame Nerf
-				QwertyNerf.Label: Qwerty Nerf
+			BossConfig: {
+				// DisplayName: Boss Config
+				// Headers.BossChanges: Boss Changes Header
+
+				EOCChanges: {
+					// Label: EoC Changes
+					// Tooltip: ""
+				}
+
+				BoCChanges: {
+					// Label: BoC Changes
+					// Tooltip: ""
+				}
+
+				EoWChanges: {
+					// Label: EoW Changes
+					// Tooltip: ""
+				}
+
+				QBChanges: {
+					// Label: QB Changes
+					// Tooltip: ""
+				}
+
+				SkeletronChanges: {
+					// Label: Skeletron Changes
+					// Tooltip: ""
+				}
+
+				DeerclopsChanges: {
+					// Label: Deerclops Changes
+					// Tooltip: ""
+				}
+
+				TwinsRework: {
+					// Label: Twins Rework
+					// Tooltip: ""
+				}
+
+				PrimeRework: {
+					// Label: Prime Rework
+					// Tooltip: ""
+				}
+
+				DestroyerRework: {
+					// Label: Destroyer Rework
+					// Tooltip: ""
+				}
+
+				PlanteraRework: {
+					// Label: Experimental Plantera Rework
+					// Tooltip: Very buggy and unfinished.
+				}
+
+				PlanteraTentacle: {
+					// Label: Plantera Tentacles
+					// Tooltip: Reverts the HP reduction on Plantera Tentacles from 1000 to 300
+				}
+
+				FishronChanges: {
+					// Label: Fishron Changes
+					// Tooltip: ""
+				}
+
+				CultistChanges: {
+					// Label: Cultist Changes
+					// Tooltip: ""
+				}
+			}
+
+			TRAERetextureConfig: {
+				// DisplayName: TRAE Retexture Config
+				// Headers.TextureSwaps: Texture Swaps Header
+
+				Resprites: {
+					// Label: Resprites
+					// Tooltip: Turns off the forced resprites caused by the mod. THIS DOES NOT REVERT THE CHANGES DONE TO THEM.
+				}
 			}
 		}
 	}

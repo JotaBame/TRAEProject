@@ -20,43 +20,36 @@ namespace TRAEProject.Changes.TextureSwaps
         }
         public override void Load()
         {
-            TRAERetextureConfig config = ModContent.GetInstance<TRAERetextureConfig>();
-            if (config.StardustDragon)
+            TRAEConfig config = ModContent.GetInstance<TRAEConfig>();
+            if (config.Resprites)
             {
                 TextureAssets.Buff[188] = GetTexture("Buff_188");
                 SwapItem(ItemID.StardustDragonStaff);
                 SwapProjectiles(ProjectileID.StardustDragon1, ProjectileID.StardustDragon2, ProjectileID.StardustDragon3, ProjectileID.StardustDragon4);
-            }
-            if (config.InfernoRing)
-            {
+
+
                 TextureAssets.FlameRing = GetTexture("FlameRing");
-            }
-            if (config.StarWrath)
-            {
+
+
                 SwapItem(ItemID.StarWrath);
                 TextureAssets.Extra[36] = GetTexture("Extra_36");
                 SwapProjectile(ProjectileID.StarWrath);
-            }
-            if (config.LunarPortal)
-            {
+
                 SwapProjectile(ProjectileID.MoonlordTurret);
                 SwapProjectile(ProjectileID.MoonlordTurretLaser);
-            }
-            if (config.DarkLance)
-            {
+
+
                 SwapItem(ItemID.DarkLance);
-            }
-            if(config.PearlwoodBow)
-            {
+
+
                 SwapItem(ItemID.PearlwoodBow);
-            }
-            if (config.PearlwoodHammer)
-            {
+
+
                 SwapItem(ItemID.PearlwoodHammer);
-            }
-            if (config.PearlwoodSword)
-            {
+
+
                 SwapItem(ItemID.PearlwoodSword);
+
             }
         }
         public override void Unload()
@@ -99,41 +92,4 @@ namespace TRAEProject.Changes.TextureSwaps
     }
 
 
-    public class TRAERetextureConfig : ModConfig //configuration settings
-    {
-        public override ConfigScope Mode => ConfigScope.ClientSide;
-        
-        [Header("TextureSwaps")]
-
-        [ReloadRequired]
-        [DefaultValue(true)]
-        public bool StardustDragon { get; set; }
-        [ReloadRequired]
-        [DefaultValue(true)]
-        public bool InfernoRing { get; set; }
-
-        [ReloadRequired]
-        [DefaultValue(true)]
-        public bool DarkLance { get; set; }
-
-        [ReloadRequired]
-        [DefaultValue(true)]
-        public bool StarWrath { get; set; }
-
-        [ReloadRequired]
-        [DefaultValue(true)]
-        public bool PearlwoodSword { get; set; }
-
-        [ReloadRequired]
-        [DefaultValue(true)]
-        public bool PearlwoodHammer { get; set; }
-
-        [ReloadRequired]
-        [DefaultValue(false)]
-        public bool PearlwoodBow { get; set; }
-
-        [ReloadRequired]
-        [DefaultValue(true)]
-        public bool LunarPortal { get; set; }
-    }
 }

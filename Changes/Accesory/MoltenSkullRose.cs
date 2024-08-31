@@ -32,7 +32,7 @@ namespace TRAEProject.Changes.Accesory
                 case ItemID.MoltenSkullRose:
                     player.GetModPlayer<ObsidianSkullEffect>().moltenskullrose += 1;
                     player.GetModPlayer<CritDamage>().critDamage += 0.09f;
-                    
+                    player.lavaRose = false;
                     break;
                
                 case ItemID.MoltenQuiver:
@@ -43,9 +43,13 @@ namespace TRAEProject.Changes.Accesory
                     player.GetModPlayer<ObsidianSkullEffect>().arrowsburn += 1;
                     break;
                 case ItemID.ObsidianRose:
+                    player.lavaRose = false;
+
                     player.GetModPlayer<CritDamage>().magicCritDamage += 0.10f;
                     break;
                 case ItemID.ObsidianSkullRose:
+                    player.lavaRose = false;
+
                     player.GetModPlayer<ObsidianSkullEffect>().roseskull += 1;
                     player.GetModPlayer<CritDamage>().magicCritDamage += 0.10f;
                     player.GetModPlayer<CritDamage>().rangedCritDamage += 0.10f;
@@ -194,10 +198,7 @@ namespace TRAEProject.Changes.Accesory
             {
                 Player.fireWalk = false;  
 			}
-            if (Player.lavaRose)
-            {
-                Player.lavaRose = false;
-            }
+    
         }
         public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {

@@ -17,7 +17,7 @@ namespace TRAEProject.Changes.NPCs.Boss.LunaticCultist
         public override bool InstancePerEntity => true;
         public override void SetDefaults(NPC npc)
         {
-            if (GetInstance<TRAEConfig>().CultistChanges)
+            if (GetInstance<BossConfig>().CultistChanges)
             {
                 if (npc.type == NPCID.CultistBoss)
                 {
@@ -35,7 +35,7 @@ namespace TRAEProject.Changes.NPCs.Boss.LunaticCultist
         }
         public override void ApplyDifficultyAndPlayerScaling(NPC npc, int numPlayers, float balance, float bossAdjustment)
         {
-            if (npc.type == NPCID.CultistBoss && GetInstance<TRAEConfig>().CultistChanges)
+            if (npc.type == NPCID.CultistBoss && GetInstance<BossConfig>().CultistChanges)
             {
                 npc.lifeMax = (int)(npc.lifeMax / 1.2f);
             }
@@ -66,7 +66,7 @@ namespace TRAEProject.Changes.NPCs.Boss.LunaticCultist
 
         public override void ModifyHitByProjectile(NPC npc, Projectile projectile, ref NPC.HitModifiers modifiers)
         {
-            if (npc.type == NPCID.CultistBoss && GetInstance<TRAEConfig>().CultistChanges)
+            if (npc.type == NPCID.CultistBoss && GetInstance<BossConfig>().CultistChanges)
             {
                 if(ProjectileID.Sets.CultistIsResistantTo[projectile.type])
                 {
@@ -77,7 +77,7 @@ namespace TRAEProject.Changes.NPCs.Boss.LunaticCultist
         }
         public override bool PreAI(NPC npc)
 		{
-            if (GetInstance<TRAEConfig>().CultistChanges)
+            if (GetInstance<BossConfig>().CultistChanges)
             {
                 if (npc.type == NPCID.CultistBoss)
                 {

@@ -9,6 +9,7 @@ using Terraria.DataStructures;
 using Microsoft.Xna.Framework;
 using TRAEProject.Changes.Accesory;
 using System.Collections.Generic;
+using Steamworks;
 
 namespace TRAEProject
 {
@@ -29,7 +30,32 @@ namespace TRAEProject
         }
         public override void Update(int type, Player player, ref int buffIndex)
         {
-            switch (type)
+            if (GetInstance<TRAEConfig>().MobilityRework)
+            {
+                switch (type)
+                {
+                    case BuffID.WellFed:
+                        player.moveSpeed -= 0.15f;
+                        return;
+                    case BuffID.WellFed2:
+                        player.moveSpeed -= 0.24f;
+                        return;
+                    case BuffID.WellFed3:
+                        player.moveSpeed -= 0.33f;
+                        return;
+                    case BuffID.Swiftness:
+                        player.moveSpeed -= 0.15f;
+                        return;
+                    case BuffID.Sunflower:
+                    case BuffID.SugarRush:
+                        player.moveSpeed -= 0.1f;
+                        return;
+                    case BuffID.Panic:
+                        player.moveSpeed -= 0.6f;
+                        return;
+                }
+                }
+                switch (type)
             {
                 case BuffID.Silenced:
                     player.GetDamage<MagicDamageClass>() -= 0.25f;
@@ -42,6 +68,9 @@ namespace TRAEProject
                     
                     return;
                 case BuffID.ObsidianSkin:
+                    player.lavaImmune = false;
+                    player.GetModPlayer<Mobility>().TRAELavaMax += 600;
+
                     player.buffImmune[BuffID.OnFire] = false;
                     player.buffImmune[BuffID.Burning] = true;
                      return;
@@ -63,30 +92,19 @@ namespace TRAEProject
                     player.infernoCounter = 0;
                     return;
                 case BuffID.ManaRegeneration:
-                    player.GetModPlayer<Mana>().manaRegenBoost += 0.2f;
+                    if (GetInstance<TRAEConfig>().ManaRework)
+                    {
+                        player.GetModPlayer<Mana>().manaRegenBoost += 0.2f;
+                    }
                     return;
-                case BuffID.ManaSickness:               
-                    player.manaSickReduction = 0f;
+                case BuffID.ManaSickness:
+                    if (GetInstance<TRAEConfig>().ManaRework)
+                    {
+                        player.manaSickReduction = 0f;
+                    }
                     return;
-                case BuffID.WellFed:
-                    player.moveSpeed -= 0.15f;
-                    return;
-                case BuffID.WellFed2:
-                    player.moveSpeed -= 0.24f;
-                    return;
-                case BuffID.WellFed3:
-                    player.moveSpeed -= 0.33f;
-                    return;
-                case BuffID.Swiftness:
-                    player.moveSpeed -= 0.15f;
-                    return;
-                case BuffID.Sunflower:
-                case BuffID.SugarRush:
-                    player.moveSpeed -= 0.1f;
-                    return;
-                case BuffID.Panic:
-                    player.moveSpeed -= 0.6f;
-                    return;
+
+
                 case BuffID.WaterWalking:
                     player.GetModPlayer<Mobility>().TRAEwaterwalk = true;
                     break;
@@ -102,8 +120,40 @@ namespace TRAEProject
 
         public override void ModifyBuffText(int type, ref string buffName, ref string tip, ref int rare)
         {
+            if (GetInstance<TRAEConfig>().ManaRework)
+            {
+                switch (type)
+                {
+                    case BuffID.ManaRegeneration:
+                        tip = "Increases mana regeneration by 20%";
+                        return;
+                    case BuffID.ManaSickness:
+                        tip = "Can't drink another mana potion";
+                        return;
+                  
+                 }
+            }
+            if (GetInstance<TRAEConfig>().MobilityRework)
+            {
+                switch (type)
+                {
+                    case BuffID.Swiftness:
+                        tip = Mobility.swiftSpeed + "% increased movement speed";
+                        return;
+
+                    case BuffID.Panic:
+                        tip = "40% increased movement speed";
+                        return;
+                    case BuffID.SugarRush:
+                        tip = "10% increased movement speed and 20% increased mining speed";
+                        return;
+                }
+            }
             switch (type)
             {
+                case BuffID.ObsidianSkin:
+                    tip = "Provides 10 seconds of immunity to lava";
+                    return;
                 case BuffID.Silenced:
                     tip = "25% reduced magic damage";
                     return;
@@ -119,9 +169,7 @@ namespace TRAEProject
                 case BuffID.BeetleEndurance3:
                     tip = "Damage taken reduced by 30%";
                     return;
-                case BuffID.Panic:
-                    tip = "40% increased movement speed";
-                    return;
+        
                 case BuffID.Archery:
                     tip = "10% increased arrow damage, 20% increased arrow speed";
                     return;
@@ -137,21 +185,11 @@ namespace TRAEProject
                 case BuffID.WeaponImbueNanites:
                     tip = "Melee attacks confuse enemies and increase health regeneration";
                     return;
-                case BuffID.ManaRegeneration:
-                    tip = "Increases mana regeneration by 20%";
-                    return;
-	            case BuffID.ManaSickness:
-                    tip = "Can't drink another mana potion";
-                    return;
-                case BuffID.Swiftness:
-                    tip = Mobility.swiftSpeed + "% increased movement speed";
-                    return;
                 case BuffID.StarInBottle:
-                    tip = "Increased max mana by 20";
-                    return;
-                case BuffID.SugarRush:
-                    tip = "10% increased movement speed and 20% increased mining speed";
-                    return;
+                        tip = "Increased max mana by 20";
+                    break;
+                   
+              
     
             }
         }

@@ -24,8 +24,9 @@ namespace TRAEProject.NewContent.Items.Accesories
 		}
         public override void UpdateEquip(Player player)
         {
-			player.maxTurrets += 2;
-			player.GetKnockback(DamageClass.Summon) = player.GetKnockback(DamageClass.Summon)  + 2f;
+			player.maxTurrets += 1;
+            player.maxMinions += 1;
+            player.GetKnockback(DamageClass.Summon) = player.GetKnockback(DamageClass.Summon)  + 2f;
 
         }
         public override void AddRecipes()

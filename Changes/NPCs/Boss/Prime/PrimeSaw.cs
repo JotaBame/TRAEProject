@@ -13,14 +13,14 @@ namespace TRAEProject.Changes.NPCs.Boss.Prime
     {
         public override void SetDefaults(NPC npc)
         {
-            if(npc.type == NPCID.PrimeSaw && GetInstance<TRAEConfig>().PrimeRework && !Main.zenithWorld)
+            if(npc.type == NPCID.PrimeSaw && GetInstance<BossConfig>().PrimeRework && !Main.zenithWorld)
             {
                 npc.lifeMax = (int)(npc.lifeMax * ((float)PrimeStats.sawHealth / 9000));
             }
         }
         public override bool PreAI(NPC npc)
         {
-            if(npc.type == NPCID.PrimeSaw && GetInstance<TRAEConfig>().PrimeRework && !Main.zenithWorld)
+            if(npc.type == NPCID.PrimeSaw && GetInstance<BossConfig>().PrimeRework && !Main.zenithWorld)
             {
                 Prime_Saw_AI(npc);
                 return false;

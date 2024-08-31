@@ -14,7 +14,7 @@ namespace TRAEProject.Changes.NPCs.Boss
 		public override bool InstancePerEntity => true;
 		public override void SetDefaults(NPC npc)
         {
-            if (GetInstance<TRAEConfig>().SkeletronChanges)
+            if (GetInstance<BossConfig>().SkeletronChanges)
             {
                 if (npc.type == NPCID.SkeletronHead)
                 {
@@ -62,7 +62,7 @@ namespace TRAEProject.Changes.NPCs.Boss
         }
         public override bool PreAI(NPC npc)
         {
-			if (GetInstance<TRAEConfig>().SkeletronChanges)
+			if (GetInstance<BossConfig>().SkeletronChanges)
 			{
 				if (npc.type == NPCID.SkeletronHead)
 				{

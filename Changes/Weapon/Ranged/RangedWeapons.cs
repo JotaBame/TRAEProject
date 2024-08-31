@@ -24,8 +24,7 @@ namespace TRAEProject.Changes.Weapons
         {
             switch (item.type)
             {
-
-                case ItemID.Beenade:
+                 case ItemID.Beenade:
                     item.damage = 8; // down from 12				
                     item.useAnimation = 45; // up from 15
                     item.useTime = 45; // up from 15    
@@ -82,7 +81,11 @@ namespace TRAEProject.Changes.Weapons
 
 
                     return;
-
+                case ItemID.SuperStarCannon:
+                    item.damage = 90; // up from 60
+                    item.useAnimation = 16; // down from 16
+                    item.useTime = 16;  
+                    return;
                 case ItemID.Gatligator:
                     item.damage = 18; // down from 21
 
@@ -153,6 +156,7 @@ namespace TRAEProject.Changes.Weapons
                     item.reuseDelay = 10; // up from 0
                     // note that vanilla doesnt use reuseDelay for this, for whatever reason
                      return;
+      
                 case ItemID.DD2BetsyBow:
                     item.damage = 31; // down from 39
                     return;              
@@ -200,22 +204,16 @@ namespace TRAEProject.Changes.Weapons
                 Projectile.NewProjectile(source, position.X, position.Y, perturbedSpeed.X, perturbedSpeed.Y, type, damage, knockback, player.whoAmI);
                 return false;
             }
-            if (item.type == ItemID.DD2PhoenixBow)
-            {
-                Vector2 perturbedSpeed = new Vector2(velocity.X, velocity.Y).RotatedByRandom(MathHelper.ToRadians(10));
-
-                Projectile.NewProjectile(source, position.X, position.Y, perturbedSpeed.X, perturbedSpeed.Y, type, damage, knockback, player.whoAmI);
-                return false;
-            }
+ 
             if (item.type == ItemID.DaedalusStormbow)
             {
-                float num4 = (float)Main.mouseX + Main.screenPosition.X - Main.pointPoisition.X;
-                float num5 = (float)Main.mouseY + Main.screenPosition.Y - Main.pointPoisition.Y; 
+                float num4 = (float)Main.mouseX + Main.screenPosition.X - position.X;
+                float num5 = (float)Main.mouseY + Main.screenPosition.Y - position.Y; 
                 float num6 = (float)Math.Sqrt(num4 * num4 + num5 * num5);
                 float num7 = num6;
                 Vector2 vector6 = new Vector2(num4, num5);
-                vector6.X = (float)Main.mouseX + Main.screenPosition.X - Main.pointPoisition.X;
-                vector6.Y = (float)Main.mouseY + Main.screenPosition.Y - Main.pointPoisition.Y - 1000f;
+                vector6.X = (float)Main.mouseX + Main.screenPosition.X - position.X;
+                vector6.Y = (float)Main.mouseY + Main.screenPosition.Y - position.Y - 1000f;
                player.itemRotation = (float)Math.Atan2(vector6.Y * (float)player.direction, vector6.X * (float)player.direction);
 
                 int num13 = 3;
@@ -226,11 +224,11 @@ namespace TRAEProject.Changes.Weapons
                 }
                 for (int k = 0; k < num13; k++)
                 {
-                    Main.pointPoisition = new Vector2(position.X + (float)player.width * 0.5f + (float)(Main.rand.Next(201) * -player.direction) + ((float)Main.mouseX + Main.screenPosition.X - position.X), player.MountedCenter.Y - 600f);
-                    Main.pointPoisition.X = (Main.pointPoisition.X * 10f + player.Center.X) / 11f + (float)Main.rand.Next(-100, 101);
-                    Main.pointPoisition.Y -= 150 * k;
-                    num4 = (float)Main.mouseX + Main.screenPosition.X - Main.pointPoisition.X;
-                    num5 = (float)Main.mouseY + Main.screenPosition.Y - Main.pointPoisition.Y;
+                    position = new Vector2(position.X + (float)player.width * 0.5f + (float)(Main.rand.Next(201) * -player.direction) + ((float)Main.mouseX + Main.screenPosition.X - position.X), player.MountedCenter.Y - 600f);
+                    position.X = (position.X * 10f + player.Center.X) / 11f + (float)Main.rand.Next(-100, 101);
+                    position.Y -= 150 * k;
+                    num4 = (float)Main.mouseX + Main.screenPosition.X - position.X;
+                    num5 = (float)Main.mouseY + Main.screenPosition.Y - position.Y;
                     if (num5 < 0f)
                     {
                         num5 *= -1f;
@@ -246,8 +244,8 @@ namespace TRAEProject.Changes.Weapons
                     float num14 = num4 + (float)Main.rand.Next(-40, 41) * 0.03f;
                     float speedY = num5 + (float)Main.rand.Next(-40, 41) * 0.03f;
                     num14 *= (float)Main.rand.Next(75, 150) * 0.01f;
-                   Main.pointPoisition.X += Main.rand.Next(-50, 51);
-                    int num15 = Projectile.NewProjectile(item.GetSource_FromThis(), Main.pointPoisition.X, Main.pointPoisition.Y, num14, speedY, type, damage, knockback, player.whoAmI);
+                    position.X += Main.rand.Next(-50, 51);
+                    int num15 = Projectile.NewProjectile(item.GetSource_FromThis(), position.X, position.Y, num14, speedY, type, damage, knockback, player.whoAmI);
                     Main.projectile[num15].noDropItem = true;
                 }
                 return false;

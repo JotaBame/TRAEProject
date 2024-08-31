@@ -45,19 +45,21 @@ namespace TRAEProject.Changes
 
         public override void OnHitNPCWithProj(Projectile proj, NPC target, NPC.HitInfo hit, int damageDone)
         {
-
-            if (proj.CountsAsClass(DamageClass.Magic) && manaCloak == true && hit.Crit && Main.rand.NextBool(3))
+            if (GetInstance<TRAEConfig>().ManaRework)
             {
-                int[] spread = { 3, 4, 5 };
-                TRAEMethods.SpawnProjectilesFromAbove(Player, target.position, 1, 400, 600, spread, 20, ProjectileID.ManaCloakStar, damageDone / 2, 2f, Player.whoAmI);
-            }
-            if (proj.CountsAsClass(DamageClass.Magic) && newManaFlower == true && hit.Crit && manaFlowerLimit < 3)
-            {
-                if (Main.rand.NextBool(3))
+                if (proj.CountsAsClass(DamageClass.Magic) && manaCloak == true && hit.Crit && Main.rand.NextBool(3))
                 {
-                    
-                    QuickSpawnStar(Player.GetSource_OnHit(target), target.getRect());
-                    ++manaFlowerLimit;
+                    int[] spread = { 3, 4, 5 };
+                    TRAEMethods.SpawnProjectilesFromAbove(Player, target.position, 1, 400, 600, spread, 20, ProjectileID.ManaCloakStar, damageDone / 2, 2f, Player.whoAmI);
+                }
+                if (proj.CountsAsClass(DamageClass.Magic) && newManaFlower == true && hit.Crit && manaFlowerLimit < 3)
+                {
+                    if (Main.rand.NextBool(3))
+                    {
+
+                        QuickSpawnStar(Player.GetSource_OnHit(target), target.getRect());
+                        ++manaFlowerLimit;
+                    }
                 }
             }
         }
@@ -82,36 +84,42 @@ namespace TRAEProject.Changes
         }
         public override void PostUpdate()
         {
-      
-            if (newManaFlower)
+            if (!GetInstance<TRAEConfig>().ManaRework)
             {
-                ++manaFlowerTimer;
-                if (manaFlowerTimer >= 72)
+                Player.manaRegenBonus = (int)(Player.manaRegenBonus * manaRegenBoost);
+            }
+                if (GetInstance<TRAEConfig>().ManaRework)
+            {
+                if (newManaFlower)
                 {
-                    manaFlowerTimer = 0;
-                    manaFlowerLimit = 0;
+                    ++manaFlowerTimer;
+                    if (manaFlowerTimer >= 72)
+                    {
+                        manaFlowerTimer = 0;
+                        manaFlowerLimit = 0;
+                    }
                 }
-            }
 
-            //Main.NewText("PU: " + Player.statManaMax2);
-            Player.statManaMax2 = maxManaOverride;
-            if (overloadedMana > Player.statManaMax2 * 2)
-            {
-                overloadedMana = Player.statManaMax2 * 2;
-            }
-            Player.manaRegenCount = 0;
-            Player.manaRegen = 0;
-            Player.manaRegenDelay = 999;
-            Player.manaSickTimeMax = 9999;
-            int reachThisNumberAndThenIncreaseManaBy1 = 60;
-            if (Player.statMana < Player.statManaMax2)
-            {
-                newManaRegen += Player.statManaMax2 * 0.1f * manaRegenBoost;
-                newManaRegen += Player.usedArcaneCrystal ? 0.02f : 0f;
-                if (newManaRegen >= reachThisNumberAndThenIncreaseManaBy1)
+                //Main.NewText("PU: " + Player.statManaMax2);
+                Player.statManaMax2 = maxManaOverride;
+                if (overloadedMana > Player.statManaMax2 * 2)
                 {
-                    newManaRegen -= 60;
-                    ++Player.statMana;
+                    overloadedMana = Player.statManaMax2 * 2;
+                }
+                Player.manaRegenCount = 0;
+                Player.manaRegen = 0;
+                Player.manaRegenDelay = 999;
+                Player.manaSickTimeMax = 9999;
+                int reachThisNumberAndThenIncreaseManaBy1 = 60;
+                if (Player.statMana < Player.statManaMax2)
+                {
+                    newManaRegen += Player.statManaMax2 * 0.1f * manaRegenBoost;
+                    newManaRegen += Player.usedArcaneCrystal ? 0.02f : 0f;
+                    if (newManaRegen >= reachThisNumberAndThenIncreaseManaBy1)
+                    {
+                        newManaRegen -= 60;
+                        ++Player.statMana;
+                    }
                 }
             }
         }
@@ -200,7 +208,114 @@ namespace TRAEProject.Changes
         }
 
     }
-    public class DisplayOverload : ModSystem
+    public class ManaAccessories : GlobalItem
+    {
+        public override void UpdateAccessory(Item item, Player player, bool hideVisual)
+        {
+            switch (item.type)
+            {
+
+                case ItemID.BandofStarpower:
+                    player.GetModPlayer<Mana>().manaRegenBoost += 0.1f;
+                    player.statManaMax2 -= 20;
+                    break;
+                case ItemID.ManaRegenerationBand:
+                    player.statManaMax2 -= 20;
+
+                    player.GetModPlayer<Mana>().manaRegenBoost += 0.1f;
+                    player.lifeRegen += 2;
+                    break;
+
+           
+                case ItemID.ManaFlower:
+                case ItemID.MagnetFlower:
+                    player.GetModPlayer<Mana>().newManaFlower = true;
+                    player.manaCost += 0.08f;
+                    break;
+                case ItemID.ArcaneFlower:
+                    player.manaCost += 0.08f;
+                    player.GetModPlayer<Mana>().newManaFlower = true;
+                    player.GetDamage<MagicDamageClass>() += 0.04f;
+                    player.GetCritChance<MagicDamageClass>() += 4;
+                    break;
+                case ItemID.CelestialEmblem:
+                    player.GetDamage<MagicDamageClass>() -= 0.03f;
+                    break;
+            }
+        }
+        public override void ModifyTooltips(Item item, List<TooltipLine> tooltips)
+        {
+
+            switch (item.type)
+            {
+                case ItemID.BandofStarpower:
+                    foreach (TooltipLine line in tooltips)
+                    {
+                        if (line.Mod == "Terraria" && line.Name == "Tooltip0")
+                        {
+                            line.Text = "10% increased mana regeneration";
+
+                        }
+                    }
+                    break;
+                case ItemID.ManaRegenerationBand:
+                    foreach (TooltipLine line in tooltips)
+                    {
+                        if (line.Mod == "Terraria" && line.Name == "Tooltip0")
+                        {
+                            line.Text = "Increased life regeneration";
+                        }
+                        if (line.Mod == "Terraria" && line.Name == "Tooltip1")
+                        {
+                            line.Text = "10% increased mana regeneration";
+                        }
+                    }
+                    break;
+                case ItemID.MagnetFlower:
+                case ItemID.ManaFlower:
+                    foreach (TooltipLine line in tooltips)
+                    {
+                        if (line.Mod == "Terraria" && line.Name == "Tooltip0")
+                        {
+                            line.Text = "Magic critical strikes have a chance to spawn a mana star";
+                        }
+                    }
+                    break;
+                case ItemID.ArcaneFlower:
+                    foreach (TooltipLine line in tooltips)
+                    {
+                        if (line.Mod == "Terraria" && line.Name == "Tooltip0")
+                        {
+                            line.Text = "Magic critical strikes have a chance to spawn a mana star\n4% increased magic damage and critical strike chance";
+                        }
+                    }
+                    break;
+                case ItemID.ManaCloak:
+                    foreach (TooltipLine line in tooltips)
+                    {
+                        if (line.Mod == "Terraria" && line.Name == "Tooltip0")
+                        {
+                            line.Text = "Magic critical strikes have a chance to cause a damaging star to fall";
+                        }
+                        if (line.Mod == "Terraria" && line.Name == "Tooltip1")
+                        {
+                            line.Text = "Causes stars to fall when taking damage";
+                        }
+                        if (line.Mod == "Terraria" && line.Name == "Tooltip2")
+                        {
+                            line.Text = "Stars restore mana when collected";
+                        }
+                        if (line.Mod == "Terraria" && line.Name == "Tooltip3")
+                        {
+                            line.Text = "Automatically uses mana potions when needed";
+                        }
+                    }
+                    break;
+            }
+        }
+    }
+
+   public class DisplayOverload : ModSystem
     {
         const int OManaPerStar = 40;
         public static IPlayerResourcesDisplaySet ActivePlayerResourcesSet;

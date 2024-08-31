@@ -25,7 +25,7 @@ namespace TRAEProject.NPCs.Boss
 		public override bool InstancePerEntity => true;
 		public override void SetDefaults(NPC npc)
 		{
-			if (GetInstance<TRAEConfig>().DeerclopsChanges)
+			if (GetInstance<BossConfig>().DeerclopsChanges)
 			{
 
 				if (npc.type == NPCID.Deerclops)
@@ -38,7 +38,7 @@ namespace TRAEProject.NPCs.Boss
 		float MaxTimeWithoutBouldersOrHands = 600f;
 		public override bool PreAI(NPC npc)
 		{
-			if (GetInstance<TRAEConfig>().DeerclopsChanges)
+			if (GetInstance<BossConfig>().DeerclopsChanges)
 			{
 				if (npc.type == NPCID.Deerclops)
 				{

@@ -56,8 +56,14 @@ namespace TRAEProject.Changes.Projectiles
                     projectile.usesLocalNPCImmunity = true;
                     projectile.localNPCHitCooldown = 10;
                     return;
-             
-   
+                case ProjectileID.SuperStarSlash:
+                    projectile.usesLocalNPCImmunity = true;
+                    projectile.localNPCHitCooldown = 10; projectile.usesIDStaticNPCImmunity = false;
+
+                    projectile.GetGlobalProjectile<ProjectileStats>().DirectDamage /= 0.75f;
+                     return;
+
+
                 case ProjectileID.BoneArrowFromMerchant:
                     projectile.penetrate = 1;
                     return;
@@ -264,8 +270,8 @@ namespace TRAEProject.Changes.Projectiles
                     num27 = num24 / num27;
                     num25 *= num27;
                     num26 *= num27;
-                    projectile.velocity.X = (projectile.velocity.X * 11f + num25) / 12f;
-                    projectile.velocity.Y = (projectile.velocity.Y * 11f + num26) / 12f;
+                    projectile.velocity.X = (projectile.velocity.X * 8f + num25) / 9f;
+                    projectile.velocity.Y = (projectile.velocity.Y * 8f + num26) / 9f;
                     return false;
                 }
                 return true;
@@ -324,8 +330,8 @@ namespace TRAEProject.Changes.Projectiles
                     num27 = num24 / num27;
                     num25 *= num27;
                     num26 *= num27;
-                    projectile.velocity.X = (projectile.velocity.X * 11f + num25) / 12f;
-                    projectile.velocity.Y = (projectile.velocity.Y * 11f + num26) / 12f;
+                    projectile.velocity.X = (projectile.velocity.X * 8f + num25) / 9f;
+                    projectile.velocity.Y = (projectile.velocity.Y * 8f + num26) / 9f;
                     return false;
                 }
                 if (ChloroBulletTime >= 30) // Due to the bullet having 2 extraUpdates, this happens after 8 frames.
@@ -461,7 +467,14 @@ namespace TRAEProject.Changes.Projectiles
             }
             if (projectile.type == ProjectileID.DD2PhoenixBow)
             {
-                float num = 0f;
+                float num = (float)Math.PI / 2f;
+                Vector2 mountedCenter = player.MountedCenter;
+                Vector2 vector = player.RotatedRelativePoint(mountedCenter);
+                int num2 = 2;
+                float num3 = 0f;
+
+
+                num = 0f;
                 if (projectile.spriteDirection == -1)
                 {
                     num = (float)Math.PI;
@@ -475,7 +488,7 @@ namespace TRAEProject.Changes.Projectiles
                     projectile.ai[1] = itemAnimationMax;
                     flag14 = true;
                 }
-                bool canShoot4 = player.channel && player.HasAmmo(player.inventory[player.selectedItem], canUse: true) && !player.noItems && !player.CCed;
+                bool canShoot4 = player.channel && player.HasAmmo(player.inventory[player.selectedItem]) && !player.noItems && !player.CCed;
                 if (projectile.localAI[0] > 0f)
                 {
                     projectile.localAI[0] -= 1f;
@@ -491,23 +504,22 @@ namespace TRAEProject.Changes.Projectiles
                 }
                 if (flag14 && Main.myPlayer == projectile.owner)
                 {
-                    Vector2 vector = player.RotatedRelativePoint(player.MountedCenter);
                     int projToShoot4 = 14;
                     float speed4 = 12f;
                     int Damage4 = player.GetWeaponDamage(player.inventory[player.selectedItem]);
                     float KnockBack4 = player.inventory[player.selectedItem].knockBack;
-                    int projectileCount = 2;
+                    int projCount = 2;
                     float num79 = 1.5f;
                     if (canShoot4)
                     {
-                        player.PickAmmo(player.inventory[player.selectedItem], ref projToShoot4, ref speed4, ref canShoot4, ref Damage4, ref KnockBack4, out var usedAmmoItemId4);
+                        player.PickAmmo(player.inventory[player.selectedItem], out projToShoot4, out speed4, out Damage4, out KnockBack4, out var usedAmmoItemId4);
                         IEntitySource projectileSource_Item_WithPotentialAmmo4 = player.GetSource_ItemUse_WithPotentialAmmo(player.HeldItem, usedAmmoItemId4);
                         KnockBack4 = player.GetWeaponKnockback(player.inventory[player.selectedItem], KnockBack4);
                         if (projToShoot4 == 1)
                         {
                             projToShoot4 = 2;
                         }
-                 
+
                         float num80 = player.inventory[player.selectedItem].shootSpeed * projectile.scale;
                         Vector2 vector34 = vector;
                         Vector2 value12 = Main.screenPosition + new Vector2(Main.mouseX, Main.mouseY) - vector34;
@@ -526,8 +538,7 @@ namespace TRAEProject.Changes.Projectiles
                             projectile.netUpdate = true;
                         }
                         projectile.velocity = vector35 * 0.55f;
-                        
-                        for (int num81 = 0; num81 < projectileCount; num81++)
+                        for (int num81 = 0; num81 < projCount; num81++)
                         {
                             Vector2 vector36 = Vector2.Normalize(projectile.velocity) * speed4;
                             vector36 += Main.rand.NextVector2Square(0f - num79, num79);
@@ -536,18 +547,17 @@ namespace TRAEProject.Changes.Projectiles
                                 vector36 = -Vector2.UnitY;
                             }
                             Vector2 vector37 = vector34;
-                            int num82 = projectile.NewProjectile(projectileSource_Item_WithPotentialAmmo4, vector37.X, vector37.Y, vector36.X, vector36.Y, projToShoot4, Damage4, KnockBack4, projectile.owner);
+                            int num82 = Projectile.NewProjectile(projectileSource_Item_WithPotentialAmmo4, vector37.X, vector37.Y, vector36.X, vector36.Y, projToShoot4, Damage4, KnockBack4, projectile.owner);
                             Main.projectile[num82].noDropItem = true;
                         }
                         if (++player.phantomPhoneixCounter >= 3)
                         {
                             player.phantomPhoneixCounter = 0;
-                            projectileCount = 1;
-                            Damage4 *= 2;
+                             Damage4 *= 2;
                             num79 = 0f;
                             projectile.ai[1] *= 1.5f;
                             projToShoot4 = 706;
-                            speed4 = 16f;
+                            speed4 = 16f; 
                             Vector2 vector36 = Vector2.Normalize(projectile.velocity) * speed4;
                             vector36 += Main.rand.NextVector2Square(0f - num79, num79);
                             if (float.IsNaN(vector36.X) || float.IsNaN(vector36.Y))
@@ -555,16 +565,26 @@ namespace TRAEProject.Changes.Projectiles
                                 vector36 = -Vector2.UnitY;
                             }
                             Vector2 vector37 = vector34;
-                            int num82 = projectile.NewProjectile(projectileSource_Item_WithPotentialAmmo4, vector37.X, vector37.Y, vector36.X, vector36.Y, projToShoot4, Damage4, KnockBack4, projectile.owner);
+                            int num82 = Projectile.NewProjectile(projectileSource_Item_WithPotentialAmmo4, vector37.X, vector37.Y, vector36.X, vector36.Y, projToShoot4, Damage4, KnockBack4, projectile.owner);
 
-                            
                         }
                     }
                     else
                     {
-                        Kill();
+                        projectile.Kill();
                     }
                 }
+
+                projectile.position = player.RotatedRelativePoint(mountedCenter, reverseRotation: false, addGfxOffY: false) - projectile.Size / 2f;
+                projectile.rotation = projectile.velocity.ToRotation() + num;
+                projectile.spriteDirection = projectile.direction;
+                projectile.timeLeft = 2;
+                player.ChangeDir(projectile.direction);
+                player.heldProj = projectile.whoAmI;
+                player.SetDummyItemTime(num2);
+                player.itemRotation = MathHelper.WrapAngle((float)Math.Atan2(projectile.velocity.Y * (float)projectile.direction, projectile.velocity.X * (float)projectile.direction) + num3);
+
+                return false;
             }
             /*if (projectile.type == 615)
             {

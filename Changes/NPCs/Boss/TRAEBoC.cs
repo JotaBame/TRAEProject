@@ -34,7 +34,7 @@ namespace TRAEProject.NPCs.Boss
         }
         public override void ModifyHitByProjectile(NPC npc, Projectile projectile, ref NPC.HitModifiers modifiers)
         {
-            if (GetInstance<TRAEConfig>().BoCChanges)
+            if (GetInstance<BossConfig>().BoCChanges)
             {
                 if (projectile.type == ProjectileID.VampireFrog && npc.type == NPCID.BrainofCthulhu)
                     modifiers.FinalDamage *= 0.67f;
@@ -42,7 +42,7 @@ namespace TRAEProject.NPCs.Boss
         }
         public override void OnHitPlayer(NPC npc, Player target, Player.HurtInfo hurtInfo)
         {
-            if (GetInstance<TRAEConfig>().BoCChanges && npc.type == NPCID.BrainofCthulhu )
+            if (GetInstance<BossConfig>().BoCChanges && npc.type == NPCID.BrainofCthulhu )
             {
 
                
@@ -63,7 +63,7 @@ namespace TRAEProject.NPCs.Boss
         
         public override bool PreAI(NPC npc)
         {
-            if (GetInstance<TRAEConfig>().BoCChanges)
+            if (GetInstance<BossConfig>().BoCChanges)
             {
                 if (npc.type == NPCID.BrainofCthulhu)
                 {
@@ -131,7 +131,7 @@ namespace TRAEProject.NPCs.Boss
                         float baseSpeed = 11.25f; // up from 8
                         if (Main.masterMode )
                         {
-                            if (npc.life >= (int)(npc.lifeMax * 2 / 3))
+                            if (npc.life >= (int)(npc.lifeMax / 2))
                             {
                                 npc.knockBackResist = 0f;
 
@@ -139,7 +139,6 @@ namespace TRAEProject.NPCs.Boss
                             else
                             {
             
-                                baseSpeed *= 0.9f;
                                 if (npc.localAI[2] == 1f)
                                 {
                                     SoundEngine.PlaySound(SoundID.ForceRoarPitched, npc.Center);
@@ -159,7 +158,7 @@ namespace TRAEProject.NPCs.Boss
                             if (Main.netMode != 1)
                             {
                                 npc.localAI[1] += 1f;
-                                if (Main.masterMode && npc.life <= (int)(npc.lifeMax * 2 / 3))
+                                if (Main.masterMode && npc.life <= (int)(npc.lifeMax * 2))
                                     npc.localAI[1] += 0.5f;
                                 if (npc.justHit)
                                 {
@@ -229,15 +228,15 @@ namespace TRAEProject.NPCs.Boss
                                 npc.ai[3] += 25f;
                             }
                            
-                            if (Main.masterMode)
+                            //if (Main.masterMode)
 
-                            {
-                                if (npc.life <= (int)(npc.lifeMax * 2 / 3))
-                                {
+                            //{
+                            //    if (npc.life <= (int)(npc.lifeMax * 2 / 3))
+                            //    {
 
-                                    npc.ai[3] += 12.5f;
-                                }
-                            }
+                            //        npc.ai[3] += 12.5f;
+                            //    }
+                            //}
  
                             // teleports when it reaches 255
                             if (npc.ai[3] >= 255f)

@@ -66,7 +66,10 @@ namespace TRAEProject.Changes
                     item.SetNameOverride("Gravity Horseshoe");
                     break;
                 case ItemID.ObsidianWaterWalkingBoots:
-                    item.SetNameOverride("Heavy Rocket Boots");
+                    if (GetInstance<TRAEConfig>().MobilityRework)
+                    {
+                        item.SetNameOverride("Heavy Rocket Boots");
+                    }
                     break;
                 case ItemID.WormTooth:
                     item.SetNameOverride("Rotten Tooth");
@@ -391,7 +394,9 @@ namespace TRAEProject.Changes
                     player.AddBuff(BuffID.Ironskin, 43200, false);
                     player.AddBuff(BuffID.Regeneration, 43200, false);
                     player.AddBuff(BuffID.Swiftness, 43200, false);
-                    player.AddBuff(BuffID.Endurance, 43200, false);
+                    player.AddBuff(BuffID.Endurance, 43200, false); 
+                    player.AddBuff(BuffID.Titan, 43200, false);
+
                     player.AddBuff(BuffID.Shine, 43200, false);
                     player.AddBuff(BuffID.NightOwl, 43200, false);
                     player.AddBuff(BuffID.Lifeforce, 43200, false);
@@ -480,15 +485,20 @@ namespace TRAEProject.Changes
                         }
                     }
                     break;
-                case ItemID.ArcheryPotion:
+                case ItemID.GoldenDelight:
                     foreach (TooltipLine line in tooltips)
                     {
                         if (line.Mod == "Terraria" && line.Name == "Tooltip0")
                         {
-                            line.Text = "Increases arrow damage by 10% and arrow speed by 20%";
+                            line.Text = "The best meal you'll ever eat!";
+                        }
+                        if (line.Mod == "Terraria" && line.Name == "BuffTime")
+                        {
+                            line.Text = "12 minute duration";
                         }
                     }
-                    break; 
+                    break;
+      
                 case ItemID.TitanPotion:
                     foreach (TooltipLine line in tooltips)
                     {
@@ -519,9 +529,22 @@ namespace TRAEProject.Changes
                 case ItemID.SwiftnessPotion:
                     foreach (TooltipLine line in tooltips)
                     {
+                        if (GetInstance<TRAEConfig>().MobilityRework)
+                        {
+
+                            if (line.Mod == "Terraria" && line.Name == "Tooltip0")
+                            {
+                                line.Text = "10% increased movement speed";
+                            }
+                        }
+                    }
+                    break;
+                case ItemID.ObsidianSkinPotion:
+                    foreach (TooltipLine line in tooltips)
+                    {
                         if (line.Mod == "Terraria" && line.Name == "Tooltip0")
                         {
-                            line.Text = "10% increased movement speed";
+                            line.Text = "Provides 10 seconds of immunity to lava";
                         }
                     }
                     break;

@@ -91,16 +91,7 @@ namespace TRAEProject.Changes.NPCs
                 }
 
             }
-            if (spawnInfo.Player.ZoneUnderworldHeight && spawnInfo.Player.lavaWet && !Main.hardMode)
-            {
-                int[] increaseTheseSpawnRates = { NPCID.BoneSerpentHead, NPCID.FireImp };
-                for (int k = 0; k < increaseTheseSpawnRates.Length; k++)
-                {
-                    pool.Remove(increaseTheseSpawnRates[k]);
-                    pool.Add(increaseTheseSpawnRates[k], 0.5f);
-                }
-
-            }
+ 
 
         }
 
