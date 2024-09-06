@@ -86,7 +86,7 @@ namespace TRAEProject.Changes.Accesory
                     {
                         if (line.Mod == "Terraria" && line.Name == "Tooltip0")
                         {
-                            line.Text += "\nMelee critical strikes have have a very low chance to incinerate, higher on stronger hits";
+                            line.Text += "\nMelee critical strikes have have a very low chance to incinerate, based on damage dealt";
                         }
                     }
                     break;                    
@@ -214,7 +214,9 @@ namespace TRAEProject.Changes.Accesory
             }
             if (hit.Crit && Player.magmaStone)
             {
-                int chance = 1600 / (damageDone / 2 * magmas);
+                
+                int chance = 3600 / (damageDone * magmas);
+                
                 if (chance <= 1)
                     chance = 1;
                 if (Main.rand.NextBool(chance))
@@ -248,7 +250,7 @@ namespace TRAEProject.Changes.Accesory
             {
                 if (proj.CountsAsClass<MeleeDamageClass>())
                 {
-                    int chance = 1600 / (damageDone / 2 * magmas);
+                    int chance = 3600 / (damageDone * magmas);  
                     if (chance <= 1)
                         chance = 1;
                     if (Main.rand.NextBool(chance))

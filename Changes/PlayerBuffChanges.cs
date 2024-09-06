@@ -57,11 +57,7 @@ namespace TRAEProject
                 }
                 switch (type)
             {
-                case BuffID.Silenced:
-                    player.GetDamage<MagicDamageClass>() -= 0.25f;
-                     player.silence = false;
-
-                    return;
+              
                 case BuffID.Weak:
                     player.GetDamage<GenericDamageClass>() -= 0.11f;
                     player.GetDamage<MeleeDamageClass>() += 0.051f;
@@ -69,7 +65,7 @@ namespace TRAEProject
                     return;
                 case BuffID.ObsidianSkin:
                     player.lavaImmune = false;
-                    player.GetModPlayer<Mobility>().TRAELavaMax += 600;
+                    player.GetModPlayer<Mobility>().TRAELavaMax += 720;
 
                     player.buffImmune[BuffID.OnFire] = false;
                     player.buffImmune[BuffID.Burning] = true;
@@ -152,11 +148,9 @@ namespace TRAEProject
             switch (type)
             {
                 case BuffID.ObsidianSkin:
-                    tip = "Provides 10 seconds of immunity to lava";
+                    tip = "Provides 12 seconds of immunity to lava";
                     return;
-                case BuffID.Silenced:
-                    tip = "25% reduced magic damage";
-                    return;
+        
                 case BuffID.StardustDragonMinion:
                     tip = "The Lunar Dragon will fight for you";
                     return;

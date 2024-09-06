@@ -40,14 +40,7 @@ namespace TRAEProject.Changes.Weapons
                     item.useTime = 36;
                     return;
 
-                case ItemID.TheUndertaker:
-                    item.useAnimation = 21; // up from 20
-                    item.useTime = 21;
-                    return;
-                case ItemID.Musket:
-                    item.useAnimation = 35; // up from 32
-                    item.useTime = 35;
-                    return;
+       
                 case ItemID.Revolver:
                     item.damage = 25; // up from 20
                     item.value = Item.buyPrice(gold: 25);
@@ -82,7 +75,7 @@ namespace TRAEProject.Changes.Weapons
 
                     return;
                 case ItemID.SuperStarCannon:
-                    item.damage = 90; // up from 60
+                    item.damage = 95; // up from 60
                     item.useAnimation = 16; // down from 16
                     item.useTime = 16;  
                     return;
@@ -335,6 +328,15 @@ namespace TRAEProject.Changes.Weapons
                         if (line.Mod == "Terraria" && line.Name == "Tooltip0")
                         {
                             line.Text += "\nConverts Musket Balls into homing rockets";
+                        }
+                    }
+                    return;
+                case ItemID.Phantasm:
+                    foreach (TooltipLine line in tooltips)
+                    {
+                        if (line.Mod == "Terraria" && line.Name == "Tooltip0")
+                        {
+                            line.Text += "\n'Death by a thousand phantoms'";
                         }
                     }
                     return;

@@ -36,7 +36,7 @@ namespace TRAEProject.Changes.NPCs.Boss.Plantera
         }
         public override bool PreAI(Projectile projectile)
 		{
-			if (projectile.type == 275 || projectile.type == 276 && GetInstance<BossConfig>().PlanteraRework)
+			if ((projectile.type == 275 || projectile.type == 276) && GetInstance<BossConfig>().PlanteraRework)
 			{
 				projectile.extraUpdates = 3;
 				if (projectile.ai[1] == 0f)

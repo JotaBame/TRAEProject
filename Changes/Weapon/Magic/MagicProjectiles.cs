@@ -232,8 +232,7 @@ namespace TRAEProject.Changes.Items
         public override void OnHitNPC(Projectile projectile, NPC target, NPC.HitInfo hit, int damageDone)
         {
             Player player = Main.player[projectile.owner];
-
-            if (DrainManaOnHit > 0)
+             if (DrainManaOnHit > 0)
             {
                 if (player.statMana < DrainManaOnHit * player.manaCost)
                 {

@@ -183,8 +183,8 @@ namespace TRAEProject
             //nerfed to ~37.5mph horizontal and vertical max speed
             if (Player.mount.Type == MountID.UFO)
             {
-                float VerticalSpeed  = 8.4f * mountSpeedBonus;
-                float HorizontalSpeed = 7 * mountSpeedBonus;
+                float VerticalSpeed  = 7.2f * mountSpeedBonus;
+                float HorizontalSpeed = 6 * mountSpeedBonus;
 
                 if (Math.Abs(Player.velocity.X) > HorizontalSpeed)
                 {
@@ -197,8 +197,8 @@ namespace TRAEProject
             }
             if (Player.mount.Type == MountID.WitchBroom)
             {
-                float VerticalSpeed = 7 * mountSpeedBonus;
-                float HorizontalSpeed = 8f * mountSpeedBonus;
+                float VerticalSpeed = 6 * mountSpeedBonus;
+                float HorizontalSpeed = 7f * mountSpeedBonus;
 
                 if (Math.Abs(Player.velocity.X) > HorizontalSpeed)
                 {
@@ -212,8 +212,8 @@ namespace TRAEProject
             
             if ( Player.mount.Type == MountID.CuteFishron)
             {
-                float VerticalSpeed = 7.5f * mountSpeedBonus;
-                float HorizontalSpeed = 7.5f * mountSpeedBonus;
+                float VerticalSpeed = 6.75f * mountSpeedBonus;
+                float HorizontalSpeed = 6.75f * mountSpeedBonus;
                 Player.runAcceleration = 0.16f;
                 if (Player.controlUp || Player.controlJump)
                 {

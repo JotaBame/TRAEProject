@@ -8,7 +8,8 @@ using Terraria.WorldBuilding;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
- 
+using TRAEProject.Common;
+
 namespace TRAEProject.Changes.Weapon.Summon
 {
     public class Sentries : GlobalItem
@@ -40,7 +41,7 @@ namespace TRAEProject.Changes.Weapon.Summon
                     item.damage = 123; // up from 88
                     break;
                 case ItemID.StaffoftheFrostHydra:
-                    item.damage = 88; // down from 100
+                    item.damage = 75; // down from 100
                     break;
                 case ItemID.RainbowCrystalStaff:
                     item.damage = 30; // down from 150
@@ -84,9 +85,9 @@ namespace TRAEProject.Changes.Weapon.Summon
                     break;
                 case ProjectileID.FrostBlastFriendly:
                     projectile.usesLocalNPCImmunity = true;
+                    projectile.usesIDStaticNPCImmunity = false;
                     projectile.localNPCHitCooldown = -1;
-                    //projectile.penetrate = 1;
-                    //projectile.extraUpdates = 100;
+                    projectile.GetGlobalProjectile<ProjectileStats>().dontHitTheSameEnemyMultipleTimes = true;
                     break;
             }
         }
@@ -104,9 +105,7 @@ namespace TRAEProject.Changes.Weapon.Summon
                     };
                     return;
                 }
-                case ProjectileID.FrostBlastFriendly:
-                    projectile.localNPCImmunity[target.whoAmI] = -1;
-                break;
+           
             }
         }
         public override bool? CanDamage(Projectile projectile)
@@ -115,7 +114,7 @@ namespace TRAEProject.Changes.Weapon.Summon
             {
                 return false;
             }
-            return base.CanDamage(projectile);
+            return null;
         }
         public override bool PreAI(Projectile projectile)
         {

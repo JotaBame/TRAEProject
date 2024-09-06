@@ -150,7 +150,7 @@ namespace TRAEProject.Changes.Weapon.Ranged.Rockets
         }
         public void ClusterRocketExplosion(Projectile projectile)
         {
-            SoundEngine.PlaySound(SoundID.Item14 with { MaxInstances = 0 }, projectile.position);
+            SoundEngine.PlaySound(SoundID.Item14 with { MaxInstances = 3 }, projectile.position);
 
             Color transparent7 = Color.Transparent;
             for (int i = 0; i < 30; i++)

@@ -16,29 +16,29 @@ namespace TRAEProject.Changes.NPCs
 {
     public class SpawnRate : GlobalNPC
     {
-        //public override void EditSpawnRate(Player player, ref int spawnRate, ref int maxSpawns) buggy af
-        //{
-        //    if(Main.CurrentFrameFlags.AnyActiveBossNPC)
-        //    {
-        //        spawnRate = 0;
-        //        maxSpawns = 0;
-        //    }
-        //    if(NPC.AnyNPCs(NPCID.BloodNautilus) || NPC.AnyNPCs(ModContent.NPCType<BeholderNPC>()))
-        //    {
-        //        spawnRate = 0;
-        //        maxSpawns = 0;
-        //    }
-        //    else if(player.GetModPlayer<PearlEffects>().spawnUp)
-        //    {
-        //        spawnRate = (int)((double)spawnRate * 0.5);
-        //        maxSpawns = (int)((float)maxSpawns * 2f);
-        //    }
-        //}
-        //public override void OnSpawn(NPC npc, IEntitySource source)
-        //{
-        //    if (!TRAEWorld.downedAMech && npc.type == NPCID.Steampunker)
-        //        npc.life = 0;
-        //}
+        public override void EditSpawnRate(Player player, ref int spawnRate, ref int maxSpawns)
+        {
+            //if(Main.CurrentFrameFlags.AnyActiveBossNPC)
+            //{
+            //    spawnRate = 0;
+            //    maxSpawns = 0;
+            //}
+            //if(NPC.AnyNPCs(NPCID.BloodNautilus) || NPC.AnyNPCs(ModContent.NPCType<BeholderNPC>()))
+            //{
+            //    spawnRate = 0;
+            //    maxSpawns = 0;
+            //}
+            if (player.GetModPlayer<PearlEffects>().spawnUp)
+            {
+                spawnRate = (int)(spawnRate * 0.75);
+                maxSpawns = (int)(maxSpawns * 2f);
+            }
+        }
+        public override void OnSpawn(NPC npc, IEntitySource source)
+{
+    if (!TRAEWorld.downedAMech && npc.type == NPCID.Steampunker)
+        npc.life = 0;
+}
 
     }
 }

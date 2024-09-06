@@ -424,7 +424,7 @@ namespace TRAEProject.Changes.Items
                     if (GetInstance<TRAEConfig>().ManaRework)
                     {
 
-                        player.AddBuff(BuffID.ManaSickness, maxTime, false);
+                        player.AddBuff(BuffID.ManaSickness, maxTime - 300, false); // mana potions always add 5 secs of mana sickness
 
                     }
                     else if (player.GetModPlayer<AngelicStoneEffects>().stones > 0)
@@ -433,8 +433,7 @@ namespace TRAEProject.Changes.Items
 
                         player.buffTime[player.FindBuffIndex(BuffID.ManaSickness)] -= maxTime;
                     }
-                    player.AddBuff(BuffType<Surge>(), 4 * 60);
-                    return;
+                     return;
             }
 
             return;
@@ -461,7 +460,7 @@ namespace TRAEProject.Changes.Items
                 {
                     case ItemID.BeeGun:
                         {
-                            int bees = Main.rand.Next(2, 4); // 2-3 bees, that's so stupid why isn't it 2-4
+                            int bees = Main.rand.Next(2, 4); // 2-3 bees
                             for (int i = 0; i < bees; i++)
                             {
 

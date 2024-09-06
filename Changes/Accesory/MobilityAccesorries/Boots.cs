@@ -128,7 +128,7 @@ namespace TRAEProject.Changes.Accesory
                         if (!GetInstance<TRAEConfig>().TerrasparkLineRework)
                         {
                             player.dashType = 99;
-                            player.GetModPlayer<Mobility>().TRAELavaMax += 600;
+                            player.GetModPlayer<Mobility>().TRAELavaMax += 720;
                             player.GetModPlayer<AccesoryEffects>().waterRunning = true;
                             player.GetModPlayer<AccesoryEffects>().LavaShield = true;
                             player.GetModPlayer<Mobility>().TRAEwaterwalk = true;
@@ -143,8 +143,10 @@ namespace TRAEProject.Changes.Accesory
                         break;
                     case ItemID.LavaCharm:
                         player.lavaRose = true;
+                        player.buffImmune[BuffID.Burning] = true;
+
                         player.GetModPlayer<AccesoryEffects>().LavaShield = true;
-                        player.GetModPlayer<Mobility>().TRAELavaMax += 600;
+                        player.GetModPlayer<Mobility>().TRAELavaMax += 720;
                         break;
                     case ItemID.LavaWaders:
 
@@ -152,7 +154,7 @@ namespace TRAEProject.Changes.Accesory
                         player.GetModPlayer<AccesoryEffects>().LavaShield = true;
                         player.GetModPlayer<Mobility>().TRAEwaterwalk = true;
                         player.buffImmune[BuffID.Burning] = true;
-                        player.GetModPlayer<Mobility>().TRAELavaMax += 420;
+                        player.GetModPlayer<Mobility>().TRAELavaMax += 720;
 
                         player.lavaRose = true;
                         break;
@@ -233,7 +235,7 @@ namespace TRAEProject.Changes.Accesory
                                 }
                                 if (line.Mod == "Terraria" && line.Name == "Tooltip2")
                                 {
-                                    line.Text = "Grants immunity to fire blocks and 10 seconds of immunity to lava\nIncreases movement speed and shields the wearer when entering liquids\nAllows skating when double tapping on the ground";
+                                    line.Text = "Grants immunity to fire blocks and 12 seconds of immunity to lava\nIncreases movement speed and shields the wearer when entering liquids\nAllows skating when double tapping on the ground";
                                 }
                             }
 
@@ -395,7 +397,7 @@ namespace TRAEProject.Changes.Accesory
                             {
                                 if (line.Mod == "Terraria" && line.Name == "Tooltip0")
                                 {
-                                    line.Text = "Grants 10 seconds of lava immunity, and reduces damage when touching lava\nShields the wearer when entering lava";
+                                    line.Text = "Grants 12 seconds of lava immunity, and reduces damage when touching lava\nShields the wearer when entering lava";
                                 }
                             }
                         }
@@ -410,7 +412,7 @@ namespace TRAEProject.Changes.Accesory
                             }
                             if (line.Mod == "Terraria" && line.Name == "Tooltip1")
                             {
-                                line.Text = "Allows walking on water and grants 10 seconds of immunity to lava\nReduces damage taken when touching lava";
+                                line.Text = "Allows walking on water and grants 12 seconds of immunity to lava";
                             }
 
                         }

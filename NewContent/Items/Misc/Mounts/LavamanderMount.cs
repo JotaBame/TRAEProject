@@ -49,7 +49,7 @@ namespace TRAEProject.NewContent.Items.Misc.Mounts
 			MountData.constantJump = true; // Allows you to hold the jump button down.
 			MountData.heightBoost = 8; // Height between the mount and the ground
 			MountData.fallDamage = 0.2f; // Fall damage multiplier.
-			MountData.runSpeed = 5.5f; // The speed of the mount
+			MountData.runSpeed = 5.6f; // The speed of the mount
 			MountData.dashSpeed = 6f; // The speed the mount moves when in the state of dashing.
 			MountData.flightTimeMax = 0; // The amount of time in frames a mount can be in the state of flying.
 

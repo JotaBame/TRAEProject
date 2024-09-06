@@ -36,8 +36,8 @@ namespace TRAEProject.NewContent.Items.Misc.Potions
             if (GetInstance<TRAEConfig>().ManaRework)
             {
  
-                player.AddBuff(BuffID.ManaSickness, maxTime, false);
-              
+                player.AddBuff(BuffID.ManaSickness, maxTime - 300, false); // subtract 300 because mana potions always add 5 seconds of mana sickness
+
             }
             else if (player.GetModPlayer<AngelicStoneEffects>().stones > 0)
             {

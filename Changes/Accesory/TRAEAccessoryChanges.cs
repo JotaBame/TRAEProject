@@ -100,12 +100,13 @@ namespace TRAEProject.Changes.Accesory
                     break;
 
                 case ItemID.MoltenCharm:
-                    player.lavaImmune = true;
-                    player.GetModPlayer<ShadowflameCharmPlayer>().MoltenCharm += 1;
+                     player.GetModPlayer<ShadowflameCharmPlayer>().MoltenCharm += 1;
                     player.fireWalk = false;
                     break;
 
                 case ItemID.MechanicalGlove:
+                case ItemID.FireGauntlet:
+
                     player.kbGlove = false;
                     player.meleeScaleGlove = false;
                     break;
@@ -366,6 +367,30 @@ namespace TRAEProject.Changes.Accesory
                         }
                     }
                     break;
+                case ItemID.FireGauntlet:
+                     foreach (TooltipLine line in tooltips)
+                    {
+                        {
+                            if (line.Mod == "Terraria" && line.Name == "Tooltip0")
+                            {
+                                line.Text = "12% increased melee damage and speed";
+                            }
+                            if (line.Mod == "Terraria" && line.Name == "Tooltip1")
+                            {
+                                line.Text = "Allows autoswing for all melee weapons";
+                            }
+                            if (line.Mod == "Terraria" && line.Name == "Tooltip2")
+                            {
+                                line.Text = "Melee attacks deal fire damage";
+                            }
+                            if (line.Mod == "Terraria" && line.Name == "Tooltip3")
+                            {
+                                line.Text = "Melee critical strikes have have a very low chance to incinerate, based on damage dealt";
+                            }
+
+                        }
+                    }
+                    break;
 
                 case ItemID.PutridScent:
                     foreach (TooltipLine line in tooltips)
@@ -390,15 +415,7 @@ namespace TRAEProject.Changes.Accesory
                         }
                     }
                     break;
-                case ItemID.CelestialEmblem:
-                    foreach (TooltipLine line in tooltips)
-                    {
-                        if (line.Mod == "Terraria" && line.Name == "Tooltip1")
-                        {
-                            line.Text = "12% increased magic damage";
-                        }
-                    }
-                    break;
+              
                 case ItemID.HeroShield:
                     foreach (TooltipLine line in tooltips)
                     {
@@ -434,7 +451,7 @@ namespace TRAEProject.Changes.Accesory
                         }
                         if (line.Mod == "Terraria" && line.Name == "Tooltip1")
                         {
-                            line.Text = "The wearer is immune to lava";
+                            line.Text = "";
                         }
                     }
                     break;

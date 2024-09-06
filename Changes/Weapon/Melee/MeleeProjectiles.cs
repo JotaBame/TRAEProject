@@ -89,8 +89,7 @@ namespace TRAEProject.Changes.Weapon.Melee
                 case ProjectileID.FormatC:
                     projectile.GetGlobalProjectile<ProjectileStats>().DamageFalloff = 0.4f;
                     break;
- 
-                case ProjectileID.VampireKnife:
+                        case ProjectileID.VampireKnife:
                     projectile.ArmorPenetration = 20;
                     break;
                 case ProjectileID.Shroomerang:
@@ -564,11 +563,14 @@ namespace TRAEProject.Changes.Weapon.Melee
 
             //    Main.NewText(spawnCenter);
             //}
-
-            if (projectile.type == ProjectileID.HelFire && projectile.ai[2] == 0)
+ 
+                if ((projectile.type == ProjectileID.HelFire || projectile.type == ProjectileID.Sunfury) && projectile.ai[2] == 0)
             {
                 projectile.ai[2] = 1;
-                Projectile.NewProjectile(projectile.GetSource_FromThis(), projectile.Center, Vector2.Zero, ModContent.ProjectileType<HelAura>(), projectile.damage / 2, 0, projectile.owner, projectile.whoAmI);
+                int damage = projectile.damage / 2;
+                if (projectile.type == ProjectileID.Sunfury)
+                    damage *= 2; // flail projectile's base damage is half of what's stated in the tooltip
+                Projectile.NewProjectile(projectile.GetSource_FromThis(), projectile.Center, Vector2.Zero, ModContent.ProjectileType<HelAura>(), damage, projectile.knockBack / 2, projectile.owner, projectile.whoAmI);
             }
             if (projectile.counterweight)
             {
@@ -751,10 +753,7 @@ namespace TRAEProject.Changes.Weapon.Melee
                         player.lifeRegenCount += 30;
                         break;
                     }
-                case ProjectileID.Sunfury:
-
-                    TRAEDebuff.Apply<HeavyBurn>(target, 120, 1);
-                    break;
+              
             }
         }
         public override void PostAI(Projectile projectile)

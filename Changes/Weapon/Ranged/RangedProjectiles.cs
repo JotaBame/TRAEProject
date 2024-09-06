@@ -58,8 +58,7 @@ namespace TRAEProject.Changes.Projectiles
                     return;
                 case ProjectileID.SuperStarSlash:
                     projectile.usesLocalNPCImmunity = true;
-                    projectile.localNPCHitCooldown = 10; projectile.usesIDStaticNPCImmunity = false;
-
+                    projectile.localNPCHitCooldown = -1; projectile.usesIDStaticNPCImmunity = false;
                     projectile.GetGlobalProjectile<ProjectileStats>().DirectDamage /= 0.75f;
                      return;
 

@@ -62,8 +62,8 @@ namespace TRAEProject.Changes.Weapon.Melee
                     item.crit = 11;
                     return;
                 case ItemID.Sunfury:
-                    item.damage = 16;
-                    item.crit = 4;
+                    item.damage = 19;
+                    item.crit = 0;
                     return;    
 				case ItemID.Flairon:
                     item.noMelee = false;
@@ -75,6 +75,7 @@ namespace TRAEProject.Changes.Weapon.Melee
                 case ItemID.Rally:
                     item.value = Item.buyPrice(gold: 5);
                     return;
+                 
                 case ItemID.HelFire:
                     item.damage = 90;
                     item.knockBack = 3f;
@@ -272,15 +273,7 @@ namespace TRAEProject.Changes.Weapon.Melee
                         }
                     }
                     break;
-                case ItemID.Sunfury:
-                    foreach (TooltipLine line in tooltips)
-                    {
-                        if (line.Mod == "Terraria" && line.Name == "Knockback")
-                        {
-                            line.Text += "\nInflicts a heavy burn on enemies";
-                        }
-                    }
-                    break;               
+                     
                 case ItemID.VampireKnives:
                     foreach (TooltipLine line in tooltips)
                     {

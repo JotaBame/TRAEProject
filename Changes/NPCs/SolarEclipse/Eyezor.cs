@@ -10,9 +10,9 @@ namespace TRAEProject.Changes.NPCs.SolarEclipse
 
     public class Eyezor : GlobalNPC
     {
-        const int eyeStartTime = 5 * 60;
+        const int eyeStartTime = 4 * 60;
         const int lowHealthTimeBoostMax = 4 * 60;
-        const int eyeChargeTime = 1 * 60;
+        const int eyeChargeTime = 40;
         static Vector2 headOffset(NPC npc)
         {
             return new Vector2(8 * npc.spriteDirection, -8);
@@ -35,25 +35,19 @@ namespace TRAEProject.Changes.NPCs.SolarEclipse
                         npc.localAI[1] = 0 + (1f - ((float)npc.life / (float)npc.lifeMax)) * (float)lowHealthTimeBoostMax;
                         if(Main.netMode != NetmodeID.MultiplayerClient)
                         {
-                            Projectile.NewProjectile(npc.GetSource_FromAI(), npc.Center + headOffset(npc), TRAEMethods.PolarVector(12f, npc.localAI[3]), ProjectileID.EyeLaser, 60, 0f, Main.myPlayer);
+                            Projectile.NewProjectile(npc.GetSource_FromAI(), npc.Center + headOffset(npc), TRAEMethods.PolarVector(15f, npc.localAI[3]), ProjectileID.EyeLaser, 60, 0f, Main.myPlayer);
                         }
                         
                         return false;
                     }
                     if(eyeTime > eyeStartTime)
                     {
-                        npc.velocity.X = 0;
-                        //Dust d = Dust.NewDustPerfect(npc.Center + headOffset(npc), DustID.Torch, Vector2.UnitX.RotatedBy(npc.localAI[3]).RotatedByRandom(MathF.PI / 2f) * 2.4f, 0, Color.Pink);
-                        //d.noGravity = true;
-                        //d.shader = GameShaders.Armor.GetShaderFromItemId(ItemID.PurpleDye);
-                        return false;
-                    }
-                    else if(eyeTime == eyeStartTime)
-                    {
-                        npc.velocity.X = 0;
+                        npc.velocity.X *= 0.99f;
                         npc.TargetClosest(true);
                         npc.localAI[3] = (Main.player[npc.target].Center - npc.Center).ToRotation();
+                        return false;
                     }
+           
                 }
             }
             return base.PreAI(npc);

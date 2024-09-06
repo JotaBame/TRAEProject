@@ -353,7 +353,7 @@ Mods: {
 
 			WaterAffinity: {
 				DisplayName: Water Affinity
-				Description: Running Speed increased
+				Description: Running speed increased
 			}
 
 			HeartAttack: {

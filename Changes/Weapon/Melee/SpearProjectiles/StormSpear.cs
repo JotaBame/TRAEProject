@@ -22,7 +22,7 @@ namespace TRAEProject.Changes.Weapon.Melee.SpearProjectiles
         }
         public override void SpearHitNPCMelee(NPC target, NPC.HitInfo hit)
         {
-             if (pierceLimit >= 3)
+             if (pierceLimit <= 3)
             {
                 StormSpearShot.MakeBolt(Projectile, target, Projectile.damage);
             }
@@ -50,8 +50,11 @@ namespace TRAEProject.Changes.Weapon.Melee.SpearProjectiles
     {
         public override void SetDefaults(Projectile projectile)
         {          
+            if (projectile.type == ProjectileID.ThunderSpearShot)
+            { 
             projectile.usesLocalNPCImmunity = true;
             projectile.localNPCHitCooldown = -1;
+            }
         }
         public static void MakeBolt(Projectile projectile, NPC target, int damage)
         {

@@ -62,7 +62,13 @@ namespace TRAEProject.NewContent.Projectiles
         public override void AI()
         {
             Projectile parent = Main.projectile[(int)Projectile.ai[0]];
-            if(!parent.active || parent.type != ProjectileID.HelFire)
+            if (parent.type == ProjectileID.Sunfury)
+            {
+                Projectile.GetGlobalProjectile<ProjectileStats>().AddsBuff = BuffID.OnFire;
+                Projectile.idStaticNPCHitCooldown = 20;
+
+            }
+            if (!parent.active || parent.type != ProjectileID.HelFire && parent.type != ProjectileID.Sunfury)
             {
                 Projectile.Kill();
                 return;

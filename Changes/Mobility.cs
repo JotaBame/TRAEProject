@@ -135,7 +135,7 @@ namespace TRAEProject
 
             if (!Player.lavaWet && Player.velocity.X == 0f && Player.velocity.Y == 0f)
             {
-                Player.lavaTime += 1;
+                Player.lavaTime += 3;
             }
 
 

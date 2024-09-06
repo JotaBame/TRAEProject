@@ -238,9 +238,7 @@ namespace TRAEProject.Changes
                     player.GetDamage<MagicDamageClass>() += 0.04f;
                     player.GetCritChance<MagicDamageClass>() += 4;
                     break;
-                case ItemID.CelestialEmblem:
-                    player.GetDamage<MagicDamageClass>() -= 0.03f;
-                    break;
+                
             }
         }
         public override void ModifyTooltips(Item item, List<TooltipLine> tooltips)

@@ -74,6 +74,7 @@ namespace TRAEProject.NewContent.Projectiles
                     Projectile.netUpdate = true;
                     Projectile.ai[0] = -1f;
                     Projectile.ai[1] = -1f;
+                   
                         int num4 = Projectile.FindTargetWithLineOfSight();
                         if (num4 != -1)
                         {

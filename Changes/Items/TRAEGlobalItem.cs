@@ -544,7 +544,7 @@ namespace TRAEProject.Changes
                     {
                         if (line.Mod == "Terraria" && line.Name == "Tooltip0")
                         {
-                            line.Text = "Provides 10 seconds of immunity to lava";
+                            line.Text = "Provides 12 seconds of immunity to lava";
                         }
                     }
                     break;

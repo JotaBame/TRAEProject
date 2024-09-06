@@ -86,9 +86,9 @@ namespace TRAEProject.Changes.Recipes
             }
             if (recipe.HasResult(ItemID.FireGauntlet))
             {
-                recipe.TryGetIngredient(ItemID.MechanicalGlove, out ingredientToRemove);
-                recipe.RemoveIngredient(ingredientToRemove);
-                recipe.AddIngredient(ItemID.TitanGlove, 1);
+ 
+                recipe.AddIngredient(ItemType<SalamanderTail>(), 1);
+
             }
 
             if (recipe.HasResult(ItemID.FrostsparkBoots))

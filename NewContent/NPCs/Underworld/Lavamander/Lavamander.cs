@@ -63,8 +63,11 @@ namespace TRAEProject.NewContent.NPCs.Underworld.Lavamander
         float jump = 0;
         public override void AI()
         {
-
-			NPC.noGravity = false;
+            if (Math.Abs(NPC.velocity.X) < 6f)
+            {
+                NPC.velocity.X += 0.045f * NPC.direction;
+            }
+            NPC.noGravity = false;
 			int num = 1;
 			int num2 = 1;
 			int num3 = (int)((NPC.position.X + (NPC.width / 2)) / 16f);
@@ -82,20 +85,23 @@ namespace TRAEProject.NewContent.NPCs.Underworld.Lavamander
 						if (NPC.velocity.Y > 0)
 							NPC.velocity.Y = 0;
 						NPC.noGravity = true;
-						jump++;
-						if (NPC.Distance(NPC.GetTargetData().Center) <= 300f)
-							jump += 3; // jumps way more often if it can reach you
-						if (jump >= 750f) // We have to force it to jump, its normal AI won't let it jump while "water walking"
-						{
-							jump = 0;
-							NPC.velocity.Y = -8f;
-							NPC.velocity.X *= 2f;
-
-						}
+				
 					}
 				}
-			}
-		}
+            }
+            jump++;
+            if (NPC.Distance(NPC.GetTargetData().Center) <= 450f && NPC.position.Y > NPC.GetTargetData().Position.Y)
+                jump += 3; // jumps way more often if it can reach you
+            if (jump >= 750f && NPC.position.Y > NPC.GetTargetData().Position.Y && NPC.velocity.Y == 0) // We have to force it to jump, its normal AI won't let it jump while "water walking"
+            {
+                jump = 0;
+                NPC.velocity.Y = -10f;
+  
+
+                NPC.velocity.X *= 1.25f;
+
+            }
+        }
 		public override bool PreKill()
 		{
             for (int i = 0; i < 4; i++)
@@ -110,10 +116,12 @@ namespace TRAEProject.NewContent.NPCs.Underworld.Lavamander
 		}
         public override float SpawnChance(NPCSpawnInfo spawnInfo)
         {
- 
-            if (!NPC.downedPlantBoss)
+             if (spawnInfo.SpawnTileType != TileID.ObsidianBrick && spawnInfo.SpawnTileType != TileID.HellstoneBrick)
             {
-                return SpawnCondition.Underworld.Chance * 0.25f;
+				if (!NPC.downedPlantBoss)
+					return SpawnCondition.Underworld.Chance * 0.12f;
+				else
+					return SpawnCondition.Underworld.Chance * 0.03f;
             }
 
             return 0f;

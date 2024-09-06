@@ -739,7 +739,7 @@ Mods: {
 				DisplayName: Runa Cobra
 				Tooltip:
 					'''
-					Incrementa la cantidad de súbditos en 1 y la probabilidad de golpe crítico de súbditos en 5%
+					Incrementa la cantidad de súbditos en 1, la probabilidad de golpe crítico para los súbditos en 13%, y la velocidad de cuerpo a cuerpo en 12%
 					El daño de súbditos se almacena como energía de llama oscura, hasta 3000 
 					Los golpes de látigo crean una Aparición de Llama Oscura por cada 750 de daño almacenado 					
 					'''
@@ -788,7 +788,7 @@ Mods: {
 				DisplayName: Escarabajo Tribal
 				Tooltip:
 					'''
-					Aumenta la cantidad máxima de torretas en 2
+					Aumenta la cantidad máxima de torretas y súbditos en 1
 					Aumenta el knockback de invocaciones
 					'''
 			}

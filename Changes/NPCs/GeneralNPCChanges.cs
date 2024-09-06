@@ -32,69 +32,7 @@ namespace TRAEProject.Changes.NPCs
                 case NPCID.GigaZapper:
                     npc.knockBackResist = 0f;
                     break;
-                case NPCID.VortexSoldier:
-                    npc.damage = 110; // up from 90
-                    npc.lifeMax = 550; // down from 700
-                    npc.knockBackResist = 0.15f; // buffed from 0.6
-                    break;
-                case NPCID.VortexRifleman:
-                    npc.lifeMax = 800; // unchanged
-                    break;
-                case NPCID.SolarDrakomire:
-                    npc.lifeMax = 1250; // up from 800;
-                    npc.defense = 48;
-                    npc.knockBackResist = 0f; // nerfed from 0.2
-                    break;
-                case NPCID.SolarCorite:
-                    npc.lifeMax = 600; // down from 600 
-                    npc.knockBackResist = 0.6f; // nerfed from 0.2
-                    break;
-                case NPCID.SolarSolenian:
-                    npc.lifeMax = 800; // unchanged from 800 
-                    npc.damage = 90; // unchanged from 90
-                    npc.knockBackResist = 0.8f; // nerfed from 0.4
-                    break;
-                case NPCID.SolarSroller:
-                    npc.damage = 60; // down from 80
-                    npc.knockBackResist = 0.35f; // nerfed from 1
-                    break;
-                case NPCID.SolarCrawltipedeHead:
-                    npc.lifeMax = 25000; 
-                    npc.damage = 100; // down from 150
-                    break;
-                case NPCID.SolarCrawltipedeBody:            
-                    npc.damage = 50; // down from 100
-                    break;
-                case NPCID.SolarCrawltipedeTail:
-                    npc.damage = 50; // unchanged
-                    break;
-                case NPCID.NebulaHeadcrab:
-                    npc.damage = 60; // down from 70
-                    npc.lifeMax = 480; // up from 330
-                    npc.defense = 34; // unchanged from 34
-                    npc.knockBackResist = 0.85f;
-                    break;
-                case NPCID.StardustCellSmall:
-                    npc.lifeMax = 300; // unchanged from 300
-                    npc.damage = 40;
-                    break;
-                case NPCID.StardustCellBig:
-                    npc.lifeMax = 400; // up from 300
-                    npc.damage = 40;
-                    break;
-                case NPCID.StardustJellyfishBig:
-                    npc.lifeMax = 2000; // up from 1500
-                    break;
-                case NPCID.StardustSpiderBig:
-                    npc.scale = 1.5f;
-                    npc.width = 63;
-                    npc.height = 54;
-                    npc.knockBackResist = 0.05f;
-                    break;
-                case NPCID.StardustWormHead:
-                    npc.lifeMax = 3300;
-                    npc.defense = 50;
-                    break;
+
                 case NPCID.MoonLordHead:
                     npc.width = 51;
                     npc.height = 81;
@@ -111,6 +49,7 @@ namespace TRAEProject.Changes.NPCs
                 case NPCID.DarkCaster:
                 case NPCID.GoblinSorcerer:
                 case NPCID.Tim:
+                case NPCID.FireImp:
                 case NPCID.RuneWizard:
                 case NPCID.DiabolistRed:
                 case NPCID.DiabolistWhite:

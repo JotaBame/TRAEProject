@@ -149,7 +149,7 @@ namespace TRAEProject
                             Main.tile[j, k].LiquidAmount > 200 && Main.tile[j, k].LiquidType == LiquidID.Shimmer
                             )
                         {
-                            Player.AddBuff(BuffType<WaterAffinity>(), 900);
+                            Player.AddBuff(BuffType<WaterAffinity>(), 600);
  
                         }
                     }

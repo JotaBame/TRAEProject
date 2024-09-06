@@ -53,7 +53,7 @@ namespace TRAEProject.Changes.Accesory
                 ArmorIDs.Wing.Sets.Stats[ArmorIDs.Wing.FishronWings].FlyTime = PostPlant2;
                 ArmorIDs.Wing.Sets.Stats[ArmorIDs.Wing.SpookyWings].FlyTime = PostPlant;
                 ArmorIDs.Wing.Sets.Stats[ArmorIDs.Wing.TatteredFairyWings].FlyTime = PostPlant2;
-                ArmorIDs.Wing.Sets.Stats[ArmorIDs.Wing.RainbowWings].FlyTime = 180;
+                ArmorIDs.Wing.Sets.Stats[ArmorIDs.Wing.RainbowWings].FlyTime = EarlyHardmode2;
                 ArmorIDs.Wing.Sets.Stats[ArmorIDs.Wing.FestiveWings].FlyTime = PostPlant;
                 ArmorIDs.Wing.Sets.Stats[ArmorIDs.Wing.BetsyWings].FlyTime = PostPlant;
 
@@ -277,7 +277,7 @@ namespace TRAEProject.Changes.Accesory
                 //Main.NewText(constantAscend);
                 if (player.wingsLogic == 44 && player.TryingToHoverUp)
                 {
-                    maxAscentMultiplier = 1.75f;
+                    maxAscentMultiplier = 1.8f;
                 }
                 else
                     maxAscentMultiplier = 1f;

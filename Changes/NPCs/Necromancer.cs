@@ -17,8 +17,8 @@ namespace TRAEProject.Changes.NPCs
     public class Necromancer : GlobalNPC
     {
         public const int beamLength = 200;
-        public const int chargeTime = 90;
-        const int cycleTime = 180;
+        public const int chargeTime = 45;
+        const int cycleTime = 100;
         const int scanAttempts = 9;
         public override void AI(NPC npc)
         {
@@ -174,6 +174,10 @@ namespace TRAEProject.Changes.NPCs
             }
             return false;
         }
+        public override void OnHitPlayer(Player target, Player.HurtInfo info)
+        {
+            target.AddBuff(BuffID.Slow, Main.rand.Next(300, 900));
+        }
         public override bool? Colliding(Rectangle projHitbox, Rectangle targetHitbox)
         {
             if (Projectile.timeLeft <= 2 && donePlanning)
@@ -200,7 +204,7 @@ namespace TRAEProject.Changes.NPCs
                 {
                     if(i < points.Count - 1)
                     {
-                        DrawLaser(points[i], points[i + 1], Math.Max(0.1f, 1f - ((float)Projectile.timeLeft / (float)Necromancer.chargeTime)), Color.DeepPink);
+                        DrawLaser(points[i], points[i + 1], Math.Max(0.1f, 1f - ((float)Projectile.timeLeft / (float)Necromancer.chargeTime)), Color.Lavender);
                     }
                 }
             }
