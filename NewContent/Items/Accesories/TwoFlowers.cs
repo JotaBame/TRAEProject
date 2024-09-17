@@ -26,33 +26,18 @@ namespace TRAEProject.NewContent.Items.Accesories
         public override void UpdateAccessory(Player player, bool hideVisual)
         {
              player.GetModPlayer<CritDamage>().magicCritDamage += 0.1f;
-            player.manaFlower = true;
-            player.GetModPlayer<Mana>().newManaFlower = true; if (!GetInstance<TRAEConfig>().ManaRework)
-            {
-                player.manaCost -= 0.08f;
-            }
+        
+                player.manaCost -= 0.12f;
+             
         }
 
         public override void AddRecipes()
         {
             CreateRecipe().AddIngredient(ItemID.ObsidianRose, 1)
-                .AddIngredient(ItemID.ManaFlower, 1)
+                .AddIngredient(ItemID.NaturesGift, 1)
                 .AddTile(TileID.TinkerersWorkbench)
                 .Register();
         }
-        public override void ModifyTooltips(List<TooltipLine> tooltips)
-        {
-            if (!GetInstance<TRAEConfig>().ManaRework)
-            {
-                foreach (TooltipLine line in tooltips)
-                {
-                    if (line.Mod == "Terraria" && line.Name == "Tooltip0")
-                    {
-                        line.Text = "Magic critical strikes deal 10% more damage\n8% reduced mana costs";
-                    }
-                }
-            }
- 
-        }
+  
     }
 }

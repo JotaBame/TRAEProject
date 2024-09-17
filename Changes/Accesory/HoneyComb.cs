@@ -69,9 +69,19 @@ namespace TRAEProject.Changes.Accesory
                         {
                             line.Text = "Releases bees and douses you in honey when damaged\nStack combs to increase efficiency and life regeneration";
                         }
-                        if (line.Mod == "Terraria" && line.Name == "Tooltip1")
+                        if (GetInstance<TRAEConfig>().MobilityRework)
                         {
-                            line.Text = "Increases jump height, prevents fall damage and allows fast fall";
+                            if (line.Mod == "Terraria" && line.Name == "Tooltip1")
+                            {
+                                line.Text = "Increases jump height, prevents fall damage and allows fast fall";
+                            }
+                        }
+                        else
+                        {
+                            if (line.Mod == "Terraria" && line.Name == "Tooltip1")
+                            {
+                                line.Text = "Increases jump height and prevents fall damage";
+                            }
                         }
                     }
                     return;

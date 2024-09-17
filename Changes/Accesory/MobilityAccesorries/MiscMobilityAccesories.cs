@@ -22,6 +22,13 @@ namespace TRAEProject.Changes.Accesory
         }
         public override void UpdateAccessory(Item item, Player player, bool hideVisual)
         {
+            if (item.type == ItemID.ObsidianHorseshoe)
+            {
+                player.fireWalk = false;
+                player.GetModPlayer<AccesoryEffects>().FastFall = true;
+                player.gravControl = true;
+                player.GetModPlayer<GravitationPlayer>().noFlipGravity = true;
+            }
             if (GetInstance<TRAEConfig>().MobilityRework)
             {
 
@@ -39,12 +46,7 @@ namespace TRAEProject.Changes.Accesory
                         player.noFallDmg = true;
                         player.GetModPlayer<GravitationPlayer>().noFlipGravity = true;
                         break;
-                    case ItemID.ObsidianHorseshoe:
-                        player.fireWalk = false;
-                        player.GetModPlayer<AccesoryEffects>().FastFall = true;
-                        player.gravControl = true;
-                        player.GetModPlayer<GravitationPlayer>().noFlipGravity = true;
-                        break;
+;
               
                     case ItemID.EmpressFlightBooster:
                         player.jumpSpeedBoost -= 1.8f;

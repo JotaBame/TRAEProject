@@ -199,10 +199,7 @@ namespace TRAEProject
                     SoundEngine.PlaySound(SoundID.DoubleJump with { MaxInstances = 0 }, Player.Center);
                 }
             }
-            if (Player.controlUp && !Player.gravControl && !Player.gravControl2 && Player.GetModPlayer<SpaceBalloonPlayer>().SpaceBalloon > 0)
-            {
-                Player.slowFall = true;
-            }
+           
             if (GetInstance<TRAEConfig>().MobilityRework)
             {
                 if (Player.shadowArmor)
@@ -214,7 +211,7 @@ namespace TRAEProject
 
                 Player.jumpSpeedBoost += 1.4f;
                 Player.moveSpeed *= 1.33f;
-
+   
                 JumpsAndBalloons.DoubleJumpHorizontalSpeeds(Player);
 
                 if (TRAEMagi)
@@ -439,7 +436,16 @@ namespace TRAEProject
             {
                 Player.slowFall = false;
             }
-
+            if (Player.GetModPlayer<SpaceBalloonPlayer>().SpaceBalloon > 0)
+            {
+             
+                    if (Player.controlUp && !Player.gravControl && !Player.gravControl2)
+                    {
+                        Player.slowFall = true;
+                    }
+              
+         
+            }
             //int num39 = (int)(Player.position.Y / 16f) - Player.fallStart;
             //if(Math.Abs(num39) > Player.extraFall + 25 + (Player.statLifeMax2 / 20))
             //{

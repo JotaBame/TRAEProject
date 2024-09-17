@@ -12,7 +12,45 @@ namespace TRAEProject.Changes.Accesory
         {
             if (!GetInstance<TRAEConfig>().MobilityRework && (item.type == ItemID.TerrasparkBoots || item.type == ItemID.LavaWaders || item.type == ItemID.LavaCharm))
             {
-                player.GetModPlayer<Mobility>().TRAELavaMax += 420;
+                player.GetModPlayer<Mobility>().TRAELavaMax += 720;
+            }
+            if (!GetInstance<TRAEConfig>().MobilityRework)
+            {
+                switch (item.type)
+                {
+
+                    case ItemID.RocketBoots:
+                    case ItemID.SpectreBoots:
+
+                    case ItemID.LightningBoots:
+                    case ItemID.FrostsparkBoots:
+
+
+                    case ItemID.TerrasparkBoots:
+                    case ItemID.HellfireTreads:
+                    case ItemID.FairyBoots:
+
+                        player.rocketTimeMax += 5;
+                        break;
+                    case ItemID.WaterWalkingBoots:
+                         player.GetModPlayer<Mobility>().TRAEwaterwalk = true;
+                        player.waterWalk = true;
+                        break;
+                    case ItemID.LavaCharm:
+                        player.lavaRose = true;
+                        player.buffImmune[BuffID.Burning] = true;
+
+                         player.GetModPlayer<Mobility>().TRAELavaMax += 720;
+                        break;
+                    case ItemID.LavaWaders:
+ 
+                        player.GetModPlayer<Mobility>().TRAEwaterwalk = true;
+                        player.buffImmune[BuffID.Burning] = true;
+                        player.GetModPlayer<Mobility>().TRAELavaMax += 720;
+
+                        player.lavaRose = true;
+                        break;
+                }
             }
             if (GetInstance<TRAEConfig>().MobilityRework)
             {
@@ -76,16 +114,7 @@ namespace TRAEProject.Changes.Accesory
                     case ItemID.RocketBoots:
                         player.rocketTimeMax += 5;
                         break;
-                    case ItemID.ObsidianWaterWalkingBoots:
-                        player.waterWalk2 = false;
-                        player.rocketBoots = 1;
-                        player.rocketTimeMax += 10;
-                        player.rocketBoots = player.vanityRocketBoots = 1;
 
-                        player.GetModPlayer<AccesoryEffects>().FastFall = true;
-                        player.noFallDmg = true;
-                        player.fireWalk = false;
-                        break;
                     case ItemID.FairyBoots:
                         player.accRunSpeed = 4.8f;
                         player.moveSpeed += Mobility.bootSpeed * 0.01f;
@@ -160,11 +189,66 @@ namespace TRAEProject.Changes.Accesory
                         break;
                 }
             }
+       
+            if (item.type == ItemID.ObsidianWaterWalkingBoots)
+            {
+                     player.waterWalk2 = false;
+                    player.rocketBoots = 1;
+                    player.rocketTimeMax += 10;
+                    player.rocketBoots = player.vanityRocketBoots = 1;
+
+                    player.GetModPlayer<AccesoryEffects>().FastFall = true;
+                    player.noFallDmg = true;
+                    player.fireWalk = false;
+                }
         }
         public override void ModifyTooltips(Item item, List<TooltipLine> tooltips)
         {
+            if (item.type == ItemID.ObsidianWaterWalkingBoots)
+            {
+                foreach (TooltipLine line in tooltips)
+                {
+                    if (line.Mod == "Terraria" && line.Name == "Tooltip0")
+                    {
+                        line.Text = "Provides extended rocket boot flight";
+                    }
+                    if (line.Mod == "Terraria" && line.Name == "Tooltip1")
+                    {
+                        line.Text = "Hold DOWN to increase falling speed\nGrants immunity to fall damage";
+                    }
+                }
 
-            if (GetInstance<TRAEConfig>().MobilityRework)
+            }
+            if (!GetInstance<TRAEConfig>().MobilityRework)
+            {
+                switch (item.type)
+                {
+                    case ItemID.LavaCharm:
+                        foreach (TooltipLine line in tooltips)
+                        {
+                            {
+                                if (line.Mod == "Terraria" && line.Name == "Tooltip0")
+                                {
+                                    line.Text = "Grants 12 seconds of lava immunity, and reduces damage when touching lava";
+                                }
+                            }
+                        }
+                        break;
+                    case ItemID.LavaWaders:
+                        foreach (TooltipLine line in tooltips)
+                        {
+
+         
+                            if (line.Mod == "Terraria" && line.Name == "Tooltip1")
+                            {
+                                line.Text = "Grants 12 seconds of immunity to lava";
+                            }
+
+                        }
+                        break;
+                }
+            }
+                if (GetInstance<TRAEConfig>().MobilityRework)
             {
                 switch (item.type)
                 {
@@ -378,20 +462,7 @@ namespace TRAEProject.Changes.Accesory
                             }
                         }
                         break;
-                    case ItemID.ObsidianWaterWalkingBoots:
-                        foreach (TooltipLine line in tooltips)
-                        {
-                            if (line.Mod == "Terraria" && line.Name == "Tooltip0")
-                            {
-                                line.Text = "Provides extended rocket boot flight";
-                            }
-                            if (line.Mod == "Terraria" && line.Name == "Tooltip1")
-                            {
-                                line.Text = "Hold DOWN to increase falling speed\nGrants immunity to fall damage";
-                            }
-                        }
-                        break;
-                    case ItemID.LavaCharm:
+                                      case ItemID.LavaCharm:
                         foreach (TooltipLine line in tooltips)
                         {
                             {

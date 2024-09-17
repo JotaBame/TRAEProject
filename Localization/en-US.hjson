@@ -497,8 +497,9 @@ Mods: {
 				DisplayName: Balance Cuffs
 				Tooltip:
 					'''
-					Increases damage by 20% damage
-					Restores 3 mana for every point of damage taken
+					Increases damage by 20% when damaged
+					Increases maximum mana by 20
+					Restores mana when damaged
 					'''
 			}
 
@@ -829,11 +830,11 @@ Mods: {
 			}
 
 			TwoFlowers: {
-				DisplayName: Two Flowers
+				DisplayName: Mystic Bouquet
 				Tooltip:
 					'''
-					Magic critical strikes deal 10% increased damage and have a chance to spawn a mana star
-					Automatically uses mana potions when needed
+					Magic critical strikes deal 10% increased damage  
+					12% reduced mana costs
 
 					'''
 			}

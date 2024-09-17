@@ -127,6 +127,15 @@ namespace TRAEProject.Changes.Recipes
                 recipe.DisableRecipe();
 
             }
+            if (recipe.HasResult(ItemID.ObsidianWaterWalkingBoots))
+            {
+                recipe.TryGetIngredient(ItemID.WaterWalkingBoots, out ingredientToRemove);
+                recipe.RemoveIngredient(ingredientToRemove);
+                recipe.TryGetIngredient(ItemID.ObsidianSkull, out ingredientToRemove);
+                recipe.RemoveIngredient(ingredientToRemove);
+                recipe.AddIngredient(ItemID.RocketBoots, 1);
+                recipe.AddIngredient(ItemID.LuckyHorseshoe, 1);
+            }
             if (GetInstance<TRAEConfig>().MobilityRework)
             {
                 if (recipe.HasResult(ItemID.TerrasparkBoots))
@@ -144,15 +153,7 @@ namespace TRAEProject.Changes.Recipes
 
 
                 }
-                if (recipe.HasResult(ItemID.ObsidianWaterWalkingBoots))
-                {
-                    recipe.TryGetIngredient(ItemID.WaterWalkingBoots, out ingredientToRemove);
-                    recipe.RemoveIngredient(ingredientToRemove);
-                    recipe.TryGetIngredient(ItemID.ObsidianSkull, out ingredientToRemove);
-                    recipe.RemoveIngredient(ingredientToRemove);
-                    recipe.AddIngredient(ItemID.RocketBoots, 1);
-                    recipe.AddIngredient(ItemID.LuckyHorseshoe, 1);
-                }
+         
 
                 if (recipe.HasResult(ItemID.FrogGear))
                 {
@@ -201,11 +202,11 @@ namespace TRAEProject.Changes.Recipes
                 recipe.RemoveIngredient(ingredientToRemove);
                 recipe.AddIngredient(ItemID.BandofStarpower, 1);
             }
-            if (recipe.HasResult(ItemID.AnkhCharm))
+            if (recipe.HasResult(ItemID.AnkhCharm) && recipe.HasIngredient(ItemID.MedicatedBandage) && recipe.HasIngredient(ItemID.ArmorBracing) && recipe.HasIngredient(ItemID.ThePlan) && recipe.HasIngredient(ItemID.ReflectiveShades) && recipe.HasIngredient(ItemID.CountercurseMantra))
             {
                 recipe.DisableRecipe();
             }
-            if (recipe.HasResult(ItemID.ThePlan))
+            if (recipe.HasResult(ItemID.ThePlan) && recipe.HasIngredient(ItemID.TrifoldMap) && recipe.HasIngredient(ItemID.FastClock))
             {
                 recipe.DisableRecipe();
             }

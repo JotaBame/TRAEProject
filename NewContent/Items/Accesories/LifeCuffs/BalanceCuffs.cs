@@ -22,13 +22,15 @@ namespace TRAEProject.NewContent.Items.Accesories.LifeCuffs
             Item.width = 44;
             Item.height = 48;
             Item.accessory = true;
-            Item.rare = ItemRarityID.Orange;
+            Item.rare = ItemRarityID.Pink;
             Item.value = Item.sellPrice(gold: 4);
         }
         public override void UpdateAccessory(Player player, bool hideVisual)
         {
+            player.statManaMax2 += 20;
+
             player.GetModPlayer<LifeCuffsEffect>().cuffs += 1;
-            player.GetModPlayer<OnHitEffects>().magicCuffsCount += 1;
+            player.GetModPlayer<OnHitEffects>().magicCuffsCount += 2;
         }
 
         public override void AddRecipes()

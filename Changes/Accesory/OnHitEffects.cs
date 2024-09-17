@@ -23,14 +23,13 @@ namespace TRAEProject.Changes.Accesory
                 switch (item.type)
                 {
                     case ItemID.MagicCuffs:
-                        player.GetModPlayer<OnHitEffects>().magicCuffsCount += 1;
-                        player.statManaMax2 -= 20;
-                        player.magicCuffs = false;
+                        player.GetModPlayer<OnHitEffects>().magicCuffsCount += 2;
+                         player.magicCuffs = false;
                         break;
  
                     case ItemID.CelestialCuffs:
-                        player.statManaMax2 -= 20;
-                        player.GetModPlayer<OnHitEffects>().magicCuffsCount += 1;
+                        player.statManaMax2 += 20;
+                        player.GetModPlayer<OnHitEffects>().magicCuffsCount += 3;
                         player.magicCuffs = false;
                         player.GetModPlayer<Mana>().celestialCuffsOverload = true;
                         break;
@@ -73,13 +72,10 @@ namespace TRAEProject.Changes.Accesory
                     case ItemID.MagicCuffs:
                         foreach (TooltipLine line in tooltips)
                         {
-                            if (line.Mod == "Terraria" && line.Name == "Tooltip0")
-                            {
-                                line.Text = "Restores 3 mana for every point of damage taken";
-                            }
+ 
                             if (line.Mod == "Terraria" && line.Name == "Tooltip1")
                             {
-                                line.Text = "Can go over maximum mana";
+                                line.Text = "Restores mana when damaged\nCan go over maximum mana";
                             }
                         }
                         break;
@@ -88,15 +84,15 @@ namespace TRAEProject.Changes.Accesory
                         {
                             if (line.Mod == "Terraria" && line.Name == "Tooltip0")
                             {
-                                line.Text = "Restores 3 mana for every point of damage taken";
+                                line.Text = "Increases maximum mana by 40";
                             }
                             if (line.Mod == "Terraria" && line.Name == "Tooltip1")
                             {
-                                line.Text = "Increases pickup range for mana stars";
+                                line.Text = "Restores a great amount of mana when damaged";
                             }
                             if (line.Mod == "Terraria" && line.Name == "Tooltip2")
                             {
-                                line.Text = "Mana restores can go over maximum mana";
+                                line.Text = "Increases pickup range for mana stars\nMana stars and mana restored by the item can go over maximum mana";
                             }
                         }
                         break;
@@ -209,7 +205,7 @@ namespace TRAEProject.Changes.Accesory
 
                 if (magicCuffsCount > 0)
                 {
-                    int manaRestored = info.Damage * magicCuffsCount * 3;
+                    int manaRestored = info.Damage * magicCuffsCount;
                     Player.GetModPlayer<Mana>().GiveManaOverloadable(manaRestored);
                 }
                 int[] spread = { 1, 2 };
