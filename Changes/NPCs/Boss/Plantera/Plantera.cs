@@ -21,7 +21,7 @@ namespace TRAEProject.Changes.NPCs.Boss.Plantera
         public override bool InstancePerEntity => true;
         public override void SetDefaults(NPC npc)
         {
-            if (GetInstance<TRAEConfig>().PlanteraRework)
+            if (GetInstance<BossConfig>().PlanteraRework)
             {
                 if (npc.type == NPCID.Plantera)
                 {
@@ -29,6 +29,14 @@ namespace TRAEProject.Changes.NPCs.Boss.Plantera
 
 
                     npc.behindTiles = true;
+                }
+            }
+            if (GetInstance<BossConfig>().PlanteraTentacle)
+            {
+                if (npc.type == NPCID.PlanterasTentacle)
+                {
+                    npc.lifeMax = (int)(npc.lifeMax * ((float)300 / 1000));
+
                 }
             }
         }
@@ -521,7 +529,7 @@ namespace TRAEProject.Changes.NPCs.Boss.Plantera
         }
         public override bool PreAI(NPC npc)
         {
-            if (GetInstance<TRAEConfig>().PlanteraRework)
+            if (GetInstance<BossConfig>().PlanteraRework)
             {
                 if (npc.type == NPCID.Plantera && Main.netMode == NetmodeID.SinglePlayer)
                 {
@@ -612,7 +620,7 @@ namespace TRAEProject.Changes.NPCs.Boss.Plantera
         }
         public override bool PreDraw(NPC npc, SpriteBatch spriteBatch, Vector2 screenPos, Color drawColor)
         {
-            if (GetInstance<TRAEConfig>().PlanteraRework)
+            if (GetInstance<BossConfig>().PlanteraRework)
             {
                 if (npc.type == NPCID.Plantera && Main.netMode == NetmodeID.SinglePlayer)
                 {

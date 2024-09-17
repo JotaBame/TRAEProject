@@ -8,7 +8,7 @@ using Terraria.ID;
 using Terraria.ModLoader;
 using static Terraria.ModLoader.ModContent;
 using Terraria.DataStructures;
-using TRAEProject.Changes.NPCs.Boss.Plantera;
+ using System;
 
 namespace TRAEProject.Changes.Weapons
 {
@@ -24,14 +24,7 @@ namespace TRAEProject.Changes.Weapons
         {
             switch (item.type)
             {
-             
-                case ItemID.Grenade:
-                    item.damage = 50; // down from 60				
-                    item.useAnimation = 50; // up from 45
-                    item.useTime = 50; // up from 45    
- 
-                    return;
-                case ItemID.Beenade:
+                 case ItemID.Beenade:
                     item.damage = 8; // down from 12				
                     item.useAnimation = 45; // up from 15
                     item.useTime = 45; // up from 15    
@@ -47,14 +40,7 @@ namespace TRAEProject.Changes.Weapons
                     item.useTime = 36;
                     return;
 
-                case ItemID.TheUndertaker:
-                    item.useAnimation = 21; // up from 20
-                    item.useTime = 21;
-                    return;
-                case ItemID.Musket:
-                    item.useAnimation = 35; // up from 32
-                    item.useTime = 35;
-                    return;
+       
                 case ItemID.Revolver:
                     item.damage = 25; // up from 20
                     item.value = Item.buyPrice(gold: 25);
@@ -88,7 +74,11 @@ namespace TRAEProject.Changes.Weapons
 
 
                     return;
-
+                case ItemID.SuperStarCannon:
+                    item.damage = 95; // up from 60
+                    item.useAnimation = 16; // down from 16
+                    item.useTime = 16;  
+                    return;
                 case ItemID.Gatligator:
                     item.damage = 18; // down from 21
 
@@ -159,6 +149,7 @@ namespace TRAEProject.Changes.Weapons
                     item.reuseDelay = 10; // up from 0
                     // note that vanilla doesnt use reuseDelay for this, for whatever reason
                      return;
+      
                 case ItemID.DD2BetsyBow:
                     item.damage = 31; // down from 39
                     return;              
@@ -205,6 +196,53 @@ namespace TRAEProject.Changes.Weapons
 
                 Projectile.NewProjectile(source, position.X, position.Y, perturbedSpeed.X, perturbedSpeed.Y, type, damage, knockback, player.whoAmI);
                 return false;
+            }
+ 
+            if (item.type == ItemID.DaedalusStormbow)
+            {
+                float num4 = (float)Main.mouseX + Main.screenPosition.X - position.X;
+                float num5 = (float)Main.mouseY + Main.screenPosition.Y - position.Y; 
+                float num6 = (float)Math.Sqrt(num4 * num4 + num5 * num5);
+                float num7 = num6;
+                Vector2 vector6 = new Vector2(num4, num5);
+                vector6.X = (float)Main.mouseX + Main.screenPosition.X - position.X;
+                vector6.Y = (float)Main.mouseY + Main.screenPosition.Y - position.Y - 1000f;
+               player.itemRotation = (float)Math.Atan2(vector6.Y * (float)player.direction, vector6.X * (float)player.direction);
+
+                int num13 = 3;
+  
+                if (Main.rand.Next(3) == 0)
+                {
+                    num13++;
+                }
+                for (int k = 0; k < num13; k++)
+                {
+                    position = new Vector2(position.X + (float)player.width * 0.5f + (float)(Main.rand.Next(201) * -player.direction) + ((float)Main.mouseX + Main.screenPosition.X - position.X), player.MountedCenter.Y - 600f);
+                    position.X = (position.X * 10f + player.Center.X) / 11f + (float)Main.rand.Next(-100, 101);
+                    position.Y -= 150 * k;
+                    num4 = (float)Main.mouseX + Main.screenPosition.X - position.X;
+                    num5 = (float)Main.mouseY + Main.screenPosition.Y - position.Y;
+                    if (num5 < 0f)
+                    {
+                        num5 *= -1f;
+                    }
+                    if (num5 < 20f)
+                    {
+                        num5 = 20f;
+                    }
+                    num6 = (float)Math.Sqrt(num4 * num4 + num5 * num5);
+                    num6 =  item.shootSpeed / num6;
+                    num4 *= num6;
+                    num5 *= num6;
+                    float num14 = num4 + (float)Main.rand.Next(-40, 41) * 0.03f;
+                    float speedY = num5 + (float)Main.rand.Next(-40, 41) * 0.03f;
+                    num14 *= (float)Main.rand.Next(75, 150) * 0.01f;
+                    position.X += Main.rand.Next(-50, 51);
+                    int num15 = Projectile.NewProjectile(item.GetSource_FromThis(), position.X, position.Y, num14, speedY, type, damage, knockback, player.whoAmI);
+                    Main.projectile[num15].noDropItem = true;
+                }
+                return false;
+       
             }
             return base.Shoot(item, player, source, position, velocity, type, damage, knockback);
         }
@@ -290,6 +328,15 @@ namespace TRAEProject.Changes.Weapons
                         if (line.Mod == "Terraria" && line.Name == "Tooltip0")
                         {
                             line.Text += "\nConverts Musket Balls into homing rockets";
+                        }
+                    }
+                    return;
+                case ItemID.Phantasm:
+                    foreach (TooltipLine line in tooltips)
+                    {
+                        if (line.Mod == "Terraria" && line.Name == "Tooltip0")
+                        {
+                            line.Text += "\n'Death by a thousand phantoms'";
                         }
                     }
                     return;

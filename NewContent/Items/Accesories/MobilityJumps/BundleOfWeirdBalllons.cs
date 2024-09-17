@@ -33,7 +33,7 @@ namespace TRAEProject.NewContent.Items.Accesories.MobilityJumps
             player.GetModPlayer<HoneyCombPlayer>().combs += 1;
             player.noFallDmg = true;
         }
-        public override void AddRecipes()
+         public override void AddRecipes()
         {
             CreateRecipe().AddIngredient(ItemID.SoulofFlight, 20)
                .AddIngredient(ItemID.FartInABalloon)

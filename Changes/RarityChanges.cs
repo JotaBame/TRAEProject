@@ -163,7 +163,7 @@ namespace ChangesWeapons.Changes
                 case ItemID.Frostbrand:
                 case ItemID.IceBow:
                 case ItemID.PirateMinecart:
-                case ItemID.FireGauntlet:
+          
                     item.rare = ItemRarityID.LightRed;
                     break;
                 case ItemID.HighVelocityBullet:

@@ -154,13 +154,13 @@ public class TRAEProj : Mod
             _EclipseHook = new ILHook(typeof(Terraria.Main).GetMethod("UpdateTime_StartDay"), ILEclipse.DoStuff);
 
 
-            if (GetInstance<TRAEConfig>().BoCChanges)
+            if (GetInstance<BossConfig>().BoCChanges)
             {
                 _CreeperHook = new ILHook(typeof(Terraria.NPC).GetMethod("GetBrainOfCthuluCreepersCount"), ILBOC.DoStuff);
                 _CreeperHook2 = new ILHook(typeof(Terraria.Player).GetMethod("StatusFromNPC"), ILBOC2.DoDebuffStuff);
 
             }
-            if (GetInstance<TRAEConfig>().EoWChanges)
+            if (GetInstance<BossConfig>().EoWChanges)
             {
                 _EoWHook = new ILHook(typeof(Terraria.NPC).GetMethod("GetEaterOfWorldsSegmentsCount"), ILEoW.DoStuff);
             }

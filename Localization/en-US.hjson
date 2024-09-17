@@ -270,6 +270,8 @@ Mods: {
 			SpamatizmFire.DisplayName: Spamatizm Fire
 			RailShot.DisplayName: Rail Shot
 			PrimeMissile.DisplayName: Prime Missile
+			MirrorShot.DisplayName: Mirror Shot
+			MirrorShotEvil.DisplayName: Mirror Shot Evil
 			NeoShadowbeam.DisplayName: Neo Shadowbeam
 		}
 
@@ -351,7 +353,7 @@ Mods: {
 
 			WaterAffinity: {
 				DisplayName: Water Affinity
-				Description: Running Speed increased
+				Description: Running speed increased
 			}
 
 			HeartAttack: {
@@ -465,8 +467,8 @@ Mods: {
 			}
 
 			TheFlysSpeed: {
-				Description: Mods.TRAEProject.Buffs.TheFlysSpeed.Description
 				DisplayName: The Flys Speed
+				Description: Mods.TRAEProject.Buffs.TheFlysSpeed.Description
 			}
 		}
 
@@ -495,8 +497,9 @@ Mods: {
 				DisplayName: Balance Cuffs
 				Tooltip:
 					'''
-					Increases damage by 20% damage
-					Restores 3 mana for every point of damage taken
+					Increases damage by 20% when damaged
+					Increases maximum mana by 20
+					Restores mana when damaged
 					'''
 			}
 
@@ -555,7 +558,9 @@ Mods: {
 				Tooltip:
 					'''
 					Unleashes curses to the wielder and nearby enemies when damaged
-					Projectiles deal 15% less damage and curse all enemies
+					Projectiles deal 1% less damage for every 10 damage
+					Maxes out at 25% damage reduction
+					Reduced damage is reflected at the enemy in a cursed shot that inflicts all curses
 					'''
 			}
 
@@ -682,7 +687,7 @@ Mods: {
 				Tooltip:
 					'''
 					Increases ranged velocity and tightens gun spread
-					Rockets, bullets and arrows smart bounce and stun enemies on critical strikes
+					Rockets, bullets and arrows smart bounce and deal 1.05x damage on direct hits
 					'Prepare to be Terminated'
 					'''
 			}
@@ -691,14 +696,14 @@ Mods: {
 				DisplayName: Eye Of The Destroyer
 				Tooltip:
 					'''
-					10% increased critical strike chance
-					Rocket critical strikes stun enemies for 1 second
+					10% increased ranged critical strike chance
+					Direct hits with rockets deal 1.1x damage and stun enemies for 1 second 
 					'''
 			}
 
 			MechanicalEyeItem: {
 				DisplayName: Cyber Eye
-				Tooltip: Rocket critical strikes stun enemies for 1 second
+				Tooltip: Direct hits with rockets deal 1.1x damage and stun enemies for 1 second
 			}
 
 			MirrorShield: {
@@ -706,7 +711,9 @@ Mods: {
 				Tooltip:
 					'''
 					Increases max life by 50
-					Reduces damage taken from projectiles by 12%
+					Projectiles deal 1% less damage for every 10 damage
+					Maxes out at 25% damage reduction
+					Reduced damage is reflected at the enemy
 					'''
 			}
 
@@ -730,7 +737,7 @@ Mods: {
 				Tooltip:
 					'''
 					Increases armor penetration by 5
-						4% increased damage and critical strike chance
+					4% increased damage and critical strike chance
 					Enemies are less likely to target you
 					'''
 			}
@@ -739,7 +746,8 @@ Mods: {
 				DisplayName: Rune Cobra
 				Tooltip:
 					'''
-					Increases your maximum number of minions by 1 and minion critical strike chance by 5%
+					13% increased critical strike chance for minions
+					Increases melee speed by 12% and allows all melee weapons and whips to autoswing
 					Minion damage is stored as Shadowflame energy, up to 3000
 					Whip strikes spawn a friendly Shadowflame Apparition for every 750 damage stored
 					'''
@@ -787,7 +795,7 @@ Mods: {
 				DisplayName: Tribal Beetle
 				Tooltip:
 					'''
-					Increases your maximum number of sentries by 2
+					Increases your maximum number of minions and sentries by 1
 					Increased summon knockback
 					'''
 			}
@@ -822,11 +830,11 @@ Mods: {
 			}
 
 			TwoFlowers: {
-				DisplayName: Two Flowers
+				DisplayName: Mystic Bouquet
 				Tooltip:
 					'''
-					Magic critical strikes deal 10% increased damage and have a chance to spawn a mana star
-					Automatically uses mana potions when needed
+					Magic critical strikes deal 10% increased damage  
+					12% reduced mana costs
 
 					'''
 			}
@@ -1670,42 +1678,62 @@ Mods: {
 
 		Configs: {
 			TRAEConfig: {
-				DisplayName: T R A E Config
+				DisplayName: General Config
 
-				Headers: {
-					BossChanges: Boss Changes Header
-					PrimeRail: Prime Rail Header
-					BameRail: Bame Rail Header
-					QwertyRail: Qwerty Rail Header
+				ManaRework: {
+					Label: Mana Rework
+					Tooltip: Disables the Mana rework and all the related item changes. Aims to improve compatibility with other mods, as TRAE changes and additions are designed with the reworks in mind.
 				}
 
-				PlanteraRework: {
-					Label: Plantera Rework
-					Tooltip: Experimental plantera rework, very buggy
+				MobilityRework: {
+					Label: Mobility Rework
+					Tooltip: Disables the mobility rework and all related item changes. Aims to improve compatibility with other mods, as TRAE changes and additions are designed with the reworks in mind.
 				}
 
-				TwinsRework: {
-					Label: Twins Rework
+				TerrasparkLineRework: {
+					Label: Terraspark Line Rework
+					Tooltip: Disable to revert the rework to the Terraspark Boot line. TRAE is designed around this setting enabled.
+				}
+
+				DefenseRework: {
+					Label: Defense Rework
+					Tooltip: Disables the Defense rework and all related item changes. Aims to improve compatibility with other mods, TRAE changes and additions are designed with the reworks in mind.
+				}
+
+				Headers.GameMechanics: Game Mechanics Header
+
+				Resprites: {
+					Label: Resprites
+					Tooltip: Disables the forced sprite changes. THIS DOES NOT REVERT THE CHANGES DONE TO THE ITEMS.
+				}
+
+				FurtherImprovedMovement: {
+					Label: Better Base Acceleration
+					Tooltip: Doubles player acceleration and deceleration. TRAE is not balanced around this setting enabled.
+				}
+			}
+
+			BossConfig: {
+				DisplayName: Boss Config
+				Headers.BossChanges: Boss Changes Header
+
+				EOCChanges: {
+					Label: EoC Changes
 					Tooltip: ""
 				}
 
-				CultistChanges: {
-					Label: Cultist Changes
+				BoCChanges: {
+					Label: BoC Changes
 					Tooltip: ""
 				}
 
-				DeerclopsChanges: {
-					Label: Deerclops Changes
-					Tooltip: ""
-				}
-
-				FishronChanges: {
-					Label: Duke Fishron Changes
+				EoWChanges: {
+					Label: EoW Changes
 					Tooltip: ""
 				}
 
 				QBChanges: {
-					Label: Queen Bee Changes
+					Label: QB Changes
 					Tooltip: ""
 				}
 
@@ -1714,53 +1742,13 @@ Mods: {
 					Tooltip: ""
 				}
 
-				EOCChanges: {
-					Tooltip: ""
-					Label: Eye Of Cthulhu Changes
-				}
-
-				railMode: {
-					Label: rail Mode
+				DeerclopsChanges: {
+					Label: Deerclops Changes
 					Tooltip: ""
 				}
 
-				bRailVel: {
-					Label: b Rail Vel
-					Tooltip: ""
-				}
-
-				bRailEUpdates: {
-					Label: b Rail E Updates
-					Tooltip: ""
-				}
-
-				bRailTurnSpeed: {
-					Label: b Rail Turn Speed
-					Tooltip: ""
-				}
-
-				qRailVel: {
-					Label: q Rail Vel
-					Tooltip: ""
-				}
-
-				qRailEUpdates: {
-					Label: q Rail E Updates
-					Tooltip: ""
-				}
-
-				qRailTurnSpeed: {
-					Label: q Rail Turn Speed
-					Tooltip: ""
-				}
-
-				railStopAimTime: {
-					Label: rail Stop Aim Time
-					Tooltip: ""
-				}
-
-				holdFireOnRage: {
-					Label: hold Fire On Rage
+				TwinsRework: {
+					Label: Twins Rework
 					Tooltip: ""
 				}
 
@@ -1773,13 +1761,36 @@ Mods: {
 					Label: Destroyer Rework
 					Tooltip: ""
 				}
+
+				PlanteraRework: {
+					Label: Experimental Plantera Rework
+					Tooltip: Very buggy and unfinished.
+				}
+
+				PlanteraTentacle: {
+					Label: Plantera Tentacles
+					Tooltip: Reverts the HP reduction on Plantera Tentacles from 1000 to 300
+				}
+
+				FishronChanges: {
+					Label: Fishron Changes
+					Tooltip: ""
+				}
+
+				CultistChanges: {
+					Label: Cultist Changes
+					Tooltip: ""
+				}
 			}
 
-			RailMode: {
-				Tooltip: ""
-				Classic.Label: Classic
-				BameNerf.Label: Bame Nerf
-				QwertyNerf.Label: Qwerty Nerf
+			TRAERetextureConfig: {
+				DisplayName: TRAE Retexture Config
+				Headers.TextureSwaps: Texture Swaps Header
+
+				Resprites: {
+					Label: Resprites
+					Tooltip: Turns off the forced resprites caused by the mod. THIS DOES NOT REVERT THE CHANGES DONE TO THEM.
+				}
 			}
 		}
 	}

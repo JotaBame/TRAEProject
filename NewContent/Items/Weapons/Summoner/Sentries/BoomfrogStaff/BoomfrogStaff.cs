@@ -86,7 +86,7 @@ namespace TRAEProject.NewContent.Items.Weapons.Summoner.Sentries.BoomfrogStaff
             Projectile.friendly = true;
             Projectile.ignoreWater = false;
             Projectile.sentry = true; Projectile.DamageType = DamageClass.Summon;
-
+            Projectile.scale = 1.15f;
             Projectile.penetrate = 1;
             Projectile.timeLeft = Projectile.SentryLifeTime;
             Projectile.tileCollide = true;
@@ -125,7 +125,7 @@ namespace TRAEProject.NewContent.Items.Weapons.Summoner.Sentries.BoomfrogStaff
 
             //Getting the npc to fire at
             Player player = Main.player[Projectile.owner];
-
+      
             for (int i = 0; i < 200; i++)
             {
                 if (player.HasMinionAttackTargetNPC)
@@ -238,7 +238,29 @@ namespace TRAEProject.NewContent.Items.Weapons.Summoner.Sentries.BoomfrogStaff
         }
         public override void AI()
         {
-                Projectile.frameCounter++;
+            if (Projectile.lavaWet)
+            {
+
+                if (Projectile.velocity.Y < 0f)
+                {
+                    Projectile.direction *= -1;
+                    Projectile.ai[2] = 200f;
+                }
+
+
+                if (Projectile.velocity.Y > 2f)
+                {
+                    Projectile.velocity.Y *= 0.9f;
+                }
+
+                Projectile.velocity.Y -= 0.75f;
+                if (Projectile.velocity.Y < -10f)
+                {
+                    Projectile.velocity.Y = -10f;
+                }
+
+            }
+            Projectile.frameCounter++;
             if (Projectile.frameCounter >= 4)
             {
                 Projectile.frameCounter = 0;

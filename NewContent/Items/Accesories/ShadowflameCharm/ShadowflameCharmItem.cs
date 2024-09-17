@@ -94,7 +94,7 @@ namespace TRAEProject.NewContent.Items.Accesories.ShadowflameCharm
                         num2 += (float)Main.rand.Next(-50, 51) * 0.1f;
                         num3 += (float)Main.rand.Next(-50, 51) * 0.1f;
                         float num4 = MathF.Sqrt(num2 * num2 + num3 * num3);
-                        num4 = 24f / num4;
+                        num4 = 36f / num4;
                         num2 *= num4;
                         num3 *= num4;
                         Projectile.NewProjectile(player.GetSource_FromThis(), k, y2, num2, num3, ProjectileType<ShadowflameApparition>(), 50 * ShadowflameCharm, 0f, player.whoAmI);
@@ -120,7 +120,7 @@ namespace TRAEProject.NewContent.Items.Accesories.ShadowflameCharm
                         num2 += (float)Main.rand.Next(-50, 51) * 0.1f;
                         num3 += (float)Main.rand.Next(-50, 51) * 0.1f;
                         float num4 = MathF.Sqrt(num2 * num2 + num3 * num3);
-                        num4 = 24f / num4;
+                        num4 = 36f / num4;
                         num2 *= num4;
                         num3 *= num4;
                         Projectile.NewProjectile(player.GetSource_FromThis(), k, y2, num2, num3, ProjectileType<MoltenApparition>(), 50 + 25 * MoltenCharm, 0f, player.whoAmI);
@@ -151,6 +151,7 @@ namespace TRAEProject.NewContent.Items.Accesories.ShadowflameCharm
             Projectile.ignoreWater = true;
             Projectile.usesLocalNPCImmunity = true;
             Projectile.localNPCHitCooldown = 10;
+            Projectile.ArmorPenetration = 50;
             Projectile.GetGlobalProjectile<ProjectileStats>().homesIn = true;
             Projectile.GetGlobalProjectile<ProjectileStats>().AddsBuff = BuffID.ShadowFlame;
             Projectile.GetGlobalProjectile<ProjectileStats>().AddedBuffDuration = 240;
@@ -185,8 +186,9 @@ namespace TRAEProject.NewContent.Items.Accesories.ShadowflameCharm
             Projectile.tileCollide = false;
             Projectile.ignoreWater = true;
             Projectile.usesLocalNPCImmunity = true;
-            Projectile.localNPCHitCooldown = 10;  
-			Projectile.GetGlobalProjectile<ProjectileStats>().homesIn = true;
+            Projectile.localNPCHitCooldown = 10; Projectile.ArmorPenetration = 50;
+
+            Projectile.GetGlobalProjectile<ProjectileStats>().homesIn = true;
             Projectile.GetGlobalProjectile<ProjectileStats>().explodes = true;
             Projectile.GetGlobalProjectile<ProjectileStats>().ExplosionRadius = 160;            
 			Projectile.GetGlobalProjectile<ProjectileStats>().AddsBuff = BuffID.Daybreak;

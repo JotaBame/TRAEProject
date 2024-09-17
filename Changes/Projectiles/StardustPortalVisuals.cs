@@ -35,7 +35,7 @@ namespace TRAEProject.Changes.Projectiles
         public override bool PreDraw(Projectile projectile, ref Color lightColor)
         {
 
-            if (!ModContent.GetInstance<TRAERetextureConfig>().LunarPortal)
+            if (!ModContent.GetInstance<TRAEConfig>().Resprites)
                 return true;
             float rotationColorOscillation = 0.95f + (projectile.rotation * 0.75f).ToRotationVector2().Y * 0.1f;
             Vector2 drawPos = projectile.Center - Main.screenPosition;

@@ -19,21 +19,28 @@ namespace TRAEProject.NewContent.Items.Accesories.ShadowflameCharm
         public override void SetDefaults()
         {
             Item.accessory = true;
-            Item.rare = ItemRarityID.Pink;
+            Item.rare = ItemRarityID.Yellow;
             Item.width = 40;
             Item.height = 42;
-            Item.value = Item.sellPrice(gold:7);
+            Item.value = Item.sellPrice(gold:9);
         }
         public override void UpdateAccessory(Player player, bool hideVisual)
         {
-			++player.maxMinions;
+	 
             player.GetModPlayer<ShadowflameCharmPlayer>().ShadowflameCharm += 1;
-            player.GetModPlayer<SummonStats>().minionCritChance += 5;
+            player.GetAttackSpeed(DamageClass.Melee) += 0.12f;
+            player.GetModPlayer<SummonStats>().minionCritChance += 13;
         }
         public override void AddRecipes()
         {
             CreateRecipe().AddIngredient(ItemID.NecromanticScroll, 1)
+                .AddIngredient(ItemType<ShadowClaws>(), 1)
+                .AddTile(TileID.TinkerersWorkbench)
+                .Register(); 
+            CreateRecipe().AddIngredient(ItemID.NecromanticScroll, 1)
+                .AddIngredient(ItemID.FeralClaws, 1)
                 .AddIngredient(ItemType<ShadowflameCharmItem>(), 1)
+
                 .AddTile(TileID.TinkerersWorkbench)
                 .Register();
         }

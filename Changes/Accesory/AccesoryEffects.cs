@@ -150,6 +150,7 @@ namespace TRAEProject
                             )
                         {
                             Player.AddBuff(BuffType<WaterAffinity>(), 600);
+ 
                         }
                     }
                 }

@@ -24,7 +24,7 @@ namespace TRAEProject.Changes.NPCs.Boss
 		}
         public override void OnHitPlayer(NPC npc, Player target, Player.HurtInfo hurtInfo)
         {
-			if (GetInstance<TRAEConfig>().FishronChanges)
+			if (GetInstance<BossConfig>().FishronChanges)
 			{
 				switch (npc.type)
 				{
@@ -38,7 +38,7 @@ namespace TRAEProject.Changes.NPCs.Boss
 		}
 		public override void ApplyDifficultyAndPlayerScaling(NPC npc, int numPlayers, float balance, float bossAdjustment)/* tModPorter Note:bossAdjustment -> balance (bossAdjustment is different, see the docs for details) */
         {
-			if (GetInstance<TRAEConfig>().FishronChanges)
+			if (GetInstance<BossConfig>().FishronChanges)
 			{
 				switch (npc.type)
 				{
@@ -52,7 +52,7 @@ namespace TRAEProject.Changes.NPCs.Boss
 		float phase3NadoTimer = 0f;
         public override bool PreAI(NPC npc)
         {
-            if (GetInstance<TRAEConfig>().FishronChanges)
+            if (GetInstance<BossConfig>().FishronChanges)
 			{ 
             switch (npc.type)
 			{

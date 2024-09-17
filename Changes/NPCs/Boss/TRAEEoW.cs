@@ -18,7 +18,7 @@ namespace TRAEProject.Changes.NPCs.Boss
         public override bool InstancePerEntity => true;
         public override void SetStaticDefaults()
         {
-            if (GetInstance<TRAEConfig>().EoWChanges)
+            if (GetInstance<BossConfig>().EoWChanges)
             {
                 NPCID.Sets.ImmuneToRegularBuffs[NPCID.EaterofWorldsHead] = true;
                 NPCID.Sets.ImmuneToRegularBuffs[NPCID.EaterofWorldsBody] = true;
@@ -27,7 +27,7 @@ namespace TRAEProject.Changes.NPCs.Boss
         }
         public override void SetDefaults(NPC npc)
         {
-            if (GetInstance<TRAEConfig>().EoWChanges)
+            if (GetInstance<BossConfig>().EoWChanges)
             {
                 if (npc.type == NPCID.EaterofWorldsHead || npc.type == NPCID.EaterofWorldsBody || npc.type == NPCID.EaterofWorldsTail)
                 {
@@ -43,7 +43,7 @@ namespace TRAEProject.Changes.NPCs.Boss
         }
         public override bool CanHitPlayer(NPC npc, Player target, ref int cooldownSlot)
         {
-            if (npc.type == NPCID.VileSpitEaterOfWorlds && GetInstance<TRAEConfig>().EoWChanges)
+            if (npc.type == NPCID.VileSpitEaterOfWorlds && GetInstance<BossConfig>().EoWChanges)
             {
 
                 return false;
@@ -52,7 +52,7 @@ namespace TRAEProject.Changes.NPCs.Boss
         }
         public override void ApplyDifficultyAndPlayerScaling(NPC npc, int numPlayers, float balance, float bossAdjustment)
         {
-            if (Main.masterMode && GetInstance<TRAEConfig>().EoWChanges)
+            if (Main.masterMode && GetInstance<BossConfig>().EoWChanges)
             {
                 if (npc.type == NPCID.EaterofWorldsHead || npc.type == NPCID.EaterofWorldsBody || npc.type == NPCID.EaterofWorldsTail)
                 {
@@ -62,14 +62,14 @@ namespace TRAEProject.Changes.NPCs.Boss
         }
         public override void OnHitByProjectile(NPC npc, Projectile projectile, NPC.HitInfo hit, int damageDone)
         {
-            if ((npc.type == NPCID.EaterofWorldsHead || npc.type == NPCID.EaterofWorldsBody || npc.type == NPCID.EaterofWorldsTail) && GetInstance<TRAEConfig>().EoWChanges)
+            if ((npc.type == NPCID.EaterofWorldsHead || npc.type == NPCID.EaterofWorldsBody || npc.type == NPCID.EaterofWorldsTail) && GetInstance<BossConfig>().EoWChanges)
             {
                 npc.localAI[1] -= damageDone * 4;
             }
         }
         public override void ModifyHitByProjectile(NPC npc, Projectile projectile, ref NPC.HitModifiers modifiers)
         {
-            if (GetInstance<TRAEConfig>().EoWChanges && npc.type >= 13 && npc.type <= 15)
+            if (GetInstance<BossConfig>().EoWChanges && npc.type >= 13 && npc.type <= 15)
             {
                 if (projectile.type == ProjectileID.VampireFrog)
                     modifiers.FinalDamage *= 0.6f;
@@ -81,7 +81,7 @@ namespace TRAEProject.Changes.NPCs.Boss
         }
         public override bool PreAI(NPC npc)
         {
-            if (GetInstance<TRAEConfig>().EoWChanges)
+            if (GetInstance<BossConfig>().EoWChanges)
             {
                 if (npc.type == NPCID.EaterofWorldsHead || npc.type == NPCID.EaterofWorldsBody || npc.type == NPCID.EaterofWorldsTail)
                 {
@@ -702,7 +702,7 @@ namespace TRAEProject.Changes.NPCs.Boss
         }
         public override bool PreKill(NPC npc)
         {
-            if ((npc.type == NPCID.EaterofWorldsHead || npc.type == NPCID.EaterofWorldsBody || npc.type == NPCID.EaterofWorldsTail) && Main.expertMode && GetInstance<TRAEConfig>().EoWChanges)
+            if ((npc.type == NPCID.EaterofWorldsHead || npc.type == NPCID.EaterofWorldsBody || npc.type == NPCID.EaterofWorldsTail) && Main.expertMode && GetInstance<BossConfig>().EoWChanges)
             {
                 NPCLoader.blockLoot.Add(ItemID.Heart);
             }

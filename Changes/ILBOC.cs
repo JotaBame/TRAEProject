@@ -18,13 +18,13 @@ namespace TRAEilHooks {
                 x => x.MatchLdcI4(40)
             );
             c.EmitPop();
-            c.EmitLdcI4(32);
+            c.EmitLdcI4(30);
 
             c.GotoNext(MoveType.After,
                 x => x.MatchLdcI4(20)
             );
             c.EmitPop();
-            c.EmitLdcI4(16);
+            c.EmitLdcI4(15);
 
    
  

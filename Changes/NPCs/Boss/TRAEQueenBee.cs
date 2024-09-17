@@ -29,7 +29,7 @@ namespace TRAEProject.NPCs.Boss
 		}
 		public override bool PreAI(NPC npc)
 		{
-			if (GetInstance<TRAEConfig>().QBChanges)
+			if (GetInstance<BossConfig>().QBChanges)
 			{
 				if (npc.type == NPCID.QueenBee)
 				{

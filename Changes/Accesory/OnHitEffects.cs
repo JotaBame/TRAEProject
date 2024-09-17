@@ -18,6 +18,24 @@ namespace TRAEProject.Changes.Accesory
     {
         public override void UpdateAccessory(Item item, Player player, bool hideVisual)
         {
+            if (GetInstance<TRAEConfig>().ManaRework)
+            {
+                switch (item.type)
+                {
+                    case ItemID.MagicCuffs:
+                        player.GetModPlayer<OnHitEffects>().magicCuffsCount += 2;
+                         player.magicCuffs = false;
+                        break;
+ 
+                    case ItemID.CelestialCuffs:
+                        player.statManaMax2 += 20;
+                        player.GetModPlayer<OnHitEffects>().magicCuffsCount += 3;
+                        player.magicCuffs = false;
+                        player.GetModPlayer<Mana>().celestialCuffsOverload = true;
+                        break;
+                    
+                }
+            }
             switch (item.type)
             {
                 case ItemID.CrossNecklace:
@@ -35,18 +53,6 @@ namespace TRAEProject.Changes.Accesory
                     player.GetModPlayer<OnHitEffects>().panicNecklaces += 1;
 					player.panic = false;
                     break;
-        
-                case ItemID.MagicCuffs:
-                    player.GetModPlayer<OnHitEffects>().magicCuffsCount += 1;
-                    player.statManaMax2 -= 20;
-                    player.magicCuffs = false;
-                    break;
-                case ItemID.CelestialCuffs:
-                    player.statManaMax2 -= 20;
-                    player.GetModPlayer<OnHitEffects>().magicCuffsCount += 1;
-                    player.magicCuffs = false;
-                    player.GetModPlayer<Mana>().celestialCuffsOverload = true;
-                    break;
                 case ItemID.StarCloak:
                     player.starCloakItem = null;
                     player.GetModPlayer<OnHitEffects>().starCloaks += 1;
@@ -59,6 +65,39 @@ namespace TRAEProject.Changes.Accesory
         }
         public override void ModifyTooltips(Item item, List<TooltipLine> tooltips)
         {
+            if (GetInstance<TRAEConfig>().ManaRework)
+            {
+                switch (item.type)
+                {
+                    case ItemID.MagicCuffs:
+                        foreach (TooltipLine line in tooltips)
+                        {
+ 
+                            if (line.Mod == "Terraria" && line.Name == "Tooltip1")
+                            {
+                                line.Text = "Restores mana when damaged\nCan go over maximum mana";
+                            }
+                        }
+                        break;
+                    case ItemID.CelestialCuffs:
+                        foreach (TooltipLine line in tooltips)
+                        {
+                            if (line.Mod == "Terraria" && line.Name == "Tooltip0")
+                            {
+                                line.Text = "Increases maximum mana by 40";
+                            }
+                            if (line.Mod == "Terraria" && line.Name == "Tooltip1")
+                            {
+                                line.Text = "Restores a great amount of mana when damaged";
+                            }
+                            if (line.Mod == "Terraria" && line.Name == "Tooltip2")
+                            {
+                                line.Text = "Increases pickup range for mana stars\nMana stars and mana restored by the item can go over maximum mana";
+                            }
+                        }
+                        break;
+                }
+            }
             switch (item.type)
             {
                 case ItemID.Shackle:
@@ -70,36 +109,7 @@ namespace TRAEProject.Changes.Accesory
                         }
                     }
                     break;
-                case ItemID.MagicCuffs:
-                    foreach (TooltipLine line in tooltips)
-                    {
-                        if (line.Mod == "Terraria" && line.Name == "Tooltip0")
-                        {
-                            line.Text = "Restores 3 mana for every point of damage taken";
-                        }
-                        if (line.Mod == "Terraria" && line.Name == "Tooltip1")
-                        {
-                            line.Text = "Can go over maximum mana";
-                        }
-                    }
-                    break;
-                case ItemID.CelestialCuffs:
-                    foreach (TooltipLine line in tooltips)
-                    {
-                        if (line.Mod == "Terraria" && line.Name == "Tooltip0")
-                        {
-                            line.Text = "Restores 3 mana for every point of damage taken";
-                        }
-                        if (line.Mod == "Terraria" && line.Name == "Tooltip1")
-                        {
-                            line.Text = "Increases pickup range for mana stars";
-                        }
-                        if (line.Mod == "Terraria" && line.Name == "Tooltip2")
-                        {
-                            line.Text = "Mana restores can go over maximum mana";
-                        }
-                    }
-                    break;
+       
                 case ItemID.CrossNecklace:
                 case ItemID.StarVeil:
                     foreach (TooltipLine line in tooltips)
@@ -195,7 +205,7 @@ namespace TRAEProject.Changes.Accesory
 
                 if (magicCuffsCount > 0)
                 {
-                    int manaRestored = info.Damage * magicCuffsCount * 3;
+                    int manaRestored = info.Damage * magicCuffsCount;
                     Player.GetModPlayer<Mana>().GiveManaOverloadable(manaRestored);
                 }
                 int[] spread = { 1, 2 };

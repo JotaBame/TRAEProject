@@ -53,7 +53,7 @@ namespace TRAEProject.Changes.Weapon.Ranged
                     item.useTime = item.useAnimation = 16;
                     break;
                 case ItemID.ChlorophyteShotbow:
-                    item.useTime = item.useAnimation = 24;
+                    item.useTime = item.useAnimation = 24; // up from 19
                     break;
             }
         }

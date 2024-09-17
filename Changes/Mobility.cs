@@ -125,72 +125,29 @@ namespace TRAEProject
 		}
         public override void PostUpdateEquips()
         {
+            Player.wingTimeMax = (int)(Player.wingTimeMax * flightTimeBonus);
+            Player.rocketTimeMax = (int)(Player.rocketTimeMax * flightTimeBonus);
+            Player.lavaMax = TRAELavaMax;
+
+
             Player.waterWalk = false;
             Player.fireWalk = false;
-            Player.lavaRose = false;
-            Player.lavaMax = TRAELavaMax;
-            Player.hasMagiluminescence = false;
+
+            if (!Player.lavaWet && Player.velocity.X == 0f && Player.velocity.Y == 0f)
+            {
+                Player.lavaTime += 3;
+            }
+
+
             if (TRAEwaterwalk)
             {
                 Player.waterWalk = true;
                 Player.waterWalk2 = true;
             }
-            if(TRAEfirewalk)
+            if (TRAEfirewalk)
             {
                 Player.fireWalk = true;
             }
-            if(Player.shadowArmor)
-            {
-                Player.shadowArmor = false;
-                ankletAcc = true;
-                Player.moveSpeed += 0.2f;
-            }
-            Player.wingTimeMax = (int)(Player.wingTimeMax * flightTimeBonus);
-            Player.rocketTimeMax = (int)(Player.rocketTimeMax * flightTimeBonus);
-            Player.jumpSpeedBoost += 1.4f;
-            Player.moveSpeed *= 1.33f;
-
-            TRAEProject.Changes.Accesory.JumpsAndBalloons.DoubleJumpHorizontalSpeeds(Player);
-
-            if(TRAEMagi)
-            {
-                Player.moveSpeed *= 1.15f;
-            }
-
-            if (Player.accRunSpeed >= 4.8f)
-            {
-                if (Player.controlLeft && Player.velocity.X <= 0f - Player.accRunSpeed && Player.dashDelay >= 0)
-                {
-                    if (Player.velocity.X < 0 - Player.accRunSpeed && Player.velocity.Y == 0f && !Player.mount.Active)
-                    {
-                        SpawnFastRunParticles();
-                    }
-                }
-                else if (Player.controlRight && Player.velocity.X >= Player.accRunSpeed && Player.dashDelay >= 0)
-                {
-                    if (Player.mount.Active && Player.mount.Cart)
-                    {
-                        if (Player.velocity.X > 0f)
-                        {
-                            Player.direction = -1;
-                        }
-                    }
-                    if (Player.velocity.X > Player.accRunSpeed && Player.velocity.Y == 0f && !Player.mount.Active)
-                    {
-                        SpawnFastRunParticles();
-                    }
-                }
-            }
-            if(Player.wingsLogic == 26)
-            {
-                Player.GetModPlayer<AccesoryEffects>().FastFall = true;
-            }
-
-
-            skating = false;
-            
-            //Main.NewText(Player.dashDelay + ", " + Player.dashTime + ", " + Player.dash+ ", " + Player.dashType);
-            //Player.dashTime = 0;
             if (Player.dash == 99)
             {
                 DoCommonDashHandle(out var dir, out var dashing);
@@ -225,9 +182,9 @@ namespace TRAEProject
                     Main.gore[num20].velocity *= 0.4f;
                     */
                 }
-                else if(dashing && blizzardDash && (Player.GetJumpState(ExtraJump.BlizzardInABottle).Available || (Player.GetModPlayer<TRAEJumps>().allowBlizzardDash && !Player.GetModPlayer<TRAEJumps>().usedBlizzardDash)))
+                else if (dashing && blizzardDash && (Player.GetJumpState(ExtraJump.BlizzardInABottle).Available || (Player.GetModPlayer<TRAEJumps>().allowBlizzardDash && !Player.GetModPlayer<TRAEJumps>().usedBlizzardDash)))
                 {
-                    
+
                     Player.GetModPlayer<TRAEJumps>().usedBlizzardDash = true;
                     Player.velocity.X = 16f * (float)dir;
                     Player.dashDelay = -1;
@@ -239,9 +196,110 @@ namespace TRAEProject
                     {
                         Player.velocity.X /= 2f;
                     }
-					SoundEngine.PlaySound(SoundID.DoubleJump with { MaxInstances = 0 }, Player.Center);
+                    SoundEngine.PlaySound(SoundID.DoubleJump with { MaxInstances = 0 }, Player.Center);
                 }
             }
+           
+            if (GetInstance<TRAEConfig>().MobilityRework)
+            {
+                if (Player.shadowArmor)
+                {
+                    Player.shadowArmor = false;
+                    ankletAcc = true;
+                    Player.moveSpeed += 0.2f;
+                }
+
+                Player.jumpSpeedBoost += 1.4f;
+                Player.moveSpeed *= 1.33f;
+   
+                JumpsAndBalloons.DoubleJumpHorizontalSpeeds(Player);
+
+                if (TRAEMagi)
+                {
+                    Player.moveSpeed *= 1.15f;
+                }
+
+                if (Player.accRunSpeed >= 4.8f)
+                {
+                    if (Player.controlLeft && Player.velocity.X <= 0f - Player.accRunSpeed && Player.dashDelay >= 0)
+                    {
+                        if (Player.velocity.X < 0 - Player.accRunSpeed && Player.velocity.Y == 0f && !Player.mount.Active)
+                        {
+                            SpawnFastRunParticles();
+                        }
+                    }
+                    else if (Player.controlRight && Player.velocity.X >= Player.accRunSpeed && Player.dashDelay >= 0)
+                    {
+                        if (Player.mount.Active && Player.mount.Cart)
+                        {
+                            if (Player.velocity.X > 0f)
+                            {
+                                Player.direction = -1;
+                            }
+                        }
+                        if (Player.velocity.X > Player.accRunSpeed && Player.velocity.Y == 0f && !Player.mount.Active)
+                        {
+                            SpawnFastRunParticles();
+                        }
+                    }
+                }
+                if (Player.wingsLogic == 26)
+                {
+                    Player.GetModPlayer<AccesoryEffects>().FastFall = true;
+                }
+                if (Player.wingsLogic == 23)
+                {
+                    ornamentTimer++;
+                    if (Player.velocity.Y != 0 && ornamentTimer % 60 == 0)
+                    {
+                        Projectile.NewProjectile(Player.GetSource_ItemUse(Player.HeldItem), Player.Center, Vector2.UnitY * 2, ProjectileID.OrnamentFriendly, 50, 0, Player.whoAmI, -1);
+                    }
+                }
+                if (Player.wingsLogic == 30 && Player.TryingToHoverDown) // vortex booster
+                {
+                    Player.runAcceleration /= 3;
+                    Player.moveSpeed += 0.55f;
+                }
+
+                if (Player.wingsLogic == 37 && Player.TryingToHoverDown)
+                {
+                    Player.runAcceleration /= 3;
+                    Player.moveSpeed += 0.45f;
+                }
+                else if (Player.wingsLogic == 22 && Player.TryingToHoverDown)
+                {
+                    Player.runAcceleration /= 3;
+                    Player.moveSpeed += 0.45f;
+                }
+            
+                else if (Player.wingsLogic == 45 && Player.TryingToHoverDown)
+                {
+                    Player.runAcceleration /= 3;
+                    Player.moveSpeed += 1f;
+                }
+                 else if (Player.TryingToHoverDown && Player.controlJump && ArmorIDs.Wing.Sets.Stats[Player.wingsLogic].HasDownHoverStats && Player.wingTime > 0)
+                {
+                    Player.GetModPlayer<Mobility>().ankletAcc = true;
+                    Player.wingTime += 0.5f;
+                    Player.runAcceleration /= 2;
+                    //Player.runSlowdown *= 2;
+                    Player.moveSpeed += 0.45f;
+                    Player.velocity.Y = Player.velocity.Y * 0.9f;
+                    if (Player.velocity.Y > -2f && Player.velocity.Y < 1f)
+                    {
+                        Player.velocity.Y = 1E-05f;
+                        //Player.position.Y += .1f;
+                    }
+                }
+            }
+
+
+
+            skating = false;
+
+            //Main.NewText(Player.dashDelay + ", " + Player.dashTime + ", " + Player.dash+ ", " + Player.dashType);
+            //Player.dashTime = 0;
+
             if (Player.dashType != 2)
             {
                 if (Player.dashDelay == -1 && dashCount == -1)
@@ -268,29 +326,29 @@ namespace TRAEProject
                             Player.moveSpeed += 0.5f;
                             break;
                         case 99: //ice skates
-                            if(performingBlizzardDash)
+                            if (performingBlizzardDash)
                             {
                                 Player.moveSpeed += 0.2f;
                             }
                             Player.moveSpeed += 0.33f;
                             skating = true;
                             Player.armorEffectDrawShadow = false;
-                            if(Player.velocity.Y == 0 && ((Math.Sign(Player.velocity.X) == -1 && Player.controlLeft) || (Math.Sign(Player.velocity.X) == 1 && Player.controlRight)))
+                            if (Player.velocity.Y == 0 && ((Math.Sign(Player.velocity.X) == -1 && Player.controlLeft) || (Math.Sign(Player.velocity.X) == 1 && Player.controlRight)))
                             {
                                 dashCount = 120;
                             }
-                            else if(dashCount > 30 && Player.velocity.Y == 0)
+                            else if (dashCount > 30 && Player.velocity.Y == 0)
                             {
                                 dashCount = 30;
                             }
-                            if(Player.velocity.Y == 0)
+                            if (Player.velocity.Y == 0)
                             {
                                 performingBlizzardDash = false;
                             }
-                            
+
                             break;
                     }
-                    if(Player.dash == 99 && Player.velocity.Y != 0 && !performingBlizzardDash && ((Math.Sign(Player.velocity.X) == 1 && !Player.controlRight) || (Math.Sign(Player.velocity.X) == -1 && !Player.controlLeft)))
+                    if (Player.dash == 99 && Player.velocity.Y != 0 && !performingBlizzardDash && ((Math.Sign(Player.velocity.X) == 1 && !Player.controlRight) || (Math.Sign(Player.velocity.X) == -1 && !Player.controlLeft)))
                     {
                         dashCount = 0;
                     }
@@ -299,7 +357,7 @@ namespace TRAEProject
                         dashCount = 0;
                         Player.velocity.X = 0;
                     }
-                    if(dashCooldown <=0)
+                    if (dashCooldown <= 0)
                     {
                         dashCooldown = 1;
                     }
@@ -311,7 +369,7 @@ namespace TRAEProject
                     Player.dashDelay = 0;
                     performingBlizzardDash = false;
                 }
-                if(performingBlizzardDash)
+                if (performingBlizzardDash)
                 {
                     int num12 = Player.height - 6;
                     if (Player.gravDir == -1f)
@@ -354,6 +412,7 @@ namespace TRAEProject
                     }
                 }
             }
+
             if (dashCooldown > 0)
             {
                 Player.dashTime = 0;
@@ -367,15 +426,8 @@ namespace TRAEProject
                     Player.runAcceleration *= 3;
                 }
             }
-                    if (Player.wingsLogic == 23)
-            {
-                ornamentTimer++;
-                if (Player.velocity.Y != 0 && ornamentTimer % 60 == 0)
-                {
-                    Projectile.NewProjectile(Player.GetSource_ItemUse(Player.HeldItem), Player.Center, Vector2.UnitY * 2, ProjectileID.OrnamentFriendly, 50, 0, Player.whoAmI, -1);
-                }
-            }
-            if (Player.GetModPlayer<TRAEProject.NewContent.Items.Accesories.MobilityJumps.TRAEJumps>().isBoosting)
+
+            if (Player.GetModPlayer<TRAEJumps>().isBoosting)
             {
                 Player.gravControl = false;
                 Player.gravControl2 = false;
@@ -384,64 +436,45 @@ namespace TRAEProject
             {
                 Player.slowFall = false;
             }
-            if(Player.controlUp && !Player.gravControl && !Player.gravControl2 && Player.GetModPlayer<SpaceBalloonPlayer>().SpaceBalloon > 0)
+            if (Player.GetModPlayer<SpaceBalloonPlayer>().SpaceBalloon > 0)
             {
-                Player.slowFall = true;
+             
+                    if (Player.controlUp && !Player.gravControl && !Player.gravControl2)
+                    {
+                        Player.slowFall = true;
+                    }
+              
+         
             }
             //int num39 = (int)(Player.position.Y / 16f) - Player.fallStart;
             //if(Math.Abs(num39) > Player.extraFall + 25 + (Player.statLifeMax2 / 20))
             //{
             //    Player.extraFall += Math.Abs(num39) - (Player.extraFall + 25 + (Player.statLifeMax2 / 20));
             //}
-            if(ankletAcc)
+            if (ankletAcc)
             {
                 Player.runAcceleration *= 1.5f;
             }
 
-            if (Player.wingsLogic == 30 && Player.TryingToHoverDown) // vortex booster
-            {
-                Player.runAcceleration /= 3;
-                Player.moveSpeed += 0.55f;
-            }
-
-            if (Player.wingsLogic == 37 && Player.TryingToHoverDown)
-            {
-                Player.runAcceleration /= 3;
-                Player.moveSpeed += 0.45f;
-            }
-            else if (Player.wingsLogic == 22 && Player.TryingToHoverDown)
-            {
-                Player.runAcceleration /= 3;
-                Player.moveSpeed += 0.45f;
-            }
-            else if (Player.wingsLogic == 45 && Player.TryingToHoverDown)
-            {
-                Player.runAcceleration /= 3;
-                Player.moveSpeed += 1f;
-            }
-            else if(Player.TryingToHoverDown && Player.controlJump && ArmorIDs.Wing.Sets.Stats[Player.wingsLogic].HasDownHoverStats && Player.wingTime > 0)
-            {
-                Player.GetModPlayer<Mobility>().ankletAcc = true;
-                Player.wingTime += 0.5f;
-                Player.runAcceleration /= 2;
-                //Player.runSlowdown *= 2;
-                Player.moveSpeed += 0.45f;
-                Player.velocity.Y = Player.velocity.Y * 0.9f;
-                if (Player.velocity.Y > -2f && Player.velocity.Y < 1f)
-                {
-                    Player.velocity.Y = 1E-05f;
-                    //Player.position.Y += .1f;
-                }
-            }
 
             //Main.NewText("Speed: " + Player.moveSpeed + ", Acceleration: " + Player.runAcceleration);
             //Main.NewText(Player.rocketTimeMax);
         }
+    
+    
         public override void PostUpdateRunSpeeds()
         {
-            TRAEProject.Changes.Accesory.WingChanges.PostProcessChanges(Player);
-            Player.runSlowdown += 0.3f;
-            MountChanges.MountRunSpeeds(Player);
+            if (GetInstance<TRAEConfig>().FurtherImprovedMovement)
+            {
+                Player.runAcceleration *= 2f;
+                Player.runSlowdown *= 2f;
+            }
+            if (GetInstance<TRAEConfig>().MobilityRework)
+            {
+                TRAEProject.Changes.Accesory.WingChanges.PostProcessChanges(Player);
+                Player.runSlowdown += 0.3f;
+                MountChanges.MountRunSpeeds(Player);
+            }
         }
         public override void PostUpdate()
         {

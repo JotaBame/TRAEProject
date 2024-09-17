@@ -36,7 +36,7 @@ namespace TRAEProject.NewContent.NPCs.Underworld.Froggabomba
             AnimationType = NPCID.Pixie;
             NPC.damage = 30;
             NPC.defense = 10;
-            NPC.lifeMax = 200;
+            NPC.lifeMax = 150;
             NPC.lavaImmune = true;
             NPC.HitSound = SoundID.NPCHit33; 
             NPC.DeathSound = SoundID.NPCDeath36; 
@@ -56,12 +56,14 @@ namespace TRAEProject.NewContent.NPCs.Underworld.Froggabomba
         }
         public override float SpawnChance(NPCSpawnInfo spawnInfo)
         {
-     
-            if (NPC.downedPlantBoss)
+            if (spawnInfo.SpawnTileType != TileID.ObsidianBrick && spawnInfo.SpawnTileType != TileID.HellstoneBrick)
             {
-                return SpawnCondition.Underworld.Chance * 0.025f;
+                if (!NPC.downedPlantBoss)
+                    return SpawnCondition.Underworld.Chance * 0.12f;
+                else
+                    return SpawnCondition.Underworld.Chance * 0.03f;
             }
-            return SpawnCondition.Underworld.Chance * 0.17f;
+            return SpawnCondition.Underworld.Chance * 0f;
         }
     
    
@@ -69,7 +71,7 @@ namespace TRAEProject.NewContent.NPCs.Underworld.Froggabomba
         public override void ModifyNPCLoot(NPCLoot npcLoot)
         {
             npcLoot.Add(ItemDropRule.Common(ItemID.ExplosivePowder, 2)); 
-            npcLoot.Add(ItemDropRule.Common(ItemType<BoomfrogStaff>(), 20));
+            npcLoot.Add(ItemDropRule.Common(ItemType<BoomfrogStaff>(), 16));
 
         }
         public override void HitEffect(NPC.HitInfo hit)
@@ -88,9 +90,56 @@ namespace TRAEProject.NewContent.NPCs.Underworld.Froggabomba
                 NPC.NewNPC(NPC.GetSource_FromAI(), (int)NPC.Center.X + Main.rand.Next(-10, 10), (int)NPC.Center.Y, NPCType<FroggabombaClone>());
             }
  
-            Projectile.NewProjectile(NPC.GetSource_FromAI(), NPC.Center, new Vector2(0, 0), ProjectileType<Boom>(), 30, 0, ai0: 100);
+            Projectile.NewProjectile(NPC.GetSource_FromAI(), NPC.Center, new Vector2(0, 0), ProjectileType<Boom>(), 30, 0, ai0: 125);
         }
-    }
+        float jump = 0;
+
+        public override void AI()
+        {
+            NPC.dontTakeDamage = false;
+            jump++;
+            if (NPC.Distance(NPC.GetTargetData().Center) <= 300f)
+                jump += 3; // jumps way more often if it cant reach you
+            if (jump >= 600f && NPC.velocity.Y == 0f)  
+            {
+                jump = 0;
+                NPC.velocity.Y = -9f;
+                NPC.velocity.X *= 1f;
+
+            }
+            if (NPC.wet)
+            {
+                if (NPC.collideY)
+                {
+                    NPC.velocity.Y = -2f;
+                }
+                if (NPC.velocity.Y < 0f && NPC.ai[3] == NPC.position.X)
+                {
+                    NPC.direction *= -1;
+                    NPC.ai[2] = 200f;
+                }
+                if (NPC.velocity.Y > 0f)
+                {
+                    NPC.ai[3] = NPC.position.X;
+                }
+
+                if (NPC.velocity.Y > 2f)
+                {
+                    NPC.velocity.Y *= 0.9f;
+                }
+                else if (NPC.directionY < 0)
+                {
+                    NPC.velocity.Y -= 0.8f;
+                }
+                NPC.velocity.Y -= 0.75f;
+                if (NPC.velocity.Y < -10f)
+                {
+                    NPC.velocity.Y = -10f;
+                }
+
+            }
+        }
+        }
     public class FroggabombaClone : ModNPC
     {
         public override void SetStaticDefaults()
@@ -116,7 +165,7 @@ namespace TRAEProject.NewContent.NPCs.Underworld.Froggabomba
             AnimationType = NPCID.Pixie;
             NPC.damage = 30;
             NPC.defense = 10;
-            NPC.lifeMax = 30;
+            NPC.lifeMax = 60;
 			NPC.scale = 0.85f;
             NPC.lavaImmune = true;
             NPC.HitSound = SoundID.NPCHit33;
@@ -129,11 +178,21 @@ namespace TRAEProject.NewContent.NPCs.Underworld.Froggabomba
             npcLoot.Add(ItemDropRule.Common(ItemType<BoomfrogStaff>(), 80));
 
         }
-     
+        float jump = 0;
+ 
         public override void AI()
         {
             NPC.dontTakeDamage = false;
-    
+            jump++;
+            if (NPC.Distance(NPC.GetTargetData().Center) <= 300f)
+                jump += 3; // jumps way more often if it can reach you
+            if (jump >= 600f) // We have to force it to jump, its normal AI won't let it jump while "water walking"
+            {
+                jump = 0;
+                NPC.velocity.Y = -10f;
+                NPC.velocity.X *= 2.5f;
+
+            }
             if (NPC.wet)
             {
                 if (NPC.collideY)
@@ -158,7 +217,7 @@ namespace TRAEProject.NewContent.NPCs.Underworld.Froggabomba
                 {
                     NPC.velocity.Y -= 0.8f;
                 }
-                NPC.velocity.Y -= 0.5f;
+                NPC.velocity.Y -= 0.75f;
                 if (NPC.velocity.Y < -10f)
                 {
                     NPC.velocity.Y = -10f;

@@ -55,22 +55,13 @@ namespace TRAEProject
         }
         public override void PostUpdate()
         {
-            Player.endurance = 0;
-            if (RoyalGelCooldown > 0)
+             if (RoyalGelCooldown > 0)
             {
                 Player.drippingSlime = true;
                 RoyalGelCooldown--;
             }
         }
-        public override void PostUpdateEquips()
-        {
-            Player.endurance = 0;
-        }
-        public override void ModifyHurt(ref Player.HurtModifiers modifiers)
-        {
  
-
-        }
         public override bool FreeDodge(Player.HurtInfo info)
         {
             if (newBrain && Main.rand.NextBool(6) && Player.FindBuffIndex(321) == -1)
@@ -98,11 +89,14 @@ namespace TRAEProject
         }
         public override void ModifyHitByNPC(NPC npc, ref Player.HurtModifiers modifiers)
         {
-            Player.DefenseEffectiveness *= 0f;
-            float defense = Player.statDefense;
-            float DefenseDamageReduction = defense / (defense + 80); // Formula for defense
-
-            modifiers.FinalDamage *= 1 - DefenseDamageReduction;
+            if (GetInstance<TRAEConfig>().DefenseRework)
+            {
+                Player.DefenseEffectiveness *= 0f;
+                float defense = Player.statDefense;
+                float DefenseDamageReduction = defense / (defense + 80); // Formula for defense
+                modifiers.FinalDamage *= 1 - DefenseDamageReduction;
+            }
+            
             if (RoyalGel && RoyalGelCooldown == 0)
             {
                 RoyalGelCooldown = 30 * 60;
@@ -139,11 +133,14 @@ namespace TRAEProject
         }
         public override void ModifyHitByProjectile(Projectile proj, ref Player.HurtModifiers modifiers)
         {
-            Player.DefenseEffectiveness *= 0f;
-            float defense = Player.statDefense;
-            float DefenseDamageReduction = defense / (defense + 80); // Formula for defense
+            if (GetInstance<TRAEConfig>().DefenseRework)
+            {
+                Player.DefenseEffectiveness *= 0f;
+                float defense = Player.statDefense;
+                float DefenseDamageReduction = defense / (defense + 80); // Formula for defense
 
-            modifiers.FinalDamage *= 1 - DefenseDamageReduction;
+                modifiers.FinalDamage *= 1 - DefenseDamageReduction;
+            }
             if (RoyalGel && RoyalGelCooldown == 0)
             {
                 RoyalGelCooldown = 30 * 60;
@@ -201,17 +198,25 @@ namespace TRAEProject
     {
         public override void UpdateAccessory(Item item, Player player, bool hideVisual)
         {
-            switch (item.type)
+            if (GetInstance<TRAEConfig>().DefenseRework)
             {
-                case ItemID.BrainOfConfusion:
-                    player.brainOfConfusionItem = null;
-                    player.GetModPlayer<Defense>().newBrain = true;
-                    return;
-                case ItemID.WormScarf:
-                    player.GetModPlayer<Defense>().WormScarf = true;
-                    player.endurance -= 0.17f;
-                    return;
+                switch (item.type)
+                {
+                    case ItemID.BrainOfConfusion:
+                        player.brainOfConfusionItem = null;
+                        player.GetModPlayer<Defense>().newBrain = true;
+                        return;
+                    case ItemID.WormScarf:
+                        player.GetModPlayer<Defense>().WormScarf = true;
+                        player.endurance -= 0.17f;
+                        return;
+                }
+            }
+                switch (item.type)
+            {
+ 
                 case ItemID.PocketMirror:
+                case ItemID.ReflectiveShades:
                     player.GetModPlayer<Defense>().pocketMirror = true;
                     return;
                 case ItemID.RoyalGel:
@@ -223,35 +228,27 @@ namespace TRAEProject
         }
         public override void ModifyTooltips(Item item, List<TooltipLine> tooltips)
         {
+            if (item.type == ItemID.BrainOfConfusion && GetInstance<TRAEConfig>().DefenseRework)
+            {
+                foreach (TooltipLine line in tooltips)
+                {
+                    if (line.Mod == "Terraria" && line.Name == "Tooltip0")
+                    {
+                        line.Text = "Has a chance to dodge an attack using illusions";
+                    }
+                    if (line.Mod == "Terraria" && line.Name == "Tooltip1")
+                    {
+                        line.Text = "Temporarily increase critical strike chance and confuse nearby enemies after a dodge";
+                    }
+                    if (line.Mod == "Terraria" && line.Name == "Tooltip2")
+                    {
+                        line.Text = "";
+                    }
+                }
+            }
             switch (item.type)
             {
-                case ItemID.WormScarf:
-                    foreach (TooltipLine line in tooltips)
-                    {
-                        if (line.Mod == "Terraria" && line.Name == "Tooltip0")
-                        {
-                            line.Text = "Reduces damage taken by 17%";
-                        }
-                    }
-                    return;
-                case ItemID.FrozenTurtleShell:
-                    foreach (TooltipLine line in tooltips)
-                    {
-                        if (line.Mod == "Terraria" && line.Name == "Tooltip0")
-                        {
-                            line.Text = "Puts a shell around the owner when below 50% life that reduces damage by 25%";
-                        }
-                    }
-                    return;
-                case ItemID.FrozenShield:
-                    foreach (TooltipLine line in tooltips)
-                    {
-                        if (line.Mod == "Terraria" && line.Name == "Tooltip1")
-                        {
-                            line.Text = "Puts a shell around the owner when below 50% life that reduces damage by 25%";
-                        }
-                    }
-                    return;
+ 
                 case ItemID.PocketMirror:
                     foreach (TooltipLine line in tooltips)
                     {
@@ -261,23 +258,7 @@ namespace TRAEProject
                         }
                     }
                     return;
-                case ItemID.BrainOfConfusion:
-                    foreach (TooltipLine line in tooltips)
-                    {
-                        if (line.Mod == "Terraria" && line.Name == "Tooltip0")
-                        {
-                            line.Text = "Has a chance to dodge an attack using illusions";
-                        }
-                        if (line.Mod == "Terraria" && line.Name == "Tooltip1")
-                        {
-                            line.Text = "Temporarily increase critical strike chance and confuse nearby enemies after a dodge";
-                        }
-                        if (line.Mod == "Terraria" && line.Name == "Tooltip2")
-                        {
-                            line.Text = "";
-                        }
-                    }
-                    return;
+  
             }
         }
     }
@@ -285,15 +266,18 @@ namespace TRAEProject
     {
         public override void Update(int type, Player player, ref int buffIndex)
         {
-            switch (type)
+            if (GetInstance<TRAEConfig>().DefenseRework)
             {
-                case BuffID.Endurance:
-                    player.GetModPlayer<Defense>().EndurancePot = true; player.endurance -= 0.1f;
-                    return;
-                case BuffID.IceBarrier:
-                    player.GetModPlayer<Defense>().IceBarrier = true; player.endurance -= 0.25f;
-                    return;
-   
+                switch (type)
+                {
+                    case BuffID.Endurance:
+                        player.GetModPlayer<Defense>().EndurancePot = true; player.endurance -= 0.1f;
+                        return;
+                    case BuffID.IceBarrier:
+                        player.GetModPlayer<Defense>().IceBarrier = true; player.endurance -= 0.25f;
+                        return;
+
+                }
             }
             return;
         }

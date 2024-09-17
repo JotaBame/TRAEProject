@@ -56,7 +56,7 @@ namespace TRAEProject.Changes.NPCs.Boss
         const int segmentInactive = 1;
         public override void SetDefaults(NPC npc)
         {
-            if (GetInstance<TRAEConfig>().DestroyerRework && !Main.zenithWorld)
+            if (GetInstance<BossConfig>().DestroyerRework && !Main.zenithWorld)
             {
                 if (npc.type == NPCID.TheDestroyer && Main.expertMode)
                 {
@@ -75,7 +75,7 @@ namespace TRAEProject.Changes.NPCs.Boss
         }
         public override bool PreAI(NPC npc)
         {
-            if(npc.type == NPCID.TheDestroyer && GetInstance<TRAEConfig>().DestroyerRework && !Main.zenithWorld)
+            if(npc.type == NPCID.TheDestroyer && GetInstance<BossConfig>().DestroyerRework && !Main.zenithWorld)
             {
                 //recreated modified vanilla movement
                 //Main.NewText("AI0: " + npc.ai[0] + " AI1: " + npc.ai[1] + " AI2: " + npc.ai[2] + " AI3: " + npc.ai[2] + " LAI0: " + npc.localAI[0] + " LAI1: " + npc.localAI[1] + " LAI2: " + npc.localAI[2] + " LAI3: " + npc.localAI[2] );
@@ -148,7 +148,7 @@ namespace TRAEProject.Changes.NPCs.Boss
         }
         public override void AI(NPC npc)
         {
-            if (GetInstance<TRAEConfig>().DestroyerRework && !Main.zenithWorld)
+            if (GetInstance<BossConfig>().DestroyerRework && !Main.zenithWorld)
             {
                 if (npc.type == NPCID.TheDestroyerTail)
                 {
@@ -217,7 +217,7 @@ namespace TRAEProject.Changes.NPCs.Boss
         }
         public override void PostDraw(NPC npc, SpriteBatch spriteBatch, Vector2 screenPos, Color drawColor)
         {
-            if (GetInstance<TRAEConfig>().DestroyerRework && !Main.zenithWorld)
+            if (GetInstance<BossConfig>().DestroyerRework && !Main.zenithWorld)
             {
                 if (npc.type == NPCID.TheDestroyer)
                 {
@@ -276,7 +276,7 @@ namespace TRAEProject.Changes.NPCs.Boss
         }
         public override void FindFrame(NPC npc, int frameHeight)
         {
-            if(npc.type == NPCID.TheDestroyerBody && GetInstance<TRAEConfig>().DestroyerRework && !Main.zenithWorld)
+            if(npc.type == NPCID.TheDestroyerBody && GetInstance<BossConfig>().DestroyerRework && !Main.zenithWorld)
             {
                 //we manually set frameY = 0 when on 2 to for it to use the not probe launched frame for active segments
                 if(npc.ai[2] == segmentActive)
@@ -630,7 +630,7 @@ namespace TRAEProject.Changes.NPCs.Boss
 
         public override bool PreKill(NPC npc)
         {
-            if (npc.type == NPCID.Probe && Main.expertMode && GetInstance<TRAEConfig>().DestroyerRework)
+            if (npc.type == NPCID.Probe && Main.expertMode && GetInstance<BossConfig>().DestroyerRework)
             {
                 NPCLoader.blockLoot.Add(ItemID.Heart);
                 return false;
@@ -642,14 +642,14 @@ namespace TRAEProject.Changes.NPCs.Boss
     {
         public override void SetDefaults(Projectile projectile)
         {
-            if(projectile.type == ProjectileID.PinkLaser && GetInstance<TRAEConfig>().DestroyerRework && !Main.zenithWorld)
+            if(projectile.type == ProjectileID.PinkLaser && GetInstance<BossConfig>().DestroyerRework && !Main.zenithWorld)
             {
                 projectile.scale *= 2f;
             }
         }
         public override void ModifyHitPlayer(Projectile projectile, Player target, ref Player.HurtModifiers modifiers)
         {
-            if (projectile.type == ProjectileID.PinkLaser && NPC.AnyNPCs(NPCID.Probe) && GetInstance<TRAEConfig>().DestroyerRework && !Main.zenithWorld)
+            if (projectile.type == ProjectileID.PinkLaser && NPC.AnyNPCs(NPCID.Probe) && GetInstance<BossConfig>().DestroyerRework && !Main.zenithWorld)
             {
                 modifiers.FinalDamage *= 0.88f; // with this, probe lasers match the damage of body lasers
             }

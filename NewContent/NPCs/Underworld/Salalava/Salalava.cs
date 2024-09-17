@@ -479,6 +479,10 @@ namespace TRAEProject.NewContent.NPCs.Underworld.Salalava
         public override void AI()
         {
 
+            if (Math.Abs(NPC.velocity.X) < 7f)
+            {
+                NPC.velocity.X += 0.06f * NPC.direction;
+            }
             NPC.noGravity = false;
             int num = 1;
             int num2 = 1;
@@ -497,18 +501,20 @@ namespace TRAEProject.NewContent.NPCs.Underworld.Salalava
                         if (NPC.velocity.Y > 0)
                             NPC.velocity.Y = 0;
                         NPC.noGravity = true;
-                  
+
                     }
                 }
             }
-            jump += Main.rand.NextFloat(0.9f, 1.1f);
-            if (NPC.Distance(NPC.GetTargetData().Center) <= 300f)
-                jump += Main.rand.NextFloat(2.7f, 3.3f); // jumps way more often if it can reach you
-            if (jump >= 360f && NPC.velocity.Y == 0) // We have to force it to jump, its normal AI won't let it jump while "water walking"
+            jump++;
+            if (NPC.Distance(NPC.GetTargetData().Center) <= 450f && NPC.position.Y > NPC.GetTargetData().Position.Y)
+                jump += 3; // jumps way more often if it can reach you
+            if (jump >= 750f && NPC.position.Y > NPC.GetTargetData().Position.Y && NPC.velocity.Y == 0) // We have to force it to jump, its normal AI won't let it jump while "water walking"
             {
                 jump = 0;
-                NPC.velocity.Y = Main.rand.NextFloat(-7.5f, -9f);
-                NPC.velocity.X *= 1.5f;
+                NPC.velocity.Y = -12f;
+
+
+                NPC.velocity.X *= 1.25f;
 
             }
         }

@@ -100,12 +100,13 @@ namespace TRAEProject.Changes.Accesory
                     break;
 
                 case ItemID.MoltenCharm:
-                    player.lavaImmune = true;
-                    player.GetModPlayer<ShadowflameCharmPlayer>().MoltenCharm += 1;
+                     player.GetModPlayer<ShadowflameCharmPlayer>().MoltenCharm += 1;
                     player.fireWalk = false;
                     break;
 
                 case ItemID.MechanicalGlove:
+                case ItemID.FireGauntlet:
+
                     player.kbGlove = false;
                     player.meleeScaleGlove = false;
                     break;
@@ -146,36 +147,7 @@ namespace TRAEProject.Changes.Accesory
                     CelestialStoneStats(player);
                     player.wolfAcc = false;
                     break;
-                case ItemID.BandofStarpower:
-                    player.GetModPlayer<Mana>().manaRegenBoost += 0.1f;                    
-                    player.statManaMax2 -= 20;
-                    break;
-                case ItemID.ManaRegenerationBand:
-                    player.statManaMax2 -= 20;
 
-                    player.GetModPlayer<Mana>().manaRegenBoost += 0.1f;
-                    player.lifeRegen += 2;
-                    break;
-
-                case ItemID.ManaCloak:
-                    player.starCloakItem_manaCloakOverrideItem = item;
-                    player.GetModPlayer<Mana>().manaCloak = true;
-                    player.manaCost += 0.08f;
-                    break;
-                case ItemID.ManaFlower:
-                case ItemID.MagnetFlower:
-                    player.GetModPlayer<Mana>().newManaFlower = true;
-                    player.manaCost += 0.08f;
-                    break;
-                case ItemID.ArcaneFlower:
-                    player.manaCost += 0.08f;
-                    player.GetModPlayer<Mana>().newManaFlower = true;
-                    player.GetDamage<MagicDamageClass>() += 0.04f;
-                    player.GetCritChance<MagicDamageClass>() += 4;
-                    break;
-                case ItemID.CelestialEmblem:
-                    player.GetDamage<MagicDamageClass>() -= 0.03f;
-                    break;
                 case ItemID.DestroyerEmblem:
                     player.GetDamage<GenericDamageClass>() -= 0.1f;
                     player.GetCritChance<GenericDamageClass>() += 14;
@@ -185,21 +157,22 @@ namespace TRAEProject.Changes.Accesory
                     player.GetDamage<SummonDamageClass>() -= 0.15f;
                     break;
                 case ItemID.NecromanticScroll:
-                    player.GetModPlayer<SummonStats>().minionCritChance += 5;
+                    player.maxMinions -= 1;
+                    player.GetModPlayer<SummonStats>().minionCritChance += 13;
                     player.GetDamage<SummonDamageClass>() -= 0.1f;
                     break;
                 case ItemID.PapyrusScarab:
-                    ++player.maxTurrets;
+                     player.GetDamage<SummonDamageClass>() -= 0.15f;
+                    player.maxTurrets += 1;
+
                     player.GetModPlayer<SummonStats>().minionCritChance += 5;
-                    player.GetDamage<SummonDamageClass>() -= 0.15f;
+
+
                     break;
                 case ItemID.HeroShield:
                     player.hasPaladinShield = false;
                     break;
-                case ItemID.BerserkerGlove:
-                    player.kbGlove = false;
-                    player.meleeScaleGlove = false;
-                    break;
+      
                 case ItemID.SquireShield:
                     player.dd2Accessory = false;
                     player.GetDamage<MeleeDamageClass>() += 0.07f;
@@ -244,26 +217,12 @@ namespace TRAEProject.Changes.Accesory
 
             switch (item.type)
             {
-                case ItemID.BandofStarpower:
+                case ItemID.ReflectiveShades:
                     foreach (TooltipLine line in tooltips)
                     {
                         if (line.Mod == "Terraria" && line.Name == "Tooltip0")
                         {
-                            line.Text = "10% increased mana regeneration";
-
-                        }
-                    }
-                    break;
-                case ItemID.ManaRegenerationBand:
-                    foreach (TooltipLine line in tooltips)
-                    {
-                        if (line.Mod == "Terraria" && line.Name == "Tooltip0")
-                        {
-                            line.Text = "Increased life regeneration";
-                        }
-                        if (line.Mod == "Terraria" && line.Name == "Tooltip1")
-                        {
-                            line.Text = "10% increased mana regeneration";
+                            line.Text = "This item doesn't fit TRAE's vision and there isnt much that can be done with it :/ ";
                         }
                     }
                     break;
@@ -369,7 +328,7 @@ namespace TRAEProject.Changes.Accesory
                     break;
 
           
-       
+   
       
          
             
@@ -408,17 +367,31 @@ namespace TRAEProject.Changes.Accesory
                         }
                     }
                     break;
-
-                case ItemID.MagnetFlower:
-                case ItemID.ManaFlower:
-                    foreach (TooltipLine line in tooltips)
+                case ItemID.FireGauntlet:
+                     foreach (TooltipLine line in tooltips)
                     {
-                        if (line.Mod == "Terraria" && line.Name == "Tooltip0")
                         {
-                            line.Text = "Magic critical strikes have a chance to spawn a mana star";
+                            if (line.Mod == "Terraria" && line.Name == "Tooltip0")
+                            {
+                                line.Text = "12% increased melee damage and speed";
+                            }
+                            if (line.Mod == "Terraria" && line.Name == "Tooltip1")
+                            {
+                                line.Text = "Allows autoswing for all melee weapons";
+                            }
+                            if (line.Mod == "Terraria" && line.Name == "Tooltip2")
+                            {
+                                line.Text = "Melee attacks deal fire damage";
+                            }
+                            if (line.Mod == "Terraria" && line.Name == "Tooltip3")
+                            {
+                                line.Text = "Melee critical strikes have have a very low chance to incinerate, based on damage dealt";
+                            }
+
                         }
                     }
                     break;
+
                 case ItemID.PutridScent:
                     foreach (TooltipLine line in tooltips)
                     {
@@ -428,36 +401,7 @@ namespace TRAEProject.Changes.Accesory
                         }
                     }
                     break;
-                case ItemID.ArcaneFlower:
-                    foreach (TooltipLine line in tooltips)
-                    {
-                        if (line.Mod == "Terraria" && line.Name == "Tooltip0")
-                        {
-                            line.Text = "Magic critical strikes have a chance to spawn a mana star\n4% increased magic damage and critical strike chance";
-                        }
-                    }
-                    break;
-                case ItemID.ManaCloak:
-                    foreach (TooltipLine line in tooltips)
-                    {
-                        if (line.Mod == "Terraria" && line.Name == "Tooltip0")
-                        {
-                            line.Text = "Magic critical strikes have a chance to cause a damaging star to fall";
-                        }
-                        if (line.Mod == "Terraria" && line.Name == "Tooltip1")
-                        {
-                            line.Text = "Stars restore mana when collected";
-                        }
-                        if (line.Mod == "Terraria" && line.Name == "Tooltip2")
-                        {
-                            line.Text = "Automatically uses mana potions when needed";
-                        }
-                        if (line.Mod == "Terraria" && line.Name == "Tooltip3")
-                        {
-                            line.Text = "";
-                        }
-                    }
-                    break;
+                
                 case ItemID.DestroyerEmblem:
                     foreach (TooltipLine line in tooltips)
                     {
@@ -471,15 +415,7 @@ namespace TRAEProject.Changes.Accesory
                         }
                     }
                     break;
-                case ItemID.CelestialEmblem:
-                    foreach (TooltipLine line in tooltips)
-                    {
-                        if (line.Mod == "Terraria" && line.Name == "Tooltip1")
-                        {
-                            line.Text = "12% increased magic damage";
-                        }
-                    }
-                    break;
+              
                 case ItemID.HeroShield:
                     foreach (TooltipLine line in tooltips)
                     {
@@ -505,31 +441,7 @@ namespace TRAEProject.Changes.Accesory
                         }
                     }
                     break;
-                case ItemID.BerserkerGlove:
-                    foreach (TooltipLine line in tooltips)
-                    {
-                        if (line.Mod == "Terraria" && line.Name == "Tooltip0")
-                        {
-                            line.Text = "12% increased melee speed";
-                        }
-                        if (line.Mod == "Terraria" && line.Name == "Tooltip1")
-                        {
-                            line.Text = "Enables auto swing for melee weapons\nEnemies are more likely to target you";
-                        }
-                        if (line.Mod == "Terraria" && line.Name == "Tooltip2")
-                        {
-                            line.Text = "";
-                        }
-                        if (line.Mod == "Terraria" && line.Name == "Tooltip3")
-                        {
-                            line.Text = "";
-                        }
-                        if (line.Mod == "Terraria" && line.Name == "Tooltip4")
-                        {
-                            line.Text = "";
-                        }
-                    }
-                    break;
+        
                 case ItemID.MoltenCharm:
                     foreach (TooltipLine line in tooltips)
                     {
@@ -539,7 +451,7 @@ namespace TRAEProject.Changes.Accesory
                         }
                         if (line.Mod == "Terraria" && line.Name == "Tooltip1")
                         {
-                            line.Text = "The wearer is immune to lava";
+                            line.Text = "";
                         }
                     }
                     break;
@@ -651,9 +563,13 @@ namespace TRAEProject.Changes.Accesory
                 case ItemID.NecromanticScroll:
                     foreach (TooltipLine line in tooltips)
                     {
+                        if (line.Mod == "Terraria" && line.Name == "Tooltip0")
+                        {
+                            line.Text = "13% increased critical strike chance for minions";
+                        }
                         if (line.Mod == "Terraria" && line.Name == "Tooltip1")
                         {
-                            line.Text = "Gives minions a 5% chance to crit";
+                            line.Text = "";
                         }
                     }
                     break;
@@ -675,7 +591,8 @@ namespace TRAEProject.Changes.Accesory
                         }
                         if (line.Mod == "Terraria" && line.Name == "Tooltip1")
                         {
-                            line.Text = "Gives minions a 5% chance to crit";
+                            line.Text = "5% increased critical strike chance for minions";
+
                         }
                     }
                     break;

@@ -18,7 +18,7 @@ public class ChestLoot : ModSystem
 
     public override void PostSetupContent()
     {
-        GoldChestItems = new int[] { ItemID.Mace, ItemID.MagicMirror, ItemID.HermesBoots, ItemID.BandofRegeneration, ItemID.ShoeSpikes, ItemID.LuckyHorseshoe, ItemID.Extractinator, ItemID.FlintlockPistol, ItemType<MagicGrenade>() };
+        GoldChestItems = new int[] { ItemID.Mace, ItemID.MagicMirror, ItemID.HermesBoots, ItemID.BandofRegeneration, ItemID.ShoeSpikes, ItemID.LuckyHorseshoe, ItemID.Extractinator, ItemID.FlintlockPistol, ItemType<MagicGrenade>(), ItemID.LavaCharm };
         PyramidItems = new int[] { ItemID.SandstorminaBottle, ItemID.FlyingCarpet, ItemID.AnkhCharm, ItemID.AncientChisel, ItemID.SandBoots, ItemID.ThunderSpear, ItemID.ThunderStaff, ItemID.CatBast, ItemID.MagicConch };
         ShadowItems = new int[] { ItemID.HellwingBow, ItemID.Flamelash, ItemID.FlowerofFire, ItemID.Sunfury, ItemType<PalladiumShield>(), ItemID.GravityGlobe };
         DungeonItems = new int[] { ItemID.Muramasa, ItemID.CobaltShield, ItemID.AquaScepter, ItemID.Handgun, ItemID.BlueMoon, ItemID.Valor };
@@ -58,7 +58,12 @@ public class ChestLoot : ModSystem
                         }
                     }
                 }
-                if (Main.tile[chest.x, chest.y].TileType == TileID.Containers && Main.tile[chest.x, chest.y].TileFrameX == 1 * 36 && chest.item[0].type != ItemID.FlareGun)
+                if (Main.tile[chest.x, chest.y].TileType == TileID.Containers && Main.tile[chest.x, chest.y].TileFrameX == 1 * 36 
+                    && chest.item[0].type != ItemID.FlareGun 
+                    && chest.item[0].type != ItemID.SandstorminaBottle
+                    && chest.item[0].type != ItemID.FlyingCarpet
+                    && chest.item[0].type != ItemID.PharaohsMask
+                    && chest.item[0].type != ItemID.PharaohsRobe)
                 {
                     chest.item[0].SetDefaults(Main.rand.Next(GoldChestItems), false);
                     if (chest.item[0].type == ItemID.FlintlockPistol)
@@ -103,11 +108,7 @@ public class ChestLoot : ModSystem
                     }
 
                 }
-                if (Main.tile[chest.x, chest.y].TileFrameX == 1 * 36)
-                {
 
-
-                }
                 if (chest.item[0].type == ItemID.MagicMissile)
                 {
                     chest.item[0].SetDefaults(Main.rand.Next(DungeonItems), false);

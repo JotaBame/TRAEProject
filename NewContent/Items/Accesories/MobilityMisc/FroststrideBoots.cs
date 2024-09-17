@@ -1,4 +1,5 @@
 ﻿
+using System.Collections.Generic;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -26,8 +27,15 @@ namespace TRAEProject.NewContent.Items.Accesories.MobilityMisc
         }
         public override void UpdateAccessory(Player player, bool hideVisual)
         {
-            player.accRunSpeed = 4.8f;
-            player.moveSpeed += 0.20f;
+            if (!GetInstance<TRAEConfig>().MobilityRework)
+            {
+                player.accRunSpeed = 6f;
+                player.rocketTimeMax += 5;
+                player.iceSkate = true;
+            }
+            else
+                player.moveSpeed += 0.20f;
+ 
             player.desertBoots = false;
             player.sailDash = false;
             player.coldDash = true;
@@ -36,28 +44,43 @@ namespace TRAEProject.NewContent.Items.Accesories.MobilityMisc
             player.GetModPlayer<Mobility>().blizzardDash = true;
             player.dashType = 99;
         }
+        public override void ModifyTooltips(List<TooltipLine> tooltips)
+        {
+            foreach (TooltipLine line in tooltips)
+            {
+                if (line.Mod == "Terraria" && line.Name == "Tooltip0" && !GetInstance<TRAEConfig>().MobilityRework)
+                {
+                    line.Text = "Allows flight, super fast running and extra mobility on ice";
+
+                }
+            }
+        }
         public override void AddRecipes()
         {
-            CreateRecipe().AddIngredient(ItemID.FlurryBoots, 1)
+            CreateRecipe().AddIngredient(ItemID.FrostsparkBoots, 1)
+            .AddIngredient(ItemID.BlizzardinaBottle, 1)
+           .AddIngredient(ItemID.FrostCore, 1)
+           .AddTile(TileID.TinkerersWorkbench)
+           .Register(); CreateRecipe().AddIngredient(ItemID.FrostsparkBoots, 1)
+             .AddIngredient(ItemType<BlizzardSkates>(), 1)
+             .AddIngredient(ItemID.FrostCore, 1)
+             .AddTile(TileID.TinkerersWorkbench)
+             .Register();
+            if (!GetInstance<TRAEConfig>().MobilityRework)
+            {
+                CreateRecipe().AddIngredient(ItemID.FlurryBoots, 1)
                 .AddIngredient(ItemID.IceSkates, 1)
                 .AddIngredient(ItemID.BlizzardinaBottle, 1)
                 .AddIngredient(ItemID.FrostCore, 1)
                 .AddTile(TileID.TinkerersWorkbench)
                 .Register();
-            CreateRecipe().AddIngredient(ItemID.FlurryBoots, 1)
+                CreateRecipe().AddIngredient(ItemID.FlurryBoots, 1)
           .AddIngredient(ItemType<BlizzardSkates>(), 1)
           .AddIngredient(ItemID.FrostCore, 1)
           .AddTile(TileID.TinkerersWorkbench)
           .Register();
-            CreateRecipe().AddIngredient(ItemID.FrostsparkBoots, 1)
-               .AddIngredient(ItemID.BlizzardinaBottle, 1)
-              .AddIngredient(ItemID.FrostCore, 1)
-              .AddTile(TileID.TinkerersWorkbench)
-              .Register(); CreateRecipe().AddIngredient(ItemID.FrostsparkBoots, 1)
-                .AddIngredient(ItemType<BlizzardSkates>(), 1)
-                .AddIngredient(ItemID.FrostCore, 1)
-                .AddTile(TileID.TinkerersWorkbench)
-                .Register();
+            }
+
         }
     }
 }

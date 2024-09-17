@@ -8,15 +8,9 @@ using Terraria.ID;
 using Terraria.ModLoader;
 using static Terraria.ModLoader.ModContent;
 using TRAEProject.NewContent.Items.Misc.Potions;
-using System.IO;
-using Terraria.ModLoader.IO;
+ 
 using TRAEProject.Common;
-using TRAEProject.NewContent.NPCs.Underworld.ObsidianBasilisk;
-using TRAEProject.NewContent.NPCs.Underworld.Phoenix;
-using TRAEProject.NewContent.NPCs.Underworld.Salalava;
-using static Terraria.GameContent.Bestiary.IL_BestiaryDatabaseNPCsPopulator.CommonTags.SpawnConditions;
-using Mono.CompilerServices.SymbolWriter;
-using Terraria.GameContent.Bestiary;
+ 
 using TRAEProject.NewContent.Items.Weapons.Ranged.Ammo;
 
 namespace TRAEProject.Changes.NPCs

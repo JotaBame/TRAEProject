@@ -32,12 +32,12 @@ namespace TRAEProject.NPCs.Boss
         }
         public override bool PreAI(NPC npc)
         {
-            if (GetInstance<TRAEConfig>().EOCChanges && Main.masterMode && npc.type == NPCID.ServantofCthulhu)
+            if (GetInstance<BossConfig>().EOCChanges && Main.masterMode && npc.type == NPCID.ServantofCthulhu)
             {
                 if (npc.velocity.X < 4f)
                     npc.velocity.X += 0.16f * npc.direction;
             }
-                if (GetInstance<TRAEConfig>().EOCChanges)
+                if (GetInstance<BossConfig>().EOCChanges)
 			{
                 if (npc.type == NPCID.EyeofCthulhu)
                 {

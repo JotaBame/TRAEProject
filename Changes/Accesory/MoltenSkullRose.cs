@@ -32,7 +32,7 @@ namespace TRAEProject.Changes.Accesory
                 case ItemID.MoltenSkullRose:
                     player.GetModPlayer<ObsidianSkullEffect>().moltenskullrose += 1;
                     player.GetModPlayer<CritDamage>().critDamage += 0.09f;
-                    
+                    player.lavaRose = false;
                     break;
                
                 case ItemID.MoltenQuiver:
@@ -43,9 +43,13 @@ namespace TRAEProject.Changes.Accesory
                     player.GetModPlayer<ObsidianSkullEffect>().arrowsburn += 1;
                     break;
                 case ItemID.ObsidianRose:
+                    player.lavaRose = false;
+
                     player.GetModPlayer<CritDamage>().magicCritDamage += 0.10f;
                     break;
                 case ItemID.ObsidianSkullRose:
+                    player.lavaRose = false;
+
                     player.GetModPlayer<ObsidianSkullEffect>().roseskull += 1;
                     player.GetModPlayer<CritDamage>().magicCritDamage += 0.10f;
                     player.GetModPlayer<CritDamage>().rangedCritDamage += 0.10f;
@@ -82,7 +86,7 @@ namespace TRAEProject.Changes.Accesory
                     {
                         if (line.Mod == "Terraria" && line.Name == "Tooltip0")
                         {
-                            line.Text += "\nMelee critical strikes have have a very low chance to incinerate, higher on stronger hits";
+                            line.Text += "\nMelee critical strikes have have a very low chance to incinerate, based on damage dealt";
                         }
                     }
                     break;                    
@@ -194,10 +198,7 @@ namespace TRAEProject.Changes.Accesory
             {
                 Player.fireWalk = false;  
 			}
-            if (Player.lavaRose)
-            {
-                Player.lavaRose = false;
-            }
+    
         }
         public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
@@ -213,7 +214,9 @@ namespace TRAEProject.Changes.Accesory
             }
             if (hit.Crit && Player.magmaStone)
             {
-                int chance = 1600 / (damageDone / 2 * magmas);
+                
+                int chance = 3600 / (damageDone * magmas);
+                
                 if (chance <= 1)
                     chance = 1;
                 if (Main.rand.NextBool(chance))
@@ -247,7 +250,7 @@ namespace TRAEProject.Changes.Accesory
             {
                 if (proj.CountsAsClass<MeleeDamageClass>())
                 {
-                    int chance = 1600 / (damageDone / 2 * magmas);
+                    int chance = 3600 / (damageDone * magmas);  
                     if (chance <= 1)
                         chance = 1;
                     if (Main.rand.NextBool(chance))

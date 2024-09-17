@@ -18,8 +18,8 @@ namespace TRAEProject.NewContent.Items.Accesories.PalladiumShield
         }
         public override void SetDefaults()
         {
-            Item.width = 28;
-            Item.height = 28;
+            Item.width = 30;
+            Item.height = 30;
             Item.accessory = true;
             Item.rare = ItemRarityID.Orange;
             Item.value = Item.sellPrice(gold: 3);

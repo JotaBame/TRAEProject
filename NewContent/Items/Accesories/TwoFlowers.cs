@@ -1,8 +1,10 @@
-﻿using Terraria;
+﻿using System.Collections.Generic;
+using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 using TRAEProject.Changes;
 using TRAEProject.Common.ModPlayers;
+using static Terraria.ModLoader.ModContent;
 
 namespace TRAEProject.NewContent.Items.Accesories
 {    [AutoloadEquip(EquipType.Waist)]
@@ -23,18 +25,19 @@ namespace TRAEProject.NewContent.Items.Accesories
         }
         public override void UpdateAccessory(Player player, bool hideVisual)
         {
-            player.lavaRose = true;
-            player.GetModPlayer<CritDamage>().magicCritDamage += 0.1f;
-            player.manaFlower = true;
-            player.GetModPlayer<Mana>().newManaFlower = true;
+             player.GetModPlayer<CritDamage>().magicCritDamage += 0.1f;
+        
+                player.manaCost -= 0.12f;
+             
         }
 
         public override void AddRecipes()
         {
             CreateRecipe().AddIngredient(ItemID.ObsidianRose, 1)
-                .AddIngredient(ItemID.ManaFlower, 1)
+                .AddIngredient(ItemID.NaturesGift, 1)
                 .AddTile(TileID.TinkerersWorkbench)
                 .Register();
         }
+  
     }
 }
