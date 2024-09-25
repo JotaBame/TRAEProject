@@ -499,7 +499,7 @@ Mods: {
 					'''
 					Increases damage by 20% when damaged
 					Increases maximum mana by 20
-					Restores mana when damaged
+					Restores mana and heal for 10% of damage taken when damaged
 					'''
 			}
 

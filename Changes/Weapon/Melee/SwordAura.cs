@@ -269,8 +269,7 @@ namespace TRAEProject.Changes.Weapon.Melee
                 if (healAmount < 1)
                     healAmount = 1;
                 player.GetModPlayer<OnHitEffects>().BaghnakhHeal += (int)healAmount;
-                player.HealEffect((int)healAmount, true);
-                player.statLife += (int)healAmount;
+                player.Heal((int)healAmount);
             }
             player.stealth = 1;
         }

@@ -109,13 +109,12 @@ namespace TRAEProject.NewContent.Items.BeholderItems
                     Gore.NewGore(Player.GetSource_None(), position4, new Vector2(Main.rand.Next(-5, 6) * 0.1f, Main.rand.Next(-10, -5) * 0.1f), Mod.Find<ModGore>("RestorationHeart").Type, Main.rand.Next(80, 100) * 0.01f);
                     if (Player.HasBuff<Restoring2>())
                     {
-                        Player.HealEffect(3, true);
-                        Player.statLife += 3;
+                        Player.Heal(3);
                     }
                     if (Player.HasBuff<Restoring1>())
                     {
-                        Player.HealEffect(2, true);
-                        Player.statLife += 2;
+                        Player.Heal(2);
+
                     }
                     timer = 0;
                 }

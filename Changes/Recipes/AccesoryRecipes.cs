@@ -90,7 +90,12 @@ namespace TRAEProject.Changes.Recipes
                 recipe.AddIngredient(ItemType<SalamanderTail>(), 1);
 
             }
-
+            if (recipe.HasResult(ItemID.CelestialCuffs))
+            {
+                recipe.AddIngredient(ItemID.LightShard, 2);
+                recipe.AddIngredient(ItemID.SoulofLight, 10);
+ 
+            }
             if (recipe.HasResult(ItemID.FrostsparkBoots))
             {
                 if (GetInstance<TRAEConfig>().TerrasparkLineRework)

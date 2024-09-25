@@ -28,23 +28,29 @@ namespace TRAEProject.NewContent.Items.Accesories.LifeCuffs
         public override void UpdateAccessory(Player player, bool hideVisual)
         {
             player.statManaMax2 += 20;
+ 
+            player.GetModPlayer<LifeCuffsEffect>().cuffs += 1; 
+            player.GetModPlayer<LifeCuffsEffect>().balanceCuffs += 1;
 
-            player.GetModPlayer<LifeCuffsEffect>().cuffs += 1;
             player.GetModPlayer<OnHitEffects>().magicCuffsCount += 2;
         }
 
         public override void AddRecipes()
         {
             CreateRecipe().AddIngredient(ItemType<LifeCuffs>(), 1)
-                .AddIngredient(ItemID.MagicCuffs, 1)
-                .AddIngredient(ItemID.DarkShard, 1)
-                .AddIngredient(ItemID.LightShard, 1)
-                .AddTile(TileID.TinkerersWorkbench)
-                .Register();
+             .AddIngredient(ItemID.MagicCuffs, 1)
+                                            
+
+             .AddIngredient(ItemID.DarkShard, 1)
+             .AddIngredient(ItemID.LightShard, 1).AddIngredient(ItemID.SoulofLight, 5)
+                                             .AddIngredient(ItemID.SoulofNight, 5)
+             .AddTile(TileID.TinkerersWorkbench)
+             .Register();
             CreateRecipe().AddIngredient(ItemID.ManaRegenerationBand, 1)
             .AddIngredient(ItemID.Shackle, 1)
             .AddIngredient(ItemID.DarkShard, 1)
-            .AddIngredient(ItemID.LightShard, 1)
+            .AddIngredient(ItemID.LightShard, 1).AddIngredient(ItemID.SoulofLight, 5)
+                                                .AddIngredient(ItemID.SoulofNight, 5)
             .AddTile(TileID.TinkerersWorkbench)
             .Register();
         }

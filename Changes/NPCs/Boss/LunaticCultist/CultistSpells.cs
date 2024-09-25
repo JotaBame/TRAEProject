@@ -32,16 +32,16 @@ namespace TRAEProject.Changes.NPCs.Boss.LunaticCultist
             {
                 if (projectile.type == ProjectileID.CultistBossFireBall)
                 {
-                    target.AddBuff(BuffID.OnFire, Main.rand.Next(200, 300));
+                    target.AddBuff(BuffID.OnFire, Main.rand.Next(180, 240));
                 }
                 if (projectile.type == ProjectileID.CultistBossIceMist)
                 {
-                    target.AddBuff(BuffID.Frozen, Main.rand.Next(30, 35));
+                    target.AddBuff(BuffID.Frozen, Main.rand.Next(20, 25));
                     target.AddBuff(BuffID.Chilled, Main.rand.Next(60, 120));
                 }
                 if (projectile.type == ProjectileID.CultistBossLightningOrbArc)
                 {
-                    target.AddBuff(BuffID.Electrified, Main.rand.Next(120, 180));
+                    target.AddBuff(BuffID.Electrified, Main.rand.Next(75, 150));
                 }
             }
         }

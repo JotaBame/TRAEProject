@@ -40,17 +40,20 @@ namespace TRAEProject.NewContent.Items.Accesories.LifeCuffs
     public class LifeCuffsEffect : ModPlayer
     {
         public int  cuffs = 0;
+        public int balanceCuffs = 0;
         public override void ResetEffects()
         {
-            cuffs = 0;
+            cuffs = 0; balanceCuffs = 0;
         }
-        public override void OnHurt(Player.HurtInfo info)
-
+        public override void PostHurt(Player.HurtInfo info)
         {
             if(cuffs > 0)
             {
                  Player.AddBuff(BuffType<HeartAttack>(), 180 + cuffs * info.Damage * 3); // 4 seconds base, +1 second for every 20 damage
-
+                if (balanceCuffs > 0)
+                {
+                    Player.Heal(info.Damage / 10 * balanceCuffs);
+                 }
             }
         }
     }

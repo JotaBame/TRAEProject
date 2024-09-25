@@ -47,20 +47,26 @@ namespace TRAEProject.Changes.NPCs.Boss.LunaticCultist
                 for (int i = 0; i < 200; i++)
                 {
                     NPC cultist = Main.npc[i];
-                    if ((cultist.life / cultist.lifeMax) <= 0.1f)
-                        return 2.25f;
-                    if (Main.expertMode || Main.masterMode)
-                        return 2.25f - 1f * (cultist.life / cultist.lifeMax);
-                    else
-                        return 2.25f - 1.25f * (cultist.life / cultist.lifeMax);
+                    if (cultist.type ==  NPCID.CultistBoss)
+                    {
+                        if (((float)cultist.life / (float)cultist.lifeMax) <= 0.1f)
+                            return 2.25f;
+                        if (Main.expertMode || Main.masterMode)
+                            return 2.25f - 1f * (float)(cultist.life / (float)cultist.lifeMax);
+                        else
+                            return 2.25f - 1.25f * ((float)cultist.life / (float)cultist.lifeMax);
+                    }
                 }
-            } 
-            if ((npc.life / npc.lifeMax) <= 0.1f)
+            }
+            Main.NewText(2.25f - 1f * ((float)npc.life / (float)npc.lifeMax));
+            Main.NewText((float)npc.life / (float)npc.lifeMax);
+
+            if (((float)npc.life / (float)npc.lifeMax) <= 0.1f)
                 return 2.25f;
             if (Main.expertMode || Main.masterMode)
-                return 2.25f - 1f * (npc.life / npc.lifeMax);
+                return 2.25f - 1f * ((float)npc.life / (float)npc.lifeMax);
             else
-                return 2.25f - 1.25f * (npc.life / npc.lifeMax);
+                return 2.25f - 1.25f * ((float)npc.life / (float)npc.lifeMax);
         }
         int attackNumber = 0;
 
@@ -191,7 +197,6 @@ namespace TRAEProject.Changes.NPCs.Boss.LunaticCultist
                     Vector2 center = npc.Center;
                     Player player = Main.player[npc.target];
                     CheckDeadPlayer(npc, center, ref player);
-
                     float attackTally = npc.ai[3];
                     if (npc.localAI[0] == 0f)
                     {
