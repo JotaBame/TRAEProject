@@ -34,10 +34,11 @@ namespace TRAEProject.NewContent.Items.Accesories.LifeCuffs
         public override void AddRecipes()
         {
             CreateRecipe().AddIngredient(ItemType<LifeCuffs>(), 1)
-                .AddIngredient(ItemID.PanicNecklace, 1)
-				.AddIngredient(ItemID.DarkShard, 1)
-                .AddTile(TileID.TinkerersWorkbench)
-                .Register();
+              .AddIngredient(ItemID.PanicNecklace, 1)
+              .AddIngredient(ItemID.DarkShard, 2)
+              .AddIngredient(ItemID.SoulofNight, 10)
+              .AddTile(TileID.TinkerersWorkbench)
+              .Register();
         }
     }
   

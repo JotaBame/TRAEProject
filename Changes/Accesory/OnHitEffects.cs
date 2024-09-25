@@ -28,8 +28,8 @@ namespace TRAEProject.Changes.Accesory
                         break;
  
                     case ItemID.CelestialCuffs:
-                        player.statManaMax2 += 20;
-                        player.GetModPlayer<OnHitEffects>().magicCuffsCount += 3;
+                        player.statManaMax2 += 40;
+                        player.GetModPlayer<OnHitEffects>().magicCuffsCount += 2;
                         player.magicCuffs = false;
                         player.GetModPlayer<Mana>().celestialCuffsOverload = true;
                         break;
@@ -84,11 +84,11 @@ namespace TRAEProject.Changes.Accesory
                         {
                             if (line.Mod == "Terraria" && line.Name == "Tooltip0")
                             {
-                                line.Text = "Increases maximum mana by 40";
+                                line.Text = "Increases maximum mana by 60";
                             }
                             if (line.Mod == "Terraria" && line.Name == "Tooltip1")
                             {
-                                line.Text = "Restores a great amount of mana when damaged";
+                                line.Text = "Restores mana when damaged";
                             }
                             if (line.Mod == "Terraria" && line.Name == "Tooltip2")
                             {
