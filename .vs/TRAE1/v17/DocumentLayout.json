@@ -3,28 +3,20 @@
   "WorkspaceRootPath": "C:\\Users\\Juan Bouvier\\Documents\\My Games\\Terraria\\tModLoader\\ModSources\\TRAEProject\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{92F48D59-1E12-4C6B-9068-91155C93B293}|TRAEProject.csproj|c:\\users\\juan bouvier\\documents\\my games\\terraria\\tmodloader\\modsources\\traeproject\\newcontent\\npcs\\echosphere\\echoleviathan\\echoleviathanbody.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{92F48D59-1E12-4C6B-9068-91155C93B293}|TRAEProject.csproj|solutionrelative:newcontent\\npcs\\echosphere\\echoleviathan\\echoleviathanbody.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{92F48D59-1E12-4C6B-9068-91155C93B293}|TRAEProject.csproj|c:\\users\\juan bouvier\\documents\\my games\\terraria\\tmodloader\\modsources\\traeproject\\changes\\npcs\\boss\\lunaticcultist\\cultist.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{92F48D59-1E12-4C6B-9068-91155C93B293}|TRAEProject.csproj|solutionrelative:changes\\npcs\\boss\\lunaticcultist\\cultist.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{92F48D59-1E12-4C6B-9068-91155C93B293}|TRAEProject.csproj|c:\\users\\juan bouvier\\documents\\my games\\terraria\\tmodloader\\modsources\\traeproject\\newcontent\\projectiles\\echoleviathanportal\\echoleviathanportal.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{92F48D59-1E12-4C6B-9068-91155C93B293}|TRAEProject.csproj|solutionrelative:newcontent\\projectiles\\echoleviathanportal\\echoleviathanportal.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{92F48D59-1E12-4C6B-9068-91155C93B293}|TRAEProject.csproj|c:\\users\\juan bouvier\\documents\\my games\\terraria\\tmodloader\\modsources\\traeproject\\changes\\npcs\\boss\\traeboc.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{92F48D59-1E12-4C6B-9068-91155C93B293}|TRAEProject.csproj|solutionrelative:changes\\npcs\\boss\\traeboc.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{92F48D59-1E12-4C6B-9068-91155C93B293}|TRAEProject.csproj|c:\\users\\juan bouvier\\documents\\my games\\terraria\\tmodloader\\modsources\\traeproject\\changes\\ilboc.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{92F48D59-1E12-4C6B-9068-91155C93B293}|TRAEProject.csproj|solutionrelative:changes\\ilboc.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{92F48D59-1E12-4C6B-9068-91155C93B293}|TRAEProject.csproj|c:\\users\\juan bouvier\\documents\\my games\\terraria\\tmodloader\\modsources\\traeproject\\changes\\npcs\\boss\\traeeow.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{92F48D59-1E12-4C6B-9068-91155C93B293}|TRAEProject.csproj|solutionrelative:changes\\npcs\\boss\\traeeow.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{92F48D59-1E12-4C6B-9068-91155C93B293}|TRAEProject.csproj|c:\\users\\juan bouvier\\documents\\my games\\terraria\\tmodloader\\modsources\\traeproject\\changes\\accesory\\mobilityaccesorries\\boots.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{92F48D59-1E12-4C6B-9068-91155C93B293}|TRAEProject.csproj|solutionrelative:changes\\accesory\\mobilityaccesorries\\boots.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{92F48D59-1E12-4C6B-9068-91155C93B293}|TRAEProject.csproj|c:\\users\\juan bouvier\\documents\\my games\\terraria\\tmodloader\\modsources\\traeproject\\changes\\npcs\\boss\\destroyer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{92F48D59-1E12-4C6B-9068-91155C93B293}|TRAEProject.csproj|solutionrelative:changes\\npcs\\boss\\destroyer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{92F48D59-1E12-4C6B-9068-91155C93B293}|TRAEProject.csproj|c:\\users\\juan bouvier\\documents\\my games\\terraria\\tmodloader\\modsources\\traeproject\\changes\\npcs\\boss\\traeeow.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{92F48D59-1E12-4C6B-9068-91155C93B293}|TRAEProject.csproj|solutionrelative:changes\\npcs\\boss\\traeeow.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{92F48D59-1E12-4C6B-9068-91155C93B293}|TRAEProject.csproj|c:\\users\\juan bouvier\\documents\\my games\\terraria\\tmodloader\\modsources\\traeproject\\changes\\accesory\\traeaccessorychanges.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
@@ -33,10 +25,6 @@
     {
       "AbsoluteMoniker": "D:0:0:{92F48D59-1E12-4C6B-9068-91155C93B293}|TRAEProject.csproj|c:\\users\\juan bouvier\\documents\\my games\\terraria\\tmodloader\\modsources\\traeproject\\traemethods.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{92F48D59-1E12-4C6B-9068-91155C93B293}|TRAEProject.csproj|solutionrelative:traemethods.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{92F48D59-1E12-4C6B-9068-91155C93B293}|TRAEProject.csproj|c:\\users\\juan bouvier\\documents\\my games\\terraria\\tmodloader\\modsources\\traeproject\\changes\\weapon\\melee\\spearprojectiles\\stormspear.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{92F48D59-1E12-4C6B-9068-91155C93B293}|TRAEProject.csproj|solutionrelative:changes\\weapon\\melee\\spearprojectiles\\stormspear.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{92F48D59-1E12-4C6B-9068-91155C93B293}|TRAEProject.csproj|c:\\users\\juan bouvier\\documents\\my games\\terraria\\tmodloader\\modsources\\traeproject\\changes\\weapon\\ranged\\rangedweapons.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
@@ -54,21 +42,8 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 3,
+          "SelectedChildIndex": 2,
           "Children": [
-            {
-              "$type": "Document",
-              "DocumentIndex": 8,
-              "Title": "StormSpear.cs",
-              "DocumentMoniker": "C:\\Users\\Juan Bouvier\\Documents\\My Games\\Terraria\\tModLoader\\ModSources\\TRAEProject\\Changes\\Weapon\\Melee\\SpearProjectiles\\StormSpear.cs",
-              "RelativeDocumentMoniker": "Changes\\Weapon\\Melee\\SpearProjectiles\\StormSpear.cs",
-              "ToolTip": "C:\\Users\\Juan Bouvier\\Documents\\My Games\\Terraria\\tModLoader\\ModSources\\TRAEProject\\Changes\\Weapon\\Melee\\SpearProjectiles\\StormSpear.cs",
-              "RelativeToolTip": "Changes\\Weapon\\Melee\\SpearProjectiles\\StormSpear.cs",
-              "ViewState": "AQIAABIAAAAAAAAAAAAiwBoAAAA9AAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-05-23T16:00:22.275Z",
-              "IsPinned": true
-            },
             {
               "$type": "Bookmark",
               "Name": "ST:128:0:{116d2292-e37d-41cd-a077-ebacac4c8cc4}"
@@ -76,68 +51,44 @@
             {
               "$type": "Document",
               "DocumentIndex": 1,
-              "Title": "EchoLeviathanPortal.cs",
-              "DocumentMoniker": "C:\\Users\\Juan Bouvier\\Documents\\My Games\\Terraria\\tModLoader\\ModSources\\TRAEProject\\NewContent\\Projectiles\\EchoLeviathanPortal\\EchoLeviathanPortal.cs",
-              "RelativeDocumentMoniker": "NewContent\\Projectiles\\EchoLeviathanPortal\\EchoLeviathanPortal.cs",
-              "ToolTip": "C:\\Users\\Juan Bouvier\\Documents\\My Games\\Terraria\\tModLoader\\ModSources\\TRAEProject\\NewContent\\Projectiles\\EchoLeviathanPortal\\EchoLeviathanPortal.cs",
-              "RelativeToolTip": "NewContent\\Projectiles\\EchoLeviathanPortal\\EchoLeviathanPortal.cs",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAgAAAAAAAAA",
+              "Title": "Boots.cs",
+              "DocumentMoniker": "C:\\Users\\Juan Bouvier\\Documents\\My Games\\Terraria\\tModLoader\\ModSources\\TRAEProject\\Changes\\Accesory\\MobilityAccesorries\\Boots.cs",
+              "RelativeDocumentMoniker": "Changes\\Accesory\\MobilityAccesorries\\Boots.cs",
+              "ToolTip": "C:\\Users\\Juan Bouvier\\Documents\\My Games\\Terraria\\tModLoader\\ModSources\\TRAEProject\\Changes\\Accesory\\MobilityAccesorries\\Boots.cs",
+              "RelativeToolTip": "Changes\\Accesory\\MobilityAccesorries\\Boots.cs",
+              "ViewState": "AgIAAGIAAAAAAAAAAAAMwG4AAAAhAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-07-31T19:09:15.531Z",
+              "WhenOpened": "2024-09-25T20:05:08.633Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 0,
-              "Title": "EchoLeviathanBody.cs",
-              "DocumentMoniker": "C:\\Users\\Juan Bouvier\\Documents\\My Games\\Terraria\\tModLoader\\ModSources\\TRAEProject\\NewContent\\NPCs\\Echosphere\\EchoLeviathan\\EchoLeviathanBody.cs",
-              "RelativeDocumentMoniker": "NewContent\\NPCs\\Echosphere\\EchoLeviathan\\EchoLeviathanBody.cs",
-              "ToolTip": "C:\\Users\\Juan Bouvier\\Documents\\My Games\\Terraria\\tModLoader\\ModSources\\TRAEProject\\NewContent\\NPCs\\Echosphere\\EchoLeviathan\\EchoLeviathanBody.cs",
-              "RelativeToolTip": "NewContent\\NPCs\\Echosphere\\EchoLeviathan\\EchoLeviathanBody.cs",
-              "ViewState": "AQIAAD0AAAAAAAAAAAAwwEsAAABhAAAA",
+              "Title": "Cultist.cs",
+              "DocumentMoniker": "C:\\Users\\Juan Bouvier\\Documents\\My Games\\Terraria\\tModLoader\\ModSources\\TRAEProject\\Changes\\NPCs\\Boss\\LunaticCultist\\Cultist.cs",
+              "RelativeDocumentMoniker": "Changes\\NPCs\\Boss\\LunaticCultist\\Cultist.cs",
+              "ToolTip": "C:\\Users\\Juan Bouvier\\Documents\\My Games\\Terraria\\tModLoader\\ModSources\\TRAEProject\\Changes\\NPCs\\Boss\\LunaticCultist\\Cultist.cs",
+              "RelativeToolTip": "Changes\\NPCs\\Boss\\LunaticCultist\\Cultist.cs",
+              "ViewState": "AgIAAGEAAAAAAAAAAAAawHUAAAAlAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-07-31T19:08:04.323Z",
+              "WhenOpened": "2024-09-25T19:31:10.542Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 3,
-              "Title": "ILBOC.cs",
-              "DocumentMoniker": "C:\\Users\\Juan Bouvier\\Documents\\My Games\\Terraria\\tModLoader\\ModSources\\TRAEProject\\Changes\\ILBOC.cs",
-              "RelativeDocumentMoniker": "Changes\\ILBOC.cs",
-              "ToolTip": "C:\\Users\\Juan Bouvier\\Documents\\My Games\\Terraria\\tModLoader\\ModSources\\TRAEProject\\Changes\\ILBOC.cs",
-              "RelativeToolTip": "Changes\\ILBOC.cs",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAABAAAAAaAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-05-27T14:58:04.884Z"
-            },
-            {
-              "$type": "Document",
               "DocumentIndex": 2,
-              "Title": "TRAEBoC.cs",
-              "DocumentMoniker": "C:\\Users\\Juan Bouvier\\Documents\\My Games\\Terraria\\tModLoader\\ModSources\\TRAEProject\\Changes\\NPCs\\Boss\\TRAEBoC.cs",
-              "RelativeDocumentMoniker": "Changes\\NPCs\\Boss\\TRAEBoC.cs",
-              "ToolTip": "C:\\Users\\Juan Bouvier\\Documents\\My Games\\Terraria\\tModLoader\\ModSources\\TRAEProject\\Changes\\NPCs\\Boss\\TRAEBoC.cs",
-              "RelativeToolTip": "Changes\\NPCs\\Boss\\TRAEBoC.cs",
-              "ViewState": "AQIAAGMBAAAAAAAAAAAIwHABAAB0AAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-05-27T14:40:43.364Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 5,
               "Title": "Destroyer.cs",
               "DocumentMoniker": "C:\\Users\\Juan Bouvier\\Documents\\My Games\\Terraria\\tModLoader\\ModSources\\TRAEProject\\Changes\\NPCs\\Boss\\Destroyer.cs",
               "RelativeDocumentMoniker": "Changes\\NPCs\\Boss\\Destroyer.cs",
               "ToolTip": "C:\\Users\\Juan Bouvier\\Documents\\My Games\\Terraria\\tModLoader\\ModSources\\TRAEProject\\Changes\\NPCs\\Boss\\Destroyer.cs",
               "RelativeToolTip": "Changes\\NPCs\\Boss\\Destroyer.cs",
-              "ViewState": "AQIAAHICAAAAAAAAAAAqwHYCAAAEAAAA",
+              "ViewState": "AgIAAHICAAAAAAAAAAAqwHYCAAAEAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2024-05-25T18:05:38.017Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 6,
+              "DocumentIndex": 4,
               "Title": "TRAEAccessoryChanges.cs",
               "DocumentMoniker": "C:\\Users\\Juan Bouvier\\Documents\\My Games\\Terraria\\tModLoader\\ModSources\\TRAEProject\\Changes\\Accesory\\TRAEAccessoryChanges.cs",
               "RelativeDocumentMoniker": "Changes\\Accesory\\TRAEAccessoryChanges.cs",
@@ -149,7 +100,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 7,
+              "DocumentIndex": 5,
               "Title": "TRAEMethods.cs",
               "DocumentMoniker": "C:\\Users\\Juan Bouvier\\Documents\\My Games\\Terraria\\tModLoader\\ModSources\\TRAEProject\\TRAEMethods.cs",
               "RelativeDocumentMoniker": "TRAEMethods.cs",
@@ -161,7 +112,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 10,
+              "DocumentIndex": 7,
               "Title": "RangedProjectiles.cs",
               "DocumentMoniker": "C:\\Users\\Juan Bouvier\\Documents\\My Games\\Terraria\\tModLoader\\ModSources\\TRAEProject\\Changes\\Weapon\\Ranged\\RangedProjectiles.cs",
               "RelativeDocumentMoniker": "Changes\\Weapon\\Ranged\\RangedProjectiles.cs",
@@ -173,7 +124,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 9,
+              "DocumentIndex": 6,
               "Title": "RangedWeapons.cs",
               "DocumentMoniker": "C:\\Users\\Juan Bouvier\\Documents\\My Games\\Terraria\\tModLoader\\ModSources\\TRAEProject\\Changes\\Weapon\\Ranged\\RangedWeapons.cs",
               "RelativeDocumentMoniker": "Changes\\Weapon\\Ranged\\RangedWeapons.cs",
@@ -185,7 +136,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 4,
+              "DocumentIndex": 3,
               "Title": "TRAEEoW.cs",
               "DocumentMoniker": "C:\\Users\\Juan Bouvier\\Documents\\My Games\\Terraria\\tModLoader\\ModSources\\TRAEProject\\Changes\\NPCs\\Boss\\TRAEEoW.cs",
               "RelativeDocumentMoniker": "Changes\\NPCs\\Boss\\TRAEEoW.cs",
