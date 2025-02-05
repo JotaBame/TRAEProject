@@ -100,9 +100,12 @@ namespace TRAEProject
                 Player.buffImmune[BuffID.Werewolf] = false;
                 Player.AddBuff(BuffID.Werewolf, 1, false);
                 Player.wereWolf = true;
-                Player.GetDamage<GenericDamageClass>() += 0.11f;
-                Player.GetCritChance<GenericDamageClass>() += 9;
-                Player.GetAttackSpeed(DamageClass.Melee) += 0.07f;
+                Player.GetDamage<GenericDamageClass>() += 0.7f;
+                Player.GetCritChance<GenericDamageClass>() += 3;
+                Player.GetAttackSpeed(DamageClass.Melee) += 0.16f;
+                Player.moveSpeed += 0.16f;
+                Player.jumpSpeedBoost = Mobility.JSV(0.16f);
+
             }
             if (sandRunning)
             {

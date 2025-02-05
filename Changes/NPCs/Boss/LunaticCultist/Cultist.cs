@@ -58,8 +58,7 @@ namespace TRAEProject.Changes.NPCs.Boss.LunaticCultist
                     }
                 }
             }
-            Main.NewText(2.25f - 1f * ((float)npc.life / (float)npc.lifeMax));
-            Main.NewText((float)npc.life / (float)npc.lifeMax);
+        
 
             if (((float)npc.life / (float)npc.lifeMax) <= 0.1f)
                 return 2.25f;

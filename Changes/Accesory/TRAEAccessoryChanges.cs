@@ -13,6 +13,7 @@ using TRAEProject.Changes.Items;
 using TRAEProject.Common.ModPlayers;
 using static Terraria.ModLoader.ModContent;
 using TRAEProject.NewContent.Items.Accesories;
+using TRAEProject.Common;
 
 namespace TRAEProject.Changes.Accesory
 {
@@ -133,14 +134,39 @@ namespace TRAEProject.Changes.Accesory
                 case ItemID.MoonStone:
                     if (!Main.dayTime)
                     {
-                        CelestialStoneStats(player);
+                        if (player.statLife > player.statLifeMax2 * 0.5)
+                        {
+                            CelestialStoneStats(player);
+
+                        }
+                        else if (player.statLife < player.statLifeMax2 * 0.75)
+                        {
+                            player.skyStoneEffects = false;
+                            player.pickSpeed -= 1.1f;
+                            player.GetDamage<GenericDamageClass>() += 0.04f;
+                            player.statDefense += 2;
+                            player.lifeRegen++;
+                           
+                        }
+                       
                     }
                     break;
                 case ItemID.SunStone:
                     if (Main.dayTime)
                     {
-                        CelestialStoneStats(player);
+                        if (player.statLife > player.statLifeMax2 * 0.75)
+                        {
+                            CelestialStoneStats(player);
+                        }
+                        else if (player.statLife > player.statLifeMax2 * 0.5)
+                        {
+                            player.skyStoneEffects = false;
+                            player.pickSpeed -= 1.1f;
+                            player.GetDamage<GenericDamageClass>() += 0.04f;
+                            player.statDefense += 2;
+                            player.lifeRegen++;
 
+                        }
                     }
                     break;
                 case ItemID.CelestialShell:
@@ -175,23 +201,42 @@ namespace TRAEProject.Changes.Accesory
       
                 case ItemID.SquireShield:
                     player.dd2Accessory = false;
+                    player.GetDamage<SummonDamageClass>() -= 0.1f;
+
                     player.GetDamage<MeleeDamageClass>() += 0.07f;
+                    if (player.setSquireT2)
+                        player.GetDamage<MeleeDamageClass>() += 0.04f;
+                    if (player.setSquireT3)
+                        player.GetDamage<MeleeDamageClass>() += 0.04f;
                     ++player.maxTurrets;
                     break;
                 case ItemID.ApprenticeScarf:
                     ++player.maxTurrets;
                     player.GetDamage<SummonDamageClass>() -= 0.1f;
-                    player.GetDamage<MagicDamageClass>() += 0.1f;
+                    player.GetDamage<MagicDamageClass>() += 0.07f;
+                    if (player.setApprenticeT2)
+                        player.GetDamage<MagicDamageClass>() += 0.04f;
+                    if (player.setApprenticeT3)
+                        player.GetDamage<MagicDamageClass>() += 0.04f;
                     player.dd2Accessory = false;
                     break;
                 case ItemID.MonkBelt:
                     ++player.maxTurrets;
-                    player.GetDamage<SummonDamageClass>() += 0.1f;
+                    player.GetDamage<SummonDamageClass>() -= 0.03f;
+                    if (player.setMonkT2)
+                        player.GetDamage<SummonDamageClass>() += 0.04f;
+                    if (player.setApprenticeT3)
+                        player.GetDamage<SummonDamageClass>() += 0.04f;
                     player.dd2Accessory = false;
                     break;
                 case ItemID.HuntressBuckler:
                     ++player.maxTurrets;
-                    player.GetDamage<RangedDamageClass>() += 0.1f;
+                    player.GetDamage<SummonDamageClass>() -= 0.1f;
+                    player.GetDamage<RangedDamageClass>() += 0.07f;
+                    if (player.setHuntressT2)
+                        player.GetDamage<SummonDamageClass>() += 0.04f;
+                    if (player.setHuntressT3)
+                        player.GetDamage<SummonDamageClass>() += 0.04f;
                     player.dd2Accessory = false;
                     break;
    
@@ -210,19 +255,18 @@ namespace TRAEProject.Changes.Accesory
             }
           
         }
-        public override void ModifyTooltips(Item item, List<TooltipLine> tooltips)
+         public override void ModifyTooltips(Item item, List<TooltipLine> tooltips)
         {
             string celStone = "8% increased damage\n2% increased critical strike chance\n5% increased melee speed\n10% increased mining speed and reduced ammo usage\nIncreases defense by 4\nIncreases mana by 20\nIncreases life regen by 0.5 per second";
             //string celStone = "4% increased damage, critical strike chance, movement speed, and jump speed\n8% increased melee speed\n10% incresed mining speed and reduced ammo usage\nincreases defense and armor penetration by 4\nincreases max life and mana by 20\nincreases life regen by 0.5hp/s";
-
-            switch (item.type)
+             switch (item.type)
             {
                 case ItemID.ReflectiveShades:
                     foreach (TooltipLine line in tooltips)
                     {
                         if (line.Mod == "Terraria" && line.Name == "Tooltip0")
                         {
-                            line.Text = "This item doesn't fit TRAE's vision and there isnt much that can be done with it :/ ";
+                            line.Text = "+8% critical strike chance ";
                         }
                     }
                     break;
@@ -231,7 +275,18 @@ namespace TRAEProject.Changes.Accesory
                     {
                         if (line.Mod == "Terraria" && line.Name == "Tooltip1")
                         {
-                            line.Text = "10% increased melee damage";
+
+                            line.Text = "7% increased melee damage";
+                            if (!TRAEWorld.downedOgre)
+                            {
+                                line.Text += "\n11% increased melee damage with a full set of Squire Armor";
+
+                            }
+                            if (!TRAEWorld.downedBetsy)
+                            {
+                                line.Text += "\n15% increased melee damage with a full set of Valhalla Knight Armor";
+
+                            }
                         }
                     }
                     break;
@@ -240,7 +295,17 @@ namespace TRAEProject.Changes.Accesory
                     {
                         if (line.Mod == "Terraria" && line.Name == "Tooltip1")
                         {
-                            line.Text = "10% increased magic damage";
+                            line.Text = "7% increased magic damage";
+                            if (!TRAEWorld.downedOgre)
+                            {
+                                line.Text += "\n11% increased magic damage with a full set of Apprentice Armor";
+
+                            }
+                            if (!TRAEWorld.downedBetsy)
+                            {
+                                line.Text += "\n15% increased magic damage with a full set of Dark Artist Armor";
+
+                            }
                         }
                     }
                     break;
@@ -249,7 +314,17 @@ namespace TRAEProject.Changes.Accesory
                     {
                         if (line.Mod == "Terraria" && line.Name == "Tooltip1")
                         {
-                            line.Text = "10% increased ranged damage";
+                            line.Text = "7% increased ranged damage";
+                            if (!TRAEWorld.downedOgre)
+                            {
+                                line.Text += "\n11% increased ranged damage with a full set of Huntress Armor";
+
+                            }
+                            if (!TRAEWorld.downedBetsy)
+                            {
+                                line.Text += "\n15% increased ranged damage with a full set of Red Riding Hood Armor";
+
+                            }
                         }
                     }
                     break;
@@ -258,7 +333,17 @@ namespace TRAEProject.Changes.Accesory
                     {
                         if (line.Mod == "Terraria" && line.Name == "Tooltip1")
                         {
-                            line.Text = "10% increased summon damage";
+                            line.Text = "7% increased summon damage";
+                            if (!TRAEWorld.downedOgre)
+                            {
+                                line.Text += "\n11% increased summon damage with a full set of Monk Armor";
+
+                            }
+                            if (!TRAEWorld.downedBetsy)
+                            {
+                                line.Text += "\n15% increased summon damage with a full set of Shinobi Infiltrator Armor";
+
+                            }
                         }
                     }
                     break;
@@ -401,7 +486,7 @@ namespace TRAEProject.Changes.Accesory
                         }
                     }
                     break;
-                
+                 
                 case ItemID.DestroyerEmblem:
                     foreach (TooltipLine line in tooltips)
                     {
@@ -487,16 +572,18 @@ namespace TRAEProject.Changes.Accesory
                     {
                         if (line.Mod == "Terraria" && line.Name == "Tooltip0")
                         {
-                            line.Text = "During the Day: ";
+                            line.Text = "Minor increases to all stats when above 50% health";
                         }
                         if (line.Mod == "Terraria" && line.Name == "Tooltip1")
                         {
-                            line.Text = celStone;
+                            line.Text = "Maxes out above 75% HP:";
                         }
                         if (line.Mod == "Terraria" && line.Name == "Tooltip2")
                         {
-                            line.Text = "";
+                            line.Text = celStone;
                         }
+             
+
 
                     }
                     break;
@@ -505,15 +592,15 @@ namespace TRAEProject.Changes.Accesory
                     {
                         if (line.Mod == "Terraria" && line.Name == "Tooltip0")
                         {
-                            line.Text = "During the Night: ";
+                            line.Text = "Minor increases to all stats when losing health";
                         }
                         if (line.Mod == "Terraria" && line.Name == "Tooltip1")
                         {
-                            line.Text = celStone;
+                            line.Text = "Maxes out below 50% HP:";
                         }
                         if (line.Mod == "Terraria" && line.Name == "Tooltip2")
                         {
-                            line.Text = "";
+                            line.Text = celStone;
                         }
 
                     }

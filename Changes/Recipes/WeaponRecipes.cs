@@ -36,18 +36,7 @@ namespace TRAEProject.Changes.Recipes
             MagicDagger2.AddIngredient(ItemID.CrimtaneBar, 10);
             MagicDagger2.AddTile(TileID.Anvils);
             MagicDagger2.Register(); 
-            Recipe MagicMissile = Recipe.Create(ItemID.MagicMissile);
-            MagicMissile.AddRecipeGroup("GoldBar", 10);
-            MagicMissile.AddIngredient(ItemID.Diamond, 5);
-            MagicMissile.AddIngredient(ItemID.ShadowScale, 20);
-            MagicMissile.AddTile(TileID.Anvils);
-            MagicMissile.Register();
-            Recipe MagicMissile2 = Recipe.Create(ItemID.MagicMissile);
-            MagicMissile2.AddRecipeGroup("GoldBar", 10);
-            MagicMissile2.AddIngredient(ItemID.Diamond, 5);
-            MagicMissile2.AddIngredient(ItemID.TissueSample, 20);
-            MagicMissile2.AddTile(TileID.Anvils);
-            MagicMissile2.Register();
+ 
             Recipe IceSickle = Recipe.Create(ItemID.IceSickle);
             IceSickle.AddIngredient(ItemID.FrostCore, 1);
             IceSickle.AddIngredient(ItemID.SoulofNight, 15);

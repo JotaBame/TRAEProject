@@ -127,9 +127,7 @@ namespace TRAEProject.Changes.Items
                         item.autoReuse = true;
                         return;
 
-                    case ItemID.MagicMissile:
-                        item.mana = 28; // up from 14
-                        return;
+               
                     case ItemID.SpaceGun:
                         item.damage = 22; // up from 17
                         item.mana = 9; // up from 6

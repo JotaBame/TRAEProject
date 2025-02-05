@@ -31,6 +31,8 @@ namespace TRAEProject.Common
                                                              // Bouncing
         public bool BouncesOffTiles = false;
         public bool BouncesBackOffTiles = false;
+        public int MaxBounces = -1;
+
         public float DamageLossOffATileBounce = 0f;
         public bool BouncesOffEnemies = false;
         public bool SmartBouncesOffTiles = false;
@@ -113,7 +115,9 @@ namespace TRAEProject.Common
                 }
                 return false;
             }
- 
+            if (MaxBounces > 0)
+            {
+                MaxBounces--;
                 if (BouncesOffTiles)
                 {
                     // If the projectile hits the left or right side of the tile, reverse the X velocity
@@ -169,8 +173,10 @@ namespace TRAEProject.Common
                     }
                     return false;
                 }
-            
+
+            }
             return true;
+
         }
         public override void ModifyHitNPC(Projectile projectile, NPC target, ref NPC.HitModifiers modifiers)
         {
