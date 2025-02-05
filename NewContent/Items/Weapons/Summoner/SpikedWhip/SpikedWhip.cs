@@ -32,7 +32,7 @@ namespace TRAEProject.NewContent.Items.Weapons.Summoner.SpikedWhip
             Item.UseSound = SoundID.Item152;
             Item.noMelee = true;
             Item.noUseGraphic = true;
-            Item.damage = 16;
+            Item.damage = 20;
             Item.useTime = Item.useAnimation = 30;
             Item.knockBack = 4f;
             Item.shootSpeed = 4f;
@@ -82,7 +82,7 @@ namespace TRAEProject.NewContent.Items.Weapons.Summoner.SpikedWhip
         }
         public override void Update(NPC npc, ref int buffIndex)
         {
-            npc.GetGlobalNPC<Tag>().Damage += 5;
+            npc.GetGlobalNPC<Tag>().Damage += 4;
             npc.GetGlobalNPC<Tag>().Crit += 8;
         }
     }

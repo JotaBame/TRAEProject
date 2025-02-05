@@ -58,7 +58,11 @@ namespace TRAEProject.Changes.NPCs.Boss.LunaticCultist
                     }
                 }
             }
+<<<<<<< HEAD
         
+=======
+   
+>>>>>>> 0.7
 
             if (((float)npc.life / (float)npc.lifeMax) <= 0.1f)
                 return 2.25f;

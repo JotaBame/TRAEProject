@@ -11,12 +11,8 @@ namespace TRAEProject.NewContent.NPCs.Underworld.OniRonin
     {
         public static void PetalDrawing(Projectile projectile)
         {
-            Texture2D blackBall = ModContent.Request<Texture2D>("TRAEProject/Assets/SpecialTextures/GlowBallTransparent").Value;
-            Main.spriteBatch.End();
-            Main.spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.NonPremultiplied, Main.DefaultSamplerState, DepthStencilState.None, Main.Rasterizer, null, Main.Transform);
-            Main.EntitySpriteDraw(blackBall, projectile.Center - Main.screenPosition + new Vector2(0, projectile.gfxOffY), null, Color.Black * 0.6f, projectile.rotation, blackBall.Size() / 2, projectile.scale * 0.07f, projectile.spriteDirection == -1 ? SpriteEffects.None : SpriteEffects.FlipHorizontally);
-            Main.spriteBatch.End();
-            Main.spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, Main.DefaultSamplerState, DepthStencilState.None, Main.Rasterizer, null, Main.Transform);
+            Texture2D blackBall = ModContent.Request<Texture2D>("TRAEProject/Assets/SpecialTextures/GlowBallSmallPremultiplied").Value;
+            Main.EntitySpriteDraw(blackBall, projectile.Center - Main.screenPosition + new Vector2(0, projectile.gfxOffY), null, Color.Black * 0.6f, projectile.rotation, blackBall.Size() / 2, projectile.scale * 1.07f, projectile.spriteDirection == -1 ? SpriteEffects.None : SpriteEffects.FlipHorizontally);
 
             Texture2D texture = TextureAssets.Projectile[projectile.type].Value;
             Rectangle frame = Utils.Frame(texture, 1, 4, 0, projectile.frame);
