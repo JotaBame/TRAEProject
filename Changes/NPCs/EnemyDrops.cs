@@ -471,7 +471,18 @@ namespace TRAEProject.Changes.NPCs
                     Item.NewItem(npc.GetSource_Loot(), npc.Center, ItemID.SnowballCannon);
 
                 }
-
+            }
+	    if (Main.remixWorld && npc.type == NPCID.Mimic)
+            {
+                if (!Main.hardMode)
+                {
+                    NPCLoader.blockLoot.Add(ItemID.MagicDagger);
+                    NPCLoader.blockLoot.Add(ItemID.TitanGlove);
+                    NPCLoader.blockLoot.Add(ItemID.PhilosophersStone);
+                    NPCLoader.blockLoot.Add(ItemID.StarCloak);
+                    NPCLoader.blockLoot.Add(ItemID.DualHook);
+                    NPCLoader.blockLoot.Add(ItemID.CrossNecklace);
+                }
             }
             if (Main.remixWorld && Main.hardMode && npc.type == NPCID.Mimic && Main.rand.NextBool(5))
             {
