@@ -59,6 +59,11 @@ projectile.penetrate = 3;
                     projectile.GetGlobalProjectile<ProjectileStats>().ExplosionRadius = 80;
                     projectile.GetGlobalProjectile<ProjectileStats>().DamageFalloff = 0.25f;
                     break;
+                case ProjectileID.InsanityShadowFriendly:
+                    projectile.GetGlobalProjectile<ProjectileStats>().DirectDamage= 0.5f;
+
+                    projectile.GetGlobalProjectile<ProjectileStats>().DamageFalloff = 0.25f;
+                    break;
                 case ProjectileID.InsanityShadowHostile:
                     projectile.alpha = 150;
                     break;

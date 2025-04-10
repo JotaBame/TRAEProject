@@ -215,6 +215,13 @@ namespace TRAEProject.Changes.Recipes
             {
                 recipe.DisableRecipe();
             }
+            if (recipe.HasResult(ItemID.ReflectiveShades))
+            {
+                recipe.TryGetIngredient(ItemID.Blindfold, out ingredientToRemove);
+                recipe.RemoveIngredient(ingredientToRemove);
+ 
+                recipe.AddIngredient(ItemID.Goggles);
+             }
             if (recipe.HasResult(ItemID.BundleofBalloons) && GetInstance<TRAEConfig>().MobilityRework)
             {
                 recipe.AddIngredient(ItemID.SoulofFlight, 20);

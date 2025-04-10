@@ -556,13 +556,7 @@ namespace TRAEProject.Changes.Weapon.Melee
         public override void AI(Projectile projectile)
         {
             Player player = Main.player[projectile.owner];
-            //if (projectile.type == ProjectileID.TrueNightsEdge)
-            //{
-
-
-
-            //    Main.NewText(spawnCenter);
-            //}
+  
  
                 if ((projectile.type == ProjectileID.HelFire || projectile.type == ProjectileID.Sunfury) && projectile.ai[2] == 0)
             {
@@ -758,6 +752,50 @@ namespace TRAEProject.Changes.Weapon.Melee
         }
         public override void PostAI(Projectile projectile)
         {
+            //if (projectile.aiStyle == 3 && projectile.ai[0] == 1)
+            //{
+            //    Player player = Main.player[projectile.owner];
+            //    float maxSpeed = 0f;
+            //    switch (projectile.type)
+            //    {
+            //        case ProjectileID.Flamarang:
+            //        case ProjectileID.Bananarang:
+            //            maxSpeed = 30f;
+            //            break;
+            //        case ProjectileID.EnchantedBoomerang:
+            //        case ProjectileID.IceBoomerang:          
+            //        case ProjectileID.Shroomerang:
+            //            maxSpeed = 9f;
+            //            break;
+            //        case ProjectileID.Trimarang:
+            //            maxSpeed = 9.5f;
+            //            break;
+            //        case ProjectileID.ThornChakram:
+            //            maxSpeed = 21.6f;
+            //            break;
+            //        case ProjectileID.CombatWrench:
+            //            maxSpeed = 20f ;
+            //            break;
+            //        case ProjectileID.LightDisc:
+ 
+            //        case ProjectileID.BouncingShield:
+            //            maxSpeed = 19.2f;
+            //            break;
+            //        case ProjectileID.BloodyMachete:
+            //            maxSpeed = 45f;
+            //            break;
+            //        case ProjectileID.FruitcakeChakram:
+            //            maxSpeed = 7.2f;
+            //            break;
+            //    }
+            //    if (maxSpeed != 0 && projectile.velocity.Length() < maxSpeed * player.GetAttackSpeed<MeleeDamageClass>())
+            //    {
+            //        Main.NewText(player.direction);
+            //        Main.NewText(projectile.velocity);
+
+            //     }
+                 
+            //}
             if (projectile.type == ProjectileID.TheHorsemansBlade)
             {
                 projectile.scale *= 1.2f;

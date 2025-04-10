@@ -57,7 +57,7 @@ namespace TRAEProject.Common
         public float timer = 0;
         public override void AI(Projectile projectile)
         {
-            Player player = Main.player[projectile.owner];
+             Player player = Main.player[projectile.owner];
             if (AddedBuffMinDuration == 0)
                 AddedBuffMinDuration = AddedBuffDuration;
             if (ProjectileID.Sets.IsAWhip[projectile.type] || projectile.type == ProjectileType<WhipProjectile>())
@@ -115,6 +115,7 @@ namespace TRAEProject.Common
                 }
                 return false;
             }
+ 
             if (MaxBounces > 0)
             {
                 MaxBounces--;

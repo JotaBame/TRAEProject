@@ -145,10 +145,7 @@ namespace TRAEProject.Changes.Items
 				itemLoot.Add(ItemDropRule.Common(ModContent.ItemType<AdvFlightSystem>(), 5));
 				itemLoot.Add(ItemDropRule.Common(ItemID.ShadowKey, 5));
 				break;
-				case ItemID.IronCrate:
-				case ItemID.IronCrateHard:
-				itemLoot.Add(ItemDropRule.OneFromOptionsNotScalingWithLuck(20, ItemID.BandofRegeneration, ItemID.CloudinaBottle, ItemID.HermesBoots, ItemID.ShoeSpikes, ItemID.FlareGun));
-				break;
+	 
 				case ItemID.OasisCrate:
 				case ItemID.OasisCrateHard:
 				itemLoot.RemoveWhere(rule =>

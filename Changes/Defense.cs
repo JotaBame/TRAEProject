@@ -216,8 +216,12 @@ namespace TRAEProject
             {
  
                 case ItemID.PocketMirror:
+                     player.GetModPlayer<Defense>().pocketMirror = true;
+                    return;
                 case ItemID.ReflectiveShades:
-                    player.GetModPlayer<Defense>().pocketMirror = true;
+                    player.GetModPlayer<Defense>().pocketMirror = true; 
+                    player.GetCritChance<GenericDamageClass>() += 8;
+
                     return;
                 case ItemID.RoyalGel:
                     player.GetModPlayer<Defense>().RoyalGel = true;
@@ -257,8 +261,18 @@ namespace TRAEProject
                             line.Text = "Projectiles deal 1% less damage for every 10 damage\nMaxes out at 25% damage reduction\nReduced damage is reflected at the enemy\nGrants immunity to Petrified";
                         }
                     }
-                    return;
-  
+                    break;
+                case ItemID.ReflectiveShades:
+                    foreach (TooltipLine line in tooltips)
+                    {
+                        if (line.Mod == "Terraria" && line.Name == "Tooltip0")
+                        {
+                            line.Text = "Projectiles deal 1% less damage for every 10 damage\nMaxes out at 25% damage reduction\nReduced damage is reflected at the enemy\nGrants immunity to Petrified\n8% increased critical strike chance";
+                        }
+               
+                    }
+                    break;
+   
             }
         }
     }

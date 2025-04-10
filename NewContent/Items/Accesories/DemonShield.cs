@@ -25,7 +25,7 @@ namespace TRAEProject.NewContent.Items.Accesories
             Item.value = 66666; 
             Item.width = 32;          
             Item.height = 40;
-            Item.defense = 7;
+            Item.defense = 8;
         }
         public override void UpdateAccessory(Player player, bool hideVisual)
         {

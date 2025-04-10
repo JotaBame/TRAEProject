@@ -30,7 +30,7 @@ namespace TRAEProject.Changes.Accesory
                     case ItemID.HellfireTreads:
                     case ItemID.FairyBoots:
 
-                        player.rocketTimeMax += 5;
+                        player.rocketTimeMax += 6;
                         break;
                     case ItemID.WaterWalkingBoots:
                          player.GetModPlayer<Mobility>().TRAEwaterwalk = true;
@@ -108,11 +108,11 @@ namespace TRAEProject.Changes.Accesory
                         player.dashType = 99;
 
                         if (!GetInstance<TRAEConfig>().TerrasparkLineRework)
-                        { player.rocketTimeMax += 5; }
+                        { player.rocketTimeMax += 6; }
                         break;
                     //rocket boots line
                     case ItemID.RocketBoots:
-                        player.rocketTimeMax += 5;
+                        player.rocketTimeMax += 6;
                         break;
 
                     case ItemID.FairyBoots:
@@ -124,7 +124,7 @@ namespace TRAEProject.Changes.Accesory
                     case ItemID.SpectreBoots:
                         player.accRunSpeed = 4.8f;
                         player.moveSpeed += Mobility.bootSpeed * 0.01f;
-                        player.rocketTimeMax += 5;
+                        player.rocketTimeMax += 6;
                         break;
                     //lighting terraspark
                     case ItemID.LightningBoots:
@@ -133,14 +133,14 @@ namespace TRAEProject.Changes.Accesory
                         player.accRunSpeed = 6f;
                         player.moveSpeed += Mobility.bootSpeed * 0.01f;
                         player.GetModPlayer<Mobility>().ankletAcc = true;
-                        player.rocketTimeMax += 5;
+                        player.rocketTimeMax += 6;
 
                         break;
                     case ItemID.TerrasparkBoots:
                         player.moveSpeed -= 0.08f; // get rid of the 8% move speed buff separately to not mess up future calcs 
                         player.moveSpeed += Mobility.bootSpeed * 0.01f;
                         player.GetModPlayer<Mobility>().ankletAcc = true;
-                        player.rocketTimeMax += 5;
+                        player.rocketTimeMax += 6;
                         if (GetInstance<TRAEConfig>().TerrasparkLineRework)
                         {
                             player.iceSkate = false;

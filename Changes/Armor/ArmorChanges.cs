@@ -41,6 +41,8 @@ namespace ChangesArmor
                     case ItemID.CopperHelmet:
                     case ItemID.CopperGreaves:
                     case ItemID.TinGreaves:
+                    case ItemID.BoneHelm:
+
                         item.defense = 3;
                         return;
                     case ItemID.CopperChainmail:
@@ -405,10 +407,14 @@ namespace ChangesArmor
             {
                 player.setBonus = "Reduces damage taken by 5%";
                 player.statDefense -= 1;
+                player.endurance += 0.05f;
+
             }
             if (armorSet == "WoodSetPlus")
             {
                 player.setBonus = "Reduces damage taken by 5%*";
+                player.endurance += 0.05f;
+
                 player.GetModPlayer<SetBonuses>().secretPearlwoodSetBonus = true;
             }
             if (armorSet == "CopperSet") 

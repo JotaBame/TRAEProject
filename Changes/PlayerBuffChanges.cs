@@ -163,7 +163,9 @@ namespace TRAEProject
                 case BuffID.BeetleEndurance3:
                     tip = "Damage taken reduced by 30%";
                     return;
-        
+                case BuffID.Werewolf:
+                    tip = "Damage and mobility increased";
+                    return;
                 case BuffID.Archery:
                     tip = "10% increased arrow damage, 20% increased arrow speed";
                     return;
