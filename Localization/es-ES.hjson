@@ -278,6 +278,7 @@ Mods: {
 			// EchoSpriteProj.DisplayName: Echo Sprite Proj
 			// EchoStalkerSonicWave.DisplayName: Echo Stalker Sonic Wave
 			// KinnaraFeather.DisplayName: Kinnara Feather
+			// Trirrow.DisplayName: Trirrow
 		}
 
 		Prefixes: {
@@ -1625,6 +1626,11 @@ Mods: {
 			DreamEater: {
 				// DisplayName: Dream Eater
 				// Tooltip: Bouncing Fireballs that may burn an enemy with Shadow Flames
+			}
+
+			Tribow: {
+				// DisplayName: Tri-bow
+				// Tooltip: Converts Wooden Arrows into special triple arrows
 			}
 		}
 

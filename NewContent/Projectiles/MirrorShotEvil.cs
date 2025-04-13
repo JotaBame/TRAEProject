@@ -44,7 +44,7 @@ namespace TRAEProject.NewContent.Projectiles
         }
         public override void OnKill(int timeLeft)
         {
-            SoundEngine.PlaySound(SoundID.Item28 with { MaxInstances = 0 }, Projectile.position);
+            SoundEngine.PlaySound(SoundID.Item10 with { MaxInstances = 0 }, Projectile.position);
             int DustCount = 30;
             int[] DustTypes = { DustID.Shadowflame, 21, 179 };
             for (int i = 0; i < DustCount; ++i)

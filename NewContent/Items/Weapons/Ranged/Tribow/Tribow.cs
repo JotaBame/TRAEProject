@@ -20,7 +20,7 @@ namespace TRAEProject.NewContent.Items.Weapons.Ranged.Tribow
         public override void SetDefaults()
         {
             Item.width = 22;
-            Item.height = 56;
+            Item.height = 66;
             Item.damage = 42;
             Item.useAnimation = 27;
             Item.useTime = 27;
@@ -36,10 +36,16 @@ namespace TRAEProject.NewContent.Items.Weapons.Ranged.Tribow
             Item.useStyle = ItemUseStyleID.Shoot;
             Item.UseSound = SoundID.Item5; 
         }
+        public override Vector2? HoldoutOffset()
+         {
+            return new Vector2(0, -1); // 
+        }
         public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
         {
             float numberProjectiles = 3; 
-            float rotation = MathHelper.ToRadians(5);
+            float rotation = MathHelper.ToRadians(2);
+            if (type == ProjectileID.WoodenArrowFriendly)
+                type = ProjectileType<Trirrow>();
             position += Vector2.Normalize(new Vector2(velocity.X, velocity.Y)) * 10f;
             for (int i = 0; i < numberProjectiles; i++)
             {
@@ -68,19 +74,27 @@ namespace TRAEProject.NewContent.Items.Weapons.Ranged.Tribow
             Projectile.GetGlobalProjectile<ProjectileStats>().AddsBuff = BuffID.ShadowFlame;
             Projectile.GetGlobalProjectile<ProjectileStats>().AddedBuffMinDuration = 240;
             Projectile.GetGlobalProjectile<ProjectileStats>().AddedBuffDuration = 300;
-            Projectile.GetGlobalProjectile<ProjectileStats>().AddsBuffChance = 3;
+            Projectile.GetGlobalProjectile<ProjectileStats>().AddsBuffChance = 2;
 
 
             Projectile.usesLocalNPCImmunity = true;
             Projectile.localNPCHitCooldown = 15;
             Projectile.friendly = true;
         }
+        public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
+        {
+            if (Main.rand.NextBool(2))
+            {
+                target.GetGlobalNPC<Freeze>().FreezeMe(target, Main.rand.Next(60,90));
+            }
+        }
         public override void AI()
         {
-            if (Main.rand.NextBool(3))
-            {
+            
+            int type = Main.rand.NextFromList(DustID.GoldFlame, DustID.Shadowflame);
+            { 
                 Vector2 ProjectilePosition = Projectile.Center;
-                int dust = Dust.NewDust(ProjectilePosition, 1, 1, DustID.GoldFlame, 0f, 0f, 0, default, 1f);
+                int dust = Dust.NewDust(ProjectilePosition, 1, 1, type, 0f, 0f, 0, default, 1f);
                 Main.dust[dust].noGravity = true;
                 Main.dust[dust].position = ProjectilePosition;
                 Main.dust[dust].velocity *= 0.2f;
