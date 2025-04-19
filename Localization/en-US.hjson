@@ -1649,7 +1649,7 @@ Mods: {
 
 			Tribow: {
 				DisplayName: Tri-Bow
-				Tooltip: "Converts Wooden Arrows into special triple arrows"
+				Tooltip: Converts Wooden Arrows into special triple arrows
 			}
 		}
 

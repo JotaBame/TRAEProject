@@ -19,8 +19,8 @@ namespace TRAEProject.NewContent.Items.Weapons.Ranged.Tribow
         }
         public override void SetDefaults()
         {
-            Item.width = 22;
-            Item.height = 66;
+            Item.width = 20;
+            Item.height = 60;
             Item.damage = 42;
             Item.useAnimation = 27;
             Item.useTime = 27;
@@ -31,6 +31,7 @@ namespace TRAEProject.NewContent.Items.Weapons.Ranged.Tribow
             Item.useAmmo = AmmoID.Arrow;
             Item.knockBack = 5f;
             Item.shootSpeed = 12f;
+            Item.scale = 1.1f;
             Item.noMelee = true;
             Item.shoot = ProjectileType<Trirrow>();
             Item.useStyle = ItemUseStyleID.Shoot;
@@ -78,7 +79,7 @@ namespace TRAEProject.NewContent.Items.Weapons.Ranged.Tribow
 
 
             Projectile.usesLocalNPCImmunity = true;
-            Projectile.localNPCHitCooldown = 15;
+            Projectile.localNPCHitCooldown = 10;
             Projectile.friendly = true;
         }
         public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
@@ -91,7 +92,7 @@ namespace TRAEProject.NewContent.Items.Weapons.Ranged.Tribow
         public override void AI()
         {
             
-            int type = Main.rand.NextFromList(DustID.GoldFlame, DustID.Shadowflame);
+            int type = Main.rand.NextFromList(DustID.RedTorch, DustID.GreenTorch);
             { 
                 Vector2 ProjectilePosition = Projectile.Center;
                 int dust = Dust.NewDust(ProjectilePosition, 1, 1, type, 0f, 0f, 0, default, 1f);
