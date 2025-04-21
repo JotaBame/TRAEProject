@@ -39,7 +39,7 @@ namespace TRAEProject.NewContent.Projectiles
         public override void AI()
         {
 
-            scalingRate = Main.expertMode ? 1f : Main.masterMode ? 1.2f : Main.getGoodWorld ? 2 : 0.6f;
+            scalingRate = Main.expertMode ? 0.85f /*: Main.masterMode ? 1.2f*/ : Main.getGoodWorld ? 1f : 0.6f;
             scalingRate *= Projectile.ai[0];
             Projectile.localAI[2]++;
             Projectile.rotation = Projectile.velocity.ToRotation();

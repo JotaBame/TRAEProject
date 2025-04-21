@@ -20,6 +20,7 @@ namespace TRAEProject.NewContent.Projectiles.EchoSpriteProj
             Projectile.ignoreWater = true;
             Projectile.tileCollide = true;
         }
+ 
         public override void AI()
         {
             Projectile.localAI[0] += .1f;

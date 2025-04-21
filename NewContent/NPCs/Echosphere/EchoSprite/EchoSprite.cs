@@ -28,7 +28,9 @@ namespace TRAEProject.NewContent.NPCs.Echosphere.EchoSprite
             NPC.height = 32;
             NPC.defense = 33;
             NPC.lifeMax = 400;
-            NPC.noGravity = true;
+            NPC.scale = 1.1f;
+            NPC.noGravity = true; NPC.noTileCollide = true;
+
         }
         ref float TurnaroundTimer => ref NPC.ai[1];
         ref float IdleMovementTimer => ref NPC.localAI[0];
@@ -95,10 +97,10 @@ namespace TRAEProject.NewContent.NPCs.Echosphere.EchoSprite
                 {
                     NPC.ai[0] %= firerate;
                     int projID = ModContent.ProjectileType<EchoSpriteProj>();
-                    float shootSpeed = 12f;
+                    float shootSpeed = 24f;
                     if (Main.expertMode)//from spaz code
                     {
-                        shootSpeed = 14;
+                        shootSpeed *= 1.33f;
                     }
                     shootSpeed /= ContentSamples.ProjectilesByType[projID].MaxUpdates;
                     Vector2 projVel = NPC.DirectionTo(player.Center) * shootSpeed;
@@ -142,7 +144,7 @@ namespace TRAEProject.NewContent.NPCs.Echosphere.EchoSprite
         {
             Player player = Main.player[NPC.target];
             float moveSpeed = 12f;
-            float acceleration = 0.4f;
+            float acceleration = 0.3f;
             if (Main.getGoodWorld)//from spaz code. leaving it in cuz why not ig
             {
                 moveSpeed *= 1.15f;

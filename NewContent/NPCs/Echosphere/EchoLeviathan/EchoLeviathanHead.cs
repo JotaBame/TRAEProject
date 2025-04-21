@@ -53,9 +53,10 @@ namespace TRAEProject.NewContent.NPCs.Echosphere.EchoLeviathan
         public override void SetDefaults()
         {
             NPC.noGravity = true;
-            NPC.lifeMax = 18000;
-            NPC.defense = 25;
+            NPC.lifeMax = 24000;
+            NPC.defense = 45;
             NPC.damage = 120;
+            NPC.scale = 1.1f;
             NPC.width = NPC.height = 70;
             NPC.HitSound = SoundID.DD2_BetsyHurt;
             NPC.DeathSound = SoundID.NPCDeath1;
@@ -160,7 +161,7 @@ namespace TRAEProject.NewContent.NPCs.Echosphere.EchoLeviathan
         {
             Timer++;
             int start = 30;
-            int fireRate = 10;
+            int fireRate = 15;
             int numShots = 3;
             int extraWait = 50;
             Player player = Main.player[NPC.target];
@@ -175,7 +176,7 @@ namespace TRAEProject.NewContent.NPCs.Echosphere.EchoLeviathan
                 if (Main.netMode != NetmodeID.MultiplayerClient)
                 {
                     float shootAngle = NPC.velocity.ToRotation().AngleLerp((player.Center - NPC.Center).ToRotation(), .5f);
-                    Projectile.NewProjectile(NPC.GetSource_FromAI(), NPC.Center, shootAngle.ToRotationVector2() * 10, ModContent.ProjectileType<EchoStalkerSonicWave>(), 75 / 2, 0, Main.myPlayer, 1);
+                    Projectile.NewProjectile(NPC.GetSource_FromAI(), NPC.Center, shootAngle.ToRotationVector2() * 12, ModContent.ProjectileType<EchoStalkerSonicWave>(), 75 / 2, 0, Main.myPlayer, 1);
                 }
             }
             if (Timer > start + fireRate * numShots + extraWait)
@@ -337,7 +338,7 @@ namespace TRAEProject.NewContent.NPCs.Echosphere.EchoLeviathan
             NPC.spriteDirection = MathF.Sign(NPC.velocity.X);
             SetSegmentPositionRotationSpriteDirectionAndOpacity();
 
-            if (Timer >= 460)
+            if (Timer >= 300)
             {
                 OpacityCutoffFromBehind = 9999;
                 OpacityCutoffFromFront = 9999;
