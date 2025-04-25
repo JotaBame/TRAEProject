@@ -53,7 +53,7 @@ namespace TRAEProject.NewContent.NPCs.Echosphere.EchoLeviathan
         public override void SetDefaults()
         {
             NPC.noGravity = true;
-            NPC.lifeMax = 24000;
+            NPC.lifeMax = 30000;
             NPC.defense = 45;
             NPC.damage = 120;
             NPC.scale = 1.1f;

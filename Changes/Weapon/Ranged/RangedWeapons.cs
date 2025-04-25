@@ -9,6 +9,8 @@ using Terraria.ModLoader;
 using static Terraria.ModLoader.ModContent;
 using Terraria.DataStructures;
  using System;
+using static System.Net.Mime.MediaTypeNames;
+using TRAEProject.Common.ModPlayers;
 
 namespace TRAEProject.Changes.Weapons
 {
@@ -190,21 +192,182 @@ namespace TRAEProject.Changes.Weapons
         }
         public override bool Shoot(Item item, Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
         {
+
+            float mouseX = (float)Main.mouseX + Main.screenPosition.X - position.X;
+            float mouseY = (float)Main.mouseY + Main.screenPosition.Y - position.Y;
+            float num6 = (float)Math.Sqrt(mouseX * mouseX + mouseY * mouseY);
+            float num7 = num6;
+
+            if (item.type == ItemID.ChainGun || item.type == ItemID.Gatligator)
+
+            {
+                mouseX += (float)Main.rand.Next(-50, 51) * 0.03f / num6;
+                mouseY += (float)Main.rand.Next(-50, 51) * 0.03f / num6;
+            }
+            if (item.type == ItemID.ChainGun) // chain gun 
+            {
+                float speedX7 = mouseX + (float)Main.rand.Next(-40, 41) * 3f * player.GetModPlayer<RangedStats>().spreadModifier;
+                float speedY9 = mouseY + (float)Main.rand.Next(-40, 41) * 3f * player.GetModPlayer<RangedStats>().spreadModifier;
+                Projectile.NewProjectile(source, position.X, position.Y, speedX7, speedY9, type, damage, knockback, player.whoAmI);
+                return false;
+            }
+
+            if (item.type == ItemID.Gatligator) // gatligator
+            {
+                float num25 = mouseX + (float)Main.rand.Next(-40, 41) * 3f * player.GetModPlayer<RangedStats>().spreadModifier;
+                float num26 = mouseY + (float)Main.rand.Next(-40, 41) * 3f * player.GetModPlayer<RangedStats>().spreadModifier;
+                if (Main.rand.NextBool(3))
+                {
+                    num25 *= 1f + (float)Main.rand.Next(-30, 31) * 0.02f;
+                    num26 *= 1f + (float)Main.rand.Next(-30, 31) * 0.02f;
+                }
+                Projectile.NewProjectile(source, position.X, position.Y, num25, num26, type, damage, knockback, player.whoAmI);
+                return false;
+            }
+
+            if (item.type == ItemID.TacticalShotgun) //tact shotgun
+            {
+                for (int num131 = 0; num131 < 6; num131++)
+                {
+                    float num132 = mouseX;
+                    float num133 = mouseY;
+                    num132 += (float)Main.rand.Next(-40, 41) * 3.5f * player.GetModPlayer<RangedStats>().spreadModifier;
+                    num133 += (float)Main.rand.Next(-40, 41) * 3.5f * player.GetModPlayer<RangedStats>().spreadModifier;
+                    Projectile.NewProjectile(source, position.X, position.Y, num132, num133, type, damage, knockback, player.whoAmI);
+                }
+                return false;
+
+            }
+
+            if (item.type == ItemID.Shotgun) // shotgun
+            {
+                int num67 = Main.rand.Next(4, 6);
+                for (int num68 = 0; num68 < num67; num68++)
+                {
+                    float num69 = mouseX;
+                    float num70 = mouseY;
+                    num69 += (float)Main.rand.Next(-40, 41) * 5f * player.GetModPlayer<RangedStats>().spreadModifier;
+                    num70 += (float)Main.rand.Next(-40, 41) * 5f * player.GetModPlayer<RangedStats>().spreadModifier;
+                    Projectile.NewProjectile(source, position.X, position.Y, num69, num70, type, damage, knockback, player.whoAmI);
+                }
+                return false;
+            }
+            if (item.type == ItemID.Boomstick) // boomstick
+            {
+                int num98 = Main.rand.Next(3, 5);
+                for (int num99 = 0; num99 < num98; num99++)
+                {
+                    float num100 = mouseX;
+                    float num101 = mouseY;
+                    num100 += (float)Main.rand.Next(-35, 36) * 4f * player.GetModPlayer<RangedStats>().spreadModifier;
+                    num101 += (float)Main.rand.Next(-35, 36) * 4f * player.GetModPlayer<RangedStats>().spreadModifier;
+                    Projectile.NewProjectile(source, position.X, position.Y, num100, num101, type, damage, knockback, player.whoAmI);
+                }
+                return false;
+            }
+            if (item.type == ItemID.OnyxBlaster) // onyx blaster
+            {
+                Vector2 vector55 = new Vector2(mouseX, mouseY);
+                float num198 = (float)Math.PI / 4f;
+                for (int num199 = 0; num199 < 2; num199++)
+                {
+                    Projectile.NewProjectile(source, position, vector55 + vector55.SafeNormalize(Vector2.Zero).RotatedBy(num198 * (Main.rand.NextFloat() * 0.5f + 0.5f)) * Main.rand.NextFloatDirection() * 200f * player.GetModPlayer<RangedStats>().spreadModifier, type, damage, knockback, player.whoAmI);
+                    Projectile.NewProjectile(source, position, vector55 + vector55.SafeNormalize(Vector2.Zero).RotatedBy((0f - num198) * (Main.rand.NextFloat() * 0.5f + 0.5f)) * Main.rand.NextFloatDirection() * 200f * player.GetModPlayer<RangedStats>().spreadModifier, type, damage, knockback, player.whoAmI);
+                }
+                Projectile.NewProjectile(source, position, velocity * 1.3f, 661, damage * 2, knockback, player.whoAmI);
+                return false;
+            }
+
+            if (item.type == ItemID.QuadBarrelShotgun) // quad barrel
+            {
+                float num71 = (float)Math.PI / 2f;
+                Projectile.NewProjectile(source, position.X, position.Y, mouseX, mouseY, type, damage, knockback, player.whoAmI);
+                for (int num72 = 0; num72 < 7; num72++)
+                {
+                    Vector2 v4 = new Vector2(mouseX, mouseY);
+                    float num73 = v4.Length();
+                    v4 += v4.SafeNormalize(Vector2.Zero).RotatedBy(num71 * Main.rand.NextFloat()) * Main.rand.NextFloatDirection() * 5f;
+                    v4 = v4.SafeNormalize(Vector2.Zero) * num73;
+                    float x3 = v4.X;
+                    float y2 = v4.Y;
+                    x3 += (float)Main.rand.Next(-40, 41) * 5f * player.GetModPlayer<RangedStats>().spreadModifier;
+                    y2 += (float)Main.rand.Next(-40, 41) * 5f * player.GetModPlayer<RangedStats>().spreadModifier;
+                    Projectile.NewProjectile(source, position.X, position.Y, x3, y2, type, damage, knockback, player.whoAmI);
+                }
+                return false;
+            }
+            if (item.type == ItemID.Tsunami) // TSUNAMI
+            {
+                float num42 = (float)Math.PI / 10f;
+                if (player.GetModPlayer<RangedStats>().spreadModifier < 1) // stacking scopes on this just looks dumb
+                    num42 = (float)Math.PI / 10f / 3;
+                int projCount = 5;
+                Vector2 vector17 = new Vector2(mouseX, mouseY);
+                vector17.Normalize();
+                vector17 *= 40f;
+                bool flag4 = Collision.CanHit(position, 0, 0, position + vector17, 0, 0);
+                for (int num44 = 0; num44 < projCount; num44++)
+                {
+                    float num45 = (float)num44 - ((float)projCount - 1f) / 2f;
+                    Vector2 vector18 = vector17.RotatedBy(num42 * num45);
+                    if (!flag4)
+                    {
+                        vector18 -= vector17;
+                    }
+                    Vector2 vector19 = position + vector18;
+                    Vector2 vector20 = (vector19 - player.Center).SafeNormalize(Vector2.Zero);
+                    if (!Collision.CanHitLine(player.MountedCenter, 4, 4, vector19 - new Vector2(mouseX, mouseY), 0, 0))
+                    {
+                        vector19 -= vector20 * 15f;
+                    }
+                    int num46 = Projectile.NewProjectile(source, vector19.X, vector19.Y, mouseX, mouseY, type, damage, knockback, player.whoAmI);
+                    Main.projectile[num46].noDropItem = true;
+                }
+                return false;
+            }
+
             if (item.type == ItemID.Uzi)
             {
-                Vector2 perturbedSpeed = new Vector2(velocity.X, velocity.Y).RotatedByRandom(MathHelper.ToRadians(10));  
+                Vector2 perturbedSpeed = new Vector2(velocity.X, velocity.Y).RotatedByRandom(MathHelper.ToRadians(10) * player.GetModPlayer<RangedStats>().spreadModifier);
 
                 Projectile.NewProjectile(source, position.X, position.Y, perturbedSpeed.X, perturbedSpeed.Y, type, damage, knockback, player.whoAmI);
                 return false;
             }
- 
+            if (item.type == ItemID.ChlorophyteShotbow)
+            {
+                int num109 = 2;
+                if (Main.rand.NextBool(3))
+                {
+                    num109++;
+                }
+                for (int num110 = 0; num110 < num109; num110++)
+                {
+                    float num111 = velocity.X;
+                    float num112 =  velocity.Y;
+                    if (num110 > 0)
+                    {
+                        num111 += (float)Main.rand.Next(-35, 36) * 0.04f * player.GetModPlayer<RangedStats>().spreadModifier;
+                        num112 += (float)Main.rand.Next(-35, 36) * 0.04f * player.GetModPlayer<RangedStats>().spreadModifier;
+                    }
+                    if (num110 > 1)
+                    {
+                        num111 += (float)Main.rand.Next(-35, 36) * 0.04f * player.GetModPlayer<RangedStats>().spreadModifier;
+                        num112 += (float)Main.rand.Next(-35, 36) * 0.04f * player.GetModPlayer<RangedStats>().spreadModifier;
+                    }
+                    if (num110 > 2)
+                    {
+                        num111 += (float)Main.rand.Next(-35, 36) * 0.04f * player.GetModPlayer<RangedStats>().spreadModifier;
+                        num112 += (float)Main.rand.Next(-35, 36) * 0.04f * player.GetModPlayer<RangedStats>().spreadModifier; ;
+                    }
+                    Projectile.NewProjectile(source, position.X, position.Y, num111, num112, type, damage, knockback, player.whoAmI);
+                 }
+                return false;
+            }
+
             if (item.type == ItemID.DaedalusStormbow)
             {
-                float num4 = (float)Main.mouseX + Main.screenPosition.X - position.X;
-                float num5 = (float)Main.mouseY + Main.screenPosition.Y - position.Y; 
-                float num6 = (float)Math.Sqrt(num4 * num4 + num5 * num5);
-                float num7 = num6;
-                Vector2 vector6 = new Vector2(num4, num5);
+     
+                Vector2 vector6 = new Vector2(mouseX, mouseY);
                 vector6.X = (float)Main.mouseX + Main.screenPosition.X - position.X;
                 vector6.Y = (float)Main.mouseY + Main.screenPosition.Y - position.Y - 1000f;
                player.itemRotation = (float)Math.Atan2(vector6.Y * (float)player.direction, vector6.X * (float)player.direction);
@@ -217,27 +380,35 @@ namespace TRAEProject.Changes.Weapons
                 }
                 for (int k = 0; k < num13; k++)
                 {
-                    position = new Vector2(position.X + (float)player.width * 0.5f + (float)(Main.rand.Next(201) * -player.direction) + ((float)Main.mouseX + Main.screenPosition.X - position.X), player.MountedCenter.Y - 600f);
-                    position.X = (position.X * 10f + player.Center.X) / 11f + (float)Main.rand.Next(-100, 101);
-                    position.Y -= 150 * k;
-                    num4 = (float)Main.mouseX + Main.screenPosition.X - position.X;
-                    num5 = (float)Main.mouseY + Main.screenPosition.Y - position.Y;
-                    if (num5 < 0f)
+                    position = new Vector2(position.X + (float)player.width * 0.5f + (float)(Main.rand.Next(201) * -player.direction) + ((float)Main.mouseX + Main.screenPosition.X - position.X), player.MountedCenter.Y - 600f );
+                   
+                    position.X = (position.X * 10f + player.Center.X)  / 11f + (float)Main.rand.Next(-100, 101);
+                     position.Y -= 150 * k;
+                    mouseX = (float)Main.mouseX + Main.screenPosition.X - position.X;
+                    mouseY = (float)Main.mouseY + Main.screenPosition.Y - position.Y;
+                    if (mouseY < 0f)
                     {
-                        num5 *= -1f;
+                        mouseY *= -1f;
                     }
-                    if (num5 < 20f)
+                    if (mouseY < 20f)
                     {
-                        num5 = 20f;
+                        mouseY = 20f;
                     }
-                    num6 = (float)Math.Sqrt(num4 * num4 + num5 * num5);
+                    num6 = (float)Math.Sqrt(mouseX * mouseX + mouseY * mouseY);
                     num6 =  item.shootSpeed / num6;
-                    num4 *= num6;
-                    num5 *= num6;
-                    float num14 = num4 + (float)Main.rand.Next(-40, 41) * 0.03f;
-                    float speedY = num5 + (float)Main.rand.Next(-40, 41) * 0.03f;
-                    num14 *= (float)Main.rand.Next(75, 150) * 0.01f;
-                    position.X += Main.rand.Next(-50, 51);
+                    mouseX *= num6;
+                    mouseY *= num6;
+                    float num14 = mouseX + (float)Main.rand.Next(-40, 41) * 0.03f * player.GetModPlayer<RangedStats>().spreadModifier;
+
+                    if (player.GetModPlayer<RangedStats>().spreadModifier == 1)
+                    {
+                        num14 *= (float)Main.rand.Next(75, 150) * 0.01f;
+                    }
+                    else
+                        num14 = mouseX;
+                    float speedY = mouseY + (float)Main.rand.Next(-40, 41) * 0.03f * player.GetModPlayer<RangedStats>().spreadModifier;
+                    if (player.GetModPlayer<RangedStats>().spreadModifier == 1)
+                        position.X += Main.rand.Next(-50, 51);
                     int num15 = Projectile.NewProjectile(item.GetSource_FromThis(), position.X, position.Y, num14, speedY, type, damage, knockback, player.whoAmI);
                     Main.projectile[num15].noDropItem = true;
                 }

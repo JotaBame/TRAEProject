@@ -22,7 +22,7 @@ namespace TRAEProject.NewContent.NPCs.Echosphere.EchoLocator
             NPC.width = 22;
             NPC.height = 18;
             NPC.defense = 32;
-            NPC.lifeMax = 350;
+            NPC.lifeMax = 450;
             NPC.damage = 70;
             NPC.noGravity = true;
         }

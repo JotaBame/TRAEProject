@@ -4,6 +4,7 @@ using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
 using TRAEProject.Common;
+using TRAEProject.Common.ModPlayers;
 using static Terraria.ModLoader.ModContent;
 
 
@@ -44,7 +45,7 @@ namespace TRAEProject.NewContent.Items.Weapons.Ranged.Tribow
         public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
         {
             float numberProjectiles = 3; 
-            float rotation = MathHelper.ToRadians(3f);
+            float rotation = MathHelper.ToRadians(3f) * player.GetModPlayer<RangedStats>().spreadModifier;
             if (type == ProjectileID.WoodenArrowFriendly)
                 type = ProjectileType<Trirrow>();
             position += Vector2.Normalize(new Vector2(velocity.X, velocity.Y)) * 10f;
