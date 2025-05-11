@@ -24,6 +24,8 @@ namespace TRAEProject.NewContent.NPCs.Echosphere.EchoLocator
             NPC.defense = 32;
             NPC.lifeMax = 450;
             NPC.damage = 70;
+            NPC.DeathSound = SoundID.NPCDeath4;//bat/mouse death sound
+            NPC.HitSound = SoundID.NPCHit1;//common organic hit sound
             NPC.noGravity = true;
         }
         static int RegularStateDuration => 300;

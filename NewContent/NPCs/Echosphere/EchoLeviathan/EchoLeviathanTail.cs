@@ -16,7 +16,7 @@ namespace TRAEProject.NewContent.NPCs.Echosphere.EchoLeviathan
             NPC.defense = 34;
             NPC.damage = 70;
             NPC.width = NPC.height = 70;
-            NPC.HitSound = SoundID.DD2_BetsyHurt;
+            NPC.HitSound = SoundID.DD2_DrakinHurt;
             NPC.DeathSound = SoundID.NPCDeath1;
             NPC.knockBackResist = 0;
             NPC.noTileCollide = true;
@@ -31,13 +31,21 @@ namespace TRAEProject.NewContent.NPCs.Echosphere.EchoLeviathan
         {
             return false;
         }
-        public override void OnHitByItem(Player player, Item item, NPC.HitInfo hit, int damageDone)
-        {
-
-        }
         public override void OnHitByProjectile(Projectile projectile, NPC.HitInfo hit, int damageDone)
         {
-
+            EchoLeviathanHead.CopyProjIframesToOtherSegments(NPC.ai[0], NPC.whoAmI, projectile);
+        }
+        public override void OnHitByItem(Player player, Item item, NPC.HitInfo hit, int damageDone)
+        {
+            EchoLeviathanHead.CopyItemIframesToOtherSegments(NPC.ai[0], NPC.whoAmI, player.whoAmI);
+        }
+        public override bool? CanBeHitByItem(Player player, Item item)
+        {
+            return !EchoLeviathanHead.IsHeadImmuneToItem(NPC.ai[0], player.whoAmI);
+        }
+        public override bool? CanBeHitByProjectile(Projectile projectile)
+        {
+            return !EchoLeviathanHead.IsHeadImmuneToProj(NPC.ai[0], projectile);
         }
         public override void AI()
         {
@@ -54,7 +62,7 @@ namespace TRAEProject.NewContent.NPCs.Echosphere.EchoLeviathan
         public override bool PreDraw(SpriteBatch spriteBatch, Vector2 screenPos, Color drawColor)
         {
             Texture2D texture = TextureAssets.Npc[Type].Value;
-            if (NPC.Opacity != 1)
+            if (NPC.Opacity != 1 && EchoLeviathanHead.EchoLeviIsIdle(NPC.ai[0]))
             {
                 EchosphereHelper.SpectralDrawVerticalFlip(NPC, spriteBatch, screenPos, texture);
                 return false;
@@ -62,6 +70,13 @@ namespace TRAEProject.NewContent.NPCs.Echosphere.EchoLeviathan
             drawColor *= NPC.Opacity;
             Main.EntitySpriteDraw(texture, NPC.Center - screenPos, null, drawColor, NPC.rotation, texture.Size() / 2, NPC.scale, NPC.spriteDirection == -1 ? SpriteEffects.FlipVertically : SpriteEffects.None);
             return false;
+        }
+        public override void ModifyHoverBoundingBox(ref Rectangle boundingBox)
+        {
+            if (NPC.alpha >= 254)
+            {
+                boundingBox.X = -1000;//put it out of bounds of the map so it is never displayed
+            }
         }
     }
 }

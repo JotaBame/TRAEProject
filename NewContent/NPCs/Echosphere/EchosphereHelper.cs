@@ -34,13 +34,28 @@ namespace TRAEProject.NewContent.NPCs.Echosphere
             {
                 Player player = Main.player[i];
                 //readability!!!!!!!!!!!!!!!!!!!!!!!
-                if (!player.active || player.dead || Collision.SolidTiles(player.BottomLeft, player.width, 16) || target != -1 && player.DistanceSQ(NPC.Center) + player.aggro < Main.player[target].Distance(NPC.Center) + Main.player[target].aggro)
+                if (!player.active || player.dead || Collision.SolidTiles(player.BottomLeft, player.width, 16) || target != -1 && player.DistanceSQ(NPC.Center) + player.aggro < Main.player[target].DistanceSQ(NPC.Center) + Main.player[target].aggro)
                 {
                     continue;
                 }
                 target = i;
             }
             NPC.target = target;
+        }
+        public static int SearchForAirbornePlayers(Vector2 from)
+        {
+            int target = -1;
+            for (int i = 0; i < Main.maxPlayers; i++)
+            {
+                Player player = Main.player[i];
+                //readability!!!!!!!!!!!!!!!!!!!!!!!
+                if (!player.active || player.dead || Collision.SolidTiles(player.BottomLeft, player.width, 16) || target != -1 && player.DistanceSQ(from) + player.aggro < Main.player[target].DistanceSQ(from) + Main.player[target].aggro)
+                {
+                    continue;
+                }
+                target = i;
+            }
+            return target;
         }
         public static void SpectralDraw(SpriteBatch spriteBatch, float opacity, float scale, float rotation, Vector2 drawPos, Texture2D texture, SpriteEffects spriteDir, Rectangle? frame, Vector2 origin)
         {

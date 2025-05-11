@@ -12,6 +12,8 @@ namespace TRAEProject.NewContent.NPCs.Echosphere.EchoStalker
 {
     public class EchoStalker : ModNPC
     {
+        public static SoundStyle ShotSFXOld => new SoundStyle("TRAEProject/Assets/Sounds/SonicWave");//in case it is ever needed again
+        public static SoundStyle ShotSFX => new SoundStyle("TRAEProject/NewContent/NPCs/Echosphere/EchoStalker/EchoStalkerShot");
         static Asset<Texture2D> head;
         static Asset<Texture2D> hair;
         static Asset<Texture2D> jaw;
@@ -66,7 +68,7 @@ namespace TRAEProject.NewContent.NPCs.Echosphere.EchoStalker
             float numberOfShots = 2;
             if (NPC.ai[0] == 100)
             {
-                SoundEngine.PlaySound(new SoundStyle("TRAEProject/Assets/Sounds/SonicWave") with { MaxInstances = 0 }, NPC.Center);
+                SoundEngine.PlaySound(ShotSFX with { MaxInstances = 0 }, NPC.Center);
             }
             if (NPC.ai[0] >= 107 && (NPC.ai[0] - 107) % fireRate == 0 && NPC.ai[0] <= 107 + fireRate * numberOfShots)
             {
