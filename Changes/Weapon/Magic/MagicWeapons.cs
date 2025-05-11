@@ -67,7 +67,7 @@ namespace TRAEProject.Changes.Items
                 {
                     case ItemID.WandofSparking:
                     case ItemID.WandofFrosting:
-                        item.mana = 5; // up from 2
+                        item.mana = 10; // up from 2
                         return;
                     case ItemID.AmethystStaff:
                         item.damage = 21; // up from 14
@@ -127,9 +127,7 @@ namespace TRAEProject.Changes.Items
                         item.autoReuse = true;
                         return;
 
-                    case ItemID.MagicMissile:
-                        item.mana = 28; // up from 14
-                        return;
+               
                     case ItemID.SpaceGun:
                         item.damage = 22; // up from 17
                         item.mana = 9; // up from 6
@@ -410,7 +408,7 @@ namespace TRAEProject.Changes.Items
                 return;
             }
         }
-        public override void OnConsumeItem(Item item, Player player)
+         public override void OnConsumeItem(Item item, Player player)
         {
 
             switch (item.type)
@@ -455,7 +453,7 @@ namespace TRAEProject.Changes.Items
         {
             if (GetInstance<TRAEConfig>().ManaRework)
             {
-                Vector2 mousePosition = Main.screenPosition + new Vector2(Main.mouseX, Main.mouseY);
+                 Vector2 mousePosition = Main.screenPosition + new Vector2(Main.mouseX, Main.mouseY);
                 switch (item.type)
                 {
                     case ItemID.BeeGun:

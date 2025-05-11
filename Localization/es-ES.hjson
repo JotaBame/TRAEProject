@@ -273,6 +273,15 @@ Mods: {
 			// MirrorShot.DisplayName: Mirror Shot
 			// MirrorShotEvil.DisplayName: Mirror Shot Evil
 			// NeoShadowbeam.DisplayName: Neo Shadowbeam
+			// DreamEaterShot.DisplayName: Dream Eater Shot
+			// EchoLeviathanPortal.DisplayName: Echo Leviathan Portal
+			// EchoSpriteProj.DisplayName: Echo Sprite Proj
+			// EchoStalkerSonicWave.DisplayName: Echo Stalker Sonic Wave
+			// KinnaraFeather.DisplayName: Kinnara Feather
+			// Trirrow.DisplayName: Trirrow
+			// DreamEaterShot1.DisplayName: Dream Eater Shot1
+			// MeowmereAura1.DisplayName: Meowmere Aura1
+			// MeowmereAura.DisplayName: Meowmere Aura
 		}
 
 		Prefixes: {
@@ -1616,6 +1625,16 @@ Mods: {
 					Las Botas Cohete y las Alas se activan presionando ARRIBA en lugar de Salto
 					'''
 			}
+
+			DreamEater: {
+				// DisplayName: Dream Eater
+				// Tooltip: Bouncing fireballs that may inflict shadowflame
+			}
+
+			Tribow: {
+				// DisplayName: Tri-Bow
+				// Tooltip: Converts Wooden Arrows into special triple arrows
+			}
 		}
 
 		NPCs: {
@@ -1642,6 +1661,18 @@ Mods: {
 			PrimeRail.DisplayName: Riel Mayor
 			PrimeMace.DisplayName: Maza Mayor
 			PrimeLauncher.DisplayName: Lanzador Mayor
+			// EchoLeviathanBody1.DisplayName: Echo Leviathan Body1
+			// EchoLeviathanBody2.DisplayName: Echo Leviathan Body2
+			// EchoLeviathanBody3.DisplayName: Echo Leviathan Body3
+			// EchoLeviathanHead.DisplayName: Echo Leviathan Head
+			// EchoLeviathanTail.DisplayName: Echo Leviathan Tail
+			// EchoLocator.DisplayName: Echo Locator
+			// EchoSprite.DisplayName: Echo Sprite
+			// EchoStalker.DisplayName: Echo Stalker
+			// Gargoyle.DisplayName: Gargoyle
+			// GriffinFlier.DisplayName: Griffin Flier
+			// GriffinWalker.DisplayName: Griffin Walker
+			// Kinnara.DisplayName: Kinnara
 		}
 
 		Tiles: {

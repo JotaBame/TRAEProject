@@ -273,6 +273,15 @@ Mods: {
 			MirrorShot.DisplayName: Mirror Shot
 			MirrorShotEvil.DisplayName: Mirror Shot Evil
 			NeoShadowbeam.DisplayName: Neo Shadowbeam
+			DreamEaterShot.DisplayName: Dream Eater Shot
+			EchoLeviathanPortal.DisplayName: Echo Leviathan Portal
+			EchoSpriteProj.DisplayName: Echo Sprite Proj
+			EchoStalkerSonicWave.DisplayName: Echo Stalker Sonic Wave
+			KinnaraFeather.DisplayName: Kinnara Feather
+			Trirrow.DisplayName: Trirrow
+			DreamEaterShot1.DisplayName: Dream Eater Shot1
+			MeowmereAura1.DisplayName: Meowmere Aura1
+			MeowmereAura.DisplayName: Meowmere Aura
 		}
 
 		Prefixes: {
@@ -795,7 +804,7 @@ Mods: {
 				DisplayName: Tribal Beetle
 				Tooltip:
 					'''
-					Increases your maximum number of minions and sentries by 1
+					Increases your max number of minions and sentries by 1
 					Increased summon knockback
 					'''
 			}
@@ -853,7 +862,7 @@ Mods: {
 
 			ChlorophyteHood: {
 				DisplayName: Chlorophyte Hood
-				Tooltip: Increases your maximum number of minions by 2
+				Tooltip: Increases your max number of minions by 2
 			}
 
 			IceMajestyBreastplate: {
@@ -869,7 +878,7 @@ Mods: {
 				DisplayName: Glacial Crown
 				Tooltip:
 					'''
-					Increases your maximum number of minions by 1
+					Increases your max number of minions by 1
 					20% increased whip speed
 					'''
 			}
@@ -937,7 +946,7 @@ Mods: {
 				Tooltip:
 					'''
 					11% increased ranged and summon damage
-					Increased your maximum number of minions by 1
+					Increased your max number of minions by 1
 					'''
 			}
 
@@ -946,7 +955,7 @@ Mods: {
 				Tooltip:
 					'''
 					11% increased melee and summon damage
-					Increased your maximum number of minions by 1
+					Increased your max number of minions by 1
 					'''
 			}
 
@@ -993,7 +1002,7 @@ Mods: {
 				Tooltip:
 					'''
 					11% increased magic and summon damage
-					Increased your maximum number of minions by 1
+					Increased your max number of minions by 1
 					'''
 			}
 
@@ -1061,7 +1070,7 @@ Mods: {
 					12% increased melee speed
 					12% increased ranged critical strike damage
 					12% increased mana regeneration
-					Increases your maximum number of minions by 1
+					Increases your max number of minions by 1
 					'''
 			}
 
@@ -1635,6 +1644,16 @@ Mods: {
 
 					'''
 			}
+
+			DreamEater: {
+				DisplayName: Dream Eater
+				Tooltip: Bouncing fireballs that may inflict shadowflame
+			}
+
+			Tribow: {
+				DisplayName: Tri-Bow
+				Tooltip: Converts Wooden Arrows into special triple arrows
+			}
 		}
 
 		NPCs: {
@@ -1661,6 +1680,18 @@ Mods: {
 			PrimeRail.DisplayName: Prime Rail
 			PrimeMace.DisplayName: Prime Mace
 			PrimeLauncher.DisplayName: Prime Launcher
+			EchoLeviathanBody1.DisplayName: Echo Leviathan Body1
+			EchoLeviathanBody2.DisplayName: Echo Leviathan Body2
+			EchoLeviathanBody3.DisplayName: Echo Leviathan Body3
+			EchoLeviathanHead.DisplayName: Echo Leviathan Head
+			EchoLeviathanTail.DisplayName: Echo Leviathan Tail
+			EchoLocator.DisplayName: Echo Locator
+			EchoSprite.DisplayName: Echo Sprite
+			EchoStalker.DisplayName: Echo Stalker
+			Gargoyle.DisplayName: Gargoyle
+			GriffinFlier.DisplayName: Griffin Flier
+			GriffinWalker.DisplayName: Griffin Walker
+			Kinnara.DisplayName: Kinnara
 		}
 
 		Tiles: {

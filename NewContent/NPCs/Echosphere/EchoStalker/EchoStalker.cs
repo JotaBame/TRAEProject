@@ -35,10 +35,11 @@ namespace TRAEProject.NewContent.NPCs.Echosphere.EchoStalker
             NPC.friendly = false;
             NPC.noGravity = true;
             NPC.noTileCollide = true;
-            NPC.Size = new(36);
-            NPC.lifeMax = 1250;
-            NPC.defense = 10;
-            NPC.damage = 50;
+            NPC.Size = new(50);
+            NPC.scale = 1.2f;
+            NPC.lifeMax = 1500;
+            NPC.defense = 15;
+            NPC.damage = 70;
             NPC.knockBackResist = 0;
         }
         public override void AI()
@@ -63,7 +64,7 @@ namespace TRAEProject.NewContent.NPCs.Echosphere.EchoStalker
 
             NPC.rotation = NPC.velocity.ToRotation();
             NPC.spriteDirection = MathF.Sign(NPC.velocity.X);
-            float fireRate = 15;
+            float fireRate = 10;
             float numberOfShots = 2;
             if (NPC.ai[0] == 100)
             {
@@ -71,8 +72,8 @@ namespace TRAEProject.NewContent.NPCs.Echosphere.EchoStalker
             }
             if (NPC.ai[0] >= 107 && (NPC.ai[0] - 107) % fireRate == 0 && NPC.ai[0] <= 107 + fireRate * numberOfShots)
             {
-                Vector2 projVel = NPC.DirectionTo(Main.player[NPC.target].Center) * 8;
-                Projectile.NewProjectile(NPC.GetSource_FromAI(), MouthCenter, projVel, ModContent.ProjectileType<EchoStalkerSonicWave>(), 65 / 2, 0, Main.myPlayer, .6f);
+                Vector2 projVel = NPC.DirectionTo(Main.player[NPC.target].Center) * 18;
+                Projectile.NewProjectile(NPC.GetSource_FromAI(), MouthCenter, projVel, ModContent.ProjectileType<EchoStalkerSonicWave>(), 65, 0, Main.myPlayer, .6f);
                 for (float i = 0; i < 1; i += 1f / 40f)
                 {
                     Vector2 vel = (i * MathF.Tau).ToRotationVector2();
@@ -84,7 +85,7 @@ namespace TRAEProject.NewContent.NPCs.Echosphere.EchoStalker
             }
             if (NPC.ai[0] <= 107 && NPC.ai[0] > 50)
             {
-                float dustRange = EaseInOut(Utils.GetLerpValue(50, 65, NPC.ai[0], true)) * 20;
+                float dustRange = EaseInOut(Utils.GetLerpValue(50, 65, NPC.ai[0], true)) * 12;
                 Vector2 posOffset = Vector2.UnitX * dustRange * Main.rand.NextFloat() - new Vector2(9, 0);
                 posOffset = posOffset.RotatedBy(NPC.rotation + NPC.spriteDirection * 0.17f);
                 Dust.NewDustPerfect(NPC.Center + new Vector2(0, 4) + posOffset, DustID.CorruptTorch, Main.rand.NextVector2Circular(1, 1));
@@ -108,7 +109,7 @@ namespace TRAEProject.NewContent.NPCs.Echosphere.EchoStalker
         void Movement(Player player)
         {
 
-            float topSpeed = 5;
+            float topSpeed = 8;
             float acceleration = 0.3f;
             if (NPC.ai[0] >= 100 && NPC.ai[0] < 140)
             {

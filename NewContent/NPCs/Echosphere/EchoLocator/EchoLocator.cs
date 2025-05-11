@@ -22,14 +22,14 @@ namespace TRAEProject.NewContent.NPCs.Echosphere.EchoLocator
             NPC.width = 22;
             NPC.height = 18;
             NPC.defense = 32;
-            NPC.lifeMax = 250;
+            NPC.lifeMax = 450;
             NPC.damage = 70;
             NPC.DeathSound = SoundID.NPCDeath4;//bat/mouse death sound
             NPC.HitSound = SoundID.NPCHit1;//common organic hit sound
             NPC.noGravity = true;
         }
-        static int RegularStateDuration => 500;
-        static int FastStateDuration => 200;
+        static int RegularStateDuration => 300;
+        static int FastStateDuration => 300;
         bool FastState => NPC.ai[0] % (RegularStateDuration + FastStateDuration) >= RegularStateDuration;
         bool JustEnteredFastState => NPC.ai[0] % (RegularStateDuration + FastStateDuration) == RegularStateDuration;
         Vector2 IdlePosition
@@ -44,7 +44,7 @@ namespace TRAEProject.NewContent.NPCs.Echosphere.EchoLocator
         bool JustStartedIdling { get => NPC.localAI[0] == 1; set => NPC.localAI[0] = value ? 1 : 0; }
         public override void AI()
         {
-            float maxSpeedX = 4;
+            float maxSpeedX = 5;
             float accelerationX = 0.1f;
             float maxSpeedY = 1.5f;
             float accelerationY = 0.04f;

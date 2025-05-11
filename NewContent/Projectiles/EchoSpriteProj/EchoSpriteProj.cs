@@ -14,12 +14,13 @@ namespace TRAEProject.NewContent.Projectiles.EchoSpriteProj
         public override string Texture => "Terraria/Images/Item_0";
         public override void SetDefaults()
         {
-            Projectile.extraUpdates = 1;
+            Projectile.extraUpdates = 2;
             Projectile.hostile = true;
             Projectile.width = Projectile.height = 24;
             Projectile.ignoreWater = true;
             Projectile.tileCollide = true;
         }
+ 
         public override void AI()
         {
             Projectile.localAI[0] += .1f;

@@ -540,7 +540,7 @@ namespace TRAEProject.Changes.Projectiles
                         for (int num81 = 0; num81 < projCount; num81++)
                         {
                             Vector2 vector36 = Vector2.Normalize(projectile.velocity) * speed4;
-                            vector36 += Main.rand.NextVector2Square(0f - num79, num79);
+                            vector36 += Main.rand.NextVector2Square(0f - num79 * player.GetModPlayer<RangedStats>().spreadModifier, num79 * player.GetModPlayer<RangedStats>().spreadModifier);
                             if (float.IsNaN(vector36.X) || float.IsNaN(vector36.Y))
                             {
                                 vector36 = -Vector2.UnitY;
@@ -585,38 +585,198 @@ namespace TRAEProject.Changes.Projectiles
 
                 return false;
             }
-            /*if (projectile.type == 615)
-            {
-                timer++;
-                //determine fire rate
-                if (timer % fireRate == 0)
-                {
-                    projectile.ai[1] = -1; //forces VBeater to fire
-                }
-                else
-                {
-                    projectile.ai[1] = 3; //forces VBeater to not fire
-                }
-                projectile.ai[0] = 5; //forces VBeater not to fire a rocket
-                if ((timer / fireRate) % bulletsPerRocket == 0)
-                {
-                    projectile.ai[0] = -1; //forces VBeater to fire a rocket
-                }
 
-                //this code preserves the buildup animation
-                if (timer >= 40f)
+            // VBEATER PROJECTILE CODE
+            if (projectile.type == 615)
+            {
+                Vector2 vector = player.RotatedRelativePoint(player.MountedCenter);
+
+                float num = 0f;
+                if (projectile.spriteDirection == -1)
                 {
-                    projectile.ai[0] += 35 * 2;
+                    num = (float)Math.PI;
                 }
-                if (timer >= 80f)
+                projectile.ai[0] += 1f;
+                int num52 = 0;
+                if (projectile.ai[0] >= 40f)
                 {
-                    projectile.ai[0] += 35;
+                    num52++;
                 }
-                if (timer >= 120f)
+                if (projectile.ai[0] >= 80f)
                 {
-                    projectile.ai[0] += 35;
+                    num52++;
                 }
-            } */
+                if (projectile.ai[0] >= 120f)
+                {
+                    num52++;
+                }
+                int num53 = 5;
+                int num54 = 0;
+                projectile.ai[1] -= 1f;
+                bool flag11 = false;
+                int num55 = -1;
+                if (projectile.ai[1] <= 0f)
+                {
+                    projectile.ai[1] = num53 - num54 * num52;
+                    flag11 = true;
+                    int num56 = (int)projectile.ai[0] / (num53 - num54 * num52);
+                    if (num56 % 7 == 0)
+                    {
+                        num55 = 0;
+                    }
+                }
+                projectile.frameCounter += 1 + num52;
+                if (projectile.frameCounter >= 4)
+                {
+                    projectile.frameCounter = 0;
+                    projectile.frame++;
+                    if (projectile.frame >= Main.projFrames[projectile.type])
+                    {
+                        projectile.frame = 0;
+                    }
+                }
+                if (projectile.soundDelay <= 0)
+                {
+                    projectile.soundDelay = num53 - num54 * num52;
+                    if (projectile.ai[0] != 1f)
+                    {
+                        SoundEngine.PlaySound(SoundID.Item36, projectile.position);
+                    }
+                }
+                if (flag11 && Main.myPlayer == projectile.owner)
+                {
+                    bool canShoot = player.channel && player.HasAmmo(player.inventory[player.selectedItem]) && !player.noItems && !player.CCed;
+                    int projToShoot = 14;
+                    float speed = 14f;
+                    int Damage = player.GetWeaponDamage(player.inventory[player.selectedItem]);
+                    float KnockBack = player.inventory[player.selectedItem].knockBack;
+                    if (canShoot)
+                    {
+                        bool HasAmmo = player.PickAmmo(player.inventory[player.selectedItem], out projToShoot, out speed, out Damage, out KnockBack, out var usedAmmoItemId);
+
+                         IEntitySource projectileSource_Item_WithPotentialAmmo = player.GetSource_ItemUse_WithPotentialAmmo(player.HeldItem, usedAmmoItemId);
+                        KnockBack = player.GetWeaponKnockback(player.inventory[player.selectedItem], KnockBack);
+                        float num57 = player.inventory[player.selectedItem].shootSpeed * projectile.scale;
+                        Vector2 vector25 = vector;
+                        Vector2 value9 = Main.screenPosition + new Vector2(Main.mouseX, Main.mouseY) - vector25;
+                        if (player.gravDir == -1f)
+                        {
+                            value9.Y = (float)(Main.screenHeight - Main.mouseY) + Main.screenPosition.Y - vector25.Y;
+                        }
+                        Vector2 spinningpoint6 = Vector2.Normalize(value9);
+                        if (float.IsNaN(spinningpoint6.X) || float.IsNaN(spinningpoint6.Y))
+                        {
+                            spinningpoint6 = -Vector2.UnitY;
+                        }
+                        spinningpoint6 *= num57;
+                        spinningpoint6 = spinningpoint6.RotatedBy(Main.rand.NextDouble() * 0.13089969754219055 * player.GetModPlayer<RangedStats>().spreadModifier - 0.06544984877109528 * player.GetModPlayer<RangedStats>().spreadModifier) ;
+                        if (spinningpoint6.X != projectile.velocity.X || spinningpoint6.Y != projectile.velocity.Y)
+                        {
+                            projectile.netUpdate = true;
+                        }
+                        projectile.velocity = spinningpoint6;
+                        for (int n = 0; n < 1; n++)
+                        {
+                            Vector2 spinningpoint7 = Vector2.Normalize(projectile.velocity) * speed;
+                            spinningpoint7 = spinningpoint7.RotatedBy(Main.rand.NextDouble() * 0.19634954631328583 * player.GetModPlayer<RangedStats>().spreadModifier - 0.09817477315664291 * player.GetModPlayer<RangedStats>().spreadModifier) ;
+                            if (float.IsNaN(spinningpoint7.X) || float.IsNaN(spinningpoint7.Y))
+                            {
+                                spinningpoint7 = -Vector2.UnitY;
+                            }
+                            Projectile.NewProjectile(projectileSource_Item_WithPotentialAmmo, vector25.X, vector25.Y, spinningpoint7.X, spinningpoint7.Y, projToShoot, Damage, KnockBack, projectile.owner);
+                        }
+                        if (num55 == 0)
+                        {
+                            projToShoot = 616;
+                            speed = 8f;
+                            for (int num58 = 0; num58 < 1; num58++)
+                            {
+                                Vector2 spinningpoint8 = Vector2.Normalize(projectile.velocity) * speed;
+                                spinningpoint8 = spinningpoint8.RotatedBy(Main.rand.NextDouble() * 0.39269909262657166 - 0.19634954631328583);
+                                if (float.IsNaN(spinningpoint8.X) || float.IsNaN(spinningpoint8.Y))
+                                {
+                                    spinningpoint8 = -Vector2.UnitY;
+                                }
+                                Projectile.NewProjectile(projectileSource_Item_WithPotentialAmmo, vector25.X, vector25.Y, spinningpoint8.X, spinningpoint8.Y, projToShoot, Damage + 20, KnockBack * 1.25f, projectile.owner);
+                            }
+                        }
+                    }
+                    else
+                    {
+                        projectile.Kill();
+                    }
+                }
+                projectile.position = player.RotatedRelativePoint(player.MountedCenter, reverseRotation: false, addGfxOffY: false) - projectile.Size / 2f;
+                projectile.rotation = projectile.velocity.ToRotation() + num;
+                projectile.spriteDirection = projectile.direction;
+                projectile.timeLeft = 2;
+                player.ChangeDir(projectile.direction);
+                player.heldProj = projectile.whoAmI;
+                int num2 = 2;
+                float num3 = 0f;
+                player.SetDummyItemTime(num2);
+                player.itemRotation = MathHelper.WrapAngle((float)Math.Atan2(projectile.velocity.Y * (float)projectile.direction, projectile.velocity.X * (float)projectile.direction) + num3);
+                return false;
+            }
+            if (projectile.type == 615)
+            {
+                projectile.position.Y += player.gravDir * 2f;
+            }
+
+
+
+
+            if (projectile.type == 479 && Main.myPlayer == projectile.owner)
+            {
+                projectile.alpha = 0;
+             projectile.rotation = projectile.velocity.ToRotation() + MathHelper.ToRadians(90f);
+
+                if (projectile.ai[1] >= 0f)
+                {
+                    projectile.maxPenetrate = (projectile.penetrate = -1);
+                }
+                else if (projectile.penetrate < 0)
+                {
+                    projectile.maxPenetrate = (projectile.penetrate = 1);
+                }
+                if (projectile.ai[1] >= 0f)
+                {
+                    projectile.ai[1] += 1f;
+                }
+                if (projectile.ai[1] > (float)Main.rand.Next(5, 30))
+                {
+                    projectile.ai[1] = -1000f;
+                    float num227 = projectile.velocity.Length();
+                    Vector2 vector33 = projectile.velocity;
+                    vector33.Normalize();
+                    int num228 = Main.rand.Next(2, 4);
+                    if (Main.rand.NextBool(4))
+                    {
+                        num228++;
+                    }
+                    for (int num229 = 0; num229 < num228; num229++)
+                    {
+                        Vector2 vector34 = new Vector2(Main.rand.Next(-100, 101), Main.rand.Next(-100, 101));
+                        vector34.Normalize();
+                        vector34 += vector33 * 2f ;
+                        vector34.Normalize();
+                        vector34 *= num227;
+                       Projectile.NewProjectile(player.GetSource_FromThis(), projectile.Center.X, projectile.Center.Y, vector34.X, vector34.Y * player.GetModPlayer<RangedStats>().spreadModifier, projectile.type, (int)((float)projectile.damage * 0.9f), projectile.knockBack, projectile.owner, 0f, -1000f);
+                        Vector2 zero2 = Vector2.Zero;
+                        Dust dust40;
+                        for (int num230 = 0; num230 < 4; num230++)
+                        {
+                            zero2 = vector34 * (0.4f + (float)num230 * 0.075f);
+                            dust40 = Main.dust[Dust.NewDust(projectile.Center + zero2 * 1.5f, 2, 2, 170, zero2.X, zero2.Y)];
+                            dust40.noGravity = true;
+                        }
+                        zero2 = vector34 * 0.2f;
+                        dust40 = Main.dust[Dust.NewDust(projectile.Center, 2, 2, 170, 0f - zero2.X, 0f - zero2.Y)];
+                        dust40.noGravity = true;
+                    }
+                }
+                return false;
+            }
             return true;
         }
         public override bool? CanHitNPC(Projectile projectile, NPC target)

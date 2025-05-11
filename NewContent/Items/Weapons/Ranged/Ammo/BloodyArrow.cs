@@ -98,7 +98,7 @@ namespace TRAEProject.NewContent.Items.Weapons.Ranged.Ammo
         {
             Projectile.rotation = Projectile.velocity.ToRotation() + MathHelper.ToRadians(90f);
             Projectile.localAI[0]++;
-            if (Projectile.localAI[0] % 4 == 0)
+            if (Projectile.localAI[0] % 2 == 0)
             {
                 int dust = Dust.NewDust(Projectile.position, 1, 1, DustID.Blood, Projectile.velocity.X, Projectile.velocity.Y, 0, default, 1f);
                 Main.dust[dust].velocity *= 0.2f;

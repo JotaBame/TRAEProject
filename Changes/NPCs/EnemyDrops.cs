@@ -6,8 +6,9 @@ using System;
 using System.Linq;
 using static Terraria.ModLoader.ModContent;
 using Terraria.GameContent.ItemDropRules;
-using TRAEProject.NewContent.Items.Weapons.Ranged.Jungla;
 using TRAEProject.NewContent.Items.Materials;
+using TRAEProject.NewContent.Items.Weapons.Ranged.Jungla;
+
 using TRAEProject.NewContent.Items.Accesories.ShadowflameCharm;
 using TRAEProject.NewContent.Items.Accesories.MechanicalEye;
 using TRAEProject.NewContent.Items.Weapons.Ranged.Ammo;

@@ -52,9 +52,10 @@ namespace TRAEProject.NewContent.NPCs.Echosphere.EchoLeviathan
         public override void SetDefaults()
         {
             NPC.noGravity = true;
-            NPC.lifeMax = 18000;
-            NPC.defense = 25;
+            NPC.lifeMax = 30000;
+            NPC.defense = 45;
             NPC.damage = 120;
+            NPC.scale = 1.1f;
             NPC.width = NPC.height = 70;
             NPC.HitSound = SoundID.DD2_DrakinHurt;
             NPC.DeathSound = SoundID.NPCDeath1;
@@ -173,7 +174,7 @@ namespace TRAEProject.NewContent.NPCs.Echosphere.EchoLeviathan
             NPC.dontTakeDamage = NPC.Opacity < .6f;
         }
         static int SonicWaveStartTime => 30;
-        static int SonicWaveFireRate => 10;
+        static int SonicWaveFireRate => 15;
         static int SonicWaveNumShots => 3;
         static int SonicWaveExtraWait => 50;
         static int SonicWaveStateDuration => SonicWaveStartTime + SonicWaveFireRate * SonicWaveNumShots + SonicWaveExtraWait;
@@ -197,7 +198,7 @@ namespace TRAEProject.NewContent.NPCs.Echosphere.EchoLeviathan
                 if (Main.netMode != NetmodeID.MultiplayerClient)
                 {
                     float shootAngle = NPC.velocity.ToRotation().AngleLerp((player.Center - NPC.Center).ToRotation(), .5f);
-                    Projectile.NewProjectile(NPC.GetSource_FromAI(), NPC.Center, shootAngle.ToRotationVector2() * 10, ModContent.ProjectileType<EchoStalkerSonicWave>(), 75 / 2, 0, Main.myPlayer, 1);
+                    Projectile.NewProjectile(NPC.GetSource_FromAI(), NPC.Center, shootAngle.ToRotationVector2() * 12, ModContent.ProjectileType<EchoStalkerSonicWave>(), 75 / 2, 0, Main.myPlayer, 1);
                 }
             }
             if (Timer > start + fireRate * numShots + extraWait)
@@ -359,7 +360,7 @@ namespace TRAEProject.NewContent.NPCs.Echosphere.EchoLeviathan
             NPC.spriteDirection = MathF.Sign(NPC.velocity.X);
             SetSegmentPositionRotationSpriteDirectionAndOpacity();
 
-            if (Timer >= 460)
+            if (Timer >= 300)
             {
                 OpacityCutoffFromBehind = 9999;
                 OpacityCutoffFromFront = 9999;

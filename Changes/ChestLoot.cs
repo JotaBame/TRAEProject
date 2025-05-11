@@ -21,7 +21,7 @@ public class ChestLoot : ModSystem
         GoldChestItems = new int[] { ItemID.Mace, ItemID.MagicMirror, ItemID.HermesBoots, ItemID.BandofRegeneration, ItemID.ShoeSpikes, ItemID.LuckyHorseshoe, ItemID.Extractinator, ItemID.FlintlockPistol, ItemType<MagicGrenade>(), ItemID.LavaCharm };
         PyramidItems = new int[] { ItemID.SandstorminaBottle, ItemID.FlyingCarpet, ItemID.AnkhCharm, ItemID.AncientChisel, ItemID.SandBoots, ItemID.ThunderSpear, ItemID.ThunderStaff, ItemID.CatBast, ItemID.MagicConch };
         ShadowItems = new int[] { ItemID.HellwingBow, ItemID.Flamelash, ItemID.FlowerofFire, ItemID.Sunfury, ItemType<PalladiumShield>(), ItemID.GravityGlobe };
-        DungeonItems = new int[] { ItemID.Muramasa, ItemID.CobaltShield, ItemID.AquaScepter, ItemID.Handgun, ItemID.BlueMoon, ItemID.Valor };
+        DungeonItems = new int[] { ItemID.Muramasa, ItemID.CobaltShield, ItemID.AquaScepter, ItemID.Handgun, ItemID.BlueMoon, ItemID.Valor, ItemID.MagicMissile };
     }
     public override void PostWorldGen()
     {
@@ -109,10 +109,7 @@ public class ChestLoot : ModSystem
 
                 }
 
-                if (chest.item[0].type == ItemID.MagicMissile)
-                {
-                    chest.item[0].SetDefaults(Main.rand.Next(DungeonItems), false);
-                }
+      
 
                 if (chest.item[0].type == ItemID.Muramasa || chest.item[0].type == ItemID.CobaltShield || chest.item[0].type == ItemID.AquaScepter || chest.item[0].type == ItemID.Handgun || chest.item[0].type == ItemID.BlueMoon || chest.item[0].type == ItemID.Valor)
                 {
