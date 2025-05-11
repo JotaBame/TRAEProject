@@ -14,11 +14,10 @@ using TRAEProject.NewContent.Projectiles.EchoLeviathanPortal;
 
 namespace TRAEProject.NewContent.NPCs.Echosphere.EchoLeviathan
 {
-    /// <summary>
-    /// UNFINISHED!!
-    /// </summary>
     internal class EchoLeviathanHead : ModNPC
     {
+        public static SoundStyle ShotSFXOld => new SoundStyle("TRAEProject/Assets/Sounds/SonicWave") with { Pitch = -0.5f, MaxInstances = 0 };//in case it is ever needed again
+        public static SoundStyle ShotSFX => new("TRAEProject/NewContent/NPCs/Echosphere/EchoLeviathan/EchoLeviathanShot");
         enum AIState
         {
             Spawning = 0,
@@ -36,7 +35,7 @@ namespace TRAEProject.NewContent.NPCs.Echosphere.EchoLeviathan
         ref float SpawnTimer => ref NPC.localAI[0];
         Vector2 PortalPos
         {
-            get => new Vector2(NPC.ai[3], NPC.ai[2]); //this MUST be synced!!
+            get => new(NPC.ai[3], NPC.ai[2]); //this MUST be synced!!
             set
             {
                 NPC.ai[3] = value.X;
@@ -57,14 +56,13 @@ namespace TRAEProject.NewContent.NPCs.Echosphere.EchoLeviathan
             NPC.defense = 25;
             NPC.damage = 120;
             NPC.width = NPC.height = 70;
-            NPC.HitSound = SoundID.DD2_BetsyHurt;
+            NPC.HitSound = SoundID.DD2_DrakinHurt;
             NPC.DeathSound = SoundID.NPCDeath1;
             NPC.knockBackResist = 0;
             NPC.noTileCollide = true;
             NPC.alpha = 255;
         }
-
-        //REMEMBER, ONSPAWN IS ONLY CALLED ON SIDE THAT SPAWNED THE NPC
+        //REMEMBER, ONSPAWN IS ONLY CALLED SERVER SIDE
         public override void OnSpawn(IEntitySource source)
         {
 
@@ -97,6 +95,22 @@ namespace TRAEProject.NewContent.NPCs.Echosphere.EchoLeviathan
             }
             SpawnPortal(NPC.Center, 200);
         }
+
+
+        public static bool EchoLeviIsIdle(float leviWhoAmI)
+        {
+            int index = (int)leviWhoAmI;
+            if (index < 0 || index >= Main.maxNPCs)
+            {
+                return false;
+            }
+            NPC leviNPC = Main.npc[index];
+            if (leviNPC.ModNPC is EchoLeviathanHead head)
+            {
+                return head.State == AIState.Idle;
+            }
+            return false;
+        }
         public override bool PreAI()
         {
             if (SpawnTimer++ < 100)
@@ -108,7 +122,10 @@ namespace TRAEProject.NewContent.NPCs.Echosphere.EchoLeviathan
         }
         public override void AI()
         {
-            EchosphereHelper.SearchForAirbornePlayers(NPC);
+            if (State != AIState.SonicWave)
+            {
+                EchosphereHelper.SearchForAirbornePlayers(NPC);
+            }
             if (State == AIState.Spawning)
             {
                 State_Spawning();
@@ -155,22 +172,27 @@ namespace TRAEProject.NewContent.NPCs.Echosphere.EchoLeviathan
             }
             NPC.dontTakeDamage = NPC.Opacity < .6f;
         }
-
+        static int SonicWaveStartTime => 30;
+        static int SonicWaveFireRate => 10;
+        static int SonicWaveNumShots => 3;
+        static int SonicWaveExtraWait => 50;
+        static int SonicWaveStateDuration => SonicWaveStartTime + SonicWaveFireRate * SonicWaveNumShots + SonicWaveExtraWait;
         void State_SonicWave()
         {
             Timer++;
-            int start = 30;
-            int fireRate = 10;
-            int numShots = 3;
-            int extraWait = 50;
+            int start = SonicWaveStartTime;
+            int fireRate = SonicWaveFireRate;
+            int numShots = SonicWaveNumShots;
+            int extraWait = SonicWaveExtraWait;
             Player player = Main.player[NPC.target];
             float moveSpeed = Timer >= start && Timer < start + fireRate * numShots ? 4 : 7;
+
             NPC.velocity = Vector2.Lerp(NPC.velocity, NPC.DirectionTo(player.Center) * moveSpeed, 0.1f);
             if (Timer >= start && (Timer - start) % fireRate == 0 && Timer < start + fireRate * numShots)
             {
                 if (Timer == start)
                 {
-                    SoundEngine.PlaySound(new SoundStyle("TRAEProject/Assets/Sounds/SonicWave") with { MaxInstances = 0, Pitch = -.5f }, NPC.Center);
+                    SoundEngine.PlaySound(ShotSFX with { MaxInstances = 0 }, NPC.Center);
                 }
                 if (Main.netMode != NetmodeID.MultiplayerClient)
                 {
@@ -264,7 +286,7 @@ namespace TRAEProject.NewContent.NPCs.Echosphere.EchoLeviathan
                 OpacityCutoffFromFront = SegmentWidths.Sum();
                 OpacityCutoffFromBehind = 0;
             }
-            NPC.Opacity -= NPC.velocity.Length() * 2;
+            NPC.Opacity -= NPC.velocity.Length();
             if (NPC.Opacity == 0)
             {
                 OpacityCutoffFromFront -= NPC.velocity.Length();
@@ -355,7 +377,7 @@ namespace TRAEProject.NewContent.NPCs.Echosphere.EchoLeviathan
         }
         int ClosestPlayerConsiderAggro()
         {
-            int target = -1;
+            int target = Main.maxPlayers;
             for (int i = 0; i < Main.maxPlayers; i++)
             {
                 Player player = Main.player[i];
@@ -413,7 +435,7 @@ namespace TRAEProject.NewContent.NPCs.Echosphere.EchoLeviathan
                 segments[i].spriteDirection = spriteDir;
                 segments[i].rotation = rotation - MathF.PI / 2;
 
-                float fadeDuration = 30;
+                float fadeDuration = segmentWidth - 8;
                 float behindOpacity = Utils.GetLerpValue(lengthAcross, lengthAcross + fadeDuration, OpacityCutoffFromBehind, true);
                 float frontOpacity = Utils.GetLerpValue(lengthAcross, lengthAcross - fadeDuration, maxLength - OpacityCutoffFromFront - segmentWidths[0], true);
                 segments[i].Opacity = behindOpacity * frontOpacity;
@@ -463,22 +485,132 @@ namespace TRAEProject.NewContent.NPCs.Echosphere.EchoLeviathan
         }
         public override bool PreDraw(SpriteBatch spriteBatch, Vector2 screenPos, Color drawColor)
         {
-            Texture2D texture = TextureAssets.Npc[Type].Value;
-            if (NPC.Opacity != 1)
+            Texture2D texture = ModContent.Request<Texture2D>("TRAEProject/NewContent/NPCs/Echosphere/EchoLeviathan/EchoLeviathanJaw").Value;
+            if (NPC.Opacity != 1 && State == AIState.Idle)
             {
                 SpectralDrawVerticalFlip(NPC, spriteBatch, screenPos, texture);
-                texture = ModContent.Request<Texture2D>("TRAEProject/NewContent/NPCs/Echosphere/EchoLeviathan/EchoLeviathanJaw").Value;
+                texture = TextureAssets.Npc[Type].Value;
                 SpectralDrawVerticalFlip(NPC, spriteBatch, screenPos, texture);
 
             }
             else
             {
                 drawColor *= NPC.Opacity;
-                Main.EntitySpriteDraw(texture, NPC.Center - screenPos, null, drawColor, NPC.rotation, texture.Size() / 2, NPC.scale, NPC.spriteDirection == -1 ? SpriteEffects.FlipVertically : SpriteEffects.None);
-                texture = ModContent.Request<Texture2D>("TRAEProject/NewContent/NPCs/Echosphere/EchoLeviathan/EchoLeviathanJaw").Value;
-                Main.EntitySpriteDraw(texture, NPC.Center - screenPos, null, drawColor, NPC.rotation, texture.Size() / 2, NPC.scale, NPC.spriteDirection == -1 ? SpriteEffects.FlipVertically : SpriteEffects.None);
+                Vector2 origin = texture.Size() / 2;
+                GetHeadRotationOffset(out float headRot, out float jawRot, out Vector2 jawOffset, out Vector2 headOffset, origin);
+                Vector2 offset = (NPC.rotation - MathF.PI * 0.5f * NPC.spriteDirection).ToRotationVector2() * 6;
+                Main.EntitySpriteDraw(texture, NPC.Center - screenPos + offset + jawOffset, null, drawColor, NPC.rotation + headRot, origin, NPC.scale, NPC.spriteDirection == -1 ? SpriteEffects.FlipVertically : SpriteEffects.None);
+                texture = TextureAssets.Npc[Type].Value;
+                Main.EntitySpriteDraw(texture, NPC.Center - screenPos + offset + headOffset, null, drawColor, NPC.rotation + jawRot, origin, NPC.scale, NPC.spriteDirection == -1 ? SpriteEffects.FlipVertically : SpriteEffects.None);
             }
             return false;
+        }
+        void GetHeadRotationOffset(out float headRot, out float jawRot, out Vector2 jawOffset, out Vector2 headOffset, Vector2 origin)
+        {
+            Texture2D texture = TextureAssets.Npc[Type].Value;
+
+            Vector2 pivot = new(24, 50);
+            if (NPC.spriteDirection == -1)
+            {
+                pivot.Y = texture.Height - pivot.Y;
+            }
+            headRot = 0;
+            jawRot = 0;
+            float animationProgress;
+            if (State != AIState.SonicWave)
+            {
+                jawOffset = default;
+                headOffset = default;
+                return;
+            }
+            float mouthOpenAnimationDuration = 10;
+            float mouthCloseAnimationDuration = 20;
+            float readyShotDuration = MathF.Max(1, SonicWaveStartTime - mouthOpenAnimationDuration);
+            if (Timer <= readyShotDuration)//ready shot progress
+            {
+                animationProgress = 1 + Timer / readyShotDuration;
+            }
+            else if (Timer <= SonicWaveStartTime)//mouth open progress
+            {
+                animationProgress = Utils.Remap(Timer, readyShotDuration, SonicWaveStartTime, 2, 3);
+            }
+            else if (Timer <= SonicWaveStartTime + SonicWaveFireRate * SonicWaveNumShots)//wobble progress
+            {
+                animationProgress = Utils.Remap(Timer, SonicWaveStartTime, SonicWaveStartTime + SonicWaveFireRate * SonicWaveNumShots, 3, 4);
+            }
+            else if (Timer < SonicWaveStartTime + SonicWaveFireRate * SonicWaveNumShots + mouthCloseAnimationDuration)//mouth close progress
+            {
+                animationProgress = Utils.Remap(Timer, SonicWaveStartTime + SonicWaveFireRate * SonicWaveNumShots, SonicWaveStartTime + SonicWaveFireRate * SonicWaveNumShots + mouthCloseAnimationDuration, 4, 5);
+            }
+            else
+            {
+                animationProgress = 5;
+            }
+            float maxMouthOpen = .35f;
+            float maxMouthClose = 0.05f;
+            switch ((int)animationProgress)
+            {
+                case 1://ready shot
+                    animationProgress %= 1;
+                    animationProgress = EaseInOut(animationProgress);
+                    animationProgress *= maxMouthClose;
+                    headRot += animationProgress * -NPC.spriteDirection;
+                    jawRot -= animationProgress * -NPC.spriteDirection;
+
+                    break;
+                case 2://open mouth
+                    headRot += maxMouthClose * -NPC.spriteDirection;
+                    jawRot -= maxMouthClose * -NPC.spriteDirection;
+                    if (animationProgress > 2.75f)
+                    {
+                        animationProgress %= 1;
+                        animationProgress = Utils.Remap(animationProgress, 0.75f, 1, 0, 1);
+                        animationProgress = EaseInOut(animationProgress) * maxMouthOpen;
+                        headRot -= animationProgress * -NPC.spriteDirection;
+                        jawRot += animationProgress * -NPC.spriteDirection;
+                    }
+                    else
+                    {
+                        animationProgress %= 1;
+                        animationProgress += maxMouthClose;
+                    }
+                    break;
+                case 3://wobble during shooting
+                    animationProgress = WobblyEffect(animationProgress * 2f % 1) * .65f + maxMouthOpen;
+                    headRot -= animationProgress * -NPC.spriteDirection;
+                    jawRot += animationProgress * -NPC.spriteDirection;
+                    break;
+                case 4://close mouth
+                    animationProgress = (1 - EaseInOut(animationProgress % 1)) * maxMouthOpen;
+                    headRot -= animationProgress * -NPC.spriteDirection;
+                    jawRot += animationProgress * -NPC.spriteDirection;
+                    break;
+                default:
+                    animationProgress = 0;
+                    break;
+            }
+            //jawOffset = originToPivot.RotatedBy(jawRot);
+            //headOffset = originToPivot.RotatedBy(headRot);
+            //Vector2 moveToProperPosition = -originToPivot;
+            //jawOffset += moveToProperPosition;
+            //moveToProperPosition = -originToPivot;
+            //headOffset += moveToProperPosition;
+
+            Vector2 pivotOffset = (pivot - origin).RotatedBy(NPC.rotation);
+            Vector2 rotatedOffset = pivotOffset.RotatedBy(jawRot);
+            jawOffset = rotatedOffset - pivotOffset;
+            rotatedOffset = pivotOffset.RotatedBy(headRot);
+            headOffset = rotatedOffset - pivotOffset;
+
+        }
+        static float WobblyEffect(float progress)
+        {
+            progress = MathF.Sin(10f * progress / MathF.PI);
+            return progress * progress * 0.25f;
+        }
+        static float EaseInOut(float progress)
+        {
+            return -MathF.Cos(progress * MathF.PI) * 0.5f + 0.5f;
         }
         static float Magnitude(Vector2 vec)
         {
@@ -486,7 +618,7 @@ namespace TRAEProject.NewContent.NPCs.Echosphere.EchoLeviathan
         }
         void WormMovement(Player player, Vector2 targetPos, float topSpeed = 5, float acceleration = .3f)
         {
-            Vector2 npcTilePos = new Vector2(NPC.position.X + NPC.width * 0.5f, NPC.position.Y + NPC.height * 0.5f);
+            Vector2 npcTilePos = new(NPC.position.X + NPC.width * 0.5f, NPC.position.Y + NPC.height * 0.5f);
             float maxSpeedX = player.position.X + player.width / 2;
             float maxSpeedY = player.position.Y + player.height / 2;
             maxSpeedX = (int)(maxSpeedX / 16f) * 16;
@@ -620,11 +752,201 @@ namespace TRAEProject.NewContent.NPCs.Echosphere.EchoLeviathan
         }
         public override bool CanHitPlayer(Player target, ref int cooldownSlot)
         {
-            return target.Hitbox.Intersects(Utils.CenteredRectangle(NPC.Center, new Vector2(50)));//hitbox of width and height 50 for damaging players
+            return NPC.alpha < 255 && target.Hitbox.Intersects(Utils.CenteredRectangle(NPC.Center, new Vector2(50)));//hitbox of width and height 50 for damaging players
         }
         void SpawnPortal(Vector2 position, int duration)
         {
             Projectile.NewProjectile(NPC.GetSource_FromAI(), position, default, ModContent.ProjectileType<EchoLeviathanPortal>(), -1, 0, -1, duration);
+        }
+        public override void Load()
+        {
+            On_NPC.NewNPC += ChangeSpawnPosition;
+        }
+
+        private int ChangeSpawnPosition(On_NPC.orig_NewNPC orig, IEntitySource source, int X, int Y, int Type, int Start, float ai0, float ai1, float ai2, float ai3, int Target)
+        {
+            if (Type != ModContent.NPCType<EchoLeviathanHead>())
+            {
+                return orig(source, X, Y, Type, Start, ai0, ai1, ai2, ai3, Target);
+            }
+            if (Target < 0 || Target >= Main.maxPlayers)//if no target when spawning, search for airborne players
+            {
+                Target = EchosphereHelper.SearchForAirbornePlayers(new Vector2(X, Y));
+            }
+            if (Target < 0 || Target >= Main.maxPlayers)//if no airborne target detected, check for valid targets that aren't necessarily on the air
+            {
+                Vector2 from = new(X, Y);
+                for (int i = 0; i < Main.maxPlayers; i++)
+                {
+                    Player player = Main.player[i];
+                    if (!player.active || player.dead || (Target >= 0 && Target < Main.maxPlayers) && player.DistanceSQ(from) + player.aggro < Main.player[Target].DistanceSQ(from) + Main.player[Target].aggro)
+                    {
+                        continue;
+                    }
+                    Target = i;
+                }
+            }
+            if (Target < 0 || Target >= Main.maxPlayers)//if all target searches failed, spawn with no position override
+            {
+                return orig(source, X, Y, Type, Start, ai0, ai1, ai2, ai3, Target);
+            }
+
+            //override spawning position to be around player
+            Player plr = Main.player[Target];
+            X = (int)plr.Center.X;
+            Y = (int)plr.Center.Y;
+            X += Main.rand.Next(90, 120) * (Main.rand.Next(0, 2) * 2 - 1);
+            Y += Main.rand.Next(90, 120) * (Main.rand.Next(0, 2) * 2 - 1);
+            return orig(source, X, Y, Type, Start, ai0, ai1, ai2, ai3, Target);
+        }
+        public static bool IsHeadImmuneToItem(float headNPCIndex, int playerIndex)
+        {
+            int index = (int)headNPCIndex;
+            if (!Main.npc.IndexInRange(index))
+            {
+                return true;
+            }
+            NPC npc = Main.npc[index];
+            if (npc.type != ModContent.NPCType<EchoLeviathanHead>())
+            {
+                return true;
+            }
+            Player player = Main.player[playerIndex];
+            return player.meleeNPCHitCooldown[index] > 0;
+        }
+        public static void CopyProjIframesToOtherSegments(float headNPCIndex, int fromIndex, Projectile proj)
+        {
+            int index = (int)headNPCIndex;
+            if (!Main.npc.IndexInRange(index) || !Main.npc.IndexInRange(fromIndex))
+            {
+                return;
+            }
+            NPC headNPC = Main.npc[index];
+            if (headNPC.type != ModContent.NPCType<EchoLeviathanHead>())
+            {
+                return;
+            }
+            if (headNPC.ModNPC is EchoLeviathanHead echoLeviHead)
+            {
+                NPC fromNPC = Main.npc[fromIndex];
+                NPC[] segments = echoLeviHead.SearchForBodySegments();
+                if (segments != null && segments.Length > 0)
+                {
+                    for (int i = 0; i < segments.Length; i++)
+                    {
+                        NPC segment = segments[i];
+                        if (segment.whoAmI == fromIndex)
+                        {
+                            continue;
+                        }
+                        CopyProjIframesFromNPCToNPC(fromNPC, segment, proj);
+                    }
+                    if (headNPCIndex != fromIndex)
+                    {
+                        CopyProjIframesFromNPCToNPC(fromNPC, headNPC, proj);
+                    }
+                }
+            }
+        }
+        public static void CopyItemIframesToOtherSegments(float headNPCIndex, int fromIndex, int playerIndex)
+        {
+            int index = (int)headNPCIndex;
+            if (!Main.npc.IndexInRange(index) || !Main.npc.IndexInRange(fromIndex))
+            {
+                return;
+            }
+            NPC headNPC = Main.npc[index];
+            if (headNPC.type != ModContent.NPCType<EchoLeviathanHead>())
+            {
+                return;
+            }
+            if (headNPC.ModNPC is EchoLeviathanHead echoLeviHead)
+            {
+                NPC fromNPC = Main.npc[fromIndex];
+                NPC[] segments = echoLeviHead.SearchForBodySegments();
+                if (segments != null && segments.Length > 0)
+                {
+                    for (int i = 0; i < segments.Length; i++)
+                    {
+                        NPC segment = segments[i];
+                        if (segment.whoAmI == fromIndex)
+                        {
+                            continue;
+                        }
+                        CopyItemIframesFromNPCToNPC(fromNPC, segment, playerIndex);
+                    }
+                    if (headNPCIndex != fromIndex)
+                    {
+                        CopyItemIframesFromNPCToNPC(fromNPC, headNPC, playerIndex);
+                    }
+                }
+            }
+        }
+        static void CopyItemIframesFromNPCToNPC(NPC from, NPC to, int playerIndex)
+        {
+            Player plr = Main.player[playerIndex];
+            plr.meleeNPCHitCooldown[to.whoAmI] = plr.meleeNPCHitCooldown[from.whoAmI];
+        }
+        static void CopyProjIframesFromNPCToNPC(NPC from, NPC to, Projectile proj)
+        {
+            proj.localNPCImmunity[to.whoAmI] = proj.localNPCImmunity[from.whoAmI];
+            to.immune[proj.owner] = from.immune[proj.owner];
+            Projectile.perIDStaticNPCImmunity[proj.type][to.whoAmI] = Projectile.perIDStaticNPCImmunity[proj.type][from.whoAmI];
+        }
+        public static bool IsHeadImmuneToProj(float headNPCIndex, Projectile proj)
+        {
+            if (!proj.friendly)
+            {
+                return true;
+            }
+            int index = (int)headNPCIndex;
+            if (index < 0 || index >= Main.maxNPCs)
+            {
+                return true;
+            }
+            NPC npc = Main.npc[index];
+            if (npc.type != ModContent.NPCType<EchoLeviathanHead>())
+            {
+                return true;
+            }
+          
+            if (npc.immune[proj.owner] > 0)
+            {
+                return true;
+            }
+            if (Projectile.perIDStaticNPCImmunity[proj.type][npc.whoAmI] > 0)
+            {
+                return true;
+            }
+            if (proj.localNPCImmunity[npc.whoAmI] > 0)
+            {
+                return true;
+            }
+            return false;
+        }
+
+        public override bool? CanBeHitByItem(Player player, Item item)
+        {
+            return !IsHeadImmuneToItem(NPC.whoAmI, player.whoAmI);
+        }
+        public override bool? CanBeHitByProjectile(Projectile projectile)
+        {
+            return !IsHeadImmuneToProj(NPC.whoAmI, projectile);
+        }
+        public override void OnHitByProjectile(Projectile projectile, NPC.HitInfo hit, int damageDone)
+        {
+            CopyProjIframesToOtherSegments(NPC.whoAmI, NPC.whoAmI, projectile);
+        }
+        public override void OnHitByItem(Player player, Item item, NPC.HitInfo hit, int damageDone)
+        {
+            CopyItemIframesToOtherSegments(NPC.whoAmI, NPC.whoAmI, player.whoAmI);
+        }
+        public override void ModifyHoverBoundingBox(ref Rectangle boundingBox)
+        {
+            if (NPC.alpha >= 254)
+            {
+                boundingBox.X = -1000;//put it out of bounds of the map so it is never displayed
+            }
         }
     }
 }
