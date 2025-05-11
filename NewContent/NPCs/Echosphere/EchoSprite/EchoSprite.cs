@@ -97,10 +97,10 @@ namespace TRAEProject.NewContent.NPCs.Echosphere.EchoSprite
                 {
                     NPC.ai[0] %= firerate;
                     int projID = ModContent.ProjectileType<EchoSpriteProj>();
-                    float shootSpeed = 24f;
+                    float shootSpeed = 12f;
                     if (Main.expertMode)//from spaz code
                     {
-                        shootSpeed *= 1.33f;
+                        shootSpeed *= 1.25f;
                     }
                     shootSpeed /= ContentSamples.ProjectilesByType[projID].MaxUpdates;
                     Vector2 projVel = NPC.DirectionTo(player.Center) * shootSpeed;

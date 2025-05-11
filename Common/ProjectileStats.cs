@@ -9,6 +9,7 @@ using TRAEProject.NewContent.Items.Weapons.Summoner.Whip;
 
 using static Terraria.ModLoader.ModContent;
 using TRAEProject.Changes.Accesory;
+using Terraria.Audio;
 
 namespace TRAEProject.Common
 {
@@ -116,11 +117,14 @@ namespace TRAEProject.Common
                 return false;
             }
  
-            if (MaxBounces > 0)
+            if (MaxBounces > 0 || MaxBounces == -1)
             {
-                MaxBounces--;
+                if (MaxBounces > 0)
+                  MaxBounces--;
                 if (BouncesOffTiles)
                 {
+                    SoundEngine.PlaySound(SoundID.Item10 with { MaxInstances = 0 }, projectile.Center);
+
                     // If the projectile hits the left or right side of the tile, reverse the X velocity
                     if (Math.Abs(projectile.velocity.X - oldVelocity.X) > float.Epsilon)
                     {
@@ -136,6 +140,8 @@ namespace TRAEProject.Common
                 }
                 if (BouncesBackOffTiles)
                 {
+                    SoundEngine.PlaySound(SoundID.Item10 with { MaxInstances = 0 }, projectile.Center);
+
                     projectile.velocity.X = -projectile.oldVelocity.X;
                     projectile.velocity.Y = -projectile.oldVelocity.Y;
                 }
@@ -143,6 +149,8 @@ namespace TRAEProject.Common
                     projectile.damage -= (int)(projectile.damage * DamageLossOffATileBounce);
                 if (SmartBouncesOffTiles)
                 {
+                    SoundEngine.PlaySound(SoundID.Item10 with { MaxInstances = 0 }, projectile.Center);
+
                     int[] array = new int[10];
                     int num6 = 0;
                     int Range = 700;

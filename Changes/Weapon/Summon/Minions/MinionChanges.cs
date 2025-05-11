@@ -190,12 +190,15 @@ namespace TRAEProject.Changes.Weapon.Summon.Minions
                 modifiers.FlatBonusDamage += target.GetGlobalNPC<Tag>().Damage;
                 if (Main.rand.Next(100) < target.GetGlobalNPC<Tag>().Crit)
                 {
-                    modifiers.SetCrit();
+                     modifiers.SetCrit();
                 }
-                if (Main.rand.Next(100) < Main.player[projectile.owner].GetModPlayer<SummonStats>().minionCritChance)
+                else if (Main.rand.Next(100) < Main.player[projectile.owner].GetModPlayer<SummonStats>().minionCritChance)
                 {
                     modifiers.SetCrit();
                 }
+                // do this because tmodloader sometimes breaks and lets minions crit
+                else if (projectile.aiStyle != 137) // exclude lightning auras to not mess with their crits, this technically makes them a bit better when tmodloader lets minions crit but who cares
+                    modifiers.DisableCrit(); 
             }
         }
         public NPC target;

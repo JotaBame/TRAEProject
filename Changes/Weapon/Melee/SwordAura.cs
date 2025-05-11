@@ -443,6 +443,17 @@ namespace TRAEProject.Changes.Weapon.Melee
         }
 
     }
+    public class MeowmereAura : SwordAura
+    {
+        public override void AuraDefaults()
+        {
+            scaleIncrease = 0.65f;
+            frontColor = Main.DiscoColor;
+            middleColor = Main.DiscoColor;
+            backColor = Main.DiscoColor;
+        }
+
+    }
     public class EnchantedAura : SwordAura
     {
         public override void AuraDefaults()

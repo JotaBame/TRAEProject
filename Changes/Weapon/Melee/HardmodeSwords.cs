@@ -13,6 +13,7 @@ using Terraria.DataStructures;
 using TRAEProject.Common.ModPlayers;
 using Mono.Cecil;
 using System.Collections;
+using TRAEProject.NewContent.Items.Misc.Potions;
 
 namespace TRAEProject.Changes.Weapon.Melee
 {
@@ -178,6 +179,9 @@ namespace TRAEProject.Changes.Weapon.Melee
                     item.damage = 110; // down from 170
                     return;
                 case 3063: // meowmere
+                    aura = ProjectileType<MeowmereAura>();
+                    item.noMelee = true;
+
                     return;
 
 
@@ -205,9 +209,12 @@ namespace TRAEProject.Changes.Weapon.Melee
 
                     Vector2 velocity = new Vector2(Math.Sign(mousePosition.X - player.Center.X), 0); // determines direction
                     int damage = (int)(player.GetTotalDamage(item.DamageType).ApplyTo(item.damage));
+           
                     Projectile spawnedProj = Projectile.NewProjectileDirect(player.GetSource_ItemUse(item), player.MountedCenter - velocity * 2, velocity * 5, aura, damage, item.knockBack, Main.myPlayer,
                             Math.Sign(mousePosition.X - player.Center.X) * player.gravDir, player.itemAnimationMax, player.GetAdjustedItemScale(item));
+          
                     NetMessage.SendData(MessageID.PlayerControls, -1, -1, null, player.whoAmI);
+
                     if (player.position.X - mousePosition.X > 0)
                         player.direction = -1;
                     else
@@ -246,7 +253,7 @@ namespace TRAEProject.Changes.Weapon.Melee
 
                     }
                     return false;
-
+              
                 case ItemID.ChristmasTreeSword:
                     {
                         int number = 1 + Main.rand.Next(1, 2); // 1 to 3 shots

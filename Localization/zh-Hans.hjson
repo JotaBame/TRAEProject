@@ -279,6 +279,9 @@ Mods: {
 			// EchoStalkerSonicWave.DisplayName: Echo Stalker Sonic Wave
 			// KinnaraFeather.DisplayName: Kinnara Feather
 			// Trirrow.DisplayName: Trirrow
+			// DreamEaterShot1.DisplayName: Dream Eater Shot1
+			// MeowmereAura1.DisplayName: Meowmere Aura1
+			// MeowmereAura.DisplayName: Meowmere Aura
 		}
 
 		Prefixes: {
@@ -1638,7 +1641,7 @@ Mods: {
 
 			DreamEater: {
 				// DisplayName: Dream Eater
-				// Tooltip: Bouncing Fireballs that may burn an enemy with Shadow Flames
+				// Tooltip: Bouncing fireballs that may inflict shadowflame
 			}
 
 			Tribow: {

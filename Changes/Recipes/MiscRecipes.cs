@@ -58,6 +58,13 @@ namespace TRAEProject.Changes.Recipes
         public static void Modify(Recipe recipe)
         {
             Item ingredientToRemove;
+            if (recipe.HasResult(ItemID.FlaskofFire))
+            {
+                recipe.TryGetIngredient(ItemID.Hellstone, out ingredientToRemove);
+                recipe.RemoveIngredient(ingredientToRemove);
+           
+                recipe.AddIngredient(ItemID.Fireblossom, 3);
+             }
             if (recipe.HasResult(ItemID.HeartreachPotion))
             {
                 recipe.TryGetIngredient(ItemID.Daybloom, out ingredientToRemove);
