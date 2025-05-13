@@ -167,7 +167,8 @@ namespace TRAEProject.Changes.NPCs.Boss.Prime
             }
             SoundEngine.PlaySound(SoundID.Item11, npc.Center);
             int damage = PrimeStats.missileDamage;
-            Projectile.NewProjectile(npc.GetSource_FromAI(), npc.Center + TRAEMethods.PolarVector(18f, npc.rotation), TRAEMethods.PolarVector(10, npc.rotation), ModContent.ProjectileType<PrimeMissile>(), damage, 0, Main.myPlayer);
+            float sfxIdentifierToPlay = Main.npc[(int)npc.ai[1]].ai[1] != 0f ? 0 : 1;
+            Projectile.NewProjectile(npc.GetSource_FromAI(), npc.Center + TRAEMethods.PolarVector(18f, npc.rotation), TRAEMethods.PolarVector(10, npc.rotation), ModContent.ProjectileType<PrimeMissile>(), damage, 0, Main.myPlayer, sfxIdentifierToPlay);
         }
     }
 }

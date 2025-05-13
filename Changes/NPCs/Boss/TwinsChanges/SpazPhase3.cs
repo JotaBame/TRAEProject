@@ -8,11 +8,16 @@ using Terraria.ID;
 using Terraria.ModLoader;
 using TRAEProject.NewContent.Items.FlamethrowerAmmo;
 
-namespace TRAEProject.Changes.NPCs.Boss
+namespace TRAEProject.Changes.NPCs.Boss.TwinsChanges
 {
     public static class SpazPhase3
     {
         const float flameTime = 400f;
+        public static int CauldronFireRate => Main.masterMode ? 13 : 13;
+        public static int CauldronDuration => 280;
+        public static int ChargeCount => Main.masterMode ? 3 : 3;
+        public static int ChargeDuration => 60;
+        public static int ChargeDecelerateStart => ChargeDuration / 2;
         public static void Header(NPC npc)
         {
             if (npc.target < 0 || npc.target == 255 || Main.player[npc.target].dead || !Main.player[npc.target].active)
@@ -20,7 +25,7 @@ namespace TRAEProject.Changes.NPCs.Boss
                 npc.TargetClosest();
             }
             bool playerDead = Main.player[npc.target].dead;
-            float angVel = (MathF.PI / 240f) + (MathF.PI / 180f) * (1f - (npc.ai[2] / flameTime)) * (1f - (npc.ai[2] / flameTime));
+            float angVel = MathF.PI / 240f + MathF.PI / 180f * (1f - npc.ai[2] / flameTime) * (1f - npc.ai[2] / flameTime);
             npc.rotation.SlowRotation((Main.player[npc.target].Center - npc.Center).ToRotation() - MathF.PI / 2, angVel);
 
             if (Main.rand.NextBool(5))
@@ -130,7 +135,7 @@ namespace TRAEProject.Changes.NPCs.Boss
                     if (npc.localAI[1] > 8f)
                     {
                         npc.localAI[1] = 0f;
-                        int dmg = npc.GetAttackDamage_ForProjectiles(30f, 27f);             
+                        int dmg = npc.GetAttackDamage_ForProjectiles(30f, 27f);
                         Projectile.NewProjectile(npc.GetSource_ReleaseEntity(), shootFrom, vel, ModContent.ProjectileType<SpamatizmFire>(), dmg, 0f, Main.myPlayer);
                     }
                 }
@@ -173,7 +178,7 @@ namespace TRAEProject.Changes.NPCs.Boss
         }
         public static void Cauldron(NPC npc)
         {
-            float angVel = (MathF.PI / 12f);
+            float angVel = MathF.PI / 12f;
             npc.rotation.SlowRotation(MathF.PI, angVel);
             float accY = 0.2f;
             float maxVelY = 5f;
@@ -200,15 +205,15 @@ namespace TRAEProject.Changes.NPCs.Boss
                 npc.velocity.X *= 0.98f;
             }
             npc.ai[2]++;
-            int timer = 13; // make it 10 on master 
+            int timer = CauldronFireRate; // make it 10 on master 
             if ((int)npc.ai[2] % timer == 0 && Main.netMode != NetmodeID.MultiplayerClient)
             {
                 int attackDamage_ForProjectiles7 = npc.GetAttackDamage_ForProjectiles(30f, 27f);
                 Vector2 shootFrom = npc.Center + TRAEMethods.PolarVector(6, npc.rotation + MathF.PI / 2);
                 Vector2 vel = TRAEMethods.PolarVector(12f + npc.velocity.Y, npc.rotation + MathF.PI / 2) + TRAEMethods.PolarVector(Main.rand.Next(-4, 5), npc.rotation);
-                int num487 = Projectile.NewProjectile(npc.GetSource_ReleaseEntity(), shootFrom, vel, ModContent.ProjectileType<BouncingFlames>(), attackDamage_ForProjectiles7, 0f, Main.myPlayer);
+                Projectile.NewProjectile(npc.GetSource_ReleaseEntity(), shootFrom, vel, ModContent.ProjectileType<BouncingFlames>(), attackDamage_ForProjectiles7, 0f, Main.myPlayer);
             }
-            if (npc.ai[2] >= 280)
+            if (npc.ai[2] >= CauldronDuration)
             {
                 npc.ai[2] = 0;
                 npc.ai[1] = 0;
@@ -218,9 +223,10 @@ namespace TRAEProject.Changes.NPCs.Boss
         }
         public static void Charge(NPC npc)
         {
+           // Lighting.AddLight(npc.Center, new Vector3(0.8f));
             if (npc.ai[1] == 1f)
             {
-                Terraria.Audio.SoundEngine.PlaySound(SoundID.Roar with { MaxInstances = 0 }, npc.Center);
+                SoundEngine.PlaySound(SoundID.Roar with { MaxInstances = 0 }, npc.Center);
                 //SoundEngine.PlaySound(15, (int)npc.position.X, (int)npc.position.Y, 0);
                 npc.TargetClosest();
                 npc.rotation = (Main.player[npc.target].Center - npc.Center).ToRotation() - MathF.PI / 2;
@@ -249,7 +255,7 @@ namespace TRAEProject.Changes.NPCs.Boss
                 {
                     npc.ai[2] += 0.5f; // make it 0.5 on master
                 }
-                if (npc.ai[2] >= 30f)
+                if (npc.ai[2] >= ChargeDecelerateStart)
                 {
                     npc.velocity.X *= 0.93f;
                     npc.velocity.Y *= 0.93f;
@@ -266,13 +272,13 @@ namespace TRAEProject.Changes.NPCs.Boss
                 {
                     npc.rotation = MathF.Atan2(npc.velocity.Y, npc.velocity.X) - 1.57f;
                 }
-                if (npc.ai[2] >= 60f)
+                if (npc.ai[2] >= ChargeDuration)
                 {
                     npc.ai[3] += 1f;
                     npc.ai[2] = 0f;
                     npc.target = 255;
                     npc.rotation = (Main.player[npc.target].Center - npc.Center).ToRotation() - MathF.PI / 2;
-                    if (npc.ai[3] >= 3f) // five on master
+                    if (npc.ai[3] >= ChargeCount) // five on master
                     {
                         npc.ai[1] = 3f;
                         npc.ai[3] = 0f;
@@ -288,11 +294,10 @@ namespace TRAEProject.Changes.NPCs.Boss
         {
 
             Texture2D texture = TextureAssets.Npc[npc.type].Value;
-            Color color = drawColor;
+            Color color = npc.GetNPCColorTintedByBuffs(drawColor);
             Vector2 halfSize = new Vector2(55f, 107f);
             float num35 = 0f;
             float num36 = Main.NPCAddHeight(npc);
-            Texture2D effectTexture = ModContent.Request<Texture2D>("TRAEProject/Changes/NPCs/Boss/GreenEffect").Value;
             Vector2 Pos = new Vector2(
                 npc.position.X - screenPos.X + npc.width / 2 - TextureAssets.Npc[npc.type].Width() * npc.scale / 2f + halfSize.X * npc.scale,
                 npc.position.Y - screenPos.Y + npc.height - TextureAssets.Npc[npc.type].Height() * npc.scale / Main.npcFrameCount[npc.type] + 4f + halfSize.Y * npc.scale + num36 + num35);
@@ -300,47 +305,133 @@ namespace TRAEProject.Changes.NPCs.Boss
             if (npc.ai[0] == 4f)
             {
                 float prog = npc.ai[1] / 100f;
+                float c = 1f * prog * 0.6f;
+                Color color2 = new Color(93 / 255f, 174f / 255, 70 / 255f) * c;
+                Twins.RestartSpritebatchForShaderDraw(spriteBatch, 1f, color2);
                 for (int i = 0; i < 4; i++)
                 {
-                    float rot = (i / 4f) * 2f * MathF.PI;
+                    float rot = i / 4f * 2f * MathF.PI;
                     rot += prog * MathF.PI / 2f;
                     float radius = (1f - prog) * 200;
-                    float c = (1f * prog) * 0.3f;
-                    Color color2 = new Color(c, c, c, c);
+
                     Vector2 effectPos = Pos + TRAEMethods.PolarVector(radius, rot);
-                    spriteBatch.Draw(effectTexture, effectPos, npc.frame, color2, npc.rotation, halfSize, npc.scale, SpriteEffects.None, 0f);
+                    spriteBatch.Draw(texture, effectPos, npc.frame, color2, npc.rotation, halfSize, npc.scale, SpriteEffects.None, 0f);
                 }
+                Twins.RestartSpritebatchForVanillaDraw(spriteBatch);
 
             }
             if (npc.ai[0] == 5f)
             {
                 float prog = npc.ai[2] / 0.5f;
+                float c = 1f * prog * 0.6f;
+                Color color2 = new Color(93 / 255f, 174f / 255, 70 / 255f) * c;
+                Twins.RestartSpritebatchForShaderDraw(spriteBatch, 1f, color2);
                 for (int i = 0; i < 16; i++)
                 {
-                    float rot = (i / 16f) * 2f * MathF.PI;
+                    float rot = i / 16f * 2f * MathF.PI;
                     float radius = (1f - prog) * 8000;
-                    float c = (1f * prog) * 0.3f;
-                    Color color2 = new Color(c, c, c, c);
                     Vector2 effectPos = Pos + TRAEMethods.PolarVector(radius, rot);
-                    spriteBatch.Draw(effectTexture, effectPos, npc.frame, color2, npc.rotation, halfSize, npc.scale, SpriteEffects.None, 0f);
+                    spriteBatch.Draw(texture, effectPos, npc.frame, color2, npc.rotation, halfSize, npc.scale, SpriteEffects.None, 0f);
                 }
+                Twins.RestartSpritebatchForVanillaDraw(spriteBatch);
             }
-            if ((npc.ai[0] > 5f))
+            float opacityForMotionBlur = 0f;
+            if (npc.ai[0] > 5 && npc.ai[1] == 2)
             {
-                for (int i = 0; i < npc.oldPos.Length; i++)
+                opacityForMotionBlur = Utils.GetLerpValue(ChargeDuration - 3, ChargeDuration - 7, npc.ai[2], true);
+            }
+            float trailOpacityMult = 1f - opacityForMotionBlur;
+            if (npc.ai[0] > 5f)
+            {
+                if (trailOpacityMult > 0.00001f)
                 {
-                    float c = 255f * ((float)i / npc.oldPos.Length);
-                    Color color2 = new Color(c, c, c, c) * 0.3f;
-                    Vector2 effectPos = (Pos - npc.position) + npc.oldPos[i];
-                    /* new Vector2(
-                    npc.oldPos[i].X - screenPos.X + (float)(npc.width / 2) - (float)TextureAssets.Npc[npc.type].Width() * npc.scale / 2f + halfSize.X * npc.scale, 
-                    npc.oldPos[i].Y - screenPos.Y + (float)npc.height - (float)TextureAssets.Npc[npc.type].Height() * npc.scale / (float)Main.npcFrameCount[npc.type] + 4f + halfSize.Y * npc.scale + num36 + num35); */
-                    spriteBatch.Draw(effectTexture, effectPos, npc.frame, color2, npc.rotation, halfSize, npc.scale, SpriteEffects.None, 0f);
+                    Color baseColor = new Color(93 / 255f, 174f / 255, 70 / 255f) * 0.3f;
+                    baseColor = new Color(0.1f, 0.2f, 0.1f);
+                    Color endColor = new Color(0.05f, 0.15f, 0.05f);
+                    endColor = new Color(179f / 255, 252f / 255f, 0, 1f) * 0.6f;
+                    endColor.A = 255;
+                    Twins.RestartSpritebatchForShaderDraw(spriteBatch, 1f, baseColor);
+                    for (int i = npc.oldPos.Length - 1; i >= 0; i--)
+                    {
+                        float c = ((float)i / npc.oldPos.Length);
+                        float opacity = 1 - c;
+                        opacity *= trailOpacityMult;
+                        Color color2 = Color.Lerp(endColor, baseColor, opacity) * opacity; //Color.Lerp(baseColor, endColor,c);
+                        float interpAmount = Utils.Remap(i, 0, 4, 1f / npc.oldPos.Length, 1f);
+                        Twins.ModifyShaderParams(interpAmount, color2);
+                        Vector2 effectPos = Pos - npc.position + npc.oldPos[i];
+                        /* new Vector2(
+                        npc.oldPos[i].X - screenPos.X + (float)(npc.width / 2) - (float)TextureAssets.Npc[npc.type].Width() * npc.scale / 2f + halfSize.X * npc.scale, 
+                        npc.oldPos[i].Y - screenPos.Y + (float)npc.height - (float)TextureAssets.Npc[npc.type].Height() * npc.scale / (float)Main.npcFrameCount[npc.type] + 4f + halfSize.Y * npc.scale + num36 + num35); */
+                        //due to the shader, this color parameter on the trail is completely irrelevant
+                        spriteBatch.Draw(texture, effectPos, npc.frame, Color.White, npc.rotation, halfSize, npc.scale, SpriteEffects.None, 0f);
+                    }
+                    Twins.RestartSpritebatchForVanillaDraw(spriteBatch);
                 }
             }
 
+            DrawSpazmatismInnerMouthGlow(npc, screenPos);
+            if (opacityForMotionBlur > 0.0001f)
+            {
+                int imageHalfCount = 28;
+                for (int i = -imageHalfCount; i < imageHalfCount + 1; i++)
+                {
+                    float opacity = 1f - (MathF.Abs(i) / imageHalfCount);
+                    opacity *= 0.15f;
+                    Vector2 vel = npc.velocity * 0.25f;
+                    float maxLength = 8;
+                    if(vel.Length() > maxLength)
+                    {
+                        vel.Normalize();
+                        vel *= maxLength;
+                    }
+                    Vector2 offset = vel * i * (6f / maxLength);
+                    spriteBatch.Draw(texture, Pos + offset, npc.frame, color * opacity, npc.rotation, halfSize, npc.scale, SpriteEffects.None, 0f);
+                }
+            }
+            else
+            {
+                spriteBatch.Draw(texture, Pos, npc.frame, color, npc.rotation, halfSize, npc.scale, SpriteEffects.None, 0f);
+            }
+        }
+        static void DrawSpazmatismInnerMouthGlow(NPC npc, Vector2 screenPos)
+        {
+            DrawSpazmatismInnerMouthGlowPublic(npc, screenPos);     
+        }
+        public static void DrawSpazmatismInnerMouthGlowPublic(NPC npc, Vector2 screenPos)
+        {
+            float opacity = 0f;
+            if ((npc.ai[0] == 6 || npc.ai[0] == 3) && npc.ai[1] == 0) //phase 2 spewing flames
+            {
+                float max = 300;//vanilla phase 2 flamethrower attack duration
+                if (npc.ai[0] == 6)
+                {
+                    max = flameTime;
+                }
+                opacity = Utils.GetLerpValue(-1, 4, npc.ai[2], true) * Utils.GetLerpValue(max - 1, max - 5, npc.ai[2], true);
+            }
+            if (npc.ai[0] == 6 && npc.ai[1] == 3)
+            {
+                float max = CauldronDuration;
+                float relativeTimer = npc.ai[2] % CauldronFireRate;
 
-            spriteBatch.Draw(texture, Pos, npc.frame, color, npc.rotation, halfSize, npc.scale, SpriteEffects.None, 0f);
+                opacity = Utils.GetLerpValue(-1, 4, npc.ai[2], true) * Utils.GetLerpValue(max - 1, max - 5, npc.ai[2], true);
+                opacity *= Utils.Remap(relativeTimer, 2, CauldronFireRate - 1, 1.2f, .25f);
+            }
+            if (opacity == 0)
+            {
+                return;
+            }
+            Vector2 halfSize = new Vector2(55f, 107f);
+            float num35 = 0f;
+            float num36 = Main.NPCAddHeight(npc);
+            Vector2 Pos = new Vector2(
+                npc.position.X - screenPos.X + npc.width / 2 - TextureAssets.Npc[npc.type].Width() * npc.scale / 2f + halfSize.X * npc.scale,
+                npc.position.Y - screenPos.Y + npc.height - TextureAssets.Npc[npc.type].Height() * npc.scale / Main.npcFrameCount[npc.type] + 4f + halfSize.Y * npc.scale + num36 + num35);
+
+            Color cursedFlamesLime = new Color(179f / 255, 252f / 255f, 0, 1f);
+            cursedFlamesLime *= opacity;
+            Twins.FadeLightBall(Pos + (npc.rotation + MathF.PI / 2f).ToRotationVector2() * 28, cursedFlamesLime, 1.2f);
         }
         public static void Start(NPC npc)
         {
@@ -380,7 +471,7 @@ namespace TRAEProject.Changes.NPCs.Boss
                     }
                     //SoundEngine.PlaySound(15, (int)npc.position.X, (int)npc.position.Y, 0);
 
-                    Terraria.Audio.SoundEngine.PlaySound(SoundID.ForceRoarPitched with { MaxInstances = 0 }, npc.Center);
+                    SoundEngine.PlaySound(SoundID.ForceRoarPitched with { MaxInstances = 0 }, npc.Center);
                 }
             }
             Dust.NewDust(npc.position, npc.width, npc.height, 5, Main.rand.Next(-30, 31) * 0.2f, Main.rand.Next(-30, 31) * 0.2f);
@@ -424,8 +515,8 @@ namespace TRAEProject.Changes.NPCs.Boss
             ColorLerp = Color.Lerp(ColorMiddle, ColorBack, 0.25f);
             ColorSmoke = new Color(70, 70, 70, 100);
             dustID = DustID.CursedTorch;
-             dustAmount = 0;
-             scalemodifier = 0.8f;
+            dustAmount = 0;
+            scalemodifier = 0.8f;
             Projectile.light = 1;
         }
         public override void OnHitPlayer(Player target, Player.HurtInfo info)
@@ -439,7 +530,7 @@ namespace TRAEProject.Changes.NPCs.Boss
         }
         int ChangeEyeFireToSpazFire(On_Projectile.orig_NewProjectile_IEntitySource_float_float_float_float_int_int_float_int_float_float_float orig, Terraria.DataStructures.IEntitySource spawnSource, float X, float Y, float SpeedX, float SpeedY, int Type, int Damage, float KnockBack, int Owner, float ai0, float ai1, float ai2)
         {
-            if (Type == ProjectileID.EyeFire)
+            if (Type == ProjectileID.EyeFire && NPC.AnyNPCs(NPCID.Spazmatism))
             {
                 Type = ModContent.ProjectileType<SpamatizmFire>();
 

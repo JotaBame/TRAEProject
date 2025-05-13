@@ -1,16 +1,18 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System;
+using System.Diagnostics;
 using Terraria;
 using Terraria.Audio;
 using Terraria.GameContent;
 using Terraria.ID;
 using Terraria.ModLoader;
 
-namespace TRAEProject.Changes.NPCs.Boss
+namespace TRAEProject.Changes.NPCs.Boss.TwinsChanges
 {
     public static class RetPhase3
     {
+
         static int tpAnimTime = 8;
         static int tpTime = 16;
         static int tpCount = 6;
@@ -21,7 +23,8 @@ namespace TRAEProject.Changes.NPCs.Boss
         static int nukeTime = 220;
         static int waitTime = 55; // make this divisible by the above
         static int firstShotDelay = 10;
-        static int periodTime = (tpCount * tpTime + shotTime * shotCount + nukeTime + waitTime + firstShotDelay);
+        static int periodTime = tpCount * tpTime + shotTime * shotCount + nukeTime + waitTime + firstShotDelay;
+        static bool IsSpazPhase3Teleporting(NPC npc) => ((int)npc.ai[2] % periodTime) < tpCount * tpTime;
         public static void Update(NPC npc)
         {
 
@@ -35,16 +38,16 @@ namespace TRAEProject.Changes.NPCs.Boss
             int periodicTimer = (int)npc.ai[2] % periodTime;
             int periodCount = (int)npc.ai[2] / periodTime;
 
-            if (periodicTimer < tpCount * tpTime)
+            if (IsSpazPhase3Teleporting(npc))
             {
                 if (periodicTimer % tpTime < tpAnimTime)
                 {
-                    npc.scale = ((periodicTimer % tpTime) / (float)tpAnimTime);
+                    npc.scale = periodicTimer % tpTime / (float)tpAnimTime;
                     npc.scale = 0.5f - MathF.Cos(MathF.PI * npc.scale) * 0.5f;
                 }
-                else if (periodicTimer % tpTime > (tpTime - tpAnimTime) && periodicTimer < (tpCount - 1) * tpTime)
+                else if (periodicTimer % tpTime > tpTime - tpAnimTime && periodicTimer < (tpCount - 1) * tpTime)
                 {
-                    npc.scale = (tpTime - (periodicTimer % tpTime)) / (float)tpAnimTime;
+                    npc.scale = (tpTime - periodicTimer % tpTime) / (float)tpAnimTime;
                     npc.scale = 0.5f - MathF.Cos(MathF.PI * npc.scale) * 0.5f;
                 }
                 else
@@ -115,10 +118,10 @@ namespace TRAEProject.Changes.NPCs.Boss
                     int periodCount = (int)npc.ai[2] / periodTime;
                     if (periodicTimer >= (tpCount - 1) * tpTime && periodCount % 3 == 2 && periodicTimer < tpCount * tpTime + shotTime * shotCount)
                     {
-                        int timer = (tpCount * tpTime + shotTime * shotCount) - periodicTimer;
-                        if (timer > (shotTime * shotCount))
+                        int timer = tpCount * tpTime + shotTime * shotCount - periodicTimer;
+                        if (timer > shotTime * shotCount)
                         {
-                            timer = (shotTime * shotCount);
+                            timer = shotTime * shotCount;
                         }
                         float ratio = (float)timer / (shotTime * shotCount);
                         float spread = MathF.PI;
@@ -159,7 +162,7 @@ namespace TRAEProject.Changes.NPCs.Boss
                     float num33 = (float)Math.Sqrt(num31 * num31 + num32 * num32);
                     num33 = num30 / num33;
                     Vector2 vector6 = vector5;
-                    Vector2 vector7 = default(Vector2);
+                    Vector2 vector7 = default;
                     vector7.X = num31 * num33;
                     vector7.Y = num32 * num33;
                     vector6.X += vector7.X * 10f;
@@ -265,7 +268,7 @@ namespace TRAEProject.Changes.NPCs.Boss
                         Dust.NewDust(npc.position, npc.width, npc.height, 5, Main.rand.Next(-30, 31) * 0.2f, Main.rand.Next(-30, 31) * 0.2f);
                     }
 
-                    Terraria.Audio.SoundEngine.PlaySound(SoundID.ForceRoarPitched with { MaxInstances = 0 }, npc.Center);
+                    SoundEngine.PlaySound(SoundID.ForceRoarPitched with { MaxInstances = 0 }, npc.Center);
                 }
             }
             Dust.NewDust(npc.position, npc.width, npc.height, 5, Main.rand.Next(-30, 31) * 0.2f, Main.rand.Next(-30, 31) * 0.2f);
@@ -284,7 +287,7 @@ namespace TRAEProject.Changes.NPCs.Boss
         public static void Phase3Draw(NPC npc, SpriteBatch spriteBatch, Vector2 screenPos, Color drawColor)
         {
             int periodicTimer = (int)npc.ai[2] % periodTime;
-
+            drawColor = npc.GetNPCColorTintedByBuffs(drawColor);
             if (periodicTimer > tpCount * tpTime && (int)npc.ai[2] / periodTime % 3 != 2)
             {
                 DrawLaser(npc, spriteBatch);
@@ -294,65 +297,86 @@ namespace TRAEProject.Changes.NPCs.Boss
             Vector2 halfSize = new Vector2(55f, 107f);
             float num35 = 0f;
             float num36 = Main.NPCAddHeight(npc);
-            Texture2D effectTexture = ModContent.Request<Texture2D>("TRAEProject/Changes/NPCs/Boss/RedEffect").Value;
             Vector2 Pos = new Vector2(
                 npc.position.X - screenPos.X + npc.width / 2 - TextureAssets.Npc[npc.type].Width() * npc.scale / 2f + halfSize.X * npc.scale,
                 npc.position.Y - screenPos.Y + npc.height - TextureAssets.Npc[npc.type].Height() * npc.scale / Main.npcFrameCount[npc.type] + 4f + halfSize.Y * npc.scale + num36 + num35);
             float opacity = Utils.GetLerpValue(.25f, .85f, npc.scale, true);
             npc.Opacity = opacity;
-            if (npc.ai[0] == 4f)
+            if (npc.ai[0] == 4f)//first part of final phase transition animation, converging sillouete
             {
                 float prog = npc.ai[2] / 0.5f;
+                float radius = (1f - prog) * 200;
+                float c = 1f * prog * 0.6f;
+                Color color2 = new Color(223f / 255f, 51f / 255f, 51f / 255f) * c;
+                Twins.RestartSpritebatchForShaderDraw(spriteBatch, 1f, color2);
                 for (int i = 0; i < 4; i++)
                 {
-                    float rot = (i / 4f) * 2f * MathF.PI;
+                    float rot = i / 4f * 2f * MathF.PI;
                     rot += prog * MathF.PI / 2f;
-                    float radius = (1f - prog) * 200;
-                    float c = (1f * prog) * 0.3f;
-                    Color color2 = new Color(c, c, c, c);
-                    Vector2 effectPos = Pos + TRAEMethods.PolarVector(radius, rot);
-                    spriteBatch.Draw(effectTexture, effectPos, npc.frame, color2 * opacity, npc.rotation, halfSize, npc.scale, SpriteEffects.None, 0f);
-                }
 
+                    Vector2 effectPos = Pos + TRAEMethods.PolarVector(radius, rot);
+                    spriteBatch.Draw(texture, effectPos, npc.frame, color2 * opacity, npc.rotation, halfSize, npc.scale, SpriteEffects.None, 0f);
+                }
+                Twins.RestartSpritebatchForVanillaDraw(spriteBatch);
             }
-            if (npc.ai[0] == 5f)
+            if (npc.ai[0] == 5f)//second part of final phase transition animation, sillouette burst outwards.
             {
                 float prog = npc.ai[2] / 0.5f;
+                float radius = (1f - prog) * 8000;
+                float c = 1f * prog * 0.6f;
+                Color color2 = new Color(223f/255f,51f/255f,51f/255f) * c;
+                Twins.RestartSpritebatchForShaderDraw(spriteBatch, 1f, color2);
                 for (int i = 0; i < 16; i++)
                 {
-                    float rot = (i / 16f) * 2f * MathF.PI;
-                    float radius = (1f - prog) * 8000;
-                    float c = (1f * prog) * 0.3f;
-                    Color color2 = new Color(c, c, c, c);
+                    float rot = i / 16f * 2f * MathF.PI;
+
                     Vector2 effectPos = Pos + TRAEMethods.PolarVector(radius, rot);
-                    spriteBatch.Draw(effectTexture, effectPos, npc.frame, color2 * opacity, npc.rotation, halfSize, npc.scale, SpriteEffects.None, 0f);
+                    spriteBatch.Draw(texture, effectPos, npc.frame, color2 * opacity, npc.rotation, halfSize, npc.scale, SpriteEffects.None, 0f);
                 }
+                Twins.RestartSpritebatchForVanillaDraw(spriteBatch);
             }
-            if (((byte)npc.ai[0] > 5f))
+            if ((byte)npc.ai[0] > 5f)
             {
+                Twins.RestartSpritebatchForShaderDraw(spriteBatch, 1f, Color.Red);
                 for (int i = 0; i < npc.oldPos.Length; i++)
                 {
                     float c = 255f * ((float)i / npc.oldPos.Length);
                     Color color2 = new Color(c, c, c, c) * 0.3f;
-                    Vector2 effectPos = (Pos - npc.position) + npc.oldPos[i];
+                    Vector2 effectPos = Pos - npc.position + npc.oldPos[i];
                     /* new Vector2(
                     npc.oldPos[i].X - screenPos.X + (float)(npc.width / 2) - (float)TextureAssets.Npc[npc.type].Width() * npc.scale / 2f + halfSize.X * npc.scale, 
                     npc.oldPos[i].Y - screenPos.Y + (float)npc.height - (float)TextureAssets.Npc[npc.type].Height() * npc.scale / (float)Main.npcFrameCount[npc.type] + 4f + halfSize.Y * npc.scale + num36 + num35); */
-                    spriteBatch.Draw(effectTexture, effectPos, npc.frame, color2 * opacity, npc.rotation, halfSize, npc.scale, SpriteEffects.None, 0f);
+                    spriteBatch.Draw(texture, effectPos, npc.frame, color2 * opacity, npc.rotation, halfSize, npc.scale, SpriteEffects.None, 0f);
                 }
+                Twins.RestartSpritebatchForVanillaDraw(spriteBatch);
             }
-
-
+            bool teleporting = IsSpazPhase3Teleporting(npc) && npc.ai[0] > 5;
+            periodicTimer = (int)npc.ai[2] % periodTime;
+            int treshold = tpCount * tpTime - tpTime;//don't override color on last tp.
+            if(periodicTimer > treshold)
+            {
+                teleporting = false;
+            }
+            if (teleporting)
+            {
+                Twins.RestartSpritebatchForShaderDraw(spriteBatch, 1f, Color.Red);
+            }
             spriteBatch.Draw(texture, Pos, npc.frame, color * opacity, npc.rotation, halfSize, npc.scale, SpriteEffects.None, 0f);
+            texture = TextureAssets.EyeLaser.Value;
+            spriteBatch.Draw(texture, Pos, npc.frame, Color.White with { A = 0 } * opacity, npc.rotation, halfSize, npc.scale, SpriteEffects.None, 0f);
+            if (teleporting)
+            {
+                Twins.RestartSpritebatchForVanillaDraw(spriteBatch);
+            }
         }
         public static void DrawLaser(NPC npc, SpriteBatch spriteBatch)
         {
 
-            Vector2 retPosition = npc.Center - Main.screenPosition /*+ TRAEMethods.PolarVector(25 * 9, npc.rotation + MathF.PI / 2)*/;           
+            Vector2 retPosition = npc.Center - Main.screenPosition /*+ TRAEMethods.PolarVector(25 * 9, npc.rotation + MathF.PI / 2)*/;
             int timer = (int)npc.ai[2] % periodTime;
             float opacity = Utils.GetLerpValue(202, 190, timer, true);
             Texture2D blankTexture = TextureAssets.Extra[178].Value;
-            Vector2 texScale = new Vector2((retPosition).Length(), 1);//1/256, texture is 256x256
+            Vector2 texScale = new Vector2(retPosition.Length(), 1);//1/256, texture is 256x256
             Main.EntitySpriteDraw(blankTexture, retPosition, null, Color.Red * opacity, npc.rotation + MathF.PI / 2, new Vector2(0, 1), texScale, SpriteEffects.None);
 
 
@@ -373,14 +397,55 @@ namespace TRAEProject.Changes.NPCs.Boss
                 Vector2 offset = Utils.Remap(i, 0, dustAmount, 0, MathF.Tau).ToRotationVector2();
                 offset.X *= .5f;
                 offset = offset.RotatedBy(shootVelocity.ToRotation());
-                GlowyRedDust(origin + offset, offset * 2, 2);
+                GlowyRedDust(origin + offset , offset * 2, 2);
             }
-            Vector2 sparkleScale = new(0.75f,1.5f);
+            Vector2 sparkleScale = new(0.75f, 1.5f);
             for (int i = -1; i < 2; i += 2)
             {
                 Sparkle.NewSparkle(origin, Color.Red, sparkleScale, shootVelocity.RotatedBy(MathF.PI / 2) * i * 5, 20, sparkleScale, rotation: shootVelocity.ToRotation(), friction: .9f);
                 Sparkle.NewSparkle(origin, Color.Red, sparkleScale, shootVelocity.RotatedBy(MathF.PI / 2) * i * 5, 20, sparkleScale, rotation: shootVelocity.ToRotation(), friction: .9f);
             }
+        }
+        public static void EyeLaserShootDust(Vector2 shootVelocity, Vector2 origin)
+        {
+            Color violet = Twins.EyeLaserViolet;
+            shootVelocity.Normalize();
+            int dustAmount = 7;//change to what you want, this is the line
+            //for (int i = 0; i < dustAmount; i++)
+            //{
+            //    Vector2 dustVel = shootVelocity * Utils.Remap(i, 0, dustAmount, 2, 10);//arbitrary numbers, change 2 ad 10 to your liking
+            //    float scale = Utils.Remap(i, 0, dustAmount, 2, 1);
+            //    GlowyVioletDust(origin, dustVel, scale);
+            //}
+            dustAmount = 16;//change to what you want, this is the ring
+            for (int i = 0; i < dustAmount; i++)
+            {
+                Vector2 offset = Utils.Remap(i, 0, dustAmount, 0, MathF.Tau).ToRotationVector2();
+                offset.X *= .5f;
+                offset = offset.RotatedBy(shootVelocity.ToRotation());
+                GlowyVioletDust(origin + offset * 3, offset * 4 + shootVelocity * 4, 2);
+            }
+            Vector2 sparkleScale = new(0.75f, 1.5f);
+            for (int i = 0; i < 5; i++)
+            {
+                Sparkle.NewSparkle(origin, violet, new Vector2(2f), Vector2.Zero, 20, new Vector2(2f), Vector2.Zero, 1f, 0f, 1f);
+            }
+            //for (int i = -1; i < 2; i += 2)
+            //{
+            //    Sparkle.NewSparkle(origin, violet, sparkleScale, shootVelocity.RotatedBy(MathF.PI / 2) * i * 5, 20, sparkleScale, rotation: shootVelocity.ToRotation(), friction: .9f);
+            //    Sparkle.NewSparkle(origin, violet, sparkleScale, shootVelocity.RotatedBy(MathF.PI / 2) * i * 5, 20, sparkleScale, rotation: shootVelocity.ToRotation(), friction: .9f);
+            //    Sparkle.NewSparkle(origin, violet, sparkleScale, shootVelocity * i * 5, 20, sparkleScale, rotation: shootVelocity.ToRotation() + MathF.PI / 2, friction: .9f);
+            //    Sparkle.NewSparkle(origin, violet, sparkleScale, shootVelocity * i * 5, 20, sparkleScale, rotation: shootVelocity.ToRotation() + MathF.PI / 2, friction: .9f);
+            //}
+        }
+        static void GlowyVioletDust(Vector2 pos, Vector2 vel, float scale)
+        {
+            Color violet = Twins.EyeLaserViolet;
+            Dust dust = Dust.NewDustPerfect(pos, DustID.RainbowMk2, vel, 0, violet, scale);
+            dust.noGravity = true;
+            dust  = Dust.CloneDust(dust);
+            dust.color = Color.White with { A = 0 };
+            dust.scale *= 0.6f;
         }
         static void GlowyRedDust(Vector2 pos, Vector2 vel, float scale)
         {
@@ -494,9 +559,9 @@ namespace TRAEProject.Changes.NPCs.Boss
 
         static void AABBLineVisualizer(Vector2 lineStart, Vector2 lineEnd, float lineWidth)
         {
-            Texture2D blankTexture = Terraria.GameContent.TextureAssets.Extra[195].Value;
+            Texture2D blankTexture = TextureAssets.Extra[195].Value;
             Vector2 texScale = new Vector2((lineStart - lineEnd).Length(), lineWidth) * 0.00390625f;//1/256, texture is 256x256
-            Main.EntitySpriteDraw(blankTexture, (lineStart) - Main.screenPosition, null, Color.Red, (lineEnd - lineStart).ToRotation(), new Vector2(0, 128), texScale, SpriteEffects.None);
+            Main.EntitySpriteDraw(blankTexture, lineStart - Main.screenPosition, null, Color.Red, (lineEnd - lineStart).ToRotation(), new Vector2(0, 128), texScale, SpriteEffects.None);
         }
 
         public static Entity FindTarget(Projectile projectile)
@@ -528,7 +593,7 @@ namespace TRAEProject.Changes.NPCs.Boss
             {
 
                 Texture2D texture = TextureAssets.Projectile[Projectile.type].Value;
-                Texture2D glowTexture = ModContent.Request<Texture2D>("TRAEProject/Changes/NPCs/Boss/EyeNuke_Glow").Value;
+                Texture2D glowTexture = ModContent.Request<Texture2D>("TRAEProject/Changes/NPCs/Boss/TwinsChanges/EyeNuke_Glow").Value;
                 Vector2 offset = Vector2.Zero;
                 if (Projectile.timeLeft < 60)
                 {
@@ -536,11 +601,11 @@ namespace TRAEProject.Changes.NPCs.Boss
                 }
                 int frameCount = Main.projFrames[Projectile.type];
                 Main.EntitySpriteDraw(texture, Projectile.Center - Main.screenPosition + offset,
-                            new Rectangle(0, Projectile.frame * (texture.Height / frameCount), texture.Width, (texture.Height / frameCount)), lightColor, Projectile.rotation,
-                            new Vector2(texture.Width * 0.5f, (texture.Height / frameCount) * 0.5f), 1f, SpriteEffects.None, 0);
+                            new Rectangle(0, Projectile.frame * (texture.Height / frameCount), texture.Width, texture.Height / frameCount), lightColor, Projectile.rotation,
+                            new Vector2(texture.Width * 0.5f, texture.Height / frameCount * 0.5f), 1f, SpriteEffects.None, 0);
                 Main.EntitySpriteDraw(glowTexture, Projectile.Center - Main.screenPosition + offset,
-                            new Rectangle(0, Projectile.frame * (texture.Height / frameCount), texture.Width, (texture.Height / frameCount)), Color.White, Projectile.rotation,
-                            new Vector2(texture.Width * 0.5f, (texture.Height / frameCount) * 0.5f), 1f, SpriteEffects.None, 0);
+                            new Rectangle(0, Projectile.frame * (texture.Height / frameCount), texture.Width, texture.Height / frameCount), Color.White, Projectile.rotation,
+                            new Vector2(texture.Width * 0.5f, texture.Height / frameCount * 0.5f), 1f, SpriteEffects.None, 0);
             }
             return false;
         }
