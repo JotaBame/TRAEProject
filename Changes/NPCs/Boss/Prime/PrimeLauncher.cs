@@ -80,13 +80,13 @@ namespace TRAEProject.Changes.NPCs.Boss.Prime
         }
         int timer = 0;
         public override void AI()
-        { 
-			NPC.damage = 0;
+        {
+            NPC.damage = 0;
             NPC.spriteDirection = -1;
             if (!Main.npc[(int)NPC.ai[1]].active || Main.npc[(int)NPC.ai[1]].aiStyle != 32 || (NPC.ai[0] == 0 && !SkeletronPrime.KeepPhase2Arms(Main.npc[(int)NPC.ai[1]])))
             {
                 NPC.ai[2] += 10f;
-                if (NPC.ai[2] > 50f || Main.netMode != NetmodeID.Server) 
+                if (NPC.ai[2] > 50f || Main.netMode != NetmodeID.Server)
                 {
                     NPC.life = -1;
                     NPC.HitEffect();
@@ -94,16 +94,16 @@ namespace TRAEProject.Changes.NPCs.Boss.Prime
                 }
             }
             if (Main.npc[(int)NPC.ai[1]].ai[1] == 3f)
-                    NPC.EncourageDespawn(10);
+                NPC.EncourageDespawn(10);
 
             float yOffset = -100;
             float xOffset = 180;
-            if(NPC.ai[0] != 0)
+            if (NPC.ai[0] != 0)
             {
                 yOffset = 0;
                 xOffset = 306;
             }
-            if (NPC.position.Y > Main.npc[(int)NPC.ai[1]].position.Y + yOffset) 
+            if (NPC.position.Y > Main.npc[(int)NPC.ai[1]].position.Y + yOffset)
             {
                 if (NPC.velocity.Y > 0f)
                     NPC.velocity.Y *= 0.96f;
@@ -112,7 +112,7 @@ namespace TRAEProject.Changes.NPCs.Boss.Prime
                 if (NPC.velocity.Y > 3f)
                     NPC.velocity.Y = 3f;
             }
-            else if (NPC.position.Y < Main.npc[(int)NPC.ai[1]].position.Y + yOffset) 
+            else if (NPC.position.Y < Main.npc[(int)NPC.ai[1]].position.Y + yOffset)
             {
                 if (NPC.velocity.Y < 0f)
                     NPC.velocity.Y *= 0.96f;
@@ -122,7 +122,7 @@ namespace TRAEProject.Changes.NPCs.Boss.Prime
                     NPC.velocity.Y = -3f;
             }
 
-            if (NPC.position.X + (float)(NPC.width / 2) > Main.npc[(int)NPC.ai[1]].position.X + (float)(Main.npc[(int)NPC.ai[1]].width / 2) + xOffset) 
+            if (NPC.position.X + (float)(NPC.width / 2) > Main.npc[(int)NPC.ai[1]].position.X + (float)(Main.npc[(int)NPC.ai[1]].width / 2) + xOffset)
             {
                 if (NPC.velocity.X > 0f)
                     NPC.velocity.X *= 0.96f;
@@ -132,7 +132,7 @@ namespace TRAEProject.Changes.NPCs.Boss.Prime
                     NPC.velocity.X = 8f;
             }
 
-            if (NPC.position.X + (float)(NPC.width / 2) < Main.npc[(int)NPC.ai[1]].position.X + (float)(Main.npc[(int)NPC.ai[1]].width / 2) + xOffset) 
+            if (NPC.position.X + (float)(NPC.width / 2) < Main.npc[(int)NPC.ai[1]].position.X + (float)(Main.npc[(int)NPC.ai[1]].width / 2) + xOffset)
             {
                 if (NPC.velocity.X < 0f)
                     NPC.velocity.X *= 0.96f;
@@ -145,27 +145,47 @@ namespace TRAEProject.Changes.NPCs.Boss.Prime
             NPC.TargetClosest(false);
             NPC.rotation = (NPC.Center - Main.npc[(int)NPC.ai[1]].Center).ToRotation();
             timer++;
-            if(timer >= PrimeStats.ragedMissileCooldown && Main.npc[(int)NPC.ai[1]].ai[1] != 0f)
+            if (timer >= PrimeStats.ragedMissileCooldown && Main.npc[(int)NPC.ai[1]].ai[1] != 0f)
             {
                 Fire(NPC);
                 timer = 0;
             }
-            if(timer % PrimeStats.missileBurstDelay == 0 && timer >= PrimeStats.missileBurstCooldown)
+            if (timer % PrimeStats.missileBurstDelay == 0 && timer >= PrimeStats.missileBurstCooldown)
             {
                 Fire(NPC);
-                if(timer >= PrimeStats.missileBurstCooldown + PrimeStats.missileBurstDelay * PrimeStats.missileBurstSize)
+                if (timer >= PrimeStats.missileBurstCooldown + PrimeStats.missileBurstDelay * PrimeStats.missileBurstSize)
                 {
                     timer = 0;
                 }
             }
+            //DebugFiring();
         }
+
+        private void DebugFiring()
+        {
+            bool anyMissiles = false;
+            for (int i = 0; i < Main.maxProjectiles; i++)
+            {
+                if (Main.projectile[i].active && Main.projectile[i].type == ModContent.ProjectileType<PrimeMissile>())
+                {
+                    anyMissiles = true;
+                }
+            }
+
+            if (!anyMissiles && Main.LocalPlayer.controlQuickHeal)//TEST CODE
+            {
+                Fire(NPC);
+                timer = 0;
+            }
+        }
+
         static void Fire(NPC npc)
         {
-            if(Main.netMode == NetmodeID.MultiplayerClient)
+            SoundEngine.PlaySound(SoundID.Item11, npc.Center);
+            if (Main.netMode == NetmodeID.MultiplayerClient)
             {
                 return;
             }
-            SoundEngine.PlaySound(SoundID.Item11, npc.Center);
             int damage = PrimeStats.missileDamage;
             float sfxIdentifierToPlay = Main.npc[(int)npc.ai[1]].ai[1] != 0f ? 0 : 1;
             Projectile.NewProjectile(npc.GetSource_FromAI(), npc.Center + TRAEMethods.PolarVector(18f, npc.rotation), TRAEMethods.PolarVector(10, npc.rotation), ModContent.ProjectileType<PrimeMissile>(), damage, 0, Main.myPlayer, sfxIdentifierToPlay);
