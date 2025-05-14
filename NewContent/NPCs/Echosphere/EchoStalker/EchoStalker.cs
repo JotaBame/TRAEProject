@@ -72,14 +72,14 @@ namespace TRAEProject.NewContent.NPCs.Echosphere.EchoStalker
             }
             if (NPC.ai[0] >= 107 && (NPC.ai[0] - 107) % fireRate == 0 && NPC.ai[0] <= 107 + fireRate * numberOfShots)
             {
-                Vector2 projVel = NPC.DirectionTo(Main.player[NPC.target].Center) * 18;
-                Projectile.NewProjectile(NPC.GetSource_FromAI(), MouthCenter, projVel, ModContent.ProjectileType<EchoStalkerSonicWave>(), 65, 0, Main.myPlayer, .6f);
+                Vector2 projVel = NPC.DirectionTo(Main.player[NPC.target].Center) * 10;
+                Projectile.NewProjectile(NPC.GetSource_FromAI(), MouthCenter, projVel, ModContent.ProjectileType<EchoStalkerSonicWave>(), 30, 0, Main.myPlayer, .6f);
                 for (float i = 0; i < 1; i += 1f / 40f)
                 {
                     Vector2 vel = (i * MathF.Tau).ToRotationVector2();
                     vel.X *= 0.5f;
                     vel = vel.RotatedBy(projVel.ToRotation()) + projVel;
-                    Dust dust = Dust.NewDustPerfect(MouthCenter + vel * 3, DustID.Shadowflame, vel * 5);
+                    Dust dust = Dust.NewDustPerfect(MouthCenter + vel * 3, DustID.Shadowflame, vel * 3);
                     dust.noGravity = true;
                 }
             }

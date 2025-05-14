@@ -20,6 +20,7 @@ namespace TRAEProject.NewContent.Projectiles
         {
             Projectile.hostile = true;
             Projectile.friendly = false;
+            Projectile.extraUpdates = 1;
             Projectile.tileCollide = false;
             Projectile.Size = new(30);
             Projectile.alpha = 255;
