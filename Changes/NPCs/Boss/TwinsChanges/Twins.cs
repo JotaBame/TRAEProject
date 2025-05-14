@@ -756,14 +756,14 @@ namespace TRAEProject.Changes.NPCs.Boss.TwinsChanges
         }
         public static void ShootTelegraphNew(Vector2 position, Color color, float progress, float rotationDirection)
         {
-            float opacity = Utils.GetLerpValue(0f, .2f, progress, true);
+            float opacity = Utils.GetLerpValue(0f, .6f, progress, true);
             Vector2 drawPos = position - Main.screenPosition;
             color.A = 0;
             Color additiveWhite = new Color(255, 255, 255, 0);
-            float scale = TRAEMethods.RemapEased(progress, 0, .5f, 0.5f, 2f, TRAEMethods.EaseOutQuad);
+            float scale = TRAEMethods.RemapEased(progress, 0.025f, .1f, 0.5f, 1.3f, TRAEMethods.EaseOutQuad);
             FadeLightBall(drawPos, color * 0.5f * opacity, scale);
             FadeLightBall(drawPos, additiveWhite * 0.5f * opacity, scale * 0.5f);
-            float rotation = TRAEMethods.RemapEased(progress, 0, 1, 2f * rotationDirection, 0f, TRAEMethods.EaseOutQuad);
+            float rotation = TRAEMethods.RemapEased(progress, 0, 1, 1.5f * rotationDirection, 0f, TRAEMethods.EaseOutQuad);
             TRAEMethods.DrawPrettyStarSparkle(opacity, drawPos, additiveWhite, color, Vector2.One * scale, rotation: rotation);
         }
         public static void CursedFlameShootDust(Vector2 origin)
@@ -775,7 +775,7 @@ namespace TRAEProject.Changes.NPCs.Boss.TwinsChanges
         }
         public static void ShootTelegraph(Vector2 position, Color color, float progress)
         {
-            float opacity = Utils.GetLerpValue(0f, .2f, progress, true);
+            float opacity = Utils.GetLerpValue(0f, .4f, progress, true);
             Vector2 drawPos = position - Main.screenPosition;
             color.A = 0;
             Color additiveWhite = new Color(255, 255, 255, 0);
@@ -871,9 +871,9 @@ namespace TRAEProject.Changes.NPCs.Boss.TwinsChanges
                         Pos += (Vector2.UnitX * TextureAssets.Npc[npc.type].Width() / 2).RotatedBy(npc.rotation + MathF.PI / 2);
                         Pos += screenPos;
 
-                            float progress = Utils.GetLerpValue(0f, 60f, npc.ai[3], true);
-                           // ShootTelegraphNew(Pos, CursedFlamesLime, progress, 1);
-                            ShootTelegraphOld(Pos, CursedFlamesLime * 0.75f, progress);
+                            float progress = Utils.GetLerpValue(0f, 180f, npc.ai[3], true);
+                        ShootTelegraphNew(Pos, CursedFlamesLime, progress, 1);
+                        //ShootTelegraphOld(Pos, CursedFlamesLime * 0.75f, progress);
                         
                     }
                 }

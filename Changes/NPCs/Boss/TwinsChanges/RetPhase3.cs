@@ -411,14 +411,14 @@ namespace TRAEProject.Changes.NPCs.Boss.TwinsChanges
         {
             Color violet = Twins.EyeLaserViolet;
             shootVelocity.Normalize();
-            int dustAmount = 7;//change to what you want, this is the line
+            int dustAmount = 5;//change to what you want, this is the line
             //for (int i = 0; i < dustAmount; i++)
             //{
             //    Vector2 dustVel = shootVelocity * Utils.Remap(i, 0, dustAmount, 2, 10);//arbitrary numbers, change 2 ad 10 to your liking
             //    float scale = Utils.Remap(i, 0, dustAmount, 2, 1);
             //    GlowyVioletDust(origin, dustVel, scale);
             //}
-            dustAmount = 16;//change to what you want, this is the ring
+            //dustAmount = 5;//change to what you want, this is the ring
             for (int i = 0; i < dustAmount; i++)
             {
                 Vector2 offset = Utils.Remap(i, 0, dustAmount, 0, MathF.Tau).ToRotationVector2();
@@ -426,10 +426,10 @@ namespace TRAEProject.Changes.NPCs.Boss.TwinsChanges
                 offset = offset.RotatedBy(shootVelocity.ToRotation());
                 GlowyVioletDust(origin + offset * 3, offset * 4 + shootVelocity * 4, 2);
             }
-            Vector2 sparkleScale = new(0.75f, 1.5f);
+            Vector2 sparkleScale = new(0.5f, 1.0f);
             for (int i = 0; i < 5; i++)
             {
-                Sparkle.NewSparkle(origin, violet, new Vector2(2f), Vector2.Zero, 20, new Vector2(1f), Vector2.Zero, 1f, 0f, 1f);
+                Sparkle.NewSparkle(origin, violet, new Vector2(1.5f), Vector2.Zero, 20, new Vector2(1f), Vector2.Zero, 1f, 0f, 1f);
             }
             //for (int i = -1; i < 2; i += 2)
             //{

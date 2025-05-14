@@ -1692,6 +1692,7 @@ Mods: {
 			GriffinFlier.DisplayName: Griffin Flier
 			GriffinWalker.DisplayName: Griffin Walker
 			Kinnara.DisplayName: Kinnara
+			EchoStalkerBody.DisplayName: Echo Stalker Body
 		}
 
 		Tiles: {
