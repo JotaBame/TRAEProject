@@ -60,7 +60,7 @@ namespace TRAEProject.NewContent.Items.FlamethrowerAmmo
             ColorLerp = new Color(95, 160, 255, 240);
             ColorSmoke = new Color(33, 125, 202, 200);
             dustID = 135;
-            scalemodifier = 0.2f;
+            maxScale = 0.2f;
             Projectile.GetGlobalProjectile<ProjectileStats>().DamageFalloff = 0.15f;
 			Projectile.GetGlobalProjectile<ProjectileStats>().AddsBuff = BuffID.Frostburn2;
             Projectile.GetGlobalProjectile<ProjectileStats>().AddedBuffDuration = 180;
@@ -75,8 +75,8 @@ namespace TRAEProject.NewContent.Items.FlamethrowerAmmo
         }
         public override bool PreAI()
         {
-            if (scalemodifier < 2.25f)               
-                scalemodifier += 2f / 60;
+            if (maxScale < 2.25f)               
+                maxScale += 2f / 60;
             return true;
         }
 

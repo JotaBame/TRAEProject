@@ -50,7 +50,7 @@ namespace TRAEProject.NewContent.Items.FlamethrowerAmmo
         public override void FlamethrowerDefaults()
         {
             dustID = DustID.BlueTorch;
-            scalemodifier = 0.9f;
+            maxScale = 0.9f;
             dustScale = 0.5f;
             ColorMiddle = new Color(82, 158, 218, 50);
             ColorBack = new Color(91, 163, 245, 50);
@@ -112,7 +112,7 @@ namespace TRAEProject.NewContent.Items.FlamethrowerAmmo
         public override void FlamethrowerDefaults()
         {
             dustID = DustID.PurpleTorch;
-            scalemodifier = 0.5f; 
+            maxScale = 0.5f; 
 
             ColorMiddle = new Color(154, 72, 183, 100);
                 ColorBack = new Color(194, 89, 255, 100);
@@ -149,7 +149,7 @@ namespace TRAEProject.NewContent.Items.FlamethrowerAmmo
         public override void FlamethrowerDefaults()
         {
             dustID = DustID.PinkTorch;
-            scalemodifier = 0.5f;
+            maxScale = 0.5f;
             dustScale = 0.5f;
 
             ColorMiddle = new Color(255, 88, 178, 100);

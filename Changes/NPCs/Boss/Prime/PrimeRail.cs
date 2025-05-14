@@ -32,6 +32,8 @@ namespace TRAEProject.Changes.NPCs.Boss.Prime
         int timer = 0;
         public override void SetStaticDefaults()
         {
+            NPCID.Sets.SpecificDebuffImmunity[Type][BuffID.Confused] = true;
+            NPCID.Sets.SpecificDebuffImmunity[Type][BuffID.Poisoned] = true;
             NPCID.Sets.TrailingMode[NPC.type] = 6;
             base.SetStaticDefaults();
         }
@@ -194,10 +196,13 @@ namespace TRAEProject.Changes.NPCs.Boss.Prime
             if (timer >= PrimeStats.railChargeTime)
             {
                 timer = 0;
+                Vector2 shotVel = TRAEMethods.PolarVector(railVel, NPC.rotation);
                 if (Main.netMode != NetmodeID.MultiplayerClient)
                 {
-                    Projectile.NewProjectile(NPC.GetSource_FromAI(), NPC.Center + TRAEMethods.PolarVector(30, NPC.rotation), TRAEMethods.PolarVector(railVel, NPC.rotation), ModContent.ProjectileType<RailShot>(), PrimeStats.railDamage, 0, Main.myPlayer);
+                    Projectile.NewProjectile(NPC.GetSource_FromAI(), NPC.Center + TRAEMethods.PolarVector(30, NPC.rotation), shotVel, ModContent.ProjectileType<RailShot>(), PrimeStats.railDamage, 0, Main.myPlayer);
                 }
+                NPC.velocity = -shotVel * (PrimeStats.railExtraUpdates + 1) * .5f;
+                Lighting.AddLight(NPC.Center, Vector3.One * 3);
                 //SoundEngine.PlaySound(PrimeStats.PrimeRailShot2, NPC.Center);
                 SoundEngine.PlaySound(PrimeStats.PrimeRailShot2, NPC.Center);
                 //SoundEngine.PlaySound(PrimeStats.PrimeRailShot.WithVolumeScale(0.05f), NPC.Center);
@@ -288,7 +293,7 @@ namespace TRAEProject.Changes.NPCs.Boss.Prime
         {
             ProjectileID.Sets.TrailCacheLength[Type] = 20 * (PrimeStats.railExtraUpdates + 1);
             ProjectileID.Sets.TrailingMode[Type] = 0;
-            ProjectileID.Sets.DrawScreenCheckFluff[Type] = 2000;//renders further away(trail wont get cut off)
+            ProjectileID.Sets.DrawScreenCheckFluff[Type] = 3000;//renders further away(trail wont get cut off)
         }
         public override void SetDefaults()
         {
@@ -319,12 +324,14 @@ namespace TRAEProject.Changes.NPCs.Boss.Prime
                     Projectile.Kill();
                 }
             }
-            //else if (Collision.SolidTiles(Projectile.position, 1, 1))
-            //{
-            //    Projectile.localAI[2]++;
-            //}
             Projectile.localAI[0] += 1f;
-            if (Projectile.localAI[0] % 15 == 0) 
+            DustRings();
+            return false;
+        }
+
+        private void DustRings()
+        {
+            if (Projectile.localAI[0] % 15 == 0)
             {
                 int count = 25;
                 for (int i = 0; i < count; i++)
@@ -338,28 +345,32 @@ namespace TRAEProject.Changes.NPCs.Boss.Prime
                     d.scale *= 2;
                 }
             }
+        }
+
+        private void DustOld()
+        {
             if (Projectile.localAI[0] > 8f)
             {
-                //for (int i = 0; i < 2; i++)
-                //{
-                //    int type = DustID.TheDestroyer;
-                //    int Dust = Terraria.Dust.NewDust(Projectile.Center, Projectile.width, Projectile.height, type, 0f, 0f, 100);
-                //    Main.dust[Dust].position = (Main.dust[Dust].position + Projectile.Center) / 2f;
-                //    Main.dust[Dust].noGravity = true;
-                //    Dust dust = Main.dust[Dust];
-                //    dust.velocity *= 0.1f;
-                //    if (i == 1)
-                //    {
-                //        dust = Main.dust[Dust];
-                //        dust.position += Projectile.velocity / 2f;
-                //    }
-                //    float ScaleMult = (1000f - Projectile.ai[0]) / 500f;
-                //    dust = Main.dust[Dust];
-                //    dust.scale *= ScaleMult + 0.1f;
-                //}
+                for (int i = 0; i < 2; i++)
+                {
+                    int type = DustID.TheDestroyer;
+                    int Dust = Terraria.Dust.NewDust(Projectile.Center, Projectile.width, Projectile.height, type, 0f, 0f, 100);
+                    Main.dust[Dust].position = (Main.dust[Dust].position + Projectile.Center) / 2f;
+                    Main.dust[Dust].noGravity = true;
+                    Dust dust = Main.dust[Dust];
+                    dust.velocity *= 0.1f;
+                    if (i == 1)
+                    {
+                        dust = Main.dust[Dust];
+                        dust.position += Projectile.velocity / 2f;
+                    }
+                    float ScaleMult = (1000f - Projectile.ai[0]) / 500f;
+                    dust = Main.dust[Dust];
+                    dust.scale *= ScaleMult + 0.1f;
+                }
             }
-            return false;
         }
+
         static float Easing(float progress)
         {
             return .5f - MathF.Cos(progress * MathF.PI) * .5f;

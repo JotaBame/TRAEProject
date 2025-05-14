@@ -7,6 +7,7 @@ using Terraria.Chat;
 using System.Collections.Generic;
 using TRAEProject.Changes;
 using Microsoft.Xna.Framework.Graphics;
+using Terraria.GameContent;
 namespace TRAEProject
 {
     public static class TRAEMethods
@@ -303,8 +304,92 @@ namespace TRAEProject
             float calculatedShootAngle = angleToTarget -  MathF.Asin((targetSpeed * time *  MathF.Sin(z)) / (shootSpeed * time));
             return calculatedShootAngle;
         }
-        
+        public static void DrawPrettyStarSparkle(float opacity, Vector2 drawpos, Color innerColor, Color outerColor, Vector2 scale = default, Vector2 fatness = default, float flareCounter = 1, float fadeInStart = 0, float fadeInEnd = 1, float fadeOutStart =2, float fadeOutEnd = 4, float rotation = 0)
+        {
+            if(scale == default)
+            {
+                scale = Vector2.One;
+            }
+            if(fatness == default)
+            {
+                fatness = Vector2.One;
+            }
+            Texture2D texture = TextureAssets.Extra[98].Value;
+            Color bigSparkleColor = outerColor * opacity;
+            Vector2 origin = texture.Size() / 2f;
+            Color smallSparkleColor = innerColor * opacity;
+            float sizeMult = Utils.GetLerpValue(fadeInStart, fadeInEnd, flareCounter, clamped: true) * Utils.GetLerpValue(fadeOutEnd, fadeOutStart, flareCounter, clamped: true);
+            Vector2 verticalLineScale = new Vector2(fatness.X * 0.5f, scale.X) * sizeMult;
+            Vector2 horizontalLineScale = new Vector2(fatness.Y * 0.5f, scale.Y) * sizeMult;
+            bigSparkleColor *= sizeMult;
+            smallSparkleColor *= sizeMult;
+            Main.EntitySpriteDraw(texture, drawpos, null, bigSparkleColor, (float)Math.PI / 2f + rotation, origin, verticalLineScale, SpriteEffects.None);
+            Main.EntitySpriteDraw(texture, drawpos, null, bigSparkleColor, rotation, origin, horizontalLineScale, SpriteEffects.None);
+            Main.EntitySpriteDraw(texture, drawpos, null, smallSparkleColor, (float)Math.PI / 2f + rotation, origin, verticalLineScale * 0.6f, SpriteEffects.None);
+            Main.EntitySpriteDraw(texture, drawpos, null, smallSparkleColor, rotation, origin, horizontalLineScale * 0.6f, SpriteEffects.None);
+        }
+        public static float EaseInOutSine(float x)
+        {
+            return -(MathF.Cos(MathF.PI * x) - 1) / 2;
+        }
 
+        public static float EaseOutSine(float x)
+        {
+            return MathF.Sin((x * MathF.PI) / 2);
+        }
+
+        public static float EaseInSine(float x)
+        {
+            return 1 - MathF.Cos((x * MathF.PI) / 2);
+        }
+
+        public static float EaseInQuad(float x)
+        {
+            return x * x;
+        }
+
+        public static float EaseOutQuad(float x)
+        {
+            return 1 - (1 - x) * (1 - x);
+        }
+
+        public static float EaseInOutQuad(float x)
+        {
+            if (x < 0.5) return 2 * x * x;
+            return 1 - 2 * (1 - x) * (1 - x);
+        }
+
+        public static float EaseInCubic(float x)
+        {
+            return x * x * x;
+        }
+
+        public static float EaseOutCubic(float x)
+        {
+            float t = 1 - x;
+            return 1 - t * t * t;
+        }
+
+        public static float EaseInOutCubic(float x)
+        {
+            if (x < 0.5) return 4 * x * x * x;
+            float t = 2 * x - 2;
+            return 1 + t * t * t / 2;
+        }
+        public static float RemapEased(float fromValue, float fromMin, float fromMax, float toMin, float toMax, Func<float, float> easing)
+        {
+            float t = (fromValue - fromMin) / (fromMax - fromMin);
+            if(t <= 0)
+            {
+                return toMin;
+            }
+            if(t >= 1)
+            {
+                return toMax;
+            }
+            t = easing(t);
+            return (1 - t) * toMin + t * toMax;
+        }
         public static void ServerClientCheck(string q)
         {
             if (Main.netMode == NetmodeID.MultiplayerClient)

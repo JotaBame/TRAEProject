@@ -31,6 +31,8 @@ namespace TRAEProject.Changes.NPCs.Boss.Prime
         
         public override void SetStaticDefaults()
         {
+            NPCID.Sets.SpecificDebuffImmunity[Type][BuffID.Confused] = true;
+            NPCID.Sets.SpecificDebuffImmunity[Type][BuffID.Poisoned] = true;
             NPCID.Sets.TrailingMode[NPC.type] = 6;
             base.SetStaticDefaults();
         }
@@ -172,7 +174,7 @@ namespace TRAEProject.Changes.NPCs.Boss.Prime
                 }
             }
 
-            if (!anyMissiles && Main.LocalPlayer.controlQuickHeal)//TEST CODE
+            if (!anyMissiles && Main.LocalPlayer.controlQuickHeal)
             {
                 Fire(NPC);
                 timer = 0;

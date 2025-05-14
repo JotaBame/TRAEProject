@@ -17,6 +17,7 @@ namespace TRAEProject.Changes.NPCs.Boss.TwinsChanges
     {
         static Asset<Effect> tintShader;
         public static Color EyeLaserViolet => new Color(104f / 255f, 3f / 255f, 253f / 255);
+        public static Color CursedFlamesLime => new(179f / 255, 252f / 255f, 0, 1f);
 
         public override void SetStaticDefaults()
         {
@@ -293,7 +294,7 @@ namespace TRAEProject.Changes.NPCs.Boss.TwinsChanges
                                 if (npc.ai[3] >= 180f)
                                 {
                                     npc.ai[3] = 0f;
-                                    Vector2 shotPos = npc.Center + TRAEMethods.PolarVector(15 * 9, npc.rotation + MathF.PI / 2);
+                                    Vector2 shotPos = npc.Center + TRAEMethods.PolarVector(30, npc.rotation + MathF.PI / 2) + npc.velocity * 2f;
 
                                     Vector2 particlePos = GetPupilPosition(npc);
                                     Vector2 shotVel = TRAEMethods.PolarVector(shootSpeed, npc.rotation + MathF.PI / 2);
@@ -323,7 +324,7 @@ namespace TRAEProject.Changes.NPCs.Boss.TwinsChanges
                                 if (Main.netMode != 1)
                                 {
                                     int attackDamage_ForProjectiles3 = npc.GetAttackDamage_ForProjectiles(20f, 19f);
-                                    int num413 = Projectile.NewProjectile(npc.GetSource_ReleaseEntity(), npc.Center + TRAEMethods.PolarVector(15 * 9, npc.rotation + MathF.PI / 2), shotVel, ProjectileID.EyeLaser, attackDamage_ForProjectiles3, 0f, Main.myPlayer);
+                                    int num413 = Projectile.NewProjectile(npc.GetSource_ReleaseEntity(), npc.Center + TRAEMethods.PolarVector(30, npc.rotation + MathF.PI / 2), shotVel, ProjectileID.EyeLaser, attackDamage_ForProjectiles3, 0f, Main.myPlayer);
                                 }
                             }
                         }
@@ -488,6 +489,13 @@ namespace TRAEProject.Changes.NPCs.Boss.TwinsChanges
                 }
                 if (npc.type == NPCID.Spazmatism)
                 {
+                    if (npc.ai[0] == 0 && npc.ai[1] == 0)
+                    {
+                        if (npc.ai[3] +1 >= 60)
+                        {
+                            CursedFlameShootDust(GetPupilPosition(npc));
+                        }
+                    }
                     if (npc.ai[0] >= 4f)
                     {
 
@@ -728,7 +736,7 @@ namespace TRAEProject.Changes.NPCs.Boss.TwinsChanges
                         SpazPhase3.Phase3Draw(npc, spriteBatch, screenPos, drawColor);
                         return false;
                     }
-                    SpazPhase3.DrawSpazmatismInnerMouthGlowPublic(npc, screenPos);
+                    SpazPhase3.DrawSpazmatismInnerMouthGlow(npc, screenPos);
                     return true;
                 }
             }
@@ -746,7 +754,60 @@ namespace TRAEProject.Changes.NPCs.Boss.TwinsChanges
             scale *= 0.4f;
             Main.EntitySpriteDraw(tex, drawPos, null, drawColor, Main.rand.NextFloat(MathF.Tau), tex.Size() / 2, scale, SpriteEffects.None);
         }
+        public static void ShootTelegraphNew(Vector2 position, Color color, float progress, float rotationDirection)
+        {
+            float opacity = Utils.GetLerpValue(0f, .2f, progress, true);
+            Vector2 drawPos = position - Main.screenPosition;
+            color.A = 0;
+            Color additiveWhite = new Color(255, 255, 255, 0);
+            float scale = TRAEMethods.RemapEased(progress, 0, .5f, 0.5f, 2f, TRAEMethods.EaseOutQuad);
+            FadeLightBall(drawPos, color * 0.5f * opacity, scale);
+            FadeLightBall(drawPos, additiveWhite * 0.5f * opacity, scale * 0.5f);
+            float rotation = TRAEMethods.RemapEased(progress, 0, 1, 2f * rotationDirection, 0f, TRAEMethods.EaseOutQuad);
+            TRAEMethods.DrawPrettyStarSparkle(opacity, drawPos, additiveWhite, color, Vector2.One * scale, rotation: rotation);
+        }
+        public static void CursedFlameShootDust(Vector2 origin)
+        {
+            for (int i = 0; i < 5; i++)
+            {
+                Sparkle.NewSparkle(origin, Twins.CursedFlamesLime, new Vector2(2f), Vector2.Zero, 20, new Vector2(1f), Vector2.Zero, 1f, 0f, 1f);
+            }
+        }
         public static void ShootTelegraph(Vector2 position, Color color, float progress)
+        {
+            float opacity = Utils.GetLerpValue(0f, .2f, progress, true);
+            Vector2 drawPos = position - Main.screenPosition;
+            color.A = 0;
+            Color additiveWhite = new Color(255, 255, 255, 0);
+            float scale = TRAEMethods.RemapEased(progress, 0, .5f, 0.5f, 2f, TRAEMethods.EaseOutQuad);
+            FadeLightBall(drawPos, color * 0.5f * opacity, scale);
+            FadeLightBall(drawPos, additiveWhite * 0.5f * opacity, scale * 0.5f);
+            if (!Main.gamePaused && progress < .7f)
+            {
+                for (int i = 0; i < 3; i++)
+                {
+                    Vector2 offset = Main.rand.NextFloat(MathF.Tau).ToRotationVector2();
+                    float dist = Main.rand.NextFloat(60f, 70f);
+                 //   GlowyVioletDust(position + offset * dist, -offset * dist * 0.1f, progress * 3f);
+                }
+            }
+          //  for (int i = -1; i < 2; i+=2)
+            {
+                //  float rotationOffset = MathF.PI * 0.25f - progress * MathF.PI * 0.25f * i;
+                float rotation = TRAEMethods.RemapEased(progress, 0, 1, -2f, 0f, TRAEMethods.EaseOutQuad);
+                TRAEMethods.DrawPrettyStarSparkle(opacity, drawPos, additiveWhite, color, Vector2.One * scale, rotation: rotation);
+            }
+        }
+        static void GlowyVioletDust(Vector2 pos, Vector2 vel, float scale)
+        {
+            Color violet = Twins.EyeLaserViolet;
+            Dust dust = Dust.NewDustPerfect(pos, DustID.RainbowMk2, vel, 0, violet, scale);
+            dust.noGravity = true;
+            dust = Dust.CloneDust(dust);
+            dust.color = Color.White with { A = 0 };
+            dust.scale *= 0.6f;
+        }
+        public static void ShootTelegraphOld(Vector2 position, Color color, float progress)
         {
             float scale = MathHelper.Lerp(2f, 1f, progress);
             Color drawCol = color * Utils.GetLerpValue(0, .6f, progress,true);
@@ -792,7 +853,28 @@ namespace TRAEProject.Changes.NPCs.Boss.TwinsChanges
                         Color violet = new Color(104f / 255f, 3f / 255f, 253f / 255);
                         Color purple = new Color(130f / 255f, 25f / 255f, 183f / 255f);
                         Pos += screenPos;
-                        ShootTelegraph(Pos, violet, progress);
+                        //ShootTelegraphNew(Pos, violet, progress, -1);
+                        ShootTelegraphOld(Pos, violet * .75f, progress);
+                    }
+                }
+                if(npc.type == NPCID.Spazmatism)
+                {
+                    if (npc.ai[0] == 0f && npc.ai[1] == 0 && npc.ai[2] < 560)
+                    {
+                        Vector2 halfSize = new Vector2(55f, 107f);
+                        float num35 = 0f;
+                        float num36 = Main.NPCAddHeight(npc);
+                        Vector2 Pos = new Vector2(
+                            npc.position.X - screenPos.X + npc.width / 2 - TextureAssets.Npc[npc.type].Width() * npc.scale / 2f + halfSize.X * npc.scale,
+                            npc.position.Y - screenPos.Y + npc.height - TextureAssets.Npc[npc.type].Height() * npc.scale / Main.npcFrameCount[npc.type] + 4f + halfSize.Y * npc.scale + num36 + num35);
+                        // spriteBatch.Draw(eyeGlow, Pos, npc.frame, color, npc.rotation, halfSize, npc.scale, SpriteEffects.None, 0f);
+                        Pos += (Vector2.UnitX * TextureAssets.Npc[npc.type].Width() / 2).RotatedBy(npc.rotation + MathF.PI / 2);
+                        Pos += screenPos;
+
+                            float progress = Utils.GetLerpValue(0f, 60f, npc.ai[3], true);
+                           // ShootTelegraphNew(Pos, CursedFlamesLime, progress, 1);
+                            ShootTelegraphOld(Pos, CursedFlamesLime * 0.75f, progress);
+                        
                     }
                 }
             }

@@ -406,6 +406,7 @@ namespace TRAEProject.Changes.NPCs.Boss.TwinsChanges
                 Sparkle.NewSparkle(origin, Color.Red, sparkleScale, shootVelocity.RotatedBy(MathF.PI / 2) * i * 5, 20, sparkleScale, rotation: shootVelocity.ToRotation(), friction: .9f);
             }
         }
+
         public static void EyeLaserShootDust(Vector2 shootVelocity, Vector2 origin)
         {
             Color violet = Twins.EyeLaserViolet;
@@ -428,7 +429,7 @@ namespace TRAEProject.Changes.NPCs.Boss.TwinsChanges
             Vector2 sparkleScale = new(0.75f, 1.5f);
             for (int i = 0; i < 5; i++)
             {
-                Sparkle.NewSparkle(origin, violet, new Vector2(2f), Vector2.Zero, 20, new Vector2(2f), Vector2.Zero, 1f, 0f, 1f);
+                Sparkle.NewSparkle(origin, violet, new Vector2(2f), Vector2.Zero, 20, new Vector2(1f), Vector2.Zero, 1f, 0f, 1f);
             }
             //for (int i = -1; i < 2; i += 2)
             //{
