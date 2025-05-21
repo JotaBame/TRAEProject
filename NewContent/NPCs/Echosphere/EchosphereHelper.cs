@@ -7,6 +7,38 @@ namespace TRAEProject.NewContent.NPCs.Echosphere
 {
     public static class EchosphereHelper
     {
+        static int BlurCountOld => 17;
+        static int BlurCountINew => 5;
+        static int BlurCountJNew => 5;
+        static int BlurCountNew => BlurCountINew * BlurCountJNew;//actually 21 in practice because the corners of the kernel get discarded as their value is too low to matter
+        static Vector2 GetBlurOffsetOld(int i, float time)
+        {
+            return new Vector2(i * 3f % 5f).RotatedBy(i / 5.5f * MathF.Tau + time);
+        }
+        static bool GetBlurOffsetAndOpacity(int i, int j, float time, out float opacity, out Vector2 offset)
+        {
+            opacity = gaussianWeights5x5[i, j];
+            if (opacity < 0.01f)//opacity too low too mater, don't draw.
+            {
+                opacity = 0;
+                offset = Vector2.Zero;
+                return false;
+            }
+            opacity *= 2.5f;//make it brighter because it was too faint
+            Vector2 dir = new(i - 2, j - 2);
+            dir *= 4;
+            offset = dir.RotatedBy(time);
+            return true;
+        }
+        static float[,] gaussianWeights5x5 = new float[,]
+        {
+            { 1/273f, 4/273f, 7 / 273f, 4 / 273f, 1/273f },
+            { 4/273f, 16 / 273f, 26/273f, 16 / 273f, 4 / 273f},
+            { 7/273f, 26 / 273f, 41 /273f, 26 / 273f, 7/273f},
+            { 4/273f, 16 / 273f, 26/273f, 16/273f, 4/273f },
+            { 1 / 273f, 4 / 273f, 7/273f, 4/273f, 1/273f }
+        };
+
         public static void SpectralDraw(NPC NPC, SpriteBatch spriteBatch, Vector2 screenPos, Texture2D texture)
         {
             InternalSpectralDraw(NPC, spriteBatch, screenPos, texture, NPC.spriteDirection == -1 ? SpriteEffects.FlipHorizontally : SpriteEffects.None);
@@ -18,6 +50,76 @@ namespace TRAEProject.NewContent.NPCs.Echosphere
         public static void SpectralDrawVerticalFlip(NPC NPC, SpriteBatch spriteBatch, Vector2 screenPos, Texture2D texture)
         {
             InternalSpectralDraw(NPC, spriteBatch, screenPos, texture, NPC.spriteDirection == -1 ? SpriteEffects.FlipVertically : SpriteEffects.None);
+        }
+        public static void DrawEchoWormSegmentWithBlurOld(Texture2D blurTexture, Texture2D segmentTexture, Vector2 drawPos, float blurOpacity, float rotation, Vector2 origin, float scale, SpriteEffects spriteFX, float nonBlurOpacity, Color nonBlurColor)
+        {
+            if (nonBlurOpacity > 0)
+            {
+                Main.EntitySpriteDraw(segmentTexture, drawPos, null, nonBlurColor * nonBlurOpacity, rotation, origin, scale, spriteFX);
+            }
+            if (blurOpacity > 0)
+            {
+                Color additiveWhite = new(255, 255, 255, 0);
+                float time = (float)(Main.timeForVisualEffects * 0.1f);
+                for (float i = 0; i < BlurCountOld; i++)
+                {
+                    Vector2 blurOffset = GetBlurOffsetOld((int)i, time);
+                    Main.EntitySpriteDraw(blurTexture, drawPos + blurOffset, null, additiveWhite * blurOpacity, rotation, origin, scale, spriteFX);
+                }
+            }
+        }
+        public static void DrawEchoWormBlurOld(Texture2D texture, Vector2 drawPos, float blurOpacity, float rotation, Vector2 origin, float scale, SpriteEffects spriteFX)
+        {
+            if (blurOpacity > 0)
+            {
+                Color additiveWhite = new(255, 255, 255, 0);
+                float time = (float)(Main.timeForVisualEffects * 0.1f);
+                for (float i = 0; i < 17; i++)
+                {
+                    Vector2 blurOffset = new Vector2(i * 3f % 5f).RotatedBy(i / 5.5f * MathF.Tau + time);
+                    Main.EntitySpriteDraw(texture, drawPos + blurOffset, null, additiveWhite * blurOpacity, rotation, origin, scale, spriteFX);
+                }
+            }
+        }
+        public static void DrawEchoWormSegmentWithBlur(Texture2D blurTexture, Texture2D segmentTexture, Vector2 drawPos, float blurOpacity, float rotation, Vector2 origin, float scale, SpriteEffects spriteFX, float nonBlurOpacity, Color nonBlurColor)
+        {
+            if (nonBlurOpacity > 0)
+            {
+                Main.EntitySpriteDraw(segmentTexture, drawPos, null, nonBlurColor * nonBlurOpacity, rotation, origin, scale, spriteFX);
+            }
+            if (blurOpacity > 0)
+            {
+                Color additiveWhite = new(255, 255, 255, 0);
+                float time = (float)(Main.timeForVisualEffects * 0.1f);
+                for (int i = 0; i < BlurCountINew; i++)
+                {
+                    for (int j = 0; j < BlurCountJNew; j++)
+                    {
+                        if (GetBlurOffsetAndOpacity(i, j, time, out float opacityMult, out Vector2 blurOffset))
+                        {
+                            Main.EntitySpriteDraw(blurTexture, drawPos + blurOffset, null, additiveWhite * blurOpacity * opacityMult, rotation, origin, scale, spriteFX);
+                        }
+                    }
+                }
+            }
+        }
+        public static void DrawEchoWormBlur(Texture2D texture, Vector2 drawPos, float blurOpacity, float rotation, Vector2 origin, float scale, SpriteEffects spriteFX)
+        {
+            if (blurOpacity > 0)
+            {
+                Color additiveWhite = new(255, 255, 255, 0);
+                float time = (float)(Main.timeForVisualEffects * 0.1f);
+                for (int i = 0; i < BlurCountINew; i++)
+                {
+                    for (int j = 0; j < BlurCountJNew; j++)
+                    {
+                        if (GetBlurOffsetAndOpacity(i, j, time, out float opacityMult, out Vector2 blurOffset))
+                        {
+                            Main.EntitySpriteDraw(texture, drawPos + blurOffset, null, additiveWhite * blurOpacity * opacityMult, rotation, origin, scale, spriteFX);
+                        }
+                    }
+                }
+            }
         }
         public static void SearchForAirbornePlayers(NPC NPC)
         {

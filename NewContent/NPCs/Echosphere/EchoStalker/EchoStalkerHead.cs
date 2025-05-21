@@ -1,28 +1,47 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using ReLogic.Content;
+using SteelSeries.GameSense.DeviceZone;
 using System;
+using System.Collections.Generic;
 using Terraria;
 using Terraria.Audio;
+using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
 using TRAEProject.NewContent.Projectiles;
 
 namespace TRAEProject.NewContent.NPCs.Echosphere.EchoStalker
 {
-    public class EchoStalker : ModNPC
+    public class EchoStalkerHead : ModNPC
     {
-        public static SoundStyle ShotSFXOld => new SoundStyle("TRAEProject/Assets/Sounds/SonicWave");//in case it is ever needed again
-        public static SoundStyle ShotSFX => new SoundStyle("TRAEProject/NewContent/NPCs/Echosphere/EchoStalker/EchoStalkerShot");
+        public static SoundStyle ShotSFXOld => new("TRAEProject/Assets/Sounds/SonicWave");//in case it is ever needed again
+        public static SoundStyle ShotSFX => new("TRAEProject/NewContent/NPCs/Echosphere/EchoStalker/EchoStalkerShot");
         static Asset<Texture2D> head;
         static Asset<Texture2D> hair;
         static Asset<Texture2D> jaw;
         static Asset<Texture2D> body;
         static Asset<Texture2D> bodyGlow;
         static Asset<Texture2D> body2;
-        static Asset<Texture2D> body2Glow;
+        static Asset<Texture2D> body2Glow;    
+        static Asset<Texture2D> bodyWithHair;
+        static Asset<Texture2D> bodyWithHairGlow;
+        static Asset<Texture2D> body2WithHair;
+        static Asset<Texture2D> body2WithHairGlow;
         static Asset<Texture2D> tail;
         static Asset<Texture2D> tailGlow;
+        public static Texture2D Tail => tail.Value;
+        public static Texture2D TailGlow => tailGlow.Value;
+        public static Texture2D Body => body.Value;
+        public static Texture2D BodyGlow => bodyGlow.Value;
+        public static Texture2D Body2 => body2.Value;
+        public static Texture2D Body2Glow => body2Glow.Value;       
+        public static Texture2D BodyWithHair => bodyWithHair.Value;
+        public static Texture2D BodyWithHairGlow => bodyWithHairGlow.Value;
+        public static Texture2D Body2WithHair => body2WithHair.Value;
+        public static Texture2D Body2WithHairGlow => body2WithHairGlow.Value;
+        static int[] SegmentWidths => new int[6] { 28, 28, 28, 26, 26, 28 };
+        private float PurpleGlowinessAmount => Utils.GetLerpValue(60, 110, NPC.ai[0], true) * Utils.GetLerpValue(160, 140, NPC.ai[0], true) * 0.2f;
         public override void SetStaticDefaults()
         {
             NPCID.Sets.TrailCacheLength[Type] = 100;
@@ -30,6 +49,7 @@ namespace TRAEProject.NewContent.NPCs.Echosphere.EchoStalker
         }
         Vector2 MouthCenter { get => NPC.Center + new Vector2(0, 4); }
         ref float IdlingTimer => ref NPC.localAI[2];
+        public static int SegmentCount => 6;
         public override void SetDefaults()
         {
             NPC.friendly = false;
@@ -42,11 +62,21 @@ namespace TRAEProject.NewContent.NPCs.Echosphere.EchoStalker
             NPC.damage = 70;
             NPC.knockBackResist = 0;
         }
-        public override void AI()
+        public override void OnSpawn(IEntitySource source)
         {
 
+            int[] types = new int[] { ModContent.NPCType<EchoStalkerBody1>(), ModContent.NPCType<EchoStalkerBody1>(),
+               ModContent.NPCType<EchoStalkerBody2>(), ModContent.NPCType<EchoStalkerBody2>(),
+             ModContent.NPCType<EchoStalkerTail>() };
+            for (int i = 1; i < types.Length + 1; i++)
+            {
+                NPC.NewNPC(Terraria.Entity.GetSource_NaturalSpawn(), (int)NPC.Center.X - i * 40, (int)NPC.Center.Y, types[i - 1], NPC.whoAmI, NPC.whoAmI, i * 11, i);
+            }
+        }
+        public override void AI()
+        {
             EchosphereHelper.SearchForAirbornePlayers(NPC);
-            if(NPC.target == -1 || NPC.target >= Main.maxPlayers)
+            if (NPC.target == -1 || NPC.target >= Main.maxPlayers)
             {
                 NPC.dontTakeDamage = true;
                 NPC.Opacity = .5f;
@@ -54,6 +84,7 @@ namespace TRAEProject.NewContent.NPCs.Echosphere.EchoStalker
                 NPC.velocity = Vector2.Lerp(NPC.velocity, new Vector2(MathF.Sin(IdlingTimer), MathF.Cos(IdlingTimer * 1.61f) * .75f) * 5, .1f);
                 NPC.rotation = NPC.velocity.ToRotation();
                 NPC.spriteDirection = MathF.Sign(NPC.velocity.X);
+                SetSegmentPositionRotationSpriteDirectionAndOpacity();
                 return;
             }
             NPC.Opacity = 1;
@@ -100,7 +131,7 @@ namespace TRAEProject.NewContent.NPCs.Echosphere.EchoStalker
                 NPC.ai[0] = 99;
             }
             NPC.ai[0] %= 60 * 4;//loop
-
+            SetSegmentPositionRotationSpriteDirectionAndOpacity();
         }
         static float Magnitude(Vector2 vec)
         {
@@ -115,7 +146,7 @@ namespace TRAEProject.NewContent.NPCs.Echosphere.EchoStalker
             {
                 topSpeed = 3;
             }
-            Vector2 vector5 = new Vector2(NPC.position.X + NPC.width * 0.5f, NPC.position.Y + NPC.height * 0.5f);
+            Vector2 vector5 = new(NPC.position.X + NPC.width * 0.5f, NPC.position.Y + NPC.height * 0.5f);
             float maxSpeedX = player.position.X + player.width / 2;
             float maxSpeedY = player.position.Y + player.height / 2;
             maxSpeedX = (int)(maxSpeedX / 16f) * 16;
@@ -249,20 +280,16 @@ namespace TRAEProject.NewContent.NPCs.Echosphere.EchoStalker
                 }
             }
         }
-
         public override bool PreDraw(SpriteBatch spriteBatch, Vector2 screenPos, Color drawColor)
         {
             TextureLoading();
-            DrawBody(screenPos, drawColor);
-            Color additiveWhite = new Color(255, 255, 255, 0);
-
+            // DrawBody(screenPos, drawColor);
+            Color additiveWhite = new(255, 255, 255, 0);
             SpriteEffects spriteFX = NPC.spriteDirection == -1 ? SpriteEffects.FlipVertically : SpriteEffects.None;
-
-            Vector2 origin = new Vector2(NPC.spriteDirection == 1 ? 8 : 4, NPC.spriteDirection == 1 ? -5 : -5);
+            Vector2 origin = new(NPC.spriteDirection == 1 ? 8 : 4, NPC.spriteDirection == 1 ? -5 : -5);
             origin *= 0.5f;
             GetHeadRotationOffset(out float headRot, out float jawRot, out float rotationProgress);
-
-            float opacity = Utils.GetLerpValue(60, 110, NPC.ai[0], true) * Utils.GetLerpValue(160, 140, NPC.ai[0], true) * 0.2f;
+            float opacity = PurpleGlowinessAmount;
             Vector2 jawOffset = AngleLerp(default, origin.RotatedBy(jawRot + NPC.rotation), MathF.Abs(jawRot));// jawRot.ToRotationVector2() * 10;
             jawOffset += NPC.rotation.ToRotationVector2() * MathF.Abs(jawRot) * 10;
             jawRot += NPC.rotation;
@@ -278,14 +305,7 @@ namespace TRAEProject.NewContent.NPCs.Echosphere.EchoStalker
             }
             DrawWithSpectralCheck(head.Value, NPC.Center - screenPos, null, drawColor, NPC.rotation + headRot, origin, NPC.scale, spriteFX, spriteBatch);
             DrawWithSpectralCheck(hair.Value, NPC.Center - screenPos, null, drawColor, NPC.rotation + headRot, origin, NPC.scale, spriteFX, spriteBatch);
-            if (opacity > 0)
-            {
-                for (float i = 0; i < 17; i++)
-                {
-                    Vector2 blurOffset = new Vector2(i * 3f % 5f).RotatedBy(i / 5.5f * MathF.Tau + NPC.ai[0] * 0.1f);
-                    Main.EntitySpriteDraw(hair.Value, NPC.Center - screenPos + blurOffset, null, additiveWhite * opacity, NPC.rotation + headRot, origin, NPC.scale, spriteFX);
-                }
-            }
+            EchosphereHelper.DrawEchoWormBlurOld(hair.Value, NPC.Center - screenPos, NPC.Opacity * opacity, NPC.rotation + headRot, origin, NPC.scale, spriteFX);
             return false;
         }
         void DrawWithSpectralCheck(Texture2D texture, Vector2 drawPos, Rectangle? frame, Color drawColor, float rotation, Vector2 origin, float scale, SpriteEffects spriteFX, SpriteBatch spriteBatch)
@@ -307,7 +327,7 @@ namespace TRAEProject.NewContent.NPCs.Echosphere.EchoStalker
         }
         Vector2 GetOrigin(float rotation)
         {
-            Vector2 origin = new Vector2(NPC.spriteDirection == 1 ? 14 : jaw.Width() - 14, 18);
+            Vector2 origin = new(NPC.spriteDirection == 1 ? 14 : jaw.Width() - 14, 18);
             return origin.RotatedBy(NPC.rotation) + new Vector2(17, 33);
         }
         private static void TextureLoading()
@@ -321,10 +341,15 @@ namespace TRAEProject.NewContent.NPCs.Echosphere.EchoStalker
             body2Glow ??= ModContent.Request<Texture2D>("TRAEProject/NewContent/NPCs/Echosphere/EchoStalker/EchoStalkerBody2Glow");
             tail ??= ModContent.Request<Texture2D>("TRAEProject/NewContent/NPCs/Echosphere/EchoStalker/EchoStalkerTail");
             tailGlow ??= ModContent.Request<Texture2D>("TRAEProject/NewContent/NPCs/Echosphere/EchoStalker/EchoStalkerTailGlow");
+
+            bodyWithHair ??= ModContent.Request<Texture2D>("TRAEProject/NewContent/NPCs/Echosphere/EchoStalker/EchoStalkerBodyWithHair");
+            bodyWithHairGlow ??= ModContent.Request<Texture2D>("TRAEProject/NewContent/NPCs/Echosphere/EchoStalker/EchoStalkerBodyWithHairGlow");
+            body2WithHair ??= ModContent.Request<Texture2D>("TRAEProject/NewContent/NPCs/Echosphere/EchoStalker/EchoStalkerBody2WithHair");
+            body2WithHairGlow ??= ModContent.Request<Texture2D>("TRAEProject/NewContent/NPCs/Echosphere/EchoStalker/EchoStalkerBody2WithHairGlow");
         }
         void DrawGlowy(Texture2D texture, Vector2 drawPos, Vector2 origin, SpriteEffects spriteFX, float rotation)
         {
-            Color additiveWhite = new Color(255, 255, 255, 0);
+            Color additiveWhite = new(255, 255, 255, 0);
             float opacity = Utils.GetLerpValue(60, 110, NPC.ai[0], true) * Utils.GetLerpValue(160, 140, NPC.ai[0], true) * 0.2f * NPC.Opacity;
             if (opacity > 0)
             {
@@ -337,42 +362,7 @@ namespace TRAEProject.NewContent.NPCs.Echosphere.EchoStalker
         }
         void DrawBody(Vector2 screenPos, Color drawColor)
         {
-            Vector2 origin = body.Size() / 2;
-            int segments = 5;
-            Vector2 lastSegmentCenter = NPC.Center;
-
-
-            //this whole thing is here for layering purposes
-            Vector2[] positions = new Vector2[segments];
-            SpriteEffects[] directions = new SpriteEffects[segments];
-            float[] rotations = new float[segments];
-            Color[] colors = new Color[segments];
-            for (int i = 1; i < segments; i++)
-            {
-                int segmentWidth = 28;
-                if (i == segments - 1)
-                {
-                    //tail
-                    segmentWidth = 28;
-                }
-                else if (i > 2)
-                {
-                    //alt body
-                    segmentWidth = 26;
-                }
-                Vector2 segmentCenter = NPC.oldPos[i * 10] + NPC.Size / 2f;
-                float rotation = (lastSegmentCenter - segmentCenter).ToRotation();
-                segmentCenter = lastSegmentCenter - rotation.ToRotationVector2() * segmentWidth;
-                rotation = (lastSegmentCenter - segmentCenter).ToRotation() + MathF.PI / 2f;
-                Vector2 drawPos = segmentCenter - screenPos;
-                SpriteEffects spriteDir = segmentCenter.X >= lastSegmentCenter.X ? SpriteEffects.FlipVertically : SpriteEffects.None;
-                lastSegmentCenter = segmentCenter;
-                colors[i] = NPC.GetAlpha(Lighting.GetColor(segmentCenter.ToTileCoordinates()));
-                positions[i] = drawPos;
-                directions[i] = spriteDir;
-                rotations[i] = rotation;
-            }
-
+            GetSegmentDrawParams(screenPos, out Vector2 origin, out int segments, out Vector2[] positions, out SpriteEffects[] directions, out float[] rotations, out Color[] colors);
 
             for (int i = segments - 1; i >= 1; i--)
             {
@@ -406,6 +396,71 @@ namespace TRAEProject.NewContent.NPCs.Echosphere.EchoStalker
                 DrawGlowy(glow, drawPos, origin, spriteDir, rotation);
             }
         }
+        void SetSegmentPositionRotationSpriteDirectionAndOpacity()
+        {
+            NPC[] segments = SearchForBodySegments();
+            int segmentCount = segments.Length;
+            Vector2 lastSegmentCenter = NPC.Center;
+            int[] segmentWidths = SegmentWidths;
+            int lengthAcross = 0;
+            float purpleGlowiness = PurpleGlowinessAmount;
+            for (int i = 0; i < segmentCount; i++)
+            {
+                int segmentWidth = segmentWidths[i];
+                Vector2 segmentCenter = NPC.oldPos[(int)segments[i].ai[1]] + NPC.Size / 2f;
+                float rotation = (lastSegmentCenter - segmentCenter).ToRotation();
+                segmentCenter = lastSegmentCenter - rotation.ToRotationVector2() * segmentWidth;
+                rotation = (lastSegmentCenter - segmentCenter).ToRotation() + MathF.PI / 2f;
+                Vector2 snapPos = segmentCenter;
+                int spriteDir = segmentCenter.X >= lastSegmentCenter.X ? -1 : 1;//    -1 should be flip vertically remember!!
+                segments[i].Center = snapPos;
+                segments[i].spriteDirection = spriteDir;
+                segments[i].rotation = rotation - MathF.PI / 2;
+                segments[i].alpha = NPC.alpha;
+                lengthAcross += segmentWidths[i];
+                lastSegmentCenter = segmentCenter;
+                EchoStalkerBody1.SetPurpleGlowinessAmount(segments[i], purpleGlowiness);
+            }
+        }
+        private void GetSegmentDrawParams(Vector2 screenPos, out Vector2 origin, out int segments, out Vector2[] positions, out SpriteEffects[] directions, out float[] rotations, out Color[] colors)
+        {
+            origin = body.Size() / 2;
+            segments = 5;
+            Vector2 lastSegmentCenter = NPC.Center;
+
+
+            //this whole thing is here for layering purposes
+            positions = new Vector2[segments];
+            directions = new SpriteEffects[segments];
+            rotations = new float[segments];
+            colors = new Color[segments];
+            for (int i = 1; i < segments; i++)
+            {
+                int segmentWidth = 28;
+                if (i == segments - 1)
+                {
+                    //tail
+                    segmentWidth = 28;
+                }
+                else if (i > 2)
+                {
+                    //alt body
+                    segmentWidth = 26;
+                }
+                Vector2 segmentCenter = NPC.oldPos[i * 10] + NPC.Size / 2f;
+                float rotation = (lastSegmentCenter - segmentCenter).ToRotation();
+                segmentCenter = lastSegmentCenter - rotation.ToRotationVector2() * segmentWidth;
+                rotation = (lastSegmentCenter - segmentCenter).ToRotation() + MathF.PI / 2f;
+                Vector2 drawPos = segmentCenter - screenPos;
+                SpriteEffects spriteDir = segmentCenter.X >= lastSegmentCenter.X ? SpriteEffects.FlipVertically : SpriteEffects.None;
+                lastSegmentCenter = segmentCenter;
+                colors[i] = NPC.GetAlpha(Lighting.GetColor(segmentCenter.ToTileCoordinates()));
+                positions[i] = drawPos;
+                directions[i] = spriteDir;
+                rotations[i] = rotation;
+            }
+        }
+
         void GetHeadRotationOffset(out float headRot, out float jawRot, out float animationProgress)
         {
             headRot = 0;
@@ -481,6 +536,189 @@ namespace TRAEProject.NewContent.NPCs.Echosphere.EchoStalker
             body2Glow = null;
             tail = null;
             tailGlow = null;
+            bodyWithHair = null;
+            bodyWithHairGlow = null;
+            body2WithHair = null;
+            body2WithHairGlow = null;
+        }
+
+
+        public static bool IsHeadImmuneToItem(float headNPCIndex, int playerIndex)
+        {
+            int index = (int)headNPCIndex;
+            if (!Main.npc.IndexInRange(index))
+            {
+                return true;
+            }
+            NPC npc = Main.npc[index];
+            if (npc.type != ModContent.NPCType<EchoStalkerHead>())
+            {
+                return true;
+            }
+            Player player = Main.player[playerIndex];
+            return player.meleeNPCHitCooldown[index] > 0;
+        }
+        public static void CopyProjIframesToOtherSegments(float headNPCIndex, int fromIndex, Projectile proj)
+        {
+            int index = (int)headNPCIndex;
+            if (!Main.npc.IndexInRange(index) || !Main.npc.IndexInRange(fromIndex))
+            {
+                return;
+            }
+            NPC headNPC = Main.npc[index];
+            if (headNPC.type != ModContent.NPCType<EchoStalkerHead>())
+            {
+                return;
+            }
+            if (headNPC.ModNPC is EchoStalkerHead stalkerHead)
+            {
+                NPC fromNPC = Main.npc[fromIndex];
+                NPC[] segments = stalkerHead.SearchForBodySegments();
+                if (segments != null && segments.Length > 0)
+                {
+                    for (int i = 0; i < segments.Length; i++)
+                    {
+                        NPC segment = segments[i];
+                        if (segment.whoAmI == fromIndex)
+                        {
+                            continue;
+                        }
+                        CopyProjIframesFromNPCToNPC(fromNPC, segment, proj);
+                    }
+                    if (headNPCIndex != fromIndex)
+                    {
+                        CopyProjIframesFromNPCToNPC(fromNPC, headNPC, proj);
+                    }
+                }
+            }
+        }
+        public static void CopyItemIframesToOtherSegments(float headNPCIndex, int fromIndex, int playerIndex)
+        {
+            int index = (int)headNPCIndex;
+            if (!Main.npc.IndexInRange(index) || !Main.npc.IndexInRange(fromIndex))
+            {
+                return;
+            }
+            NPC headNPC = Main.npc[index];
+            if (headNPC.type != ModContent.NPCType<EchoStalkerHead>())
+            {
+                return;
+            }
+            if (headNPC.ModNPC is EchoStalkerHead stalkerHead)
+            {
+                NPC fromNPC = Main.npc[fromIndex];
+                NPC[] segments = stalkerHead.SearchForBodySegments();
+                if (segments != null && segments.Length > 0)
+                {
+                    for (int i = 0; i < segments.Length; i++)
+                    {
+                        NPC segment = segments[i];
+                        if (segment.whoAmI == fromIndex)
+                        {
+                            continue;
+                        }
+                        CopyItemIframesFromNPCToNPC(fromNPC, segment, playerIndex);
+                    }
+                    if (headNPCIndex != fromIndex)
+                    {
+                        CopyItemIframesFromNPCToNPC(fromNPC, headNPC, playerIndex);
+                    }
+                }
+            }
+        }
+        static void CopyItemIframesFromNPCToNPC(NPC from, NPC to, int playerIndex)
+        {
+            Player plr = Main.player[playerIndex];
+            plr.meleeNPCHitCooldown[to.whoAmI] = plr.meleeNPCHitCooldown[from.whoAmI];
+        }
+        static void CopyProjIframesFromNPCToNPC(NPC from, NPC to, Projectile proj)
+        {
+            proj.localNPCImmunity[to.whoAmI] = proj.localNPCImmunity[from.whoAmI];
+            to.immune[proj.owner] = from.immune[proj.owner];
+            Projectile.perIDStaticNPCImmunity[proj.type][to.whoAmI] = Projectile.perIDStaticNPCImmunity[proj.type][from.whoAmI];
+        }
+        public static bool IsHeadImmuneToProj(float headNPCIndex, Projectile proj)
+        {
+            if (!proj.friendly)
+            {
+                return true;
+            }
+            int index = (int)headNPCIndex;
+            if (index < 0 || index >= Main.maxNPCs)
+            {
+                return true;
+            }
+            NPC npc = Main.npc[index];
+            if (npc.type != ModContent.NPCType<EchoStalkerHead>())
+            {
+                return true;
+            }
+
+            if (npc.immune[proj.owner] > 0)
+            {
+                return true;
+            }
+            if (Projectile.perIDStaticNPCImmunity[proj.type][npc.whoAmI] > 0)
+            {
+                return true;
+            }
+            if (proj.localNPCImmunity[npc.whoAmI] > 0)
+            {
+                return true;
+            }
+            return false;
+        }
+
+        public override bool? CanBeHitByItem(Player player, Item item)
+        {
+            return !IsHeadImmuneToItem(NPC.whoAmI, player.whoAmI);
+        }
+        public override bool? CanBeHitByProjectile(Projectile projectile)
+        {
+            return !IsHeadImmuneToProj(NPC.whoAmI, projectile);
+        }
+        public override void OnHitByProjectile(Projectile projectile, NPC.HitInfo hit, int damageDone)
+        {
+            CopyProjIframesToOtherSegments(NPC.whoAmI, NPC.whoAmI, projectile);
+        }
+        public override void OnHitByItem(Player player, Item item, NPC.HitInfo hit, int damageDone)
+        {
+            CopyItemIframesToOtherSegments(NPC.whoAmI, NPC.whoAmI, player.whoAmI);
+        }
+        NPC[] SearchForBodySegments()
+        {
+            NPC[] segments = new NPC[SegmentCount - 1];
+            int segmentsFound = 0;
+            List<int> types = new() { ModContent.NPCType<EchoStalkerBody1>(), ModContent.NPCType<EchoStalkerBody2>(), ModContent.NPCType<EchoStalkerTail>() };
+            for (int i = 0; i < Main.maxNPCs; i++)
+            {
+                NPC npc = Main.npc[i];
+
+                if (npc.active && types.Contains(npc.type) && npc.ai[0] == NPC.whoAmI)
+                {
+                    npc.realLife = npc.whoAmI;
+                    npc.dontTakeDamage = false;
+                    segments[segmentsFound] = npc;
+                    segmentsFound++;
+                }
+            }
+            NPC[] result = new NPC[segments.Length];
+            for (int i = 0; i < segmentsFound; i++)
+            {
+                result[(int)segments[i].ai[2] - 1] = segments[i];
+            }
+            return result;
+        }
+
+        internal static bool IsIdle(float headWhoAmI)
+        {
+            int index = (int)headWhoAmI;
+            if (index < 0 || index >= Main.maxNPCs)
+            {
+                return false;
+            }
+            NPC stalkerNPC = Main.npc[index];
+            return !stalkerNPC.HasPlayerTarget;
         }
     }
 }

@@ -9,6 +9,7 @@ namespace TRAEProject.NewContent.NPCs.Echosphere.EchoLeviathan
 {
     internal class EchoLeviathanTail : ModNPC
     {
+        public ref float PurpleGlowinessAmount => ref NPC.localAI[1];
         public override void SetDefaults()
         {
             NPC.noGravity = true;
@@ -68,8 +69,13 @@ namespace TRAEProject.NewContent.NPCs.Echosphere.EchoLeviathan
                 return false;
             }
             drawColor *= NPC.Opacity;
-            Main.EntitySpriteDraw(texture, NPC.Center - screenPos, null, drawColor, NPC.rotation, texture.Size() / 2, NPC.scale, NPC.spriteDirection == -1 ? SpriteEffects.FlipVertically : SpriteEffects.None);
+            Texture2D blurTexture = ModContent.Request<Texture2D>("TRAEProject/NewContent/NPCs/Echosphere/EchoLeviathan/EchoLeviathanTailGlow").Value;
+            EchosphereHelper.DrawEchoWormSegmentWithBlur(blurTexture, texture, NPC.Center - screenPos, PurpleGlowinessAmount, NPC.rotation, texture.Size() / 2, NPC.scale, NPC.spriteDirection == -1 ? SpriteEffects.FlipVertically : SpriteEffects.None, NPC.Opacity, NPC.GetNPCColorTintedByBuffs(drawColor));
             return false;
+        }
+        public override bool CanHitPlayer(Player target, ref int cooldownSlot)
+        {
+            return NPC.alpha < 240 && target.Hitbox.Intersects(Utils.CenteredRectangle(NPC.Center, new Vector2(50)));//hitbox of width and height 50 for damaging players
         }
         public override void ModifyHoverBoundingBox(ref Rectangle boundingBox)
         {

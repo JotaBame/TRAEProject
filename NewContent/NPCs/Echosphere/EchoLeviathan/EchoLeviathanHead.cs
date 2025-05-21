@@ -178,6 +178,14 @@ namespace TRAEProject.NewContent.NPCs.Echosphere.EchoLeviathan
         static int SonicWaveNumShots => 3;
         static int SonicWaveExtraWait => 50;
         static int SonicWaveStateDuration => SonicWaveStartTime + SonicWaveFireRate * SonicWaveNumShots + SonicWaveExtraWait;
+        static int ShootingEndTime => SonicWaveStartTime + SonicWaveFireRate * SonicWaveNumShots;
+        static int GlowFadeInTime => 25;
+        static int GlowStayTimeBeforeShootingStart => 5;
+        static int GlowStayTimeAfterShootingStart => 20;
+        static int GlowFadeoutTime => 20;
+        private float PurpleGlowinessAmount => State == AIState.SonicWave ? Utils.GetLerpValue(SonicWaveStartTime - GlowFadeInTime - GlowStayTimeBeforeShootingStart, SonicWaveStartTime - GlowStayTimeBeforeShootingStart, Timer, true) * 
+            Utils.GetLerpValue(ShootingEndTime + GlowFadeoutTime + GlowStayTimeAfterShootingStart, ShootingEndTime + GlowStayTimeAfterShootingStart, Timer, true) : 0;
+
         void State_SonicWave()
         {
             Timer++;
@@ -423,6 +431,7 @@ namespace TRAEProject.NewContent.NPCs.Echosphere.EchoLeviathan
             int[] segmentWidths = SegmentWidths;
             int maxLength = segmentWidths.Sum();//sum of all the elements
             int lengthAcross = 0;
+            float glowiness = PurpleGlowinessAmount;
             for (int i = 0; i < segmentCount; i++)
             {
                 int segmentWidth = segmentWidths[i];
@@ -444,7 +453,9 @@ namespace TRAEProject.NewContent.NPCs.Echosphere.EchoLeviathan
                 //Main.NewText($"front opacity: {frontOpacity}, cutoffFromFront: {OpacityCutoffFromFront}");
                 lengthAcross += segmentWidths[i];
                 lastSegmentCenter = segmentCenter;
+                EchoLeviathanBody1.SetPurpleGlowinessAmount(segments[i], glowiness);
             }
+            NPC.localAI[3] = glowiness;
         }
         public static void SpectralDraw(NPC NPC, SpriteBatch spriteBatch, Vector2 screenPos, Texture2D texture)
         {
@@ -503,6 +514,12 @@ namespace TRAEProject.NewContent.NPCs.Echosphere.EchoLeviathan
                 Main.EntitySpriteDraw(texture, NPC.Center - screenPos + offset + jawOffset, null, drawColor, NPC.rotation + headRot, origin, NPC.scale, NPC.spriteDirection == -1 ? SpriteEffects.FlipVertically : SpriteEffects.None);
                 texture = TextureAssets.Npc[Type].Value;
                 Main.EntitySpriteDraw(texture, NPC.Center - screenPos + offset + headOffset, null, drawColor, NPC.rotation + jawRot, origin, NPC.scale, NPC.spriteDirection == -1 ? SpriteEffects.FlipVertically : SpriteEffects.None);
+                if (State == AIState.SonicWave)
+                {
+                    texture = ModContent.Request<Texture2D>("TRAEProject/NewContent/NPCs/Echosphere/EchoLeviathan/EchoLeviathanHeadGlow").Value;
+                    float glowiness = 1 - NPC.localAI[3];// one minus??? wasn't working properly without it for some reason.
+                    EchosphereHelper.DrawEchoWormBlur(texture, NPC.Center - screenPos + offset + headOffset, glowiness, NPC.rotation + jawRot, origin, NPC.scale, NPC.spriteDirection == -1 ? SpriteEffects.FlipVertically : SpriteEffects.None);
+                }
             }
             return false;
         }
@@ -753,7 +770,7 @@ namespace TRAEProject.NewContent.NPCs.Echosphere.EchoLeviathan
         }
         public override bool CanHitPlayer(Player target, ref int cooldownSlot)
         {
-            return NPC.alpha < 255 && target.Hitbox.Intersects(Utils.CenteredRectangle(NPC.Center, new Vector2(50)));//hitbox of width and height 50 for damaging players
+            return NPC.alpha < 240 && target.Hitbox.Intersects(Utils.CenteredRectangle(NPC.Center, new Vector2(50)));//hitbox of width and height 50 for damaging players
         }
         void SpawnPortal(Vector2 position, int duration)
         {
@@ -910,7 +927,7 @@ namespace TRAEProject.NewContent.NPCs.Echosphere.EchoLeviathan
             {
                 return true;
             }
-          
+
             if (npc.immune[proj.owner] > 0)
             {
                 return true;

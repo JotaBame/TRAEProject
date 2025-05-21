@@ -1,22 +1,19 @@
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
+using ReLogic.Content;
 using System;
 using Terraria;
+using Terraria.GameContent;
 using Terraria.ID;
 using Terraria.ModLoader;
-using Microsoft.Xna.Framework.Graphics;
-using Terraria.GameContent;
-
 using static Terraria.ModLoader.ModContent;
-using TRAEProject.Changes.NPCs.Miniboss.Santa;
-using MonoMod.Cil;
-using ReLogic.Content;
 
 namespace TRAEProject.Changes.NPCs.Boss.TwinsChanges
 {
     public class Twins : GlobalNPC
     {
         static Asset<Effect> tintShader;
-        public static Color EyeLaserViolet => new Color(104f / 255f, 3f / 255f, 253f / 255);
+        public static Color EyeLaserViolet => new(104f / 255f, 3f / 255f, 253f / 255);
         public static Color CursedFlamesLime => new(179f / 255, 252f / 255f, 0, 1f);
 
         public override void SetStaticDefaults()
@@ -218,7 +215,7 @@ namespace TRAEProject.Changes.NPCs.Boss.TwinsChanges
                     RetPhase3.Rotate(npc);
                     if (npc.ai[0] < 5)
                     {
-                        float rotateTowards = TRAEMethods.PredictiveAimWithOffset(npc.Center, shootSpeed * 3, Main.player[npc.target].Center, Main.player[npc.target].velocity, npc.ai[1] == 0 ? 25 * 9 : 15 * 9) - MathF.PI / 2;
+                        float rotateTowards = TRAEMethods.PredictiveAimWithOffset(npc.Center, shootSpeed * 3, Main.player[npc.target].Center, Main.player[npc.target].velocity, npc.ai[1] == 0 ? 46 : 30) - MathF.PI / 2;
                         float rotSpeed = 0.1f;
                         if (npc.ai[1] == 0)
                         {
@@ -432,27 +429,28 @@ namespace TRAEProject.Changes.NPCs.Boss.TwinsChanges
 
                         if (npc.ai[2] > fireRate * shotsFired)
                         {
-
                             npc.velocity = Vector2.Zero;
                             if (npc.ai[2] >= fireRate * shotsFired + delayBeforeRapidFire && npc.ai[2] % RapidfireRate == 0)
                             {
+                                Player target = Main.player[npc.target];
+                                Vector2 vector116 = new(npc.Center.X + npc.direction * 50, npc.Center.Y + Main.rand.Next(35, 90));
+                                float num959 = target.Center.X - vector116.X + Main.rand.Next(-40, 41);
+                                float num960 = target.Center.Y - vector116.Y + Main.rand.Next(-40, 41);
+                                num959 += Main.rand.Next(-40, 41);
+                                num960 += Main.rand.Next(-40, 41);
+                                float num961 = MathF.Sqrt(num959 * num959 + num960 * num960);
+                                float num962 = 9f;
+                                num961 = num962 / num961;
+                                num959 *= num961;
+                                num960 *= num961;
+                                Vector2 shotVel = new(num959, num960);
+                                Vector2 pos = npc.Center + TRAEMethods.PolarVector(46, npc.rotation + MathF.PI / 2) + npc.velocity * 2f;
                                 if (Main.netMode != 1)
                                 {
-                                    Player target = Main.player[npc.target];
-                                    Vector2 vector116 = new Vector2(npc.Center.X + npc.direction * 50, npc.Center.Y + Main.rand.Next(35, 90));
-                                    float num959 = target.Center.X - vector116.X + Main.rand.Next(-40, 41);
-                                    float num960 = target.Center.Y - vector116.Y + Main.rand.Next(-40, 41);
-                                    num959 += Main.rand.Next(-40, 41);
-                                    num960 += Main.rand.Next(-40, 41);
-                                    float num961 = MathF.Sqrt(num959 * num959 + num960 * num960);
-                                    float num962 = 9f;
-                                    num961 = num962 / num961;
-                                    num959 *= num961;
-                                    num960 *= num961;
-                                    Vector2 pos = npc.Center + TRAEMethods.PolarVector(25 * 9, npc.rotation + MathF.PI / 2);
                                     int attackDamage_ForProjectiles3 = npc.GetAttackDamage_ForProjectiles(25f, 23f);
                                     Projectile.NewProjectile(npc.GetSource_ReleaseEntity(), pos.X, pos.Y, num959, num960, ProjectileID.DeathLaser, attackDamage_ForProjectiles3, 0f, Main.myPlayer);
                                 }
+                                RetPhase3.DeathLaserShootDust(shotVel, Twins.GetLaserCannonPosition(npc));
                             }
                             if (npc.ai[2] >= fireRate * shotsFired + delayBeforeRapidFire + RapidfireRate * rapidShotsFired)
                             {
@@ -467,11 +465,14 @@ namespace TRAEProject.Changes.NPCs.Boss.TwinsChanges
 
                             if (npc.ai[2] % fireRate == 0)
                             {
+                                Vector2 shotVel = TRAEMethods.PolarVector(shootSpeed, npc.rotation + MathF.PI / 2);
                                 if (Main.netMode != NetmodeID.MultiplayerClient)
                                 {
                                     int attackDamage_ForProjectiles3 = npc.GetAttackDamage_ForProjectiles(25f, 23f);
-                                    int num413 = Projectile.NewProjectile(npc.GetSource_ReleaseEntity(), npc.Center + TRAEMethods.PolarVector(25 * 9, npc.rotation + MathF.PI / 2), TRAEMethods.PolarVector(shootSpeed, npc.rotation + MathF.PI / 2), ProjectileID.DeathLaser, attackDamage_ForProjectiles3, 0f, Main.myPlayer);
+                                    int num413 = Projectile.NewProjectile(npc.GetSource_ReleaseEntity(), npc.Center + TRAEMethods.PolarVector(46, npc.rotation + MathF.PI / 2) + npc.velocity * 2f, shotVel, ProjectileID.DeathLaser, attackDamage_ForProjectiles3, 0f, Main.myPlayer);
                                 }
+                                RetPhase3.DeathLaserShootDust(shotVel, Twins.GetLaserCannonPosition(npc));
+
                             }
                         }
                         if (NPC.CountNPCS(NPCID.Spazmatism) <= 0 && Main.expertMode)
@@ -491,7 +492,13 @@ namespace TRAEProject.Changes.NPCs.Boss.TwinsChanges
                 {
                     if (npc.ai[0] == 0 && npc.ai[1] == 0)
                     {
-                        if (npc.ai[3] +1 >= 60)
+                        float timerIncr = 1f;
+
+                        if (Main.expertMode && npc.GetLifePercent() < 0.8f)//when qwerty fixes his code this expert timer increase should be removed.
+                        {
+                            timerIncr += 0.6f;
+                        }
+                        if (npc.ai[3] + timerIncr >= 60)
                         {
                             CursedFlameShootDust(GetPupilPosition(npc));
                         }
@@ -559,7 +566,7 @@ namespace TRAEProject.Changes.NPCs.Boss.TwinsChanges
                                 {
                                     num425 = -1;
                                 }
-                                Vector2 spazposition = new Vector2(npc.position.X + npc.width * 0.5f, npc.position.Y + npc.height * 0.5f);
+                                Vector2 spazposition = new(npc.position.X + npc.width * 0.5f, npc.position.Y + npc.height * 0.5f);
                                 float playerpositionX = Main.player[npc.target].position.X + Main.player[npc.target].width / 2 + num425 * 180 - spazposition.X;
                                 float playerpositionY = Main.player[npc.target].position.Y + Main.player[npc.target].height / 2 - spazposition.Y;
                                 float playerpositiontospaz = MathF.Sqrt((float)(playerpositionX * playerpositionX + playerpositionY * playerpositionY));
@@ -729,7 +736,7 @@ namespace TRAEProject.Changes.NPCs.Boss.TwinsChanges
                     RetPhase3.Phase3Draw(npc, spriteBatch, screenPos, drawColor);
                     return false;
                 }
-                if(npc.type == NPCID.Spazmatism)
+                if (npc.type == NPCID.Spazmatism)
                 {
                     if (npc.ai[0] >= 4)
                     {
@@ -750,27 +757,32 @@ namespace TRAEProject.Changes.NPCs.Boss.TwinsChanges
             //white
             drawColor.R = drawColor.G = drawColor.B = drawColor.A;
             drawColor.A = 0;
-           
+
             scale *= 0.4f;
             Main.EntitySpriteDraw(tex, drawPos, null, drawColor, Main.rand.NextFloat(MathF.Tau), tex.Size() / 2, scale, SpriteEffects.None);
         }
         public static void ShootTelegraphNew(Vector2 position, Color color, float progress, float rotationDirection)
         {
-            float opacity = Utils.GetLerpValue(0f, .6f, progress, true);
+            float opacity = Utils.GetLerpValue(0f, .6f, progress, true) * 0.55f;
             Vector2 drawPos = position - Main.screenPosition;
             color.A = 0;
-            Color additiveWhite = new Color(255, 255, 255, 0);
-            float scale = TRAEMethods.RemapEased(progress, 0.025f, .1f, 0.5f, 1.3f, TRAEMethods.EaseOutQuad);
+            Color additiveWhite = new(255, 255, 255, 0);
+            float scale = TRAEMethods.RemapEased(progress, 0.025f, .1f, 0.5f, 1.6f, TRAEMethods.EaseOutQuad);
             FadeLightBall(drawPos, color * 0.5f * opacity, scale);
             FadeLightBall(drawPos, additiveWhite * 0.5f * opacity, scale * 0.5f);
-            float rotation = TRAEMethods.RemapEased(progress, 0, 1, 1.5f * rotationDirection, 0f, TRAEMethods.EaseOutQuad);
+            float rotation = TRAEMethods.RemapEased(progress, 0, 1, 3 * rotationDirection, MathF.PI / 4f, TRAEMethods.EaseOutQuad);
             TRAEMethods.DrawPrettyStarSparkle(opacity, drawPos, additiveWhite, color, Vector2.One * scale, rotation: rotation);
         }
         public static void CursedFlameShootDust(Vector2 origin)
         {
+            Color additiveWhite = new(255, 255, 255, 0);
+            float scale = 1.6f;
+            Vector2 scaleVec = new(scale);
+            GlowBall.NewGlowBall(origin, CursedFlamesLime * 0.5f, scaleVec, null, 20, null, 0.55f);
+            GlowBall.NewGlowBall(origin, additiveWhite * 0.5f, scaleVec * .5f, null, 20, null, 0.55f);
             for (int i = 0; i < 5; i++)
             {
-                Sparkle.NewSparkle(origin, Twins.CursedFlamesLime, new Vector2(2f), Vector2.Zero, 20, new Vector2(1f), Vector2.Zero, 1f, 0f, 1f);
+                Sparkle.NewSparkle(origin, Twins.CursedFlamesLime, new Vector2(1.6f), Vector2.Zero, 20, new Vector2(1f), Vector2.Zero, 1f, MathF.PI / 4f, 1f);
             }
         }
         public static void ShootTelegraph(Vector2 position, Color color, float progress)
@@ -778,7 +790,7 @@ namespace TRAEProject.Changes.NPCs.Boss.TwinsChanges
             float opacity = Utils.GetLerpValue(0f, .4f, progress, true);
             Vector2 drawPos = position - Main.screenPosition;
             color.A = 0;
-            Color additiveWhite = new Color(255, 255, 255, 0);
+            Color additiveWhite = new(255, 255, 255, 0);
             float scale = TRAEMethods.RemapEased(progress, 0, .5f, 0.5f, 2f, TRAEMethods.EaseOutQuad);
             FadeLightBall(drawPos, color * 0.5f * opacity, scale);
             FadeLightBall(drawPos, additiveWhite * 0.5f * opacity, scale * 0.5f);
@@ -788,10 +800,10 @@ namespace TRAEProject.Changes.NPCs.Boss.TwinsChanges
                 {
                     Vector2 offset = Main.rand.NextFloat(MathF.Tau).ToRotationVector2();
                     float dist = Main.rand.NextFloat(60f, 70f);
-                 //   GlowyVioletDust(position + offset * dist, -offset * dist * 0.1f, progress * 3f);
+                    //   GlowyVioletDust(position + offset * dist, -offset * dist * 0.1f, progress * 3f);
                 }
             }
-          //  for (int i = -1; i < 2; i+=2)
+            //  for (int i = -1; i < 2; i+=2)
             {
                 //  float rotationOffset = MathF.PI * 0.25f - progress * MathF.PI * 0.25f * i;
                 float rotation = TRAEMethods.RemapEased(progress, 0, 1, -2f, 0f, TRAEMethods.EaseOutQuad);
@@ -810,7 +822,7 @@ namespace TRAEProject.Changes.NPCs.Boss.TwinsChanges
         public static void ShootTelegraphOld(Vector2 position, Color color, float progress)
         {
             float scale = MathHelper.Lerp(2f, 1f, progress);
-            Color drawCol = color * Utils.GetLerpValue(0, .6f, progress,true);
+            Color drawCol = color * Utils.GetLerpValue(0, .6f, progress, true);
             position -= Main.screenPosition;
             FadeLightBall(position, drawCol, scale);
             Texture2D ring = ModContent.Request<Texture2D>("TRAEProject/Assets/SpecialTextures/RingPremultiplied").Value;
@@ -819,12 +831,23 @@ namespace TRAEProject.Changes.NPCs.Boss.TwinsChanges
             scale = MathHelper.Lerp(3f, 0.01f, progress);
             Main.EntitySpriteDraw(ring, position, null, drawCol, Main.rand.NextFloat(MathF.Tau), ring.Size() / 2, scale, SpriteEffects.None);
         }
-        static Vector2 GetPupilPosition(NPC npc)
+        public static Vector2 GetLaserCannonPosition(NPC npc)
         {
-            Vector2 halfSize = new Vector2(55f, 107f);
+            Vector2 halfSize = new(55f, 107f);
             float num35 = 0f;
             float num36 = Main.NPCAddHeight(npc);
-            Vector2 Pos = new Vector2(
+            Vector2 Pos = new(
+                npc.position.X + npc.width / 2 - TextureAssets.Npc[npc.type].Width() * npc.scale / 2f + halfSize.X * npc.scale,
+                npc.position.Y + npc.height - TextureAssets.Npc[npc.type].Height() * npc.scale / Main.npcFrameCount[npc.type] + 4f + halfSize.Y * npc.scale + num36 + num35);
+            Pos += (Vector2.UnitX * (30 + TextureAssets.Npc[npc.type].Width() / 2)).RotatedBy(npc.rotation + MathF.PI / 2);
+            return Pos;
+        }
+        static Vector2 GetPupilPosition(NPC npc)
+        {
+            Vector2 halfSize = new(55f, 107f);
+            float num35 = 0f;
+            float num36 = Main.NPCAddHeight(npc);
+            Vector2 Pos = new(
                 npc.position.X + npc.width / 2 - TextureAssets.Npc[npc.type].Width() * npc.scale / 2f + halfSize.X * npc.scale,
                 npc.position.Y + npc.height - TextureAssets.Npc[npc.type].Height() * npc.scale / Main.npcFrameCount[npc.type] + 4f + halfSize.Y * npc.scale + num36 + num35);
             Pos += (Vector2.UnitX * TextureAssets.Npc[npc.type].Width() / 2).RotatedBy(npc.rotation + MathF.PI / 2);
@@ -840,41 +863,41 @@ namespace TRAEProject.Changes.NPCs.Boss.TwinsChanges
                     {
                         Texture2D eyeGlow = Request<Texture2D>("TRAEProject/Changes/NPCs/Boss/TwinsChanges/Retinizer_Glow").Value;
                         int c = (int)npc.ai[3];
-                        Color color = new Color(c, c, c, c);
-                        Vector2 halfSize = new Vector2(55f, 107f);
+                        Color color = new(c, c, c, c);
+                        Vector2 halfSize = new(55f, 107f);
                         float num35 = 0f;
                         float num36 = Main.NPCAddHeight(npc);
-                        Vector2 Pos = new Vector2(
+                        Vector2 Pos = new(
                             npc.position.X - screenPos.X + npc.width / 2 - TextureAssets.Npc[npc.type].Width() * npc.scale / 2f + halfSize.X * npc.scale,
                             npc.position.Y - screenPos.Y + npc.height - TextureAssets.Npc[npc.type].Height() * npc.scale / Main.npcFrameCount[npc.type] + 4f + halfSize.Y * npc.scale + num36 + num35);
-                       // spriteBatch.Draw(eyeGlow, Pos, npc.frame, color, npc.rotation, halfSize, npc.scale, SpriteEffects.None, 0f);
+                        // spriteBatch.Draw(eyeGlow, Pos, npc.frame, color, npc.rotation, halfSize, npc.scale, SpriteEffects.None, 0f);
                         Pos += (Vector2.UnitX * TextureAssets.Npc[npc.type].Width() / 2).RotatedBy(npc.rotation + MathF.PI / 2);
-                        float progress = Utils.GetLerpValue(100f,179f, npc.ai[3], true);
-                        Color violet = new Color(104f / 255f, 3f / 255f, 253f / 255);
-                        Color purple = new Color(130f / 255f, 25f / 255f, 183f / 255f);
+                        float progress = Utils.GetLerpValue(100f, 179f, npc.ai[3], true);
+                        Color violet = new(104f / 255f, 3f / 255f, 253f / 255);
+                        Color purple = new(130f / 255f, 25f / 255f, 183f / 255f);
                         Pos += screenPos;
                         //ShootTelegraphNew(Pos, violet, progress, -1);
                         ShootTelegraphOld(Pos, violet * .75f, progress);
                     }
                 }
-                if(npc.type == NPCID.Spazmatism)
+                if (npc.type == NPCID.Spazmatism)
                 {
                     if (npc.ai[0] == 0f && npc.ai[1] == 0 && npc.ai[2] < 560)
                     {
-                        Vector2 halfSize = new Vector2(55f, 107f);
+                        Vector2 halfSize = new(55f, 107f);
                         float num35 = 0f;
                         float num36 = Main.NPCAddHeight(npc);
-                        Vector2 Pos = new Vector2(
+                        Vector2 Pos = new(
                             npc.position.X - screenPos.X + npc.width / 2 - TextureAssets.Npc[npc.type].Width() * npc.scale / 2f + halfSize.X * npc.scale,
                             npc.position.Y - screenPos.Y + npc.height - TextureAssets.Npc[npc.type].Height() * npc.scale / Main.npcFrameCount[npc.type] + 4f + halfSize.Y * npc.scale + num36 + num35);
                         // spriteBatch.Draw(eyeGlow, Pos, npc.frame, color, npc.rotation, halfSize, npc.scale, SpriteEffects.None, 0f);
                         Pos += (Vector2.UnitX * TextureAssets.Npc[npc.type].Width() / 2).RotatedBy(npc.rotation + MathF.PI / 2);
                         Pos += screenPos;
 
-                            float progress = Utils.GetLerpValue(0f, 180f, npc.ai[3], true);
+                        float progress = Utils.GetLerpValue(10f, 60f, npc.ai[3], true);
                         ShootTelegraphNew(Pos, CursedFlamesLime, progress, 1);
                         //ShootTelegraphOld(Pos, CursedFlamesLime * 0.75f, progress);
-                        
+
                     }
                 }
             }
