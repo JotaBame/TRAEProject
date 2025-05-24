@@ -1,4 +1,4 @@
 displayName = TRAE Project 
 author = TRAE team 
-version = 0.6.7
+version = 0.6.7.1
 includeSource = true

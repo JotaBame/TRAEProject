@@ -104,7 +104,28 @@ namespace TRAEProject.NewContent.NPCs.Underworld.Salalava
             {
                 NPC.velocity.X = 0f;
             }
-            if(NPC.ai[2] != 0 && NPC.ai[3] != 0)
+            if (teleportTimer >= 600f && Main.netMode != NetmodeID.MultiplayerClient)
+            {
+                onlyOnce = false;
+                teleportTimer = 0;
+                int targetTileX = (int)Main.player[NPC.target].Center.X / 16;
+                int targetTileY = (int)Main.player[NPC.target].Center.Y / 16;
+
+                Vector2 chosenTile = Vector2.Zero;
+
+                if (AI_AttemptToFindTeleportSpot(ref chosenTile, targetTileX, targetTileY))
+                {
+
+                    NPC.ai[1] = 0f;
+                    NPC.ai[2] = chosenTile.X;
+                    NPC.ai[3] = chosenTile.Y;
+                    NPC.netUpdate = true;
+
+
+                }
+
+            }
+            if (NPC.ai[2] != 0 && NPC.ai[3] != 0)
             {
                 
                 NPC.position -= NPC.netOffset;
@@ -127,28 +148,7 @@ namespace TRAEProject.NewContent.NPCs.Underworld.Salalava
                 NPC.position += NPC.netOffset;
                 SoundEngine.PlaySound(SoundID.Item8 with { MaxInstances = 0 }, NPC.position);
             }
-            if (teleportTimer >= 600f && Main.netMode != NetmodeID.MultiplayerClient)
-            {
-                onlyOnce = false;
-                teleportTimer = 0;
-                int targetTileX = (int)Main.player[NPC.target].Center.X / 16;
-                int targetTileY = (int)Main.player[NPC.target].Center.Y / 16;
-
-                Vector2 chosenTile = Vector2.Zero;
-
-                if (AI_AttemptToFindTeleportSpot(ref chosenTile, targetTileX, targetTileY))
-                {
-
-                    NPC.ai[1] = 0f;
-                    Main.NewText(chosenTile);
-                    NPC.ai[2] = chosenTile.X;
-                    NPC.ai[3] = chosenTile.Y;
-                    NPC.netUpdate = true;
-
-                    
-                }
-
-            }
+       
 
             NPC.noGravity = false;
             int num = 1;
