@@ -48,10 +48,7 @@ namespace TRAEProject
         [DefaultValue(true)]
         public bool QBChanges { get; set; }
        
-        [DefaultValue(true)]
-        public bool EoWChanges { get; set; }
-        [DefaultValue(true)]
-        public bool BoCChanges { get; set; }
+ 
 		
         [DefaultValue(true)]
         public bool SkeletronChanges { get; set; }

@@ -273,6 +273,10 @@ Mods: {
 			// MirrorShot.DisplayName: Mirror Shot
 			// MirrorShotEvil.DisplayName: Mirror Shot Evil
 			// NeoShadowbeam.DisplayName: Neo Shadowbeam
+			// EchoLeviathanPortal.DisplayName: Echo Leviathan Portal
+			// EchoSpriteProj.DisplayName: Echo Sprite Proj
+			// EchoStalkerSonicWave.DisplayName: Echo Stalker Sonic Wave
+			// KinnaraFeather.DisplayName: Kinnara Feather
 		}
 
 		Prefixes: {
@@ -1655,6 +1659,18 @@ Mods: {
 			PrimeRail.DisplayName: Prime Rail
 			PrimeMace.DisplayName: Prime Mace
 			PrimeLauncher.DisplayName: Prime Launcher
+			// EchoLeviathanBody1.DisplayName: Echo Leviathan Body1
+			// EchoLeviathanBody2.DisplayName: Echo Leviathan Body2
+			// EchoLeviathanBody3.DisplayName: Echo Leviathan Body3
+			// EchoLeviathanHead.DisplayName: Echo Leviathan Head
+			// EchoLeviathanTail.DisplayName: Echo Leviathan Tail
+			// EchoLocator.DisplayName: Echo Locator
+			// EchoSprite.DisplayName: Echo Sprite
+			// EchoStalker.DisplayName: Echo Stalker
+			// Gargoyle.DisplayName: Gargoyle
+			// GriffinFlier.DisplayName: Griffin Flier
+			// GriffinWalker.DisplayName: Griffin Walker
+			// Kinnara.DisplayName: Kinnara
 		}
 
 		Tiles: {

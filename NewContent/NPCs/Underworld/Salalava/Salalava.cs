@@ -140,6 +140,7 @@ namespace TRAEProject.NewContent.NPCs.Underworld.Salalava
                 {
 
                     NPC.ai[1] = 0f;
+                    Main.NewText(chosenTile);
                     NPC.ai[2] = chosenTile.X;
                     NPC.ai[3] = chosenTile.Y;
                     NPC.netUpdate = true;
@@ -256,11 +257,16 @@ namespace TRAEProject.NewContent.NPCs.Underworld.Salalava
                         continue;
                     }
                     bool flag2 = true;
-                    if (Main.tile[num5, i - 1].LiquidType == 1)
+
+                    if (Main.tile[num5, i - 1].LiquidType == LiquidID.Lava)
                     {
                         flag2 = false;
                     }
-
+                    if (!flag2 || (!teleportInAir && !Main.tileSolid[Main.tile[num5, i].TileType]))
+                    {
+                        continue;
+                    }
+                    bool flag3 = false;
                     if (!((!solidTileCheckCentered) ? (!Collision.SolidTiles(num5 - solidTileCheckFluff, num5 + solidTileCheckFluff, i - 3 - solidTileCheckFluff, i - 1)) : (!Collision.SolidTiles(num5 - solidTileCheckFluff, num5 + solidTileCheckFluff, i - solidTileCheckFluff, i + solidTileCheckFluff))))
                     {
                         continue;
@@ -283,18 +289,13 @@ namespace TRAEProject.NewContent.NPCs.Underworld.Salalava
                             }
                         }
                     }
-
                     if (flag2)
                     {
-
                         chosenTile = new Vector2(num5, i);
-
                         flag = true;
-
                     }
                     break;
                 }
-
             }
             return flag;
         }

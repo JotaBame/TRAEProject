@@ -236,7 +236,7 @@ namespace TRAEProject.Changes.Weapon.Melee
                 case ItemID.PsychoKnife:
                 case ItemID.PearlwoodSword:
                 case ItemID.ChlorophyteSaber:
-
+                    Main.NewText(player.Center);
                     if (player.whoAmI == Main.myPlayer)
                     {
                         Projectile spawnedProj = Projectile.NewProjectileDirect(source, player.MountedCenter - velocity * 2, velocity * 5, type, damage, knockback, Main.myPlayer,
