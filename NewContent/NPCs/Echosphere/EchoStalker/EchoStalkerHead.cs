@@ -75,7 +75,7 @@ namespace TRAEProject.NewContent.NPCs.Echosphere.EchoStalker
         }
         public override void AI()
         {
-            EchosphereHelper.SearchForAirbornePlayers(NPC);
+            EchosphereHelper.SearchForSpaceLayerPlayers(NPC);
             if (NPC.target == -1 || NPC.target >= Main.maxPlayers)
             {
                 NPC.dontTakeDamage = true;

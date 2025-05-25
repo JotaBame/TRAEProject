@@ -121,6 +121,53 @@ namespace TRAEProject.NewContent.NPCs.Echosphere
                 }
             }
         }
+        public static void SearchForSpaceLayerPlayers(NPC npc)
+        {
+            //first check if current target is valid and in space
+            //first search players for only space layer
+            //if none found, set target as invalid
+            int target = -1;
+            if (npc.HasValidTarget)
+            {
+                target = npc.target;
+                Player player = Main.player[target];
+                if (!player.ZoneSkyHeight)
+                {
+                    target = -1;
+                }
+                else
+                {
+                    return;//current target is already valid and in space. Don't need to search for another
+                }
+            }
+            if(target == -1)
+            {
+                for (int i = 0; i < Main.maxPlayers; i++)
+                {
+                    Player player = Main.player[i];
+                    if (!player.active || player.dead || !player.ZoneSkyHeight || target != -1 && player.DistanceSQ(npc.Center) + player.aggro < Main.player[target].DistanceSQ(npc.Center) + Main.player[target].aggro)
+                    {
+                        continue;
+                    }
+                    target = i;
+                }
+            }
+            npc.target = target;
+        }
+        public static int SearchForSpaceLayerPlayers(Vector2 from)
+        {
+            int target = -1;
+            for (int i = 0; i < Main.maxPlayers; i++)
+            {
+                Player player = Main.player[i];
+                if (!player.active || player.dead || !player.ZoneSkyHeight || target != -1 && player.DistanceSQ(from) + player.aggro < Main.player[target].DistanceSQ(from) + Main.player[target].aggro)
+                {
+                    continue;
+                }
+                target = i;
+            }
+            return target;
+        }
         public static void SearchForAirbornePlayers(NPC NPC)
         {
             if (Main.npc.IndexInRange(NPC.target))
@@ -135,7 +182,6 @@ namespace TRAEProject.NewContent.NPCs.Echosphere
             for (int i = 0; i < Main.maxPlayers; i++)
             {
                 Player player = Main.player[i];
-                //readability!!!!!!!!!!!!!!!!!!!!!!!
                 if (!player.active || player.dead || Collision.SolidTiles(player.BottomLeft, player.width, 16) || target != -1 && player.DistanceSQ(NPC.Center) + player.aggro < Main.player[target].DistanceSQ(NPC.Center) + Main.player[target].aggro)
                 {
                     continue;
@@ -150,7 +196,6 @@ namespace TRAEProject.NewContent.NPCs.Echosphere
             for (int i = 0; i < Main.maxPlayers; i++)
             {
                 Player player = Main.player[i];
-                //readability!!!!!!!!!!!!!!!!!!!!!!!
                 if (!player.active || player.dead || Collision.SolidTiles(player.BottomLeft, player.width, 16) || target != -1 && player.DistanceSQ(from) + player.aggro < Main.player[target].DistanceSQ(from) + Main.player[target].aggro)
                 {
                     continue;

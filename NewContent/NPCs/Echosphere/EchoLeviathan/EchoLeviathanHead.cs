@@ -125,19 +125,19 @@ namespace TRAEProject.NewContent.NPCs.Echosphere.EchoLeviathan
         {
             if (State != AIState.SonicWave)
             {
-                EchosphereHelper.SearchForAirbornePlayers(NPC);
+                EchosphereHelper.SearchForSpaceLayerPlayers(NPC);
             }
             if (State == AIState.Spawning)
             {
                 State_Spawning();
                 return;
             }
-            if (State != AIState.EnteringPortal && State != AIState.ExitingPortal && (NPC.target < 0 || NPC.target >= Main.maxNPCs))
+            if (State != AIState.EnteringPortal && State != AIState.ExitingPortal && !NPC.HasValidTarget)
             {
                 State = AIState.Idle;
             }
             //exit out of idle
-            if (NPC.target != -1 && State == AIState.Idle)
+            if (NPC.HasValidTarget && State == AIState.Idle)
             {
                 Timer = 0;
                 NPC.Opacity = 1;
@@ -244,7 +244,7 @@ namespace TRAEProject.NewContent.NPCs.Echosphere.EchoLeviathan
             {
                 Timer = 0;
                 State = AIState.WormMovement;
-                EchosphereHelper.SearchForAirbornePlayers(NPC);
+                EchosphereHelper.SearchForSpaceLayerPlayers(NPC);
             }
             SetSegmentPositionRotationSpriteDirectionAndOpacity();
             NPC.rotation = NPC.velocity.ToRotation();
@@ -503,7 +503,6 @@ namespace TRAEProject.NewContent.NPCs.Echosphere.EchoLeviathan
                 SpectralDrawVerticalFlip(NPC, spriteBatch, screenPos, texture);
                 texture = TextureAssets.Npc[Type].Value;
                 SpectralDrawVerticalFlip(NPC, spriteBatch, screenPos, texture);
-
             }
             else
             {
@@ -789,9 +788,9 @@ namespace TRAEProject.NewContent.NPCs.Echosphere.EchoLeviathan
             }
             if (Target < 0 || Target >= Main.maxPlayers)//if no target when spawning, search for airborne players
             {
-                Target = EchosphereHelper.SearchForAirbornePlayers(new Vector2(X, Y));
+                Target = EchosphereHelper.SearchForSpaceLayerPlayers(new Vector2(X, Y));
             }
-            if (Target < 0 || Target >= Main.maxPlayers)//if no airborne target detected, check for valid targets that aren't necessarily on the air
+            if (Target < 0 || Target >= Main.maxPlayers)//if no space target detected, check for valid targets that aren't necessarily on the space
             {
                 Vector2 from = new(X, Y);
                 for (int i = 0; i < Main.maxPlayers; i++)

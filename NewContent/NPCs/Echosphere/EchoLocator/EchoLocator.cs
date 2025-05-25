@@ -330,7 +330,7 @@ namespace TRAEProject.NewContent.NPCs.Echosphere.EchoLocator
         void FindTargetAndSetJustStartedIdlingFlag()
         {
             int oldTarget = NPC.target;
-            EchosphereHelper.SearchForAirbornePlayers(NPC);
+            EchosphereHelper.SearchForSpaceLayerPlayers(NPC);
             if(NPC.target == -1 && oldTarget != -1)
             {
                 JustStartedIdling = true;
