@@ -6,8 +6,9 @@ using Terraria.ModLoader;
 using Terraria;
 using Terraria.DataStructures;
 using Microsoft.Xna.Framework;
+using TRAEProject.NewContent.StarfuryTemple;
 
-namespace TRAEProject.NewContent.StarfuryTemple
+namespace TRAEProject.NewContent.Structures.StarfuryTemple
 
 {
     public class StarfuryTempleTestItem : ModItem

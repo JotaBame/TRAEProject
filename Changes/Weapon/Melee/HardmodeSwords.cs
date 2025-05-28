@@ -179,6 +179,7 @@ namespace TRAEProject.Changes.Weapon.Melee
                     item.damage = 110; // down from 170
                     return;
                 case 3063: // meowmere
+                    item.UseSound = SoundID.Item1 with { MaxInstances = 0 };//needed for sound fix to work for some reason
                     aura = ProjectileType<MeowmereAura>();
                     item.noMelee = true;
 

@@ -14,6 +14,7 @@ using TRAEProject.Changes.Items;
 using System.Collections.Generic;
 using TRAEProject;
 using TRAEProject.Changes.Accesory;
+using TRAEProject.Changes.Weapon.Melee.MeowmereEffect;
 
 namespace TRAEProject.Changes.Weapon.Melee
 {
@@ -112,11 +113,11 @@ namespace TRAEProject.Changes.Weapon.Melee
         }
         public static void DrawProj_BladeAura(Projectile proj, Color[] colorArray)
         {
-            Vector2 vector = proj.Center - screenPosition;
+            Vector2 auraDrawPos = proj.Center - screenPosition;
             Asset<Texture2D> texture = TextureAssets.Projectile[proj.type];
-            Rectangle rectangle = texture.Frame(1, 4);
-            Vector2 origin = rectangle.Size() / 2f;
-            float num = proj.scale * 1.1f;
+            Rectangle frame = texture.Frame(1, 4);
+            Vector2 origin = frame.Size() / 2f;
+            float auraScale = proj.scale * 1.1f;
             SpriteEffects effects = ((!(proj.ai[0] >= 0f)) ? SpriteEffects.FlipVertically : SpriteEffects.None);
             float progress = proj.localAI[0] / proj.ai[1];
             float remappedProgress = Utils.Remap(progress, 0f, 0.6f, 0f, 1f) * Utils.Remap(progress, 0.6f, 1f, 1f, 0f);
@@ -134,23 +135,37 @@ namespace TRAEProject.Changes.Weapon.Melee
             Color color5 = whiteOverlay * lightingMultiplier * 0.5f;
             color5.G = (byte)((float)(int)color5.G * lightingMultiplier);
             color5.B = (byte)((float)(int)color5.R * (0.25f + lightingMultiplier * 0.75f));
-            spriteBatch.Draw(texture.Value, vector, rectangle, blue * lightingMultiplier * remappedProgress, proj.rotation + proj.ai[0] * (MathF.PI / 4f) * -1f * (1f - progress), origin, num * 0.95f, effects, 0f);
-            spriteBatch.Draw(texture.Value, vector, rectangle, color5 * 0.15f, proj.rotation + proj.ai[0] * 0.01f, origin, num, effects, 0f);
-            spriteBatch.Draw(texture.Value, vector, rectangle, green * lightingMultiplier * remappedProgress * 0.3f, proj.rotation, origin, num, effects, 0f);
-            spriteBatch.Draw(texture.Value, vector, rectangle, lime * lightingMultiplier * remappedProgress * 0.5f, proj.rotation, origin, num * num4, effects, 0f);
-            spriteBatch.Draw(texture.Value, vector, texture.Frame(1, 4, 0, 3), Color.White * 0.6f * remappedProgress, proj.rotation + proj.ai[0] * 0.01f, origin, num, effects, 0f);
-            spriteBatch.Draw(texture.Value, vector, texture.Frame(1, 4, 0, 3), Color.White * 0.5f * remappedProgress, proj.rotation + proj.ai[0] * -0.05f, origin, num * 0.8f, effects, 0f);
-            spriteBatch.Draw(texture.Value, vector, texture.Frame(1, 4, 0, 3), Color.White * 0.4f * remappedProgress, proj.rotation + proj.ai[0] * -0.1f, origin, num * 0.6f, effects, 0f);
+            DrawAuraLayers_WTFIsThis(proj, auraDrawPos, texture, frame, origin, auraScale, effects, progress, remappedProgress, num4, lightingMultiplier, blue, lime, green, color5);
             for (float num6 = 0f; num6 < 12f; num6 += 1f)
             {
                 float num7 = proj.rotation + proj.ai[0] * (num6 - 2f) * (MathF.PI * -2f) * 0.025f + Utils.Remap(progress, 0f, 1f, 0f, MathF.PI / 4f) * proj.ai[0];
-                Vector2 drawpos = vector + num7.ToRotationVector2() * ((float)texture.Width() * 0.5f - 6f) * num;
+                Vector2 drawpos = auraDrawPos + num7.ToRotationVector2() * ((float)texture.Width() * 0.5f - 6f) * auraScale;
                 float num8 = num6 / 12f;
-                DrawPrettyStarSparkle(proj.Opacity, SpriteEffects.None, drawpos, new Color(255, 255, 255, 0) * remappedProgress * num8, green, progress, 0f, 0.5f, 0.5f, 1f, num7, new Vector2(0f, Utils.Remap(progress, 0f, 1f, 3f, 0f)) * num, Vector2.One * num);
+                DrawPrettyStarSparkle(proj.Opacity, SpriteEffects.None, drawpos, new Color(255, 255, 255, 0) * remappedProgress * num8, green, progress, 0f, 0.5f, 0.5f, 1f, num7, new Vector2(0f, Utils.Remap(progress, 0f, 1f, 3f, 0f)) * auraScale, Vector2.One * auraScale);
             }
-            Vector2 drawpos2 = vector + (proj.rotation + Utils.Remap(progress, 0f, 1f, 0f, MathF.PI / 4f) * proj.ai[0]).ToRotationVector2() * ((float)texture.Width() * 0.5f - 4f) * num;
-            DrawPrettyStarSparkle(proj.Opacity, SpriteEffects.None, drawpos2, new Color(255, 255, 255, 0) * remappedProgress * 0.5f, green, progress, 0f, 0.5f, 0.5f, 1f, 0f, new Vector2(2f, Utils.Remap(progress, 0f, 1f, 4f, 1f)) * num, Vector2.One * num * 1.5f);
+            Vector2 drawpos2 = auraDrawPos + (proj.rotation + Utils.Remap(progress, 0f, 1f, 0f, MathF.PI / 4f) * proj.ai[0]).ToRotationVector2() * ((float)texture.Width() * 0.5f - 4f) * auraScale;
+            DrawPrettyStarSparkle(proj.Opacity, SpriteEffects.None, drawpos2, new Color(255, 255, 255, 0) * remappedProgress * 0.5f, green, progress, 0f, 0.5f, 0.5f, 1f, 0f, new Vector2(2f, Utils.Remap(progress, 0f, 1f, 4f, 1f)) * auraScale, Vector2.One * auraScale * 1.5f);
         }
+
+        public static void DrawAuraLayers_WTFIsThis(Projectile proj, Vector2 drawPos, Asset<Texture2D> texture, Rectangle frame, Vector2 origin, float scale, SpriteEffects effects, float progress, float remappedProgress, float num4, float lightingMultiplier, Color blue, Color lime, Color green, Color color5)
+        {
+
+            if(proj.type == MeowmereAura.ID)//method is not instance, so gotta do this to kinda act like an override.
+            {   
+                MeowmereAuraEffectDrawer.DrawBladeAura(spriteBatch, proj, frame, progress, effects, proj.rotation, origin, scale, drawPos, texture.Value, remappedProgress);
+                return;
+            }
+
+
+            spriteBatch.Draw(texture.Value, drawPos, frame, blue * lightingMultiplier * remappedProgress, proj.rotation + proj.ai[0] * (MathF.PI / 4f) * -1f * (1f - progress), origin, scale * 0.95f, effects, 0f);
+            spriteBatch.Draw(texture.Value, drawPos, frame, color5 * 0.15f, proj.rotation + proj.ai[0] * 0.01f, origin, scale, effects, 0f);
+            spriteBatch.Draw(texture.Value, drawPos, frame, green * lightingMultiplier * remappedProgress * 0.3f, proj.rotation, origin, scale, effects, 0f);
+            spriteBatch.Draw(texture.Value, drawPos, frame, lime * lightingMultiplier * remappedProgress * 0.5f, proj.rotation, origin, scale * num4, effects, 0f);
+            spriteBatch.Draw(texture.Value, drawPos, texture.Frame(1, 4, 0, 3), Color.White * 0.6f * remappedProgress, proj.rotation + proj.ai[0] * 0.01f, origin, scale, effects, 0f);
+            spriteBatch.Draw(texture.Value, drawPos, texture.Frame(1, 4, 0, 3), Color.White * 0.5f * remappedProgress, proj.rotation + proj.ai[0] * -0.05f, origin, scale * 0.8f, effects, 0f);
+            spriteBatch.Draw(texture.Value, drawPos, texture.Frame(1, 4, 0, 3), Color.White * 0.4f * remappedProgress, proj.rotation + proj.ai[0] * -0.1f, origin, scale * 0.6f, effects, 0f);
+        }
+
         public static void DrawPrettyStarSparkle(float opacity, SpriteEffects dir, Vector2 drawpos, Color drawColor, Color shineColor, float flareCounter, float fadeInStart, float fadeInEnd, float fadeOutStart, float fadeOutEnd, float rotation, Vector2 scale, Vector2 fatness)
         {
             Texture2D texture = TextureAssets.Extra[98].Value;
@@ -445,6 +460,8 @@ namespace TRAEProject.Changes.Weapon.Melee
     }
     public class MeowmereAura : SwordAura
     {
+        public static int ID => ModContent.ProjectileType<MeowmereAura>();
+
         public override void AuraDefaults()
         {
             scaleIncrease = 0.65f;

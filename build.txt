@@ -2,3 +2,4 @@ displayName = TRAE Project
 author = TRAE team 
 version = 0.6.6
 includeSource = true
+modReferences = StructureHelper@3.0

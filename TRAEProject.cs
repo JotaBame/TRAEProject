@@ -22,6 +22,7 @@ using TRAEProject.Changes.Items;
 using MonoMod.RuntimeDetour;
 using System.Reflection;
 using TRAEilHooks;
+using TRAEProject.Changes.Weapon.Melee.MeowmereEffect;
 
 namespace TRAEProject
 {
@@ -147,7 +148,10 @@ public class TRAEProj : Mod
 
 
         public override void Load()
-        {            
+        {          
+            
+            MeowmereAuraEffectDrawer.FixMeomwereSound_CallOnLoad();
+            
             //I ain't got anything special to say here; check the other classes for specific hook info
             //_NPCHook = new ILHook(typeof(Terraria.NPC).GetMethod("SpawnNPC"), ILNPC.DoStuff); //You can remove this hook if you want
             _GrassHook = new ILHook(typeof(Terraria.WorldGen).GetMethod("UpdateWorld_GrassGrowth", BindingFlags.NonPublic | BindingFlags.Static), ILPlantBulb.DoStuff);

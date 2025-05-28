@@ -1654,6 +1654,11 @@ Mods: {
 				DisplayName: Tri-Bow
 				Tooltip: Converts Wooden Arrows into special triple arrows
 			}
+
+			EchosphereGenTestItem: {
+				DisplayName: Echosphere Gen Test Item
+				Tooltip: ""
+			}
 		}
 
 		NPCs: {
@@ -1693,6 +1698,10 @@ Mods: {
 			GriffinWalker.DisplayName: Griffin Walker
 			Kinnara.DisplayName: Kinnara
 			EchoStalkerBody.DisplayName: Echo Stalker Body
+			EchoStalkerBody1.DisplayName: Echo Stalker Body1
+			EchoStalkerBody2.DisplayName: Echo Stalker Body2
+			EchoStalkerHead.DisplayName: Echo Stalker Head
+			EchoStalkerTail.DisplayName: Echo Stalker Tail
 		}
 
 		Tiles: {
