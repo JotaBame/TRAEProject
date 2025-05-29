@@ -136,15 +136,39 @@ namespace TRAEProject.Changes.Weapon.Melee
             color5.G = (byte)((float)(int)color5.G * lightingMultiplier);
             color5.B = (byte)((float)(int)color5.R * (0.25f + lightingMultiplier * 0.75f));
             DrawAuraLayers_WTFIsThis(proj, auraDrawPos, texture, frame, origin, auraScale, effects, progress, remappedProgress, num4, lightingMultiplier, blue, lime, green, color5);
-            for (float num6 = 0f; num6 < 12f; num6 += 1f)
+            float maxEdge = 12f;
+            if(proj.type == MeowmereAura.ID)
             {
-                float num7 = proj.rotation + proj.ai[0] * (num6 - 2f) * (MathF.PI * -2f) * 0.025f + Utils.Remap(progress, 0f, 1f, 0f, MathF.PI / 4f) * proj.ai[0];
-                Vector2 drawpos = auraDrawPos + num7.ToRotationVector2() * ((float)texture.Width() * 0.5f - 6f) * auraScale;
-                float num8 = num6 / 12f;
-                DrawPrettyStarSparkle(proj.Opacity, SpriteEffects.None, drawpos, new Color(255, 255, 255, 0) * remappedProgress * num8, green, progress, 0f, 0.5f, 0.5f, 1f, num7, new Vector2(0f, Utils.Remap(progress, 0f, 1f, 3f, 0f)) * auraScale, Vector2.One * auraScale);
+                maxEdge = MeowmereAuraEffectDrawer.GetEdgeCount(progress);
             }
+            for (float i = 0; i < maxEdge; i += 1f)
+            {
+                green = colorArray[1];//re-define green 
+                float num7 = proj.rotation + proj.ai[0] * (i - 2f) * (MathF.PI * -2f) * 0.025f + Utils.Remap(progress, 0f, 1f, 0f, MathF.PI / 4f) * proj.ai[0];
+                Vector2 drawpos = auraDrawPos + num7.ToRotationVector2() * ((float)texture.Width() * 0.5f - 6f) * auraScale;
+                float edgeDrawProgress = i / 12f;//intentionally do not include maxEdge value in this
+                float edgeOpacityMultFromProgress = Utils.GetLerpValue(0, .5f, progress, true) * Utils.GetLerpValue(1f, .5f, progress, true);
+                Color edgeCol = new Color(255, 255, 255, 0) * remappedProgress * edgeDrawProgress * edgeOpacityMultFromProgress * proj.Opacity;
+                edgeCol *= edgeOpacityMultFromProgress;
+                green *= edgeOpacityMultFromProgress;
+                if(proj.type == MeowmereAura.ID)
+                {
+                    edgeCol = MeowmereAuraEffectDrawer.GetEdgeColor(edgeOpacityMultFromProgress, drawpos, proj);
+                    green = edgeCol;
+                }
+                DrawPrettyStarSparkle(1f, SpriteEffects.None, drawpos, edgeCol, green, 0.65f, 0f, 0.5f, 0.75f, 1f, num7, new Vector2(0f, Utils.Remap(progress, 0f, 1f, 3f, 0f)) * auraScale, Vector2.One * auraScale);
+            }
+            green = colorArray[1];//re-define green because was modified in the loop
+            float sparkleOpacityMultFromProgress = Utils.GetLerpValue(0, .5f, progress, true) * Utils.GetLerpValue(1f, .5f, progress, true);
+            Color sparkleCol = new Color(255, 255, 255, 0) * remappedProgress * .5f * sparkleOpacityMultFromProgress;
+            green *= sparkleOpacityMultFromProgress;
             Vector2 drawpos2 = auraDrawPos + (proj.rotation + Utils.Remap(progress, 0f, 1f, 0f, MathF.PI / 4f) * proj.ai[0]).ToRotationVector2() * ((float)texture.Width() * 0.5f - 4f) * auraScale;
-            DrawPrettyStarSparkle(proj.Opacity, SpriteEffects.None, drawpos2, new Color(255, 255, 255, 0) * remappedProgress * 0.5f, green, progress, 0f, 0.5f, 0.5f, 1f, 0f, new Vector2(2f, Utils.Remap(progress, 0f, 1f, 4f, 1f)) * auraScale, Vector2.One * auraScale * 1.5f);
+            if (proj.type == MeowmereAura.ID)
+            {
+                sparkleCol = MeowmereAuraEffectDrawer.GetSparkleColor(remappedProgress, drawpos2, proj);
+                green = sparkleCol;
+            }
+            DrawPrettyStarSparkle(proj.Opacity, SpriteEffects.None, drawpos2, sparkleCol, green, 0.6f, 0f, 0.5f, 0.75f, 1f, 0f, new Vector2(2f, Utils.Remap(progress, 0f, 1f, 4f, 1f)) * auraScale, Vector2.One * auraScale * 1.5f);
         }
 
         public static void DrawAuraLayers_WTFIsThis(Projectile proj, Vector2 drawPos, Asset<Texture2D> texture, Rectangle frame, Vector2 origin, float scale, SpriteEffects effects, float progress, float remappedProgress, float num4, float lightingMultiplier, Color blue, Color lime, Color green, Color color5)
@@ -469,7 +493,10 @@ namespace TRAEProject.Changes.Weapon.Melee
             middleColor = Main.DiscoColor;
             backColor = Main.DiscoColor;
         }
-
+        public override void Load()
+        {
+            MeowmereAuraEffectDrawer.LoadAssets();
+        }
     }
     public class EnchantedAura : SwordAura
     {
