@@ -30,6 +30,8 @@ namespace TRAEProject.NewContent.NPCs.Echosphere.EchoStalker
         static Asset<Texture2D> body2WithHairGlow;
         static Asset<Texture2D> tail;
         static Asset<Texture2D> tailGlow;
+        public bool HairVariant { get => NPC.localAI[0] == 1; set => NPC.localAI[0] = value ? -1 : 1; }
+
         public static Texture2D Tail => tail.Value;
         public static Texture2D TailGlow => tailGlow.Value;
         public static Texture2D Body => body.Value;
@@ -40,7 +42,7 @@ namespace TRAEProject.NewContent.NPCs.Echosphere.EchoStalker
         public static Texture2D BodyWithHairGlow => bodyWithHairGlow.Value;
         public static Texture2D Body2WithHair => body2WithHair.Value;
         public static Texture2D Body2WithHairGlow => body2WithHairGlow.Value;
-        static int[] SegmentWidths => new int[6] { 28, 28, 28, 26, 26, 28 };
+        static int[] SegmentWidths => new int[5] { 28, 28, 28, 26, 28 };
         private float PurpleGlowinessAmount => Utils.GetLerpValue(60, 110, NPC.ai[0], true) * Utils.GetLerpValue(160, 140, NPC.ai[0], true) * 0.2f;
         public override void SetStaticDefaults()
         {
@@ -49,7 +51,7 @@ namespace TRAEProject.NewContent.NPCs.Echosphere.EchoStalker
         }
         Vector2 MouthCenter { get => NPC.Center + new Vector2(0, 4); }
         ref float IdlingTimer => ref NPC.localAI[2];
-        public static int SegmentCount => 6;
+        public static int SegmentCount => 5;
         public override void SetDefaults()
         {
             NPC.friendly = false;
@@ -64,8 +66,10 @@ namespace TRAEProject.NewContent.NPCs.Echosphere.EchoStalker
         }
         public override void OnSpawn(IEntitySource source)
         {
-
-            int[] types = new int[] { ModContent.NPCType<EchoStalkerBody1>(), ModContent.NPCType<EchoStalkerBody1>(),
+          
+                NPC.localAI[0] = Main.rand.NextBool() ? -1 : 1;
+           
+            int[] types = new int[] { ModContent.NPCType<EchoStalkerBody1>(),
                ModContent.NPCType<EchoStalkerBody2>(), ModContent.NPCType<EchoStalkerBody2>(),
              ModContent.NPCType<EchoStalkerTail>() };
             for (int i = 1; i < types.Length + 1; i++)
@@ -304,9 +308,12 @@ namespace TRAEProject.NewContent.NPCs.Echosphere.EchoStalker
                 }
             }
             DrawWithSpectralCheck(head.Value, NPC.Center - screenPos, null, drawColor, NPC.rotation + headRot, origin, NPC.scale, spriteFX, spriteBatch);
-            DrawWithSpectralCheck(hair.Value, NPC.Center - screenPos, null, drawColor, NPC.rotation + headRot, origin, NPC.scale, spriteFX, spriteBatch);
-            EchosphereHelper.DrawEchoWormBlurOld(hair.Value, NPC.Center - screenPos, NPC.Opacity * opacity, NPC.rotation + headRot, origin, NPC.scale, spriteFX);
-            return false;
+            if (NPC.localAI[0] == 1)
+            {
+                DrawWithSpectralCheck(hair.Value, NPC.Center - screenPos, null, drawColor, NPC.rotation + headRot, origin, NPC.scale, spriteFX, spriteBatch);
+                EchosphereHelper.DrawEchoWormBlurOld(hair.Value, NPC.Center - screenPos, NPC.Opacity * opacity, NPC.rotation + headRot, origin, NPC.scale, spriteFX);
+            }
+                return false;
         }
         void DrawWithSpectralCheck(Texture2D texture, Vector2 drawPos, Rectangle? frame, Color drawColor, float rotation, Vector2 origin, float scale, SpriteEffects spriteFX, SpriteBatch spriteBatch)
         {
@@ -334,7 +341,7 @@ namespace TRAEProject.NewContent.NPCs.Echosphere.EchoStalker
         {
             head ??= ModContent.Request<Texture2D>("TRAEProject/NewContent/NPCs/Echosphere/EchoStalker/EchoStalkerHead");
             jaw ??= ModContent.Request<Texture2D>("TRAEProject/NewContent/NPCs/Echosphere/EchoStalker/EchoStalkerJaw");
-            hair ??= ModContent.Request<Texture2D>("TRAEProject/NewContent/NPCs/Echosphere/EchoStalker/EchoStalkerHair");
+            hair ??=  ModContent.Request<Texture2D>("TRAEProject/NewContent/NPCs/Echosphere/EchoStalker/EchoStalkerHair");
             body ??= ModContent.Request<Texture2D>("TRAEProject/NewContent/NPCs/Echosphere/EchoStalker/EchoStalkerBody");
             bodyGlow ??= ModContent.Request<Texture2D>("TRAEProject/NewContent/NPCs/Echosphere/EchoStalker/EchoStalkerBodyGlow");
             body2 ??= ModContent.Request<Texture2D>("TRAEProject/NewContent/NPCs/Echosphere/EchoStalker/EchoStalkerBody2");
@@ -425,7 +432,7 @@ namespace TRAEProject.NewContent.NPCs.Echosphere.EchoStalker
         private void GetSegmentDrawParams(Vector2 screenPos, out Vector2 origin, out int segments, out Vector2[] positions, out SpriteEffects[] directions, out float[] rotations, out Color[] colors)
         {
             origin = body.Size() / 2;
-            segments = 5;
+            segments = 4;
             Vector2 lastSegmentCenter = NPC.Center;
 
 
@@ -693,8 +700,7 @@ namespace TRAEProject.NewContent.NPCs.Echosphere.EchoStalker
             for (int i = 0; i < Main.maxNPCs; i++)
             {
                 NPC npc = Main.npc[i];
-
-                if (npc.active && types.Contains(npc.type) && npc.ai[0] == NPC.whoAmI)
+                if (npc.active && types.Contains(npc.type) && npc.ai[0] == NPC.whoAmI && segmentsFound < segments.Length)
                 {
                     npc.realLife = npc.whoAmI;
                     npc.dontTakeDamage = false;

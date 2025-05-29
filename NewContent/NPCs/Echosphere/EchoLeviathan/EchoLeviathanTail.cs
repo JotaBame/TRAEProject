@@ -32,22 +32,7 @@ namespace TRAEProject.NewContent.NPCs.Echosphere.EchoLeviathan
         {
             return false;
         }
-        public override void OnHitByProjectile(Projectile projectile, NPC.HitInfo hit, int damageDone)
-        {
-            EchoLeviathanHead.CopyProjIframesToOtherSegments(NPC.ai[0], NPC.whoAmI, projectile);
-        }
-        public override void OnHitByItem(Player player, Item item, NPC.HitInfo hit, int damageDone)
-        {
-            EchoLeviathanHead.CopyItemIframesToOtherSegments(NPC.ai[0], NPC.whoAmI, player.whoAmI);
-        }
-        public override bool? CanBeHitByItem(Player player, Item item)
-        {
-            return !EchoLeviathanHead.IsHeadImmuneToItem(NPC.ai[0], player.whoAmI);
-        }
-        public override bool? CanBeHitByProjectile(Projectile projectile)
-        {
-            return !EchoLeviathanHead.IsHeadImmuneToProj(NPC.ai[0], projectile);
-        }
+ 
         public override void AI()
         {
             int parent = (int)NPC.ai[0];
