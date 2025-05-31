@@ -183,7 +183,7 @@ namespace TRAEProject.NewContent.NPCs.Echosphere.EchoLeviathan
         static int GlowStayTimeBeforeShootingStart => 5;
         static int GlowStayTimeAfterShootingStart => 20;
         static int GlowFadeoutTime => 20;
-        private float PurpleGlowinessAmount => State == AIState.SonicWave ? Utils.GetLerpValue(SonicWaveStartTime - GlowFadeInTime - GlowStayTimeBeforeShootingStart, SonicWaveStartTime - GlowStayTimeBeforeShootingStart, Timer, true) * 
+        private float PurpleGlowinessAmount => State == AIState.SonicWave ? Utils.GetLerpValue(SonicWaveStartTime - GlowFadeInTime - GlowStayTimeBeforeShootingStart, SonicWaveStartTime - GlowStayTimeBeforeShootingStart, Timer, true) *
             Utils.GetLerpValue(ShootingEndTime + GlowFadeoutTime + GlowStayTimeAfterShootingStart, ShootingEndTime + GlowStayTimeAfterShootingStart, Timer, true) : 0;
 
         void State_SonicWave()
@@ -236,7 +236,8 @@ namespace TRAEProject.NewContent.NPCs.Echosphere.EchoLeviathan
             }
             else
             {
-                Vector2 spawnDirectionTarget = NPC.DirectionTo(Main.player[ClosestPlayerConsiderAggro()].Center);
+
+                Vector2 spawnDirectionTarget = NPC.DirectionTo(Main.player[NPC.target].Center);
                 NPC.velocity = spawnDirectionTarget * 10;
             }
             Timer++;
@@ -310,21 +311,14 @@ namespace TRAEProject.NewContent.NPCs.Echosphere.EchoLeviathan
             Timer++;
             if (Timer < 100)
             {
+                PositionSegmentsInLine(GetChaseDirection(-1));
                 NPC.Opacity = 0;
-                NPC.position -= NPC.velocity;
+                NPC.position -= NPC.velocity;//don't actually move but don't set velocity to zero
                 return;
             }
             if (NPC.Opacity == 0)
             {
-                if (NPC.target != -1)
-                {
-                    NPC.velocity = NPC.DirectionTo(Main.player[NPC.target].Center) * 8;
-                }
-                else
-                {
-                    Player plr = Main.player[ClosestPlayerConsiderAggro()];
-                    NPC.velocity = NPC.DirectionTo(plr.Center - new Vector2(0, 350)) * 8;
-                }
+                NPC.velocity = Slerp(NPC.velocity, GetChaseDirection(8f), 0.1f);
                 NPC.spriteDirection = MathF.Sign(NPC.velocity.X);
             }
             int[] segmentWidths = SegmentWidths;
@@ -355,7 +349,7 @@ namespace TRAEProject.NewContent.NPCs.Echosphere.EchoLeviathan
             NPC.dontTakeDamage = true;
             NPC.Opacity = .5f;
             Timer += .01f;
-            NPC.velocity = Vector2.Lerp(NPC.velocity, new Vector2(MathF.Sin(Timer), MathF.Cos(Timer * Phi) * .75f) * 5, .1f);
+            NPC.velocity = Slerp(NPC.velocity, new Vector2(MathF.Sin(Timer), MathF.Cos(Timer * Phi) * .75f) * 5, .1f);
             NPC.rotation = NPC.velocity.ToRotation();
             NPC.spriteDirection = MathF.Sign(NPC.velocity.X);
         }
@@ -384,19 +378,59 @@ namespace TRAEProject.NewContent.NPCs.Echosphere.EchoLeviathan
                 }
             }
         }
+        Vector2 GetChaseDirection(float magnitude)
+        {
+            if (!NPC.HasValidTarget)
+            {
+                return new Vector2(0, -magnitude);//go up if no targets
+            }
+            return Main.player[NPC.target].DirectionFrom(NPC.Center);
+        }
         int ClosestPlayerConsiderAggro()
         {
             int target = Main.maxPlayers;
             for (int i = 0; i < Main.maxPlayers; i++)
             {
                 Player player = Main.player[i];
-                if (!player.active || player.dead || target != -1 && player.DistanceSQ(NPC.Center) + player.aggro >= Main.player[target].Distance(NPC.Center) + Main.player[target].aggro)
+                if (!player.active || player.dead || target != Main.maxPlayers && player.DistanceSQ(NPC.Center) + player.aggro >= Main.player[target].Distance(NPC.Center) + Main.player[target].aggro)
                 {
                     continue;
                 }
                 target = i;
             }
             return target;
+        }
+        static Vector2 Slerp(Vector2 from, Vector2 to, float t)
+        {
+            float fromLen = from.Length();
+            float toLen = to.Length();
+
+            if (fromLen < 1e-6f || toLen < 1e-6f)
+                return Vector2.Lerp(from, to, t);
+
+            Vector2 fromNorm = from / fromLen;
+            Vector2 toNorm = to / toLen;
+
+            float dot = Vector2.Dot(fromNorm, toNorm);
+            dot = MathHelper.Clamp(dot, -1f, 1f);
+            float theta = (float)Math.Acos(dot);
+
+            Vector2 direction;
+
+            if (theta < 1e-5f)
+            {
+                direction = Vector2.Lerp(fromNorm, toNorm, t).SafeNormalize(Vector2.UnitX);
+            }
+            else
+            {
+                float sinTheta = (float)Math.Sin(theta);
+                float a = (float)Math.Sin((1 - t) * theta) / sinTheta;
+                float b = (float)Math.Sin(t * theta) / sinTheta;
+                direction = a * fromNorm + b * toNorm;
+            }
+
+            float length = MathHelper.Lerp(fromLen, toLen, t);
+            return direction * length;
         }
         NPC[] SearchForBodySegments()
         {
@@ -422,7 +456,139 @@ namespace TRAEProject.NewContent.NPCs.Echosphere.EchoLeviathan
             }
             return result;
         }
+        void PositionSegmentsInLine(Vector2 direction)
+        {
+            NPC[] segments = SearchForBodySegments();
+
+            int segmentCount = segments.Length;
+            int[] segmentWidths = SegmentWidths;
+            int lengthAcross = 0;
+            for (int i = 0; i < segmentCount; i++)
+            {
+                NPC curSegment = segments[i];
+                lengthAcross += segmentWidths[i];
+                curSegment.Center = NPC.Center + direction * lengthAcross;
+            }
+        }
+
+
         void SetSegmentPositionRotationSpriteDirectionAndOpacity()
+        {
+            NPC[] segments = SearchForBodySegments();
+            float minAngleDelta = 0.9f; // max angle change per segment in radians
+            int segmentCount = segments.Length;
+            int[] segmentWidths = SegmentWidths;
+            float prevRotation = NPC.rotation;
+            int lengthAcross = 0;
+            float glowiness = PurpleGlowinessAmount;
+            int maxLength = segmentWidths.Sum();//sum of all the elements
+
+            for (int i = 0; i < segmentCount; i++)
+            {
+                int segmentWidth = segmentWidths[i];
+                NPC curSegment = segments[i];
+                NPC prevSegment = (i == 0) ? NPC : segments[i - 1];
+
+                Vector2 desiredDirection = (prevSegment.Center - curSegment.Center).SafeNormalize(Vector2.UnitY);
+                float desiredRotation = desiredDirection.ToRotation();
+
+                float angleDifference = MathHelper.WrapAngle(desiredRotation - prevRotation);
+                angleDifference = MathHelper.Clamp(angleDifference, -minAngleDelta, minAngleDelta);
+                float constrainedRotation = prevRotation + angleDifference;
+
+                Vector2 offsetDir = constrainedRotation.ToRotationVector2();
+                Vector2 segmentCenter = prevSegment.Center - offsetDir * segmentWidth;
+
+                curSegment.Center = segmentCenter;
+                curSegment.rotation = constrainedRotation;
+                curSegment.spriteDirection = (segmentCenter.X >= prevSegment.Center.X) ? -1 : 1;
+
+                prevRotation = constrainedRotation;
+
+
+                //for handling opacity and fading from going in and out of portals
+                float fadeDuration = segmentWidth - 8;
+                float behindOpacity = Utils.GetLerpValue(lengthAcross, lengthAcross + fadeDuration, OpacityCutoffFromBehind, true);
+                float frontOpacity = Utils.GetLerpValue(lengthAcross, lengthAcross - fadeDuration, maxLength - OpacityCutoffFromFront - segmentWidths[0], true);
+                segments[i].Opacity = behindOpacity * frontOpacity;
+                lengthAcross += segmentWidths[i];
+                EchoLeviathanBody1.SetPurpleGlowinessAmount(segments[i], glowiness);
+            }
+            NPC.localAI[3] = glowiness;
+
+        }
+
+
+
+
+        void SetSegmentPositionRotationSpriteDirectionAndOpacity_Old2()
+        {
+            NPC[] segments = SearchForBodySegments();
+            int segmentCount = segments.Length;
+            Vector2 lastSegmentCenter = NPC.Center;
+            int[] segmentWidths = SegmentWidths;
+            int maxLength = segmentWidths.Sum();//sum of all the elements
+            int lengthAcross = 0;
+            float glowiness = PurpleGlowinessAmount;
+            for (int i = 0; i < segmentCount; i++)
+            {
+                int segmentWidth = segmentWidths[i];
+                NPC curSegment = segments[i];
+                NPC prevSegment;
+                if (i == 0)
+                {
+                    prevSegment = NPC;
+                }
+                else
+                {
+                    prevSegment = segments[i - 1];
+                }
+
+                Vector2 offsetDir = (prevSegment.Center - curSegment.Center).SafeNormalize(Vector2.UnitY);
+                //need to constrain the direction to avoid issues from it turning too tightly
+                Vector2 segmentCenter = prevSegment.Center - offsetDir * segmentWidth;
+                float rotation = (lastSegmentCenter - segmentCenter).ToRotation();
+
+                int spriteDir = segmentCenter.X >= lastSegmentCenter.X ? -1 : 1;//    -1 is flip vertically in the drawing code
+                segments[i].Center = segmentCenter;
+                segments[i].spriteDirection = spriteDir;
+                segments[i].rotation = rotation;
+
+
+                //for handling opacity and fading from going in and out of portals
+                float fadeDuration = segmentWidth - 8;
+                float behindOpacity = Utils.GetLerpValue(lengthAcross, lengthAcross + fadeDuration, OpacityCutoffFromBehind, true);
+                float frontOpacity = Utils.GetLerpValue(lengthAcross, lengthAcross - fadeDuration, maxLength - OpacityCutoffFromFront - segmentWidths[0], true);
+                segments[i].Opacity = behindOpacity * frontOpacity;
+                lengthAcross += segmentWidths[i];
+                lastSegmentCenter = segmentCenter;
+                EchoLeviathanBody1.SetPurpleGlowinessAmount(segments[i], glowiness);
+            }
+            NPC.localAI[3] = glowiness;
+        }
+
+
+
+
+        static Vector2 ConstrainAngle(float minAngle, Vector2 angleCenter, Vector2 angleToLimit)
+        {
+            float dot = Vector2.Dot(angleCenter, angleToLimit);
+            float dotNormal = Vector2.Dot(angleToLimit, new Vector2(-angleCenter.Y, angleCenter.X));
+            float dotThreshold = MathF.Cos(minAngle * .5f);
+
+            if (dot < dotThreshold)
+            {
+                return angleToLimit;
+            }
+            if (dotNormal < 0)
+            {
+                return angleCenter.RotatedBy(-minAngle * .5f);
+            }
+            return angleCenter.RotatedBy(minAngle * .5f);
+        }
+
+
+        void SetSegmentPositionRotationSpriteDirectionAndOpacity_Old()
         {
             NPC[] segments = SearchForBodySegments();
 
@@ -831,10 +997,10 @@ namespace TRAEProject.NewContent.NPCs.Echosphere.EchoLeviathan
             Player player = Main.player[playerIndex];
             return player.meleeNPCHitCooldown[index] > 0;
         }
- 
-   
 
- 
+
+
+
         public override void ModifyHoverBoundingBox(ref Rectangle boundingBox)
         {
             if (NPC.alpha >= 254)

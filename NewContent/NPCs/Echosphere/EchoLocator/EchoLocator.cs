@@ -2,17 +2,18 @@
 using Microsoft.Xna.Framework.Graphics;
 using System;
 using Terraria;
+using Terraria.Audio;
 using Terraria.GameContent;
 using Terraria.ID;
 using Terraria.ModLoader;
 
 namespace TRAEProject.NewContent.NPCs.Echosphere.EchoLocator
 {
-    /// <summary>
-    /// UNTESTED
-    /// </summary>
     public class EchoLocator : ModNPC
     {
+        public static SoundStyle SlowdownSFX => new SoundStyle("TRAEProject/NewContent/NPCs/Echosphere/EchoLocator/EchoLocatorSlowdown2") with { MaxInstances = 0 };
+        public static SoundStyle SpeedupSFX => new SoundStyle("TRAEProject/NewContent/NPCs/Echosphere/EchoLocator/EchoLocatorSpeedup") with { MaxInstances = 0 };
+        public static SoundStyle FlyingSFX => new SoundStyle("TRAEProject/NewContent/NPCs/Echosphere/EchoLocator/EchoLocatorSpeedFly2").WithVolumeScale(.5f) with { MaxInstances = 0 };
         public override void SetStaticDefaults()
         {
             Main.npcFrameCount[Type] = 4;
@@ -92,6 +93,8 @@ namespace TRAEProject.NewContent.NPCs.Echosphere.EchoLocator
             {
                 if (JustEnteredFastState)
                 {
+                    SoundEngine.PlaySound(FlyingSFX, NPC.Center, UpdateFlyingSFX);
+                    SoundEngine.PlaySound(SpeedupSFX, NPC.Center);
                     NPC.netUpdate = true;
                     int numDots = 32;
                     for (float i = 0; i < 1; i += 1f / numDots)
@@ -114,6 +117,10 @@ namespace TRAEProject.NewContent.NPCs.Echosphere.EchoLocator
             BatMovement(maxSpeedX, accelerationX, maxSpeedY, accelerationY);
             NPC.rotation = NPC.velocity.X * .1f;
             NPC.spriteDirection = MathF.Sign(NPC.velocity.X);
+            if (NPC.ai[0] % (RegularStateDuration + FastStateDuration) == 1 && NPC.ai[0] > 1)
+            {
+                SoundEngine.PlaySound(SlowdownSFX, NPC.Center);
+            }
         }
         public override void FindFrame(int frameHeight)
         {
@@ -326,6 +333,16 @@ namespace TRAEProject.NewContent.NPCs.Echosphere.EchoLocator
                 }
             }
             return false;
+        }
+        bool UpdateFlyingSFX(ActiveSound instance)
+        {
+            instance.Position = NPC.Center;
+            if(!FastState || NPC.target < 0 || NPC.target >= Main.maxPlayers)
+            {
+                instance.Stop();
+                return false;
+            }
+            return true;
         }
         void FindTargetAndSetJustStartedIdlingFlag()
         {

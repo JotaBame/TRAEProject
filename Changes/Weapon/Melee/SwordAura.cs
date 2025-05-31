@@ -223,7 +223,7 @@ namespace TRAEProject.Changes.Weapon.Melee
             {
                 PositionInWorld = positionInWorld
             }, Projectile.owner);
-            float lifepercent = (float)(target.life) / (float)(target.lifeMax);
+            float lifepercent = target.GetLifePercent();
             if (lifepercent > 0.1f)
                 modifiers.FinalDamage *= 1 + 5/3 * (float)(1 - lifepercent);
             else

@@ -14,6 +14,11 @@
     <None Remove="Changes\Weapon\Melee\MeowmereEffect\Noise3.png" />
     <None Remove="Changes\Weapon\Melee\MeowmereEffect\Noise4.png" />
     <None Remove="Changes\Weapon\Melee\MeowmereEffect\OKLabGradient.png" />
+    <None Remove="NewContent\Items\Weapons\Magic\DreamEater\ExperimentalShader\grayscale_normalized_texture.png" />
+    <None Remove="NewContent\Items\Weapons\Magic\DreamEater\ExperimentalShader\grayscale_normalized_texture1.png" />
+    <None Remove="NewContent\Items\Weapons\Magic\DreamEater\ExperimentalShader\grayscale_normalized_texture2.png" />
+    <None Remove="NewContent\Items\Weapons\Magic\DreamEater\ExperimentalShader\grayscale_normalized_texture3.png" />
+    <None Remove="NewContent\Items\Weapons\Magic\DreamEater\ExperimentalShader\SquareShader.fx" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="tModLoader.CodeAssist" Version="0.1.*" />

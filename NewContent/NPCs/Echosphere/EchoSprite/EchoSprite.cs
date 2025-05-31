@@ -2,6 +2,7 @@
 using Microsoft.Xna.Framework.Graphics;
 using ReLogic.Content;
 using System;
+using System.Diagnostics;
 using Terraria;
 using Terraria.Audio;
 using Terraria.GameContent;
@@ -71,6 +72,7 @@ namespace TRAEProject.NewContent.NPCs.Echosphere.EchoSprite
                         d.noGravity = true;
                     }
                 }
+                UpdateVerlet();
                 return;
             }
             NPC.dontTakeDamage = false;
@@ -144,7 +146,6 @@ namespace TRAEProject.NewContent.NPCs.Echosphere.EchoSprite
                 NPC.ai[0] = 0;
             }
             UpdateVerlet();
-
         }
 
         private void Movement(out float distToTargetPos)
@@ -238,7 +239,7 @@ namespace TRAEProject.NewContent.NPCs.Echosphere.EchoSprite
             Dot[] dots = new Dot[15];
             for (int i = 0; i < dots.Length; i++)
             {
-                dots[i] = new Dot(new Vector2(NPC.Center.X + i * 4, NPC.Center.Y - 10), false);
+                dots[i] = new Dot(new Vector2(i * 4, 10), false);
                 if(i > 0)
                 {
                     Dot.Connect(dots[i - 1], dots[i], 1);
@@ -246,6 +247,13 @@ namespace TRAEProject.NewContent.NPCs.Echosphere.EchoSprite
             }
             dots[0].locked = true;
             trail = new VerletSimulator(20, dots);
+            Stopwatch sw = Stopwatch.StartNew();
+            for (int i = 0; i < 60; i++)
+            {
+                UpdateVerlet();
+            }
+            sw.Stop();
+            Main.NewText(sw.Elapsed.TotalMilliseconds);
         }
         public override bool PreDraw(SpriteBatch spriteBatch, Vector2 screenPos, Color drawColor)
         {

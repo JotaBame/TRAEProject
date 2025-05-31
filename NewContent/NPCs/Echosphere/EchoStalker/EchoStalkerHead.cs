@@ -66,9 +66,10 @@ namespace TRAEProject.NewContent.NPCs.Echosphere.EchoStalker
         }
         public override void OnSpawn(IEntitySource source)
         {
-          
-                NPC.localAI[0] = Main.rand.NextBool() ? -1 : 1;
-           
+
+            //NPC.localAI[0] = Main.rand.NextBool() ? -1 : 1;
+            HairVariant = Main.rand.NextBool();
+
             int[] types = new int[] { ModContent.NPCType<EchoStalkerBody1>(),
                ModContent.NPCType<EchoStalkerBody2>(), ModContent.NPCType<EchoStalkerBody2>(),
              ModContent.NPCType<EchoStalkerTail>() };
@@ -308,7 +309,8 @@ namespace TRAEProject.NewContent.NPCs.Echosphere.EchoStalker
                 }
             }
             DrawWithSpectralCheck(head.Value, NPC.Center - screenPos, null, drawColor, NPC.rotation + headRot, origin, NPC.scale, spriteFX, spriteBatch);
-            if (NPC.localAI[0] == 1)
+           // if (NPC.localAI[0] == 1)
+            if (HairVariant)
             {
                 DrawWithSpectralCheck(hair.Value, NPC.Center - screenPos, null, drawColor, NPC.rotation + headRot, origin, NPC.scale, spriteFX, spriteBatch);
                 EchosphereHelper.DrawEchoWormBlurOld(hair.Value, NPC.Center - screenPos, NPC.Opacity * opacity, NPC.rotation + headRot, origin, NPC.scale, spriteFX);

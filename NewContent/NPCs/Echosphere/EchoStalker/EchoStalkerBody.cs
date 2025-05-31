@@ -1,7 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Terraria;
-using Terraria.GameContent;
 using Terraria.ModLoader;
 
 namespace TRAEProject.NewContent.NPCs.Echosphere.EchoStalker
@@ -14,6 +13,7 @@ namespace TRAEProject.NewContent.NPCs.Echosphere.EchoStalker
         public bool HairVariant { get => NPC.localAI[0] == 1; set => NPC.localAI[0] = value ? -1 : 1; }
         public int HeadIndex { get => (int)NPC.ai[0]; set => NPC.ai[0] = value; }
         public ref float PurpleGlowinessAmount => ref NPC.localAI[1];
+        public bool InvalidHeadIndex => HeadIndex < 0 || HeadIndex >= Main.maxNPCs || !Main.npc[HeadIndex].active || Main.npc[HeadIndex].type != ModContent.NPCType<EchoStalkerHead>();
         //so I don't have to remember that it's localai1
         public static void SetPurpleGlowinessAmount(NPC segment, float normalizedAmount)
         {
@@ -30,6 +30,17 @@ namespace TRAEProject.NewContent.NPCs.Echosphere.EchoStalker
             NPC.damage = 50;
             NPC.knockBackResist = 0;
         }
+
+        public override void AI()
+        {
+            if (InvalidHeadIndex)
+            {
+                NPC.life = 0;
+                NPC.HitEffect();
+                NPC.active = false;
+                return;
+            }
+        }
         public override bool PreDraw(SpriteBatch spriteBatch, Vector2 screenPos, Color drawColor)
         {
             InitializeHairVariantFlagIfNeeded();
@@ -41,7 +52,7 @@ namespace TRAEProject.NewContent.NPCs.Echosphere.EchoStalker
             }
             drawColor *= NPC.Opacity;
             EchosphereHelper.DrawEchoWormSegmentWithBlurOld(GlowTexture, RegularTexture, NPC.Center - screenPos, PurpleGlowinessAmount, NPC.rotation, RegularTexture.Size() / 2, NPC.scale, NPC.spriteDirection == -1 ? SpriteEffects.FlipVertically : SpriteEffects.None, NPC.Opacity, NPC.GetNPCColorTintedByBuffs(drawColor));
-           // Main.EntitySpriteDraw(GlowTexture, NPC.Center - screenPos, null, drawColor, NPC.rotation, texture.Size() / 2, NPC.scale, NPC.spriteDirection == -1 ? SpriteEffects.FlipVertically : SpriteEffects.None);
+            // Main.EntitySpriteDraw(GlowTexture, NPC.Center - screenPos, null, drawColor, NPC.rotation, texture.Size() / 2, NPC.scale, NPC.spriteDirection == -1 ? SpriteEffects.FlipVertically : SpriteEffects.None);
             return false;
         }
 

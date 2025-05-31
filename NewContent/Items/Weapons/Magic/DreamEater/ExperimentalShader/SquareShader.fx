@@ -3,12 +3,11 @@ texture cellNoiseTexture1;
 texture cellNoiseTexture2;
 texture cellNoiseTexture3;
 texture cellNoiseTexture4;
-float2 coordOffset;
+texture gradientTexture;
 float opacity;
 float time;
 float rotation;
 float scale;
-bool pixelate;
 sampler noise1 = sampler_state
 {
     Texture = (cellNoiseTexture1);
@@ -33,6 +32,13 @@ sampler noise3 = sampler_state
 sampler noise4 = sampler_state
 {
     Texture = (cellNoiseTexture4);
+    AddressU = wrap;
+    AddressV = wrap;
+    Filter = point;
+};
+sampler gradient = sampler_state
+{
+    Texture = (gradientTexture);
     AddressU = wrap;
     AddressV = wrap;
     Filter = point;
@@ -119,73 +125,34 @@ float xorWrappedBlend(float a, float b)
     float ab = a * b;
     return frac((a + b - ab) * (1 - ab));
 }
-float4 rainbowy(float4 color : COLOR0, float2 coords : TEXCOORD0) : COLOR0
+float4 blurredSample(float kernelSpacing, int kernelHalfSize, float std, sampler textureSampler, float2 coords)
 {
-    if (pixelate)
+    const float sqrtTau = 2.50662827463;
+    float result = 0;
+    for (int i = -kernelHalfSize; i <= kernelHalfSize; i++)
     {
-        float dimensions = 170.0;
-        coords *= dimensions;
-        coords = floor(coords);
-        coords /= dimensions;
+        for (int j = -kernelHalfSize; j <= kernelHalfSize; j++)
+        {
+            float2 offset = float2(i, j) * kernelSpacing;
+            result += (1f / (-std * sqrtTau)) * exp(-tex2D(textureSampler, coords) / (2 * std * std));
+
+        }
     }
-    float2 rotatedCoords = coords;
-    coords -= .5;
-    float2 centeredCoords = coords;
-    coords *= scale;
-    coords /= 2;
-    coords += .5;
-    float cosAmt = cos(rotation);
-    float sinAmt = sin(rotation);
-    rotatedCoords.x = (centeredCoords.x * cosAmt) - (centeredCoords.y * sinAmt);
-    rotatedCoords.y = (centeredCoords.x * sinAmt) + (centeredCoords.y * cosAmt);
-    rotatedCoords += .5;
-    float4 currentCol = tex2D(uImage0, rotatedCoords);
-    //return float4(rotatedCoords.x, rotatedCoords.y, 0, 1);
-    coords += coordOffset;
-    float2 noise1UV = coords;
-    float2 noise2UV = coords;
-    float2 noise3UV = coords;
-    float2 noise4UV = coords;
-    noise1UV.x += time;
-    noise2UV.x -= time;
-    noise3UV.y += time;
-    noise4UV.y -= time;
-    float noise1Val = tex2D(noise1, noise1UV);
-    float noise2Val = tex2D(noise2, noise2UV);
-    float noise3Val = tex2D(noise3, noise3UV);
-    float noise4Val = tex2D(noise4, noise4UV);
-    float noiseSquishAmount = 4;
-    noise1UV *= noiseSquishAmount;
-    noise2UV *= noiseSquishAmount;
-    noise3UV *= noiseSquishAmount;
-    noise4UV *= noiseSquishAmount;
+    return result;
+}
+float4 squares(float4 color : COLOR0, float2 coords : TEXCOORD0) : COLOR0
+{
+
     
-    float noiseValSum = noise1Val + noise2Val + noise3Val + noise4Val;
-    noise1Val = tex2D(noise1, noise1UV);
-    noise2Val = tex2D(noise2, noise2UV);
-    noise3Val = tex2D(noise3, noise3UV);
-    noise4Val = tex2D(noise4, noise4UV);
-    //float shinynessCheck = atan2(noise2Val + noise1Val, noise3Val + noise4Val);
-    float shinynessCheck = xorWrappedBlend(max(noise2Val, noise1Val), max(
-    noise3Val, noise4Val));
-    if (shinynessCheck > .7)
-    {
-        return currentCol.aaaa * opacity;
-    }
-    float offsetValue = frac(noiseValSum); // xorWrappedBlend(xorWrappedBlend(noise3Val, noise4Val), xorWrappedBlend(noise1Val, noise2Val));
-    offsetValue *= 0.2f;
-    float curA = currentCol.a * opacity;
-    float2 sampleCoords = coords;
-    sampleCoords.x += offsetValue + time * 3;
-    float3 gradientCol = HSLtoRGB(float3(frac(sampleCoords.x), 1, .65f));
-    float4 resultCol = float4(gradientCol.r * curA, gradientCol.g * curA, gradientCol.b * curA, curA);
-    return resultCol;
+    float finalVal = blurredSample(0.02f, 4, 1, noise1, coords);
+    return float4(finalVal, finalVal, finalVal, 1);
+
 }
 
 technique Technique1
 {
     pass RainbowyPass
     {
-        PixelShader = compile ps_3_0 rainbowy();
+        PixelShader = compile ps_3_0 squares();
     }
 }

@@ -18,13 +18,14 @@ namespace TRAEProject.Changes.Weapon.Melee.MeowmereEffect
         public static Asset<Texture2D> noiseTex4;
         public static Asset<Texture2D> auraTexture;
         public static Asset<Effect> meowmereShader;
+        public static bool PixelateAura => false;
         public static void LoadAssets()
         {
             noiseTex1 ??= ModContent.Request<Texture2D>("TRAEProject/Changes/Weapon/Melee/MeowmereEffect/Noise1", AssetRequestMode.ImmediateLoad);
             noiseTex2 ??= ModContent.Request<Texture2D>("TRAEProject/Changes/Weapon/Melee/MeowmereEffect/Noise2", AssetRequestMode.ImmediateLoad);
             noiseTex3 ??= ModContent.Request<Texture2D>("TRAEProject/Changes/Weapon/Melee/MeowmereEffect/Noise3", AssetRequestMode.ImmediateLoad);
             noiseTex4 ??= ModContent.Request<Texture2D>("TRAEProject/Changes/Weapon/Melee/MeowmereEffect/Noise4", AssetRequestMode.ImmediateLoad);
-            auraTexture ??= ModContent.Request<Texture2D>("TRAEProject/Changes/Weapon/Melee/MeowmereEffect/MeomwereAura");
+            auraTexture ??= ModContent.Request<Texture2D>("TRAEProject/Changes/Weapon/Melee/MeowmereEffect/MeomwereAura", AssetRequestMode.ImmediateLoad);
             meowmereShader ??= ModContent.Request<Effect>("TRAEProject/Changes/Weapon/Melee/MeowmereEffect/MeowmereShader", AssetRequestMode.ImmediateLoad);
         }
         public static void LoadShader()
@@ -44,6 +45,7 @@ namespace TRAEProject.Changes.Weapon.Melee.MeowmereEffect
             meowmereShader.Value.Parameters["coordOffset"].SetValue(Vector2.Zero);
             meowmereShader.Value.Parameters["rotation"].SetValue(rotation);
             meowmereShader.Value.Parameters["scale"].SetValue(scale);
+            meowmereShader.Value.Parameters["pixelate"].SetValue(PixelateAura);
         }
         public static void ApplyShaderToSpritebatch(SpriteBatch spritebatch)
         {
@@ -79,7 +81,7 @@ namespace TRAEProject.Changes.Weapon.Melee.MeowmereEffect
             float hue = drawPos.X / 170f;
             hue /= 2;//gradient coord scaling value inside the shader
             hue += ShaderTime * 3;//I hardcoded a 3x multiplier inside the shader (oops)
-            hue += .5f;
+            hue += .6f;
             hue = Loop01(hue);
             opacity = RemapOpacity(opacity);
             Color col = Main.hslToRgb(hue, 1f, 0.65f) * opacity;
@@ -97,7 +99,7 @@ namespace TRAEProject.Changes.Weapon.Melee.MeowmereEffect
             float hue = drawPos.X / 170f;
             hue /= 2;//gradient coord scaling value inside the shader
             hue += ShaderTime * 3;//I hardcoded a 3x multiplier inside the shader (oops)
-            hue += .5f;
+            hue += .6f;
             hue = Loop01(hue);
             //opacity = RemapOpacity(opacity);
             Color col = Main.hslToRgb(hue, 1f, 0.65f) * opacity * 0.8f;

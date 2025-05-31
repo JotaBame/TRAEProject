@@ -110,9 +110,11 @@ namespace TRAEProject.NewContent.Items.Weapons.Magic.DreamEater
   
         public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
-            if(Main.rand.NextBool(8))
-             {
+            //later change to only trigger on debuff hit
+            DreamEaterDustHelper.DreamEaterShapeDust(Projectile.Center, 16f, 7f, DreamEaterDustHelper.PurpleDustID, 1f);
 
+            if (Main.rand.NextBool(8))
+             {
                 SoundEngine.PlaySound(SoundID.Item45 with { MaxInstances = 0 });
                 for (int i = 0; i < 25; i++)
                 {
@@ -179,6 +181,9 @@ namespace TRAEProject.NewContent.Items.Weapons.Magic.DreamEater
  
         public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
+            //later change to only trigger on debuff hit
+            DreamEaterDustHelper.DreamEaterShapeDust(Projectile.Center, 16f, 7f, DreamEaterDustHelper.PurpleDustID, 1f);
+
             if (Main.rand.NextBool(8))
             {
 
