@@ -55,7 +55,9 @@ namespace TRAEProject.NewContent.NPCs.Echosphere.EchoLeviathan
             }
             drawColor *= NPC.Opacity;
             Texture2D blurTexture = ModContent.Request<Texture2D>("TRAEProject/NewContent/NPCs/Echosphere/EchoLeviathan/EchoLeviathanTailGlow").Value;
-            EchosphereHelper.DrawEchoWormSegmentWithBlur(blurTexture, texture, NPC.Center - screenPos, PurpleGlowinessAmount, NPC.rotation, texture.Size() / 2, NPC.scale, NPC.spriteDirection == -1 ? SpriteEffects.FlipVertically : SpriteEffects.None, NPC.Opacity, NPC.GetNPCColorTintedByBuffs(drawColor));
+            float opacity = NPC.Opacity;
+            opacity = Utils.GetLerpValue(0.75f, 1f, opacity, true);
+            EchosphereHelper.DrawEchoWormSegmentWithBlur(blurTexture, texture, NPC.Center - screenPos, PurpleGlowinessAmount * opacity, NPC.rotation, texture.Size() / 2, NPC.scale, NPC.spriteDirection == -1 ? SpriteEffects.FlipVertically : SpriteEffects.None, NPC.Opacity, NPC.GetNPCColorTintedByBuffs(drawColor));
             return false;
         }
         public override bool CanHitPlayer(Player target, ref int cooldownSlot)

@@ -77,7 +77,7 @@ namespace TRAEProject.NewContent.NPCs.Echosphere.EchoLeviathan
             }
             drawColor *= NPC.Opacity;
             Texture2D blurTexture = ModContent.Request<Texture2D>(GlowPathTexture).Value;
-            EchosphereHelper.DrawEchoWormSegmentWithBlur(blurTexture, texture, NPC.Center - screenPos, PurpleGlowinessAmount, NPC.rotation, texture.Size() / 2, NPC.scale, NPC.spriteDirection == -1 ? SpriteEffects.FlipVertically : SpriteEffects.None, NPC.Opacity, NPC.GetNPCColorTintedByBuffs(drawColor));
+            EchosphereHelper.DrawEchoWormSegmentWithBlur(blurTexture, texture, NPC.Center - screenPos, PurpleGlowinessAmount * NPC.Opacity, NPC.rotation, texture.Size() / 2, NPC.scale, NPC.spriteDirection == -1 ? SpriteEffects.FlipVertically : SpriteEffects.None, NPC.Opacity, NPC.GetNPCColorTintedByBuffs(drawColor));
             //Main.EntitySpriteDraw(texture, NPC.Center - screenPos, null, drawColor, NPC.rotation, texture.Size() / 2, NPC.scale, NPC.spriteDirection == -1 ? SpriteEffects.FlipVertically : SpriteEffects.None);
             return false;
         }
