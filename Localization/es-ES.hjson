@@ -1640,6 +1640,11 @@ Mods: {
 				// DisplayName: Echosphere Gen Test Item
 				// Tooltip: ""
 			}
+
+			EchosphereSparkleTestItem: {
+				// DisplayName: Echosphere Sparkle Test Item
+				// Tooltip: ""
+			}
 		}
 
 		NPCs: {

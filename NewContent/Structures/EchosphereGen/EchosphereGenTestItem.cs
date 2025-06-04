@@ -29,7 +29,7 @@ namespace TRAEProject.NewContent.Structures.EchosphereGen
             //goal, do a flood fill on empty tiles with the null tile id
             //then the same with walls.
             //as a failsafe, use this maxBlocks variable so it doesn't fill too many
-            int maxBlocks = 1000;
+            int maxBlocks = 10000;
             ushort nullTile = StructureHelper.StructureHelper.NullTileID;
             ushort nullWall = StructureHelper.StructureHelper.NullWallID;
             Point startingCoords = Main.MouseWorld.ToTileCoordinates();

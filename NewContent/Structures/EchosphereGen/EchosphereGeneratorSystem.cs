@@ -1,4 +1,5 @@
-﻿using StructureHelper.API;
+﻿using Microsoft.Xna.Framework;
+using StructureHelper.API;
 using StructureHelper.Models;
 using System;
 using System.Collections.Generic;
@@ -13,6 +14,7 @@ namespace TRAEProject.NewContent.Structures.EchosphereGen
 {
     public class EchosphereGeneratorSystem : ModSystem
     {
+        public static Vector2 echosphereCenter;
         public override void ModifyWorldGenTasks(List<GenPass> tasks, ref double totalWeight)
         {
 
@@ -98,9 +100,11 @@ namespace TRAEProject.NewContent.Structures.EchosphereGen
                     pos = new Point16(pos.X + offsetForCenteringX + widthOfPlacedStructures, pos.Y + offsetForCenteringY);
                     Generator.GenerateFromData(strData, pos);
                     widthOfPlacedStructures += strData.width;//compensate so the generation of the next asteroid starts on
+                    boundBoxMaxX += strData.width;
                 }
             }
-
+            centerPointX = (boundBoxMinX + boundBoxMaxX) * .5f;
+            EchosphereGeneratorSystem.echosphereCenter = new Vector2(centerPointX * 16, centerPointY * 16);
 
             //afterwards scan bounding box for ores and bars and switch them if needed
         }
