@@ -31,17 +31,17 @@ namespace TRAEProject.NewContent.NPCs.Echosphere.EchoStalker
         static Asset<Texture2D> tail;
         static Asset<Texture2D> tailGlow;
         public bool HairVariant { get => NPC.localAI[0] == 1; set => NPC.localAI[0] = value ? -1 : 1; }
-
-        public static Texture2D Tail => tail.Value;
-        public static Texture2D TailGlow => tailGlow.Value;
-        public static Texture2D Body => body.Value;
-        public static Texture2D BodyGlow => bodyGlow.Value;
-        public static Texture2D Body2 => body2.Value;
-        public static Texture2D Body2Glow => body2Glow.Value;       
-        public static Texture2D BodyWithHair => bodyWithHair.Value;
-        public static Texture2D BodyWithHairGlow => bodyWithHairGlow.Value;
-        public static Texture2D Body2WithHair => body2WithHair.Value;
-        public static Texture2D Body2WithHairGlow => body2WithHairGlow.Value;
+         
+        public static Texture2D Tail => tail?.Value;
+        public static Texture2D TailGlow => tailGlow?.Value;
+        public static Texture2D Body => body?.Value;
+        public static Texture2D BodyGlow => bodyGlow?.Value;
+        public static Texture2D Body2 => body2?.Value;
+        public static Texture2D Body2Glow => body2Glow?.Value;       
+        public static Texture2D BodyWithHair => bodyWithHair?.Value;
+        public static Texture2D BodyWithHairGlow => bodyWithHairGlow?.Value;
+        public static Texture2D Body2WithHair => body2WithHair?.Value;
+        public static Texture2D Body2WithHairGlow => body2WithHairGlow?.Value;
         static int[] SegmentWidths => new int[5] { 28, 28, 28, 26, 28 };
         private float PurpleGlowinessAmount => Utils.GetLerpValue(60, 110, NPC.ai[0], true) * Utils.GetLerpValue(160, 140, NPC.ai[0], true) * 0.2f;
         public override void SetStaticDefaults()

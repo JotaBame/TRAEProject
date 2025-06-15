@@ -16,6 +16,10 @@ namespace TRAEProject.NewContent.Structures.EchosphereGen
         public static Vector2 particleCenter;
         public override void PreUpdatePlayers()
         {
+            return;
+
+            Debug_DisplayEchosphereBounds();
+            return;
             Vector2 center = particleCenter;
             float innerRadius = 550;
             float radiusThickness = 32;
@@ -34,7 +38,7 @@ namespace TRAEProject.NewContent.Structures.EchosphereGen
             float particleSpread = Utils.Remap(playerDIstToOuterRadius, 16f * 3f, 16f * 16f, 0.001f, 2f);
 
             int count = 1;
-            if(playerDIstToOuterRadius < 16 * 7f)
+            if (playerDIstToOuterRadius < 16 * 7f)
             {
                 count = 3;
             }
@@ -65,8 +69,8 @@ namespace TRAEProject.NewContent.Structures.EchosphereGen
                 if (Main.rand.NextBool(sparkleDuration))
                 {
                     Vector2 spawnOffset = RandCircularEven(outerRadiusReal);
-                    Vector2 vel = RandCircularEven(outerRadiusReal - 16*4f);
-                    vel = Vector2.Normalize(vel - spawnOffset) * Main.rand.NextFloat(1,2f);
+                    Vector2 vel = RandCircularEven(outerRadiusReal - 16 * 4f);
+                    vel = Vector2.Normalize(vel - spawnOffset) * Main.rand.NextFloat(1, 2f);
                     Sparkle.NewSparkle(center + spawnOffset, Color.White, scale, vel, sparkleDuration);
                 }
             }
@@ -140,7 +144,7 @@ namespace TRAEProject.NewContent.Structures.EchosphereGen
             //not sure if should use deferred or texture sort mode.
             //todo: test performance of both
             //REMEMBER THAT TEXTURE SORT MODE IS EFFECTIVELY FRONT TO BACK!
-            
+
             Main.spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, Main.DefaultSamplerState, DepthStencilState.None, Main.Rasterizer, null, Main.Transform);
             for (int i = 0; i < MaxEchosphereEdgeSparkles; i++)
             {
@@ -158,6 +162,24 @@ namespace TRAEProject.NewContent.Structures.EchosphereGen
         {
             for (int i = 0; i < echosphereEdgeSparkles.Length; i++)
                 echosphereEdgeSparkles[i] = new EchosphereEdgeSparkle(i);
+        }
+        public static void Debug_DisplayEchosphereBounds()
+        {
+            if (Main.timeForVisualEffects % 5 == 0)
+            {
+                EchosphereGeneratorSystem.GetCorners(out Vector2 topLeft, out Vector2 topRight, out Vector2 bottomLeft, out Vector2 bottomRight);
+                EchosphereGenTestItem.ShootMarkerTowards(topLeft, bottomLeft);
+                EchosphereGenTestItem.ShootMarkerTowards(bottomLeft, topLeft);
+
+                EchosphereGenTestItem.ShootMarkerTowards(topRight, topLeft);
+                EchosphereGenTestItem.ShootMarkerTowards(topLeft, topRight);
+
+                EchosphereGenTestItem.ShootMarkerTowards(bottomLeft, bottomRight);
+                EchosphereGenTestItem.ShootMarkerTowards(bottomRight, bottomLeft);
+
+                EchosphereGenTestItem.ShootMarkerTowards(topRight, bottomRight);
+                EchosphereGenTestItem.ShootMarkerTowards(bottomRight, topRight);
+            }
         }
     }
     public class EchosphereSparkleTestItem : ModItem
