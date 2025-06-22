@@ -420,7 +420,19 @@ namespace TRAEProject.NewContent.NPCs.Sky.Griffin
                 }
             }
         }
+        public override float SpawnChance(NPCSpawnInfo spawnInfo)
+        {
+            if (Main.hardMode)
+            {
+                if (spawnInfo.Player.ZoneNormalSpace)
+                {
+            
+                    return 0.2f;
 
+                }
+            }
+            return 0;
+        }
         public override void FindFrame(int frameHeight)
         {
             NPC.frameCounter++;

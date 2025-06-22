@@ -115,9 +115,11 @@ namespace TRAEProject.NewContent.NPCs.Sky.Kinnara
         }
         public override float SpawnChance(NPCSpawnInfo spawnInfo)
         {
-            if (spawnInfo.Player.ZoneNormalSpace)
+            if (Main.hardMode)
             {
-                return .2f;
+                if (spawnInfo.Player.ZoneNormalSpace)
+
+                    return .2f;
             }
             return 0;
         }
