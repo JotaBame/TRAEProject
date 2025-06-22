@@ -8,8 +8,9 @@ using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.WorldBuilding;
+using TRAEProject.NewContent.Structures.Echosphere.Generation;
 
-namespace TRAEProject.NewContent.Structures.EchosphereGen
+namespace TRAEProject.NewContent.Structures.Echosphere
 {
     public static class EchosphereGenHelper
     {
@@ -123,7 +124,7 @@ namespace TRAEProject.NewContent.Structures.EchosphereGen
             for (int i = 0; i < count; i++)
             {
                 //
-                result[i] = "NewContent/Structures/EchosphereGen/StructureData/EchosphereAsteroid" + i.ToString();
+                result[i] = "NewContent/Structures/Echosphere/StructureData/EchosphereAsteroid" + i.ToString();
             }
             return result;
         }
@@ -165,7 +166,7 @@ namespace TRAEProject.NewContent.Structures.EchosphereGen
             string[] result = new string[count];
             for (int i = 0; i < count; i++)
             {
-                result[i] = "NewContent/Structures/EchosphereGen/StructureData/EchosphereTemple" + i.ToString();
+                result[i] = "NewContent/Structures/Echosphere/StructureData/EchosphereTemple" + i.ToString();
             }
             return result;
         }

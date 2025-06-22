@@ -144,7 +144,7 @@ namespace TRAEProject.NewContent.NPCs.Echosphere.EchoLeviathan
         {
             if (State != AIState.SonicWave)//don't change or update targets while firing
             {
-                EchosphereHelper.SearchForSpaceLayerPlayers(NPC);
+                EchosphereNPCHelper.SearchForSpaceLayerPlayers(NPC);
             }
             if (State == AIState.Spawning)
             {
@@ -260,7 +260,7 @@ namespace TRAEProject.NewContent.NPCs.Echosphere.EchoLeviathan
             {
                 Timer = 0;
                 State = AIState.WormMovement;
-                EchosphereHelper.SearchForSpaceLayerPlayers(NPC);
+                EchosphereNPCHelper.SearchForSpaceLayerPlayers(NPC);
             }
             SetSegmentPositionRotationSpriteDirectionAndOpacity();
             NPC.rotation = NPC.velocity.ToRotation();
@@ -737,7 +737,7 @@ namespace TRAEProject.NewContent.NPCs.Echosphere.EchoLeviathan
                     texture = ModContent.Request<Texture2D>("TRAEProject/NewContent/NPCs/Echosphere/EchoLeviathan/EchoLeviathanHeadGlow").Value;
                     float glowiness = NPC.localAI[3];// one minus??? wasn't working properly without it for some reason.
                     glowiness *= NPC.Opacity;
-                    EchosphereHelper.DrawEchoWormBlur(texture, NPC.Center - screenPos + offset + headOffset, glowiness, NPC.rotation + jawRot, origin, NPC.scale, NPC.spriteDirection == -1 ? SpriteEffects.FlipVertically : SpriteEffects.None);
+                    EchosphereNPCHelper.DrawEchoWormBlur(texture, NPC.Center - screenPos + offset + headOffset, glowiness, NPC.rotation + jawRot, origin, NPC.scale, NPC.spriteDirection == -1 ? SpriteEffects.FlipVertically : SpriteEffects.None);
                 }
             }
             return false;
@@ -1008,7 +1008,7 @@ namespace TRAEProject.NewContent.NPCs.Echosphere.EchoLeviathan
             }
             if (Target < 0 || Target >= Main.maxPlayers)//if no target when spawning, search for airborne players
             {
-                Target = EchosphereHelper.SearchForSpaceLayerPlayers(new Vector2(X, Y));
+                Target = EchosphereNPCHelper.SearchForSpaceLayerPlayers(new Vector2(X, Y));
             }
             if (Target < 0 || Target >= Main.maxPlayers)//if no space target detected, check for valid targets that aren't necessarily on the space
             {

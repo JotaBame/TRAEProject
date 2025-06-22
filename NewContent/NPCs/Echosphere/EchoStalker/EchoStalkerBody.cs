@@ -47,11 +47,11 @@ namespace TRAEProject.NewContent.NPCs.Echosphere.EchoStalker
             Texture2D texture = RegularTexture;
             if (NPC.Opacity != 1 && EchoStalkerHead.IsIdle(NPC.ai[0]))
             {
-                EchosphereHelper.SpectralDrawVerticalFlip(NPC, spriteBatch, screenPos, texture);
+                EchosphereNPCHelper.SpectralDrawVerticalFlip(NPC, spriteBatch, screenPos, texture);
                 return false;
             }
             drawColor *= NPC.Opacity;
-            EchosphereHelper.DrawEchoWormSegmentWithBlurOld(GlowTexture, RegularTexture, NPC.Center - screenPos, PurpleGlowinessAmount, NPC.rotation, RegularTexture.Size() / 2, NPC.scale, NPC.spriteDirection == -1 ? SpriteEffects.FlipVertically : SpriteEffects.None, NPC.Opacity, NPC.GetNPCColorTintedByBuffs(drawColor));
+            EchosphereNPCHelper.DrawEchoWormSegmentWithBlurOld(GlowTexture, RegularTexture, NPC.Center - screenPos, PurpleGlowinessAmount, NPC.rotation, RegularTexture.Size() / 2, NPC.scale, NPC.spriteDirection == -1 ? SpriteEffects.FlipVertically : SpriteEffects.None, NPC.Opacity, NPC.GetNPCColorTintedByBuffs(drawColor));
             // Main.EntitySpriteDraw(GlowTexture, NPC.Center - screenPos, null, drawColor, NPC.rotation, texture.Size() / 2, NPC.scale, NPC.spriteDirection == -1 ? SpriteEffects.FlipVertically : SpriteEffects.None);
             return false;
         }

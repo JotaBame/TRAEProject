@@ -47,7 +47,7 @@ namespace TRAEProject.NewContent.NPCs.Echosphere.EchoSprite
         public override void AI()
         {
             oldSPriteDirection = NPC.spriteDirection;
-            EchosphereHelper.SearchForSpaceLayerPlayers(NPC);
+            EchosphereNPCHelper.SearchForSpaceLayerPlayers(NPC);
             if (NPC.target < 0 || NPC.target >= Main.maxPlayers)
             {
                 NPC.ai[0] = 0;
@@ -247,13 +247,13 @@ namespace TRAEProject.NewContent.NPCs.Echosphere.EchoSprite
             }
             dots[0].locked = true;
             trail = new VerletSimulator(20, dots);
-            Stopwatch sw = Stopwatch.StartNew();
+          //  Stopwatch sw = Stopwatch.StartNew();
             for (int i = 0; i < 60; i++)
             {
                 UpdateVerlet();
             }
-            sw.Stop();
-            Main.NewText(sw.Elapsed.TotalMilliseconds);
+           // sw.Stop();
+          //  Main.NewText(sw.Elapsed.TotalMilliseconds);
         }
         public override bool PreDraw(SpriteBatch spriteBatch, Vector2 screenPos, Color drawColor)
         {

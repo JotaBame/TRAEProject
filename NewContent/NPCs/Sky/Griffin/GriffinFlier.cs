@@ -6,7 +6,7 @@ using Terraria.GameContent.ItemDropRules;
 using Terraria.ID;
 using Terraria.ModLoader;
 
-namespace TRAEProject.NewContent.NPCs.Griffin
+namespace TRAEProject.NewContent.NPCs.Sky.Griffin
 {
     public class GriffinFlier : ModNPC
     {

@@ -6,7 +6,7 @@ using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
 
-namespace TRAEProject.NewContent.Structures.EchosphereGen
+namespace TRAEProject.NewContent.Structures.Echosphere.Generation
 {
     /// <summary>
     /// PLACE WHERE THE TOP LEFT OF THE CHEST WILL BE
@@ -18,11 +18,11 @@ namespace TRAEProject.NewContent.Structures.EchosphereGen
             Main.tileSolid[Type] = true;
             Vector2 worldPos = new Vector2(i * 16 + 8, j * 16 + 8);
             Vector2 screenPos = worldPos - Main.screenPosition;
-           // screenPos += new Vector2(16 * 16, 7 * 16);//why this? idk
+            // screenPos += new Vector2(16 * 16, 7 * 16);//why this? idk
             screenPos += new Vector2(12 * 16, 12 * 16);//why this? idk
 
             Texture2D tex = ModContent.Request<Texture2D>(Texture).Value;
-            spriteBatch.Draw(tex, screenPos, null, Color.White, 0, tex.Size() / 2, 16f/tex.Width, SpriteEffects.None, 0f);
+            spriteBatch.Draw(tex, screenPos, null, Color.White, 0, tex.Size() / 2, 16f / tex.Width, SpriteEffects.None, 0f);
             return false;
         }
         public override string Texture => "Terraria/Images/Item_" + ItemID.ShadowChest;
@@ -55,7 +55,7 @@ namespace TRAEProject.NewContent.Structures.EchosphereGen
     /// <summary>
     /// PLACE ON TOP LEFT OF STATUE SPOT
     /// </summary>
-    public class EchosphereGenDummyStatueTile: EchosphereGenDummyChestTile
+    public class EchosphereGenDummyStatueTile : EchosphereGenDummyChestTile
     {
         public override string Texture => "Terraria/Images/Item_" + ItemID.SwordStatue;//floating island painting
     }

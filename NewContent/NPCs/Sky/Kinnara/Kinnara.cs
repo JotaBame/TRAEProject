@@ -9,7 +9,7 @@ using Terraria.ModLoader;
 using TRAEProject.Changes.NPCs.Boss.Plantera;
 using TRAEProject.NewContent.Projectiles.KinnaraFeather;
 
-namespace TRAEProject.NewContent.NPCs.Kinnara
+namespace TRAEProject.NewContent.NPCs.Sky.Kinnara
 {
     public class Kinnara : ModNPC
     {
@@ -44,10 +44,10 @@ namespace TRAEProject.NewContent.NPCs.Kinnara
                 float feathersPerRound = 5;
                 int extraWaitTime = 3;
                 if (NPC.ai[0] % firerate == 0 && NPC.ai[0] < firerate * rounds)
-                { 
-                    for (int i = 0; i < feathersPerRound; i++)
+                {
+                    if (Main.netMode != NetmodeID.MultiplayerClient) 
                     {
-                        if (Main.netMode != NetmodeID.MultiplayerClient)
+                        for (int i = 0; i < feathersPerRound; i++)
                         {
                             SpreadShot_VampireKnivesCode(player, i);
                         }
@@ -117,7 +117,7 @@ namespace TRAEProject.NewContent.NPCs.Kinnara
         {
             if (spawnInfo.Player.ZoneNormalSpace)
             {
-                return float.PositiveInfinity;//placeholder value
+                return .2f;
             }
             return 0;
         }

@@ -8,6 +8,7 @@ using System.Collections.Generic;
 using TRAEProject.Changes;
 using Microsoft.Xna.Framework.Graphics;
 using Terraria.GameContent;
+using Terraria.Utilities;
 namespace TRAEProject
 {
     public static class TRAEMethods
@@ -389,6 +390,36 @@ namespace TRAEProject
             }
             t = easing(t);
             return (1 - t) * toMin + t * toMax;
+        }
+        public static void Shuffle(ref int[] array)
+        {
+            for (int i = array.Length - 1; i > 0; i--)
+            {
+                int j = Main.rand.Next(i + 1);
+                int temp = array[i];
+                array[i] = array[j];
+                array[j] = temp;
+            }
+        }
+        public static void Shuffle(ref int[] array, UnifiedRandom rand)
+        {
+            for (int i = array.Length - 1; i > 0; i--)
+            {
+                int j = rand.Next(i + 1);
+                int temp = array[i];
+                array[i] = array[j];
+                array[j] = temp;
+            }
+        }
+        public static void Shuffle(ref List<int> list, UnifiedRandom rand)
+        {
+            for (int i = list.Count - 1; i > 0; i--)
+            {
+                int j = rand.Next(i + 1);
+                int temp = list[i];
+                list[i] = list[j];
+                list[j] = temp;
+            }
         }
         public static void ServerClientCheck(string q)
         {

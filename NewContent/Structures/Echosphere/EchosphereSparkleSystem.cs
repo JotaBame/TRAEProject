@@ -5,8 +5,9 @@ using Terraria;
 using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
+using TRAEProject.NewContent.Structures.Echosphere.Generation;
 
-namespace TRAEProject.NewContent.Structures.EchosphereGen
+namespace TRAEProject.NewContent.Structures.Echosphere
 {
     public class EchosphereSparkleSystem : ModSystem
     {
@@ -16,53 +17,33 @@ namespace TRAEProject.NewContent.Structures.EchosphereGen
         public static Vector2 particleCenter;
         public override void PreUpdatePlayers()
         {
-            return;
-
-            Debug_DisplayEchosphereBounds();
-            return;
-            Vector2 center = particleCenter;
-            float innerRadius = 550;
-            float radiusThickness = 32;
-            float outerRadius = innerRadius + radiusThickness;
-            float innerSparkleRate = outerRadius * outerRadius * MathF.PI * 0.000005f;
-            Vector2 scale = new(1f, 2f);
-            int sparkleDuration = 100;
-            Vector2 playerCenter = Main.LocalPlayer.Center;
-            Vector2 playerVel = Main.LocalPlayer.position - Main.LocalPlayer.oldPosition;
-            Vector2 toPlayerDeltaPos = (playerCenter + playerVel * 10) - center;
-            float distToPlayer = toPlayerDeltaPos.Length();
-            float toPlayer = toPlayerDeltaPos.ToRotation();
-            Color purple = Color.Purple;
-            purple.A = 0;//make additive
-            float playerDIstToOuterRadius = MathF.Abs(distToPlayer - outerRadius);
-            float particleSpread = Utils.Remap(playerDIstToOuterRadius, 16f * 3f, 16f * 16f, 0.001f, 2f);
-
-            int count = 1;
-            if (playerDIstToOuterRadius < 16 * 7f)
+           // if (!Main.mouseRight)
             {
-                count = 3;
+                return;
             }
-            float outerRadiusReal = outerRadius;
-            toPlayerDeltaPos = (playerCenter) - center;
-            distToPlayer = toPlayerDeltaPos.Length();
-            outerRadius = innerRadius + radiusThickness * .5f;//using the variable as dist to middle of radius
-            playerDIstToOuterRadius = MathF.Abs(distToPlayer - outerRadius);
-            if (playerDIstToOuterRadius < 16 * 2f + radiusThickness)
+            Vector2 topLeft = EchosphereGeneratorSystem.echosphereTopLeft;
+            Vector2 bottomRight = EchosphereGeneratorSystem.echosphereBottomRight;
+            float stepSize = 32f;
+            float width = (bottomRight.X - topLeft.X);
+            float height = (bottomRight.Y - topLeft.Y);
+            Vector2 screenCenter = Main.screenPosition + new Vector2(Main.screenWidth / 2f, Main.screenHeight / 2f);
+            float startJ = screenCenter.X - 16 * 40;
+            float endJ = screenCenter.X + 16 * 40;
+            for (int i = 0; i < 2; i++)
             {
-                count = 0;
-            }
-            //SPARKLES ON THE EDGE
-            for (int i = 0; i < count; i++)
-            {
-                if (Main.rand.NextBool())
+                for (float j = startJ; j < endJ; j += stepSize)
                 {
-                    Vector2 vel = RandInRing(0f, .4f);
-                    Vector2 spawnPos = center + RandInRing2(innerRadius, outerRadiusReal, toPlayer, particleSpread);
-                    NewEchosphereEdgeSparkle(spawnPos, scale, vel, sparkleDuration);
+                    Vector2 pos = Vector2.Zero;
+                    pos.Y += height * i + Main.rand.NextFloat(-stepSize * .5f, stepSize * .5f);
+                    pos.X += j + Main.rand.NextFloat(-stepSize * .5f, stepSize * .5f);
+                    Vector2 vel = RandCircularEven(Main.rand.NextFloat(.5f,2f));
+                    pos -= vel * 20;
+                    NewEchosphereEdgeSparkle(pos,Vector2.One, vel);
                 }
             }
-
-            //SPARKLES INSIDE THE ECHOSPHERE AREA
+        }
+        private static void InsideSparkles_Old(Vector2 center, float innerSparkleRate, Vector2 scale, int sparkleDuration, float outerRadiusReal)
+        {
             sparkleDuration *= 2;
             for (int i = 0; i < innerSparkleRate; i++)
             {
@@ -75,6 +56,54 @@ namespace TRAEProject.NewContent.Structures.EchosphereGen
                 }
             }
         }
+
+        private static void GetParticleParams_Old(out Vector2 center, out float innerRadius, out float innerSparkleRate, out Vector2 scale, out int sparkleDuration, out float toPlayer, out float particleSpread, out int count, out float outerRadiusReal)
+        {
+            center = particleCenter;
+            innerRadius = 550;
+            float radiusThickness = 32;
+            float outerRadius = innerRadius + radiusThickness;
+            innerSparkleRate = outerRadius * outerRadius * MathF.PI * 0.000005f;
+            scale = new(1f, 2f);
+            sparkleDuration = 100;
+            Vector2 playerCenter = Main.LocalPlayer.Center;
+            Vector2 playerVel = Main.LocalPlayer.position - Main.LocalPlayer.oldPosition;
+            Vector2 toPlayerDeltaPos = (playerCenter + playerVel * 10) - center;
+            float distToPlayer = toPlayerDeltaPos.Length();
+            toPlayer = toPlayerDeltaPos.ToRotation();
+            Color purple = Color.Purple;
+            purple.A = 0;//making additive
+            float playerDIstToOuterRadius = MathF.Abs(distToPlayer - outerRadius);
+            particleSpread = Utils.Remap(playerDIstToOuterRadius, 16f * 3f, 16f * 16f, 0.001f, 2f);
+            count = 1;
+            if (playerDIstToOuterRadius < 16 * 7f)
+            {
+                count = 3;
+            }
+            outerRadiusReal = outerRadius;
+            toPlayerDeltaPos = (playerCenter) - center;
+            distToPlayer = toPlayerDeltaPos.Length();
+            outerRadius = innerRadius + radiusThickness * .5f;//using the variable as dist to middle of radius
+            playerDIstToOuterRadius = MathF.Abs(distToPlayer - outerRadius);
+            if (playerDIstToOuterRadius < 16 * 2f + radiusThickness)
+            {
+                count = 0;
+            }
+        }
+
+        private static void EdgeParticles_Old(Vector2 center, float innerRadius, Vector2 scale, int sparkleDuration, float toPlayer, float particleSpread, int count, float outerRadiusReal)
+        {
+            for (int i = 0; i < count; i++)
+            {
+                if (Main.rand.NextBool())
+                {
+                    Vector2 vel = RandInRing(0f, .4f);
+                    Vector2 spawnPos = center + RandInRing2(innerRadius, outerRadiusReal, toPlayer, particleSpread);
+                    NewEchosphereEdgeSparkle(spawnPos, scale, vel, sparkleDuration);
+                }
+            }
+        }
+
         public override void PostUpdatePlayers()
         {
             for (int i = 0; i < MaxEchosphereEdgeSparkles; i++)
@@ -163,8 +192,28 @@ namespace TRAEProject.NewContent.Structures.EchosphereGen
             for (int i = 0; i < echosphereEdgeSparkles.Length; i++)
                 echosphereEdgeSparkles[i] = new EchosphereEdgeSparkle(i);
         }
+        public static void Debug_DisplayPaddedEchosphereBounds()
+        {
+            if (Main.timeForVisualEffects % 5 == 0)
+            {
+                EchosphereSystem.GetPaddedCorners(out Vector2 topLeft, out Vector2 bottomRight, out Vector2 topRight, out Vector2 bottomLeft);
+                EchosphereGenTestItem.ShootMarkerTowards(topLeft, bottomLeft);
+                EchosphereGenTestItem.ShootMarkerTowards(bottomLeft, topLeft);
+
+                EchosphereGenTestItem.ShootMarkerTowards(topRight, topLeft);
+                EchosphereGenTestItem.ShootMarkerTowards(topLeft, topRight);
+
+                EchosphereGenTestItem.ShootMarkerTowards(bottomLeft, bottomRight);
+                EchosphereGenTestItem.ShootMarkerTowards(bottomRight, bottomLeft);
+
+                EchosphereGenTestItem.ShootMarkerTowards(topRight, bottomRight);
+                EchosphereGenTestItem.ShootMarkerTowards(bottomRight, topRight);
+            }
+        }
+
         public static void Debug_DisplayEchosphereBounds()
         {
+
             if (Main.timeForVisualEffects % 5 == 0)
             {
                 EchosphereGeneratorSystem.GetCorners(out Vector2 topLeft, out Vector2 topRight, out Vector2 bottomLeft, out Vector2 bottomRight);
@@ -180,8 +229,10 @@ namespace TRAEProject.NewContent.Structures.EchosphereGen
                 EchosphereGenTestItem.ShootMarkerTowards(topRight, bottomRight);
                 EchosphereGenTestItem.ShootMarkerTowards(bottomRight, topRight);
             }
+
         }
     }
+
     public class EchosphereSparkleTestItem : ModItem
     {
         public override string Texture => "Terraria/Images/Projectile_" + ProjectileID.HallowBossRainbowStreak;

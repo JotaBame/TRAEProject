@@ -5,18 +5,18 @@ using Terraria.ID;
 using Terraria.ModLoader;
 using TRAEProject.NewContent.Items.Accesories.AdvFlight;
 
-namespace TRAEProject.NewContent.Structures.EchosphereGen
+namespace TRAEProject.NewContent.Structures.Echosphere.Generation
 {
     public static class EchosphereLootTableGenerator
     {
-        
+
         static int[] PrimaryLoot => [ItemID.GravityGlobe, ModContent.ItemType<AdvFlightSystem>(), ItemID.StarCloak];
         //FORMAT: ID, Min, Max
         //so for example:
         //[ItemID.FloatingIslandFishingCrate, 2, 4, ItemID.GoldenCrate, 1, 1]
         //places 2 to 4 sky crates, and then 1 golden crate
         static int[] SecondaryLoot => [ItemID.FloatingIslandFishingCrate, 1, 1, ItemID.GoldenCrate, 1, 1];
-        static int MeteoriteBarMin => 15; 
+        static int MeteoriteBarMin => 15;
         static int MeteoriteBarMax => 29;
         //"normalized" meaning 100% is 1, and 0% is 0
         static float MeteoriteBarNormalizedChance => 1f;
@@ -44,7 +44,7 @@ namespace TRAEProject.NewContent.Structures.EchosphereGen
         {
             List<Item> result = new();
             int primaryLootID = shuffledPrimaryLootTable[chestsCreatedSoFar % shuffledPrimaryLootTable.Length];
-            
+
             result.Add(new Item(primaryLootID, 1, -1));
 
             AddSecondaryLoot(result);

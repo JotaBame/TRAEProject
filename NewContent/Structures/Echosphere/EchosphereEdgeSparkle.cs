@@ -3,7 +3,7 @@ using Microsoft.Xna.Framework.Graphics;
 using System;
 using Terraria;
 
-namespace TRAEProject.NewContent.Structures.EchosphereGen
+namespace TRAEProject.NewContent.Structures.Echosphere
 {
     public class EchosphereEdgeSparkle(int index)
     {

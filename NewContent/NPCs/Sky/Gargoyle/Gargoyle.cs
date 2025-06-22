@@ -7,7 +7,7 @@ using Terraria.GameContent.ItemDropRules;
 using Terraria.ID;
 using Terraria.ModLoader;
 
-namespace TRAEProject.NewContent.NPCs.Gargoyle
+namespace TRAEProject.NewContent.NPCs.Sky.Gargoyle
 {
     public class Gargoyle : ModNPC
     {
@@ -187,7 +187,7 @@ namespace TRAEProject.NewContent.NPCs.Gargoyle
             {
                 NPC.frameCounter++;
                 int frameSpeed = 6;
-                int frameY = (int)(((NPC.frameCounter / frameSpeed) % (Main.npcFrameCount[Type] - 1)) + 1) * frameHeight;
+                int frameY = (int)(NPC.frameCounter / frameSpeed % (Main.npcFrameCount[Type] - 1) + 1) * frameHeight;
                 NPC.frame.Y = frameY;
             }
         }
@@ -198,14 +198,16 @@ namespace TRAEProject.NewContent.NPCs.Gargoyle
             Main.EntitySpriteDraw(texture, NPC.Center - screenPos, NPC.frame, drawColor, NPC.rotation, NPC.frame.Size() / 2, NPC.scale, NPC.spriteDirection == -1 ? SpriteEffects.FlipHorizontally : SpriteEffects.None);
 
             if (NPC.ai[0] != 0)
-            DrawEyeSparkles(screenPos);
+            {
+                DrawEyeSparkles(screenPos);
+            }
             return false;
         }
 
         private void DrawEyeSparkles(Vector2 screenPos)
         {
             int frameSpeed = 6;
-            int index = (int)((NPC.frameCounter / frameSpeed) % (Main.npcFrameCount[Type] - 1));//-1 to compensate for idle frame being at the top of the sheet
+            int index = (int)(NPC.frameCounter / frameSpeed % (Main.npcFrameCount[Type] - 1));//-1 to compensate for idle frame being at the top of the sheet
             Vector2[] leftEyeOffsets = new Vector2[]
             {
                 new(-33, -11),
@@ -256,7 +258,7 @@ namespace TRAEProject.NewContent.NPCs.Gargoyle
         {
             if (spawnInfo.Player.ZoneNormalSpace)
             {
-                return 0.001f;//placeholder value
+                return .1f;
             }
             return 0;
         }

@@ -72,12 +72,12 @@ namespace TRAEProject.NewContent.NPCs.Echosphere.EchoLeviathan
             Texture2D texture = TextureAssets.Npc[Type].Value;
             if (NPC.Opacity != 1 && EchoLeviathanHead.EchoLeviIsIdle(NPC.ai[0]))
             {
-                EchosphereHelper.SpectralDrawVerticalFlip(NPC, spriteBatch, screenPos, texture);
+                EchosphereNPCHelper.SpectralDrawVerticalFlip(NPC, spriteBatch, screenPos, texture);
                 return false;
             }
             drawColor *= NPC.Opacity;
             Texture2D blurTexture = ModContent.Request<Texture2D>(GlowPathTexture).Value;
-            EchosphereHelper.DrawEchoWormSegmentWithBlur(blurTexture, texture, NPC.Center - screenPos, PurpleGlowinessAmount * NPC.Opacity, NPC.rotation, texture.Size() / 2, NPC.scale, NPC.spriteDirection == -1 ? SpriteEffects.FlipVertically : SpriteEffects.None, NPC.Opacity, NPC.GetNPCColorTintedByBuffs(drawColor));
+            EchosphereNPCHelper.DrawEchoWormSegmentWithBlur(blurTexture, texture, NPC.Center - screenPos, PurpleGlowinessAmount * NPC.Opacity, NPC.rotation, texture.Size() / 2, NPC.scale, NPC.spriteDirection == -1 ? SpriteEffects.FlipVertically : SpriteEffects.None, NPC.Opacity, NPC.GetNPCColorTintedByBuffs(drawColor));
             //Main.EntitySpriteDraw(texture, NPC.Center - screenPos, null, drawColor, NPC.rotation, texture.Size() / 2, NPC.scale, NPC.spriteDirection == -1 ? SpriteEffects.FlipVertically : SpriteEffects.None);
             return false;
         }

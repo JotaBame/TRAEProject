@@ -310,7 +310,7 @@ namespace TRAEProject.NewContent.NPCs.Echosphere.EchoLocator
 
             if (NPC.Opacity != 1)
             {
-                EchosphereHelper.SpectralDrawMinusOneIsNoFlip(NPC, spriteBatch, screenPos, texture);
+                EchosphereNPCHelper.SpectralDrawMinusOneIsNoFlip(NPC, spriteBatch, screenPos, texture);
             }
             else
             {
@@ -337,7 +337,7 @@ namespace TRAEProject.NewContent.NPCs.Echosphere.EchoLocator
         bool UpdateFlyingSFX(ActiveSound instance)
         {
             instance.Position = NPC.Center;
-            if(!FastState || NPC.target < 0 || NPC.target >= Main.maxPlayers)
+            if(!FastState || NPC.target < 0 || NPC.target >= Main.maxPlayers || NPC.life <= 0 || !NPC.active)
             {
                 instance.Stop();
                 return false;
@@ -347,7 +347,7 @@ namespace TRAEProject.NewContent.NPCs.Echosphere.EchoLocator
         void FindTargetAndSetJustStartedIdlingFlag()
         {
             int oldTarget = NPC.target;
-            EchosphereHelper.SearchForSpaceLayerPlayers(NPC);
+            EchosphereNPCHelper.SearchForSpaceLayerPlayers(NPC);
             if(NPC.target == -1 && oldTarget != -1)
             {
                 JustStartedIdling = true;

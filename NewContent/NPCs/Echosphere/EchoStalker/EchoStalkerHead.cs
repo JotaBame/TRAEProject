@@ -48,6 +48,10 @@ namespace TRAEProject.NewContent.NPCs.Echosphere.EchoStalker
         {
             NPCID.Sets.TrailCacheLength[Type] = 100;
             NPCID.Sets.TrailingMode[Type] = 3;
+            if (!Main.dedServ)
+            {
+                TextureLoading();
+            }
         }
         Vector2 MouthCenter { get => NPC.Center + new Vector2(0, 4); }
         ref float IdlingTimer => ref NPC.localAI[2];
@@ -80,7 +84,7 @@ namespace TRAEProject.NewContent.NPCs.Echosphere.EchoStalker
         }
         public override void AI()
         {
-            EchosphereHelper.SearchForSpaceLayerPlayers(NPC);
+            EchosphereNPCHelper.SearchForSpaceLayerPlayers(NPC);
             if (NPC.target == -1 || NPC.target >= Main.maxPlayers)
             {
                 NPC.dontTakeDamage = true;
@@ -313,7 +317,7 @@ namespace TRAEProject.NewContent.NPCs.Echosphere.EchoStalker
             if (HairVariant)
             {
                 DrawWithSpectralCheck(hair.Value, NPC.Center - screenPos, null, drawColor, NPC.rotation + headRot, origin, NPC.scale, spriteFX, spriteBatch);
-                EchosphereHelper.DrawEchoWormBlurOld(hair.Value, NPC.Center - screenPos, NPC.Opacity * opacity, NPC.rotation + headRot, origin, NPC.scale, spriteFX);
+                EchosphereNPCHelper.DrawEchoWormBlurOld(hair.Value, NPC.Center - screenPos, NPC.Opacity * opacity, NPC.rotation + headRot, origin, NPC.scale, spriteFX);
             }
                 return false;
         }
@@ -321,7 +325,7 @@ namespace TRAEProject.NewContent.NPCs.Echosphere.EchoStalker
         {
             if (NPC.dontTakeDamage)
             {
-                EchosphereHelper.SpectralDraw(spriteBatch, NPC.Opacity, NPC.scale, rotation, drawPos, texture, spriteFX, frame, origin);
+                EchosphereNPCHelper.SpectralDraw(spriteBatch, NPC.Opacity, NPC.scale, rotation, drawPos, texture, spriteFX, frame, origin);
             }
             else
             {
@@ -394,8 +398,8 @@ namespace TRAEProject.NewContent.NPCs.Echosphere.EchoStalker
                 Color segmentDrawColor = colors[i];
                 if (NPC.dontTakeDamage)
                 {
-                    EchosphereHelper.SpectralDraw(Main.spriteBatch, NPC.Opacity, NPC.scale, rotation, drawPos, texture, spriteDir, null, origin);
-                    EchosphereHelper.SpectralDraw(Main.spriteBatch, NPC.Opacity, NPC.scale, rotation, drawPos, glow, spriteDir, null, origin);
+                    EchosphereNPCHelper.SpectralDraw(Main.spriteBatch, NPC.Opacity, NPC.scale, rotation, drawPos, texture, spriteDir, null, origin);
+                    EchosphereNPCHelper.SpectralDraw(Main.spriteBatch, NPC.Opacity, NPC.scale, rotation, drawPos, glow, spriteDir, null, origin);
                 }
                 else
                 {
@@ -415,7 +419,12 @@ namespace TRAEProject.NewContent.NPCs.Echosphere.EchoStalker
             float purpleGlowiness = PurpleGlowinessAmount;
             for (int i = 0; i < segmentCount; i++)
             {
+                NPC curSegment = segments[i];
                 int segmentWidth = segmentWidths[i];
+                if(curSegment == null)
+                {
+                    continue;
+                }    
                 Vector2 segmentCenter = NPC.oldPos[(int)segments[i].ai[1]] + NPC.Size / 2f;
                 float rotation = (lastSegmentCenter - segmentCenter).ToRotation();
                 segmentCenter = lastSegmentCenter - rotation.ToRotationVector2() * segmentWidth;
@@ -588,7 +597,7 @@ namespace TRAEProject.NewContent.NPCs.Echosphere.EchoStalker
                     for (int i = 0; i < segments.Length; i++)
                     {
                         NPC segment = segments[i];
-                        if (segment.whoAmI == fromIndex)
+                        if (segment == null || segment.whoAmI == fromIndex)
                         {
                             continue;
                         }

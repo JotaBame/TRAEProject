@@ -50,14 +50,14 @@ namespace TRAEProject.NewContent.NPCs.Echosphere.EchoLeviathan
             Texture2D texture = TextureAssets.Npc[Type].Value;
             if (NPC.Opacity != 1 && EchoLeviathanHead.EchoLeviIsIdle(NPC.ai[0]))
             {
-                EchosphereHelper.SpectralDrawVerticalFlip(NPC, spriteBatch, screenPos, texture);
+                EchosphereNPCHelper.SpectralDrawVerticalFlip(NPC, spriteBatch, screenPos, texture);
                 return false;
             }
             drawColor *= NPC.Opacity;
             Texture2D blurTexture = ModContent.Request<Texture2D>("TRAEProject/NewContent/NPCs/Echosphere/EchoLeviathan/EchoLeviathanTailGlow").Value;
             float opacity = NPC.Opacity;
             opacity = Utils.GetLerpValue(0.75f, 1f, opacity, true);
-            EchosphereHelper.DrawEchoWormSegmentWithBlur(blurTexture, texture, NPC.Center - screenPos, PurpleGlowinessAmount * opacity, NPC.rotation, texture.Size() / 2, NPC.scale, NPC.spriteDirection == -1 ? SpriteEffects.FlipVertically : SpriteEffects.None, NPC.Opacity, NPC.GetNPCColorTintedByBuffs(drawColor));
+            EchosphereNPCHelper.DrawEchoWormSegmentWithBlur(blurTexture, texture, NPC.Center - screenPos, PurpleGlowinessAmount * opacity, NPC.rotation, texture.Size() / 2, NPC.scale, NPC.spriteDirection == -1 ? SpriteEffects.FlipVertically : SpriteEffects.None, NPC.Opacity, NPC.GetNPCColorTintedByBuffs(drawColor));
             return false;
         }
         public override bool CanHitPlayer(Player target, ref int cooldownSlot)

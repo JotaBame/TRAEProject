@@ -1664,6 +1664,21 @@ Mods: {
 				DisplayName: Echosphere Sparkle Test Item
 				Tooltip: ""
 			}
+
+			EchosphereGenDummyTilePlacerItem: {
+				DisplayName: Echosphere Gen Dummy Tile Placer Item
+				Tooltip: ""
+			}
+
+			EchosphereGenDummyDecorPlacerItem1: {
+				DisplayName: Echosphere Gen Dummy Decor Placer Item1
+				Tooltip: ""
+			}
+
+			EchosphereGenDummyDecorPlacerItem2: {
+				DisplayName: Echosphere Gen Dummy Decor Placer Item2
+				Tooltip: ""
+			}
 		}
 
 		NPCs: {

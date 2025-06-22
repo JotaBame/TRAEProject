@@ -5,7 +5,7 @@ using Terraria;
 
 namespace TRAEProject.NewContent.NPCs.Echosphere
 {
-    public static class EchosphereHelper
+    public static class EchosphereNPCHelper
     {
         static int BlurCountOld => 17;
         static int BlurCountINew => 5;
