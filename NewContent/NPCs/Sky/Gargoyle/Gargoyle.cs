@@ -2,6 +2,7 @@
 using Microsoft.Xna.Framework.Graphics;
 using System;
 using Terraria;
+using Terraria.Audio;
 using Terraria.DataStructures;
 using Terraria.GameContent;
 using Terraria.GameContent.ItemDropRules;
@@ -29,7 +30,7 @@ namespace TRAEProject.NewContent.NPCs.Sky.Gargoyle
             NPC.width = 50;
             NPC.height = 50;
             NPC.knockBackResist = 0.1f;
-            NPC.MaxFallSpeedMultiplier *= 1.5f; // gonna add a slam attack later, to make better use of the idle state, turns out you can't really make a vulture enemy in the floating islands
+            NPC.MaxFallSpeedMultiplier *= 2f; // gonna add a slam attack later, to make better use of the idle state, turns out you can't really make a vulture enemy in the floating islands
         }
         bool Passive => NPC.ai[0] == 0;
         
@@ -41,30 +42,44 @@ namespace TRAEProject.NewContent.NPCs.Sky.Gargoyle
             float accelY = .05f;
             float slamCooldown = 480f;
             NPC.noGravity = true;
+            if (NPC.ai[1] == 0f)
+                NPC.ai[1] = 1f;
 
-           
             if (NPC.ai[1] >= slamCooldown)
             {
                 NPC.ai[0] = 0f;
-                NPC.ai[1] -= slamCooldown;
-                // gonna try to add some afterimages/dusts to this fall later, probably an AoE explosion if it hits a tile? It's gonna go idle right after.
+                NPC.ai[1] = 1f;
 
             }
-            if (NPC.ai[0] == 0f)
+            if (Passive)
             {
+                // make it not bouyant
+                NPC.velocity.X = 0f;
+
                 NPC.noGravity = false;
                 NPC.TargetClosest();
                 if (Main.netMode != NetmodeID.MultiplayerClient)
                 {
-                    if (NPC.velocity.X != 0f || NPC.velocity.Y < 0f || NPC.velocity.Y >= NPC.maxFallSpeed)
+                    if (NPC.velocity.Y == 0f && NPC.ai[1] == 1f)
                     {
+                        SoundEngine.PlaySound(SoundID.Dig);
+                        NPC.ai[1] = 2f;
+                        
+                    }
+                    if (NPC.velocity.Y > 0f)
+                        NPC.velocity.Y += 0.01f;
+
+                    Main.NewText(NPC.maxFallSpeed);
+                    if (NPC.velocity.Y >= 20f)
+                    {
+
                         NPC.ai[0] = 1f;
                         NPC.netUpdate = true;
                     }
                     else
                     {
                         Rectangle rectangle = new Rectangle((int)Main.player[NPC.target].position.X, (int)Main.player[NPC.target].position.Y, Main.player[NPC.target].width, Main.player[NPC.target].height);
-                        if (new Rectangle((int)NPC.position.X - 150, (int)NPC.position.Y - 150, NPC.width + 200, NPC.height + 200).Intersects(rectangle) || NPC.justHit)
+                        if (NPC.velocity.Y == 0f && (new Rectangle((int)NPC.position.X - 200, (int)NPC.position.Y - 200, NPC.width + 200, NPC.height + 200).Intersects(rectangle) || NPC.justHit))
                         {
                             NPC.ai[0] = 1f;
                             NPC.velocity.Y -= 6f;
@@ -242,8 +257,8 @@ namespace TRAEProject.NewContent.NPCs.Sky.Gargoyle
             Vector2 offset = leftEyeOffsets[index];
             offset.X *= NPC.spriteDirection;
             offset = offset.RotatedBy(NPC.rotation);
-            Vector2 fatness = new Vector2(0.4f);
-            Vector2 scale = new Vector2(.75f, .4f);
+            Vector2 fatness = new Vector2(0.8f) * (1 - NPC.ai[1] / 480);
+             Vector2 scale = new Vector2(.75f, .4f);
             Vector2 drawpos = NPC.Center - screenPos;
             Color red = new Color(255, 20, 20, 0) * .3f;
             DrawSparkle(drawpos + offset, 0, red, red, scale, fatness);
