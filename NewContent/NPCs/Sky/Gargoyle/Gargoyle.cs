@@ -1,6 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System;
+using System.Runtime.InteropServices;
 using Terraria;
 using Terraria.Audio;
 using Terraria.DataStructures;
@@ -9,7 +10,9 @@ using Terraria.GameContent.ItemDropRules;
 using Terraria.ID;
 using Terraria.ModLoader;
 using TRAEProject.NewContent.Buffs;
-
+ 
+using static Terraria.ModLoader.ModContent;
+ 
 namespace TRAEProject.NewContent.NPCs.Sky.Gargoyle
 {
     public class Gargoyle : ModNPC
@@ -29,23 +32,60 @@ namespace TRAEProject.NewContent.NPCs.Sky.Gargoyle
             NPC.noGravity = true;
             NPC.width = 50;
             NPC.height = 50;
-            NPC.knockBackResist = 0.1f;
-            NPC.MaxFallSpeedMultiplier *= 2f; // gonna add a slam attack later, to make better use of the idle state, turns out you can't really make a vulture enemy in the floating islands
+             NPC.HitSound = SoundID.Tink;
+            NPC.DeathSound = SoundID.NPCDeath43;
+ 
+            NPC.knockBackResist = 0.05f;
         }
         bool Passive => NPC.ai[0] == 0;
         
+        static float BeforeItRisesAgain = 60f;
+        static float Airtime = 1200f + BeforeItRisesAgain;
+
+        public override void OnSpawn(IEntitySource source)
+        {
+            NPC.ai[0] = 1f;
+
+            int num = 1;
+            int num2 = 36;
+            int j = (int)((NPC.position.X + (NPC.width / 2)) / 16f); // xSize in tiles
+            int YsizeInTiles = (int)((NPC.position.Y + NPC.height) / 16f);
+            for (int k = YsizeInTiles; k < YsizeInTiles + num2; k++)
+            {
+
+                Tile tile = Main.tile[j, k];
+                Tile tileAbove = Main.tile[j, k - 1];
+                if (tile.HasTile && !tile.IsActuated && !tile.IsHalfBlock && !tile.CheckingLiquid && Main.tileSolid[tile.TileType]
+                    && (!tileAbove.HasTile || !Main.tileSolid[tileAbove.TileType])
+                    )
+                {
+                    NPC.ai[1] = 2f;
+                    NPC.ai[0] = 0f;
+                   
+                    NPC.position = new Vector2(j * 16f, k * 16f - NPC.height);
+                    break;
+                }
+            }
+         }
         public override void AI()
         {
-            float maxVelX = 4;
-            float accelX = .1f;
-            float maxVelY = 3;
-            float accelY = .05f;
-            float slamCooldown = 480f;
-            NPC.noGravity = true;
-            if (NPC.ai[1] == 0f)
-                NPC.ai[1] = 1f;
+          
 
-            if (NPC.ai[1] >= slamCooldown)
+
+
+            float maxVelX = 5;
+            float accelX = .15f;
+            float maxVelY = 3;
+            float accelY = .07f;
+             NPC.noGravity = true;
+            NPC.GravityIgnoresLiquid = false;
+            NPC.knockBackResist = 0.05f;
+      
+            if (NPC.ai[1] <= 0f)
+                NPC.ai[1] = 1f;
+            if (NPC.ai[1] >= 2f && NPC.ai[1] <= BeforeItRisesAgain)
+                NPC.ai[1] += 1f;
+            if (NPC.ai[1] >= Airtime)
             {
                 NPC.ai[0] = 0f;
                 NPC.ai[1] = 1f;
@@ -53,34 +93,38 @@ namespace TRAEProject.NewContent.NPCs.Sky.Gargoyle
             }
             if (Passive)
             {
-                // make it not bouyant
-                NPC.velocity.X = 0f;
+                NPC.velocity.X *= 0.99f;
+                NPC.GravityIgnoresLiquid = true;
+                NPC.knockBackResist = 0f;
+                NPC.MaxFallSpeedMultiplier *= 1.6f;
 
                 NPC.noGravity = false;
-                NPC.TargetClosest();
+                NPC.TargetClosestUpgraded(false);
                 if (Main.netMode != NetmodeID.MultiplayerClient)
                 {
                     if (NPC.velocity.Y == 0f && NPC.ai[1] == 1f)
                     {
-                        SoundEngine.PlaySound(SoundID.Dig);
-                        NPC.ai[1] = 2f;
-                        
-                    }
-                    if (NPC.velocity.Y > 0f)
-                        NPC.velocity.Y += 0.01f;
+                        NPC.velocity.X *= 0f;
 
-                    Main.NewText(NPC.maxFallSpeed);
-                    if (NPC.velocity.Y >= 20f)
+                        SoundEngine.PlaySound(SoundID.Dig, NPC.position);
+                        NPC.ai[1] = 2f;
+
+                    }
+
+                    if (NPC.velocity.Y >= NPC.maxFallSpeed)
                     {
 
                         NPC.ai[0] = 1f;
                         NPC.netUpdate = true;
                     }
-                    else
+                    else if (NPC.ai[1] >= BeforeItRisesAgain)
                     {
                         Rectangle rectangle = new Rectangle((int)Main.player[NPC.target].position.X, (int)Main.player[NPC.target].position.Y, Main.player[NPC.target].width, Main.player[NPC.target].height);
-                        if (NPC.velocity.Y == 0f && (new Rectangle((int)NPC.position.X - 200, (int)NPC.position.Y - 200, NPC.width + 200, NPC.height + 200).Intersects(rectangle) || NPC.justHit))
+                        if (NPC.velocity.Y == 0f &&
+                           (new Rectangle((int)NPC.position.X - 200, (int)NPC.position.Y - 200, NPC.width + 400, NPC.height + 400).Intersects(rectangle) || NPC.justHit))
                         {
+                            SoundEngine.PlaySound(SoundID.Item109);
+
                             NPC.ai[0] = 1f;
                             NPC.velocity.Y -= 6f;
                             NPC.netUpdate = true;
@@ -91,7 +135,7 @@ namespace TRAEProject.NewContent.NPCs.Sky.Gargoyle
             else if (!Main.player[NPC.target].dead)
             {
                 NPC.ai[1] += 1f;
-                
+
                 if (NPC.collideX)
                 {
                     NPC.velocity.X = NPC.oldVelocity.X * -0.5f;
@@ -224,17 +268,22 @@ namespace TRAEProject.NewContent.NPCs.Sky.Gargoyle
         public override bool PreDraw(SpriteBatch spriteBatch, Vector2 screenPos, Color drawColor)
         {
             Texture2D texture = TextureAssets.Npc[Type].Value;
+            float offSetX = 0f;
+            float offSetY = 0f;
+            if (Passive)
+                offSetY = 16f;
+            else offSetX = 16f * NPC.direction;
 
-            Main.EntitySpriteDraw(texture, NPC.Center - screenPos, NPC.frame, drawColor, NPC.rotation, NPC.frame.Size() / 2, NPC.scale, NPC.spriteDirection == -1 ? SpriteEffects.FlipHorizontally : SpriteEffects.None);
+            Main.EntitySpriteDraw(texture, new(NPC.Center.X - screenPos.X - offSetX, NPC.Center.Y - screenPos.Y - offSetY), NPC.frame, drawColor, NPC.rotation, NPC.frame.Size() / 2, NPC.scale, NPC.spriteDirection == -1 ? SpriteEffects.FlipHorizontally : SpriteEffects.None);
 
             if (NPC.ai[0] != 0)
             {
-                DrawEyeSparkles(screenPos);
+                DrawEyeSparkles(screenPos, new(offSetX, offSetY));
             }
             return false;
         }
 
-        private void DrawEyeSparkles(Vector2 screenPos)
+        private void DrawEyeSparkles(Vector2 screenPos, Vector2 off)
         {
             int frameSpeed = 6;
             int index = (int)(NPC.frameCounter / frameSpeed % (Main.npcFrameCount[Type] - 1));//-1 to compensate for idle frame being at the top of the sheet
@@ -257,9 +306,9 @@ namespace TRAEProject.NewContent.NPCs.Sky.Gargoyle
             Vector2 offset = leftEyeOffsets[index];
             offset.X *= NPC.spriteDirection;
             offset = offset.RotatedBy(NPC.rotation);
-            Vector2 fatness = new Vector2(0.8f) * (1 - NPC.ai[1] / 480);
+            Vector2 fatness = new Vector2(0.8f) * (1 - NPC.ai[1] / Airtime);
              Vector2 scale = new Vector2(.75f, .4f);
-            Vector2 drawpos = NPC.Center - screenPos;
+            Vector2 drawpos = NPC.Center - screenPos - off;
             Color red = new Color(255, 20, 20, 0) * .3f;
             DrawSparkle(drawpos + offset, 0, red, red, scale, fatness);
             offset = rightEyeOffsets[index];
@@ -286,7 +335,7 @@ namespace TRAEProject.NewContent.NPCs.Sky.Gargoyle
         }
         public override float SpawnChance(NPCSpawnInfo spawnInfo)
         {
-            if (spawnInfo.Player.ZoneNormalSpace)
+            if (spawnInfo.Sky)
             {
              
                 return 0.2f;
