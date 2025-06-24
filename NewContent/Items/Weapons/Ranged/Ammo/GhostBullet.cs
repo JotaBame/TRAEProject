@@ -59,8 +59,7 @@ namespace TRAEProject.NewContent.Items.Weapons.Ranged.Ammo
             Projectile.GetGlobalProjectile<ScopeAndQuiver>().AffectedByReconScope = true;
 			Projectile.usesLocalNPCImmunity = true;
             Projectile.localNPCHitCooldown = 10;
-            Projectile.GetGlobalProjectile<ProjectileStats>().DamageFalloff = 0.25f;
-            Projectile.penetrate = 3;
+             Projectile.penetrate = 2;
             Projectile.extraUpdates = 2;
             Projectile.ignoreWater = true;
             Projectile.DamageType = DamageClass.Ranged;
