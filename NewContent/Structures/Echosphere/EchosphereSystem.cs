@@ -6,8 +6,8 @@ namespace TRAEProject.NewContent.Structures.Echosphere
 {
     public class EchosphereSystem : ModSystem
     {
-        public static float EchosphereBorderPaddingX => 16 * 30;
-        public static float EchosphereBorderPaddingY => 16 * 30;
+        public static float EchosphereBorderPaddingX => 16 * 46;
+        public static float EchosphereBorderPaddingY => 16 * 46;
         public static Vector2 EchosphereBorderPaddingVec => new Vector2(EchosphereBorderPaddingX, EchosphereBorderPaddingY);
         public static bool PlayerInEchosphere(Player player)
         {

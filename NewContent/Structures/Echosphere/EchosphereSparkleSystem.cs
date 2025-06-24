@@ -17,31 +17,189 @@ namespace TRAEProject.NewContent.Structures.Echosphere
         public static Vector2 particleCenter;
         public override void PreUpdatePlayers()
         {
-           // if (!Main.mouseRight)
+            float extraPadding = 16 * 50;
+            EchosphereSystem.GetPaddedCorners(out Vector2 topLeft, out Vector2 bottomRight);
+            Vector2 echosphereCenter = (topLeft + bottomRight) * .5f;
+            Vector2 screenCenter = Main.screenPosition + new Vector2(Main.screenWidth / 2f, Main.screenHeight / 2f);
+            if (screenCenter.X - extraPadding > bottomRight.X || screenCenter.X + extraPadding < topLeft.X || screenCenter.Y - extraPadding > bottomRight.Y || screenCenter.Y + extraPadding < topLeft.Y)
             {
                 return;
             }
-            Vector2 topLeft = EchosphereGeneratorSystem.echosphereTopLeft;
-            Vector2 bottomRight = EchosphereGeneratorSystem.echosphereBottomRight;
+
             float stepSize = 32f;
             float width = (bottomRight.X - topLeft.X);
             float height = (bottomRight.Y - topLeft.Y);
-            Vector2 screenCenter = Main.screenPosition + new Vector2(Main.screenWidth / 2f, Main.screenHeight / 2f);
-            float startJ = screenCenter.X - 16 * 40;
-            float endJ = screenCenter.X + 16 * 40;
-            for (int i = 0; i < 2; i++)
+            screenCenter += (Main.LocalPlayer.position - Main.LocalPlayer.oldPosition) * 30;
+            Vector2 closestPointOnEdge = screenCenter;
+            float halfPosVariance = 16 * 45;
+            //halfPosVariance = 100;//debug test value
+            float ySideSign = MathF.Sign(screenCenter.Y - echosphereCenter.Y);
+            float xSideSign = MathF.Sign(screenCenter.X - echosphereCenter.X);
+            Vector2 pos;
+            ProjectToNearestEchosphereEdge(ref closestPointOnEdge.X, ref closestPointOnEdge.Y, out float xOverflow, out float yOverflow);
+            float startX = closestPointOnEdge.X - halfPosVariance;
+            float endX = closestPointOnEdge.X + halfPosVariance;
+            float startY = closestPointOnEdge.Y - halfPosVariance;
+            float endY = closestPointOnEdge.Y + halfPosVariance;
+
+            float distToLeft = MathF.Abs(screenCenter.X - topLeft.X);
+            float distToRight = MathF.Abs(screenCenter.X - bottomRight.X);
+            float distToTop = MathF.Abs(screenCenter.Y - topLeft.Y);
+            float distToBottom = MathF.Abs(screenCenter.Y - bottomRight.Y);
+
+            // Find closest edge
+            bool closerToHorizontalEdge = MathF.Min(distToTop, distToBottom) < MathF.Min(distToLeft, distToRight);
+
+            if (closerToHorizontalEdge)
             {
-                for (float j = startJ; j < endJ; j += stepSize)
+                // Vertical edges span X, Y is locked
+                pos = new Vector2(Main.rand.NextFloat(startX, endX),
+                                  distToTop < distToBottom ? topLeft.Y : bottomRight.Y);
+
+                if (pos.X > bottomRight.X)
                 {
-                    Vector2 pos = Vector2.Zero;
-                    pos.Y += height * i + Main.rand.NextFloat(-stepSize * .5f, stepSize * .5f);
-                    pos.X += j + Main.rand.NextFloat(-stepSize * .5f, stepSize * .5f);
-                    Vector2 vel = RandCircularEven(Main.rand.NextFloat(.5f,2f));
-                    pos -= vel * 20;
-                    NewEchosphereEdgeSparkle(pos,Vector2.One, vel);
+                    pos.Y -= MathF.CopySign(pos.X - bottomRight.X, ySideSign);
+                    pos.X = bottomRight.X;
+                }
+                else if (pos.X < topLeft.X)
+                {
+                    pos.Y -= MathF.CopySign(pos.X - topLeft.X, ySideSign);
+                    pos.X = topLeft.X;
                 }
             }
+            else
+            {
+                // Horizontal edges span Y, X is locked
+                pos = new Vector2(distToLeft < distToRight ? topLeft.X : bottomRight.X,
+                                  Main.rand.NextFloat(startY, endY));
+
+                if (pos.Y > bottomRight.Y)
+                {
+                    pos.X -= MathF.CopySign(pos.Y - bottomRight.Y, xSideSign);
+                    pos.Y = bottomRight.Y;
+                }
+                else if (pos.Y < topLeft.Y)
+                {
+                    pos.X -= MathF.CopySign(pos.Y - topLeft.Y, xSideSign);
+                    pos.Y = topLeft.Y;
+                }
+            }
+
+
+            Vector2 vel = RandCircularEven(Main.rand.NextFloat(.5f, 2f));
+            pos -= vel * 20;
+            NewEchosphereEdgeSparkle(pos, Vector2.One, vel);
+
+            if (Main.timeForVisualEffects % 10 == 0)
+            {
+                float innerSparkleBoxHalfSize = 16 * 50;//a sort of "reverse padding"
+                Vector2 innerSparkleBoxCenter = screenCenter;
+                innerSparkleBoxCenter.X = MathHelper.Clamp(innerSparkleBoxCenter.X, topLeft.X + innerSparkleBoxHalfSize, bottomRight.X - innerSparkleBoxHalfSize);
+                innerSparkleBoxCenter.Y = MathHelper.Clamp(innerSparkleBoxCenter.Y, topLeft.Y + innerSparkleBoxHalfSize, bottomRight.Y - innerSparkleBoxHalfSize);
+                pos = innerSparkleBoxCenter;
+                pos.X += Main.rand.NextFloat(-innerSparkleBoxHalfSize, innerSparkleBoxHalfSize);
+                pos.Y += Main.rand.NextFloat(-innerSparkleBoxHalfSize, innerSparkleBoxHalfSize);
+                Sparkle.NewSparkle(pos, Color.White, new Vector2(1,1.5f), vel, 150);
+            }
         }
+
+        private static Vector2 GetParticlePos_Old(Vector2 topLeft, Vector2 bottomRight, Vector2 screenCenter, Vector2 closestPointOnEdge, float ySideSign, float xSideSign, float startX, float endX, float startY, float endY)
+        {
+            Vector2 pos;
+            if (MathF.Min(MathF.Abs(screenCenter.X - bottomRight.X), MathF.Abs(screenCenter.X - topLeft.X)) > MathF.Min(MathF.Abs(screenCenter.Y - bottomRight.Y), MathF.Abs(screenCenter.Y - topLeft.Y)))
+            {
+                pos = new Vector2(Main.rand.NextFloat(startX, endX), closestPointOnEdge.Y);
+                if (pos.X > bottomRight.X)
+                {
+                    pos.Y -= MathF.CopySign(pos.X - bottomRight.X, ySideSign);
+                    pos.X = bottomRight.X;
+                }
+                else if (pos.X < topLeft.X)
+                {
+                    pos.Y -= MathF.CopySign(pos.X - topLeft.X, ySideSign);
+                    pos.X = topLeft.X;
+                }
+            }
+            else
+            {
+                pos = new Vector2(closestPointOnEdge.X, Main.rand.NextFloat(startY, endY));
+                if (pos.Y > bottomRight.Y)
+                {
+                    pos.X -= MathF.CopySign(pos.Y - bottomRight.Y, xSideSign);
+                    pos.Y = bottomRight.Y;
+                }
+                else if (pos.Y < topLeft.Y)
+                {
+                    pos.X -= MathF.CopySign(pos.Y - topLeft.Y, xSideSign);
+                    pos.Y = topLeft.Y;
+                }
+            }
+
+            return pos;
+        }
+
+        static void ProjectToNearestEchosphereEdge(ref float x, ref float y, out float xOverflow, out float yOverflow)
+        {
+            EchosphereSystem.GetPaddedCorners(out Vector2 topLeft, out Vector2 bottomRight);
+
+            float clampedX = Math.Clamp(x, topLeft.X, bottomRight.X);
+            float clampedY = Math.Clamp(y, topLeft.Y, bottomRight.Y);
+
+            xOverflow = x - clampedX;
+            yOverflow = y - clampedY;
+
+            x = clampedX;
+            y = clampedY;
+            if (xOverflow == 0 && yOverflow == 0)
+            {
+                float distToLeft = Math.Abs(x - topLeft.X);
+                float distToRight = Math.Abs(bottomRight.X - x);
+                float distToTop = Math.Abs(y - topLeft.Y);
+                float distToBottom = Math.Abs(bottomRight.Y - y);
+
+                float minDist = Math.Min(Math.Min(distToLeft, distToRight), Math.Min(distToTop, distToBottom));
+
+                if (minDist == distToLeft)
+                    x = topLeft.X;
+                else if (minDist == distToRight)
+                    x = bottomRight.X;
+                else if (minDist == distToTop)
+                    y = topLeft.Y;
+                else
+                    y = bottomRight.Y;
+            }
+        }
+
+
+
+        static void ClampToEchosphereBounds(ref float x, ref float y, out float xOverflow, out float yOverflow)
+        {
+            Vector2 topLeft = EchosphereGeneratorSystem.echosphereTopLeft;
+            Vector2 bottomRight = EchosphereGeneratorSystem.echosphereBottomRight;
+            xOverflow = 0;
+            yOverflow = 0;
+            if(x < topLeft.X)
+            {
+                xOverflow = x - topLeft.X;
+                x = topLeft.X;
+            }
+            if (x > bottomRight.X)
+            {
+                xOverflow = x - bottomRight.X;
+                x = bottomRight.X;
+            }
+            if (y < topLeft.Y)
+            {
+                yOverflow = y - topLeft.Y;
+                y = topLeft.Y;
+            }
+            if (y > bottomRight.Y)
+            {
+                yOverflow = y - bottomRight.Y;
+                y = bottomRight.Y;
+            } 
+        }
+
         private static void InsideSparkles_Old(Vector2 center, float innerSparkleRate, Vector2 scale, int sparkleDuration, float outerRadiusReal)
         {
             sparkleDuration *= 2;
