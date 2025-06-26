@@ -6,6 +6,7 @@ using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
 using TRAEProject.NewContent.Structures.Echosphere.Generation;
+using TRAEProject.NewContent.Structures.Echosphere.ScreenEffect;
 
 namespace TRAEProject.NewContent.Structures.Echosphere
 {
@@ -344,9 +345,11 @@ namespace TRAEProject.NewContent.Structures.Echosphere
                     echosphereEdgeSparkles[i].DrawWhitePart();
             }
             Main.spriteBatch.End();
+            EchosphereBorderEffect.Update();
         }
         public override void Load()
         {
+            EchosphereBorderEffect.CallOnLoad();
             for (int i = 0; i < echosphereEdgeSparkles.Length; i++)
                 echosphereEdgeSparkles[i] = new EchosphereEdgeSparkle(i);
         }
