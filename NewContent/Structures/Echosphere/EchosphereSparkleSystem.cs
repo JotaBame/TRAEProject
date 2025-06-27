@@ -10,9 +10,9 @@ using TRAEProject.NewContent.Structures.Echosphere.ScreenEffect;
 
 namespace TRAEProject.NewContent.Structures.Echosphere
 {
-    public class EchosphereSparkleSystem : ModSystem
+    public class EchosphereSparkleSystem: ModSystem
     {
-        public const int MaxEchosphereEdgeSparkles = 400;
+        public const int MaxEchosphereEdgeSparkles = 350;
         public static EchosphereEdgeSparkle[] echosphereEdgeSparkles = new EchosphereEdgeSparkle[MaxEchosphereEdgeSparkles + 1];
 
         public static Vector2 particleCenter;
@@ -91,7 +91,7 @@ namespace TRAEProject.NewContent.Structures.Echosphere
             pos -= vel * 20;
             NewEchosphereEdgeSparkle(pos, Vector2.One, vel);
 
-            if (Main.timeForVisualEffects % 10 == 0)
+            if (Main.timeForVisualEffects % 20 == 0)
             {
                 float innerSparkleBoxHalfSize = 16 * 50;//a sort of "reverse padding"
                 Vector2 innerSparkleBoxCenter = screenCenter;

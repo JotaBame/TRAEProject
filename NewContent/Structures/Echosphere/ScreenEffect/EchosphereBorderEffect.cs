@@ -14,10 +14,10 @@ namespace TRAEProject.NewContent.Structures.Echosphere.ScreenEffect
         public static Asset<Texture2D> perlin;
         public static float intensity = 0f;
         public static float FadeSpeed => MaxIntensity / 30f;
-        public static float MaxIntensity => 2f;
-        public static float TintStrength => 0.1f;
-        public static float SwirlFadeStart => 0.4f;
-        public static float SwirlFadeEnd => 0.5f;
+        public static float MaxIntensity => 1.25f;
+        public static float TintStrength => 0.07f;
+        public static float SwirlFadeStart => 0.45f;
+        public static float SwirlFadeEnd => 0.55f;
         public static Vector3 EffectColor => new(1f, .25f, 1f);//both tint and swirl effect color
         public static bool DistortAbsurdly => Main.zenithWorld;//couldn't think of a better name
 

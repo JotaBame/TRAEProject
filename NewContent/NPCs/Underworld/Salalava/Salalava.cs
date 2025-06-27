@@ -59,8 +59,7 @@ namespace TRAEProject.NewContent.NPCs.Underworld.Salalava
                 new FlavorTextBestiaryInfoElement("An elder Reptilian Lava Walker, awoken from hibernation by the chaos released into the world.")
             });
         }
-        float dustTimer = 0;
-        public override void ModifyNPCLoot(NPCLoot npcLoot)
+         public override void ModifyNPCLoot(NPCLoot npcLoot)
         {
             npcLoot.Add(ItemDropRule.Common(ItemType<SalamanderTail>(), 1));
             npcLoot.Add(ItemDropRule.Common(ItemID.Hotdog, 10));
