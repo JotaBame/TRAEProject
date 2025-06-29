@@ -152,6 +152,8 @@ namespace TRAEProject.Changes.NPCs
                         return drop.itemId == ItemID.DjinnLamp; // compare more fields if needed
                     });
                     npcLoot.Add(ItemDropRule.Common(ItemID.SpiritFlame, 40));
+                    npcLoot.Add(ItemDropRule.Common(ItemID.DjinnsCurse, 25));
+                     
                     break;
                 case NPCID.DesertScorpionWall:
                 case NPCID.DesertScorpionWalk:

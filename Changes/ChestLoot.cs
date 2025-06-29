@@ -18,7 +18,7 @@ public class ChestLoot : ModSystem
 
     public override void PostSetupContent()
     {
-        GoldChestItems = new int[] { ItemID.Mace, ItemID.MagicMirror, ItemID.HermesBoots, ItemID.BandofRegeneration, ItemID.ShoeSpikes, ItemID.LuckyHorseshoe, ItemID.Extractinator, ItemID.FlintlockPistol, ItemType<MagicGrenade>(), ItemID.LavaCharm };
+        GoldChestItems = new int[] { ItemID.Mace, ItemID.MagicMirror, ItemID.HermesBoots, ItemID.BandofRegeneration, ItemID.ShoeSpikes, ItemID.LuckyHorseshoe, ItemID.Extractinator, ItemID.FlintlockPistol, ItemType<MagicGrenade>(), ItemID.LavaCharm, ItemID.CloudinaBottle }; // flare gun isnt here and that's not a mistake, check code below
         PyramidItems = new int[] { ItemID.SandstorminaBottle, ItemID.FlyingCarpet, ItemID.AnkhCharm, ItemID.AncientChisel, ItemID.SandBoots, ItemID.ThunderSpear, ItemID.ThunderStaff, ItemID.CatBast, ItemID.MagicConch };
         ShadowItems = new int[] { ItemID.HellwingBow, ItemID.Flamelash, ItemID.FlowerofFire, ItemID.Sunfury, ItemType<PalladiumShield>(), ItemID.GravityGlobe };
         DungeonItems = new int[] { ItemID.Muramasa, ItemID.CobaltShield, ItemID.AquaScepter, ItemID.Handgun, ItemID.BlueMoon, ItemID.Valor };
@@ -36,7 +36,7 @@ public class ChestLoot : ModSystem
                 }
                 if (WorldGen.genRand.NextBool(2) && Main.tile[chest.x, chest.y].TileType == TileID.Containers && (Main.tile[chest.x, chest.y].TileFrameX == 15 * 36 || Main.tile[chest.x, chest.y].TileFrameX == 10 * 36))
                 {
-                        for (int inventoryIndex = 0; inventoryIndex < 40; inventoryIndex++)
+                    for (int inventoryIndex = 0; inventoryIndex < 40; inventoryIndex++)
                     {
                         if (chest.item[inventoryIndex].type == ItemID.None)
                         {
@@ -58,28 +58,35 @@ public class ChestLoot : ModSystem
                         }
                     }
                 }
-                if (Main.tile[chest.x, chest.y].TileType == TileID.Containers && Main.tile[chest.x, chest.y].TileFrameX == 1 * 36 
-                    && chest.item[0].type != ItemID.FlareGun 
-                    && chest.item[0].type != ItemID.SandstorminaBottle
+                if ((Main.tile[chest.x, chest.y].TileType == TileID.Containers && Main.tile[chest.x, chest.y].TileFrameX == 1 * 36)
+                    || 
+                    (Main.tile[chest.x, chest.y].TileType == TileID.Containers2 && Main.tile[chest.x, chest.y].TileFrameX == 4 * 36))
+                {
+                    if (chest.item[0].type != ItemID.FlareGun // if there is a flare gun then there are also flares next to it, that's why you never replace it
+                        && chest.item[0].type != ItemID.SandstorminaBottle
                     && chest.item[0].type != ItemID.FlyingCarpet
                     && chest.item[0].type != ItemID.PharaohsMask
                     && chest.item[0].type != ItemID.PharaohsRobe)
-                {
-                    chest.item[0].SetDefaults(Main.rand.Next(GoldChestItems), false);
-                    if (chest.item[0].type == ItemID.FlintlockPistol)
                     {
-                        chest.item[1].SetDefaults(ItemID.MusketBall, false);
-                        chest.item[1].stack = 100;
-                    }
-                    for (int i = 0; i < 40; i++)
-                    {
-                        if (chest.item[i].type == ItemID.None)
+                        chest.item[0].SetDefaults(Main.rand.Next(GoldChestItems), false);
+                        if (chest.item[0].type == ItemID.FlintlockPistol)
                         {
+                            chest.item[1].SetDefaults(ItemID.MusketBall, false);
+                            chest.item[1].stack = 100;
+                        }
+                        if (WorldGen.genRand.NextBool(3))
+                            {
+                            for (int i = 0; i < 40; i++)
+                            {
+                                if (chest.item[i].type == ItemID.None)
+                                {
 
-                            chest.item[i].SetDefaults(ItemID.FlaskofFire, false);
-                            break;
+                                    chest.item[i].SetDefaults(ItemID.FlaskofFire, false);
+                                    break;
 
 
+                                }
+                            }
                         }
                     }
                 }
