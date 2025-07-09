@@ -1,6 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using System.Collections.Generic;
 using Terraria;
 using Terraria.GameContent;
 using Terraria.ID;
@@ -24,12 +23,12 @@ namespace TRAEProject.NewContent.NPCs.Echosphere.EchoLeviathan
             NPC.defense = 40;
             NPC.damage = 80;
             NPC.width = NPC.height = 70;
-            NPC.HitSound = SoundID.DD2_DrakinHurt;
-            NPC.DeathSound = SoundID.NPCDeath1;
             NPC.knockBackResist = 0;
             NPC.noTileCollide = true;
             NPC.dontTakeDamage = true;//initially invincible
             NPC.alpha = 255;//initially invisible
+            NPC.HitSound = EchoLeviathanHead.HitSFX;
+            NPC.DeathSound = EchoLeviathanHead.DeathSFX;
         }
         public override bool? DrawHealthBar(byte hbPosition, ref float scale, ref Vector2 position)
         {
@@ -67,6 +66,11 @@ namespace TRAEProject.NewContent.NPCs.Echosphere.EchoLeviathan
         //{
         //    EchoLeviathanHead.CopyItemIframesToOtherSegments(NPC.ai[0], NPC.whoAmI, player.whoAmI);
         //}
+        public override bool CheckDead()
+        {
+            int parent = (int)NPC.ai[0];
+            return parent < 0 || parent >= Main.maxNPCs || !Main.npc[parent].active || Main.npc[parent].type != ModContent.NPCType<EchoLeviathanHead>() || Main.npc[parent].life <= 0;
+        }
         public override bool PreDraw(SpriteBatch spriteBatch, Vector2 screenPos, Color drawColor)
         {
             Texture2D texture = TextureAssets.Npc[Type].Value;
@@ -82,6 +86,13 @@ namespace TRAEProject.NewContent.NPCs.Echosphere.EchoLeviathan
             return false;
         }
         protected virtual int SegmentWidth => 80;
+        public override void HitEffect(NPC.HitInfo hit)
+        {
+            if (NPC.life <= 0)
+            {
+                EchosphereNPCHelper.EchosphereEnemyDeathDust(NPC, 0.7f);
+            }
+        }
         public override void ModifyHoverBoundingBox(ref Rectangle boundingBox)
         {
             if (NPC.alpha >= 254)

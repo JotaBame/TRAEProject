@@ -13,6 +13,7 @@ namespace TRAEProject.NewContent.NPCs.Echosphere.EchoLocator
     {
         public static SoundStyle SlowdownSFX => new SoundStyle("TRAEProject/NewContent/NPCs/Echosphere/EchoLocator/EchoLocatorSlowdown2") with { MaxInstances = 0 };
         public static SoundStyle SpeedupSFX => new SoundStyle("TRAEProject/NewContent/NPCs/Echosphere/EchoLocator/EchoLocatorSpeedup") with { MaxInstances = 0 };
+        public static SoundStyle DeathSFX => new SoundStyle("TRAEProject/NewContent/NPCs/Echosphere/EchoLocator/EchoLocatorDeath") with { MaxInstances = 0 };
         public static SoundStyle FlyingSFX => new SoundStyle("TRAEProject/NewContent/NPCs/Echosphere/EchoLocator/EchoLocatorSpeedFly2").WithVolumeScale(.5f) with { MaxInstances = 0 };
         public override void SetStaticDefaults()
         {
@@ -25,7 +26,7 @@ namespace TRAEProject.NewContent.NPCs.Echosphere.EchoLocator
             NPC.defense = 32;
             NPC.lifeMax = 450;
             NPC.damage = 70;
-            NPC.DeathSound = SoundID.NPCDeath4;//bat/mouse death sound
+            NPC.DeathSound = DeathSFX;//ban edited at/mouse death sound
             NPC.HitSound = SoundID.NPCHit1;//common organic hit sound
             NPC.noGravity = true;
         }
@@ -132,6 +133,13 @@ namespace TRAEProject.NewContent.NPCs.Echosphere.EchoLocator
             int frameSpeed = 7;
             int framey = (int)(NPC.frameCounter / frameSpeed % Main.npcFrameCount[Type]) * frameHeight;
             NPC.frame.Y = framey;
+        }
+        public override void HitEffect(NPC.HitInfo hit)
+        {
+            if(NPC.life <= 0)
+            {
+                EchosphereNPCHelper.EchosphereEnemyDeathDust(NPC);
+            }
         }
         private void BatMovement(float maxSpeedX, float accelerationX, float maxSpeedY, float accelerationY)
         {
@@ -304,6 +312,7 @@ namespace TRAEProject.NewContent.NPCs.Echosphere.EchoLocator
                 }
             }
         }
+
         public override bool PreDraw(SpriteBatch spriteBatch, Vector2 screenPos, Color drawColor)
         {
             Texture2D texture = TextureAssets.Npc[Type].Value;

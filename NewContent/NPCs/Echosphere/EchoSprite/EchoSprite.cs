@@ -17,8 +17,8 @@ namespace TRAEProject.NewContent.NPCs.Echosphere.EchoSprite
     {
         const float Phi = 1.61803398875f;
         VerletSimulator trail;
-        static Asset<Texture2D> trailOuter;
-        static Asset<Texture2D> trailInner;
+        public static Asset<Texture2D> trailOuter;
+        public static Asset<Texture2D> trailInner;
         public override void SetStaticDefaults()
         {
             NPCID.Sets.TrailCacheLength[Type] = 10;
@@ -35,6 +35,8 @@ namespace TRAEProject.NewContent.NPCs.Echosphere.EchoSprite
             NPC.noGravity = true;
             NPC.noTileCollide = true;
             InitializeVerlet();
+            NPC.HitSound = SoundID.NPCHit5;
+            NPC.DeathSound = SoundID.NPCDeath7;
         }
         ref float TurnaroundTimer => ref NPC.ai[1];
         ref float IdleMovementTimer => ref NPC.localAI[0];
@@ -248,7 +250,7 @@ namespace TRAEProject.NewContent.NPCs.Echosphere.EchoSprite
             dots[0].locked = true;
             trail = new VerletSimulator(20, dots);
           //  Stopwatch sw = Stopwatch.StartNew();
-            for (int i = 0; i < 60; i++)
+            for (int i = 0; i < 100; i++)
             {
                 UpdateVerlet();
             }
@@ -286,7 +288,15 @@ namespace TRAEProject.NewContent.NPCs.Echosphere.EchoSprite
             }
             return false;
         }
-
+        public override void HitEffect(NPC.HitInfo hit)
+        {
+            if(NPC.life <= 0)
+            {
+                EchosphereNPCHelper.EchosphereEnemyDeathDust(NPC);
+                Gore.NewGore(NPC.GetSource_Death(), NPC.Center, NPC.velocity, ModContent.GoreType<EchoSpriteGoreBody>());
+                EchoSpriteGoreTail.Spawn(trail, NPC, NPC.Center);
+            }
+        }
         void DrawTrail(SpriteBatch sb, Vector2 screenPos, Color drawColor)
         {
             trailOuter ??= ModContent.Request<Texture2D>("TRAEProject/NewContent/NPCs/Echosphere/EchoSprite/EchoSpriteTrailOuter");

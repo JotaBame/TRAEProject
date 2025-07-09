@@ -10,7 +10,7 @@ using TRAEProject.NewContent.Structures.Echosphere.ScreenEffect;
 
 namespace TRAEProject.NewContent.Structures.Echosphere
 {
-    public class EchosphereSparkleSystem: ModSystem
+    public class EchosphereSparkleSystem : ModSystem
     {
         public const int MaxEchosphereEdgeSparkles = 350;
         public static EchosphereEdgeSparkle[] echosphereEdgeSparkles = new EchosphereEdgeSparkle[MaxEchosphereEdgeSparkles + 1];
@@ -26,17 +26,29 @@ namespace TRAEProject.NewContent.Structures.Echosphere
             {
                 return;
             }
+            screenCenter = EchosphereEdgeSparkles(topLeft, bottomRight, echosphereCenter, screenCenter, out Vector2 pos, out Vector2 vel);
 
-            float stepSize = 32f;
-            float width = (bottomRight.X - topLeft.X);
-            float height = (bottomRight.Y - topLeft.Y);
+            if (Main.timeForVisualEffects % 20 == 0)
+            {
+                float innerSparkleBoxHalfSize = 16 * 50;//a sort of "reverse padding"
+                Vector2 innerSparkleBoxCenter = screenCenter;
+                innerSparkleBoxCenter.X = MathHelper.Clamp(innerSparkleBoxCenter.X, topLeft.X + innerSparkleBoxHalfSize, bottomRight.X - innerSparkleBoxHalfSize);
+                innerSparkleBoxCenter.Y = MathHelper.Clamp(innerSparkleBoxCenter.Y, topLeft.Y + innerSparkleBoxHalfSize, bottomRight.Y - innerSparkleBoxHalfSize);
+                pos = innerSparkleBoxCenter;
+                pos.X += Main.rand.NextFloat(-innerSparkleBoxHalfSize, innerSparkleBoxHalfSize);
+                pos.Y += Main.rand.NextFloat(-innerSparkleBoxHalfSize, innerSparkleBoxHalfSize);
+                Sparkle.NewSparkle(pos, Color.White, new Vector2(1, 1.5f), vel, 150);
+            }
+        }
+
+        private static Vector2 EchosphereEdgeSparkles(Vector2 topLeft, Vector2 bottomRight, Vector2 echosphereCenter, Vector2 screenCenter, out Vector2 pos, out Vector2 vel)
+        {
             screenCenter += (Main.LocalPlayer.position - Main.LocalPlayer.oldPosition) * 30;
             Vector2 closestPointOnEdge = screenCenter;
             float halfPosVariance = 16 * 45;
             //halfPosVariance = 100;//debug test value
             float ySideSign = MathF.Sign(screenCenter.Y - echosphereCenter.Y);
             float xSideSign = MathF.Sign(screenCenter.X - echosphereCenter.X);
-            Vector2 pos;
             ProjectToNearestEchosphereEdge(ref closestPointOnEdge.X, ref closestPointOnEdge.Y, out float xOverflow, out float yOverflow);
             float startX = closestPointOnEdge.X - halfPosVariance;
             float endX = closestPointOnEdge.X + halfPosVariance;
@@ -50,58 +62,50 @@ namespace TRAEProject.NewContent.Structures.Echosphere
 
             // Find closest edge
             bool closerToHorizontalEdge = MathF.Min(distToTop, distToBottom) < MathF.Min(distToLeft, distToRight);
-
-            if (closerToHorizontalEdge)
+            int loopCount = 1;
+            do 
             {
-                // Vertical edges span X, Y is locked
-                pos = new Vector2(Main.rand.NextFloat(startX, endX),
-                                  distToTop < distToBottom ? topLeft.Y : bottomRight.Y);
+                if (closerToHorizontalEdge)
+                {
+                    // Vertical edges span X, Y is locked
+                    pos = new Vector2(Main.rand.NextFloat(startX, endX),
+                                      distToTop < distToBottom ? topLeft.Y : bottomRight.Y);
 
-                if (pos.X > bottomRight.X)
-                {
-                    pos.Y -= MathF.CopySign(pos.X - bottomRight.X, ySideSign);
-                    pos.X = bottomRight.X;
+                    if (pos.X > bottomRight.X)
+                    {
+                        pos.Y -= MathF.CopySign(pos.X - bottomRight.X, ySideSign);
+                        pos.X = bottomRight.X;
+                    }
+                    else if (pos.X < topLeft.X)
+                    {
+                        pos.Y -= MathF.CopySign(pos.X - topLeft.X, ySideSign);
+                        pos.X = topLeft.X;
+                    }
                 }
-                else if (pos.X < topLeft.X)
+                else
                 {
-                    pos.Y -= MathF.CopySign(pos.X - topLeft.X, ySideSign);
-                    pos.X = topLeft.X;
+                    // Horizontal edges span Y, X is locked
+                    pos = new Vector2(distToLeft < distToRight ? topLeft.X : bottomRight.X,
+                                      Main.rand.NextFloat(startY, endY));
+
+                    if (pos.Y > bottomRight.Y)
+                    {
+                        pos.X -= MathF.CopySign(pos.Y - bottomRight.Y, xSideSign);
+                        pos.Y = bottomRight.Y;
+                    }
+                    else if (pos.Y < topLeft.Y)
+                    {
+                        pos.X -= MathF.CopySign(pos.Y - topLeft.Y, xSideSign);
+                        pos.Y = topLeft.Y;
+                    }
                 }
+                loopCount--;
+                vel = RandCircularEven(Main.rand.NextFloat(.5f, 2f));
+                pos -= vel * 20;
+                NewEchosphereEdgeSparkle(pos, Vector2.One, vel);
             }
-            else
-            {
-                // Horizontal edges span Y, X is locked
-                pos = new Vector2(distToLeft < distToRight ? topLeft.X : bottomRight.X,
-                                  Main.rand.NextFloat(startY, endY));
-
-                if (pos.Y > bottomRight.Y)
-                {
-                    pos.X -= MathF.CopySign(pos.Y - bottomRight.Y, xSideSign);
-                    pos.Y = bottomRight.Y;
-                }
-                else if (pos.Y < topLeft.Y)
-                {
-                    pos.X -= MathF.CopySign(pos.Y - topLeft.Y, xSideSign);
-                    pos.Y = topLeft.Y;
-                }
-            }
-
-
-            Vector2 vel = RandCircularEven(Main.rand.NextFloat(.5f, 2f));
-            pos -= vel * 20;
-            NewEchosphereEdgeSparkle(pos, Vector2.One, vel);
-
-            if (Main.timeForVisualEffects % 20 == 0)
-            {
-                float innerSparkleBoxHalfSize = 16 * 50;//a sort of "reverse padding"
-                Vector2 innerSparkleBoxCenter = screenCenter;
-                innerSparkleBoxCenter.X = MathHelper.Clamp(innerSparkleBoxCenter.X, topLeft.X + innerSparkleBoxHalfSize, bottomRight.X - innerSparkleBoxHalfSize);
-                innerSparkleBoxCenter.Y = MathHelper.Clamp(innerSparkleBoxCenter.Y, topLeft.Y + innerSparkleBoxHalfSize, bottomRight.Y - innerSparkleBoxHalfSize);
-                pos = innerSparkleBoxCenter;
-                pos.X += Main.rand.NextFloat(-innerSparkleBoxHalfSize, innerSparkleBoxHalfSize);
-                pos.Y += Main.rand.NextFloat(-innerSparkleBoxHalfSize, innerSparkleBoxHalfSize);
-                Sparkle.NewSparkle(pos, Color.White, new Vector2(1,1.5f), vel, 150);
-            }
+            while (loopCount > 0);
+            return screenCenter;
         }
 
         private static Vector2 GetParticlePos_Old(Vector2 topLeft, Vector2 bottomRight, Vector2 screenCenter, Vector2 closestPointOnEdge, float ySideSign, float xSideSign, float startX, float endX, float startY, float endY)
@@ -179,7 +183,7 @@ namespace TRAEProject.NewContent.Structures.Echosphere
             Vector2 bottomRight = EchosphereGeneratorSystem.echosphereBottomRight;
             xOverflow = 0;
             yOverflow = 0;
-            if(x < topLeft.X)
+            if (x < topLeft.X)
             {
                 xOverflow = x - topLeft.X;
                 x = topLeft.X;
@@ -198,7 +202,7 @@ namespace TRAEProject.NewContent.Structures.Echosphere
             {
                 yOverflow = y - bottomRight.Y;
                 y = bottomRight.Y;
-            } 
+            }
         }
 
         private static void InsideSparkles_Old(Vector2 center, float innerSparkleRate, Vector2 scale, int sparkleDuration, float outerRadiusReal)

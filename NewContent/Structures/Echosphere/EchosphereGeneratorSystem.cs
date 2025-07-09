@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Terraria;
 using Terraria.DataStructures;
+using Terraria.ID;
 using Terraria.IO;
 using Terraria.ModLoader;
 using Terraria.ModLoader.IO;
@@ -155,7 +156,7 @@ namespace TRAEProject.NewContent.Structures.Echosphere
             stopVanillaSkyIslandGen = false;
         }
 
-        private static void PlacePaintingsStatuesChestsAndOres(short boundBoxMaxX, short boundBoxMaxY, short boundBoxMinY, short boundBoxMinX)
+        private static void PlacePaintingsStatuesChestsAndOresAndRemoveGemcorns(short boundBoxMaxX, short boundBoxMaxY, short boundBoxMinY, short boundBoxMinX)
         {
             int oreTileID = ModContent.TileType<EchosphereGenDummyOreTile>();
             int painting3x2TileID = ModContent.TileType<EchosphereGenDummyPaintingTile3x2>();
@@ -171,10 +172,19 @@ namespace TRAEProject.NewContent.Structures.Echosphere
                 {
                     Tile tile = Main.tile[i, j];
                     int type = tile.TileType;
+                    if (!tile.HasTile)
+                    {
+                        continue;
+                    }
                     if (type == painting3x2TileID)
                     {
                         tile.HasTile = false;
                         EchosphereGenHelper.PlaceRandomPainting3x2(i, j);
+                        continue;
+                    }
+                    if(type == TileID.GemSaplings)
+                    {
+                        tile.HasTile = false;
                         continue;
                     }
                     if (type == painting3x3TileID)
@@ -309,7 +319,7 @@ namespace TRAEProject.NewContent.Structures.Echosphere
             short boundBoxMaxY = (short)(echosphereBottomRight.Y / 16);
             short boundBoxMinX = (short)(echosphereTopLeft.X / 16);
             short boundBoxMinY = (short)(echosphereTopLeft.Y / 16);
-            PlacePaintingsStatuesChestsAndOres(boundBoxMaxX, boundBoxMaxY, boundBoxMinY, boundBoxMinX);
+            PlacePaintingsStatuesChestsAndOresAndRemoveGemcorns(boundBoxMaxX, boundBoxMaxY, boundBoxMinY, boundBoxMinX);
         }
     }
     public class EchosphereSetupGenPass : GenPass

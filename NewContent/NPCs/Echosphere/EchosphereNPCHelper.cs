@@ -2,6 +2,7 @@
 using Microsoft.Xna.Framework.Graphics;
 using System;
 using Terraria;
+using Terraria.ID;
 
 namespace TRAEProject.NewContent.NPCs.Echosphere
 {
@@ -38,7 +39,15 @@ namespace TRAEProject.NewContent.NPCs.Echosphere
             { 4/273f, 16 / 273f, 26/273f, 16/273f, 4/273f },
             { 1 / 273f, 4 / 273f, 7/273f, 4/273f, 1/273f }
         };
-
+        public static void EchosphereEnemyDeathDust(NPC npc, float dustMult = 1f, int dustID = DustID.PinkTorch)
+        {
+            int dustCount = (int)MathF.Round(0.005f * dustMult * npc.width * npc.height);
+            for (int i = 0; i < dustCount; i++)
+            {
+                Dust dust = Dust.NewDustDirect(npc.position - npc.velocity, npc.width, npc.height, DustID.PinkTorch, npc.velocity.X, npc.velocity.Y, 0, Color.White, 2f);
+                dust.noGravity = true;
+            }
+        }
         public static void SpectralDraw(NPC NPC, SpriteBatch spriteBatch, Vector2 screenPos, Texture2D texture)
         {
             InternalSpectralDraw(NPC, spriteBatch, screenPos, texture, NPC.spriteDirection == -1 ? SpriteEffects.FlipHorizontally : SpriteEffects.None);
@@ -140,7 +149,7 @@ namespace TRAEProject.NewContent.NPCs.Echosphere
                     return;//current target is already valid and in space. Don't need to search for another
                 }
             }
-            if(target == -1)
+            if (target == -1)
             {
                 for (int i = 0; i < Main.maxPlayers; i++)
                 {
@@ -241,6 +250,33 @@ namespace TRAEProject.NewContent.NPCs.Echosphere
                 offset = offset.RotatedBy(NPC.rotation);
                 spriteBatch.Draw(texture, NPC.Center - screenPos + offset, NPC.frame, drawColor, NPC.rotation, NPC.frame.Size() / 2, NPC.scale, spriteDir, 0);
             }
+        }
+        public static bool EchosphereEnemyGoreUpdate(Gore gore)
+        {
+            gore.position += gore.velocity / 2f;
+            gore.velocity *= 0.995f;
+            gore.position += gore.velocity / 2f;
+            gore.rotation += gore.velocity.X * 0.1f;
+            gore.timeLeft--;
+            if (gore.timeLeft <= 0)
+            {
+                gore.active = false;
+            }
+            return false;
+        }
+        public static Color? EchosphereEnemyGoreGetAlpha(float t)
+        {
+            float additiveFadeStart = 0f;
+            float additiveFadeEnd = 0.3f;
+            float disappearFadeStart = 0.85f;
+            float disappearFadeEnd = 1f;
+            return t < additiveFadeEnd ? Color.Lerp(Color.White, new Color(255, 255, 255, 0), Utils.GetLerpValue(additiveFadeStart, additiveFadeEnd, t, true)) :
+                Color.Lerp(new Color(255, 255, 255, 0), Color.Transparent, Utils.GetLerpValue(disappearFadeStart, disappearFadeEnd, t));
+        }
+        public static Color? EchosphereEnemyGoreGetAlpha(Gore gore, Color lightColor)
+        {
+            float t = 1f - ((float)gore.timeLeft / Gore.goreTime);
+            return EchosphereEnemyGoreGetAlpha(t);
         }
     }
 }

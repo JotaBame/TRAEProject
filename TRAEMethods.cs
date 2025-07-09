@@ -401,6 +401,16 @@ namespace TRAEProject
                 array[j] = temp;
             }
         }
+        public static void Shuffle(ref Vector2[] array)
+        {
+            for (int i = array.Length - 1; i > 0; i--)
+            {
+                int j = Main.rand.Next(i + 1);
+                Vector2 temp = array[i];
+                array[i] = array[j];
+                array[j] = temp;
+            }
+        }
         public static void Shuffle(ref int[] array, UnifiedRandom rand)
         {
             for (int i = array.Length - 1; i > 0; i--)

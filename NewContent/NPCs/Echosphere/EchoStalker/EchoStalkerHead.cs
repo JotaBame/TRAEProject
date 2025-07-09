@@ -1,14 +1,15 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using ReLogic.Content;
-using SteelSeries.GameSense.DeviceZone;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using Terraria;
 using Terraria.Audio;
 using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
+using TRAEProject.NewContent.NPCs.Echosphere.EchoStalker.Gore;
 using TRAEProject.NewContent.Projectiles;
 
 namespace TRAEProject.NewContent.NPCs.Echosphere.EchoStalker
@@ -17,13 +18,15 @@ namespace TRAEProject.NewContent.NPCs.Echosphere.EchoStalker
     {
         public static SoundStyle ShotSFXOld => new("TRAEProject/Assets/Sounds/SonicWave");//in case it is ever needed again
         public static SoundStyle ShotSFX => new("TRAEProject/NewContent/NPCs/Echosphere/EchoStalker/EchoStalkerShot");
+        public static SoundStyle HitSFX => new("TRAEProject/NewContent/NPCs/Echosphere/EchoStalker/EchoStalkerHit");
+        public static SoundStyle DeathSFX => new("TRAEProject/NewContent/NPCs/Echosphere/EchoStalker/EchoStalkerDeath");
         static Asset<Texture2D> head;
         static Asset<Texture2D> hair;
         static Asset<Texture2D> jaw;
         static Asset<Texture2D> body;
         static Asset<Texture2D> bodyGlow;
         static Asset<Texture2D> body2;
-        static Asset<Texture2D> body2Glow;    
+        static Asset<Texture2D> body2Glow;
         static Asset<Texture2D> bodyWithHair;
         static Asset<Texture2D> bodyWithHairGlow;
         static Asset<Texture2D> body2WithHair;
@@ -31,13 +34,12 @@ namespace TRAEProject.NewContent.NPCs.Echosphere.EchoStalker
         static Asset<Texture2D> tail;
         static Asset<Texture2D> tailGlow;
         public bool HairVariant { get => NPC.localAI[0] == 1; set => NPC.localAI[0] = value ? -1 : 1; }
-         
         public static Texture2D Tail => tail?.Value;
         public static Texture2D TailGlow => tailGlow?.Value;
         public static Texture2D Body => body?.Value;
         public static Texture2D BodyGlow => bodyGlow?.Value;
         public static Texture2D Body2 => body2?.Value;
-        public static Texture2D Body2Glow => body2Glow?.Value;       
+        public static Texture2D Body2Glow => body2Glow?.Value;
         public static Texture2D BodyWithHair => bodyWithHair?.Value;
         public static Texture2D BodyWithHairGlow => bodyWithHairGlow?.Value;
         public static Texture2D Body2WithHair => body2WithHair?.Value;
@@ -67,16 +69,20 @@ namespace TRAEProject.NewContent.NPCs.Echosphere.EchoStalker
             NPC.defense = 15;
             NPC.damage = 70;
             NPC.knockBackResist = 0;
+            NPC.HitSound = HitSFX;
+            NPC.DeathSound = DeathSFX;
         }
+        static int[] OrderOfSegmentIDsToSpawn => [ModContent.NPCType<EchoStalkerBody1>(),
+               ModContent.NPCType<EchoStalkerBody2>(), ModContent.NPCType<EchoStalkerBody2>(),
+             ModContent.NPCType<EchoStalkerTail>()];
+        static int[] SegmentIDs => [ModContent.NPCType<EchoStalkerBody1>(), ModContent.NPCType<EchoStalkerBody2>(), ModContent.NPCType<EchoStalkerTail>()];
         public override void OnSpawn(IEntitySource source)
         {
 
             //NPC.localAI[0] = Main.rand.NextBool() ? -1 : 1;
             HairVariant = Main.rand.NextBool();
 
-            int[] types = new int[] { ModContent.NPCType<EchoStalkerBody1>(),
-               ModContent.NPCType<EchoStalkerBody2>(), ModContent.NPCType<EchoStalkerBody2>(),
-             ModContent.NPCType<EchoStalkerTail>() };
+            int[] types = OrderOfSegmentIDsToSpawn;
             for (int i = 1; i < types.Length + 1; i++)
             {
                 NPC.NewNPC(Terraria.Entity.GetSource_NaturalSpawn(), (int)NPC.Center.X - i * 40, (int)NPC.Center.Y, types[i - 1], NPC.whoAmI, NPC.whoAmI, i * 11, i);
@@ -313,13 +319,13 @@ namespace TRAEProject.NewContent.NPCs.Echosphere.EchoStalker
                 }
             }
             DrawWithSpectralCheck(head.Value, NPC.Center - screenPos, null, drawColor, NPC.rotation + headRot, origin, NPC.scale, spriteFX, spriteBatch);
-           // if (NPC.localAI[0] == 1)
+            // if (NPC.localAI[0] == 1)
             if (HairVariant)
             {
                 DrawWithSpectralCheck(hair.Value, NPC.Center - screenPos, null, drawColor, NPC.rotation + headRot, origin, NPC.scale, spriteFX, spriteBatch);
                 EchosphereNPCHelper.DrawEchoWormBlurOld(hair.Value, NPC.Center - screenPos, NPC.Opacity * opacity, NPC.rotation + headRot, origin, NPC.scale, spriteFX);
             }
-                return false;
+            return false;
         }
         void DrawWithSpectralCheck(Texture2D texture, Vector2 drawPos, Rectangle? frame, Color drawColor, float rotation, Vector2 origin, float scale, SpriteEffects spriteFX, SpriteBatch spriteBatch)
         {
@@ -347,7 +353,7 @@ namespace TRAEProject.NewContent.NPCs.Echosphere.EchoStalker
         {
             head ??= ModContent.Request<Texture2D>("TRAEProject/NewContent/NPCs/Echosphere/EchoStalker/EchoStalkerHead");
             jaw ??= ModContent.Request<Texture2D>("TRAEProject/NewContent/NPCs/Echosphere/EchoStalker/EchoStalkerJaw");
-            hair ??=  ModContent.Request<Texture2D>("TRAEProject/NewContent/NPCs/Echosphere/EchoStalker/EchoStalkerHair");
+            hair ??= ModContent.Request<Texture2D>("TRAEProject/NewContent/NPCs/Echosphere/EchoStalker/EchoStalkerHair");
             body ??= ModContent.Request<Texture2D>("TRAEProject/NewContent/NPCs/Echosphere/EchoStalker/EchoStalkerBody");
             bodyGlow ??= ModContent.Request<Texture2D>("TRAEProject/NewContent/NPCs/Echosphere/EchoStalker/EchoStalkerBodyGlow");
             body2 ??= ModContent.Request<Texture2D>("TRAEProject/NewContent/NPCs/Echosphere/EchoStalker/EchoStalkerBody2");
@@ -421,10 +427,10 @@ namespace TRAEProject.NewContent.NPCs.Echosphere.EchoStalker
             {
                 NPC curSegment = segments[i];
                 int segmentWidth = segmentWidths[i];
-                if(curSegment == null)
+                if (curSegment == null)
                 {
                     continue;
-                }    
+                }
                 Vector2 segmentCenter = NPC.oldPos[(int)segments[i].ai[1]] + NPC.Size / 2f;
                 float rotation = (lastSegmentCenter - segmentCenter).ToRotation();
                 segmentCenter = lastSegmentCenter - rotation.ToRotationVector2() * segmentWidth;
@@ -726,7 +732,94 @@ namespace TRAEProject.NewContent.NPCs.Echosphere.EchoStalker
             }
             return result;
         }
+        public override void HitEffect(NPC.HitInfo hit)
+        {
+            if (NPC.life <= 0)
+            {
+                EchosphereNPCHelper.EchosphereEnemyDeathDust(NPC);
+                List<NPC> segments = new(5);
+                segments.Add(NPC);
+                int[] types = SegmentIDs;
 
+                for (int i = 0; i < Main.maxNPCs; i++)
+                {
+                    NPC npc = Main.npc[i];
+                    if (!npc.active)
+                    {
+                        continue;
+                    }
+                    if (types.Contains(npc.type) && npc.ai[2] == NPC.whoAmI)
+                    {
+                        segments.Add(npc);
+                    }
+                }
+                if (segments.Count > 0)
+                {
+                    for (int i = 0; i < segments.Count; i++)
+                    {
+                        NPC npc = segments[i];
+                        if (npc == null)
+                        {
+                            continue;
+                        }
+                        int[] goreTypes = GetGoreTypes(npc);
+                        if (goreTypes.Length > 0)
+                        {
+                            for (int j = 0; j < goreTypes.Length; j++)
+                            {
+                                Terraria.Gore.NewGore(npc.GetSource_Death(), npc.Center, npc.position - npc.oldPosition, goreTypes[j]);
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        static int[] GetGoreTypes(NPC npc)
+        {
+            List<int> types = new(2);
+            if (npc.type == ModContent.NPCType<EchoStalkerBody1>())
+            {
+                if (IsHairVariant(npc))
+                {
+                    types.Add(ModContent.GoreType<EchoStalkerGoreBody1Hair>());
+                    types.Add(ModContent.GoreType<EchoStalkerGoreBody1Hairless>());
+                }
+                else
+                {
+                    types.Add(ModContent.GoreType<EchoStalkerGoreBody1>());
+                }
+            }
+            else if (npc.type == ModContent.NPCType<EchoStalkerBody2>())
+            {
+                if (IsHairVariant(npc))
+                {
+                    types.Add(ModContent.GoreType<EchoStalkerGoreBody2Hair>());
+                    types.Add(ModContent.GoreType<EchoStalkerGoreBody2Hairless>());
+                }
+                else
+                {
+                    types.Add(ModContent.GoreType<EchoStalkerGoreBody2>());
+                }
+            }
+            else if (npc.type == ModContent.NPCType<EchoStalkerTail>())
+            {
+                types.Add(ModContent.GoreType<EchoStalkerGoreTail1>());
+                types.Add(ModContent.GoreType<EchoStalkerGoreTail2>());
+            }
+            else//head
+            {
+                types.Add(ModContent.GoreType<EchoStalkerGoreHeadHairless>());
+                if (IsHairVariant(npc))
+                {
+                    types.Add(ModContent.GoreType<EchoStalkerGoreHeadHair>());
+                }
+            }
+            return types.ToArray();
+        }
+        public static bool IsHairVariant(NPC echoStalkerSegment)
+        {
+            return echoStalkerSegment.localAI[0] == 1;
+        }
         internal static bool IsIdle(float headWhoAmI)
         {
             int index = (int)headWhoAmI;

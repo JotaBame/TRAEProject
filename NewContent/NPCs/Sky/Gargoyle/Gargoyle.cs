@@ -10,6 +10,7 @@ using Terraria.GameContent.Bestiary;
 using Terraria.GameContent.ItemDropRules;
 using Terraria.ID;
 using Terraria.ModLoader;
+using Terraria;
 
 namespace TRAEProject.NewContent.NPCs.Sky.Gargoyle
 {
@@ -342,11 +343,24 @@ namespace TRAEProject.NewContent.NPCs.Sky.Gargoyle
         {
             if (spawnInfo.Sky)
             {
-
                 return 0.25f;
-
             }
             return 0f;
+        }
+        public class SpawnFromStatue : GlobalTile
+        {
+            public override void HitWire(int i, int j, int type)
+            {
+                Tile tile = Main.tile[i, j];
+                if(tile.HasUnactuatedTile && tile.TileType == TileID.Statues && (tile.TileFrameX >= 504 && tile.TileFrameX <= 522) && (tile.TileFrameY<= 36 || (tile.TileFrameY >=162 && tile.TileFrameY <= 198)))
+                {
+                    int index = NPC.NewNPC(Wiring.GetNPCSource(i,j), i * 16 + 16, j * 16 + 24, ModContent.NPCType<Gargoyle>());
+                    Main.npc[index].value = 0f;
+                    Main.npc[index].npcSlots = 0f;
+                    Main.npc[index].SpawnedFromStatue = true;
+                    Main.npc[index].CanBeReplacedByOtherNPCs = true;
+                }
+            }
         }
     }
 }

@@ -42,6 +42,11 @@ namespace TRAEProject.Common.LootTableGenerator
         }
         public static void InsertLootOnChest(Item[] loot, Chest chest)
         {
+            if(chest == null)
+            {
+                TRAEProj.Instance.Logger.Warn("Attempted to fill a null chest with items!");
+                return;
+            }
             int lootAmount = loot.Length;
             for (int i = chest.item.Length - 1; i >= lootAmount; i--)
             {

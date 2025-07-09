@@ -17,8 +17,8 @@ namespace TRAEProject.NewContent.NPCs.Echosphere.EchoLeviathan
             NPC.defense = 34;
             NPC.damage = 70;
             NPC.width = NPC.height = 70;
-            NPC.HitSound = SoundID.DD2_DrakinHurt;
-            NPC.DeathSound = SoundID.NPCDeath1;
+            NPC.HitSound = EchoLeviathanHead.HitSFX;
+            NPC.DeathSound = EchoLeviathanHead.DeathSFX;
             NPC.knockBackResist = 0;
             NPC.noTileCollide = true;
             NPC.dontTakeDamage = true;//initially invincible
@@ -64,6 +64,18 @@ namespace TRAEProject.NewContent.NPCs.Echosphere.EchoLeviathan
         {
             return NPC.alpha < 240 && target.Hitbox.Intersects(Utils.CenteredRectangle(NPC.Center, new Vector2(50)));//hitbox of width and height 50 for damaging players
         }
+        public override void HitEffect(NPC.HitInfo hit)
+        {
+            if (NPC.life <= 0)
+            {
+                EchosphereNPCHelper.EchosphereEnemyDeathDust(NPC, 0.7f);
+            }
+        }
+        public override bool CheckDead()
+        {
+            int parent = (int)NPC.ai[0];
+            return parent < 0 || parent >= Main.maxNPCs || !Main.npc[parent].active || Main.npc[parent].type != ModContent.NPCType<EchoLeviathanHead>() || Main.npc[parent].life <= 0;
+        } 
         public override void ModifyHoverBoundingBox(ref Rectangle boundingBox)
         {
             if (NPC.alpha >= 254)

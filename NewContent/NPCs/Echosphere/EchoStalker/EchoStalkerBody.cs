@@ -19,6 +19,7 @@ namespace TRAEProject.NewContent.NPCs.Echosphere.EchoStalker
         {
             segment.localAI[1] = normalizedAmount;
         }
+      
         public override void SetDefaults()
         {
             NPC.friendly = false;
@@ -29,6 +30,8 @@ namespace TRAEProject.NewContent.NPCs.Echosphere.EchoStalker
             NPC.defense = 10;
             NPC.damage = 50;
             NPC.knockBackResist = 0;
+            NPC.HitSound = EchoStalkerHead.HitSFX;
+            NPC.DeathSound = EchoStalkerHead.DeathSFX;
         }
 
         public override void AI()
@@ -40,6 +43,14 @@ namespace TRAEProject.NewContent.NPCs.Echosphere.EchoStalker
                 NPC.active = false;
                 return;
             }
+        }
+        public override bool CheckDead()
+        {
+            if(InvalidHeadIndex)
+            {
+                return true;
+            }
+            return Main.npc[HeadIndex].life <= 0;
         }
         public override bool PreDraw(SpriteBatch spriteBatch, Vector2 screenPos, Color drawColor)
         {
@@ -82,6 +93,13 @@ namespace TRAEProject.NewContent.NPCs.Echosphere.EchoStalker
         public override bool? DrawHealthBar(byte hbPosition, ref float scale, ref Vector2 position)
         {
             return false;
+        }
+        public override void HitEffect(NPC.HitInfo hit)
+        {
+            if (NPC.life <= 0)
+            {
+                EchosphereNPCHelper.EchosphereEnemyDeathDust(NPC);
+            }
         }
         public override bool CheckActive()
         {

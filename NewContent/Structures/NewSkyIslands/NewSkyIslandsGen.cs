@@ -23,18 +23,18 @@ namespace TRAEProject.NewContent.Structures.NewSkyIslands
             {
                 int x = GenVars.floatingIslandHouseX[i];
                 int y = GenVars.floatingIslandHouseY[i];
-                if(x== 0  || y == 0)
+                if (x == 0 || y == 0)
                 {
                     continue;
                 }
-                if(IntersectsEchosphere(x,y, out int jIntersectAmount))
+                if (IntersectsEchosphere(x, y, out int jIntersectAmount))
                 {
                     y += jIntersectAmount;
                     GenVars.floatingIslandHouseY[i] = y;
                 }
                 if (GenVars.skyLake[i])
                 {
-                    WorldGen.CloudLake(x,y);
+                    WorldGen.CloudLake(x, y);
                 }
                 else
                 {
@@ -45,19 +45,19 @@ namespace TRAEProject.NewContent.Structures.NewSkyIslands
         }
         public static void GenerateHouses()
         {
-            List<int> indicesInGenVarsFloatingIslandHouseXYToGenHousesAt = new List<int>();
+            List<int> indicesInGenVarsFloatingIslandHouseXYToGenHousesAt = new();
             for (int i = 0; i < GenVars.floatingIslandHouseX.Length; i++)
             {
                 int x = GenVars.floatingIslandHouseX[i];
                 int y = GenVars.floatingIslandHouseY[i];
-                if (x == 0 || y == 0 || GenVars.skyLake[i])
+                if (x == 0 || y == 0 || GenVars.skyLake[i])//SkyIslandGenHelper.IsSkyLakeIndex(i, out _))
                 {
                     continue;
                 }
                 indicesInGenVarsFloatingIslandHouseXYToGenHousesAt.Add(i);
             }
-            StructureData[] houseStrData = GetHouseStructureData(out Point16[] offsets, out int[] chestToFloorOffsets, out int swordIslandIndex);
 
+            StructureData[] houseStrData = GetHouseStructureData(out Point16[] offsets, out int[] chestToFloorOffsets, out int swordIslandIndex);
             int[] houseTypes = GetHouseTypes(indicesInGenVarsFloatingIslandHouseXYToGenHousesAt.Count, swordIslandIndex, houseStrData.Length);
             Chest[] generatedChests = new Chest[indicesInGenVarsFloatingIslandHouseXYToGenHousesAt.Count];
             for (int i = 0; i < indicesInGenVarsFloatingIslandHouseXYToGenHousesAt.Count; i++)
@@ -71,8 +71,8 @@ namespace TRAEProject.NewContent.Structures.NewSkyIslands
                 Generator.GenerateFromData(houseData, genPoint);
                 int chestIndex = Chest.CreateChest(x - 2, y - chestToFloorOffsets[houseTypeToGen] - 2);
                 Chest createdChest = Main.chest[chestIndex];
-         
                 generatedChests[i] = createdChest;
+                SkyIslandGenHelper.CheckForOreAndPaintings((short)(genPoint.X + houseData.width), (short)(genPoint.Y + houseData.height), genPoint.Y, genPoint.X);
             }
 
             //ItemID.SunOrnament is the painting-like decoration "Eye of the Sun" 
@@ -109,7 +109,7 @@ namespace TRAEProject.NewContent.Structures.NewSkyIslands
                 (.5f, [(ItemID.Rope, 50, 100)]),
 
                 (2f/3, [(ItemID.Shuriken, 25, 50), (ItemID.WoodenArrow, 25,50)]),
-                
+
                 (.5f, [(ItemID.LesserHealingPotion, 3, 5)]),
 
                 (2f/3, [(ItemID.RecallPotion, 3, 5)]),
@@ -124,10 +124,111 @@ namespace TRAEProject.NewContent.Structures.NewSkyIslands
                 ];
 
             LootGenerator.PopulateChests(generatedChests, primaryLoot, secondaryLootPools, WorldGen.genRand);
+
+
+            GenerateSkyLakeChests();
+
+        }
+        public static void GenerateSkyLakeChests()
+        {
+            List<int> skyLakeIndices = new();
+            for (int i = 0; i < GenVars.floatingIslandHouseX.Length; i++)
+            {
+                //bool isLakeIndex = ;//SkyIslandGenHelper.IsSkyLakeIndex(i, out bool skipChest);
+                if (GenVars.skyLake[i])
+                {
+                    skyLakeIndices.Add(i);
+                }
+            }
+            SkyLakeChests(skyLakeIndices);
         }
 
+        private static void SkyLakeChests(List<int> skyLakeIndices)
+        {
+            if (skyLakeIndices.Count < 0)
+            {
+                return;
+            }
+            List<Chest> generatedChestsList = new();
+            for (int i = 0; i < skyLakeIndices.Count; i++)
+            {
+                int indexToGenAt = skyLakeIndices[i];
+                int x = GenVars.floatingIslandHouseX[indexToGenAt];
+                int y = GenVars.floatingIslandHouseY[indexToGenAt];
+
+                int scanDepth = 30;
+                int scanWidth = 40;
+                int[] scanXOffsets = new int[scanWidth * 2 + 1];
+                for (int k = 0; k < scanXOffsets.Length; k++)
+                {
+                    scanXOffsets[k] = k - scanWidth;
+                }
+                TRAEMethods.Shuffle(ref scanXOffsets);
+                for (int k = 0; k < scanXOffsets.Length; k++)
+                {
+                    int xOff = scanXOffsets[k];
+                    for (int l = 0; l < scanDepth; l++)
+                    {
+                        int newX = x + xOff;
+                        int newY = y + l;
+                        if (SkyIslandGenHelper.TryPlaceChest(newX, newY, out Chest placedChest))
+                        {
+                            generatedChestsList.Add(placedChest);
+                            k = scanXOffsets.Length + 1;//also break out of k loop
+                            break;
+                        }
+                    }
+                }
+            }
+
+            (int id, int min, int max)[] primaryLoot =
+              [
+              (ItemID.BreathingReed, 1, 1),
+                (ItemID.Flipper, 1, 1),
+                (ItemID.Trident, 1,1),
+                (ItemID.FloatingTube, 1, 1),
+                (ItemID.WaterWalkingBoots, 1, 1)
+              ];
+
+            (float chance, (int id, int min, int max)[] itemData)[] secondaryLootPools =
+                [
+                (1f/2, [(ItemID.SandcastleBucket, 1,1)]),
+
+                (1f/2, [(ItemID.SharkBait,1,1)]),
+
+                (1/6f, [(ItemID.Glowstick, 40, 75)]),
+
+                (1/6f, [(ItemID.ThrowingKnife, 150, 300)]),
+
+                (1/6f, [(ItemID.HerbBag, 1, 4)]),
+
+                (1/6f, [(ItemID.CanOfWorms, 1, 4)]),
+
+                (1/3f, [(ItemID.Grenade, 3, 5)]),
+
+                (.5f, [(GenVars.copperBar, 3, 10), (GenVars.ironBar, 3, 10)]),
+
+                (.5f, [(ItemID.Rope, 50, 100)]),
+
+                (2f/3, [(ItemID.Shuriken, 25, 50), (ItemID.WoodenArrow, 25,50)]),
+
+                (.5f, [(ItemID.LesserHealingPotion, 3, 5)]),
+
+                (2f/3, [(ItemID.RecallPotion, 3, 5)]),
+
+                (2f/3, [(ItemID.IronskinPotion, 1, 2), (ItemID.ShinePotion, 1, 2), (ItemID.NightOwlPotion, 1, 2), (ItemID.SwiftnessPotion, 1, 2), (ItemID.MiningPotion, 1 , 2), (ItemID.BuilderPotion, 1, 2)]),
+
+                (.5f, [(ItemID.Torch, 10, 20), (ItemID.Bottle, 10, 20)]),
+
+                (.5f, [(ItemID.SilverCoin, 10, 29)]),
+
+                (.5f, [(ItemID.Wood, 50, 99)])
+                ];
 
 
+            LootGenerator.PopulateChests(generatedChestsList.ToArray(), primaryLoot, secondaryLootPools, WorldGen.genRand);
+
+        }
 
         static int[] GetHouseTypes(int amountToGet, int swordIslandIndex, int houseTypeAmount)
         {
@@ -157,23 +258,21 @@ namespace TRAEProject.NewContent.Structures.NewSkyIslands
 
         private static List<int> GetNonSwordIslandHouseTypeIndexes(int swordIslandIndex, int houseTypeAmount)
         {
-            List<int> possibleHouseTypes = new List<int>();
+            List<int> possibleHouseTypes = new();
             for (int i = 0; i < houseTypeAmount; i++)
             {
                 if (i != swordIslandIndex)
                 {
                     possibleHouseTypes.Add(i);
                 }
-
             }
-
             return possibleHouseTypes;
         }
 
         public static bool IntersectsEchosphere(int i, int j, out int jIntersectAmount)
         {
             Rectangle echosphereBounds = EchosphereGeneratorSystem.GetTileCoordsBoundingBox();
-            Rectangle structureBounds = new Rectangle(
+            Rectangle structureBounds = new(
                 i - IslandApproxBoundingBoxWidth / 2,
                 j - IslandApproxBoundingBoxHeight / 2,
                 IslandApproxBoundingBoxWidth,
@@ -193,7 +292,7 @@ namespace TRAEProject.NewContent.Structures.NewSkyIslands
         public static bool IntersectsEchosphere(int i, int j, out int iIntersectAmount, out int jIntersectAmount)
         {
             Rectangle echosphereBounds = EchosphereGeneratorSystem.GetTileCoordsBoundingBox();
-            Rectangle structureBounds = new Rectangle(i - IslandApproxBoundingBoxWidth / 2, j - IslandApproxBoundingBoxHeight / 2, IslandApproxBoundingBoxWidth, IslandApproxBoundingBoxHeight);
+            Rectangle structureBounds = new(i - IslandApproxBoundingBoxWidth / 2, j - IslandApproxBoundingBoxHeight / 2, IslandApproxBoundingBoxWidth, IslandApproxBoundingBoxHeight);
 
             Rectangle intersection = Rectangle.Intersect(echosphereBounds, structureBounds);
 
@@ -226,7 +325,7 @@ namespace TRAEProject.NewContent.Structures.NewSkyIslands
         public static bool IntersectsEchosphere(StructureData structure, int i, int j, out int iIntersectAmount, out int jIntersectAmount)
         {
             Rectangle echosphereBounds = EchosphereGeneratorSystem.GetTileCoordsBoundingBox();
-            Rectangle structureBounds = new Rectangle(i, j, structure.width, structure.height);
+            Rectangle structureBounds = new(i, j, structure.width, structure.height);
 
             Rectangle intersection = Rectangle.Intersect(echosphereBounds, structureBounds);
 
@@ -246,7 +345,7 @@ namespace TRAEProject.NewContent.Structures.NewSkyIslands
                 }
                 else
                 {
-                    jIntersectAmount = intersection.Height;  
+                    jIntersectAmount = intersection.Height;
                 }
 
                 return true;
@@ -257,16 +356,17 @@ namespace TRAEProject.NewContent.Structures.NewSkyIslands
         }
         public static StructureData[] GetHouseStructureData(out Point16[] offsets, out int[] chestToFloorOffsets, out int swordIslandIndex)
         {
-            offsets = [new Point16(19, 12), new Point16(12, 24), new Point16(17, 18), new Point16(21, 21), new Point16(22, 20), new Point16(23, 13), new Point16(33, 18)];
+            offsets = [new Point16(19, 12), new Point16(11, 24), new Point16(17, 18), new Point16(21, 21), new Point16(22, 20), new Point16(23, 13), new Point16(33, 18)];
             chestToFloorOffsets = [18, 0, 0, 0, 8, 9, 0];
             StructureData[] result = new StructureData[offsets.Length];
             for (int i = 0; i < result.Length; i++)
             {
                 string extra = offsets[i].X.ToString() + offsets[i].Y.ToString() + chestToFloorOffsets[i].ToString();
-                result[i] = StructureHelper.API.Generator.GetStructureData("NewContent/Structures/NewSkyIslands/StructureData/NewIslandHouse" + extra, TRAEProj.Instance);
+                result[i] = StructureHelper.API.Generator.GetStructureData("NewContent/Structures/NewSkyIslands/StructureData/HOUSE_" + extra, TRAEProj.Instance);
             }
+            //todo: test if generation works
             swordIslandIndex = 6;
-            result[swordIslandIndex] = Generator.GetStructureData("NewContent/Structures/NewSkyIslands/StructureData/NewFloatingIslandSwordShrine", TRAEProj.Instance);
+            result[swordIslandIndex] = Generator.GetStructureData("NewContent/Structures/NewSkyIslands/StructureData/StarfurySkyIsland", TRAEProj.Instance);
             offsets[swordIslandIndex] = result[swordIslandIndex].HalfSize();
             return result;
         }
@@ -281,78 +381,7 @@ namespace TRAEProject.NewContent.Structures.NewSkyIslands
             swordIslandIndex = 5;
             return result;
         }
-        static void Generate_Old()
-        {
-            StructureData[] houseStrData = GetHouseStructureData(out Point16[] offsets, out int[] chestToFloorOffsets, out int swordIslandIndex);
-            List<int> nonLakeIndexes = new List<int>();
-            for (int i = 0; i < GenVars.floatingIslandHouseX.Length; i++)
-            {
-                int x = GenVars.floatingIslandHouseX[i];
-                int y = GenVars.floatingIslandHouseY[i];
-                if (x == 0 || y == 0 || GenVars.skyLake[i])
-                {
-                    continue;
-                }
-                nonLakeIndexes.Add(i);
-            }
-            int[] islandTypesToGenerate = new int[nonLakeIndexes.Count];
-            islandTypesToGenerate[0] = swordIslandIndex;
-            List<int> nonSwordIslandIndexes = new List<int>();
-            for (int i = 0; i < offsets.Length; i++)
-            {
-                if (i != swordIslandIndex)
-                {
-                    nonSwordIslandIndexes.Add(i);
-                }
-            }
-            for (int i = 1; i < islandTypesToGenerate.Length; i++)
-            {
-                int randIndex = Main.rand.Next(nonSwordIslandIndexes.Count);
-                int chosenIslandType = nonSwordIslandIndexes[randIndex];
-                nonSwordIslandIndexes.RemoveAt(randIndex);
-                islandTypesToGenerate[i] = chosenIslandType;
-            }
-            TRAEMethods.Shuffle(ref islandTypesToGenerate, WorldGen.genRand);
 
-
-            for (int i = 0; i < nonLakeIndexes.Count; i++)
-            {
-                int nonLakeIndex = nonLakeIndexes[i];
-                int islandTypeToGen = islandTypesToGenerate[i];
-
-                int x = GenVars.floatingIslandHouseX[nonLakeIndex];
-                int y = GenVars.floatingIslandHouseY[nonLakeIndex];
-                if (IntersectsEchosphere(x, y, out int iIntersectAmount, out int jIntersectAmount))
-                {
-                    y += jIntersectAmount;
-                    x += iIntersectAmount;
-                    GenVars.floatingIslandHouseX[nonLakeIndex] = x;
-                    GenVars.floatingIslandHouseY[nonLakeIndex] = y;
-                }
-                WorldGen.CloudIsland(x, y + 4);
-                StructureData strData = houseStrData[islandTypeToGen];
-                Point16 genPoint = new Point16(x, y - chestToFloorOffsets[islandTypeToGen]) - offsets[islandTypeToGen];
-                StructureHelper.API.Generator.GenerateFromData(strData, genPoint);
-            }
-            for (int i = 0; i < GenVars.floatingIslandHouseX.Length; i++)
-            {
-                int x = GenVars.floatingIslandHouseX[i];
-                int y = GenVars.floatingIslandHouseY[i];
-                if (x == 0 || y == 0 || !GenVars.skyLake[i])
-                {
-                    continue;
-                }
-                if (IntersectsEchosphere(x, y, out int iIntersectAmount, out int jIntersectAmount))
-                {
-                    y += jIntersectAmount;
-                    y += IslandApproxBoundingBoxHeight;
-                    x += iIntersectAmount;
-                    GenVars.floatingIslandHouseX[i] = x;
-                    GenVars.floatingIslandHouseY[i] = y;
-                }
-                WorldGen.CloudLake(x, y);
-            }
-        }
     }
     public class NewIskyIslandsHousesGenPass : GenPass
     {

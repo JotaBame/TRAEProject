@@ -57,19 +57,7 @@ namespace TRAEProject.NewContent.Structures.Echosphere.Generation
             //   Main.NewText("echosphere bottom right: " + EchosphereGeneratorSystem.echosphereBottomRight);
             //   int projDuration = ContentSamples.ProjectilesByType[type].timeLeft;
 
-            //Main.NewText(GenVars.skyLakes, Main.DiscoColor);
-            //for (int i = 0; i < GenVars.floatingIslandHouseX.Length; i++)
-            //{
-            //    Main.NewText(GenVars.skyLake[i], Main.DiscoColor);
-            //    Vector2 islandPos = new Vector2(GenVars.floatingIslandHouseX[i] * 16 + 8, GenVars.floatingIslandHouseY[i] * 16 + 8);
-            //    ShootMarkerTowards(position, islandPos);
-            //}
-            ShootMarkerTowards(position, EchosphereGeneratorSystem.echosphereTopLeft);
-            ShootMarkerTowards(position, EchosphereGeneratorSystem.echosphereBottomRight);
-            //Projectile.NewProjectile(null, position, ClampLength((EchosphereGeneratorSystem.echosphereTopLeft - position) / projDuration, 20), type, -1, 0, -1);
-            //Projectile.NewProjectile(null, position, ClampLength((EchosphereGeneratorSystem.echosphereBottomRight - position) / projDuration, 20), type, -1, 0, -1);
-            //Dust.QuickDust(EchosphereGeneratorSystem.echosphereBottomRight, Color.White).scale *= 5;
-            //Dust.QuickDust(EchosphereGeneratorSystem.echosphereTopLeft, Color.White).scale *= 5;
+//            NewSkyIslandsGen.GenerateSkyLakeChests();           
             return false;
             ////goal, do a flood fill on empty tiles with the null tile id
             ////then the same with walls.

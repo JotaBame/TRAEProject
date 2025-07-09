@@ -53,6 +53,13 @@ namespace TRAEProject.NewContent.Structures.Echosphere.Generation
         public override string Texture => "Terraria/Images/Item_" + ItemID.PlaceAbovetheClouds;//floating island painting
     }
     /// <summary>
+    /// PLACE ON TOP LEFT OF PAINTING SPOT
+    /// </summary>
+    public class EchosphereGenDummyPaintingTile2x3 : EchosphereGenDummyChestTile
+    {
+        public override string Texture => "Terraria/Images/Item_" + ItemID.BlessingfromTheHeavens;//floating island painting
+    }
+    /// <summary>
     /// PLACE ON TOP LEFT OF STATUE SPOT
     /// </summary>
     public class EchosphereGenDummyStatueTile : EchosphereGenDummyChestTile
@@ -94,7 +101,8 @@ namespace TRAEProject.NewContent.Structures.Echosphere.Generation
             Tile tile = Main.tile[tileCoords];
             if (player.altFunctionUse == 2)
             {
-                tile.Clear(TileDataType.All);
+                tile.ClearTile();
+                tile.ClearBlockPaintAndCoating();
                 WorldGen.PlaceTile(i, j, ModContent.TileType<EchosphereGenDummyChestTile>());
                 return false;
             }
@@ -119,7 +127,8 @@ namespace TRAEProject.NewContent.Structures.Echosphere.Generation
             Tile tile = Main.tile[tileCoords];
             if (player.altFunctionUse == 2)
             {
-                tile.Clear(TileDataType.All);
+                tile.ClearTile();
+                tile.ClearBlockPaintAndCoating();
                 WorldGen.PlaceTile(i, j, ModContent.TileType<EchosphereGenDummyStatueTile>());
                 return false;
             }
@@ -144,11 +153,38 @@ namespace TRAEProject.NewContent.Structures.Echosphere.Generation
             Tile tile = Main.tile[tileCoords];
             if (player.altFunctionUse == 2)
             {
-                tile.Clear(TileDataType.All);
+                tile.ClearTile();
+                tile.ClearBlockPaintAndCoating();
                 WorldGen.PlaceTile(i, j, ModContent.TileType<EchosphereGenDummyPaintingTile3x2>());
                 return false;
             }
             WorldGen.PlaceTile(i, j, ModContent.TileType<EchosphereGenDummyPaintingTile3x3>());
+            return false;
+        }
+    }
+    public class EchosphereGenDummyDecorPlacerItem3 : EchosphereGenDummyTilePlacerItem
+    {
+        public override string Texture => "Terraria/Images/Item_" + ItemID.RainbowMoss;
+        public override void ModifyTooltips(List<TooltipLine> tooltips)
+        {
+            tooltips[1].Text = "left click = painting 2x3, right click = print hovered tile framing";
+        }
+        public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
+        {
+            int i, j;
+            Point tileCoords = Main.MouseWorld.ToTileCoordinates();
+            i = tileCoords.X;
+            j = tileCoords.Y;
+
+            Tile tile = Main.tile[tileCoords];
+            if (player.altFunctionUse == 2)
+            {
+                //  tile.Clear(TileDataType.All);
+                //WorldGen.PlaceTile(i, j, ModContent.TileType<EchosphereGenDummyPaintingTile3x2>());
+                Main.NewText("framex: " + tile.TileFrameX + ", framey: " + tile.TileFrameY);
+                return false;
+            }
+            WorldGen.PlaceTile(i, j, ModContent.TileType<EchosphereGenDummyPaintingTile2x3>());
             return false;
         }
     }
