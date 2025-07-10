@@ -10,6 +10,7 @@ using TRAEProject.NewContent.Items.Weapons.Summoner.Whip;
 using static Terraria.ModLoader.ModContent;
 using TRAEProject.Changes.Accesory;
 using Terraria.Audio;
+using TRAEProject.NewContent.Items.Weapons.Magic.DreamEater;
 
 namespace TRAEProject.Common
 {
@@ -107,6 +108,10 @@ namespace TRAEProject.Common
 
         public override bool OnTileCollide(Projectile projectile, Vector2 oldVelocity)
         {
+
+            //if you ever want to add it back
+            //DreamEater.ShotTileCollision(projectile, oldVelocity);
+
             if (explodes && !dontExplodeOnTiles) // If you want a projectile that doesn't explode in contact with tiles, make the second variable true.//
             {
                 TRAEMethods.Explode(projectile, ExplosionRadius);
