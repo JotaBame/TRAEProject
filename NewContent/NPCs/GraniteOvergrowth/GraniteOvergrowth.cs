@@ -58,15 +58,14 @@ namespace TRAEProject.NewContent.NPCs.GraniteOvergrowth
         }
         public override float SpawnChance(NPCSpawnInfo spawnInfo)
         {
-            for (int i = 0; i < 200; i++)
+            if (!NPC.AnyNPCs(NPCType<GraniteOvergrowthNPC>()))
             {
-                if (Main.npc[i].type == NPCType<GraniteOvergrowthNPC>())
-                    return 0f;
+                if (spawnInfo.Granite && Main.hardMode && spawnInfo.SpawnTileType == TileID.Granite)
+                {
+                    return 0.08f;
+                }
             }
-            if (spawnInfo.Granite && Main.hardMode && spawnInfo.SpawnTileType == TileID.Granite)
-            {
-                return 0.08f;
-            }
+
             return 0f;
         }
         public override void ModifyNPCLoot(NPCLoot npcLoot)

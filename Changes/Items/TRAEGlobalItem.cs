@@ -41,13 +41,10 @@ namespace TRAEProject.Changes
         }
         public override void SetDefaults(Item item)
         {
-            if(item.createTile >= 0 && item.damage <=0)
-            {
-                item.useTime = 7; // down from 15
-                //item.useAnimation = 7;
-            }
+        
             switch (item.type)
             {
+                
                 case ItemID.GravityGlobe:
                     item.value = Item.sellPrice(gold: 4);
                     break;
@@ -60,8 +57,9 @@ namespace TRAEProject.Changes
                     item.useTime = 3; // down from 10
                     item.useAnimation = 3;
                     break;
-          
- 		
+                case ItemID.TitaniumPickaxe:
+                    item.useTime = 8;
+                    break;
                 case ItemID.ObsidianHorseshoe:
                     item.SetNameOverride("Gravity Horseshoe");
                     break;

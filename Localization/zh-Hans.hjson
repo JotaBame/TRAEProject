@@ -282,6 +282,7 @@ Mods: {
 			// DreamEaterShot1.DisplayName: Dream Eater Shot1
 			// MeowmereAura1.DisplayName: Meowmere Aura1
 			// MeowmereAura.DisplayName: Meowmere Aura
+			// EchoStaffProj.DisplayName: Echo Staff Proj
 		}
 
 		Prefixes: {
@@ -1673,6 +1674,16 @@ Mods: {
 				// DisplayName: Echosphere Gen Dummy Decor Placer Item2
 				// Tooltip: ""
 			}
+
+			EchosphereGenDummyDecorPlacerItem3: {
+				// DisplayName: Echosphere Gen Dummy Decor Placer Item3
+				// Tooltip: ""
+			}
+
+			EchoStaff: {
+				// DisplayName: Echo Staff
+				// Tooltip: ""
+			}
 		}
 
 		NPCs: {
@@ -1711,11 +1722,11 @@ Mods: {
 			// GriffinFlier.DisplayName: Griffin Flier
 			// GriffinWalker.DisplayName: Griffin Walker
 			// Kinnara.DisplayName: Kinnara
-			// EchoStalkerBody.DisplayName: Echo Stalker Body
-			// EchoStalkerBody1.DisplayName: Echo Stalker Body1
-			// EchoStalkerBody2.DisplayName: Echo Stalker Body2
-			// EchoStalkerHead.DisplayName: Echo Stalker Head
-			// EchoStalkerTail.DisplayName: Echo Stalker Tail
+			// EchoStalkerBody.DisplayName: Echo Stalker
+			// EchoStalkerBody1.DisplayName: Echo Stalker
+			// EchoStalkerBody2.DisplayName: Echo Stalker
+			// EchoStalkerHead.DisplayName: Echo Stalker
+			// EchoStalkerTail.DisplayName: Echo Stalker
 		}
 
 		Tiles: {

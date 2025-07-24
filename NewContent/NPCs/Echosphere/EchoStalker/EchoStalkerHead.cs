@@ -4,6 +4,7 @@ using ReLogic.Content;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection.Metadata.Ecma335;
 using Terraria;
 using Terraria.Audio;
 using Terraria.DataStructures;
@@ -65,9 +66,9 @@ namespace TRAEProject.NewContent.NPCs.Echosphere.EchoStalker
             NPC.noTileCollide = true;
             NPC.Size = new(50);
             NPC.scale = 1.2f;
-            NPC.lifeMax = 1500;
+            NPC.lifeMax = 2250;
             NPC.defense = 15;
-            NPC.damage = 70;
+            NPC.damage = 50;
             NPC.knockBackResist = 0;
             NPC.HitSound = HitSFX;
             NPC.DeathSound = DeathSFX;
@@ -80,7 +81,7 @@ namespace TRAEProject.NewContent.NPCs.Echosphere.EchoStalker
         {
 
             //NPC.localAI[0] = Main.rand.NextBool() ? -1 : 1;
-            HairVariant = Main.rand.NextBool();
+            HairVariant = Main.rand.NextBool(4);
 
             int[] types = OrderOfSegmentIDsToSpawn;
             for (int i = 1; i < types.Length + 1; i++)
@@ -90,6 +91,8 @@ namespace TRAEProject.NewContent.NPCs.Echosphere.EchoStalker
         }
         public override void AI()
         {
+     
+
             EchosphereNPCHelper.SearchForSpaceLayerPlayers(NPC);
             if (NPC.target == -1 || NPC.target >= Main.maxPlayers)
             {
@@ -118,7 +121,7 @@ namespace TRAEProject.NewContent.NPCs.Echosphere.EchoStalker
             }
             if (NPC.ai[0] >= 107 && (NPC.ai[0] - 107) % fireRate == 0 && NPC.ai[0] <= 107 + fireRate * numberOfShots)
             {
-                Vector2 projVel = NPC.DirectionTo(Main.player[NPC.target].Center) * 10;
+                Vector2 projVel = NPC.DirectionTo(Main.player[NPC.target].Center) * 9;
                 Projectile.NewProjectile(NPC.GetSource_FromAI(), MouthCenter, projVel, ModContent.ProjectileType<EchoStalkerSonicWave>(), 30, 0, Main.myPlayer, .6f);
                 for (float i = 0; i < 1; i += 1f / 40f)
                 {
@@ -154,9 +157,10 @@ namespace TRAEProject.NewContent.NPCs.Echosphere.EchoStalker
         }
         void Movement(Player player)
         {
-
-            float topSpeed = 8;
-            float acceleration = 0.3f;
+            if (NPC.velocity.Length() == 0)
+                NPC.velocity.X = 1f;
+            float topSpeed = 7.5f;
+            float acceleration = 0.35f;
             if (NPC.ai[0] >= 100 && NPC.ai[0] < 140)
             {
                 topSpeed = 3;
@@ -615,6 +619,7 @@ namespace TRAEProject.NewContent.NPCs.Echosphere.EchoStalker
                     }
                 }
             }
+      
         }
         public static void CopyItemIframesToOtherSegments(float headNPCIndex, int fromIndex, int playerIndex)
         {
@@ -692,7 +697,7 @@ namespace TRAEProject.NewContent.NPCs.Echosphere.EchoStalker
             }
             return false;
         }
-
+    
         public override bool? CanBeHitByItem(Player player, Item item)
         {
             return !IsHeadImmuneToItem(NPC.whoAmI, player.whoAmI);
@@ -703,10 +708,12 @@ namespace TRAEProject.NewContent.NPCs.Echosphere.EchoStalker
         }
         public override void OnHitByProjectile(Projectile projectile, NPC.HitInfo hit, int damageDone)
         {
+            
             CopyProjIframesToOtherSegments(NPC.whoAmI, NPC.whoAmI, projectile);
         }
         public override void OnHitByItem(Player player, Item item, NPC.HitInfo hit, int damageDone)
         {
+   
             CopyItemIframesToOtherSegments(NPC.whoAmI, NPC.whoAmI, player.whoAmI);
         }
         NPC[] SearchForBodySegments()
@@ -736,6 +743,8 @@ namespace TRAEProject.NewContent.NPCs.Echosphere.EchoStalker
         {
             if (NPC.life <= 0)
             {
+              
+              
                 EchosphereNPCHelper.EchosphereEnemyDeathDust(NPC);
                 List<NPC> segments = new(5);
                 segments.Add(NPC);
@@ -772,6 +781,9 @@ namespace TRAEProject.NewContent.NPCs.Echosphere.EchoStalker
                         }
                     }
                 }
+                NPC.life = 0;
+                 NPC.active = false;
+              
             }
         }
         static int[] GetGoreTypes(NPC npc)

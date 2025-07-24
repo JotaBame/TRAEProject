@@ -39,7 +39,7 @@ namespace TRAEProject.NewContent.NPCs.Echosphere.EchoLeviathan
         public static SoundStyle ShotSFXOld => new SoundStyle("TRAEProject/Assets/Sounds/SonicWave") with { Pitch = -0.5f, MaxInstances = 0 };//in case it is ever needed again
         public static SoundStyle ShotSFX => new("TRAEProject/NewContent/NPCs/Echosphere/EchoLeviathan/EchoLeviathanShot");
         public static SoundStyle DeathSFX => new("TRAEProject/NewContent/NPCs/Echosphere/EchoLeviathan/EchoLeviathanDeath");
-        public static SoundStyle HitSFX => EchoStalkerHead.HitSFX.WithPitchOffset(-1f);
+        public static SoundStyle HitSFX => EchoStalkerHead.HitSFX.WithPitchOffset(-0.2f).WithVolumeScale(0.5f);
         enum AIState
         {
             Spawning = 0,

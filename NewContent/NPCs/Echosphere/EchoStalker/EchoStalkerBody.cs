@@ -1,6 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Terraria;
+using Terraria.ID;
 using Terraria.ModLoader;
 
 namespace TRAEProject.NewContent.NPCs.Echosphere.EchoStalker
@@ -19,7 +20,12 @@ namespace TRAEProject.NewContent.NPCs.Echosphere.EchoStalker
         {
             segment.localAI[1] = normalizedAmount;
         }
-      
+        public override void SetStaticDefaults()
+        {
+            NPCID.Sets.ImmuneToRegularBuffs[Type] = true;
+            // DisplayName.SetDefault("Lavamander"); 
+            Main.npcFrameCount[NPC.type] = 5;
+        }
         public override void SetDefaults()
         {
             NPC.friendly = false;
@@ -32,7 +38,7 @@ namespace TRAEProject.NewContent.NPCs.Echosphere.EchoStalker
             NPC.knockBackResist = 0;
             NPC.HitSound = EchoStalkerHead.HitSFX;
             NPC.DeathSound = EchoStalkerHead.DeathSFX;
-        }
+         }
 
         public override void AI()
         {
@@ -43,6 +49,9 @@ namespace TRAEProject.NewContent.NPCs.Echosphere.EchoStalker
                 NPC.active = false;
                 return;
             }
+            int parent = (int)NPC.ai[0];
+            NPC.realLife = parent;
+
         }
         public override bool CheckDead()
         {
@@ -77,10 +86,12 @@ namespace TRAEProject.NewContent.NPCs.Echosphere.EchoStalker
         }
         public override void OnHitByProjectile(Projectile projectile, NPC.HitInfo hit, int damageDone)
         {
+    
             EchoStalkerHead.CopyProjIframesToOtherSegments(HeadIndex, NPC.whoAmI, projectile);
         }
         public override void OnHitByItem(Player player, Item item, NPC.HitInfo hit, int damageDone)
         {
+            
             EchoStalkerHead.CopyItemIframesToOtherSegments(HeadIndex, NPC.whoAmI, player.whoAmI);
         }
         void InitializeHairVariantFlagIfNeeded()
@@ -99,6 +110,8 @@ namespace TRAEProject.NewContent.NPCs.Echosphere.EchoStalker
             if (NPC.life <= 0)
             {
                 EchosphereNPCHelper.EchosphereEnemyDeathDust(NPC);
+                NPC.life = 0;
+                NPC.active = false;
             }
         }
         public override bool CheckActive()
