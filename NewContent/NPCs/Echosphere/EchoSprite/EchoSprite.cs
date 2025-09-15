@@ -127,6 +127,7 @@ namespace TRAEProject.NewContent.NPCs.Echosphere.EchoSprite
                         {
                             damage = 40;
                         }
+                        Main.NewText(projVel.Length());
                         Projectile.NewProjectile(NPC.GetSource_FromAI(), NPC.Center, projVel, projID, damage / 2, 0, Main.myPlayer);
                     }
                     //pew pew (phantasmal bolt when shot from true eoc)

@@ -1,8 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿ 
+using static Terraria.ModLoader.ModContent;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -199,6 +196,13 @@ namespace TRAEProject.Changes.Recipes
                 recipe.AddIngredient(ItemID.ChlorophyteSaber, 1);
                 recipe.AddIngredient(ItemID.SoulofMight, 20);
                 recipe.AddIngredient(ItemID.SoulofLight, 20);
+            }
+            if (recipe.HasResult(ItemID.NightsEdge) || recipe.HasResult(ItemID.VoidVault) || recipe.HasResult(ItemID.VoidLens))
+
+            {
+
+                recipe.AddIngredient(ItemType<EchoHeart>(), 2);
+
             }
             if (recipe.HasResult(ItemID.TrueNightsEdge))
             {

@@ -8,8 +8,10 @@ using System.Reflection.Metadata.Ecma335;
 using Terraria;
 using Terraria.Audio;
 using Terraria.DataStructures;
+using Terraria.GameContent.ItemDropRules;
 using Terraria.ID;
 using Terraria.ModLoader;
+using TRAEProject.NewContent.Items.Materials;
 using TRAEProject.NewContent.NPCs.Echosphere.EchoStalker.Gore;
 using TRAEProject.NewContent.Projectiles;
 
@@ -96,7 +98,7 @@ namespace TRAEProject.NewContent.NPCs.Echosphere.EchoStalker
             EchosphereNPCHelper.SearchForSpaceLayerPlayers(NPC);
             if (NPC.target == -1 || NPC.target >= Main.maxPlayers)
             {
-                NPC.dontTakeDamage = true;
+                 NPC.dontTakeDamage = true;
                 NPC.Opacity = .5f;
                 IdlingTimer += .01f;
                 NPC.velocity = Vector2.Lerp(NPC.velocity, new Vector2(MathF.Sin(IdlingTimer), MathF.Cos(IdlingTimer * 1.61f) * .75f) * 5, .1f);
@@ -151,6 +153,12 @@ namespace TRAEProject.NewContent.NPCs.Echosphere.EchoStalker
             NPC.ai[0] %= 60 * 4;//loop
             SetSegmentPositionRotationSpriteDirectionAndOpacity();
         }
+
+        public override void ModifyNPCLoot(NPCLoot npcLoot)
+        {
+            npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<EchoHeart>(), chanceDenominator:2 , minimumDropped: 1, maximumDropped: 1));
+        }
+
         static float Magnitude(Vector2 vec)
         {
             return MathF.Abs(vec.X) + MathF.Abs(vec.Y);
@@ -447,6 +455,8 @@ namespace TRAEProject.NewContent.NPCs.Echosphere.EchoStalker
                 segments[i].alpha = NPC.alpha;
                 lengthAcross += segmentWidths[i];
                 lastSegmentCenter = segmentCenter;
+                curSegment.dontTakeDamage = true;
+                curSegment.Opacity = .5f;
                 EchoStalkerBody1.SetPurpleGlowinessAmount(segments[i], purpleGlowiness);
             }
         }

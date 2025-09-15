@@ -1,11 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿ 
 using Terraria;
 using Terraria.ID;
-using Terraria.ModLoader;
+using static Terraria.ModLoader.ModContent;
+using TRAEProject.NewContent.Items.Materials;
 
 namespace TRAEProject.Changes.Recipes
 {
@@ -21,7 +18,8 @@ namespace TRAEProject.Changes.Recipes
             Sashimi.Register();
             Recipe Leather = Recipe.Create(ItemID.Leather).AddIngredient(ItemID.Vertebrae, 5).AddTile(TileID.Tables);
             Leather.Register();
-     
+            
+            Recipe ShadowKey = Recipe.Create(ItemID.ShadowKey).AddIngredient(ItemID.GoldenKey, 3).AddIngredient(ItemType<EchoHeart>()).AddTile(TileID.Tables);
             Recipe Wire = 
             Recipe.Create(ItemID.Wire, 3).
             AddIngredient(ItemID.CopperBar, 1).

@@ -2,20 +2,17 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System;
 using System.Collections.Generic;
-using System.IO;
-using Terraria;
+ using Terraria;
 using Terraria.Audio;
 using Terraria.GameContent.Bestiary;
 using Terraria.GameContent.ItemDropRules;
 using Terraria.ID;
 using Terraria.ModLoader;
-using Terraria.ModLoader.IO;
-using TRAEProject.NewContent.NPCs.Banners;
+ using TRAEProject.NewContent.NPCs.Banners;
 using TRAEProject.NewContent.Items.Materials;
 using static Terraria.ModLoader.ModContent;
 using TRAEProject.Common;
-using Terraria.Net;
-namespace TRAEProject.NewContent.NPCs.GraniteOvergrowth
+ namespace TRAEProject.NewContent.NPCs.GraniteOvergrowth
 
 {
 

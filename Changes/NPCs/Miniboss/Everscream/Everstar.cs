@@ -47,10 +47,18 @@ namespace TRAEProject.Changes.NPCs.Miniboss.Everscream
         public override void SetDefaults()
         {
                 Projectile.CloneDefaults(ProjectileID.OrnamentFriendly);
-                AIType = ProjectileID.OrnamentFriendly;
+                 AIType = ProjectileID.OrnamentFriendly;
                 Projectile.timeLeft = 120;
                 Projectile.hostile = true;
                 Projectile.friendly = false;
+        }
+        public override void AI()
+        {
+            if (Projectile.ai[0] == -1)
+            {
+                Projectile.Kill();
+            }
+
         }
         public override void OnKill(int timeLeft)
         {
@@ -71,11 +79,13 @@ namespace TRAEProject.Changes.NPCs.Miniboss.Everscream
     {
         public override void SetDefaults(Projectile projectile)
         {
+          
             if (projectile.type == ProjectileID.OrnamentHostileShrapnel)
             {
                 projectile.timeLeft = 60;
             }
         }
+  
     }
 
 }

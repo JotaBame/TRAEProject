@@ -480,6 +480,11 @@ Mods: {
 				// DisplayName: The Flys Speed
 				// Description: Mods.TRAEProject.Buffs.TheFlysSpeed.Description
 			}
+
+			EchoSense: {
+				// DisplayName: Echo Sense
+				// Description: Mods.TRAEProject.Buffs.EchoSense.Description
+			}
 		}
 
 		Items: {
@@ -1669,6 +1674,16 @@ Mods: {
 
 			EchoStaff: {
 				// DisplayName: Echo Staff
+				// Tooltip: ""
+			}
+
+			EchoHeart: {
+				// DisplayName: Echo Heart
+				// Tooltip: ""
+			}
+
+			EchoSensePotion: {
+				// DisplayName: Echo Sense Potion
 				// Tooltip: ""
 			}
 		}

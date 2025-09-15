@@ -1,8 +1,11 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using System;
 using Terraria;
+using Terraria.GameContent.ItemDropRules;
 using Terraria.ID;
 using Terraria.ModLoader;
+using TRAEProject.NewContent.Items.Materials;
 
 namespace TRAEProject.NewContent.NPCs.Echosphere.EchoStalker
 {
@@ -22,6 +25,10 @@ namespace TRAEProject.NewContent.NPCs.Echosphere.EchoStalker
         }
         public override void SetStaticDefaults()
         {
+            NPCID.Sets.NPCBestiaryDrawModifiers value = new NPCID.Sets.NPCBestiaryDrawModifiers()
+            {
+                Hide = true // Hides this NPC from the Bestiary, useful for multi-part NPCs whom you only want one entry.
+            };
             NPCID.Sets.ImmuneToRegularBuffs[Type] = true;
             // DisplayName.SetDefault("Lavamander"); 
             Main.npcFrameCount[NPC.type] = 5;
@@ -39,9 +46,13 @@ namespace TRAEProject.NewContent.NPCs.Echosphere.EchoStalker
             NPC.HitSound = EchoStalkerHead.HitSFX;
             NPC.DeathSound = EchoStalkerHead.DeathSFX;
          }
-
+        public override void ModifyNPCLoot(NPCLoot npcLoot)
+        {
+            npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<EchoHeart>(), chanceDenominator: 2, minimumDropped: 1, maximumDropped: 1));
+        }
         public override void AI()
         {
+ 
             if (InvalidHeadIndex)
             {
                 NPC.life = 0;
