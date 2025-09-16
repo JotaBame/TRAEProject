@@ -6,10 +6,14 @@ using System.Diagnostics;
 using Terraria;
 using Terraria.Audio;
 using Terraria.GameContent;
+using Terraria.GameContent.ItemDropRules;
 using Terraria.ID;
 using Terraria.ModLoader;
 using TRAEProject.Common.Verlet;
+using TRAEProject.NewContent.Items.Materials;
+using TRAEProject.NewContent.Items.Weapons.Magic.EchoStaff;
 using TRAEProject.NewContent.Projectiles.EchoSpriteProj;
+using static Terraria.ModLoader.ModContent;
 
 namespace TRAEProject.NewContent.NPCs.Echosphere.EchoSprite
 {
@@ -32,11 +36,18 @@ namespace TRAEProject.NewContent.NPCs.Echosphere.EchoSprite
             NPC.defense = 33;
             NPC.lifeMax = 400;
             NPC.scale = 1.1f;
+            NPC.value = 20 * 100f;
             NPC.noGravity = true;
             NPC.noTileCollide = true;
             InitializeVerlet();
             NPC.HitSound = SoundID.NPCHit5;
             NPC.DeathSound = SoundID.NPCDeath7;
+        }
+        public override void ModifyNPCLoot(NPCLoot npcLoot)
+        {
+            npcLoot.Add(ItemDropRule.Common(ItemType<EchoHeart>(), 2, 1, 1));
+
+            npcLoot.Add(ItemDropRule.Common(ItemType<EchoStaff>(), 25, 1, 1));
         }
         ref float TurnaroundTimer => ref NPC.ai[1];
         ref float IdleMovementTimer => ref NPC.localAI[0];

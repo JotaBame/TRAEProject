@@ -7,17 +7,28 @@ using Terraria;
 using Terraria.Audio;
 using Terraria.DataStructures;
 using Terraria.GameContent;
+using Terraria.GameContent.Bestiary;
+using Terraria.GameContent.ItemDropRules;
 using Terraria.ID;
 using Terraria.ModLoader;
+using TRAEProject.NewContent.Items.Materials;
 using TRAEProject.NewContent.NPCs.Echosphere.EchoStalker;
 using TRAEProject.NewContent.Projectiles;
 using TRAEProject.NewContent.Projectiles.EchoLeviathanPortal;
+using static Terraria.ModLoader.ModContent;
 
 namespace TRAEProject.NewContent.NPCs.Echosphere.EchoLeviathan
 {
     internal class EchoLeviathanHead : ModNPC
     {
-
+        public override void SetBestiary(BestiaryDatabase database, BestiaryEntry bestiaryEntry)
+        {
+            bestiaryEntry.Info.AddRange(new List<IBestiaryInfoElement>
+            {
+                BestiaryDatabaseNPCsPopulator.CommonTags.SpawnConditions.Biomes.Sky,
+                new FlavorTextBestiaryInfoElement("The magic that animates these statues can only remain active for a limited time. They perch in the islands in the sky, awaiting any intruders that come near.")
+            });
+        }
         static float WormMovementTopSpeed => 7;
         static float WormMovementBaseAcceleration => 0.3f;
 
@@ -86,6 +97,10 @@ namespace TRAEProject.NewContent.NPCs.Echosphere.EchoLeviathan
             NPC.alpha = 255;
             NPC.DeathSound = DeathSFX;
             NPC.HitSound = HitSFX;
+        }
+        public override void ModifyNPCLoot(NPCLoot npcLoot)
+        {
+            npcLoot.Add(ItemDropRule.Common(ItemType<EchoHeart>(), 2, 1, 1));
         }
         //REMEMBER, ONSPAWN IS ONLY CALLED SERVER SIDE
         public override void OnSpawn(IEntitySource source)

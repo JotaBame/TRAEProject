@@ -483,7 +483,7 @@ Mods: {
 
 			EchoSense: {
 				DisplayName: Echo Sense
-				Description: Mods.TRAEProject.Buffs.EchoSense.Description
+				Description: Shows the location of enemy and friendly projectiles
 			}
 		}
 
@@ -1693,17 +1693,17 @@ Mods: {
 
 			EchoStaff: {
 				DisplayName: Echo Staff
-				Tooltip: ""
+				Tooltip: Shoots a double helix wave projectile
 			}
 
 			EchoHeart: {
 				DisplayName: Echo Heart
-				Tooltip: ""
+				Tooltip: "'You can feel echoing within'"
 			}
 
 			EchoSensePotion: {
 				DisplayName: Echo Sense Potion
-				Tooltip: ""
+				Tooltip: Shows the location of enemy and friendly projectiles
 			}
 		}
 

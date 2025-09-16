@@ -251,6 +251,8 @@ namespace TRAEProject.NewContent.NPCs.Sky.Kinnara
         public override void ModifyNPCLoot(NPCLoot npcLoot)
         {
             npcLoot.Add(ItemDropRule.Common(ItemID.Feather, 2));
+            npcLoot.Add(ItemDropRule.Common(ItemID.ChickenNugget, 50));
+
             npcLoot.Add(new DropBasedOnExpertMode(new CommonDrop(ItemID.SoulofFlight, 100, 1, 1, 33), new CommonDrop(ItemID.SoulofFlight, 100, 1, 1, 44)));
         }
         public override bool PreDraw(SpriteBatch spriteBatch, Vector2 screenPos, Color drawColor)

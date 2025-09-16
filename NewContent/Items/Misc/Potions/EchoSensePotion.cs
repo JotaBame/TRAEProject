@@ -59,16 +59,23 @@ namespace TRAEProject.NewContent.Items.Misc.Potions
   
         public override Color? GetAlpha(Projectile projectile, Color lightColor)
         {
-            if (Main.LocalPlayer.HasBuff(BuffType<EchoSense>()) && projectile.hostile && projectile.damage > 0 && projectile.alpha < 255)
+            if (Main.LocalPlayer.HasBuff<EchoSense>() && projectile.alpha < 255 && projectile.damage > 0)
             {
- 
-                     return Color.Pink;
+                if (projectile.hostile && !projectile.friendly)
+                {
 
-              
+                    return Color.BlueViolet; 
+                }
+                if (!projectile.hostile && projectile.friendly)
+                {
+
+                    return Color.Pink;
+                }
             }
+
             return null;
-        }   
+        }
 
 
-}
+    }
 }

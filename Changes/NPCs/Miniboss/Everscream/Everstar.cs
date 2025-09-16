@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
+using static System.Net.Mime.MediaTypeNames;
 
 namespace TRAEProject.Changes.NPCs.Miniboss.Everscream
 {
@@ -14,17 +15,36 @@ namespace TRAEProject.Changes.NPCs.Miniboss.Everscream
     {
         public override void SetDefaults()
         {
-            Projectile.CloneDefaults(ProjectileID.OrnamentStar);
-            AIType = ProjectileID.OrnamentStar;
-            Projectile.hostile = true;
-            Projectile.friendly = false;
+             Projectile.hostile = true;
+             Projectile.width = 22;
+            Projectile.height = 22;
+
         }
         public override void AI()
         {
-            if(Projectile.ai[0] < 0)
+              float num262 = 100f;
+            float num263 = num262 - 50f;
+            if (Main.rand.Next(Math.Max(4, 8 - (int)Projectile.velocity.Length())) == 0)
             {
-                Projectile.velocity = Projectile.velocity.SafeNormalize(-Vector2.UnitY) * 6;
+                int num264 = 5;
+                int num265 = Dust.NewDust(Projectile.position + new Vector2(num264, num264), Projectile.width - num264 * 2, Projectile.height - num264 * 2, 43, 0f, 0f, 254, new Color(255, 255, 0));
+                Main.dust[num265].velocity = Projectile.velocity * 0.75f;
             }
+            if (Projectile.ai[0] > num263)
+            {
+                Projectile.velocity *= 0.9f;
+                Projectile.rotation *= 0.9f;
+            }
+            else
+            {
+                Projectile.rotation += 0.2f;
+                if (Projectile.rotation > (float)Math.PI * 2f)
+                {
+                    Projectile.rotation -= (float)Math.PI * 2f;
+                }
+            }
+            float num266 = Projectile.ai[0];
+            Projectile.ai[0]++;
             if (Projectile.ai[0] < 50 && Projectile.ai[0] % 10f == 0f)
             {
                 float num248 = MathF.PI / 2f * (float)((Projectile.ai[0] % 20f != 0f) ? 1 : (-1));
@@ -35,6 +55,15 @@ namespace TRAEProject.Changes.NPCs.Miniboss.Everscream
                 v *= Math.Max(2.5f, (50f - Projectile.ai[0]) / 50f * (7f + (-2f + (float)Main.rand.Next(2) * 2f)));
                 int num249 = Projectile.NewProjectile(Projectile.GetSource_FromAI(), Projectile.Center, v, ModContent.ProjectileType<Ornament>(), Projectile.damage, Projectile.knockBack * 0.25f, Projectile.owner, 0f, Main.rand.Next(4));
             }
+            if (num266 <= num263 && Projectile.ai[0] > num263)
+            {
+                Projectile.netUpdate = true;
+            }
+            if (Projectile.ai[0] > num262)
+            {
+                Projectile.Kill();
+            }
+ 
 
         }
     }

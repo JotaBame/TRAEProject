@@ -30,6 +30,7 @@ namespace TRAEProject.NewContent.NPCs.Sky.Gargoyle
             NPC.noGravity = true;
             NPC.width = 50;
             NPC.height = 50;
+            NPC.value = 7 * 100;
             NPC.HitSound = SoundID.Tink;
             NPC.DeathSound = SoundID.NPCDeath43;
 
@@ -329,7 +330,7 @@ namespace TRAEProject.NewContent.NPCs.Sky.Gargoyle
         }
         public override void ModifyNPCLoot(NPCLoot npcLoot)
         {
-            npcLoot.Add(ItemDropRule.Common(ItemID.PotatoChips, 20));
+            npcLoot.Add(ItemDropRule.Common(ItemID.PotatoChips, 15));
         }
         public override void SetBestiary(BestiaryDatabase database, BestiaryEntry bestiaryEntry)
         {
