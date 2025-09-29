@@ -21,6 +21,9 @@
     <None Remove="NewContent\Items\Weapons\Magic\DreamEater\ExperimentalShader\SquareShader.fx" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="NewContent\Items\Weapons\Melee\Stormbreaker\Stormbreaker.cs" />
+  </ItemGroup>
+  <ItemGroup>
     <PackageReference Include="tModLoader.CodeAssist" Version="0.1.*" />
   </ItemGroup>
   <ItemGroup>

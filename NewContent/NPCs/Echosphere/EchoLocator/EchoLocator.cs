@@ -1,11 +1,15 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System;
+using System.Collections.Generic;
 using Terraria;
 using Terraria.Audio;
 using Terraria.GameContent;
+using Terraria.GameContent.Bestiary;
+using Terraria.GameContent.ItemDropRules;
 using Terraria.ID;
 using Terraria.ModLoader;
+using TRAEProject.NewContent.Items.Materials;
 
 namespace TRAEProject.NewContent.NPCs.Echosphere.EchoLocator
 {
@@ -43,7 +47,19 @@ namespace TRAEProject.NewContent.NPCs.Echosphere.EchoLocator
                 NPC.ai[2] = value.Y;
             }
         }
+        public override void SetBestiary(BestiaryDatabase database, BestiaryEntry bestiaryEntry)
+        {
+            bestiaryEntry.Info.AddRange(new List<IBestiaryInfoElement>
+            {
+                BestiaryDatabaseNPCsPopulator.CommonTags.SpawnConditions.Biomes.Sky,
+                new FlavorTextBestiaryInfoElement("An evolved species of Illuminant Bats, created when one finds its way into the surface. They can use their excess solar energy for bursts of speed.")
+            });
+        }
         bool JustStartedIdling { get => NPC.localAI[0] == 1; set => NPC.localAI[0] = value ? 1 : 0; }
+        public override void ModifyNPCLoot(NPCLoot npcLoot)
+        {
+            npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<EchoHeart>(), 3, 1));
+        }
         public override void AI()
         {
             float maxSpeedX = 5;
@@ -316,7 +332,6 @@ namespace TRAEProject.NewContent.NPCs.Echosphere.EchoLocator
         public override bool PreDraw(SpriteBatch spriteBatch, Vector2 screenPos, Color drawColor)
         {
             Texture2D texture = TextureAssets.Npc[Type].Value;
-
             if (NPC.Opacity != 1)
             {
                 EchosphereNPCHelper.SpectralDrawMinusOneIsNoFlip(NPC, spriteBatch, screenPos, texture);

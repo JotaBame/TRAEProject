@@ -19,7 +19,7 @@ namespace TRAEProject.NewContent.NPCs.Echosphere.EchoStalker
         {
             segment.localAI[1] = normalizedAmount;
         }
-      
+
         public override void SetDefaults()
         {
             NPC.friendly = false;
@@ -30,6 +30,7 @@ namespace TRAEProject.NewContent.NPCs.Echosphere.EchoStalker
             NPC.defense = 10;
             NPC.damage = 50;
             NPC.knockBackResist = 0;
+            NPC.aiStyle = -1;
             NPC.HitSound = EchoStalkerHead.HitSFX;
             NPC.DeathSound = EchoStalkerHead.DeathSFX;
         }
@@ -46,7 +47,7 @@ namespace TRAEProject.NewContent.NPCs.Echosphere.EchoStalker
         }
         public override bool CheckDead()
         {
-            if(InvalidHeadIndex)
+            if (InvalidHeadIndex)
             {
                 return true;
             }

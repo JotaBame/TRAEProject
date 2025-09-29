@@ -207,11 +207,11 @@ namespace TRAEProject.Changes.Weapons
                 velocity.Normalize();  
                 float shootSpeed = item.shootSpeed;
 
-                player.PickAmmo(player.inventory[player.selectedItem], out type, out shootSpeed, out damage, out knockback, out var usedAmmoItemId, true);
-                velocity *= shootSpeed;
+                
  
                 Vector2 perturbedSpeed = velocity.RotatedByRandom(MathHelper.ToRadians(10) * player.GetModPlayer<RangedStats>().spreadModifier);
-
+                player.PickAmmo(player.inventory[player.selectedItem], out type, out shootSpeed, out damage, out knockback, out var usedAmmoItemId, true);
+                velocity *= shootSpeed;
 
                 Projectile.NewProjectile(source, position, perturbedSpeed, type, damage, knockback, player.whoAmI);
                 return false;
@@ -251,7 +251,7 @@ namespace TRAEProject.Changes.Weapons
             {
                 for (int num131 = 0; num131 < 6; num131++)
                 {
-                    Vector2 perturbedSpeed = new Vector2(velocity.X, velocity.Y).RotatedByRandom(MathHelper.ToRadians(11f /*14f is practically the same as vanilla spread, this is intentionally lowered to 11f*/) * player.GetModPlayer<RangedStats>().spreadModifier); // 
+                    Vector2 perturbedSpeed = new Vector2(velocity.X, velocity.Y).RotatedByRandom(MathHelper.ToRadians(11f /*14f is the vanilla spread, this is intentionally lowered to 11f*/) * player.GetModPlayer<RangedStats>().spreadModifier); // 
                      Projectile.NewProjectile(source, position, perturbedSpeed, type, damage, knockback, player.whoAmI);
                  }
                 return false;

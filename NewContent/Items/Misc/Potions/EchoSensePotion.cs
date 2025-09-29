@@ -63,13 +63,14 @@ namespace TRAEProject.NewContent.Items.Misc.Potions
             {
                 if (projectile.hostile && !projectile.friendly)
                 {
+                    return Color.Pink * projectile.Opacity;
 
-                    return Color.BlueViolet; 
                 }
                 if (!projectile.hostile && projectile.friendly)
                 {
+                    return Color.LightGreen * projectile.Opacity;
 
-                    return Color.Pink;
+
                 }
             }
 

@@ -7,12 +7,12 @@ using System.Linq;
 using Terraria;
 using Terraria.Audio;
 using Terraria.DataStructures;
-using TRAEProject.NewContent.Items.Materials;
-
+using Terraria.GameContent.Bestiary;
 using Terraria.GameContent.ItemDropRules;
 using Terraria.ID;
 using Terraria.ModLoader;
- using TRAEProject.NewContent.NPCs.Echosphere.EchoStalker.Gore;
+using TRAEProject.NewContent.Items.Materials;
+using TRAEProject.NewContent.NPCs.Echosphere.EchoStalker.Gore;
 using TRAEProject.NewContent.Projectiles;
 using static Terraria.ModLoader.ModContent;
 
@@ -54,6 +54,14 @@ namespace TRAEProject.NewContent.NPCs.Echosphere.EchoStalker
         {
             NPCID.Sets.TrailCacheLength[Type] = 100;
             NPCID.Sets.TrailingMode[Type] = 3;
+            var drawModifier = new NPCID.Sets.NPCBestiaryDrawModifiers()
+            { // Influences how the NPC looks in the Bestiary
+                CustomTexturePath = "TRAEProject/NewContent/NPCs/Echosphere/EchoStalker/EchoStalker_Bestiary", // If the NPC is multiple parts like a worm, a custom texture for the Bestiary is encouraged.
+                Position = new Vector2(40f, 24f),
+                PortraitPositionXOverride = 0f,
+                PortraitPositionYOverride = 12f
+            };
+            NPCID.Sets.NPCBestiaryDrawOffset.Add(NPC.type, drawModifier);
             if (!Main.dedServ)
             {
                 TextureLoading();
@@ -62,6 +70,7 @@ namespace TRAEProject.NewContent.NPCs.Echosphere.EchoStalker
         Vector2 MouthCenter { get => NPC.Center + new Vector2(0, 4); }
         ref float IdlingTimer => ref NPC.localAI[2];
         public static int SegmentCount => 5;
+
         public override void SetDefaults()
         {
             NPC.friendly = false;
@@ -80,9 +89,18 @@ namespace TRAEProject.NewContent.NPCs.Echosphere.EchoStalker
         }
         public override void ModifyNPCLoot(NPCLoot npcLoot)
         {
-            npcLoot.Add(ItemDropRule.Common(ItemType<EchoHeart>(), 2, 1, 1));
+            npcLoot.Add(ItemDropRule.Common(ItemType<EchoHeart>(), 3, 1, 1));
 
-         }
+        }
+        public override void SetBestiary(BestiaryDatabase database, BestiaryEntry bestiaryEntry)
+        {
+            bestiaryEntry.Info.AddRange(new List<IBestiaryInfoElement>
+           {
+               BestiaryDatabaseNPCsPopulator.CommonTags.SpawnConditions.Biomes.Sky,
+               new FlavorTextBestiaryInfoElement("Blind serpents with powerful Sonar Screams, they relentlessly hunt anything that comes near the asteroids that form their territory.")
+           });
+        }
+        
         static int[] OrderOfSegmentIDsToSpawn => [ModContent.NPCType<EchoStalkerBody1>(),
                ModContent.NPCType<EchoStalkerBody2>(), ModContent.NPCType<EchoStalkerBody2>(),
              ModContent.NPCType<EchoStalkerTail>()];
@@ -163,7 +181,6 @@ namespace TRAEProject.NewContent.NPCs.Echosphere.EchoStalker
         {
             return MathF.Abs(vec.X) + MathF.Abs(vec.Y);
         }
-        
         void Movement(Player player)
         {
 
@@ -455,10 +472,6 @@ namespace TRAEProject.NewContent.NPCs.Echosphere.EchoStalker
                 segments[i].alpha = NPC.alpha;
                 lengthAcross += segmentWidths[i];
                 lastSegmentCenter = segmentCenter;
-                if (NPC.target == -1 || NPC.target >= Main.maxPlayers)
-                {
-                    curSegment.dontTakeDamage = true;
-                }
                 EchoStalkerBody1.SetPurpleGlowinessAmount(segments[i], purpleGlowiness);
             }
         }

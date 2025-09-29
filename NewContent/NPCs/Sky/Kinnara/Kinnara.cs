@@ -1,8 +1,10 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System;
+using System.Collections.Generic;
 using Terraria;
 using Terraria.GameContent;
+using Terraria.GameContent.Bestiary;
 using Terraria.GameContent.ItemDropRules;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -65,7 +67,14 @@ namespace TRAEProject.NewContent.NPCs.Sky.Kinnara
             NPC.spriteDirection = -NPC.direction;
 
         }
-
+        public override void SetBestiary(BestiaryDatabase database, BestiaryEntry bestiaryEntry)
+        {
+            bestiaryEntry.Info.AddRange(new List<IBestiaryInfoElement>
+            {
+                BestiaryDatabaseNPCsPopulator.CommonTags.SpawnConditions.Biomes.Sky,
+                new FlavorTextBestiaryInfoElement("Elite Harpies, their bright green feathers and exotic armor embodies their beauty, grace, and accomplishment")
+            });
+        }
         private void SpreadShot_SimpleRandom(Player player)
         {
             Vector2 velocity = NPC.DirectionTo(player.Center).RotatedByRandom(1.2f) * 5;//5 is shootspeed, 1.2f is max spread
@@ -251,6 +260,9 @@ namespace TRAEProject.NewContent.NPCs.Sky.Kinnara
         public override void ModifyNPCLoot(NPCLoot npcLoot)
         {
             npcLoot.Add(ItemDropRule.Common(ItemID.Feather, 2));
+            npcLoot.Add(ItemDropRule.Common(ItemID.GiantHarpyFeather, 100));
+            npcLoot.Add(ItemDropRule.Common(ItemID.SoulofFlight, 3));
+
             npcLoot.Add(ItemDropRule.Common(ItemID.ChickenNugget, 50));
 
             npcLoot.Add(new DropBasedOnExpertMode(new CommonDrop(ItemID.SoulofFlight, 100, 1, 1, 33), new CommonDrop(ItemID.SoulofFlight, 100, 1, 1, 44)));

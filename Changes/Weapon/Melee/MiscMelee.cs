@@ -10,6 +10,7 @@ using static Terraria.ModLoader.ModContent;
 using Terraria.DataStructures;
 using TRAEProject.Changes.Prefixes;
 using System;
+using TRAEProject.NewContent.Items.Weapons.Melee.Stormbreaker;
 
 namespace TRAEProject.Changes.Weapon.Melee
 {
@@ -20,6 +21,11 @@ namespace TRAEProject.Changes.Weapon.Melee
         public override GlobalItem Clone(Item item, Item itemClone)
         {
             return base.Clone(item, itemClone);
+        }
+        public override void SetStaticDefaults()
+        {
+            ItemID.Sets.ShimmerTransformToItem[ItemID.Anchor] = ItemType<Stormbreaker>();
+ 
         }
         public override void SetDefaults(Item item)
         {

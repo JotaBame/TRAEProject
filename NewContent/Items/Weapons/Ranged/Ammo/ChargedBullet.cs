@@ -75,10 +75,9 @@ namespace TRAEProject.NewContent.Items.Weapons.Ranged.Ammo
             if (Projectile.ai[1] == 1)
             {
 
-                Vector2 ProjectilePosition = Projectile.position;
-                int dust = Dust.NewDust(ProjectilePosition, 1, 1, DustID.Electric, 0f, 0f, 0, default, 1f);
+                 int dust = Dust.NewDust(Projectile.position, 1, 1, DustID.Electric, 0f, 0f, 0, default, 1f);
                 Main.dust[dust].noGravity = true;
-                Main.dust[dust].position = ProjectilePosition;
+                Main.dust[dust].position = Projectile.position;
                 Main.dust[dust].velocity *= 0.2f;
             }
         }

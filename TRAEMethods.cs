@@ -80,15 +80,16 @@ namespace TRAEProject
                 float y = Base.Y - Main.rand.Next((int)(spreadY * 0.8), (int)(spreadY * 1.2));
                 ///
                 //Calculate Velocity
-                Vector2 vector17 = new Vector2(x2, y);
-                float X = Base.X - vector17.X;
-                float Y = Base.Y + (Main.rand.Next(offsetCenter) * 100) - vector17.Y;
+                Vector2 Position = new Vector2(x2, y);
+                float X = Base.X - Position.X;
+                float Y = Base.Y + (Main.rand.Next(offsetCenter) * 100) - Position.Y;
                 float squareRoot =  MathF.Sqrt(X * X + Y * Y);
                 squareRoot = velocity / squareRoot;
                 X *= squareRoot;
                 Y *= squareRoot;
-                ///
-                // Spawn the projectile
+                /// 
+                
+      
                 int Projectile = Terraria.Projectile.NewProjectile(Player.GetSource_ItemUse(Player.HeldItem), x2, y, X, Y, type, damage, knockback, player);
                 // once the projectile reaches the base's position, it will no longer go through tiles.
                 Main.projectile[Projectile].localAI[1] += Base.Y;

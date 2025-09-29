@@ -9,6 +9,19 @@ namespace TRAEProject.NewContent.NPCs.Echosphere.EchoLeviathan
 {
     internal class EchoLeviathanTail : ModNPC
     {
+        public override void SetStaticDefaults()
+        {
+
+            NPCID.Sets.SpecificDebuffImmunity[Type][BuffID.Confused] = true;
+            ;
+
+            NPCID.Sets.NPCBestiaryDrawModifiers value = new NPCID.Sets.NPCBestiaryDrawModifiers()
+            {
+                
+                Hide = true // Hides this NPC from the Bestiary, useful for multi-part NPCs whom you only want one entry.
+            };
+            NPCID.Sets.NPCBestiaryDrawOffset.Add(NPC.type, value);
+        }
         public ref float PurpleGlowinessAmount => ref NPC.localAI[1];
         public override void SetDefaults()
         {

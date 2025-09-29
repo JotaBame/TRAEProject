@@ -296,6 +296,11 @@ using TRAEProject.Common;
     {
         public override void SetStaticDefaults()
         {
+            NPCID.Sets.NPCBestiaryDrawModifiers value = new NPCID.Sets.NPCBestiaryDrawModifiers()
+            {
+                Hide = true // Hides this NPC from the Bestiary, useful for multi-part NPCs whom you only want one entry.
+            };
+            NPCID.Sets.NPCBestiaryDrawOffset.Add(NPC.type, value);
             // DisplayName.SetDefault("Granite Core"); // Automatic from .lang files
         }
         public override void SetDefaults()

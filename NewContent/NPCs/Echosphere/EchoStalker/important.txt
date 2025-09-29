@@ -1,0 +1,66 @@
+public override void SetStaticDefaults()
+{
+    NPCID.Sets.TrailCacheLength[Type] = 100;
+    NPCID.Sets.TrailingMode[Type] = 3;
+    var drawModifier = new NPCID.Sets.NPCBestiaryDrawModifiers()
+    { // Influences how the NPC looks in the Bestiary
+        CustomTexturePath = "TRAEProject/NewContent/NPCs/Echosphere/EchoStalker/EchoStalker_Bestiary", // If the NPC is multiple parts like a worm, a custom texture for the Bestiary is encouraged.
+        Position = new Vector2(40f, 24f),
+        PortraitPositionXOverride = 0f,
+        PortraitPositionYOverride = 12f
+    };
+    NPCID.Sets.NPCBestiaryDrawOffset.Add(NPC.type, drawModifier);
+    if (!Main.dedServ)
+    {
+        TextureLoading();
+    }
+}
+Vector2 MouthCenter { get => NPC.Center + new Vector2(0, 4); }
+ref float IdlingTimer => ref NPC.localAI[2];
+public static int SegmentCount => 5;
+public static SoundStyle HitSFX => new("TRAEProject/NewContent/NPCs/Echosphere/EchoStalker/EchoStalkerHit");
+        public static SoundStyle DeathSFX => new("TRAEProject/NewContent/NPCs/Echosphere/EchoStalker/EchoStalkerDeath");
+public override void SetDefaults()
+{
+    NPC.friendly = false;
+    NPC.noGravity = true;
+    NPC.noTileCollide = true;
+    NPC.Size = new(50);
+    NPC.scale = 1.2f;
+    NPC.lifeMax = 1500;
+    NPC.defense = 15;
+    NPC.damage = 70;
+    NPC.value = 100 * 10;
+
+    NPC.knockBackResist = 0;
+    NPC.HitSound = HitSFX;
+    NPC.DeathSound = DeathSFX;
+}
+public override void ModifyNPCLoot(NPCLoot npcLoot)
+{
+    npcLoot.Add(ItemDropRule.Common(ItemType<EchoHeart>(), 3, 1, 1));
+
+ }     
+   public override void SetBestiary(BestiaryDatabase database, BestiaryEntry bestiaryEntry)
+       {
+           bestiaryEntry.Info.AddRange(new List<IBestiaryInfoElement>
+           {
+               BestiaryDatabaseNPCsPopulator.CommonTags.SpawnConditions.Biomes.Sky,
+               new FlavorTextBestiaryInfoElement("Blind serpents with powerful Sonar Screams, they relentlessly hunt anything that comes near the asteroids that form their territory.")
+           });
+       }
+	   
+	   
+	        public override void SetStaticDefaults()
+        {
+            // DisplayName.SetDefault("Obsidian Basilisk");
+       
+            NPCID.Sets.SpecificDebuffImmunity[Type][BuffID.Confused] = true;
+ ;
+
+            NPCID.Sets.NPCBestiaryDrawModifiers value = new NPCID.Sets.NPCBestiaryDrawModifiers()
+            {
+                Hide = true // Hides this NPC from the Bestiary, useful for multi-part NPCs whom you only want one entry.
+            };
+            NPCID.Sets.NPCBestiaryDrawOffset.Add(NPC.type, value);
+        }

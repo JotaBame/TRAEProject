@@ -21,14 +21,7 @@ namespace TRAEProject.NewContent.NPCs.Echosphere.EchoLeviathan
 {
     internal class EchoLeviathanHead : ModNPC
     {
-        public override void SetBestiary(BestiaryDatabase database, BestiaryEntry bestiaryEntry)
-        {
-            bestiaryEntry.Info.AddRange(new List<IBestiaryInfoElement>
-            {
-                BestiaryDatabaseNPCsPopulator.CommonTags.SpawnConditions.Biomes.Sky,
-                new FlavorTextBestiaryInfoElement("The magic that animates these statues can only remain active for a limited time. They perch in the islands in the sky, awaiting any intruders that come near.")
-            });
-        }
+ 
         static float WormMovementTopSpeed => 7;
         static float WormMovementBaseAcceleration => 0.3f;
 
@@ -79,8 +72,15 @@ namespace TRAEProject.NewContent.NPCs.Echosphere.EchoLeviathan
         const float Phi = 1.61803398875f;
         public override void SetStaticDefaults()
         {
-          //  NPCID.Sets.TrailCacheLength[Type] = 300;//12 per advance
-          //  NPCID.Sets.TrailingMode[Type] = 0;//every three frames position is stored. counted with localai3!! Don't use localai3 in echo leviathan code!!
+            var drawModifier = new NPCID.Sets.NPCBestiaryDrawModifiers()
+            { // Influences how the NPC looks in the Bestiary
+                CustomTexturePath = "TRAEProject/NewContent/NPCs/Echosphere/EchoLeviathan/EchoLeviathan_Bestiary", // If the NPC is multiple parts like a worm, a custom texture for the Bestiary is encouraged.
+                 Position = new Vector2(40f, 24f),
+                PortraitPositionXOverride = 40f,
+                PortraitPositionYOverride = 12f
+            };
+            NPCID.Sets.NPCBestiaryDrawOffset.Add(NPC.type, drawModifier);
+
         }
         public override void SetDefaults()
         {
@@ -100,7 +100,17 @@ namespace TRAEProject.NewContent.NPCs.Echosphere.EchoLeviathan
         }
         public override void ModifyNPCLoot(NPCLoot npcLoot)
         {
-            npcLoot.Add(ItemDropRule.Common(ItemType<EchoHeart>(), 2, 1, 1));
+            npcLoot.Add(ItemDropRule.Common(ItemType<EchoHeart>(), 1, 3, 3));
+            npcLoot.Add(ItemDropRule.Common(ItemType<EchoRectrix>(), 8, 1));
+
+        }
+        public override void SetBestiary(BestiaryDatabase database, BestiaryEntry bestiaryEntry)
+        {
+            bestiaryEntry.Info.AddRange(new List<IBestiaryInfoElement>
+            {
+                BestiaryDatabaseNPCsPopulator.CommonTags.SpawnConditions.Biomes.Sky,
+                new FlavorTextBestiaryInfoElement("")
+            });
         }
         //REMEMBER, ONSPAWN IS ONLY CALLED SERVER SIDE
         public override void OnSpawn(IEntitySource source)

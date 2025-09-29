@@ -15,6 +15,14 @@ namespace TRAEProject.NewContent.NPCs.Sky.Griffin
         static float TransformationMinDist => 200f;
         public override void SetStaticDefaults()
         {
+            NPCID.Sets.SpecificDebuffImmunity[Type][BuffID.Confused] = true;
+            ;
+
+            NPCID.Sets.NPCBestiaryDrawModifiers value = new NPCID.Sets.NPCBestiaryDrawModifiers()
+            {
+                Hide = true // Hides this NPC from the Bestiary, useful for multi-part NPCs whom you only want one entry.
+            };
+            NPCID.Sets.NPCBestiaryDrawOffset.Add(NPC.type, value);
             Main.npcFrameCount[Type] = 4;
         }
         public override void SetDefaults()

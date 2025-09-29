@@ -2,10 +2,12 @@
 using Microsoft.Xna.Framework.Graphics;
 using ReLogic.Content;
 using System;
+using System.Collections.Generic;
 using System.Diagnostics;
 using Terraria;
 using Terraria.Audio;
 using Terraria.GameContent;
+using Terraria.GameContent.Bestiary;
 using Terraria.GameContent.ItemDropRules;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -56,6 +58,14 @@ namespace TRAEProject.NewContent.NPCs.Echosphere.EchoSprite
         {
             Tile tile = Main.tile[(int)(worldPos.X / 16), (int)(worldPos.Y / 16)];
             return tile.HasTile && tile.HasUnactuatedTile && Main.tileSolid[tile.TileType] && !Main.tileSolidTop[tile.TileType];
+        }
+        public override void SetBestiary(BestiaryDatabase database, BestiaryEntry bestiaryEntry)
+        {
+            bestiaryEntry.Info.AddRange(new List<IBestiaryInfoElement>
+            {
+                BestiaryDatabaseNPCsPopulator.CommonTags.SpawnConditions.Biomes.Sky,
+                new FlavorTextBestiaryInfoElement("Magic creature that roams the upper bounds of the atmosphere. Inspired by the architecture of the world below, it has taken upon itself to decorate the asteroids of the Echosphere.")
+            });
         }
         public override void AI()
         {

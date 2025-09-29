@@ -12,11 +12,13 @@ using TRAEProject.Common;
 using TRAEProject.Common.ModPlayers;
 using TRAEProject.NewContent.TRAEDebuffs;
 using TRAEProject.NewContent.NPCs;
-using Terraria.Net;
+using Terraria;
 using Terraria.Chat;
 using Terraria.DataStructures;
 using System.Collections.Generic;
 using Terraria.Localization;
+using TRAEProject.NewContent.Items.Weapons.Melee.Stormbreaker;
+using static TRAEProject.NewContent.Items.Weapons.Melee.Stormbreaker.Stormbreaker;
 
 namespace TRAEProject.Changes.Weapon.Melee
 {
@@ -54,7 +56,7 @@ namespace TRAEProject.Changes.Weapon.Melee
 
 
              ProjectileID.Sets.YoyosLifeTimeMultiplier[ProjectileID.HelFire] = -1f;
-
+            
             ProjectileID.Sets.YoyosMaximumRange[ProjectileID.TheEyeOfCthulhu] = 500f; // 
 
             ProjectileID.Sets.YoyosMaximumRange[ProjectileID.Kraken] = 300f; //
@@ -215,6 +217,8 @@ namespace TRAEProject.Changes.Weapon.Melee
         Vector2 spawnCenter = new Vector2(0, 0);
         public override bool PreAI(Projectile projectile)
         {
+    
+
             if (projectile.type == ProjectileID.TrueNightsEdge)
             {
                 float num = 50f;

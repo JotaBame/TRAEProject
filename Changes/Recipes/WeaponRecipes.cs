@@ -201,7 +201,7 @@ namespace TRAEProject.Changes.Recipes
 
             {
 
-                recipe.AddIngredient(ItemType<EchoHeart>(), 2);
+                recipe.AddIngredient(ItemType<EchoHeart>(), 3);
 
             }
             if (recipe.HasResult(ItemID.TrueNightsEdge))
