@@ -68,7 +68,7 @@ namespace TRAEProject.NewContent.Items.Misc.Potions
                 }
                 if (!projectile.hostile && projectile.friendly)
                 {
-                    return Color.LightGreen * projectile.Opacity;
+                    return Color.Teal * projectile.Opacity;
 
 
                 }

@@ -286,6 +286,7 @@ Mods: {
 			// FullMoonP.DisplayName: Full Moon P
 			// StormbreakerP.DisplayName: Stormbreaker P
 			// WingspanP.DisplayName: Wingspan P
+			// SonicRocket.DisplayName: Sonic Rocket
 		}
 
 		Prefixes: {
@@ -1709,6 +1710,31 @@ Mods: {
 				// DisplayName: War Fan
 				// Tooltip: Throws razor sharp feathers that ignore 10 points of enemy defense
 			}
+
+			LeviathanWings: {
+				// DisplayName: Leviathan Wings
+				// Tooltip: ""
+			}
+
+			EchoHunterChestplate: {
+				// DisplayName: Echo Hunter Chestplate
+				// Tooltip: ""
+			}
+
+			EchoHunterGreaves: {
+				// DisplayName: Echo Hunter Greaves
+				// Tooltip: ""
+			}
+
+			EchoHunterHelmet: {
+				// DisplayName: Echo Hunter Helmet
+				// Tooltip: ""
+			}
+
+			SonicBoom: {
+				// DisplayName: Sonic Boom
+				// Tooltip: ""
+			}
 		}
 
 		NPCs: {
@@ -1735,19 +1761,19 @@ Mods: {
 			PrimeRail.DisplayName: Riel Mayor
 			PrimeMace.DisplayName: Maza Mayor
 			PrimeLauncher.DisplayName: Lanzador Mayor
-			// EchoLeviathanBody1.DisplayName: Echo Leviathan
-			// EchoLeviathanBody2.DisplayName: Echo Leviathan
-			// EchoLeviathanBody3.DisplayName: Echo Leviathan
-			// EchoLeviathanHead.DisplayName: Echo Leviathan
-			// EchoLeviathanTail.DisplayName: Echo Leviathan
-			// EchoLocator.DisplayName: Echo Locator
-			// EchoSprite.DisplayName: Echo Sprite
-			// EchoStalker.DisplayName: Echo Stalker
-			// Gargoyle.DisplayName: Gargoyle
-			// GriffinFlier.DisplayName: Griffin
-			// GriffinWalker.DisplayName: Griffin
-			// Kinnara.DisplayName: Kinnara
-			// EchoStalkerBody.DisplayName: Echo Stalker
+			EchoLeviathanBody1.DisplayName: Eco Leviatán
+			EchoLeviathanBody2.DisplayName: Eco Leviatán
+			EchoLeviathanBody3.DisplayName: Eco Leviatán
+			EchoLeviathanHead.DisplayName: Eco Leviatán
+			EchoLeviathanTail.DisplayName: Eco Leviatán
+			EchoLocator.DisplayName: Eco Locador
+			EchoSprite.DisplayName: Eco Sprite
+			EchoStalker.DisplayName: Eco Acechador
+			Gargoyle.DisplayName: Gárgola
+			GriffinFlier.DisplayName: Grifo
+			GriffinWalker.DisplayName: Grifo
+			Kinnara.DisplayName: Kinnara
+			EchoStalkerBody.DisplayName: Echo Acechador
 			// EchoStalkerBody1.DisplayName: Echo Stalker
 			// EchoStalkerBody2.DisplayName: Echo Stalker
 			// EchoStalkerHead.DisplayName: Echo Stalker

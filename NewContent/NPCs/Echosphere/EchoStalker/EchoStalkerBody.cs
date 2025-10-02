@@ -37,6 +37,8 @@ namespace TRAEProject.NewContent.NPCs.Echosphere.EchoStalker
 
         public override void AI()
         {
+            int parent = (int)NPC.ai[0];
+
             if (InvalidHeadIndex)
             {
                 NPC.life = 0;
@@ -44,6 +46,8 @@ namespace TRAEProject.NewContent.NPCs.Echosphere.EchoStalker
                 NPC.active = false;
                 return;
             }
+            NPC.realLife = parent;
+
         }
         public override bool CheckDead()
         {

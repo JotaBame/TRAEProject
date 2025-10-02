@@ -286,6 +286,7 @@ Mods: {
 			FullMoonP.DisplayName: Full Moon P
 			StormbreakerP.DisplayName: Stormbreaker P
 			WingspanP.DisplayName: Wingspan P
+			SonicRocket.DisplayName: Sonic Rocket
 		}
 
 		Prefixes: {
@@ -1727,6 +1728,31 @@ Mods: {
 			Wingspan: {
 				DisplayName: War Fan
 				Tooltip: Throws razor sharp feathers that ignore 10 points of enemy defense
+			}
+
+			LeviathanWings: {
+				DisplayName: Leviathan Wings
+				Tooltip: ""
+			}
+
+			EchoHunterChestplate: {
+				DisplayName: Echo Hunter Chestplate
+				Tooltip: ""
+			}
+
+			EchoHunterGreaves: {
+				DisplayName: Echo Hunter Greaves
+				Tooltip: ""
+			}
+
+			EchoHunterHelmet: {
+				DisplayName: Echo Hunter Helmet
+				Tooltip: ""
+			}
+
+			SonicBoom: {
+				DisplayName: Sonic Boom
+				Tooltip: ""
 			}
 		}
 
