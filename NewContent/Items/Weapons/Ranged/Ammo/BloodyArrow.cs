@@ -93,6 +93,8 @@ namespace TRAEProject.NewContent.Items.Weapons.Ranged.Ammo
         {
             Projectile.timeLeft = 120;
             Projectile.CloneDefaults(ProjectileID.CursedDartFlame);
+            Projectile.alpha = 0; 
+            
         }
         public override void AI()
         {

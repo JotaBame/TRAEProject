@@ -68,7 +68,7 @@ namespace TRAEProject.Changes.Weapon.Melee
                     item.crit = 11;
                     return;
                 case ItemID.Sunfury:
-                    item.damage = 19;
+                    item.damage = 28;
                     item.crit = 0;
                     return;    
 				case ItemID.Flairon:

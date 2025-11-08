@@ -10,7 +10,7 @@ namespace TRAEProject.NewContent.Items.Materials
         public override void SetStaticDefaults()
         {
 
-            CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 3;
+            CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
         }
 
         public override void SetDefaults()

@@ -26,7 +26,7 @@ namespace TRAEProject.NewContent.Items.Weapons.Ranged.Ammo
             Item.rare = ItemRarityID.Yellow;
             Item.width = 12;
             Item.height = 15;
-            Item.shootSpeed = 6;
+            Item.shootSpeed = 0;
             Item.consumable = true;
             Item.ammo = AmmoID.Rocket;
             Item.maxStack = 9999;

@@ -303,9 +303,16 @@ namespace TRAEProject.Changes
 
         public override void OnHitNPC(Item item, Player player, NPC target, NPC.HitInfo hit, int damageDone)
         {
-            if (player.inferno)
+            if (player.HasBuff(BuffID.WeaponImbueCursedFlames) && hit.DamageType == DamageClass.Melee)
             {
-                if (player.inferno)
+                target.AddBuff(BuffID.CursedInferno, Main.rand.Next(9 * 60, 12 * 60));
+            }
+            if (player.HasBuff(BuffID.WeaponImbueVenom) && hit.DamageType == DamageClass.Melee)
+            {
+                target.AddBuff(BuffID.Venom, Main.rand.Next(9 * 60, 12 * 60));
+            }
+
+            if (player.inferno)
                 {
                     Lighting.AddLight((int)(target.Center.X / 16f), (int)(target.Center.Y / 16f), 0.65f, 0.4f, 0.1f);
                     int OnFireID = 24;
@@ -360,7 +367,7 @@ namespace TRAEProject.Changes
                             }
                         }
                     }
-                }
+                
             }
         }
         /// SHOOT STUFF

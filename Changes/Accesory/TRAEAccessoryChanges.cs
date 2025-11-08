@@ -111,8 +111,16 @@ namespace TRAEProject.Changes.Accesory
                     player.kbGlove = false;
                     player.meleeScaleGlove = false;
                     break;
+                case ItemID.MoonCharm:
+                    if (player.statLife < player.statLifeMax2 * 0.67)
+                    {
+                        player.buffImmune[BuffID.Werewolf] = true;
+                    }
+                    player.GetModPlayer<AccesoryEffects>().wErewolf = true;
+                    player.wolfAcc = false;
+                    break;
                 case ItemID.MoonShell:
-                    if (player.statLife > player.statLifeMax2 * 0.67)
+                    if (player.statLife < player.statLifeMax2 * 0.67)
                     {
                         player.buffImmune[BuffID.Werewolf] = true;
                     }
@@ -121,10 +129,7 @@ namespace TRAEProject.Changes.Accesory
                         player.AddBuff(BuffID.IceBarrier, 1, false);
                     player.wolfAcc = false;
                     break;
-                case ItemID.MoonCharm:
-                    player.GetModPlayer<AccesoryEffects>().wErewolf = true;
-                    player.wolfAcc = false;
-                    break;
+            
                 // CELESTIAL STONE CHANGES
                 case ItemID.CelestialStone:
                     CelestialStoneStats(player);
@@ -139,31 +144,17 @@ namespace TRAEProject.Changes.Accesory
                             CelestialStoneStats(player);
 
                         }
-                        else if (player.statLife < player.statLifeMax2 * 0.75)
-                        {
-                            player.pickSpeed -= 1.1f;
-                            player.GetDamage<GenericDamageClass>() += 0.04f;
-                            player.statDefense += 2;
-                            player.lifeRegen++;
-
-                        }
+     
                     }
                     break;
                 case ItemID.SunStone:             
                     player.skyStoneEffects = false;
                     {
-                        if (player.statLife > player.statLifeMax2 * 0.75)
+                        if (player.statLife > player.statLifeMax2 * 0.5)
                         {
                             CelestialStoneStats(player);
                         }
-                        else if (player.statLife > player.statLifeMax2 * 0.5)
-                        {
-                            player.pickSpeed -= 1.1f;
-                            player.GetDamage<GenericDamageClass>() += 0.04f;
-                            player.statDefense += 2;
-                            player.lifeRegen++;
-
-                        }
+                
           
                        
                     }
@@ -564,7 +555,8 @@ namespace TRAEProject.Changes.Accesory
                     {
                         if (line.Mod == "Terraria" && line.Name == "Tooltip0")
                         {
-                            line.Text = "Turns the holder into a werewolf when below 67% health";
+                            line.Text = "Turns the holder into a werewolf when below 67% health\n" +
+                                "Werewolf form grants 16% increased movement and jump speed, 7% increased damage and melee speed and 3% increased critical strike chance";
                         }
                     }
                     break;
@@ -573,7 +565,9 @@ namespace TRAEProject.Changes.Accesory
                     {
                         if (line.Mod == "Terraria" && line.Name == "Tooltip0")
                         {
-                            line.Text = "Turns the holder into a werewolf when below 67% life and into a merfolk when entering water\nPuts a shell around the owner when below 50% life";
+                            line.Text = "Turns the holder into a werewolf when above 67% life and into a merfolk when entering water" +
+                                "\nPuts a shell around the owner when below 50% life" +
+                                "\nWerewolf form grants 16% increased movement and jump speed, 7% increased damage and melee speed and 3% increased critical strike chance";
                         }
                     }
                     break;
@@ -586,7 +580,7 @@ namespace TRAEProject.Changes.Accesory
                         }
                         if (line.Mod == "Terraria" && line.Name == "Tooltip1")
                         {
-                            line.Text = "Maxes out above 75% life:";
+                            line.Text = "Maxes out above 50% life:";
                         }
                         if (line.Mod == "Terraria" && line.Name == "Tooltip2")
                         {

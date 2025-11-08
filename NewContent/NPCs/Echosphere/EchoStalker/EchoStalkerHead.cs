@@ -12,6 +12,7 @@ using Terraria.GameContent.ItemDropRules;
 using Terraria.ID;
 using Terraria.ModLoader;
 using TRAEProject.NewContent.Items.Materials;
+using TRAEProject.NewContent.NPCs.Banners;
 using TRAEProject.NewContent.NPCs.Echosphere.EchoStalker.Gore;
 using TRAEProject.NewContent.Projectiles;
 using static Terraria.ModLoader.ModContent;
@@ -85,12 +86,17 @@ namespace TRAEProject.NewContent.NPCs.Echosphere.EchoStalker
 
             NPC.knockBackResist = 0;
             NPC.HitSound = HitSFX;
-            NPC.DeathSound = DeathSFX;
+            NPC.DeathSound = DeathSFX; 
+            BannerItem = ItemType<EchoStalkerBanner>();
+
         }
         public override void ModifyNPCLoot(NPCLoot npcLoot)
         {
-            npcLoot.Add(ItemDropRule.Common(ItemType<EchoHeart>(), 3, 1, 1));
-
+            npcLoot.Add(ItemDropRule.Common(ItemType<EchoHeart>(), 1, 1, 1));
+            if (Main.hardMode)
+            {
+                npcLoot.Add(ItemDropRule.Common(ItemID.MoonStone, 20, 1, 1));
+            }
         }
         public override void SetBestiary(BestiaryDatabase database, BestiaryEntry bestiaryEntry)
         {
@@ -408,42 +414,7 @@ namespace TRAEProject.NewContent.NPCs.Echosphere.EchoStalker
                 }
             }
         }
-        void DrawBody(Vector2 screenPos, Color drawColor)
-        {
-            GetSegmentDrawParams(screenPos, out Vector2 origin, out int segments, out Vector2[] positions, out SpriteEffects[] directions, out float[] rotations, out Color[] colors);
-
-            for (int i = segments - 1; i >= 1; i--)
-            {
-                Texture2D texture = body.Value;
-                Texture2D glow = bodyGlow.Value;
-                if (i == segments - 1)
-                {
-                    texture = tail.Value;
-                    glow = tailGlow.Value;
-                }
-                else if (i > 2)
-                {
-                    texture = body2.Value;
-                    glow = body2Glow.Value;
-                }
-                Vector2 drawPos = positions[i];
-                SpriteEffects spriteDir = directions[i];
-                float rotation = rotations[i];
-                rotation -= MathF.PI / 2;
-                Color segmentDrawColor = colors[i];
-                if (NPC.dontTakeDamage)
-                {
-                    EchosphereNPCHelper.SpectralDraw(Main.spriteBatch, NPC.Opacity, NPC.scale, rotation, drawPos, texture, spriteDir, null, origin);
-                    EchosphereNPCHelper.SpectralDraw(Main.spriteBatch, NPC.Opacity, NPC.scale, rotation, drawPos, glow, spriteDir, null, origin);
-                }
-                else
-                {
-                    Main.EntitySpriteDraw(texture, drawPos, null, segmentDrawColor, rotation, origin, NPC.scale, spriteDir);
-                    Main.EntitySpriteDraw(glow, drawPos, null, segmentDrawColor, rotation, origin, NPC.scale, spriteDir);
-                }
-                DrawGlowy(glow, drawPos, origin, spriteDir, rotation);
-            }
-        }
+ 
         void SetSegmentPositionRotationSpriteDirectionAndOpacity()
         {
             NPC[] segments = SearchForBodySegments();
@@ -811,11 +782,10 @@ namespace TRAEProject.NewContent.NPCs.Echosphere.EchoStalker
                 if (IsHairVariant(npc))
                 {
                     types.Add(ModContent.GoreType<EchoStalkerGoreBody1Hair>());
-                    types.Add(ModContent.GoreType<EchoStalkerGoreBody1Hairless>());
                 }
                 else
                 {
-                    types.Add(ModContent.GoreType<EchoStalkerGoreBody1>());
+                    types.Add(ModContent.GoreType<EchoStalkerGoreBody1Hairless>());
                 }
             }
             else if (npc.type == ModContent.NPCType<EchoStalkerBody2>())
@@ -823,11 +793,10 @@ namespace TRAEProject.NewContent.NPCs.Echosphere.EchoStalker
                 if (IsHairVariant(npc))
                 {
                     types.Add(ModContent.GoreType<EchoStalkerGoreBody2Hair>());
-                    types.Add(ModContent.GoreType<EchoStalkerGoreBody2Hairless>());
                 }
                 else
                 {
-                    types.Add(ModContent.GoreType<EchoStalkerGoreBody2>());
+                    types.Add(ModContent.GoreType<EchoStalkerGoreBody2Hairless>());
                 }
             }
             else if (npc.type == ModContent.NPCType<EchoStalkerTail>())

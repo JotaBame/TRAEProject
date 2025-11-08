@@ -43,8 +43,7 @@ namespace TRAEProject
         }
         public override void PostUpdate()
         {
-
-            Player.lifeSteal -= 13f / 30f; // this stat increases by 0.5f every frame, or by 30 per second. with this change it goes down to 4 per second.
+             Player.lifeSteal -= 13f / 30f; // this stat increases by 0.5f every frame, or by 30 per second. with this change it goes down to 4 per second.
 
             if (Player.lifeSteal > 4)
             {
@@ -102,7 +101,7 @@ namespace TRAEProject
                 Player.wereWolf = true;
                 Player.GetDamage<GenericDamageClass>() += 0.07f;
                 Player.GetCritChance<GenericDamageClass>() += 3;
-                Player.GetAttackSpeed(DamageClass.Melee) += 0.16f;
+                Player.GetAttackSpeed(DamageClass.Melee) += 0.07f;
                 Player.moveSpeed += 0.16f;
                 Player.jumpSpeedBoost = Mobility.JSV(0.16f);
 

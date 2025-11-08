@@ -3,6 +3,7 @@ using Microsoft.Xna.Framework.Graphics;
 using System;
 using System.Collections.Generic;
 using Terraria;
+using Terraria;
 using Terraria.Audio;
 using Terraria.DataStructures;
 using Terraria.GameContent;
@@ -10,7 +11,7 @@ using Terraria.GameContent.Bestiary;
 using Terraria.GameContent.ItemDropRules;
 using Terraria.ID;
 using Terraria.ModLoader;
-using Terraria;
+using TRAEProject.NewContent.NPCs.Banners;
 
 namespace TRAEProject.NewContent.NPCs.Sky.Gargoyle
 {
@@ -33,6 +34,7 @@ namespace TRAEProject.NewContent.NPCs.Sky.Gargoyle
             NPC.value = 7 * 100;
             NPC.HitSound = SoundID.Tink;
             NPC.DeathSound = SoundID.NPCDeath43;
+            BannerItem = ModContent.ItemType<GargoyleBanner>();
 
             NPC.knockBackResist = 0.05f;
         }

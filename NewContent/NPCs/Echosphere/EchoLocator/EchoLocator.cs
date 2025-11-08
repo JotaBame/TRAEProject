@@ -10,6 +10,7 @@ using Terraria.GameContent.ItemDropRules;
 using Terraria.ID;
 using Terraria.ModLoader;
 using TRAEProject.NewContent.Items.Materials;
+using TRAEProject.NewContent.NPCs.Banners;
 
 namespace TRAEProject.NewContent.NPCs.Echosphere.EchoLocator
 {
@@ -32,7 +33,8 @@ namespace TRAEProject.NewContent.NPCs.Echosphere.EchoLocator
             NPC.damage = 70;
             NPC.DeathSound = DeathSFX;//ban edited at/mouse death sound
             NPC.HitSound = SoundID.NPCHit1;//common organic hit sound
-            NPC.noGravity = true;
+            NPC.noGravity = true; 
+            ModContent.ItemType<EchoLocatorBanner>();
         }
         static int RegularStateDuration => 300;
         static int FastStateDuration => 300;
@@ -59,6 +61,8 @@ namespace TRAEProject.NewContent.NPCs.Echosphere.EchoLocator
         public override void ModifyNPCLoot(NPCLoot npcLoot)
         {
             npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<EchoHeart>(), 3, 1));
+            npcLoot.Add(ItemDropRule.Common(ItemID.MoonStone, 50, 1, 1));
+
         }
         public override void AI()
         {

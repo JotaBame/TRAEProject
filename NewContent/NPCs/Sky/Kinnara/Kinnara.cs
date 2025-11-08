@@ -9,6 +9,7 @@ using Terraria.GameContent.ItemDropRules;
 using Terraria.ID;
 using Terraria.ModLoader;
 using TRAEProject.Changes.NPCs.Boss.Plantera;
+using TRAEProject.NewContent.NPCs.Banners;
 using TRAEProject.NewContent.Projectiles.KinnaraFeather;
 
 namespace TRAEProject.NewContent.NPCs.Sky.Kinnara
@@ -32,7 +33,8 @@ namespace TRAEProject.NewContent.NPCs.Sky.Kinnara
             NPC.lifeMax = 300;
             NPC.damage = 80;
             NPC.knockBackResist = 0.4f;
-            NPC.noGravity = true;
+            NPC.noGravity = true; BannerItem = ModContent.ItemType<GriffinBanner>();
+
         }
         public override void AI()
         {
@@ -72,7 +74,7 @@ namespace TRAEProject.NewContent.NPCs.Sky.Kinnara
             bestiaryEntry.Info.AddRange(new List<IBestiaryInfoElement>
             {
                 BestiaryDatabaseNPCsPopulator.CommonTags.SpawnConditions.Biomes.Sky,
-                new FlavorTextBestiaryInfoElement("Elite Harpies, their bright green feathers and exotic armor embodies their beauty, grace, and accomplishment")
+                new FlavorTextBestiaryInfoElement("Elite Harpies, their bright green feathers and exotic armor embodies their beauty and rank")
             });
         }
         private void SpreadShot_SimpleRandom(Player player)

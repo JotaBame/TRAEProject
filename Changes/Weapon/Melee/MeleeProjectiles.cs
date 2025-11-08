@@ -562,12 +562,11 @@ namespace TRAEProject.Changes.Weapon.Melee
             Player player = Main.player[projectile.owner];
   
  
-                if ((projectile.type == ProjectileID.HelFire || projectile.type == ProjectileID.Sunfury) && projectile.ai[2] == 0)
+                if ((projectile.type == ProjectileID.HelFire && projectile.ai[2] == 0) || (projectile.type == ProjectileID.Sunfury && projectile.ai[1] == 1 ))
             {
                 projectile.ai[2] = 1;
-                int damage = projectile.damage / 2;
-                if (projectile.type == ProjectileID.Sunfury)
-                    damage *= 2; // flail projectile's base damage is half of what's stated in the tooltip
+                int damage = projectile.damage / 2; // damage is 25% for sunfury
+                
                 Projectile.NewProjectile(projectile.GetSource_FromThis(), projectile.Center, Vector2.Zero, ModContent.ProjectileType<HelAura>(), damage, projectile.knockBack / 2, projectile.owner, projectile.whoAmI);
             }
             if (projectile.counterweight)

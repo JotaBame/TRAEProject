@@ -1,11 +1,14 @@
 
 using Microsoft.Xna.Framework;
+using System;
 using Terraria;
 using Terraria.ID;
 using Terraria.Map;
 using Terraria.ModLoader;
 using TRAEProject.NewContent.Items.Accesories;
 using TRAEProject.NewContent.Items.Materials;
+using TRAEProject.NewContent.Items.Weapons.Ranged.Ammo;
+using static System.Net.Mime.MediaTypeNames;
 using static Terraria.ModLoader.ModContent;
 
 namespace TRAEProject.NewContent.Items.Misc.Potions
@@ -27,12 +30,12 @@ namespace TRAEProject.NewContent.Items.Misc.Potions
             Item.consumable = true;
             Item.width = 16;
             Item.height = 32;
-            Item.rare = 4;
+            Item.rare = 2;
             Item.buffType = BuffType<EchoSense>();
             Item.buffTime = 60 * 60 * 5;
             Item.value = 2000;
         }
- 
+
         public override void AddRecipes()
         {
             CreateRecipe(4)
@@ -49,34 +52,51 @@ namespace TRAEProject.NewContent.Items.Misc.Potions
         public override void SetStaticDefaults()
         {
             Main.debuff[Type] = false;
-             Main.buffNoSave[Type] = false;
+            Main.buffNoSave[Type] = false;
         }
-    
+
     }
- 
+
     public class EchoSenseProjectile : GlobalProjectile
     {
-  
-        public override Color? GetAlpha(Projectile projectile, Color lightColor)
+        static Color ClampColor(Color colorToClamp, int minR, int minG, int minB)
         {
-            if (Main.LocalPlayer.HasBuff<EchoSense>() && projectile.alpha < 255 && projectile.damage > 0)
+            if (colorToClamp.R < minR)
             {
-                if (projectile.hostile && !projectile.friendly)
-                {
-                    return Color.Pink * projectile.Opacity;
-
-                }
-                if (!projectile.hostile && projectile.friendly)
-                {
-                    return Color.Teal * projectile.Opacity;
-
-
-                }
+                colorToClamp.R = (byte)minR;
             }
-
-            return null;
+            if (colorToClamp.G < minG)
+            {
+                colorToClamp.G = (byte)minG;
+            }
+            if (colorToClamp.B < minB)
+            {
+                colorToClamp.B = (byte)minB;
+            }
+            return colorToClamp;
         }
 
+        public override void Load()
+        {
+            On_Projectile.GetAlpha += ProjHunterPotionEffect;
+        }
 
+        private Color ProjHunterPotionEffect(On_Projectile.orig_GetAlpha orig, Projectile self, Color newColor)
+        {
+
+            if (self.damage <= 0 || self.alpha >= 255 || !Main.LocalPlayer.HasBuff<EchoSense>())
+            {
+                return orig(self, newColor);
+            }
+            if (self.hostile && !self.friendly)
+            {
+                newColor = ClampColor(newColor, 255, 50, 50);
+            }
+            else if (!self.hostile && self.friendly)
+            {
+                newColor = ClampColor(newColor, 50, 255, 50);
+            }
+            return orig(self, newColor);
+        }
     }
 }

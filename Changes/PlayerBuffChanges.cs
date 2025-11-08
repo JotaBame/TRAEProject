@@ -210,7 +210,15 @@ namespace TRAEProject
         }
         public override void OnHitNPC(Projectile projectile, NPC target, NPC.HitInfo hit, int damageDone)
         {
-            Player player = Main.player[projectile.owner]; 
+            Player player = Main.player[projectile.owner];
+            if (player.HasBuff(BuffID.WeaponImbueCursedFlames) && hit.DamageType == DamageClass.Melee)
+            {
+                target.AddBuff(BuffID.CursedInferno, Main.rand.Next(9 * 60, 12 * 60 ) );
+            }
+            if (player.HasBuff(BuffID.WeaponImbueVenom) && hit.DamageType == DamageClass.Melee)
+            {
+                target.AddBuff(BuffID.Venom, Main.rand.Next(9* 60, 12 * 60));
+            }
             if (player.inferno && InfernoHits < 3)
             {
                 InfernoHits += 1;
@@ -223,9 +231,9 @@ namespace TRAEProject
                     RingDamage = 1;
                 }
                 int dustsToMake = 5 + damageDone / 10;
-                if(dustsToMake > 600)
+                if(dustsToMake > 150)
                 {
-                    dustsToMake = 600;
+                    dustsToMake = 150;
                 }
                 for (int i = 0; i < dustsToMake; i++)
                 {

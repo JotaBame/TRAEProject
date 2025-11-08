@@ -15,6 +15,7 @@ using static Terraria.ModLoader.ModContent;
 using TRAEProject.Changes.Armor;
 using TRAEProject.Common;
 using TRAEProject.NewContent.Items.Weapons.Summoner.TailWhip;
+using TRAEProject.NewContent.Items.Weapons.Summoner.Echolalia;
 
 namespace TRAEProject.NewContent.Items.Weapons.Summoner.Whip
 {
@@ -217,6 +218,30 @@ namespace TRAEProject.NewContent.Items.Weapons.Summoner.Whip
                     dust5.velocity += value2 * 2f;
                 }
                 Lighting.AddLight(r5.Center.ToVector2(), new Vector3(0.1f, 0f, 0f));
+
+                return false;
+            }
+            if (Projectile.type == ProjectileType<EcholaliaP>())
+            {
+                float t4 = Projectile.ai[0] / timeToFlyOut;
+                float num7 = Utils.GetLerpValue(0.1f, 0.7f, t4, clamped: true) * Utils.GetLerpValue(0.9f, 0.7f, t4, clamped: true);
+                if (!(num7 > 0.1f) || !(Main.rand.NextFloat() < num7 / 2f))
+                {
+                    return false;
+                }
+                Projectile.WhipPointsForCollision.Clear();
+                FillWhipControlPoints(Projectile, Projectile.WhipPointsForCollision);
+                Rectangle r5 = Utils.CenteredRectangle(Projectile.WhipPointsForCollision[Projectile.WhipPointsForCollision.Count - 1], new Vector2(30f, 30f));
+                Vector2 value2 = Projectile.WhipPointsForCollision[Projectile.WhipPointsForCollision.Count - 2].DirectionTo(Projectile.WhipPointsForCollision[Projectile.WhipPointsForCollision.Count - 1]).SafeNormalize(Vector2.Zero);
+                for (int j = 0; j < 4; j++)
+                {
+
+                    Dust dust5 = Dust.NewDustDirect(r5.TopLeft(), r5.Width, r5.Height, DustID.PinkTorch, 0f, 0f, 0, default(Color), 1.5f);
+                    dust5.noGravity = true;
+                    dust5.velocity += value2 * 2f;
+                }
+ 
+                Lighting.AddLight(r5.Center.ToVector2(), new Vector3(0.1f, 0.1f, 0f));
 
                 return false;
             }

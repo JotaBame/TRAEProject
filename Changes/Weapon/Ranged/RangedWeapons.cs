@@ -14,6 +14,7 @@ using TRAEProject.Common.ModPlayers;
 using TRAEProject.NewContent.Items.Weapons.Ranged.Ammo;
 using Humanizer;
 using TRAEProject.Changes.NPCs.Boss.Plantera;
+using TRAEProject.Changes.Projectiles;
 
 namespace TRAEProject.Changes.Weapons
 {
@@ -36,17 +37,25 @@ namespace TRAEProject.Changes.Weapons
                     item.shootSpeed = 12f; // up from 6
                     item.autoReuse = true;
                     return;
-
-
+                case ItemID.Bone:
+                item.damage = 31; // up from 20
+                    item.useTime = 17; // up from 12
+                        item.useAnimation = 17;
+                    item.knockBack = 4f; // up from 2.8
+                    item.autoReuse = true;
+                    item.shoot = ProjectileID.BoneGloveProj;
+                        break;
                 case ItemID.Harpoon:
                     item.shoot = ProjectileType<Harpoon>();
                     item.shootSpeed = 22f;
                     item.useAnimation = 36;
                     item.useTime = 36;
                     return;
-
-
-                case ItemID.Revolver:
+                case ItemID.RedRyder:
+                    item.damage = 36; // up from 21
+                    item.crit = 3; 
+                    break;
+                 case ItemID.Revolver:
                     item.damage = 25; // up from 20
                     item.value = Item.buyPrice(gold: 25);
                     return;
@@ -68,45 +77,48 @@ namespace TRAEProject.Changes.Weapons
                     item.rare = ItemRarityID.Green;
 
                     break;
+                case ItemID.BloodRainBow:
+                    item.shootSpeed = 12f;
+                    item.shoot = ProjectileID.WoodenArrowFriendly;
+                    break;
                 case ItemID.BeesKnees:
                     item.damage = 19; // down from 23
                     item.useAnimation = 25; // up from 23
                     item.useTime = 25; // up from 23
-                    return;
+                    break;
                 case ItemID.QuadBarrelShotgun:
                     item.damage = 19; // down from 21
                     item.value = Item.buyPrice(gold: 90);
 
 
-                    return;
+                    break;
                 case ItemID.SuperStarCannon:
                     item.damage = 95; // up from 60
                     item.useAnimation = 16; // down from 16
                     item.useTime = 16;
-                    return;
+                    break;
                 case ItemID.Gatligator:
                     item.damage = 18; // down from 21
 
                     item.useTime = 6; // down from 7
                     item.useAnimation = 6;
-                    return;
+                    break;
                 case ItemID.Uzi:
                     item.damage = 22; // down from 30
                     item.value = Item.buyPrice(gold: 75);
                     item.rare = ItemRarityID.LightRed;
 
-                    return;
+                    break;
                 case ItemID.Toxikarp:
                     item.useTime = 14;
                     item.useAnimation = 14;
-                    return;
-                //case ItemID.OnyxBlaster:
+                    break;                //case ItemID.OnyxBlaster:
                 //    item.useTime = 50; // up from 48
                 //    item.useAnimation = 50;
                 //    return;
                 case ItemID.DaedalusStormbow:
                     item.damage = 30;
-                    return;
+                    break;
                 case ItemID.PearlwoodBow:
                     item.damage = 25; // up from 12
                     item.useTime = 17; // down from 20
@@ -196,7 +208,169 @@ namespace TRAEProject.Changes.Weapons
 
         public override bool Shoot(Item item, Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
         {
- 
+            if (item.type == ItemID.RedRyder)
+            {    
+              int jules = Projectile.NewProjectile(item.GetSource_FromThis(), position, velocity, type, damage, knockback, player.whoAmI);
+                Main.projectile[jules].GetGlobalProjectile<RangedProjectile>().shotByRedRyder = true;
+            }
+            if (item.type == ItemID.BloodRainBow)
+            {
+
+                int shotCount = 1 + Main.rand.Next(1, 3); // 2-3 projectiles
+            
+                for (int l = 0; l < shotCount; l++)
+                {
+                    position = new Vector2(position.X + (float)player.width * 0.5f + (float)(Main.rand.Next(61) * -player.direction) + ((float)Main.mouseX + Main.screenPosition.X - position.X), player.MountedCenter.Y - 600f);
+                    position.X = (position.X * 10f + player.Center.X) / 11f + (float)Main.rand.Next(-30, 31);
+                    position.Y -= 150f * Main.rand.NextFloat();
+                    velocity.X = (float)Main.mouseX + Main.screenPosition.X - position.X;
+                    velocity.Y = (float)Main.mouseY + Main.screenPosition.Y - position.Y;
+                    if (velocity.Y < 0f)
+                    {
+                        velocity.Y *= -1f;
+                    }
+                    if (velocity.Y < 20f)
+                    {
+                        velocity.Y = 20f;
+                    }
+                   float num6 = (float)Math.Sqrt(velocity.X * velocity.X + velocity.Y * velocity.Y);
+                    num6 = item.shootSpeed / num6;
+                    velocity.X *= num6;
+                    velocity.Y *= num6;
+                    float num15 = velocity.X + (float)Main.rand.Next(-20, 21) * 0.03f * player.GetModPlayer<RangedStats>().spreadModifier;
+                    float speedY2 = velocity.Y + (float)Main.rand.Next(-40, 41) * 0.03f * player.GetModPlayer<RangedStats>().spreadModifier;
+                    num15 *= (float)Main.rand.Next(55, 80) * 0.01f;
+                    position.X += Main.rand.Next(-50, 51);
+                    if (l > 0)
+                    {
+                        type = ProjectileID.BloodArrow;
+                    }
+                     int num16 = Projectile.NewProjectile(item.GetSource_FromThis(), position.X, position.Y, velocity.X, velocity.Y, type, damage, knockback, player.whoAmI);
+                    Main.projectile[num16].noDropItem = true;
+                }
+                return false;
+            }
+            if (item.type == ItemID.DaedalusStormbow)
+            {
+
+                Vector2 vector6 = new Vector2(velocity.X, velocity.Y);
+                float mouseX = (float)Main.mouseX + Main.screenPosition.X - position.X;
+                float mouseY = (float)Main.mouseY + Main.screenPosition.Y - position.Y - 1000f;
+                player.itemRotation = (float)Math.Atan2(vector6.Y * (float)player.direction, vector6.X * (float)player.direction);
+
+                int num13 = 3;
+
+                if (Main.rand.Next(3) == 0)
+                {
+                    num13++;
+                }
+                for (int k = 0; k < num13; k++)
+                {
+                    position = new Vector2(position.X + (float)player.width * 0.5f + (float)(Main.rand.Next(201) * -player.direction) + ((float)Main.mouseX + Main.screenPosition.X - position.X), player.MountedCenter.Y - 600f);
+
+                    position.X = (position.X * 10f + player.Center.X) / 11f + (float)Main.rand.Next(-100, 101);
+                    position.Y -= 150 * k;
+                    velocity.X = (float)Main.mouseX + Main.screenPosition.X - position.X;
+                    velocity.Y = (float)Main.mouseY + Main.screenPosition.Y - position.Y;
+                    if (velocity.Y < 0f)
+                    {
+                        velocity.Y *= -1f;
+                    }
+                    if (velocity.Y < 20f)
+                    {
+                        velocity.Y = 20f;
+                    }
+                    float num6 = (float)Math.Sqrt(velocity.X * velocity.X + velocity.Y * velocity.Y);
+                    num6 = item.shootSpeed / num6;
+                    velocity.X *= num6;
+                    velocity.Y *= num6;
+                    float num14 = velocity.X + (float)Main.rand.Next(-40, 41) * 0.03f * player.GetModPlayer<RangedStats>().spreadModifier;
+
+                    if (player.GetModPlayer<RangedStats>().spreadModifier == 1)
+                    {
+                        num14 *= (float)Main.rand.Next(75, 150) * 0.01f;
+                    }
+                    else
+                        num14 = velocity.X;
+                    float speedY = velocity.Y + (float)Main.rand.Next(-40, 41) * 0.03f * player.GetModPlayer<RangedStats>().spreadModifier;
+                    if (player.GetModPlayer<RangedStats>().spreadModifier == 1)
+                        position.X += Main.rand.Next(-50, 51);
+                    int num15 = Projectile.NewProjectile(item.GetSource_FromThis(), position.X, position.Y, num14, speedY, type, damage, knockback, player.whoAmI);
+                    Main.projectile[num15].noDropItem = true;
+                }
+                return false;
+
+            }
+            if (item.type == ItemID.Tsunami) // TSUNAMI
+            {
+                float num42 = (float)Math.PI / 10f;
+                if (player.GetModPlayer<RangedStats>().spreadModifier < 1) // stacking scopes on this just looks dumb
+                    num42 = (float)Math.PI / 10f / 3;
+                int projCount = 5;
+                Vector2 vector17 = new Vector2(velocity.X, velocity.Y);
+                vector17.Normalize();
+                vector17 *= 40f;
+                bool flag4 = Collision.CanHit(position, 0, 0, position + vector17, 0, 0);
+                for (int num44 = 0; num44 < projCount; num44++)
+                {
+                    float num45 = (float)num44 - ((float)projCount - 1f) / 2f;
+                    Vector2 vector18 = vector17.RotatedBy(num42 * num45);
+                    if (!flag4)
+                    {
+                        vector18 -= vector17;
+                    }
+                    Vector2 vector19 = position + vector18;
+                    Vector2 vector20 = (vector19 - player.Center).SafeNormalize(Vector2.Zero);
+                    if (!Collision.CanHitLine(player.MountedCenter, 4, 4, vector19 - new Vector2(velocity.X, velocity.Y), 0, 0))
+                    {
+                        vector19 -= vector20 * 15f;
+                    }
+                    int num46 = Projectile.NewProjectile(source, vector19.X, vector19.Y, velocity.X, velocity.Y, type, damage, knockback, player.whoAmI);
+                    Main.projectile[num46].noDropItem = true;
+                }
+                return false;
+            }
+
+
+            if (item.type == ItemID.ChlorophyteShotbow)
+            {
+                int num109 = 2;
+                if (Main.rand.NextBool(3))
+                {
+                    num109++;
+                }
+                for (int num110 = 0; num110 < num109; num110++)
+                {
+                    float num111 = velocity.X;
+                    float num112 = velocity.Y;
+                    if (num110 > 0)
+                    {
+                        num111 += (float)Main.rand.Next(-35, 36) * 0.04f * player.GetModPlayer<RangedStats>().spreadModifier;
+                        num112 += (float)Main.rand.Next(-35, 36) * 0.04f * player.GetModPlayer<RangedStats>().spreadModifier;
+                    }
+                    if (num110 > 1)
+                    {
+                        num111 += (float)Main.rand.Next(-35, 36) * 0.04f * player.GetModPlayer<RangedStats>().spreadModifier;
+                        num112 += (float)Main.rand.Next(-35, 36) * 0.04f * player.GetModPlayer<RangedStats>().spreadModifier;
+                    }
+                    if (num110 > 2)
+                    {
+                        num111 += (float)Main.rand.Next(-35, 36) * 0.04f * player.GetModPlayer<RangedStats>().spreadModifier;
+                        num112 += (float)Main.rand.Next(-35, 36) * 0.04f * player.GetModPlayer<RangedStats>().spreadModifier; ;
+                    }
+                    Projectile.NewProjectile(source, position.X, position.Y, num111, num112, type, damage, knockback, player.whoAmI);
+                }
+                return false;
+            }
+
+           
+            if (item.type == ItemID.Bone)
+            {
+                int num46 = Projectile.NewProjectile(source,position, velocity, type, damage, knockback, player.whoAmI);
+                Main.projectile[num46].ArmorPenetration = 0;
+                Main.projectile[num46].DamageType = DamageClass.Ranged;
+                return false;
+            }
             if (item.type == ItemID.ChainGun) // chain gun
             {
                  float mouseX = (float)Main.mouseX + Main.screenPosition.X - position.X;
@@ -305,36 +479,6 @@ namespace TRAEProject.Changes.Weapons
                 }
                 return false;
             }
-            if (item.type == ItemID.Tsunami) // TSUNAMI
-            {
-                float num42 = (float)Math.PI / 10f;
-                if (player.GetModPlayer<RangedStats>().spreadModifier < 1) // stacking scopes on this just looks dumb
-                    num42 = (float)Math.PI / 10f / 3;
-                int projCount = 5;
-                Vector2 vector17 = new Vector2(velocity.X, velocity.Y);
-                vector17.Normalize();
-                vector17 *= 40f;
-                bool flag4 = Collision.CanHit(position, 0, 0, position + vector17, 0, 0);
-                for (int num44 = 0; num44 < projCount; num44++)
-                {
-                    float num45 = (float)num44 - ((float)projCount - 1f) / 2f;
-                    Vector2 vector18 = vector17.RotatedBy(num42 * num45);
-                    if (!flag4)
-                    {
-                        vector18 -= vector17;
-                    }
-                    Vector2 vector19 = position + vector18;
-                    Vector2 vector20 = (vector19 - player.Center).SafeNormalize(Vector2.Zero);
-                    if (!Collision.CanHitLine(player.MountedCenter, 4, 4, vector19 - new Vector2(velocity.X, velocity.Y), 0, 0))
-                    {
-                        vector19 -= vector20 * 15f;
-                    }
-                    int num46 = Projectile.NewProjectile(source, vector19.X, vector19.Y, velocity.X, velocity.Y, type, damage, knockback, player.whoAmI);
-                    Main.projectile[num46].noDropItem = true;
-                }
-                return false;
-            }
-
             if (item.type == ItemID.Uzi)
             {
                 Vector2 perturbedSpeed = new Vector2(velocity.X, velocity.Y).RotatedByRandom(MathHelper.ToRadians(10) * player.GetModPlayer<RangedStats>().spreadModifier);
@@ -342,88 +486,7 @@ namespace TRAEProject.Changes.Weapons
                 Projectile.NewProjectile(source, position.X, position.Y, perturbedSpeed.X, perturbedSpeed.Y, type, damage, knockback, player.whoAmI);
                 return false;
             }
-            if (item.type == ItemID.ChlorophyteShotbow)
-            {
-                int num109 = 2;
-                if (Main.rand.NextBool(3))
-                {
-                    num109++;
-                }
-                for (int num110 = 0; num110 < num109; num110++)
-                {
-                    float num111 = velocity.X;
-                    float num112 =  velocity.Y;
-                    if (num110 > 0)
-                    {
-                        num111 += (float)Main.rand.Next(-35, 36) * 0.04f * player.GetModPlayer<RangedStats>().spreadModifier;
-                        num112 += (float)Main.rand.Next(-35, 36) * 0.04f * player.GetModPlayer<RangedStats>().spreadModifier;
-                    }
-                    if (num110 > 1)
-                    {
-                        num111 += (float)Main.rand.Next(-35, 36) * 0.04f * player.GetModPlayer<RangedStats>().spreadModifier;
-                        num112 += (float)Main.rand.Next(-35, 36) * 0.04f * player.GetModPlayer<RangedStats>().spreadModifier;
-                    }
-                    if (num110 > 2)
-                    {
-                        num111 += (float)Main.rand.Next(-35, 36) * 0.04f * player.GetModPlayer<RangedStats>().spreadModifier;
-                        num112 += (float)Main.rand.Next(-35, 36) * 0.04f * player.GetModPlayer<RangedStats>().spreadModifier; ;
-                    }
-                    Projectile.NewProjectile(source, position.X, position.Y, num111, num112, type, damage, knockback, player.whoAmI);
-                 }
-                return false;
-            }
-
-            if (item.type == ItemID.DaedalusStormbow)
-            {
-     
-                Vector2 vector6 = new Vector2(velocity.X, velocity.Y);
-                float mouseX = (float)Main.mouseX + Main.screenPosition.X - position.X;
-                float mouseY = (float)Main.mouseY + Main.screenPosition.Y - position.Y - 1000f;
-               player.itemRotation = (float)Math.Atan2(vector6.Y * (float)player.direction, vector6.X * (float)player.direction);
-
-                int num13 = 3;
-  
-                if (Main.rand.Next(3) == 0)
-                {
-                    num13++;
-                }
-                for (int k = 0; k < num13; k++)
-                {
-                    position = new Vector2(position.X + (float)player.width * 0.5f + (float)(Main.rand.Next(201) * -player.direction) + ((float)Main.mouseX + Main.screenPosition.X - position.X), player.MountedCenter.Y - 600f );
-                   
-                    position.X = (position.X * 10f + player.Center.X)  / 11f + (float)Main.rand.Next(-100, 101);
-                     position.Y -= 150 * k;
-                    velocity.X = (float)Main.mouseX + Main.screenPosition.X - position.X;
-                    velocity.Y = (float)Main.mouseY + Main.screenPosition.Y - position.Y;
-                    if (velocity.Y < 0f)
-                    {
-                        velocity.Y *= -1f;
-                    }
-                    if (velocity.Y < 20f)
-                    {
-                        velocity.Y = 20f;
-                    }
-                   float num6 = (float)Math.Sqrt(velocity.X * velocity.X + velocity.Y * velocity.Y);
-                    num6 =  item.shootSpeed / num6;
-                    velocity.X *= num6;
-                    velocity.Y *= num6;
-                    float num14 = velocity.X + (float)Main.rand.Next(-40, 41) * 0.03f * player.GetModPlayer<RangedStats>().spreadModifier;
-
-                    if (player.GetModPlayer<RangedStats>().spreadModifier == 1)
-                    {
-                        num14 *= (float)Main.rand.Next(75, 150) * 0.01f;
-                    }
-                    else
-                        num14 = velocity.X;
-                    float speedY = velocity.Y + (float)Main.rand.Next(-40, 41) * 0.03f * player.GetModPlayer<RangedStats>().spreadModifier;
-                    if (player.GetModPlayer<RangedStats>().spreadModifier == 1)
-                        position.X += Main.rand.Next(-50, 51);
-                    int num15 = Projectile.NewProjectile(item.GetSource_FromThis(), position.X, position.Y, num14, speedY, type, damage, knockback, player.whoAmI);
-                    Main.projectile[num15].noDropItem = true;
-                }
-                return false;
-       
-            }
+          
             return base.Shoot(item, player, source, position, velocity, type, damage, knockback);
         }
         public override void PickAmmo(Item weapon, Item ammo, Player player, ref int type, ref float speed, ref StatModifier damage, ref float knockback)
@@ -435,6 +498,10 @@ namespace TRAEProject.Changes.Weapons
             if (weapon.type == ItemID.PearlwoodBow && (ammo.type == ItemID.WoodenArrow || ammo.type == ItemID.EndlessQuiver))
             {
                 type = ProjectileID.HolyArrow;
+            }
+            if (weapon.type == ItemID.BloodRainBow)
+            {
+                 type = ammo.shoot;
             }
         }
         public override bool AltFunctionUse(Item item, Player player)

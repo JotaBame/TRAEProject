@@ -12,6 +12,7 @@ using Terraria.GameContent.ItemDropRules;
 using Terraria.ID;
 using Terraria.ModLoader;
 using TRAEProject.NewContent.Items.Materials;
+using TRAEProject.NewContent.NPCs.Banners;
 using TRAEProject.NewContent.NPCs.Echosphere.EchoStalker;
 using TRAEProject.NewContent.Projectiles;
 using TRAEProject.NewContent.Projectiles.EchoLeviathanPortal;
@@ -96,12 +97,14 @@ namespace TRAEProject.NewContent.NPCs.Echosphere.EchoLeviathan
             NPC.noTileCollide = true;
             NPC.alpha = 255;
             NPC.DeathSound = DeathSFX;
-            NPC.HitSound = HitSFX;
+            NPC.HitSound = HitSFX; ItemType<EchoLeviathanBanner>();
         }
         public override void ModifyNPCLoot(NPCLoot npcLoot)
         {
             npcLoot.Add(ItemDropRule.Common(ItemType<EchoHeart>(), 1, 3, 3));
             npcLoot.Add(ItemDropRule.Common(ItemType<EchoRectrix>(), 8, 1));
+            npcLoot.Add(ItemDropRule.Common(ItemID.MoonStone, 15, 1, 1));
+
 
         }
         public override void SetBestiary(BestiaryDatabase database, BestiaryEntry bestiaryEntry)

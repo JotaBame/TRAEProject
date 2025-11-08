@@ -388,7 +388,7 @@ namespace TRAEProject.NewContent.NPCs.Sky.Griffin
             bestiaryEntry.Info.AddRange(new List<IBestiaryInfoElement>
             {
                 BestiaryDatabaseNPCsPopulator.CommonTags.SpawnConditions.Biomes.Sky,
-                new FlavorTextBestiaryInfoElement("Majestic beasts with the body of a lion and the wings and head of an eagle, symbols of both strength and vigilance. Revered in legend, they guard treasures and sacred places")
+                new FlavorTextBestiaryInfoElement("Majestic beasts with the body of a lion and the wings and head of an eagle. Revered in legend, they guard treasures and sacred places")
             });
         }
         private void Movement()

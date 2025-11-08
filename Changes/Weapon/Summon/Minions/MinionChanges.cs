@@ -196,9 +196,7 @@ namespace TRAEProject.Changes.Weapon.Summon.Minions
                 {
                     modifiers.SetCrit();
                 }
-                // do this because tmodloader sometimes breaks and lets minions crit
-                else if (projectile.aiStyle != 137) // exclude lightning auras to not mess with their crits, this technically makes them a bit better when tmodloader lets minions crit but who cares
-                    modifiers.DisableCrit(); 
+    
             }
         }
         public NPC target;

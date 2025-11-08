@@ -5,6 +5,7 @@ using Terraria.GameContent;
 using Terraria.GameContent.ItemDropRules;
 using Terraria.ID;
 using Terraria.ModLoader;
+using TRAEProject.NewContent.NPCs.Banners;
 
 namespace TRAEProject.NewContent.NPCs.Sky.Griffin
 {
@@ -33,7 +34,8 @@ namespace TRAEProject.NewContent.NPCs.Sky.Griffin
             NPC.defense = 25;
             NPC.damage = 95;
             NPC.knockBackResist = 0.1f;
-            NPC.noGravity = true;
+            NPC.noGravity = true; BannerItem = ModContent.ItemType<GriffinBanner>();
+
         }
         public override bool PreDraw(SpriteBatch spriteBatch, Vector2 screenPos, Color drawColor)
         {

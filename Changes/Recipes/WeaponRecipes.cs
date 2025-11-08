@@ -193,8 +193,10 @@ namespace TRAEProject.Changes.Recipes
             {
                 recipe.TryGetIngredient(ItemID.ChlorophyteBar, out ingredientToRemove);
                 recipe.RemoveIngredient(ingredientToRemove);
-                recipe.AddIngredient(ItemID.ChlorophyteSaber, 1);
-                recipe.AddIngredient(ItemID.SoulofMight, 20);
+                 recipe.AddIngredient(ItemID.SoulofMight, 20);
+                recipe.AddIngredient(ItemID.SoulofSight, 20);
+                recipe.AddIngredient(ItemID.SoulofFright, 20);
+
                 recipe.AddIngredient(ItemID.SoulofLight, 20);
             }
             if (recipe.HasResult(ItemID.NightsEdge) || recipe.HasResult(ItemID.VoidVault) || recipe.HasResult(ItemID.VoidLens))
@@ -206,12 +208,8 @@ namespace TRAEProject.Changes.Recipes
             }
             if (recipe.HasResult(ItemID.TrueNightsEdge))
             {
-                recipe.TryGetIngredient(ItemID.SoulofFright, out ingredientToRemove);
-                recipe.RemoveIngredient(ingredientToRemove);
-                recipe.TryGetIngredient(ItemID.SoulofMight, out ingredientToRemove);
-                recipe.RemoveIngredient(ingredientToRemove);
-                recipe.AddIngredient(ItemID.ChlorophyteClaymore, 1);
-                recipe.AddIngredient(ItemID.SoulofNight, 20);
+        
+                 recipe.AddIngredient(ItemID.SoulofNight, 20);
             }
             if (recipe.HasResult(ItemID.Flamethrower))
             {

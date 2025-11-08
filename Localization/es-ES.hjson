@@ -287,6 +287,7 @@ Mods: {
 			// StormbreakerP.DisplayName: Stormbreaker P
 			// WingspanP.DisplayName: Wingspan P
 			// SonicRocket.DisplayName: Sonic Rocket
+			// EcholaliaP.DisplayName: Echolalia P
 		}
 
 		Prefixes: {
@@ -472,22 +473,32 @@ Mods: {
 
 			TheFlysEndurance: {
 				// DisplayName: The Flys Endurance
-				// Description: Mods.TRAEProject.Buffs.TheFlysEndurance.Description
+				// Description: How's your day been? At the time of writing Uni is being tough on me. I'm still finding the time to leave these little easter eggs here.
 			}
 
 			TheFlysLevitation: {
 				// DisplayName: The Flys Levitation
-				// Description: Mods.TRAEProject.Buffs.TheFlysLevitation.Description
+				// Description: Appreciate the people around you. Cherish every moment. You'll never know when they'll up and fly away...
 			}
 
 			TheFlysSpeed: {
 				// DisplayName: The Flys Speed
-				// Description: Mods.TRAEProject.Buffs.TheFlysSpeed.Description
+				// Description: Truth be told im running out of ideas for these.
 			}
 
 			EchoSense: {
-				// DisplayName: Echo Sense
+				// DisplayName: Perception
 				// Description: Shows the location of enemy and friendly projectiles
+			}
+
+			EcholaliaTag: {
+				// DisplayName: Echolalia Tag
+				// Description: Mods.TRAEProject.Buffs.EcholaliaTag.Description
+			}
+
+			EcholaliaSecondTag: {
+				// DisplayName: Echolalia Second Tag
+				// Description: Mods.TRAEProject.Buffs.EcholaliaSecondTag.Description
 			}
 		}
 
@@ -1687,13 +1698,13 @@ Mods: {
 			}
 
 			EchoSensePotion: {
-				// DisplayName: Echo Sense Potion
+				// DisplayName: Perception Potion
 				// Tooltip: Shows the location of enemy and friendly projectiles
 			}
 
 			FullMoon: {
-				// DisplayName: Full Moon
-				// Tooltip: A phantom flail appears behind you
+				DisplayName: Luna Nueva
+				Tooltip: A phantom flail appears behind you
 			}
 
 			Stormbreaker: {
@@ -1713,26 +1724,89 @@ Mods: {
 
 			LeviathanWings: {
 				// DisplayName: Leviathan Wings
-				// Tooltip: ""
+				/* Tooltip:
+					'''
+					Grants flight and slow fall
+					Allows control of gravity
+						
+					''' */
 			}
 
 			EchoHunterChestplate: {
 				// DisplayName: Echo Hunter Chestplate
-				// Tooltip: ""
+				/* Tooltip:
+					'''
+					9% increased damage
+					Increases your maximum number of minions by 1
+					''' */
 			}
 
 			EchoHunterGreaves: {
 				// DisplayName: Echo Hunter Greaves
-				// Tooltip: ""
+				/* Tooltip:
+					'''
+					9% increased damage
+					5% increased movement and jump speed
+					''' */
 			}
 
 			EchoHunterHelmet: {
 				// DisplayName: Echo Hunter Helmet
-				// Tooltip: ""
+				/* Tooltip:
+					'''
+					18% increased damage
+					5% increased movement and jump speed
+					''' */
 			}
 
 			SonicBoom: {
 				// DisplayName: Sonic Boom
+				// Tooltip: Shoots expansive sound waves
+			}
+
+			Echolalia: {
+				// DisplayName: Echolalia
+				/* Tooltip:
+					'''
+					12 summon tag damage
+					Your summons will focus struck enemies
+					Strike enemies with resonant energy
+					Damage resonates between all tagged enemies in a guaranteed critical hit
+					''' */
+			}
+
+			EchoLeviathanBanner: {
+				// DisplayName: Echo Leviathan Banner
+				// Tooltip: ""
+			}
+
+			EchoLocatorBanner: {
+				// DisplayName: Echo Locator Banner
+				// Tooltip: ""
+			}
+
+			EchoSpriteBanner: {
+				// DisplayName: Echo Sprite Banner
+				// Tooltip: ""
+			}
+
+			EchoStalkerBanner: {
+				// DisplayName: Echo Stalker Banner
+				// Tooltip: ""
+			}
+
+			GargoyleBanner: {
+				// DisplayName: Gargoyle Banner
+				// Tooltip: ""
+			}
+
+			GriffinBanner: {
+				// DisplayName: Griffin Banner
+				// Tooltip: ""
+			}
+
+			KinnaraBanner: {
+				// DisplayName: Kinnara Banner
 				// Tooltip: ""
 			}
 		}

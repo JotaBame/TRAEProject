@@ -7,6 +7,13 @@ using Terraria.Localization;
 using Terraria.ModLoader;
 using Terraria.ObjectData;
 using TRAEProject.NewContent.NPCs.BomberBones;
+using TRAEProject.NewContent.NPCs.Echosphere.EchoLocator;
+using TRAEProject.NewContent.NPCs.Echosphere.EchoLeviathan;
+using TRAEProject.NewContent.NPCs.Echosphere.EchoStalker;
+using TRAEProject.NewContent.NPCs.Echosphere.EchoSprite;
+using TRAEProject.NewContent.NPCs.Sky.Griffin;
+using TRAEProject.NewContent.NPCs.Sky.Gargoyle;
+    using TRAEProject.NewContent.NPCs.Sky.Kinnara;
 using TRAEProject.NewContent.NPCs.GraniteOvergrowth;
 using TRAEProject.NewContent.NPCs.Underworld.Boomxie;
 using TRAEProject.NewContent.NPCs.Underworld.Froggabomba;
@@ -173,6 +180,95 @@ namespace TRAEProject.NewContent.NPCs.Banners
                 Main.SceneMetrics.NPCBannerBuff[NPCType<ObsidianBasiliskHead>()] = true;
                 Main.SceneMetrics.NPCBannerBuff[NPCType<ObsidianBasiliskBody>()] = true;
                 Main.SceneMetrics.NPCBannerBuff[NPCType<ObsidianBasiliskTail>()] = true;
+            }
+        }
+    }
+    public class EchoSpriteBannerPlaced : BannerGeneric
+    {
+        public override void NearbyEffects(int i, int j, bool closer)
+        {
+            if (closer)
+            {
+                Main.SceneMetrics.NPCBannerBuff[NPCType<EchoSprite>()] = true;
+
+             }
+        }
+    }
+    public class EchoStalkerBannerPlaced : BannerGeneric
+    {
+        public override void NearbyEffects(int i, int j, bool closer)
+        {
+            if (closer)
+            {
+                Main.SceneMetrics.NPCBannerBuff[NPCType<EchoStalkerHead>()] = true;
+                Main.SceneMetrics.NPCBannerBuff[NPCType<EchoStalkerBody1>()] = true;
+                Main.SceneMetrics.NPCBannerBuff[NPCType<EchoStalkerBody2>()] = true;
+                 Main.SceneMetrics.NPCBannerBuff[NPCType<EchoStalkerTail>()] = true;
+
+            }
+        }
+    }
+    public class EchoLeviathanBannerPlaced : BannerGeneric
+    {
+        public override void NearbyEffects(int i, int j, bool closer)
+        {
+            if (closer)
+            {
+                Main.SceneMetrics.NPCBannerBuff[NPCType<EchoLeviathanHead>()] = true;
+                Main.SceneMetrics.NPCBannerBuff[NPCType<EchoLeviathanBody1>()] = true;
+                Main.SceneMetrics.NPCBannerBuff[NPCType<EchoLeviathanBody2>()] = true;
+                Main.SceneMetrics.NPCBannerBuff[NPCType<EchoLeviathanBody3>()] = true;
+                 Main.SceneMetrics.NPCBannerBuff[NPCType<EchoLeviathanTail>()] = true;
+
+            }
+        }
+    }
+    public class EchoLocatorBannerPlaced : BannerGeneric
+    {
+        public override void NearbyEffects(int i, int j, bool closer)
+        {
+            if (closer)
+            {
+                Main.SceneMetrics.NPCBannerBuff[NPCType<EchoLocator>()] = true;
+ 
+
+            }
+        }
+    }
+    public class GargoyleBannerPlaced : BannerGeneric
+    {
+        public override void NearbyEffects(int i, int j, bool closer)
+        {
+            if (closer)
+            {
+                Main.SceneMetrics.NPCBannerBuff[NPCType<Gargoyle>()] = true;
+
+
+            }
+        }
+    }
+    public class GriffinBannerPlaced : BannerGeneric
+    {
+        public override void NearbyEffects(int i, int j, bool closer)
+        {
+            if (closer)
+            {
+                Main.SceneMetrics.NPCBannerBuff[NPCType<GriffinFlier>()] = true;
+                Main.SceneMetrics.NPCBannerBuff[NPCType<GriffinWalker>()] = true;
+
+
+            }
+        }
+    }
+    public class KinnaraBannerPlaced : BannerGeneric
+    {
+        public override void NearbyEffects(int i, int j, bool closer)
+        {
+            if (closer)
+            {
+                Main.SceneMetrics.NPCBannerBuff[NPCType<Kinnara>()] = true;
+ 
+
             }
         }
     }

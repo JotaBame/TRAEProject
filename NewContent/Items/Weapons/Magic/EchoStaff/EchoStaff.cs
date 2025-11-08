@@ -8,6 +8,7 @@ using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 using TRAEProject.Common;
+using TRAEProject.NewContent.Items.Materials;
 using static AssGen.Assets;
 using static Terraria.ModLoader.ModContent;
 
@@ -33,6 +34,15 @@ namespace TRAEProject.NewContent.Items.Weapons.Magic.EchoStaff
             Item.DamageType = DamageClass.Magic;
             Item.knockBack = 2f;
             Item.UseSound = SoundID.Item124 with { PitchVariance = 0.3f, MaxInstances = 1,  };
+        }
+        public override void AddRecipes()
+        {
+            CreateRecipe()
+                 .AddIngredient(ItemType<EchoHeart>(), 3)
+                .AddIngredient(ItemID.SoulofSight, 8)
+                .AddIngredient(ItemID.SoulofFright, 8)
+                .AddTile(TileID.MythrilAnvil)
+                .Register();
         }
         public override void ModifyShootStats(Player player, ref Vector2 position, ref Vector2 velocity, ref int type, ref int damage, ref float knockback)
         {

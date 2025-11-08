@@ -267,6 +267,195 @@ namespace TRAEProject.NewContent.NPCs.Banners          //We need this to basical
             Item.placeStyle = 0;
         }
     }
+    public class EchoSpriteBanner : ModItem
+    {
+        public override void SetStaticDefaults()
+        {
+            Terraria.GameContent.Creative.CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
+
+            // DisplayName.SetDefault("GraniteOvergrowth Banner");
+            // Tooltip.SetDefault("Nearby players get a bonus against: GraniteOvergrowth");
+        }
+        public override void SetDefaults()
+        {
+
+            Item.width = 12;
+            Item.height = 28;
+            Item.maxStack = 9999;
+            Item.useTurn = true;
+            Item.autoReuse = true;
+            Item.useAnimation = 15;
+            Item.useTime = 10;
+            Item.useStyle = 1;
+            Item.consumable = true;
+            Item.rare = ItemRarityID.Blue;
+            Item.value = Item.sellPrice(0, 0, 2, 0);
+            Item.createTile = TileType<EchoSpriteBannerPlaced>();
+            Item.placeStyle = 0;
+        }
+    }
+    public class EchoStalkerBanner : ModItem
+    {
+        public override void SetStaticDefaults()
+        {
+            Terraria.GameContent.Creative.CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
+
+            // DisplayName.SetDefault("GraniteOvergrowth Banner");
+            // Tooltip.SetDefault("Nearby players get a bonus against: GraniteOvergrowth");
+        }
+        public override void SetDefaults()
+        {
+
+            Item.width = 12;
+            Item.height = 28;
+            Item.maxStack = 9999;
+            Item.useTurn = true;
+            Item.autoReuse = true;
+            Item.useAnimation = 15;
+            Item.useTime = 10;
+            Item.useStyle = 1;
+            Item.consumable = true;
+            Item.rare = ItemRarityID.Blue;
+            Item.value = Item.sellPrice(0, 0, 2, 0);
+            Item.createTile = TileType<EchoStalkerBannerPlaced>();
+            Item.placeStyle = 0;
+        }
+    }
+    public class EchoLeviathanBanner : ModItem
+    {
+        public override void SetStaticDefaults()
+        {
+            Terraria.GameContent.Creative.CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
+
+            // DisplayName.SetDefault("GraniteOvergrowth Banner");
+            // Tooltip.SetDefault("Nearby players get a bonus against: GraniteOvergrowth");
+        }
+        public override void SetDefaults()
+        {
+
+            Item.width = 12;
+            Item.height = 28;
+            Item.maxStack = 9999;
+            Item.useTurn = true;
+            Item.autoReuse = true;
+            Item.useAnimation = 15;
+            Item.useTime = 10;
+            Item.useStyle = 1;
+            Item.consumable = true;
+            Item.rare = ItemRarityID.Blue;
+            Item.value = Item.sellPrice(0, 0, 2, 0);
+            Item.createTile = TileType<EchoLeviathanBannerPlaced>();
+            Item.placeStyle = 0;
+        }
+    }
+    public class EchoLocatorBanner : ModItem
+    {
+        public override void SetStaticDefaults()
+        {
+            Terraria.GameContent.Creative.CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
+
+            // DisplayName.SetDefault("GraniteOvergrowth Banner");
+            // Tooltip.SetDefault("Nearby players get a bonus against: GraniteOvergrowth");
+        }
+        public override void SetDefaults()
+        {
+
+            Item.width = 12;
+            Item.height = 28;
+            Item.maxStack = 9999;
+            Item.useTurn = true;
+            Item.autoReuse = true;
+            Item.useAnimation = 15;
+            Item.useTime = 10;
+            Item.useStyle = 1;
+            Item.consumable = true;
+            Item.rare = ItemRarityID.Blue;
+            Item.value = Item.sellPrice(0, 0, 2, 0);
+            Item.createTile = TileType<EchoLocatorBannerPlaced>();
+            Item.placeStyle = 0;
+        }
+    }
+    public class GargoyleBanner : ModItem
+    {
+        public override void SetStaticDefaults()
+        {
+            Terraria.GameContent.Creative.CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
+
+            // DisplayName.SetDefault("GraniteOvergrowth Banner");
+            // Tooltip.SetDefault("Nearby players get a bonus against: GraniteOvergrowth");
+        }
+        public override void SetDefaults()
+        {
+
+            Item.width = 12;
+            Item.height = 28;
+            Item.maxStack = 9999;
+            Item.useTurn = true;
+            Item.autoReuse = true;
+            Item.useAnimation = 15;
+            Item.useTime = 10;
+            Item.useStyle = 1;
+            Item.consumable = true;
+            Item.rare = ItemRarityID.Blue;
+            Item.value = Item.sellPrice(0, 0, 2, 0);
+            Item.createTile = TileType<GargoyleBannerPlaced>();
+            Item.placeStyle = 0;
+        }
+    }
+    public class GriffinBanner : ModItem
+    {
+        public override void SetStaticDefaults()
+        {
+            Terraria.GameContent.Creative.CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
+
+            // DisplayName.SetDefault("GraniteOvergrowth Banner");
+            // Tooltip.SetDefault("Nearby players get a bonus against: GraniteOvergrowth");
+        }
+        public override void SetDefaults()
+        {
+
+            Item.width = 12;
+            Item.height = 28;
+            Item.maxStack = 9999;
+            Item.useTurn = true;
+            Item.autoReuse = true;
+            Item.useAnimation = 15;
+            Item.useTime = 10;
+            Item.useStyle = 1;
+            Item.consumable = true;
+            Item.rare = ItemRarityID.Blue;
+            Item.value = Item.sellPrice(0, 0, 2, 0);
+            Item.createTile = TileType<GriffinBannerPlaced>();
+            Item.placeStyle = 0;
+        }
+    }
+    public class KinnaraBanner : ModItem
+    {
+        public override void SetStaticDefaults()
+        {
+            Terraria.GameContent.Creative.CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
+
+            // DisplayName.SetDefault("GraniteOvergrowth Banner");
+            // Tooltip.SetDefault("Nearby players get a bonus against: GraniteOvergrowth");
+        }
+        public override void SetDefaults()
+        {
+
+            Item.width = 12;
+            Item.height = 28;
+            Item.maxStack = 9999;
+            Item.useTurn = true;
+            Item.autoReuse = true;
+            Item.useAnimation = 15;
+            Item.useTime = 10;
+            Item.useStyle = 1;
+            Item.consumable = true;
+            Item.rare = ItemRarityID.Blue;
+            Item.value = Item.sellPrice(0, 0, 2, 0);
+            Item.createTile = TileType<KinnaraBannerPlaced>();
+            Item.placeStyle = 0;
+        }
+    }
 }
 
 ////then add this to the custom npc you want to drop the banner and in public override void SetDefaults()

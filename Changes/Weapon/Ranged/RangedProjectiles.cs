@@ -19,6 +19,7 @@ namespace TRAEProject.Changes.Projectiles
     public class RangedProjectile : GlobalProjectile
     {
         public override bool InstancePerEntity => true;
+        public bool shotByRedRyder = false;
         public override void SetDefaults(Projectile projectile)
         {
             switch (projectile.type)
@@ -852,7 +853,8 @@ namespace TRAEProject.Changes.Projectiles
     
         public override void OnHitNPC(Projectile projectile, NPC target, NPC.HitInfo hit, int damageDone)
         {
-           
+            if (shotByRedRyder)
+                target.AddBuff(BuffID.OnFire, Main.rand.Next(3, 6) * 60);
             Player player = Main.player[projectile.owner];
             switch (projectile.type)
             {

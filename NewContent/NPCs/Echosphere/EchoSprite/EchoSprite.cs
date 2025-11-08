@@ -14,6 +14,7 @@ using Terraria.ModLoader;
 using TRAEProject.Common.Verlet;
 using TRAEProject.NewContent.Items.Materials;
 using TRAEProject.NewContent.Items.Weapons.Magic.EchoStaff;
+using TRAEProject.NewContent.NPCs.Banners;
 using TRAEProject.NewContent.Projectiles.EchoSpriteProj;
 using static Terraria.ModLoader.ModContent;
 
@@ -43,13 +44,13 @@ namespace TRAEProject.NewContent.NPCs.Echosphere.EchoSprite
             NPC.noTileCollide = true;
             InitializeVerlet();
             NPC.HitSound = SoundID.NPCHit5;
-            NPC.DeathSound = SoundID.NPCDeath7;
+            NPC.DeathSound = SoundID.NPCDeath7; ItemType < EchoSpriteBanner> ();
         }
         public override void ModifyNPCLoot(NPCLoot npcLoot)
         {
             npcLoot.Add(ItemDropRule.Common(ItemType<EchoHeart>(), 2, 1, 1));
 
-            npcLoot.Add(ItemDropRule.Common(ItemType<EchoStaff>(), 25, 1, 1));
+            npcLoot.Add(ItemDropRule.Common(ItemID.MoonStone, 33, 1, 1));
         }
         ref float TurnaroundTimer => ref NPC.ai[1];
         ref float IdleMovementTimer => ref NPC.localAI[0];

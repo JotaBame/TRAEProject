@@ -437,7 +437,7 @@ namespace TRAEProject.Changes.Items
                         {
                             player.statMana -= (int)(4 * player.manaCost);
                             var += Main.rand.Next(-14, 15);
-                            Projectile.NewProjectile(projectile.GetSource_FromThis(), var, projectile.Center.Y, 0f, 5f, 239, projectile.damage, 0f, projectile.owner);
+                            Projectile.NewProjectile(projectile.GetSource_FromThis(), var, projectile.Center.Y + 15, 0f, 5f, 239, projectile.damage, 0f, projectile.owner);
                         }
                         return false;
                     }

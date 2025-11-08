@@ -21,7 +21,7 @@ public class LeviathanWings : ModItem
 
 			CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
 
-			ArmorIDs.Wing.Sets.Stats[Item.wingSlot] = new WingStats(0, 4f, 1f);
+			ArmorIDs.Wing.Sets.Stats[Item.wingSlot] = new WingStats(45, 4f, 1f);
 
 		}
 
@@ -30,7 +30,7 @@ public class LeviathanWings : ModItem
 			Item.width = 36;
 			Item.height = 36;
 			Item.value = Item.sellPrice(gold: 8);
-			Item.rare = ItemRarityID.LightPurple;
+			Item.rare = ItemRarityID.Pink;
 			Item.accessory = true;
 		}
 		public override void AddRecipes()
@@ -45,6 +45,8 @@ public class LeviathanWings : ModItem
 		{
 			player.moveSpeed += 0.25f;
             player.GetModPlayer<GravitationPlayer>().noFlipGravity = true;
+            player.gravControl2 = true;
+
             for (int n = 3; n < 10; n++)
 			{
 				if (player.IsItemSlotUnlockedAndUsable(n) && player.armor[n].type == Item.type)

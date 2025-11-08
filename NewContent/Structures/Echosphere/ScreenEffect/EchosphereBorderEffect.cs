@@ -5,6 +5,7 @@ using Terraria;
 using Terraria.Graphics.Effects;
 using Terraria.Graphics.Shaders;
 using Terraria.ModLoader;
+using TRAEProject.NewContent.Items.Armor.EchoHunter;
 
 namespace TRAEProject.NewContent.Structures.Echosphere.ScreenEffect
 {
@@ -31,7 +32,7 @@ namespace TRAEProject.NewContent.Structures.Echosphere.ScreenEffect
         }
         public static void Update()
         {
-            if (EchosphereSystem.PlayerInEchosphere(Main.LocalPlayer))
+            if (EchosphereSystem.PlayerInEchosphere(Main.LocalPlayer) || Main.LocalPlayer.GetModPlayer<EchoHunterSet>().EchoHunterMode)
             {
                 intensity += FadeSpeed;
             }

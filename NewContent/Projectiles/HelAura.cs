@@ -79,16 +79,20 @@ namespace TRAEProject.NewContent.Projectiles
             }
             Projectile.timeLeft = 2;
         }
-        public override bool PreDraw(ref Color lightColor)
+        float startingScale = 0f;
+         public override bool PreDraw(ref Color lightColor)
         {
+   
             
             float projScale = 1f;
             float num2 = 0.1f;
             float num3 = 0.9f;
             if (!Main.gamePaused && Main.instance.IsActive)
             {
-                Projectile.scale += 0.004f;
-            }
+                Projectile.scale += 0.04f;
+                if (startingScale < 0.5f)
+                    startingScale += 0.02f;
+             }
             if (Projectile.scale < 1f)
             {
                 projScale = Projectile.scale;
@@ -117,11 +121,11 @@ namespace TRAEProject.NewContent.Projectiles
                 {
                     num4 -= num2 * 2f;
                 }
-                float num5 = MathHelper.Lerp(0.8f, 0f, Math.Abs(num4 - num3) * 10f);
+                float num5 = MathHelper.Lerp(0.7f, 0f, Math.Abs(num4 - num3) * 10f);
                 Main.EntitySpriteDraw(TextureAssets.Projectile[Projectile.type].Value, Projectile.Center - Main.screenPosition, 
                 new Rectangle(0, 400 * j, 400, 400), new Color(num5, num5, num5, num5 / 2f), 
                 Projectile.rotation + (float)Math.PI / 3f * (float)j, new Vector2(200f, 200f), 
-                num4 * 0.625f, SpriteEffects.None);
+                num4 * startingScale, SpriteEffects.None);
             }
             return false;
         }

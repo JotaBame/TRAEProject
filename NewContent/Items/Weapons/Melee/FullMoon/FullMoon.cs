@@ -7,6 +7,7 @@ using System;
 using Terraria.Audio;
 using Terraria.DataStructures;
 using Terraria.GameContent;
+using Terraria.GameContent.Creative;
 using Terraria.ID;
 using Terraria.ModLoader;
 using TRAEProject.Changes.Prefixes;
@@ -22,7 +23,8 @@ namespace TRAEProject.NewContent.Items.Weapons.Melee.FullMoon
     {
         public override void SetStaticDefaults()
         {
-           
+            CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
+
             ItemID.Sets.ToolTipDamageMultiplier[Type] = 2f;
 
          }
@@ -54,8 +56,8 @@ namespace TRAEProject.NewContent.Items.Weapons.Melee.FullMoon
             CreateRecipe()
                 .AddIngredient(ItemID.BlueMoon)
                 .AddIngredient(ItemType<EchoHeart>(), 3)
-                .AddIngredient(ItemID.SoulofSight, 6)
-                .AddIngredient(ItemID.SoulofMight, 6)
+                .AddIngredient(ItemID.SoulofSight, 8)
+                .AddIngredient(ItemID.SoulofMight, 8)
                 .AddTile(TileID.MythrilAnvil)
                 .Register();
         }

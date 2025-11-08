@@ -25,8 +25,8 @@ namespace TRAEProject.NewContent.Structures.Echosphere
                     {
                         pool.Add(ModContent.NPCType<EchoLeviathanHead>(), 0.05f);
                     }
-                    pool.Add(ModContent.NPCType<EchoLocator>(), 0.4f);
-                    pool.Add(ModContent.NPCType<EchoStalkerHead>(), 0.2f);
+                    pool.Add(ModContent.NPCType<EchoLocator>(), 0.5f);
+                    pool.Add(ModContent.NPCType<EchoStalkerHead>(), 0.15f);
                     pool.Add(ModContent.NPCType<EchoSprite>(), 0.3f);
                 }
                 else
