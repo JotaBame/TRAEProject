@@ -7,34 +7,27 @@ namespace TRAEilHooks {
         internal static void DoStuff(ILContext il) {
             ILCursor c = new(il);
 
-            // Match close to where the Plantera Bulb checks occur
-            c.GotoNext(MoveType.Before,
-                x => x.MatchLdcI4(1),
-                x => x.MatchStloc(15),
-                x => x.MatchLdcI4(150),
-                x => x.MatchStloc(16)
-            );
-
-
-            c.Index -= 10; // Jump back to where all 3 mech bosses check happens
-            c.RemoveRange(6); // Remove all 6 instructions for checking mech bosses
-
-            // Match close to where the Lifefruit checks occur
-            c.GotoNext(MoveType.Before,
-                x => x.MatchLdcI4(1),
-                x => x.MatchStloc(19),
-                x => x.MatchLdcI4(60),
-                x => x.MatchStloc(20)
-                );
-
-            // Put a label here so we can branch to it later
-            ILLabel fruitSpawn = c.MarkLabel();
-
-            // Jump back to before the downedMechbossAny check
-            c.Index -= 6;
+			// Should match the Mech Boss check precisely ; if it doesn't match, someone else has already changed this block!
+			c.GotoNext(MoveType.Before,
+				x => x.MatchLdsfld(typeof(Terraria.NPC).GetField("downedMechBoss1")),
+				x => x.MatchBrfalse(out _),
+				x => x.MatchLdsfld(typeof(Terraria.NPC).GetField("downedMechBoss2")),
+				x => x.MatchBrfalse(out _),
+				x => x.MatchLdsfld(typeof(Terraria.NPC).GetField("downedMechBoss3"))
+			);
+			// Remove this check because we want Plantera to spawn as soon as HM starts
+			c.RemoveRange(6);
+			
+			// Jump to the lifefruit check
+			c.GotoNext(MoveType.After,
+				x => x.MatchLdsfld(typeof(Terraria.NPC).GetField("downedMechBossAny")),
+				x => x.MatchBrfalse(out _)
+			);
+			c.Index--; // Move just before the branch
+			// And then or that with the new thing we want to check
             c.Emit(OpCodes.Ldsfld, typeof(Terraria.NPC).GetField("downedPlantBoss"));
-            c.Emit(OpCodes.Brtrue, fruitSpawn);
-
+			c.Emit(OpCodes.Or);
+			
             return;
         }
     }
