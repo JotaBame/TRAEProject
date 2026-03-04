@@ -8,8 +8,9 @@ using Terraria;
 using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
-using static Terraria.ModLoader.ModContent;
 using TRAEProject.Common;
+using TRAEProject.Common.ModPlayers;
+using static Terraria.ModLoader.ModContent;
 
 namespace TRAEProject.Changes.Weapon.Ranged
 {
@@ -34,7 +35,7 @@ namespace TRAEProject.Changes.Weapon.Ranged
                     item.damage = 96;
                     item.useTime = item.useAnimation = 42;
                     item.autoReuse = false;
-                    item.scale = 1.8f;
+                    item.scale = 1.3f;
                     item.shootSpeed = 16f;
                     item.SetNameOverride("Mythril Ballista");
                     break;
@@ -68,7 +69,7 @@ namespace TRAEProject.Changes.Weapon.Ranged
                 int count = Main.rand.Next(3) + 3;
                 for (int i = 0; i < count; i++)
                 {
-                    Projectile.NewProjectile(player.GetSource_ItemUse(item), position, (velocity * 1f).RotatedByRandom(MathF.PI / 10), ProjectileType<TitaniumShrapnel>(), damage / 4, 0, player.whoAmI);
+                    Projectile.NewProjectile(player.GetSource_ItemUse(item), position, (velocity * 1f).RotatedByRandom(MathF.PI / 10 * player.GetModPlayer<RangedStats>().spreadModifier), ProjectileType<TitaniumShrapnel>(), damage / 4, 0, player.whoAmI);
                 }
             }
             if (item.type == ItemID.MythrilRepeater)
@@ -112,7 +113,7 @@ namespace TRAEProject.Changes.Weapon.Ranged
         {
             if(projectile.arrow && !projectile.GetGlobalProjectile<ProjectileStats>().FirstHit)
             {
-                Player player = Main.player[projectile.owner];
+                 Player player = Main.player[projectile.owner];
                 switch (player.HeldItem.type)
                 {
                     case ItemID.PalladiumRepeater:

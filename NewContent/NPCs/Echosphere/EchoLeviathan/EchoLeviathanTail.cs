@@ -4,6 +4,7 @@ using Terraria;
 using Terraria.GameContent;
 using Terraria.ID;
 using Terraria.ModLoader;
+using TRAEProject.NewContent.NPCs.Echosphere.EchoLocator;
 
 namespace TRAEProject.NewContent.NPCs.Echosphere.EchoLeviathan
 {
@@ -81,8 +82,14 @@ namespace TRAEProject.NewContent.NPCs.Echosphere.EchoLeviathan
         {
             if (NPC.life <= 0)
             {
-                EchosphereNPCHelper.EchosphereEnemyDeathDust(NPC, 0.7f);
+                EchosphereNPCHelper.EchosphereEnemyDeathDust(NPC, 0.7f); Gore.NewGore(NPC.GetSource_Death(), NPC.Center, NPC.velocity, ModContent.GoreType<EchoLeviathanGoreTail>());
+
             }
+        }
+        public override void OnKill()
+        {
+            Gore.NewGore(NPC.GetSource_Death(), NPC.Center, NPC.velocity, ModContent.GoreType<EchoLeviathanGoreTail>());
+
         }
         public override bool CheckDead()
         {

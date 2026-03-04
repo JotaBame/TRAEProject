@@ -25,10 +25,13 @@ namespace TRAEProject.NewContent.Items.Weapons.Ranged.Launchers.SonicBoom
             Projectile.extraUpdates = 1;
             Projectile.penetrate = -1;
             Projectile.usesLocalNPCImmunity = true;
+            Projectile.DamageType = DamageClass.Ranged;
+
             Projectile.localNPCHitCooldown = -1;
             Projectile.tileCollide = true;
             Projectile.Size = new(30);
             Projectile.alpha = 255;
+            Projectile.GetGlobalProjectile<ProjectileStats>().DamageFalloff = 0.15f;
         }
         static Color GetCircleDotColor(float i, params Color[] color)
         {

@@ -11,6 +11,7 @@ using TRAEProject.NewContent.Items.Accesories.MobilityJumps;
 using Terraria.GameContent.ItemDropRules;
 using System.Collections.Generic;
 using TRAEProject.NewContent.Items.Accesories.AdvFlight;
+using System.Linq;
 
 namespace TRAEProject.Changes.Items
 {
@@ -27,53 +28,56 @@ namespace TRAEProject.Changes.Items
 				condition.OnSuccess(tridentDrop);
 				itemLoot.Add(condition);
 			}
-			
-			switch(item.type)
-			{
-				case ItemID.EyeOfCthulhuBossBag:
+
+			switch (item.type)
+            {
+				case ItemID.KingSlimeBossBag:
+					itemLoot.Add(ItemDropRule.Common(ItemID.Katana, 5));
+                    break;
+                case ItemID.EyeOfCthulhuBossBag:
 					itemLoot.RemoveWhere(rule =>
-                    {
-                        if (rule is not CommonDrop drop) // Type of drop you expect here
+					{
+						if (rule is not CommonDrop drop) // Type of drop you expect here
 						{
-                            return false;
+							return false;
 						}
-                        return drop.itemId == ItemID.UnholyArrow; // compare more fields if needed
-                    });
+						return drop.itemId == ItemID.UnholyArrow; // compare more fields if needed
+					});
 					LeadingConditionRule corruption = new LeadingConditionRule(new Conditions.IsCorruption());
 					corruption.OnSuccess(ItemDropRule.Common(ItemID.UnholyArrow, 1, 100, 200));
 					itemLoot.Add(corruption);
 					LeadingConditionRule crimson = new LeadingConditionRule(new Conditions.IsCrimson());
 					crimson.OnSuccess(ItemDropRule.Common(ItemType<BloodyArrow>(), 1, 100, 200));
 					itemLoot.Add(crimson);
-				break;
+					break;
 				case ItemID.SkeletronBossBag:
 					itemLoot.RemoveWhere(rule =>
-                    {
-                        if (rule is not OneFromOptionsNotScaledWithLuckDropRule drop) // Type of drop you expect here
+					{
+						if (rule is not OneFromOptionsNotScaledWithLuckDropRule drop) // Type of drop you expect here
 						{
-                            return false;
+							return false;
 						}
-						for(int i = 0; i < drop.dropIds.Length; i++)
+						for (int i = 0; i < drop.dropIds.Length; i++)
 						{
-							if(drop.dropIds[i] == ItemID.BookofSkulls)
+							if (drop.dropIds[i] == ItemID.BookofSkulls)
 							{
 								return true;
 							}
-							
+
 						}
-                        return false;
-                    });
+						return false;
+					});
 					itemLoot.Add(ItemDropRule.OneFromOptionsNotScalingWithLuck(1, ItemID.SkeletronHand, ItemID.SkeletronMask));
-				break;	
+					break;
 				case ItemID.PlanteraBossBag:
 					itemLoot.RemoveWhere(rule =>
-                    {
-                        if (rule is OneFromRulesRule) // Type of drop you expect here
+					{
+						if (rule is OneFromRulesRule) // Type of drop you expect here
 						{
-                            return true;
+							return true;
 						}
-                        return false;
-                    });
+						return false;
+					});
 					IItemDropRule melee = ItemDropRule.Common(ItemID.Seedler);
 					melee.OnSuccess(ItemDropRule.Common(ItemID.FlowerPow));
 					IItemDropRule ranged = ItemDropRule.Common(ItemID.VenusMagnum);
@@ -81,60 +85,61 @@ namespace TRAEProject.Changes.Items
 					IItemDropRule magic = ItemDropRule.Common(ItemID.NettleBurst);
 					magic.OnSuccess(ItemDropRule.Common(ItemID.LeafBlower));
 					itemLoot.Add(new OneFromRulesRule(1, melee, ranged, magic));
-				break;
+					break;
 				case ItemID.CultistBossBag:
-				itemLoot.Add(ItemDropRule.Common(ItemID.LunarCraftingStation, 1));
-				itemLoot.Add(ItemDropRule.Common(ItemType<LuminiteFeather>(), 1));
-				break;
+					itemLoot.Add(ItemDropRule.Common(ItemID.LunarCraftingStation, 1));
+					itemLoot.Add(ItemDropRule.Common(ItemType<LuminiteFeather>(), 1));
+					break;
 				case ItemID.FairyQueenBossBag:
-				itemLoot.RemoveWhere(rule =>
-				{
-					if (rule is not OneFromOptionsNotScaledWithLuckDropRule drop) // Type of drop you expect here
+					itemLoot.RemoveWhere(rule =>
 					{
+						if (rule is not OneFromOptionsNotScaledWithLuckDropRule drop) // Type of drop you expect here
+						{
+							return false;
+						}
+						for (int i = 0; i < drop.dropIds.Length; i++)
+						{
+							if (drop.dropIds[i] == ItemID.FairyQueenMagicItem)
+							{
+								return true;
+							}
+
+						}
 						return false;
-					}
-					for(int i = 0; i < drop.dropIds.Length; i++)
+					});
+					itemLoot.Add(ItemDropRule.Common(ModContent.ItemType<FaeInABottle>(), 5));
+					itemLoot.Add(ItemDropRule.OneFromOptionsNotScalingWithLuck(1, ItemID.RainbowCrystalStaff, ItemID.PiercingStarlight, ItemID.FairyQueenMagicItem, ItemID.FairyQueenRangedItem, ItemID.RainbowWhip));
+					break;
+				case ItemID.MoonLordBossBag:
+					itemLoot.RemoveWhere(rule =>
 					{
-						if(drop.dropIds[i] == ItemID.FairyQueenMagicItem)
+						if (rule is FromOptionsWithoutRepeatsDropRule) // Type of drop you expect here
 						{
 							return true;
 						}
-						
-					}
-					return false;
-				});
-				itemLoot.Add(ItemDropRule.Common(ModContent.ItemType<FaeInABottle>(), 5));
-				itemLoot.Add(ItemDropRule.OneFromOptionsNotScalingWithLuck(1, ItemID.RainbowCrystalStaff, ItemID.PiercingStarlight, ItemID.FairyQueenMagicItem, ItemID.FairyQueenRangedItem, ItemID.RainbowWhip));
-				break;
-				case ItemID.MoonLordBossBag:
+						return false;
+					});
 					itemLoot.RemoveWhere(rule =>
-                    {
-                        if (rule is FromOptionsWithoutRepeatsDropRule) // Type of drop you expect here
+					{
+						if (rule is not CommonDrop drop) // Type of drop you expect here
 						{
-                            return true;
+							return false;
 						}
-                        return false;
-                    });
-                    itemLoot.RemoveWhere(rule =>
-                    {
-                        if (rule is not CommonDrop drop) // Type of drop you expect here
-                        {
-                            return false;
-                        }
-                        if (drop.itemId == ItemID.GravityGlobe)
-                        {
-                            return true;
-                        }
-                        return false;
-                    }); 
-                    itemLoot.Add(ItemDropRule.FewFromOptionsNotScalingWithLuck(2, 1, ItemID.Meowmere, ItemID.Terrarian, ItemID.SDMG, ItemID.Celeb2, ItemID.LunarFlareBook, ItemID.LastPrism, /*ItemID.RainbowWhip,*/ ItemID.StardustDragonStaff));
-                        break;
+						if (drop.itemId == ItemID.GravityGlobe)
+						{
+							return true;
+						}
+						return false;
+					});
+					itemLoot.Add(ItemDropRule.FewFromOptionsNotScalingWithLuck(2, 1, ItemID.Meowmere, ItemID.Terrarian, ItemID.SDMG, ItemID.Celeb2, ItemID.LunarFlareBook, ItemID.LastPrism, /*ItemID.RainbowWhip,*/ ItemID.StardustDragonStaff));
+					break;
 				case ItemID.ObsidianLockbox:
-				itemLoot.RemoveWhere(rule =>
-				{
-					return true;
-				});
-				itemLoot.Add(ItemDropRule.OneFromOptionsNotScalingWithLuck(1, ChestLoot.ShadowItems));
+					itemLoot.RemoveWhere(rule =>
+					{
+						return true;
+					});
+					int[] newArray = ChestLoot.ShadowItems.Concat(new int[] { ItemID.MoonStone, ItemType<AdvFlightSystem>(), ItemID.GravityGlobe }).ToArray();
+                    itemLoot.Add(ItemDropRule.OneFromOptionsNotScalingWithLuck(1, newArray));
 				itemLoot.Add(ItemDropRule.Common(ItemID.TreasureMagnet, 4));
 				break;
 				case ItemID.LockBox:
@@ -143,9 +148,7 @@ namespace TRAEProject.Changes.Items
 					return true;
 				});
 				itemLoot.Add(ItemDropRule.OneFromOptionsNotScalingWithLuck(1, ChestLoot.DungeonItems));
-				itemLoot.Add(ItemDropRule.Common(ModContent.ItemType<AdvFlightSystem>(), 5));
-				itemLoot.Add(ItemDropRule.Common(ItemID.ShadowKey, 5));
-				break;
+  				break;
 	 
 				case ItemID.OasisCrate:
 				case ItemID.OasisCrateHard:
@@ -245,6 +248,7 @@ namespace TRAEProject.Changes.Items
 				break;
                 case ItemID.FloatingIslandFishingCrate:
                 case ItemID.FloatingIslandFishingCrateHard:
+                    //itemLoot.Add(ItemDropRule.AlwaysAtleastOneSuccess(oasis));
 
                     break;
             }

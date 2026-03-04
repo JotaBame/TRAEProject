@@ -10,6 +10,7 @@ using TRAEProject.Common;
 using TRAEProject.NewContent.Items.Armor.IceArmor;
 using TRAEProject.NewContent.Items.Weapons.Summoner.AbsoluteZero;
 using TRAEProject.NewContent.Items.Weapons.Summoner.Echolalia;
+using TRAEProject.NewContent.NPCs.Echosphere.EchoStalker;
 using static System.Net.Mime.MediaTypeNames;
 using static Terraria.ModLoader.ModContent;
 
@@ -66,7 +67,8 @@ namespace TRAEProject.NewContent.Buffs
                     {
                         int finalDamage = damageDone;
 
-                        if (!enemy.dontTakeDamage && enemy.active && !enemy.friendly && !enemy.immortal && enemy.whoAmI != target.whoAmI)
+                        if (!enemy.dontTakeDamage && enemy.active && !enemy.friendly && !enemy.immortal && enemy.whoAmI != target.whoAmI
+                            && enemy.type != NPCType<EchoStalkerBody1>() && enemy.type != NPCType<EchoStalkerBody2>() && enemy.type != NPCType<EchoStalkerTail>())
                         {
                             Vector2 newMove = enemy.Center - target.Center;
 
@@ -123,6 +125,8 @@ namespace TRAEProject.NewContent.Buffs
                     {
 
                         if (!enemy.dontTakeDamage && enemy.active && !enemy.friendly && !enemy.immortal && enemy.whoAmI != target.whoAmI
+                        && enemy.type != NPCType<EchoStalkerBody1>() && enemy.type != NPCType<EchoStalkerBody2>() && enemy.type != NPCType<EchoStalkerTail>()
+
                          && enemy.HasBuff(BuffType<EcholaliaSecondTag>()))
                         {
                             int finalDamage = damageDone / 2; // divide by two because it always crits

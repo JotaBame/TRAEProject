@@ -34,9 +34,9 @@ namespace TRAEProject.NewContent.Items.Armor.EchoHunter
         public override void AddRecipes()
         {
             CreateRecipe()
-                .AddIngredient(ItemType<EchoHeart>(), 2)
-                .AddIngredient(ItemID.SoulofSight, 5)
-                .AddIngredient(ItemID.SoulofMight, 5)
+                .AddIngredient(ItemType<EchoHeart>(), 6)
+                .AddIngredient(ItemID.SoulofSight, 8)
+                .AddIngredient(ItemID.SoulofMight, 8)
                 .AddTile(TileID.MythrilAnvil)
                 .Register();
         }

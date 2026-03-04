@@ -1,3 +1,4 @@
+
 using Terraria;
 using TRAEProject.NewContent.Items.Weapons.Summoner.AbsoluteZero;
 using Terraria.ID;
@@ -21,7 +22,7 @@ namespace TRAEProject.Changes.NPCs
 {
     public class EnemyDrops: GlobalNPC
     {
-        public static readonly int[] MimicDrops = new int[] { ItemID.CrossNecklace, ItemID.PhilosophersStone, ItemID.TitanGlove, ItemID.DualHook};
+        public static readonly int[] MimicDrops = new int[] { ItemID.CrossNecklace, ItemID.PhilosophersStone, ItemID.TitanGlove, ItemID.DualHook, ItemID.StarCloak};
        
         public static readonly int[] PirateDrops = new int[] { ItemID.LuckyCoin, ItemID.GoldRing, ItemID.DiscountCard, ItemID.PirateStaff };
       
@@ -64,7 +65,15 @@ namespace TRAEProject.Changes.NPCs
                 case NPCID.SporeSkeleton:
                     npcLoot.Add(ItemDropRule.Common(ItemID.Shroomerang, 40));
                     break;
-
+                case NPCID.SkeletonArcher:
+                    npcLoot.RemoveWhere(rule =>
+                    {
+                        if (rule is not CommonDrop drop) // Type of drop you expect here
+                            return false;
+                        return drop.itemId == ItemID.Marrow; // compare more fields if needed
+                    });
+                    npcLoot.Add(ItemDropRule.Common(ItemID.Marrow, 75));
+                    break;
                 case NPCID.DD2OgreT2:
                 case NPCID.DD2OgreT3:
                     npcLoot.Add(ItemDropRule.OneFromOptions(6, ItemID.MonkBelt, ItemID.HuntressBuckler, ItemID.SquireShield, ItemID.ApprenticeScarf));

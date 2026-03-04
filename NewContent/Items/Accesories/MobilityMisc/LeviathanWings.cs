@@ -21,7 +21,7 @@ public class LeviathanWings : ModItem
 
 			CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
 
-			ArmorIDs.Wing.Sets.Stats[Item.wingSlot] = new WingStats(45, 4f, 1f);
+			ArmorIDs.Wing.Sets.Stats[Item.wingSlot] = new WingStats(0, 4f, 1f);
 
 		}
 

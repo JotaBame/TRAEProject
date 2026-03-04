@@ -57,17 +57,17 @@ namespace TRAEProject
             //horses
             if (Player.mount.Type == MountID.DarkHorse)
             {
-                Player.accRunSpeed = 8.6f * mountSpeedBonus;
+                Player.accRunSpeed = 10f * mountSpeedBonus;
             }
             if (Player.mount.Type == MountID.PaintedHorse)
             {
                 Player.jumpHeight = 12;
-                Player.accRunSpeed = 7.8f * mountSpeedBonus;
+                Player.accRunSpeed = 9.6f * mountSpeedBonus;
             }
             if (Player.mount.Type == MountID.MajesticHorse)
             {
                 Player.runAcceleration *= 1.5f;
-                Player.accRunSpeed = 7.8f * mountSpeedBonus;
+                Player.accRunSpeed = 9.6f * mountSpeedBonus;
             }
             //Nerfed max horizontal speed to ~34mph
             if (Player.mount.Type == MountID.Basilisk)
@@ -99,10 +99,13 @@ namespace TRAEProject
                 Player.jumpHeight = 10;
                 Player.jumpSpeed *= 1.4f;
             }
-
+            if (Player.mount.Type == MountID.LavaShark && Player.wet)
+            {
+                Player.maxRunSpeed = 9f;
+             }
             //max speed reduced to ~35mph
             //acceleration improved significantly
-            if(Player.mount.Type == MountID.Pigron)
+            if (Player.mount.Type == MountID.Pigron)
             {
                 Player.accRunSpeed = 7 * mountSpeedBonus;
                 Player.runAcceleration = 0.25f;

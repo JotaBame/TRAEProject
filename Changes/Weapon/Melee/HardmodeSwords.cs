@@ -117,8 +117,7 @@ namespace TRAEProject.Changes.Weapon.Melee
                     aura = ProjectileType<ClaymoreAura>();
                     item.noMelee = true;
                     item.useTurn = false;
-                    item.useTime = 30;
-                    break;
+                     break;
                 case ItemID.Seedler:
                     item.useTime = 27;
                     item.useAnimation = 27;

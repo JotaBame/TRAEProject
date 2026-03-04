@@ -18,7 +18,7 @@ namespace TRAEProject.NewContent.NPCs.BomberBones
         {
             // DisplayName.SetDefault("Bomber Bones");
             Main.npcFrameCount[NPC.type] = 20;
-	NPC.buffImmune[BuffID.Poisoned] = true;
+			NPC.buffImmune[BuffID.Poisoned] = true;
         }
 
         public override void SetDefaults()
@@ -34,7 +34,8 @@ namespace TRAEProject.NewContent.NPCs.BomberBones
             NPC.HitSound = SoundID.NPCHit2;
             NPC.DeathSound = SoundID.NPCDeath2;
             NPC.knockBackResist = 0.4f;
-		
+            NPC.buffImmune[BuffID.Poisoned] = true;
+
             NPC.rarity = 1;
             NPC.scale = 1.05f;;
             Banner = NPC.type;
@@ -59,7 +60,7 @@ namespace TRAEProject.NewContent.NPCs.BomberBones
         {
             if (spawnInfo.Player.ZoneDungeon)
             {
-                return 0.1f;
+				return Main.hardMode ? 0.02f : 0.1f;
             }
             return 0f;
         }

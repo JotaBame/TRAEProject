@@ -1,11 +1,14 @@
 using Microsoft.Xna.Framework;
 using System.Collections.Generic;
+using System;
 using Terraria;
 using Terraria.DataStructures;
 using Terraria.ID;
+using Terraria.Map;
 using Terraria.ModLoader;
 
 using static Terraria.ModLoader.ModContent;
+using TRAEProject.NewContent.Projectiles.KinnaraFeather;
 
 namespace TRAEProject.NewContent.Items.BeholderItems
 {
@@ -23,7 +26,7 @@ namespace TRAEProject.NewContent.Items.BeholderItems
             Item.height = 28;
             Item.consumable = true;
             Item.maxStack = 9999;
-            Item.DefaultToHealingPotion(20, 28, 3);
+            Item.DefaultToHealingPotion(20, 28, 15);
             Item.rare = ItemRarityID.LightPurple;
             Item.value = Item.buyPrice(silver: 20);
             Item.noMelee = true;
@@ -42,14 +45,14 @@ namespace TRAEProject.NewContent.Items.BeholderItems
         {
             player.ClearBuff(BuffID.PotionSickness);
 
-            int potionSickness = 2700;
+            int potionSickness = 3000;
             if (player.pStone == true)
             {
-                potionSickness = 2025;
+                potionSickness = 2250;
             }
             player.AddBuff(BuffID.PotionSickness, potionSickness);
 
-            player.AddBuff(BuffType<Restoring2>(), 1800);
+            player.AddBuff(BuffType<Restoring2>(), 1500);
         }
         public override void ModifyTooltips(List<TooltipLine> tooltips)
         {
@@ -57,7 +60,7 @@ namespace TRAEProject.NewContent.Items.BeholderItems
             {
                 if (line.Mod == "Terraria" && line.Name == "HealLife")
                 {
-                    line.Text = "Restores 150 HP over 30 seconds\nReduced Potion Cooldown";
+                    line.Text = "Restores 150 HP over time\nReduced Potion Cooldown";
                 }
             }
         }
@@ -75,51 +78,110 @@ namespace TRAEProject.NewContent.Items.BeholderItems
     {
         public override void SetStaticDefaults()
         {
-            Main.debuff[Type] = true;
-            Main.buffNoSave[Type] = true;
+             Main.buffNoSave[Type] = true;
             // DisplayName.SetDefault("Restoring");
             // Description.SetDefault("Restoring health");
         }
-
+        public override void Update(Player player, ref int buffIndex)
+        {
+            player.GetModPlayer<RestorationEffect>().Heal(100, buffIndex);
+        }
     }
     public class Restoring2 : ModBuff
     {
         public override void SetStaticDefaults()
         {
-            Main.debuff[Type] = true;
-            Main.buffNoSave[Type] = true;
+             Main.buffNoSave[Type] = true;
             // DisplayName.SetDefault("Restoring");
             // Description.SetDefault("Restoring health");
         }
-    }
+        public override void Update(Player player, ref int buffIndex)
+        {
+            player.GetModPlayer<RestorationEffect>().Heal(150, buffIndex);
+        }
+    }              
+ 
     public class RestorationEffect: ModPlayer
     {
-
-        int timer = 0;
-        public override void PostUpdateBuffs()
+         int maxDuration = 0;
+        int healingInterval = 30;
+        float healthLeftover = 0;
+        float percentageHealedForDebugging = 0f;
+        int healthHealedSoFar = 0;
+        public override void ResetEffects()
         {
-            if (Player.HasBuff<Restoring1>() || Player.HasBuff<Restoring2>())
+            if (!Player.HasBuff<Restoring1>() && !Player.HasBuff<Restoring2>())
             {
-                timer += 1;
-                if (timer >= 40)
-                {
-                    Vector2 position4 = Vector2.Zero;
-                    position4.X = Player.Center.X + Main.rand.Next(-10, 11) - 6;
-                    position4.Y = Player.Center.Y + Main.rand.Next(-20, 21) - 6;
-                    Gore.NewGore(Player.GetSource_None(), position4, new Vector2(Main.rand.Next(-5, 6) * 0.1f, Main.rand.Next(-10, -5) * 0.1f), Mod.Find<ModGore>("RestorationHeart").Type, Main.rand.Next(80, 100) * 0.01f);
-                    if (Player.HasBuff<Restoring2>())
-                    {
-                        Player.Heal(3);
-                    }
-                    if (Player.HasBuff<Restoring1>())
-                    {
-                        Player.Heal(2);
-
-                    }
-                    timer = 0;
-                }
+                healthHealedSoFar = 0;
+                percentageHealedForDebugging = 0;
             }
         }
+        public void Heal(int healthToHeal, int buffIndex)
+        {
+             int duration = Player.buffTime[buffIndex];
+
+         
+            if (maxDuration == 0)
+            {
+             
+                maxDuration = duration + 1;
+            }
+            float percentToHeal = 1;
+            int healCount = (maxDuration - duration) / healingInterval;
+            int maxHeals = maxDuration / healingInterval;
+            if (duration % healingInterval == 0)
+            {
+                int firstPart = maxHeals / 4 - 1;
+                int secondPart = maxHeals - firstPart;
+
+                if (healCount - 1 <= firstPart)
+                {
+                    percentToHeal = (.9f - 0.6f * healCount / firstPart) / firstPart;
+                }
+                else if (healCount - 1 > firstPart)
+                {
+
+                    percentToHeal = (0.4f - 0.2f * (healCount - firstPart) / secondPart) / secondPart;
+                }
+            
+
+                //Vector2 position4 = Vector2.Zero;
+                //position4.X = Player.Center.X + Main.rand.Next(-10, 11) - 6;
+                //position4.Y = Player.Center.Y + Main.rand.Next(-20, 21) - 6;
+                //Gore.NewGore(Player.GetSource_FromThis(), Player.Center, new(1, 1), Mod.Find<ModGore>("RestorationHeart").Type, Main.rand.Next(80, 100) * 100f);
+
+                float heal = healthToHeal * percentToHeal;
+
+                healthLeftover += heal - (int)(heal);
+                if (healthLeftover > 1)
+                {
+                    heal += (int)healthLeftover;
+                    healthLeftover -= (int)healthLeftover;
+                 }
+                if (healCount == 1)
+                    heal += 2; // important else the final value is off by 1
+                if (healCount == 2 && healthToHeal == 150)
+                    heal += 0.5f; // yay more bandaids
+                if (heal >= 1)
+                {
+
+                 
+                    Player.Heal((int)(heal));
+                    healthHealedSoFar += (int)heal;
+
+                }
+                percentageHealedForDebugging += percentToHeal;
+
+                //Main.NewText(healCount + " " +  duration + " " + percentageHealedForDebugging + " " + healthHealedSoFar);
+ 
+                //Main.NewText("n: " + healCount + " p: " + percentToHeal + " heal: " + heal+ " leftover: " + healthLeftover);
+
+            }
+
+
+
+        }
+ 
     }
     public class RestorationPotRework : GlobalItem
     {
@@ -138,7 +200,7 @@ namespace TRAEProject.NewContent.Items.BeholderItems
                 item.consumable = true;
                 item.maxStack = 9999;
                 item.useTime = item.useAnimation = 17;
-                item.healLife = 2;
+                item.healLife = 10;
                 item.noMelee = true;
                 item.noUseGraphic = true;
                 item.useStyle = ItemUseStyleID.DrinkLiquid;
@@ -156,7 +218,14 @@ namespace TRAEProject.NewContent.Items.BeholderItems
         {
             if (item.type == ItemID.RestorationPotion)
             {
-                player.AddBuff(BuffType<Restoring1>(), 1800);
+                int potionSickness = 3000;
+                if (player.pStone == true)
+                {
+                    potionSickness = 2250;
+                }
+                player.AddBuff(BuffID.PotionSickness, potionSickness);
+
+                player.AddBuff(BuffType<Restoring1>(), 1500);
             }
         }
         public override void ModifyTooltips(Item item, List<TooltipLine> tooltips)
@@ -168,7 +237,7 @@ namespace TRAEProject.NewContent.Items.BeholderItems
                     {
                         if (line.Mod == "Terraria" && line.Name == "HealLife")
                         {
-                            line.Text = "Heals 90 HP over 30 seconds";
+                            line.Text = "Heals 100 HP over time";
                         }
                     }
                     break;

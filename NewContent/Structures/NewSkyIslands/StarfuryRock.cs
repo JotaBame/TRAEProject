@@ -15,8 +15,10 @@ namespace TRAEProject.NewContent.Structures.NewSkyIslands
         {
             return entity.type == ItemID.Starfury;
         }
+        
         public override void SetDefaults(Item entity)
         {
+           
             entity.createTile = ModContent.TileType<StarfuryRock>();
         }
     }

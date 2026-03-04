@@ -11,6 +11,8 @@ using Terraria.ID;
 using Terraria.ModLoader;
 using TRAEProject.NewContent.Items.Materials;
 using TRAEProject.NewContent.NPCs.Banners;
+using TRAEProject.NewContent.NPCs.Echosphere.EchoSprite;
+using static Terraria.ModLoader.ModContent;
 
 namespace TRAEProject.NewContent.NPCs.Echosphere.EchoLocator
 {
@@ -28,13 +30,14 @@ namespace TRAEProject.NewContent.NPCs.Echosphere.EchoLocator
         {
             NPC.width = 22;
             NPC.height = 18;
-            NPC.defense = 32;
-            NPC.lifeMax = 450;
+            NPC.defense = 28;
+            NPC.lifeMax = 350;
             NPC.damage = 70;
             NPC.DeathSound = DeathSFX;//ban edited at/mouse death sound
             NPC.HitSound = SoundID.NPCHit1;//common organic hit sound
-            NPC.noGravity = true; 
-            ModContent.ItemType<EchoLocatorBanner>();
+            NPC.noGravity = true; Banner = NPC.type;
+
+            BannerItem = ItemType<EchoLocatorBanner>();
         }
         static int RegularStateDuration => 300;
         static int FastStateDuration => 300;
@@ -60,17 +63,34 @@ namespace TRAEProject.NewContent.NPCs.Echosphere.EchoLocator
         bool JustStartedIdling { get => NPC.localAI[0] == 1; set => NPC.localAI[0] = value ? 1 : 0; }
         public override void ModifyNPCLoot(NPCLoot npcLoot)
         {
-            npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<EchoHeart>(), 3, 1));
-            npcLoot.Add(ItemDropRule.Common(ItemID.MoonStone, 50, 1, 1));
+            npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<EchoHeart>(), 8, 1));
+            npcLoot.Add(ItemDropRule.Common(ItemID.Blindfold, 100, 1, 1));
 
+        }
+        public override void HitEffect(NPC.HitInfo hit)
+        {
+            if (NPC.life <= 0)
+            {
+                EchosphereNPCHelper.EchosphereEnemyDeathDust(NPC);
+                Gore.NewGore(NPC.GetSource_Death(), NPC.Center, NPC.velocity, GoreType<EchoLocatorGore1>());
+                Gore.NewGore(NPC.GetSource_Death(), NPC.Center, NPC.velocity, GoreType<EchoLocatorGore2>());
+                Gore.NewGore(NPC.GetSource_Death(), NPC.Center, NPC.velocity, GoreType<EchoLocatorGore2>());
+
+
+            }
         }
         public override void AI()
         {
             float maxSpeedX = 5;
-            float accelerationX = 0.1f;
-            float maxSpeedY = 1.5f;
-            float accelerationY = 0.04f;
+            float accelerationX = Main.masterMode ? 0.125f : 0.1f;
+            float maxSpeedY = Main.masterMode ? 2.5f : 1.5f;
+            float accelerationY = Main.masterMode ? 0.048f : 0.04f;
             FindTargetAndSetJustStartedIdlingFlag();
+            if (Main.rand.NextBool(8)) 
+            {
+                Dust d = Dust.NewDustDirect(NPC.position, NPC.width, NPC.height, DustID.PinkTorch, NPC.velocity.X, NPC.velocity.Y, 0, default, 1.5f);
+                d.noGravity = true;
+            }
             if (IdlePosition == default)
             {
                 IdlePosition = NPC.Center;
@@ -154,13 +174,7 @@ namespace TRAEProject.NewContent.NPCs.Echosphere.EchoLocator
             int framey = (int)(NPC.frameCounter / frameSpeed % Main.npcFrameCount[Type]) * frameHeight;
             NPC.frame.Y = framey;
         }
-        public override void HitEffect(NPC.HitInfo hit)
-        {
-            if(NPC.life <= 0)
-            {
-                EchosphereNPCHelper.EchosphereEnemyDeathDust(NPC);
-            }
-        }
+ 
         private void BatMovement(float maxSpeedX, float accelerationX, float maxSpeedY, float accelerationY)
         {
             if (NPC.collideX)

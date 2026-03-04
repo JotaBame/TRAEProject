@@ -19,7 +19,8 @@ namespace TRAEProject.Changes.Recipes
             Recipe Leather = Recipe.Create(ItemID.Leather).AddIngredient(ItemID.Vertebrae, 5).AddTile(TileID.Tables);
             Leather.Register();
             
-            Recipe ShadowKey = Recipe.Create(ItemID.ShadowKey).AddIngredient(ItemID.GoldenKey, 3).AddIngredient(ItemType<EchoHeart>(), 2).AddTile(TileID.Tables);
+            Recipe ShadowKey = Recipe.Create(ItemID.ShadowKey).AddIngredient(ItemID.GoldenKey, 1).AddIngredient(ItemType<EchoHeart>(), 3).AddTile(TileID.DemonAltar);
+            ShadowKey.Register();
             Recipe Wire = 
             Recipe.Create(ItemID.Wire, 3).
             AddIngredient(ItemID.CopperBar, 1).
@@ -61,7 +62,7 @@ namespace TRAEProject.Changes.Recipes
                 recipe.TryGetIngredient(ItemID.Hellstone, out ingredientToRemove);
                 recipe.RemoveIngredient(ingredientToRemove);
            
-                recipe.AddIngredient(ItemID.Fireblossom, 3);
+                recipe.AddIngredient(ItemID.Fireblossom, 2);
              }
             if (recipe.HasResult(ItemID.HeartreachPotion))
             {
@@ -71,6 +72,10 @@ namespace TRAEProject.Changes.Recipes
                 recipe.RemoveIngredient(ingredientToRemove);
                 recipe.AddIngredient(ItemID.Waterleaf, 1);
                 recipe.AddIngredient(ItemID.PrincessFish, 1);
+            }
+            if (recipe.HasResult(ItemID.Moondial))
+            {
+                recipe.AddCustomShimmerResult(ItemID.Sundial, 1);
             }
             if (recipe.HasResult(ItemID.RestorationPotion))
             {

@@ -37,6 +37,17 @@ namespace TRAEProject.NewContent.Projectiles
         }
         float scalingRate;
         float opacityMult;
+
+        public override void OnHitPlayer(Player target, Player.HurtInfo info)
+        {
+            if (Projectile.ai[0] >= 1f) // echo leviathans
+            {
+                target.AddBuff(BuffID.Dazed, Main.rand.Next(60, 90));
+                //if (Main.masterMode)
+                //    target.AddBuff(BuffID.VortexDebuff, 90);
+
+            }
+        }
         public override void AI()
         {
 

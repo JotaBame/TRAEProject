@@ -22,7 +22,7 @@ namespace TRAEProject.NewContent.Items.Weapons.Ranged.Tribow
         {
             Item.width = 20;
             Item.height = 60;
-            Item.damage = 42;
+            Item.damage = 30;
             Item.useAnimation = 27;
             Item.useTime = 27;
             Item.autoReuse = true;
@@ -45,7 +45,7 @@ namespace TRAEProject.NewContent.Items.Weapons.Ranged.Tribow
         public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
         {
             float numberProjectiles = 3; 
-            float rotation = MathHelper.ToRadians(3f) * player.GetModPlayer<RangedStats>().spreadModifier;
+            float rotation = MathHelper.ToRadians(4.5f) * player.GetModPlayer<RangedStats>().spreadModifier;
             if (type == ProjectileID.WoodenArrowFriendly)
                 type = ProjectileType<Trirrow>();
             position += Vector2.Normalize(new Vector2(velocity.X, velocity.Y)) * 10f;

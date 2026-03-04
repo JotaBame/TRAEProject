@@ -25,7 +25,7 @@ namespace TRAEProject.NewContent.Items.Weapons.Ranged.Launchers.SonicBoom
         {
             Item.width = 66;
             Item.height = 28;
-            Item.damage = 50;
+            Item.damage = 44;
             Item.useAnimation = 30;
             Item.useTime = 10;
             Item.reuseDelay = 30;
@@ -57,11 +57,11 @@ namespace TRAEProject.NewContent.Items.Weapons.Ranged.Launchers.SonicBoom
         public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
         {
             float numberProjectiles = 3;
-
+ 
             if (player.itemAnimation == Item.useAnimation)
             {
-                player.velocity.X += velocity.X * -1;
-                player.velocity.Y += velocity.Y * -1;
+                //player.velocity.X += velocity.X * -1;
+                //player.velocity.Y += velocity.Y * -1;
                 SoundEngine.PlaySound(ShotSFX with { PitchVariance = 0, MaxInstances = 1, Volume = 0.75f }, position);
             }
  
@@ -90,9 +90,9 @@ namespace TRAEProject.NewContent.Items.Weapons.Ranged.Launchers.SonicBoom
         }
         public override void AddRecipes()
         {
-            CreateRecipe().AddIngredient(ItemType<EchoHeart>(), 6)
-                 .AddIngredient(ItemID.SoulofSight, 8)
-                .AddIngredient(ItemID.SoulofMight, 8)
+            CreateRecipe().AddIngredient(ItemType<EchoHeart>(), 4)
+                 .AddIngredient(ItemID.SoulofFright, 8)
+                .AddIngredient(ItemID.SoulofNight, 16)
                 .AddTile(TileID.MythrilAnvil)
                 .Register();
         }

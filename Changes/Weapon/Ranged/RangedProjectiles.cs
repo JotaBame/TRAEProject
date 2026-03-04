@@ -124,15 +124,17 @@ namespace TRAEProject.Changes.Projectiles
                     return;
                 case ProjectileID.BoneArrow:
                     projectile.penetrate = 3; 
-                    projectile.GetGlobalProjectile<ProjectileStats>().BouncesOffTiles = true;
-                    return;
+                     return;
                 case ProjectileID.Grenade:
                     projectile.penetrate = 5;
                      return;
                 case ProjectileID.MechanicalPiranha:
                     projectile.ContinuouslyUpdateDamageStats = true;
                     break;
-      
+                case ProjectileID.BlackBolt:
+                    projectile.GetGlobalProjectile<ProjectileStats>().DirectDamage = 0.75f;
+
+                    break;
             }
         }
         public override void OnSpawn(Projectile projectile, IEntitySource source)
@@ -757,12 +759,19 @@ namespace TRAEProject.Changes.Projectiles
                     }
                     for (int num229 = 0; num229 < num228; num229++)
                     {
-                        Vector2 vector34 = new Vector2(Main.rand.Next(-100, 101), Main.rand.Next(-100, 101));
+                        Vector2 vector34 = new Vector2(Main.rand.Next(-100, 101), Main.rand.Next(-100, 101)) ;
                         vector34.Normalize();
+                        float cosine = vector34.X / vector34.Length();
+                        float sin = vector34.Y / vector34.Length();
+                        vector34.X *= player.GetModPlayer<RangedStats>().spreadModifier;
+                        vector34.Y *= player.GetModPlayer<RangedStats>().spreadModifier;
                         vector34 += vector33 * 2f ;
                         vector34.Normalize();
-                        vector34 *= num227;
-                       Projectile.NewProjectile(player.GetSource_FromThis(), projectile.Center.X, projectile.Center.Y, vector34.X, vector34.Y * player.GetModPlayer<RangedStats>().spreadModifier, projectile.type, (int)((float)projectile.damage * 0.9f), projectile.knockBack, projectile.owner, 0f, -1000f);
+                    
+                        vector34 *= num227 ;
+                
+                    
+                        Projectile.NewProjectile(player.GetSource_FromThis(), projectile.Center.X, projectile.Center.Y, vector34.X, vector34.Y , projectile.type, projectile.damage,projectile.knockBack, projectile.owner, 0f, -1000f);
                         Vector2 zero2 = Vector2.Zero;
                         Dust dust40;
                         for (int num230 = 0; num230 < 4; num230++)

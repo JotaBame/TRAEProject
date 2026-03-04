@@ -1,16 +1,17 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using System;
-using System.Collections.Generic;
 using Mono.Cecil.Cil;
 using MonoMod.Cil;
+using System;
+using System.Collections.Generic;
 using Terraria;
-using Terraria.ID;
-using TRAEProject.Changes.Weapon.Ranged.Rockets;
-using Terraria.ModLoader;
-using TRAEProject.Common;
-using static Terraria.ModLoader.ModContent;
 using Terraria.Audio;
+using Terraria.ID;
+using Terraria.ModLoader;
+using TRAEProject.Changes.Weapon.Ranged.Rockets;
+using TRAEProject.Common;
+using TRAEProject.NewContent.NPCs.Echosphere.EchoStalker;
+using static Terraria.ModLoader.ModContent;
 
 namespace TRAEProject.Changes.Weapon.Ranged.Rockets
 {
@@ -232,7 +233,9 @@ namespace TRAEProject.Changes.Weapon.Ranged.Rockets
             for (int k = 0; k < 200; k++)
             {
                 NPC nPC = Main.npc[k];
-                if (nPC.active && !nPC.friendly && nPC.damage > 0 && !nPC.dontTakeDamage && Vector2.Distance(Projectile.Center, nPC.Center) <= range)
+                if (nPC.active && !nPC.friendly && nPC.damage > 0 && !nPC.dontTakeDamage && Vector2.Distance(Projectile.Center, nPC.Center) <= range
+                                                    && nPC.type != NPCType<EchoStalkerBody1>() && nPC.type != NPCType<EchoStalkerBody2>() && nPC.type != NPCType<EchoStalkerTail>()
+)
                 {
 
                     if (NPCLimit < 3)

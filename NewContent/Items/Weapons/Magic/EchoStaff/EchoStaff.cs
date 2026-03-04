@@ -23,24 +23,24 @@ namespace TRAEProject.NewContent.Items.Weapons.Magic.EchoStaff
         }
         public override void SetDefaults()
         {
-            Item.DefaultToStaff(ProjectileType<EchoStaffProj>(), pushForwardSpeed: 5, singleShotTime: 25, manaPerShot: 13);
+            Item.DefaultToStaff(ProjectileType<EchoStaffProj>(), pushForwardSpeed: 5, singleShotTime: 28, manaPerShot: 15);
             Item.width = 44;
             Item.height = 44;
-            Item.damage = 43;
+            Item.damage = 51;
             Item.crit = 3;
             Item.autoReuse = true;
             Item.rare = ItemRarityID.Pink;
             Item.value = Item.sellPrice(gold: 7);
-            Item.DamageType = DamageClass.Magic;
-            Item.knockBack = 2f;
-            Item.UseSound = SoundID.Item124 with { PitchVariance = 0.3f, MaxInstances = 1,  };
+             Item.knockBack = 2f;
+            Item.UseSound = SoundID.Item125 with { PitchVariance = 0.3f, MaxInstances = 1,  };
         }
         public override void AddRecipes()
         {
             CreateRecipe()
-                 .AddIngredient(ItemType<EchoHeart>(), 3)
+                 .AddIngredient(ItemType<EchoHeart>(), 4)
                 .AddIngredient(ItemID.SoulofSight, 8)
-                .AddIngredient(ItemID.SoulofFright, 8)
+                                .AddIngredient(ItemID.SoulofLight, 16)
+
                 .AddTile(TileID.MythrilAnvil)
                 .Register();
         }
@@ -86,6 +86,7 @@ namespace TRAEProject.NewContent.Items.Weapons.Magic.EchoStaff
                 Projectile.width = Projectile.height = 24;
                 Projectile.ignoreWater = true;
                 Projectile.tileCollide = true;
+                Projectile.DamageType = DamageClass.Magic;
             }
             public override void AI()
             {

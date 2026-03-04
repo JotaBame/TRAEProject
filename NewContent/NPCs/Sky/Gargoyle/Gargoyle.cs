@@ -25,24 +25,34 @@ namespace TRAEProject.NewContent.NPCs.Sky.Gargoyle
         }
         public override void SetDefaults()
         {
-            NPC.lifeMax = 240;
+            NPC.lifeMax = 140;
             NPC.damage = 35;
-            NPC.defense = 18;
+            NPC.defense = 24;
             NPC.noGravity = true;
             NPC.width = 50;
             NPC.height = 50;
             NPC.value = 7 * 100;
             NPC.HitSound = SoundID.Tink;
-            NPC.DeathSound = SoundID.NPCDeath43;
-            BannerItem = ModContent.ItemType<GargoyleBanner>();
+            NPC.DeathSound = SoundID.NPCDeath43; Banner = NPC.type;
 
+            BannerItem = ModContent.ItemType<GargoyleBanner>();
+ 
             NPC.knockBackResist = 0.05f;
         }
         bool Passive => NPC.ai[0] == 0;
 
         static float BeforeItRisesAgain = 180f;
         static float Airtime = 1000f + BeforeItRisesAgain;
+        public override void OnKill()
+        {
+            Gore.NewGore(NPC.GetSource_Death(), NPC.Center, NPC.velocity, Mod.Find<ModGore>("GargoyleGore1").Type, 1f);
+            for (int i = 0; i < 2; i++)
+            {
+                Gore.NewGore(NPC.GetSource_Death(), NPC.Center, NPC.velocity, Mod.Find<ModGore>("GargoyleGore2").Type, 1f);
+            }
+            Gore.NewGore(NPC.GetSource_Death(), NPC.Center, NPC.velocity, Mod.Find<ModGore>("GargoyleGore3").Type, 1f);
 
+        }
         public override void OnSpawn(IEntitySource source)
         {
             NPC.ai[0] = 1f;
@@ -74,10 +84,10 @@ namespace TRAEProject.NewContent.NPCs.Sky.Gargoyle
 
 
 
-            float maxVelX = 6;
+            float maxVelX = 7f;
             float accelX = .08f;
-            float maxVelY = 3;
-            float accelY = .1f;
+            float maxVelY = 3.5f;
+            float accelY = .12f;
             NPC.noGravity = true;
             NPC.GravityIgnoresLiquid = false;
             NPC.knockBackResist = 0.05f;
@@ -346,7 +356,7 @@ namespace TRAEProject.NewContent.NPCs.Sky.Gargoyle
         {
             if (spawnInfo.Sky)
             {
-                return 0.25f;
+                return 0.22f;
             }
             return 0f;
         }

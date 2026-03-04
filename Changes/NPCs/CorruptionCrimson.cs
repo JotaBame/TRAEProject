@@ -73,7 +73,7 @@ namespace TRAEProject.Changes.NPCs
             }
                 if (spawnInfo.Player.ZoneCorrupt && !Main.remixWorld)
             {
-                float spawnrate = Main.hardMode ? 0.02f : 0.125f;
+                float spawnrate = Main.hardMode ? 0.01f : 0.04f;
                 pool.Remove(NPCID.DevourerHead);
                 pool.Add(NPCID.DevourerHead, spawnrate);
             }

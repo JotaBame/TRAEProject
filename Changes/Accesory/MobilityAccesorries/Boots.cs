@@ -418,7 +418,7 @@ namespace TRAEProject.Changes.Accesory
                         {
                             if (line.Mod == "Terraria" && line.Name == "Tooltip1")
                             {
-                                line.Text = "Allows the wearer to perform a short dash";
+                                line.Text = "Allows the ability to dash";
                             }
                             if (line.Mod == "Terraria" && line.Name == "Tooltip2")
                             {

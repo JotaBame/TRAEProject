@@ -38,10 +38,10 @@ namespace TRAEProject.NewContent.Items.Misc.Potions
 
         public override void AddRecipes()
         {
-            CreateRecipe(4)
-                .AddIngredient(ItemID.BottledWater, 4)
-                .AddIngredient(ItemID.Fireblossom, 1)
-                .AddIngredient(ItemID.Shiverthorn, 1)
+            CreateRecipe(3)
+                .AddIngredient(ItemID.BottledWater, 3)
+                .AddIngredient(ItemID.Fireblossom, 3)
+                .AddIngredient(ItemID.Shiverthorn, 3)
                 .AddIngredient(ItemType<EchoHeart>())
                 .AddTile(TileID.AlchemyTable)
                 .Register();

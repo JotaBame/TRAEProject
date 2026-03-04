@@ -1,6 +1,5 @@
 
-using TRAEProject.NewContent.Buffs;
-using TRAEProject.NewContent.Projectiles;
+ using TRAEProject.NewContent.Projectiles;
 using Microsoft.Xna.Framework;
 using System.Collections.Generic;
 using Terraria;
@@ -9,11 +8,8 @@ using Terraria.ModLoader;
 using static Terraria.ModLoader.ModContent;
 using Terraria.DataStructures;
  using System;
-using static System.Net.Mime.MediaTypeNames;
-using TRAEProject.Common.ModPlayers;
-using TRAEProject.NewContent.Items.Weapons.Ranged.Ammo;
-using Humanizer;
-using TRAEProject.Changes.NPCs.Boss.Plantera;
+ using TRAEProject.Common.ModPlayers;
+ 
 using TRAEProject.Changes.Projectiles;
 
 namespace TRAEProject.Changes.Weapons
@@ -70,7 +66,7 @@ namespace TRAEProject.Changes.Weapons
                     item.value = Item.buyPrice(gold: 35);
                     return;
                 case ItemID.Shotgun:
-                    item.value = Item.buyPrice(gold: 45);
+                    item.value = Item.buyPrice(gold: 40);
                     item.damage = 13; //down from 24
                     item.useAnimation = 45; // up from 45
                     item.useTime = 45; // up from 45
@@ -78,7 +74,7 @@ namespace TRAEProject.Changes.Weapons
 
                     break;
                 case ItemID.BloodRainBow:
-                    item.shootSpeed = 12f;
+                    item.shootSpeed = 15f;
                     item.shoot = ProjectileID.WoodenArrowFriendly;
                     break;
                 case ItemID.BeesKnees:
@@ -98,7 +94,7 @@ namespace TRAEProject.Changes.Weapons
                     item.useTime = 16;
                     break;
                 case ItemID.Gatligator:
-                    item.damage = 18; // down from 21
+                    item.damage = 15; // down from 21
 
                     item.useTime = 6; // down from 7
                     item.useAnimation = 6;
@@ -112,12 +108,10 @@ namespace TRAEProject.Changes.Weapons
                 case ItemID.Toxikarp:
                     item.useTime = 14;
                     item.useAnimation = 14;
-                    break;                //case ItemID.OnyxBlaster:
-                //    item.useTime = 50; // up from 48
-                //    item.useAnimation = 50;
-                //    return;
-                case ItemID.DaedalusStormbow:
-                    item.damage = 30;
+                    break;
+        
+                    case ItemID.DaedalusStormbow:
+                    item.damage = 34;
                     break;
                 case ItemID.PearlwoodBow:
                     item.damage = 25; // up from 12
@@ -128,10 +122,10 @@ namespace TRAEProject.Changes.Weapons
                     item.rare = ItemRarityID.LightRed;
                     return;
                 case ItemID.Marrow:
-                    item.damage = 100;
+                    item.damage = 67;
                     item.crit = 20;
-                    item.useTime = 50;
-                    item.useAnimation = 50;
+                    item.useTime = 35;
+                    item.useAnimation = 35;
                     item.autoReuse = true;
                     return;
 
@@ -383,9 +377,9 @@ namespace TRAEProject.Changes.Weapons
 
                 
  
-                Vector2 perturbedSpeed = velocity.RotatedByRandom(MathHelper.ToRadians(10) * player.GetModPlayer<RangedStats>().spreadModifier);
                 player.PickAmmo(player.inventory[player.selectedItem], out type, out shootSpeed, out damage, out knockback, out var usedAmmoItemId, true);
                 velocity *= shootSpeed;
+                Vector2 perturbedSpeed = velocity.RotatedByRandom(MathHelper.ToRadians(10) * player.GetModPlayer<RangedStats>().spreadModifier);
 
                 Projectile.NewProjectile(source, position, perturbedSpeed, type, damage, knockback, player.whoAmI);
                 return false;

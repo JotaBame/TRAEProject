@@ -433,7 +433,7 @@ namespace TRAEProject.Changes.Weapon.Melee
     {
         public override void AuraDefaults()
         {
-            scaleIncrease = 1f;
+            scaleIncrease = 0.8f;
             frontColor = Color.LimeGreen;
             middleColor = Color.Black;
             backColor = Color.DarkGreen;

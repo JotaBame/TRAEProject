@@ -38,7 +38,8 @@ namespace TRAEProject
     {
         public override ConfigScope Mode => ConfigScope.ServerSide;
         [Header("BossChanges")]
-
+        [DefaultValue(true)]
+        public bool KingSlimeChanges { get; set; }
         [DefaultValue(true)]
         public bool EOCChanges { get; set; }
         [DefaultValue(true)]

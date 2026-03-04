@@ -8,8 +8,9 @@ using Terraria.GameContent.Bestiary;
 using Terraria.GameContent.ItemDropRules;
 using Terraria.ID;
 using Terraria.ModLoader;
-using TRAEProject.Changes.NPCs.Boss.Plantera;
-using TRAEProject.NewContent.NPCs.Banners;
+using static Terraria.ModLoader.ModContent;
+
+ using TRAEProject.NewContent.NPCs.Banners;
 using TRAEProject.NewContent.Projectiles.KinnaraFeather;
 
 namespace TRAEProject.NewContent.NPCs.Sky.Kinnara
@@ -33,7 +34,10 @@ namespace TRAEProject.NewContent.NPCs.Sky.Kinnara
             NPC.lifeMax = 300;
             NPC.damage = 80;
             NPC.knockBackResist = 0.4f;
-            NPC.noGravity = true; BannerItem = ModContent.ItemType<GriffinBanner>();
+            NPC.noGravity = true;
+            Banner = NPC.type;
+            
+            BannerItem = ItemType<KinnaraBanner>();
 
         }
         public override void AI()
@@ -43,7 +47,7 @@ namespace TRAEProject.NewContent.NPCs.Sky.Kinnara
             if (!NPC.confused && player.Distance(NPC.Center) < 9000)//attack minimum distance
             {
                 NPC.ai[0]++;
-                int firerate = 45;
+                int firerate = 75;
                 int rounds = 4;
                 float feathersPerRound = 5;
                 int extraWaitTime = 3;
@@ -92,10 +96,10 @@ namespace TRAEProject.NewContent.NPCs.Sky.Kinnara
             speedX += Main.rand.Next(-35, 36) * random;
             speedY += Main.rand.Next(-35, 36) * random;
             float normalizingFactor = MathF.Sqrt(speedX * speedX + speedY * speedY);
-            normalizingFactor = 10 / normalizingFactor;//10 is shootspeed
+            normalizingFactor = 11 / normalizingFactor;//12 is shootspeed
             speedX *= normalizingFactor;
             speedY *= normalizingFactor;
-            Projectile.NewProjectile(NPC.GetSource_FromAI(), posX, posY, speedX, speedY, ModContent.ProjectileType<KinnaraFeather>(), 40, 0);
+            Projectile.NewProjectile(NPC.GetSource_FromAI(), posX, posY, speedX, speedY, ModContent.ProjectileType<KinnaraFeather>(), 28, 0);
         }
         private void SpreadShot_Old(float feathersPerRound, int i)
         {
@@ -124,21 +128,31 @@ namespace TRAEProject.NewContent.NPCs.Sky.Kinnara
             velocity = velocity.RotatedBy(Utils.Remap(i, 0, feathersPerRound - 1, -spread / 2, spread / 2));
             Projectile.NewProjectile(NPC.GetSource_FromAI(), NPC.Center, velocity, ModContent.ProjectileType<KinnaraFeather>(), 40, 0);
         }
+        public override void OnKill()
+        {
+            Gore.NewGore(NPC.GetSource_Death(), NPC.Center, NPC.velocity, Mod.Find<ModGore>("KinnaraGore1").Type, 1f);
+            for (int i = 0; i < 2; i++)
+            {
+                Gore.NewGore(NPC.GetSource_Death(), NPC.Center, NPC.velocity, Mod.Find<ModGore>("KinnaraGore2").Type, 1f);
+            }
+            Gore.NewGore(NPC.GetSource_Death(), NPC.Center, NPC.velocity, Mod.Find<ModGore>("KinnaraGore3").Type, 1f);
+
+        }
         public override float SpawnChance(NPCSpawnInfo spawnInfo)
         {
             if (Main.hardMode)
             {
-                if (spawnInfo.Player.ZoneNormalSpace)
+                if (spawnInfo.Sky)
 
-                    return .2f;
+                    return .27f;
             }
             return 0;
         }
         private void Movement()
         {
-            float maxVelX = 9;
-            float accelX = .3f;
-            float maxVelY = 5;
+            float maxVelX = 6.75f;
+            float accelX = .16f;
+            float maxVelY = 6;
             float accelY = 0.4f;
             if (NPC.collideX)
             {
@@ -263,11 +277,10 @@ namespace TRAEProject.NewContent.NPCs.Sky.Kinnara
         {
             npcLoot.Add(ItemDropRule.Common(ItemID.Feather, 2));
             npcLoot.Add(ItemDropRule.Common(ItemID.GiantHarpyFeather, 100));
-            npcLoot.Add(ItemDropRule.Common(ItemID.SoulofFlight, 3));
-
+ 
             npcLoot.Add(ItemDropRule.Common(ItemID.ChickenNugget, 50));
 
-            npcLoot.Add(new DropBasedOnExpertMode(new CommonDrop(ItemID.SoulofFlight, 100, 1, 1, 33), new CommonDrop(ItemID.SoulofFlight, 100, 1, 1, 44)));
+            npcLoot.Add(new DropBasedOnExpertMode(new CommonDrop(ItemID.SoulofFlight, 100, 1, 2, 33), new CommonDrop(ItemID.SoulofFlight, 100, 1, 2, 50)));
         }
         public override bool PreDraw(SpriteBatch spriteBatch, Vector2 screenPos, Color drawColor)
         {

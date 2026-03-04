@@ -84,7 +84,8 @@ namespace TRAEProject.Changes.NPCs
                 if (npc.ai[0] >= 450f && Main.netMode != 1)
                 {
                     npc.ai[0] = 650f;
-                    //When ai 0 reaches 650 it teleports.  when the fire imp is hit, ai[0 is set to 400. This is dumb but it's too annoying to change, so what i do is effectively shorten the cooldown to 450, still killed by focused fire but can slip away if it stops for a moment.
+                    //When ai 0 reaches 650 it teleports.  When the fire imp is hit, ai[0 is set to 400. 
+                    // This is dumb but it's too annoying to change, so what i do is effectively shorten the cooldown to 450, still killed by focused fire but can slip away if it stops for a moment.
 
                 }
 

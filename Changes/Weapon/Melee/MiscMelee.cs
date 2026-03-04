@@ -248,7 +248,7 @@ namespace TRAEProject.Changes.Weapon.Melee
                     {
                         if (line.Mod == "Terraria" && line.Name == "Knockback")
                         {
-                            line.Text += "\nCharges power as it is held out";
+                            line.Text += "\nHits more rapidly than other yoyos";
                         }
                     }
                     break;

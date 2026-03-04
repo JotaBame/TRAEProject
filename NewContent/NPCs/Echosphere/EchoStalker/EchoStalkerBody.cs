@@ -2,6 +2,7 @@
 using Microsoft.Xna.Framework.Graphics;
 using Terraria;
 using Terraria.ModLoader;
+using TRAEProject.NewContent.NPCs.Echosphere.EchoLeviathan;
 
 namespace TRAEProject.NewContent.NPCs.Echosphere.EchoStalker
 {
@@ -28,7 +29,7 @@ namespace TRAEProject.NewContent.NPCs.Echosphere.EchoStalker
             NPC.Size = new(36);
             NPC.lifeMax = 1250;
             NPC.defense = 10;
-            NPC.damage = 50;
+            NPC.damage = 35;
             NPC.knockBackResist = 0;
             NPC.aiStyle = -1;
             NPC.HitSound = EchoStalkerHead.HitSFX;
@@ -46,6 +47,9 @@ namespace TRAEProject.NewContent.NPCs.Echosphere.EchoStalker
                 NPC.active = false;
                 return;
             }
+            NPC.dontTakeDamage = false;
+            if (Main.npc[parent].dontTakeDamage)
+                NPC.dontTakeDamage = true;
             NPC.realLife = parent;
 
         }
@@ -104,6 +108,17 @@ namespace TRAEProject.NewContent.NPCs.Echosphere.EchoStalker
             if (NPC.life <= 0)
             {
                 EchosphereNPCHelper.EchosphereEnemyDeathDust(NPC);
+                int goreType = ModContent.GoreType<EchoStalkerGoreBody1>();
+                if (NPC.type == ModContent.NPCType<EchoStalkerBody2>())
+                {
+                    goreType = ModContent.GoreType<EchoStalkerGoreBody2>();
+                }
+                if (NPC.type == ModContent.NPCType<EchoStalkerTail>())
+                {
+                    goreType = ModContent.GoreType<EchoStalkerGoreTail1>();
+                }
+                Gore.NewGore(NPC.GetSource_Death(), NPC.Center, NPC.velocity, goreType);
+
             }
         }
         public override bool CheckActive()

@@ -21,7 +21,8 @@ namespace TRAEProject
         public bool sandRunning = false;
         public bool FastFall = false;
         public bool AquaAffinity = false;
-        public bool LavaShield = false;
+        public bool LavaShield = false; public int SimplePlayerTimer = 0; // goes up to 120k
+
         public override void ResetEffects()
         {
             wErewolf = false;
@@ -43,7 +44,12 @@ namespace TRAEProject
         }
         public override void PostUpdate()
         {
-             Player.lifeSteal -= 13f / 30f; // this stat increases by 0.5f every frame, or by 30 per second. with this change it goes down to 4 per second.
+             if (SimplePlayerTimer >= 120000)
+            {
+                SimplePlayerTimer = 0;
+            }
+            SimplePlayerTimer++;
+            Player.lifeSteal -= 13f / 30f; // this stat increases by 0.5f every frame, or by 30 per second. with this change it goes down to 4 per second.
 
             if (Player.lifeSteal > 4)
             {
@@ -94,17 +100,25 @@ namespace TRAEProject
         }
         public override void PostUpdateEquips()
         {
-            if (wErewolf && Player.statLife < Player.statLifeMax2 * 0.67)
+            if (wErewolf)
             {
-                Player.buffImmune[BuffID.Werewolf] = false;
-                Player.AddBuff(BuffID.Werewolf, 1, false);
-                Player.wereWolf = true;
-                Player.GetDamage<GenericDamageClass>() += 0.07f;
-                Player.GetCritChance<GenericDamageClass>() += 3;
-                Player.GetAttackSpeed(DamageClass.Melee) += 0.07f;
-                Player.moveSpeed += 0.16f;
-                Player.jumpSpeedBoost = Mobility.JSV(0.16f);
+                if (Player.statLife < Player.statLifeMax2 * 0.67)
+                {
+                    Player.lifeRegen += 1;
 
+                }
+                if (Player.statLife > Player.statLifeMax2 * 0.67)
+                {
+                    Player.buffImmune[BuffID.Werewolf] = false;
+                    Player.AddBuff(BuffID.Werewolf, 1, false);
+                    Player.wereWolf = true;
+                    Player.GetDamage<GenericDamageClass>() += 0.08f;
+                    Player.statDefense += 3;
+                    Player.GetAttackSpeed(DamageClass.Melee) += 0.13f;
+                    Player.moveSpeed += 0.17f;
+                    Player.jumpSpeedBoost = Mobility.JSV(0.17f);
+
+                }
             }
             if (sandRunning)
             {
@@ -159,7 +173,7 @@ namespace TRAEProject
             }
             if (FastFall && Player.controlDown && Player.velocity.Y != 0)
             {
-                Player.velocity.Y += 2f * Player.gravDir;
+                Player.velocity.Y += 0.4f * Player.gravDir;
             }
             else if (FastFall && Player.controlDown && Player.gravDir != -1)
             {
@@ -170,7 +184,6 @@ namespace TRAEProject
                     Player.velocity.Y += 0.2f;
                 }
             }
-            
         }
 
 

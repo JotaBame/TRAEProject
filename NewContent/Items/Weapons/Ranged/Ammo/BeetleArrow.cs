@@ -1,12 +1,13 @@
 ﻿using Microsoft.Xna.Framework;
 using Terraria;
+using Terraria.GameContent.Creative;
 using Terraria.ID;
 using Terraria.ModLoader;
-using static Terraria.ModLoader.ModContent;
-using Terraria.GameContent.Creative;
 using TRAEProject.Common;
 using TRAEProject.NewContent.Items.Materials;
+using TRAEProject.NewContent.NPCs.Echosphere.EchoStalker;
 using TRAEProject.NewContent.TRAEDebuffs;
+using static Terraria.ModLoader.ModContent;
 
 namespace TRAEProject.NewContent.Items.Weapons.Ranged.Ammo
 {
@@ -91,7 +92,7 @@ namespace TRAEProject.NewContent.Items.Weapons.Ranged.Ammo
                 for (int k = 0; k < 200; k++)
                 {
                     NPC nPC = Main.npc[k];
-                    if (nPC != target && nPC.active && !nPC.friendly && nPC.damage > 0 && !nPC.dontTakeDamage && Vector2.Distance(target.Center, nPC.Center) <= range)
+                    if (nPC != target && nPC.active && !nPC.friendly && nPC.damage > 0 && !nPC.dontTakeDamage && Vector2.Distance(target.Center, nPC.Center) <= range && nPC.type != NPCType<EchoStalkerBody1>() && nPC.type != NPCType<EchoStalkerBody2>() && nPC.type != NPCType<EchoStalkerTail>())
                     {
                         ++NPCLimit;
                         damageDone /= 2;

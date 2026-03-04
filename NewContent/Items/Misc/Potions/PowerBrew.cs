@@ -26,7 +26,7 @@ namespace TRAEProject.NewContent.Items.Misc.Potions
         {
             Item.DefaultToHealingPotion(22, 32, 80);
             Item.consumable = true;
-            Item.maxStack = 30;
+            Item.maxStack = 9999;
             Item.rare = ItemRarityID.LightPurple;
             Item.value = Item.buyPrice(silver: 20);
             Item.noMelee = true;

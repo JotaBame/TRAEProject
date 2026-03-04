@@ -27,7 +27,7 @@ namespace TRAEProject.NewContent.Items.Accesories.MechanicalEye
         {
             player.GetModPlayer<RangedStats>().AlphaScope += 1;
             player.scope = true;
-            player.GetModPlayer<RangedStats>().spreadModifier /= 3;
+            player.GetModPlayer<RangedStats>().spreadModifier /= 2.5f;
         }
         public override void AddRecipes()
         {

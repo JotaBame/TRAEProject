@@ -27,7 +27,7 @@ namespace TRAEProject.Changes.Weapon
 		{
 			return base.Clone(item, itemClone);
         }
-		public static int[] spears = new int[] { ItemID.Spear, ItemID.Trident, ItemID.Javelin, ItemID.BoneJavelin, ItemID.TheRottedFork, ItemID.ThunderSpear,ItemID.DarkLance, ItemID.Swordfish, ItemID.ObsidianSwordfish, ItemID.CobaltNaginata, ItemID.PalladiumPike, ItemID.MythrilHalberd, ItemID.OrichalcumHalberd, ItemID.AdamantiteGlaive, ItemID.TitaniumTrident,ItemID.Gungnir,ItemID.ChlorophytePartisan,ItemID.NorthPole,ItemID.DayBreak,ItemID.MonkStaffT2,ItemID.ScourgeoftheCorruptor,ItemType<JoterTrident>() };
+		public static int[] spears = new int[] { ItemID.Spear, ItemID.Trident, ItemID.Javelin, ItemID.BoneJavelin, ItemID.TheRottedFork, ItemID.ThunderSpear,ItemID.DarkLance, ItemID.Swordfish, ItemID.ObsidianSwordfish, ItemID.CobaltNaginata, ItemID.PalladiumPike, ItemID.MythrilHalberd, ItemID.OrichalcumHalberd, ItemID.AdamantiteGlaive, ItemID.TitaniumTrident,ItemID.Gungnir,ItemID.ChlorophytePartisan,ItemID.NorthPole,ItemID.DayBreak,ItemID.MonkStaffT2,ItemID.ScourgeoftheCorruptor,ItemType<JoterTrident>(), ItemID.MushroomSpear };
 		public override void SetStaticDefaults()
 		{
 			for (int i = 0; i < spears.Length; i++)

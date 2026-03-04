@@ -14,13 +14,19 @@ namespace TRAEProject.NewContent.Projectiles.EchoSpriteProj
         public override string Texture => "Terraria/Images/Item_0";
         public override void SetDefaults()
         {
-            Projectile.extraUpdates = 2;
+            Projectile.extraUpdates = 3;
             Projectile.hostile = true;
             Projectile.width = Projectile.height = 24;
             Projectile.ignoreWater = true;
             Projectile.tileCollide = true;
         }
- 
+        //public override void OnHitPlayer(Player target, Player.HurtInfo info)
+        //{
+        //    if (Main.expertMode) 
+        //    {
+        //        target.AddBuff(BuffID.VortexDebuff, Main.masterMode ? 60 : 90); // to negate the master duration increases
+        //    }
+        //}
         public override void AI()
         {
             Projectile.localAI[0] += .1f;

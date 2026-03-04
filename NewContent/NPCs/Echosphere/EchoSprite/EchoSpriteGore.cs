@@ -10,10 +10,22 @@ using TRAEProject.NewContent.Structures.Echosphere.Generation;
 
 namespace TRAEProject.NewContent.NPCs.Echosphere.EchoSprite
 {
-    public class EchoSpriteGoreBody : ModGore
+    public class EchoSpriteGore1 : ModGore
     {
         public override bool Update(Gore gore) => EchosphereNPCHelper.EchosphereEnemyGoreUpdate(gore);
         public override Color? GetAlpha(Gore gore, Color lightColor) => EchosphereNPCHelper.EchosphereEnemyGoreGetAlpha(gore, lightColor);
+    }
+    public class EchoSpriteGore2 : EchoSpriteGore1
+    {
+
+    }
+    public class EchoSpriteGore3 : EchoSpriteGore1
+    {
+
+    }
+    public class EchoSpriteGore4 : EchoSpriteGore1
+    {
+
     }
     public class EchoSpriteGoreTail : ModGore
     {
@@ -62,7 +74,7 @@ namespace TRAEProject.NewContent.NPCs.Echosphere.EchoSprite
         }
         public override bool Update(Gore gore)
         {
-            if(gore.timeLeft == Gore.goreTime)
+            if (gore.timeLeft == Gore.goreTime)
             {
             }
             trail.AddForce(gore.velocity * 16f);
@@ -73,11 +85,15 @@ namespace TRAEProject.NewContent.NPCs.Echosphere.EchoSprite
         {
             Texture2D outer = EchoSprite.trailOuter.Value;
             Texture2D inner = EchoSprite.trailInner.Value;
+            if (outer == null || inner == null)
+            {
+                return;
+            }
             Vector2[] positions = trail.GetPositions();
             Vector2 origin = outer.Size() / 2;
             float rotation = gore.rotation;
             SpriteEffects fx = SpriteEffects.None;
-           
+
             for (int i = 0; i < positions.Length; i++)
             {
                 sb.Draw(outer, positions[i] - screenPos, null, drawColor, rotation, origin, Vector2.One, fx, 0f);
@@ -91,12 +107,13 @@ namespace TRAEProject.NewContent.NPCs.Echosphere.EchoSprite
         }
         private void EchoSpriteTailRendering(On_Main.orig_DrawGore orig, Main self)
         {
+            orig(self);
             for (int i = 0; i < Main.maxGore; i++)
             {
                 Gore gore = Main.gore[i];
-                if (gore.active && gore.type == ModContent.GoreType<EchoSpriteGoreTail>())
+                if (gore != null && gore.active && gore.type == ModContent.GoreType<EchoSpriteGoreTail>())
                 {
-                    DrawTrail(Main.spriteBatch, Main.screenPosition, EchosphereNPCHelper.EchosphereEnemyGoreGetAlpha(gore, Color.White).Value, gore);   
+                    DrawTrail(Main.spriteBatch, Main.screenPosition, EchosphereNPCHelper.EchosphereEnemyGoreGetAlpha(gore, Color.White).Value, gore);
                 }
             }
         }

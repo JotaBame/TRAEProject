@@ -50,7 +50,7 @@ namespace TRAEProject.Changes
                 if (proj.CountsAsClass(DamageClass.Magic) && manaCloak == true && hit.Crit && Main.rand.NextBool(3))
                 {
                     int[] spread = { 3, 4, 5 };
-                    TRAEMethods.SpawnProjectilesFromAbove(Player, target.position, 1, 400, 600, spread, 20, ProjectileID.ManaCloakStar, damageDone / 2, 2f, Player.whoAmI);
+                    TRAEMethods.SpawnProjectilesFromAbove(Player, target.position, 1, 400, 600, spread, 20, ProjectileID.ManaCloakStar, (int)(damageDone / 2), 2f, Player.whoAmI);
                 }
                 if (proj.CountsAsClass(DamageClass.Magic) && newManaFlower == true && hit.Crit && manaFlowerLimit < 3)
                 {
@@ -226,7 +226,11 @@ namespace TRAEProject.Changes
                     player.lifeRegen += 2;
                     break;
 
-           
+                case ItemID.ManaCloak:
+                    player.GetModPlayer<Mana>().manaCloak = true;
+                    player.manaCost += 0.08f;
+                    
+                    break;
                 case ItemID.ManaFlower:
                 case ItemID.MagnetFlower:
                     player.GetModPlayer<Mana>().newManaFlower = true;

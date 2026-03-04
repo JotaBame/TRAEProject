@@ -17,17 +17,20 @@ namespace TRAEProject.NewContent.Structures.Echosphere
             if (EchosphereSystem.PlayerInEchosphere(spawnInfo.Player))
             {
                 pool.Clear();
-
+               
                 if (Main.hardMode)
                 {
                     //idk how this really works...
                     if (!NPC.AnyNPCs(ModContent.NPCType<EchoLeviathanHead>()))
                     {
-                        pool.Add(ModContent.NPCType<EchoLeviathanHead>(), 0.05f);
+                        pool.Add(ModContent.NPCType<EchoLeviathanHead>(), 0.075f);
                     }
-                    pool.Add(ModContent.NPCType<EchoLocator>(), 0.5f);
-                    pool.Add(ModContent.NPCType<EchoStalkerHead>(), 0.15f);
-                    pool.Add(ModContent.NPCType<EchoSprite>(), 0.3f);
+                    if (Main.expertMode || !NPC.AnyNPCs(ModContent.NPCType<EchoLeviathanHead>()))
+                    {
+                        pool.Add(ModContent.NPCType<EchoLocator>(), 0.2f);
+                        pool.Add(ModContent.NPCType<EchoStalkerHead>(), 0.14f);
+                        pool.Add(ModContent.NPCType<EchoSprite>(), 0.2f);
+                    }
                 }
                 else
                 {
@@ -41,6 +44,16 @@ namespace TRAEProject.NewContent.Structures.Echosphere
 
 
                 }
+            }
+        }
+        public override void EditSpawnRate(Player player, ref int spawnRate, ref int maxSpawns)
+        {
+            if (EchosphereSystem.PlayerInEchosphere(player))
+            {
+               
+                spawnRate = (int)(spawnRate * 3/5);
+                 maxSpawns = (int)(maxSpawns * 2 / 3);
+
             }
         }
     }

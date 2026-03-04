@@ -2,6 +2,7 @@ using Microsoft.Xna.Framework;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 using Terraria;
@@ -35,7 +36,7 @@ namespace TRAEProject.NewContent.Items.Weapons.Magic.ConfuseRay
         }
         public override void ModifyShootStats(Player player, ref Vector2 position, ref Vector2 velocity, ref int type, ref int damage, ref float knockback)
         {
-            Vector2 muzzleOffset = Vector2.Normalize(velocity) * 25f;
+            Vector2 muzzleOffset = Vector2.Normalize(velocity) * 55f;
 
             if (Collision.CanHit(position, 0, 0, position + muzzleOffset, 0, 0))
             {
@@ -72,34 +73,36 @@ namespace TRAEProject.NewContent.Items.Weapons.Magic.ConfuseRay
             Projectile.GetGlobalProjectile<ProjectileStats>().AddedBuffDuration = 150;
 
         }
-        float angle = 60f * (MathF.PI / 180f);
-        float zigzagTimer = 3;
-        float bounceAt = 12;
-        int bounced = 0;
+  
+        
 
         public override void AI()
         {
-			Projectile.ai[0] += 1f;
-           
+ 
+            Projectile.ai[0] += 1f;
+             int bounceAt = (int)6;
+            if (Projectile.ai[1] > 1)
+            {
+                bounceAt *= 2;
+             }
+             
+            float angle = 60f * (MathF.PI / 180f)  ;
+ 
             if (Projectile.ai[0] >= bounceAt)
             {
                 Projectile.ai[0] = 0;
-                Projectile.velocity = Projectile.velocity.RotatedBy(angle);
-                angle *= -1;
+                Projectile.ai[1] += 1;
 
-                if (bounced == 1)
+               
+                if (Projectile.ai[1] % 2 == 0)
                 {
-                    bounced++;
-                    bounceAt = zigzagTimer * 2; //takes twice as long after the first bounce
+                    angle *= -1;
                 }
-                if (bounced == 0)
+                if (Projectile.ai[1] > 1)
                 {
-                    bounced++;
-                    angle *= 2f;
-                    bounceAt = zigzagTimer;
+                    angle *= 2;
                 }
-             
-
+                 Projectile.velocity = Projectile.velocity.RotatedBy(angle);  
             }
             for (int i = 0; i < 2; i++)
 			{

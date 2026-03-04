@@ -245,14 +245,12 @@ namespace TRAEProject.NewContent.Items.Weapons.Melee.Stormbreaker
                 velocityY *= effVelocity;
                 /// 
 
-                int lightning = Projectile.NewProjectile(Projectile.GetSource_FromThis(), x, y, velocityX, velocityY, ProjectileType<LightningBolt>(), Projectile.damage, Projectile.knockBack / 2f);
+                int lightning = Projectile.NewProjectile(Projectile.GetSource_FromThis(), x, y, velocityX, velocityY, ProjectileType<LightningBolt>(), Projectile.damage / 4 * 3, Projectile.knockBack / 2f);
                 // once the projectile reaches the base's position, it will no longer go through tiles.
                                 for (int j = 0; j < 50; j++)
                 {
                     float radius = 50f / 62.5f;
-                    // Why 62.5f and not 41.67?
-                    // This is 150% of 41.67, because below the extra dusts get increased distance, with a max of 50% more.
-                    // Therefore, the circle of flames more or less accurately represents the radius of the fire ring.
+ 
                     Vector2 speed = Main.rand.NextVector2CircularEdge(radius, radius);
                     Dust d = Dust.NewDustPerfect(Position, 226, speed * 5);
                     if (Main.rand.NextBool(3))

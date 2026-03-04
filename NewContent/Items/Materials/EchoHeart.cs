@@ -32,7 +32,7 @@ namespace TRAEProject.NewContent.Items.Materials
             if (timer >= 80)
             {
                 maxFallSpeed = 0;
-                if (Main.rand.NextBool(4))
+                if (Main.rand.NextBool(5))
                 {
                     int num117 = Dust.NewDust(new Vector2(Item.position.X, Item.position.Y + 2f), Item.width, Item.height, DustID.PinkTorch, Item.velocity.X * 0.2f, Item.velocity.Y * 0.2f, 100, default, 2f);
                     Main.dust[num117].noGravity = true;

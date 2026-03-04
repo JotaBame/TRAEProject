@@ -28,6 +28,10 @@ namespace TRAEProject.Changes.Accesory
 
                     player.honeyCombItem = null;
                     break;
+                case ItemID.HiveBackpack:
+                    if (player.GetModPlayer<HoneyCombPlayer>().combs > 0)
+                        player.GetModPlayer<HoneyCombPlayer>().combs += 1;
+                    break;
                 case ItemID.BeeCloak:
                     player.honeyCombItem = null;
                     player.starCloakItem = null; 

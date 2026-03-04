@@ -17,7 +17,8 @@ namespace TRAEProject.NewContent.Buffs
 
 		public override void Update(Player player, ref int buffIndex)
 		{
-
+			if (NPC.AnyNPCs(NPCID.DukeFishron))
+				player.DelBuff(buffIndex);
 			timer++;
 			if (timer > 540)
             {

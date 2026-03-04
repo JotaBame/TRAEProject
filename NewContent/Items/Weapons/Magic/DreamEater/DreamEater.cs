@@ -21,9 +21,9 @@ namespace TRAEProject.NewContent.Items.Weapons.Magic.DreamEater
         {
             Item.width = 44;
             Item.height = 42;
-            Item.damage = 33;
-            Item.useTime = 31;
-            Item.useAnimation = 31;
+            Item.damage = 37;
+            Item.useTime = 30;
+            Item.useAnimation = 30;
             Item.mana = 40;
             Item.useStyle = ItemUseStyleID.Swing;
             Item.rare = ItemRarityID.Green;
@@ -90,7 +90,8 @@ namespace TRAEProject.NewContent.Items.Weapons.Magic.DreamEater
             DrawOffsetX = -7;
             Projectile.GetGlobalProjectile<ProjectileStats>().MaxBounces = 4;
             Projectile.GetGlobalProjectile<ProjectileStats>().BouncesOffTiles = true;
-            Projectile.usesLocalNPCImmunity = true;
+            Projectile.GetGlobalProjectile<ProjectileStats>().DamageLossOffATileBounce = 0.1f;
+           Projectile.usesLocalNPCImmunity = true;
             Projectile.localNPCHitCooldown = 15;
             Projectile.penetrate = 4;
             Projectile.timeLeft = 300;
@@ -125,7 +126,7 @@ namespace TRAEProject.NewContent.Items.Weapons.Magic.DreamEater
                     Dust d = Dust.NewDustPerfect(target.Center, DustID.PinkTorch, speed * 2, Scale: 1.5f);
                     d.noGravity = true;
                 }
-                target.AddBuff(BuffID.ShadowFlame, 150);
+                target.AddBuff(BuffID.ShadowFlame, 360);
             }
         }
         public override bool OnTileCollide(Vector2 oldVelocity)
@@ -210,7 +211,7 @@ namespace TRAEProject.NewContent.Items.Weapons.Magic.DreamEater
                     Dust d = Dust.NewDustPerfect(target.Center, DustID.PinkTorch, speed * 2, Scale: 1.5f);
                     d.noGravity = true;
                 }
-                target.AddBuff(BuffID.ShadowFlame, 150);
+                target.AddBuff(BuffID.ShadowFlame, 360);
             }
         }
         public override void OnKill(int timeLeft)

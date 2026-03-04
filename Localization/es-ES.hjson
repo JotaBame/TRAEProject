@@ -285,9 +285,11 @@ Mods: {
 			// EchoStaffProj.DisplayName: Echo Staff Proj
 			// FullMoonP.DisplayName: Full Moon P
 			// StormbreakerP.DisplayName: Stormbreaker P
-			// WingspanP.DisplayName: Wingspan P
+			// WingspanP.DisplayName: Green Feather
 			// SonicRocket.DisplayName: Sonic Rocket
 			// EcholaliaP.DisplayName: Echolalia P
+			// WingspanBlueP.DisplayName: Blue Feather
+			// KinglySmash.DisplayName: Kingly Smash
 		}
 
 		Prefixes: {
@@ -499,6 +501,11 @@ Mods: {
 			EcholaliaSecondTag: {
 				// DisplayName: Echolalia Second Tag
 				// Description: Mods.TRAEProject.Buffs.EcholaliaSecondTag.Description
+			}
+
+			NewInferno: {
+				// DisplayName: Inferno
+				// Description: Your attacks create fiery explosions
 			}
 		}
 
@@ -1717,18 +1724,13 @@ Mods: {
 				// Tooltip: ""
 			}
 
-			Wingspan: {
-				// DisplayName: War Fan
-				// Tooltip: Throws razor sharp feathers that ignore 10 points of enemy defense
-			}
-
 			LeviathanWings: {
 				// DisplayName: Leviathan Wings
 				/* Tooltip:
 					'''
 					Grants flight and slow fall
 					Allows control of gravity
-						
+					25% increased movement speed
 					''' */
 			}
 
@@ -1768,7 +1770,7 @@ Mods: {
 				// DisplayName: Echolalia
 				/* Tooltip:
 					'''
-					12 summon tag damage
+					11 summon tag damage
 					Your summons will focus struck enemies
 					Strike enemies with resonant energy
 					Damage resonates between all tagged enemies in a guaranteed critical hit
@@ -1808,6 +1810,34 @@ Mods: {
 			KinnaraBanner: {
 				// DisplayName: Kinnara Banner
 				// Tooltip: ""
+			}
+
+			Wingspan: {
+				// DisplayName: Green War Fan
+				/* Tooltip:
+					'''
+					Throws razor sharp feathers that ignore 10 points of enemy defense
+					Melee speed reduces spread of the feathers
+					''' */
+			}
+
+			WingspanBlue: {
+				// DisplayName: Blue War Fan
+				/* Tooltip:
+					'''
+					Throws razor sharp feathers that ignore 10 points of enemy defense
+					Melee speed reduces spread of the feathers
+					''' */
+			}
+
+			SugarSkull: {
+				// DisplayName: Sugar Skull
+				/* Tooltip:
+					'''
+					Attacks afflict enemies with Crystal Fire
+					Increases critical strike damage by 10%
+					Critical hits reduce defense by 3, up to 9 less defense
+					''' */
 			}
 		}
 
@@ -1970,6 +2000,11 @@ Mods: {
 
 				CultistChanges: {
 					// Label: Cultist Changes
+					// Tooltip: ""
+				}
+
+				KingSlimeChanges: {
+					// Label: King Slime Changes
 					// Tooltip: ""
 				}
 			}

@@ -32,9 +32,22 @@ namespace TRAEProject.NewContent.NPCs.Sky.Griffin
             NPC.height = 60;
             NPC.lifeMax = 450;
             NPC.defense = 25;
-            NPC.damage = 95;
+            NPC.damage = 75;
             NPC.knockBackResist = 0.1f;
+            Banner = NPC.type;
+            NPC.HitSound = SoundID.DD2_WyvernHurt;
+            NPC.DeathSound = SoundID.DD2_WyvernDeath;
             NPC.noGravity = true; BannerItem = ModContent.ItemType<GriffinBanner>();
+
+        }
+        public override void OnKill()
+        {
+            Gore.NewGore(NPC.GetSource_Death(), NPC.Center, NPC.velocity, Mod.Find<ModGore>("GriffinGore1").Type, 1f);
+            for (int i= 0; i < 2; i++)
+            {
+                Gore.NewGore(NPC.GetSource_Death(), NPC.Center, NPC.velocity, Mod.Find<ModGore>("GriffinGore2").Type, 1f);
+                Gore.NewGore(NPC.GetSource_Death(), NPC.Center, NPC.velocity, Mod.Find<ModGore>("GriffinGore3").Type, 1f);
+            }
 
         }
         public override bool PreDraw(SpriteBatch spriteBatch, Vector2 screenPos, Color drawColor)
@@ -221,7 +234,9 @@ namespace TRAEProject.NewContent.NPCs.Sky.Griffin
         {
             //Souls of Flight (1, 50%/75% chance)
             //Steak(1, 3.33 % chance)
-            npcLoot.Add(ItemDropRule.ExpertGetsRerolls(ItemID.SoulofFlight, 2, 1));//reroll once(?), making it 75 % on expert
+            npcLoot.Add(ItemDropRule.Common(ItemID.SoulofFlight, 3));
+
+            npcLoot.Add(new DropBasedOnExpertMode(new CommonDrop(ItemID.SoulofFlight, 100, 1, 2, 33), new CommonDrop(ItemID.SoulofFlight, 100, 1, 2, 50)));
             npcLoot.Add(ItemDropRule.Common(ItemID.Steak, 30));
         }
         public override void FindFrame(int frameHeight)

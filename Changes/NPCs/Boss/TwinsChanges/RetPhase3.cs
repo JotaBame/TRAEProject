@@ -2,6 +2,7 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System;
 using System.Diagnostics;
+using System.Threading;
 using Terraria;
 using Terraria.Audio;
 using Terraria.GameContent;
@@ -17,7 +18,7 @@ namespace TRAEProject.Changes.NPCs.Boss.TwinsChanges
         static int tpTime = 16;
         static int tpCount = 6;
         static int shotTime = 48;
-        static int rapidShotTime = 7;
+        static int rapidShotTime = 8;
         static int shotCount = 2;
         static float shootSpeed = 10f;
         static int nukeTime = 220;
@@ -25,9 +26,9 @@ namespace TRAEProject.Changes.NPCs.Boss.TwinsChanges
         static int firstShotDelay = 10;
         static int periodTime = tpCount * tpTime + shotTime * shotCount + nukeTime + waitTime + firstShotDelay;
         static bool IsSpazPhase3Teleporting(NPC npc) => ((int)npc.ai[2] % periodTime) < tpCount * tpTime;
-        public static void Update(NPC npc)
+        public static void Update(NPC npc) 
         {
-
+            GetProgress(npc);
             npc.HitSound = SoundID.NPCHit4;
             npc.velocity = Vector2.Zero;
             npc.ai[2]++;
@@ -221,7 +222,7 @@ namespace TRAEProject.Changes.NPCs.Boss.TwinsChanges
         }
         static void Shoot(NPC npc)
         {
-            //todo: fix laser spawning position
+ 
             Vector2 shootPos = npc.Center + TRAEMethods.PolarVector(25 * 9, npc.rotation + MathF.PI / 2);
             Vector2 shootVel = TRAEMethods.PolarVector(shootSpeed, npc.rotation + MathF.PI / 2);
             DeathLaserShootDust(shootVel, shootPos - Vector2.Normalize(shootVel) * 140);
@@ -233,6 +234,26 @@ namespace TRAEProject.Changes.NPCs.Boss.TwinsChanges
             }
         }
 
+        public static float GetProgress(NPC npc)
+        {
+            float progress = Utils.GetLerpValue(tpCount * tpTime, shotTime + firstShotDelay + tpCount * tpTime, npc.ai[2] % periodTime, true); 
+
+            if (progress >= 1)
+                return Utils.GetLerpValue(tpCount * tpTime + shotTime + firstShotDelay, shotTime * 2 + tpCount * tpTime, npc.ai[2] % periodTime, true);
+             return progress;
+        }
+        public static bool ShootingInPhase3(NPC npc)
+        {
+            if (npc.ai[2] % periodTime > tpCount * tpTime + firstShotDelay)
+            {
+                if ((int)npc.ai[2] / periodTime % 3 != 2)
+      
+                    return true;
+            
+
+            }
+            return false;
+        }
         public static void Start(NPC npc)
         {
             if (npc.ai[0] == 4f)

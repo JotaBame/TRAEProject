@@ -34,7 +34,7 @@ namespace TRAEProject
             AccesoryRecipes.Load();
             MiscRecipes.Load();
             ArmorRecipes.Load();
-        }
+         }
         public override void PostAddRecipes()
         {
             foreach (Recipe recipe in Main.recipe)
@@ -43,6 +43,7 @@ namespace TRAEProject
                 AccesoryRecipes.Modify(recipe);
                 MiscRecipes.Modify(recipe);
                 ArmorRecipes.Modify(recipe);
+                GemRobesRecipes.Modify(recipe);
             }
         }
         public override void AddRecipeGroups()/* tModPorter Note: Removed. Use ModSystem.AddRecipeGroups */

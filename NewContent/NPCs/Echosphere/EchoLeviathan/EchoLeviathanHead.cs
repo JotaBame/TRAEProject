@@ -13,6 +13,7 @@ using Terraria.ID;
 using Terraria.ModLoader;
 using TRAEProject.NewContent.Items.Materials;
 using TRAEProject.NewContent.NPCs.Banners;
+using TRAEProject.NewContent.NPCs.Echosphere.EchoLocator;
 using TRAEProject.NewContent.NPCs.Echosphere.EchoStalker;
 using TRAEProject.NewContent.Projectiles;
 using TRAEProject.NewContent.Projectiles.EchoLeviathanPortal;
@@ -23,8 +24,8 @@ namespace TRAEProject.NewContent.NPCs.Echosphere.EchoLeviathan
     internal class EchoLeviathanHead : ModNPC
     {
  
-        static float WormMovementTopSpeed => 7;
-        static float WormMovementBaseAcceleration => 0.3f;
+        static float WormMovementTopSpeed => 7.25f;
+        static float WormMovementBaseAcceleration => 0.25f;
 
         static float TimeSpentInWormMovement => 300;
         static float MaxSegmentTurn => .8f;//higher value = segments can bend more
@@ -86,7 +87,8 @@ namespace TRAEProject.NewContent.NPCs.Echosphere.EchoLeviathan
         public override void SetDefaults()
         {
             NPC.noGravity = true;
-            NPC.lifeMax = 30000;
+            NPC.lifeMax = 17500;
+            NPC.npcSlots = 3;
             NPC.defense = 45;
             NPC.damage = 120;
             NPC.scale = 1.1f;
@@ -97,13 +99,16 @@ namespace TRAEProject.NewContent.NPCs.Echosphere.EchoLeviathan
             NPC.noTileCollide = true;
             NPC.alpha = 255;
             NPC.DeathSound = DeathSFX;
-            NPC.HitSound = HitSFX; ItemType<EchoLeviathanBanner>();
+            NPC.HitSound = HitSFX;
+            Banner = NPC.type;
+
+            BannerItem = ItemType<EchoLeviathanBanner>();
         }
         public override void ModifyNPCLoot(NPCLoot npcLoot)
         {
-            npcLoot.Add(ItemDropRule.Common(ItemType<EchoHeart>(), 1, 3, 3));
-            npcLoot.Add(ItemDropRule.Common(ItemType<EchoRectrix>(), 8, 1));
-            npcLoot.Add(ItemDropRule.Common(ItemID.MoonStone, 15, 1, 1));
+            npcLoot.Add(ItemDropRule.Common(ItemType<EchoHeart>(), 1, 5, 7));
+            npcLoot.Add(ItemDropRule.Common(ItemType<EchoRectrix>(), 3, 1));
+            npcLoot.Add(ItemDropRule.Common(ItemID.MoonStone, 25, 1, 1));
 
 
         }
@@ -112,7 +117,7 @@ namespace TRAEProject.NewContent.NPCs.Echosphere.EchoLeviathan
             bestiaryEntry.Info.AddRange(new List<IBestiaryInfoElement>
             {
                 BestiaryDatabaseNPCsPopulator.CommonTags.SpawnConditions.Biomes.Sky,
-                new FlavorTextBestiaryInfoElement("")
+                new FlavorTextBestiaryInfoElement("Cosmic whales dominating the upper bounds of our planet. The beats of their numerous hearts resonate through the entire Echosphere. ")
             });
         }
         //REMEMBER, ONSPAWN IS ONLY CALLED SERVER SIDE
@@ -148,7 +153,14 @@ namespace TRAEProject.NewContent.NPCs.Echosphere.EchoLeviathan
             }
             SpawnPortal(NPC.Center, 200);
         }
-
+        public override void HitEffect(NPC.HitInfo hit)
+        {
+            if (NPC.life <= 0)
+            {
+                EchosphereNPCHelper.EchosphereEnemyDeathDust(NPC);
+                Gore.NewGore(NPC.GetSource_Death(), NPC.Center, NPC.velocity, GoreType<EchoLeviathanGoreHead>());
+            }
+        }
 
         public static bool EchoLeviIsIdle(float leviWhoAmI)
         {
@@ -224,6 +236,29 @@ namespace TRAEProject.NewContent.NPCs.Echosphere.EchoLeviathan
                 segment.dontTakeDamage = segment.Opacity < .6f;
             }
             NPC.dontTakeDamage = NPC.Opacity < .6f;
+            if (NPC.Opacity < 0.6f)
+            {
+                if (NPC.ai[0] % 60 == 0)
+                {
+                    float percentageHealed = 0.05f;
+
+                    int healAmount = NPC.lifeMax - NPC.life;
+                    if (healAmount > (int)(NPC.lifeMax * percentageHealed))
+                        healAmount = (int)(NPC.lifeMax * percentageHealed);
+                    if (healAmount > 0)
+                    {
+                        if (Main.netMode != NetmodeID.MultiplayerClient)
+                        {
+                            NPC.HealEffect(NPC.Hitbox, healAmount, true);
+                            NPC.netUpdate = true;
+                        }
+                        NPC.life += healAmount;
+                    }
+                    NPC.life += 100;
+                    NPC.netUpdate = true;
+
+                }
+            }
         }
 
         private float PurpleGlowinessAmount => State == AIState.SonicWave ? Utils.GetLerpValue(SonicWaveStartTime - GlowFadeInTime - GlowStayTimeBeforeShootingStart, SonicWaveStartTime - GlowStayTimeBeforeShootingStart, Timer, true) *
@@ -433,12 +468,12 @@ namespace TRAEProject.NewContent.NPCs.Echosphere.EchoLeviathan
         {
             Player player = Main.player[NPC.target];
             Timer++;
-            WormMovement(player, player.Center, WormMovementTopSpeed, WormMovementBaseAcceleration);
+            WormMovement(player, player.Center, WormMovementTopSpeed + (Main.masterMode ? 0.75f : 0), WormMovementBaseAcceleration + (Main.masterMode ? 0.05f : 0));
             NPC.rotation = NPC.velocity.ToRotation();
             NPC.spriteDirection = MathF.Sign(NPC.velocity.X);
             SetSegmentPositionRotationSpriteDirectionAndOpacity();
 
-            if (Timer >= TimeSpentInWormMovement)
+            if (Timer >= TimeSpentInWormMovement - (Main.masterMode ? 50 : 0))
             {
                 OpacityCutoffFromBehind = 9999;
                 OpacityCutoffFromFront = 9999;
@@ -454,13 +489,7 @@ namespace TRAEProject.NewContent.NPCs.Echosphere.EchoLeviathan
                 }
             }
         }
-        public override void HitEffect(NPC.HitInfo hit)
-        {
-            if (NPC.life <= 0)
-            {
-                EchosphereNPCHelper.EchosphereEnemyDeathDust(NPC, 0.7f);
-            }
-        }
+    
         Vector2 GetChaseDirection(float magnitude)
         {
             if (!NPC.HasValidTarget)

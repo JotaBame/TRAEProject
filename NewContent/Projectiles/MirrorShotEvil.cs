@@ -23,6 +23,7 @@ namespace TRAEProject.NewContent.Projectiles
             Projectile.usesLocalNPCImmunity = true;
             Projectile.scale = 0.8f;
             Projectile.light = 0.8f;
+            Projectile.tileCollide = false;
             Projectile.localNPCHitCooldown = 10;
             Projectile.GetGlobalProjectile<ProjectileStats>().explodes = true;
             Projectile.GetGlobalProjectile<ProjectileStats>().explodes = true;

@@ -11,6 +11,7 @@ using TRAEProject.Common.ModPlayers;
 
 namespace TRAEProject.Changes.Prefixes
 {
+    
    public class ModifyVanillaPrefixes : ModPlayer
     {
         #region damage
@@ -78,11 +79,12 @@ namespace TRAEProject.Changes.Prefixes
         #endregion
 
         #region speed
+        
         public override float UseSpeedMultiplier(Item item)
         {
             if (item.prefix == PrefixID.Taboo)
             {
-                return (1.1f / 1.12f);
+                 return (1.1f / 1.12f);
             }
             if (item.prefix == PrefixID.Savage)
             {

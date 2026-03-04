@@ -1,4 +1,5 @@
-﻿using Microsoft.Xna.Framework;
+﻿using JetBrains.Annotations;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using ReLogic.Content;
 using System;
@@ -11,9 +12,10 @@ using Terraria.GameContent.Bestiary;
 using Terraria.GameContent.ItemDropRules;
 using Terraria.ID;
 using Terraria.ModLoader;
+using TRAEProject.Changes.NPCs.Miniboss.Santa;
 using TRAEProject.NewContent.Items.Materials;
 using TRAEProject.NewContent.NPCs.Banners;
-using TRAEProject.NewContent.NPCs.Echosphere.EchoStalker.Gore;
+using TRAEProject.NewContent.NPCs.Echosphere.EchoSprite;
 using TRAEProject.NewContent.Projectiles;
 using static Terraria.ModLoader.ModContent;
 
@@ -79,24 +81,25 @@ namespace TRAEProject.NewContent.NPCs.Echosphere.EchoStalker
             NPC.noTileCollide = true;
             NPC.Size = new(50);
             NPC.scale = 1.2f;
-            NPC.lifeMax = 1500;
+            NPC.lifeMax = 2250;
             NPC.defense = 15;
-            NPC.damage = 70;
+            NPC.damage = 45;
             NPC.value = 100 * 10;
 
             NPC.knockBackResist = 0;
             NPC.HitSound = HitSFX;
-            NPC.DeathSound = DeathSFX; 
+            NPC.DeathSound = DeathSFX; Banner = NPC.type;
+
             BannerItem = ItemType<EchoStalkerBanner>();
 
         }
         public override void ModifyNPCLoot(NPCLoot npcLoot)
         {
             npcLoot.Add(ItemDropRule.Common(ItemType<EchoHeart>(), 1, 1, 1));
-            if (Main.hardMode)
+              if (Main.hardMode)
             {
-                npcLoot.Add(ItemDropRule.Common(ItemID.MoonStone, 20, 1, 1));
-            }
+                npcLoot.Add(ItemDropRule.ByCondition(Condition.Hardmode.ToDropCondition(ShowItemDropInUI.Always), ItemID.MoonStone, 20, 1, 1));
+             }
         }
         public override void SetBestiary(BestiaryDatabase database, BestiaryEntry bestiaryEntry)
         {
@@ -115,7 +118,7 @@ namespace TRAEProject.NewContent.NPCs.Echosphere.EchoStalker
         {
 
             //NPC.localAI[0] = Main.rand.NextBool() ? -1 : 1;
-            HairVariant = Main.rand.NextBool();
+            HairVariant = Main.rand.NextBool(6);
 
             int[] types = OrderOfSegmentIDsToSpawn;
             for (int i = 1; i < types.Length + 1; i++)
@@ -128,6 +131,30 @@ namespace TRAEProject.NewContent.NPCs.Echosphere.EchoStalker
             EchosphereNPCHelper.SearchForSpaceLayerPlayers(NPC);
             if (NPC.target == -1 || NPC.target >= Main.maxPlayers)
             {
+
+                NPC.localAI[0]++;
+                if (NPC.localAI[0] > 60f)
+                {
+                    NPC.localAI[0] = 0; 
+                     float percentageHealed = 0.01f;
+
+                    int healAmount = NPC.lifeMax - NPC.life;
+                    if (healAmount > (int)(NPC.lifeMax * percentageHealed))
+                        healAmount = (int)(NPC.lifeMax * percentageHealed);
+                    if (healAmount > 0)
+                    {
+                        if (Main.netMode != NetmodeID.MultiplayerClient)
+                        {
+                            NPC.HealEffect(NPC.Hitbox, healAmount, true);
+                            NPC.netUpdate = true;
+                        }
+                        NPC.life += healAmount;
+                    }
+                     NPC.netUpdate = true;
+
+
+                }
+
                 NPC.dontTakeDamage = true;
                 NPC.Opacity = .5f;
                 IdlingTimer += .01f;
@@ -151,14 +178,24 @@ namespace TRAEProject.NewContent.NPCs.Echosphere.EchoStalker
             {
                 SoundEngine.PlaySound(ShotSFX with { MaxInstances = 0 }, NPC.Center);
             }
-            if (NPC.ai[0] >= 107 && (NPC.ai[0] - 107) % fireRate == 0 && NPC.ai[0] <= 107 + fireRate * numberOfShots)
+            if (NPC.ai[0] >= 107 && (NPC.ai[0] - 107) % fireRate == 0 && NPC.ai[0] <= 107 + fireRate * numberOfShots && Main.netMode != NetmodeID.MultiplayerClient)
             {
-                Vector2 projVel = NPC.DirectionTo(Main.player[NPC.target].Center) * 10;
-                Projectile.NewProjectile(NPC.GetSource_FromAI(), MouthCenter, projVel, ModContent.ProjectileType<EchoStalkerSonicWave>(), 30, 0, Main.myPlayer, .6f);
+                Vector2 projVel = NPC.DirectionTo(Main.player[NPC.target].Center) * 9;
+                if (Main.masterMode)
+                {
+                    float distanceForRubberbanding = 600f;
+                    float scaleFactor = NPC.Distance(player.Center) - distanceForRubberbanding / 100;
+                    if (NPC.Distance(player.Center) > distanceForRubberbanding)
+                    {
+                        projVel = NPC.DirectionTo(Main.player[NPC.target].Center) * (10 + scaleFactor > 12.5f ? 12.5f : scaleFactor  );
+                    }
+                }
+                Projectile.NewProjectile(NPC.GetSource_FromAI(), MouthCenter, projVel, ModContent.ProjectileType<EchoStalkerSonicWave>(), 20, 0, ai0: .6f);
                 for (float i = 0; i < 1; i += 1f / 40f)
                 {
                     Vector2 vel = (i * MathF.Tau).ToRotationVector2();
                     vel.X *= 0.5f;
+                     
                     vel = vel.RotatedBy(projVel.ToRotation()) + projVel;
                     Dust dust = Dust.NewDustPerfect(MouthCenter + vel * 3, DustID.Shadowflame, vel * 3);
                     dust.noGravity = true;
@@ -190,8 +227,10 @@ namespace TRAEProject.NewContent.NPCs.Echosphere.EchoStalker
         void Movement(Player player)
         {
 
-            float topSpeed = 8;
+            float topSpeed = Main.masterMode ? 9f : 8f;
+           
             float acceleration = 0.3f;
+            float accelerationY = Main.masterMode ? 0.4f : 0.3f;
             if (NPC.ai[0] >= 100 && NPC.ai[0] < 140)
             {
                 topSpeed = 3;
@@ -215,9 +254,13 @@ namespace TRAEProject.NewContent.NPCs.Echosphere.EchoStalker
             Vector2 targetCenter = player.Center;
             Vector2 targetPos = player.position;
             bool goDown = false;
+            float[] hi = { NPC.velocity.X, NPC.velocity.Y, num68 };
+            //if (NPC.velocity == new Vector2(0, 0))
+            //    NPC.velocity = new Vector2(1, 1);
+
             if ((NPC.velocity.X > 0f && maxSpeedX < 0f || NPC.velocity.X < 0f && maxSpeedX > 0f || NPC.velocity.Y > 0f && maxSpeedY < 0f || NPC.velocity.Y < 0f && maxSpeedY > 0f) && Magnitude(NPC.velocity) > acceleration / 2f && num68 < 300f)
             {
-                goDown = true;
+                 goDown = true;
                 if (Magnitude(NPC.velocity) < topSpeed)
                 {
                     NPC.velocity *= 1.1f;
@@ -230,20 +273,22 @@ namespace TRAEProject.NewContent.NPCs.Echosphere.EchoStalker
                 {
                     if (NPC.velocity.X == 0f)
                     {
-                        NPC.velocity.X -= NPC.direction;
+                        NPC.velocity.X -= acceleration;
+ 
                     }
                     NPC.velocity.X *= 1.1f;
                 }
                 else if (NPC.velocity.Y > 0f - topSpeed)
                 {
-                    NPC.velocity.Y -= acceleration;
+                    NPC.velocity.Y -= accelerationY;
                 }
             }
-
+ 
 
             if (!goDown)
             {
-                if (NPC.velocity.X > 0f && maxSpeedX > 0f || NPC.velocity.X < 0f && maxSpeedX < 0f || NPC.velocity.Y > 0f && maxSpeedY > 0f || NPC.velocity.Y < 0f && maxSpeedY < 0f)
+ 
+                if (NPC.velocity.X >= 0f && maxSpeedX > 0f || NPC.velocity.X <= 0f && maxSpeedX <= 0f || NPC.velocity.Y >= 0f && maxSpeedY >= 0f || NPC.velocity.Y <= 0f && maxSpeedY <= 0f)
                 {
                     if (NPC.velocity.X < maxSpeedX)
                     {
@@ -255,32 +300,33 @@ namespace TRAEProject.NewContent.NPCs.Echosphere.EchoStalker
                     }
                     if (NPC.velocity.Y < maxSpeedY)
                     {
-                        NPC.velocity.Y += acceleration;
+                        NPC.velocity.Y += accelerationY;
                     }
                     else if (NPC.velocity.Y > maxSpeedY)
                     {
-                        NPC.velocity.Y -= acceleration;
+                        NPC.velocity.Y -= accelerationY;
                     }
                     if (Math.Abs(maxSpeedY) < topSpeed * 0.2 && (NPC.velocity.X > 0f && maxSpeedX < 0f || NPC.velocity.X < 0f && maxSpeedX > 0f))
                     {
-                        if (NPC.velocity.Y > 0f)
+                         if (NPC.velocity.Y > 0f)
                         {
-                            NPC.velocity.Y += acceleration * 2f;
+                            NPC.velocity.Y += accelerationY * 2f;
                         }
                         else
                         {
-                            NPC.velocity.Y -= acceleration * 2f;
+                            NPC.velocity.Y -= accelerationY * 2f;
                         }
                     }
                     if (Math.Abs(maxSpeedX) < topSpeed * 0.2 && (NPC.velocity.Y > 0f && maxSpeedY < 0f || NPC.velocity.Y < 0f && maxSpeedY > 0f))
                     {
+ 
                         if (NPC.velocity.X > 0f)
                         {
-                            NPC.velocity.X += acceleration * 2f;
+                            NPC.velocity.X += accelerationY * 2f;
                         }
                         else
                         {
-                            NPC.velocity.X -= acceleration * 2f;
+                            NPC.velocity.X -= accelerationY * 2f;
                         }
                     }
                 }
@@ -298,11 +344,11 @@ namespace TRAEProject.NewContent.NPCs.Echosphere.EchoStalker
                     {
                         if (NPC.velocity.Y > 0f)
                         {
-                            NPC.velocity.Y += acceleration;
+                            NPC.velocity.Y += accelerationY;
                         }
                         else
                         {
-                            NPC.velocity.Y -= acceleration;
+                            NPC.velocity.Y -= accelerationY;
                         }
                     }
                 }
@@ -310,11 +356,11 @@ namespace TRAEProject.NewContent.NPCs.Echosphere.EchoStalker
                 {
                     if (NPC.velocity.Y < maxSpeedY)
                     {
-                        NPC.velocity.Y += acceleration * 1.1f;
+                        NPC.velocity.Y += accelerationY * 1.1f;
                     }
                     else if (NPC.velocity.Y > maxSpeedY)
                     {
-                        NPC.velocity.Y -= acceleration * 1.1f;
+                        NPC.velocity.Y -= accelerationY * 1.1f;
                     }
                     if (Magnitude(NPC.velocity) < topSpeed * 0.5)
                     {
@@ -682,12 +728,14 @@ namespace TRAEProject.NewContent.NPCs.Echosphere.EchoStalker
             {
                 return true;
             }
-            if (Projectile.perIDStaticNPCImmunity[proj.type][npc.whoAmI] > 0)
+            if (Projectile.perIDStaticNPCImmunity[proj.type][npc.whoAmI] > 0 && proj.aiStyle != ProjAIStyleID.Yoyo && !proj.counterweight)
             {
+               
                 return true;
             }
             if (proj.localNPCImmunity[npc.whoAmI] > 0)
             {
+ 
                 return true;
             }
             return false;
@@ -737,83 +785,16 @@ namespace TRAEProject.NewContent.NPCs.Echosphere.EchoStalker
             if (NPC.life <= 0)
             {
                 EchosphereNPCHelper.EchosphereEnemyDeathDust(NPC);
-                List<NPC> segments = new(5);
-                segments.Add(NPC);
-                int[] types = SegmentIDs;
+            if (IsHairVariant(NPC))
+                Gore.NewGore(NPC.GetSource_Death(), NPC.Center, NPC.velocity, GoreType<EchoStalkerGoreHeadHair>());
+            else
+                Gore.NewGore(NPC.GetSource_Death(), NPC.Center, NPC.velocity, GoreType<EchoStalkerGoreHeadHairless>());
 
-                for (int i = 0; i < Main.maxNPCs; i++)
-                {
-                    NPC npc = Main.npc[i];
-                    if (!npc.active)
-                    {
-                        continue;
-                    }
-                    if (types.Contains(npc.type) && npc.ai[2] == NPC.whoAmI)
-                    {
-                        segments.Add(npc);
-                    }
-                }
-                if (segments.Count > 0)
-                {
-                    for (int i = 0; i < segments.Count; i++)
-                    {
-                        NPC npc = segments[i];
-                        if (npc == null)
-                        {
-                            continue;
-                        }
-                        int[] goreTypes = GetGoreTypes(npc);
-                        if (goreTypes.Length > 0)
-                        {
-                            for (int j = 0; j < goreTypes.Length; j++)
-                            {
-                                Terraria.Gore.NewGore(npc.GetSource_Death(), npc.Center, npc.position - npc.oldPosition, goreTypes[j]);
-                            }
-                        }
-                    }
-                }
+
             }
         }
-        static int[] GetGoreTypes(NPC npc)
-        {
-            List<int> types = new(2);
-            if (npc.type == ModContent.NPCType<EchoStalkerBody1>())
-            {
-                if (IsHairVariant(npc))
-                {
-                    types.Add(ModContent.GoreType<EchoStalkerGoreBody1Hair>());
-                }
-                else
-                {
-                    types.Add(ModContent.GoreType<EchoStalkerGoreBody1Hairless>());
-                }
-            }
-            else if (npc.type == ModContent.NPCType<EchoStalkerBody2>())
-            {
-                if (IsHairVariant(npc))
-                {
-                    types.Add(ModContent.GoreType<EchoStalkerGoreBody2Hair>());
-                }
-                else
-                {
-                    types.Add(ModContent.GoreType<EchoStalkerGoreBody2Hairless>());
-                }
-            }
-            else if (npc.type == ModContent.NPCType<EchoStalkerTail>())
-            {
-                types.Add(ModContent.GoreType<EchoStalkerGoreTail1>());
-                types.Add(ModContent.GoreType<EchoStalkerGoreTail2>());
-            }
-            else//head
-            {
-                types.Add(ModContent.GoreType<EchoStalkerGoreHeadHairless>());
-                if (IsHairVariant(npc))
-                {
-                    types.Add(ModContent.GoreType<EchoStalkerGoreHeadHair>());
-                }
-            }
-            return types.ToArray();
-        }
+ 
+ 
         public static bool IsHairVariant(NPC echoStalkerSegment)
         {
             return echoStalkerSegment.localAI[0] == 1;

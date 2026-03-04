@@ -433,7 +433,7 @@ namespace TRAEProject.NewContent.NPCs.Sky.Griffin
         {
             if (Main.hardMode)
             {
-                if (spawnInfo.Player.ZoneNormalSpace)
+                if (spawnInfo.Sky)
                 {
             
                     return 0.2f;

@@ -73,6 +73,10 @@ namespace TRAEProject.NewContent.Structures.Echosphere
             float middleX = (minX + maxX) * .5f;
             int minY = upperPadding + Main.offLimitBorderTiles;
             int maxY = (int)(Main.worldSurface * 0.2f);
+            while (maxY <= minY)
+            {
+                minY = maxY - 50;//without this it can't gen in small worlds
+            } 
             //Main.NewText(Main.maxTilesY);
             // Main.NewText($"echosphere bounds Y: {minY}, {maxY}");
             // Main.NewText(Main.LocalPlayer.Center.ToTileCoordinates16());

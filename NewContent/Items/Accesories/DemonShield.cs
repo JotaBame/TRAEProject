@@ -22,10 +22,10 @@ namespace TRAEProject.NewContent.Items.Accesories
         {
             Item.accessory = true;
             Item.rare = ItemRarityID.Yellow;
-            Item.value = 66666; 
+            Item.value = Item.sellPrice(gold: 6, silver: 6, copper: 6); 
             Item.width = 32;          
             Item.height = 40;
-            Item.defense = 8;
+            Item.defense = 10;
         }
         public override void UpdateAccessory(Player player, bool hideVisual)
         {

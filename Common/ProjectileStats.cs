@@ -1,16 +1,16 @@
 using Microsoft.Xna.Framework;
-using System;
 using Mono.Cecil.Cil;
 using MonoMod.Cil;
+using System;
 using Terraria;
+using Terraria.Audio;
 using Terraria.ID;
 using Terraria.ModLoader;
-using TRAEProject.NewContent.Items.Weapons.Summoner.Whip;
-
-using static Terraria.ModLoader.ModContent;
+using Terraria.WorldBuilding;
 using TRAEProject.Changes.Accesory;
-using Terraria.Audio;
 using TRAEProject.NewContent.Items.Weapons.Magic.DreamEater;
+using TRAEProject.NewContent.Items.Weapons.Summoner.Whip;
+using static Terraria.ModLoader.ModContent;
 
 namespace TRAEProject.Common
 {
@@ -111,9 +111,10 @@ namespace TRAEProject.Common
 
             //if you ever want to add it back
             //DreamEater.ShotTileCollision(projectile, oldVelocity);
-
+           
             if (explodes && !dontExplodeOnTiles) // If you want a projectile that doesn't explode in contact with tiles, make the second variable true.//
             {
+                FirstHit = true;
                 TRAEMethods.Explode(projectile, ExplosionRadius);
                 if (UsesDefaultExplosion)
                 {
@@ -196,12 +197,12 @@ namespace TRAEProject.Common
         {
             if (!FirstHit)
             {
-                FirstHit = true;
+
                 modifiers.FinalDamage *= FirstHitDamage;
             }
             Player player = Main.player[projectile.owner];
             modifiers.FinalDamage *= DirectDamage;
-
+      
             if (cantCrit)
 			{
 				modifiers.DisableCrit();
@@ -241,7 +242,11 @@ namespace TRAEProject.Common
 
         public override void OnHitNPC(Projectile projectile, NPC target, NPC.HitInfo hit, int damageDone)
         {
-            
+            if (!FirstHit)
+            {
+                FirstHit = true;
+
+             }
             if (maxHits > -1)
             {
                 hits++;

@@ -110,7 +110,12 @@ namespace TRAEProject.Changes.Recipes
         }
         public static void Modify(Recipe recipe)
         {
-            Item ingredientToRemove;
+            Item ingredientToRemove; 
+            if (recipe.HasResult(ItemID.OnyxBlaster))
+            {
+ 
+                 recipe.AddIngredient(ItemID.AncientBattleArmorMaterial, 1);
+            }
             if (recipe.HasResult(ItemID.SilverBullet))
             {
                 recipe.ReplaceResult(ItemID.SilverBullet, 100);

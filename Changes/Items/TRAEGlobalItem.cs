@@ -86,6 +86,9 @@ namespace TRAEProject.Changes
                 case ItemID.BottledHoney:
                     item.healLife = 70;
                     break;
+                case ItemID.LuckPotionGreater:
+                    item.buffTime = 20 * 60 * 60; // 20 mins
+                    break;
                 case ItemID.FastClock:
                     item.value = 100000;
                     break;
@@ -312,7 +315,7 @@ namespace TRAEProject.Changes
                 target.AddBuff(BuffID.Venom, Main.rand.Next(9 * 60, 12 * 60));
             }
 
-            if (player.inferno)
+            if (player.HasBuff(BuffType<NewInferno>()))
                 {
                     Lighting.AddLight((int)(target.Center.X / 16f), (int)(target.Center.Y / 16f), 0.65f, 0.4f, 0.1f);
                     int OnFireID = 24;

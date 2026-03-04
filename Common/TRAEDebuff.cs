@@ -29,7 +29,7 @@ namespace TRAEProject.Common
             }
             T debuff = new T() { timeLeft = time };
             npc.GetGlobalNPC<ProcessTRAEDebuffs>().debuffs.Add(debuff);
-            return debuff;
+             return debuff;
         }
         public virtual void Update(NPC npc)
         {

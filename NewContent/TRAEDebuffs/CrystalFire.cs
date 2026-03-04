@@ -19,8 +19,8 @@ namespace TRAEProject.NewContent.TRAEDebuffs
             {
                 npc.lifeRegen = 0;
             }
-            npc.lifeRegen -= 40;
-			damage = npc.lifeRegen / -5;
+            npc.lifeRegen -= 80;
+			damage = npc.lifeRegen / -8;
         }
         public override void DrawEffects(NPC npc, ref Color drawColor)
         {

@@ -39,6 +39,7 @@ namespace TRAEProject.NewContent.Items.FlamethrowerAmmo
                 .AddTile(TileID.Solidifier)
                 .Register();
         }
+ 
      }
 
     public class IchorGelP : ModProjectile

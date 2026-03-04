@@ -36,13 +36,13 @@ namespace TRAEProject.Changes.Accesory
             if (item.type == ItemID.RifleScope)
             {
                 player.GetModPlayer<RangedStats>().GunScope = true;
-                player.GetModPlayer<RangedStats>().spreadModifier /= 3;
+                player.GetModPlayer<RangedStats>().spreadModifier /= 2.5f;
              }
             if (item.type == ItemID.SniperScope)
             {
                 player.GetModPlayer<RangedStats>().GunScope = true;
                 player.GetDamage<RangedDamageClass>() -= 0.1f; 
-                player.GetModPlayer<RangedStats>().spreadModifier /= 3;
+                player.GetModPlayer<RangedStats>().spreadModifier /= 2.5f;
 
             }
 
@@ -50,7 +50,7 @@ namespace TRAEProject.Changes.Accesory
             {
                 player.GetModPlayer<RangedStats>().ReconScope += 1;
                 player.GetDamage<RangedDamageClass>() -= 0.1f;
-                player.GetModPlayer<RangedStats>().spreadModifier /= 3;
+                player.GetModPlayer<RangedStats>().spreadModifier /= 2.5f;
 
                 player.GetCritChance<RangedDamageClass>() -= 10;
             }

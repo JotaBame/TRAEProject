@@ -55,9 +55,9 @@ namespace TRAEProject.NewContent.Items.Weapons.Melee.FullMoon
         {
             CreateRecipe()
                 .AddIngredient(ItemID.BlueMoon)
-                .AddIngredient(ItemType<EchoHeart>(), 3)
+                .AddIngredient(ItemType<EchoHeart>(), 4)
                 .AddIngredient(ItemID.SoulofSight, 8)
-                .AddIngredient(ItemID.SoulofMight, 8)
+                .AddIngredient(ItemID.SoulofNight, 16)
                 .AddTile(TileID.MythrilAnvil)
                 .Register();
         }
@@ -123,7 +123,7 @@ namespace TRAEProject.NewContent.Items.Weapons.Melee.FullMoon
 
         public override void SetDefaults()
         {
-            Projectile.netImportant = true; 
+             Projectile.netImportant = true; 
             Projectile.width = 42; 
             Projectile.height = 42;  
             Projectile.friendly = true;  
@@ -131,11 +131,7 @@ namespace TRAEProject.NewContent.Items.Weapons.Melee.FullMoon
             Projectile.DamageType = DamageClass.Melee;  
             Projectile.scale = 1f;
             Projectile.usesLocalNPCImmunity = true;
-            Projectile.localNPCHitCooldown = 10; 
-
- 
-
-            
+            Projectile.localNPCHitCooldown = 10;           
 
         }
         public override void AI()

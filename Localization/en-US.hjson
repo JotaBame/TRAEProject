@@ -285,9 +285,11 @@ Mods: {
 			EchoStaffProj.DisplayName: Echo Staff Proj
 			FullMoonP.DisplayName: Full Moon P
 			StormbreakerP.DisplayName: Stormbreaker P
-			WingspanP.DisplayName: Wingspan P
+			WingspanP.DisplayName: Green Feather
 			SonicRocket.DisplayName: Sonic Rocket
 			EcholaliaP.DisplayName: Echolalia P
+			WingspanBlueP.DisplayName: Blue Feather
+			KinglySmash.DisplayName: Kingly Smash
 		}
 
 		Prefixes: {
@@ -500,6 +502,11 @@ Mods: {
 				DisplayName: Echolalia Second Tag
 				Description: Mods.TRAEProject.Buffs.EcholaliaSecondTag.Description
 			}
+
+			NewInferno: {
+				DisplayName: Inferno
+				Description: Your attacks create fiery explosions
+			}
 		}
 
 		Items: {
@@ -529,7 +536,7 @@ Mods: {
 					'''
 					Increases damage by 20% when damaged
 					Increases maximum mana by 20
-					Restores mana and heal for 10% of damage taken when damaged
+					Restores mana and heal for 8% of damage taken when damaged
 					'''
 			}
 
@@ -579,7 +586,7 @@ Mods: {
 					'''
 					Absorbs 25% of damage done to players on your team when above 25% life
 					Grants immunity to knockback
-					8% increased damage to nearby enemies
+					10% increased damage to nearby enemies
 					'''
 			}
 
@@ -588,7 +595,7 @@ Mods: {
 				Tooltip:
 					'''
 					Unleashes curses to the wielder and nearby enemies when damaged
-					Projectiles deal 1% less damage for every 10 damage
+					Projectiles deal 1% less damage for every 10 damage they deal
 					Maxes out at 25% damage reduction
 					Reduced damage is reflected at the enemy in a cursed shot that inflicts all curses
 					'''
@@ -635,8 +642,8 @@ Mods: {
 			}
 
 			FaeInABottle: {
-				DisplayName: Fae in a bottle
-				Tooltip: A weak double jump that grant immunity frames
+				DisplayName: Fae in a Bottle
+				Tooltip: A weak double jump that grants immunity frames
 			}
 
 			FantasyPack: {
@@ -741,7 +748,7 @@ Mods: {
 				Tooltip:
 					'''
 					Increases max life by 50
-					Projectiles deal 1% less damage for every 10 damage
+					Projectiles deal 1% less damage for every 10 damage they deal
 					Maxes out at 25% damage reduction
 					Reduced damage is reflected at the enemy
 					'''
@@ -1395,7 +1402,11 @@ Mods: {
 
 			GraniteBook: {
 				DisplayName: Electro Shield
-				Tooltip: Summons an electric ring around you
+				Tooltip:
+					'''
+					Casts an electric shield around you
+					Shield grows bigger the more mana you have
+					'''
 			}
 
 			HeadHarvester: {
@@ -1736,18 +1747,13 @@ Mods: {
 				Tooltip: ""
 			}
 
-			Wingspan: {
-				DisplayName: War Fan
-				Tooltip: Throws razor sharp feathers that ignore 10 points of enemy defense
-			}
-
 			LeviathanWings: {
 				DisplayName: Leviathan Wings
 				Tooltip:
 					'''
 					Grants flight and slow fall
 					Allows control of gravity
-						
+					25% increased movement speed
 					'''
 			}
 
@@ -1787,7 +1793,7 @@ Mods: {
 				DisplayName: Echolalia
 				Tooltip:
 					'''
-					12 summon tag damage
+					11 summon tag damage
 					Your summons will focus struck enemies
 					Strike enemies with resonant energy
 					Damage resonates between all tagged enemies in a guaranteed critical hit
@@ -1827,6 +1833,34 @@ Mods: {
 			KinnaraBanner: {
 				DisplayName: Kinnara Banner
 				Tooltip: ""
+			}
+
+			Wingspan: {
+				DisplayName: Green War Fan
+				Tooltip:
+					'''
+					Throws razor sharp feathers that ignore 10 points of enemy defense
+					Melee speed reduces spread of the feathers
+					'''
+			}
+
+			WingspanBlue: {
+				DisplayName: Blue War Fan
+				Tooltip:
+					'''
+					Throws razor sharp feathers that ignore 10 points of enemy defense
+					Melee speed reduces spread of the feathers
+					'''
+			}
+
+			SugarSkull: {
+				DisplayName: Sugar Skull
+				Tooltip:
+					'''
+					Attacks afflict enemies with Crystal Fire
+					Increases critical strike damage by 10%
+					Critical hits reduce defense by 3, up to 9 less defense
+					'''
 			}
 		}
 
@@ -1989,6 +2023,11 @@ Mods: {
 
 				CultistChanges: {
 					Label: Cultist Changes
+					Tooltip: ""
+				}
+
+				KingSlimeChanges: {
+					Label: King Slime Changes
 					Tooltip: ""
 				}
 			}

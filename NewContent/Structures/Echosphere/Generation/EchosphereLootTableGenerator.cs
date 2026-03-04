@@ -10,7 +10,7 @@ namespace TRAEProject.NewContent.Structures.Echosphere.Generation
     public static class EchosphereLootTableGenerator
     {
 
-        static int[] PrimaryLoot => [ItemID.GravityGlobe, ModContent.ItemType<AdvFlightSystem>(), ItemID.StarCloak];
+        static int[] PrimaryLoot => [ItemID.GravityGlobe, ModContent.ItemType<AdvFlightSystem>(), ItemID.MoonStone];
         //FORMAT: ID, Min, Max
         //so for example:
         //[ItemID.FloatingIslandFishingCrate, 2, 4, ItemID.GoldenCrate, 1, 1]

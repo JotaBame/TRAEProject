@@ -2,8 +2,12 @@
 using Microsoft.Xna.Framework.Graphics;
 using Terraria;
 using Terraria.GameContent;
+using Terraria.GameContent.ItemDropRules;
 using Terraria.ID;
 using Terraria.ModLoader;
+using TRAEProject.NewContent.Items.Materials;
+using TRAEProject.NewContent.NPCs.Echosphere.EchoLocator;
+using TRAEProject.NewContent.NPCs.Echosphere.EchoStalker;
 
 namespace TRAEProject.NewContent.NPCs.Echosphere.EchoLeviathan
 {
@@ -38,6 +42,7 @@ namespace TRAEProject.NewContent.NPCs.Echosphere.EchoLeviathan
         {
             return false;
         }
+    
         public override void AI()
         {
             int parent = (int)NPC.ai[0];
@@ -71,6 +76,7 @@ namespace TRAEProject.NewContent.NPCs.Echosphere.EchoLeviathan
             int parent = (int)NPC.ai[0];
             return parent < 0 || parent >= Main.maxNPCs || !Main.npc[parent].active || Main.npc[parent].type != ModContent.NPCType<EchoLeviathanHead>() || Main.npc[parent].life <= 0;
         }
+         
         public override bool PreDraw(SpriteBatch spriteBatch, Vector2 screenPos, Color drawColor)
         {
             Texture2D texture = TextureAssets.Npc[Type].Value;
@@ -90,7 +96,16 @@ namespace TRAEProject.NewContent.NPCs.Echosphere.EchoLeviathan
         {
             if (NPC.life <= 0)
             {
-                EchosphereNPCHelper.EchosphereEnemyDeathDust(NPC, 0.7f);
+                EchosphereNPCHelper.EchosphereEnemyDeathDust(NPC, 0.7f); int goreType = ModContent.GoreType<EchoLeviathanGore1>();
+                if (NPC.type == ModContent.NPCType<EchoLeviathanBody2>())
+                {
+                    goreType = ModContent.GoreType<EchoLeviathanGore2>();
+                }
+                if (NPC.type == ModContent.NPCType<EchoLeviathanBody3>())
+                {
+                    goreType = ModContent.GoreType<EchoLeviathanGore3>();
+                }
+                Gore.NewGore(NPC.GetSource_Death(), NPC.Center, NPC.velocity, goreType);
             }
         }
         public override void ModifyHoverBoundingBox(ref Rectangle boundingBox)

@@ -33,10 +33,10 @@ namespace TRAEProject.NewContent.Items.Weapons.Summoner.Echolalia
             Item.UseSound = SoundID.Item152;
             Item.noMelee = true;
             Item.noUseGraphic = true;
-            Item.damage = 82;
-            Item.useTime = Item.useAnimation = 30;
+            Item.damage = 63;
+            Item.useTime = Item.useAnimation = 35;
              Item.knockBack = 2f;
-            Item.shootSpeed = 7f;
+            Item.shootSpeed = 5.7f;
              Item.rare = ItemRarityID.Pink;
             Item.value = Item.sellPrice(0, 6, 0, 0);
         }
@@ -47,9 +47,9 @@ namespace TRAEProject.NewContent.Items.Weapons.Summoner.Echolalia
         public override void AddRecipes()
 		{
             CreateRecipe(1)
-                              .AddIngredient(ItemType<EchoHeart>(), 6)
-                              .AddIngredient(ItemID.SoulofSight, 8)
+                              .AddIngredient(ItemType<EchoHeart>(), 4)
                               .AddIngredient(ItemID.SoulofFright, 8)
+                                                            .AddIngredient(ItemID.SoulofLight, 16)
 
                               .AddTile(TileID.MythrilAnvil)
                               .Register();
@@ -67,7 +67,7 @@ namespace TRAEProject.NewContent.Items.Weapons.Summoner.Echolalia
         {
             originalColor = new Color(29, 0, 0);
             whipRangeMultiplier = 1f;
-            fallOff = 0.35f;
+            fallOff = 0.25f;
             tag = BuffType<EcholaliaTag>();
             whipSegments = 35;
             tipScale = 1.15f;

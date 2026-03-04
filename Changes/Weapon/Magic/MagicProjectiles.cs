@@ -1,13 +1,14 @@
-using TRAEProject.NewContent.Projectiles;
-using TRAEProject.Common;
 using Microsoft.Xna.Framework;
+using System;
+using System.Collections.Generic;
 using Terraria;
+using Terraria.Audio;
 using Terraria.ID;
 using Terraria.ModLoader;
-
+using TRAEProject.Common;
+using TRAEProject.NewContent.Projectiles;
 using static Terraria.ModLoader.ModContent;
 using static Terraria.ModLoader.PlayerDrawLayer;
-using System;
 
 namespace TRAEProject.Changes.Items
 {
@@ -60,10 +61,10 @@ namespace TRAEProject.Changes.Items
                     case ProjectileID.ManaCloakStar:
                         projectile.penetrate = 2;
                         projectile.GetGlobalProjectile<ProjectileStats>().homesIn = true;
-                        projectile.GetGlobalProjectile<ProjectileStats>().homingRange = 600f;
+                        projectile.GetGlobalProjectile<ProjectileStats>().homingRange = 450f;
                         projectile.GetGlobalProjectile<ProjectileStats>().dontHitTheSameEnemyMultipleTimes = true;
-                        projectile.GetGlobalProjectile<ProjectileStats>().cantCrit = true;
-                        projectile.tileCollide = false;
+                         projectile.GetGlobalProjectile<ProjectileStats>().cantCrit = true;
+                           projectile.tileCollide = false;
                         projectile.timeLeft = 120;
                         break;
                     case ProjectileID.EighthNote:
@@ -174,16 +175,24 @@ namespace TRAEProject.Changes.Items
                         projectile.usesLocalNPCImmunity = true;
                         break;
                     case ProjectileID.BoulderStaffOfEarth:
-                        projectile.penetrate = 4;
-                        projectile.usesLocalNPCImmunity = true;
-                        projectile.localNPCHitCooldown = -1;
+                        projectile.penetrate = 8;
+                        projectile.usesLocalNPCImmunity = true; projectile.localNPCHitCooldown = 10;
+
                         break;
                     case ProjectileID.InfernoFriendlyBolt:
                         projectile.GetGlobalProjectile<ProjectileStats>().AddsBuff = BuffID.Daybreak;
                         projectile.GetGlobalProjectile<ProjectileStats>().AddedBuffDuration = 240;
+                        projectile.usesLocalNPCImmunity = true;
+                        projectile.localNPCHitCooldown = 10;
                         break;
                     case ProjectileID.InfernoFriendlyBlast:
-                        projectile.penetrate = 16;
+                        projectile.usesLocalNPCImmunity = true;
+                        projectile.localNPCHitCooldown = 10;
+                        projectile.penetrate = 8;
+                        break;
+                    case ProjectileID.MagnetSphereBolt:
+                        projectile.tileCollide = false;
+                        projectile.timeLeft = 600;
                         break;
                 }
             }
@@ -215,6 +224,8 @@ namespace TRAEProject.Changes.Items
             {
                 if (projectile.type == ProjectileID.CursedFlameFriendly)
                     projectile.penetrate -= 1;
+ 
+
             }
             return true;
         }
@@ -260,7 +271,7 @@ namespace TRAEProject.Changes.Items
                 Player player = Main.player[projectile.owner];
                 if (projectile.type == ProjectileID.MagnetSphereBall)
                 {
-
+                    //projectile.velocity *= 0;
                     if (projectile.ai[0] == 0f)
                     {
                         projectile.ai[0] = projectile.velocity.X;
@@ -359,6 +370,76 @@ namespace TRAEProject.Changes.Items
                         }
                     }
                     return false;
+                }
+                if (projectile.type == ProjectileID.MagnetSphereBolt)
+                {
+                    if (projectile.ai[0] == 0 && Main.rand.NextBool(16))
+                        projectile.ai[0]++;
+                    if (projectile.ai[0] >= 1)
+                    {
+
+
+                        projectile.ai[0] += 1f;
+
+
+
+                        if (projectile.localAI[0] == 0)
+                        {
+                            projectile.localAI[0] = Main.rand.Next(-2, 4);
+                            projectile.localAI[1] = Main.rand.NextBool(2) ? -1 : 1;
+                        }
+
+                        float angle = (75f + 2 * projectile.localAI[0]) * (MathF.PI / 180f) * Math.Sign(projectile.localAI[1]);
+
+                        int bounceAt = 4 + (int)projectile.localAI[0];
+
+                        if (projectile.ai[1] > 1 && projectile.ai[1] < 7)
+                        {
+                            bounceAt *= 2;
+                            if (projectile.ai[1] > 2 && projectile.ai[1] < 5)
+                            {
+                                bounceAt = bounceAt * 5 / 3;
+                            }
+                            if (projectile.ai[1] > 5 && projectile.ai[1] < 7)
+                            {
+                                bounceAt = bounceAt * 2 / 3;
+                            }
+                        }
+
+                        if (projectile.ai[0] >= bounceAt)
+                        {
+
+                            if (projectile.ai[1] == 7)
+                            {
+                                projectile.velocity = projectile.velocity.RotatedBy(-angle);
+                                projectile.ai[0] = -1;
+                                projectile.ai[1] = 0;
+
+                            }
+                            else
+                            {
+                                projectile.ai[0] = 1;
+
+                                projectile.ai[1] += 1;
+
+
+                                if (projectile.ai[1] % 2 == 0)
+                                {
+                                    angle *= -1;
+                                }
+                                if (projectile.ai[1] > 1)
+                                {
+                                    angle *= 2;
+                                }
+              
+                   
+                                projectile.velocity = projectile.velocity.RotatedBy(angle);
+                            }
+                        }
+                    }
+
+
+
                 }
                 // Crimson Rod Change
 

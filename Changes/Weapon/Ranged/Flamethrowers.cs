@@ -10,6 +10,7 @@ using static Terraria.ModLoader.ModContent;
 using Terraria.DataStructures;
 using TRAEProject.Common;
 using TRAEProject.NewContent.Items.FlamethrowerAmmo;
+using System;
 
 namespace TRAEProject.Changes.Weapons.Ranged
 {
@@ -41,6 +42,28 @@ namespace TRAEProject.Changes.Weapons.Ranged
                     break;
             }
         }
+
+        public override void ModifyShootStats(Item item, Player player, ref Vector2 position, ref Vector2 velocity, ref int type, ref int damage, ref float knockback)
+        {
+            if (item.type == ItemID.Flamethrower || item.type == ItemID.ElfMelter) // dont check if item.UseAmmo == ammoID.Gel because blood boiler isnt the same
+            {
+
+                float cosine = velocity.X / velocity.Length();
+                float sin = velocity.Y / velocity.Length();
+                int offSetX = -5;
+
+                int offSetY = 0;
+                if (type == ProjectileType<IchorGelP>() || type == ProjectileType<BlessedGelP>())
+                {
+                    offSetX = -25;
+                    offSetY = -25;
+                }
+                Vector2 offset = new Vector2((item.width + offSetX) * cosine, -item.height / 2 + (item.width + offSetY) * sin);
+                 position += offset;
+             
+            }
+        }
+   
         public override bool CanConsumeAmmo(Item weapon, Item ammo, Player player)
         {
             if ((weapon.type == ItemID.Flamethrower || weapon.type == ItemID.ElfMelter))

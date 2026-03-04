@@ -36,21 +36,26 @@ namespace TRAEProject.NewContent.NPCs.Echosphere.EchoSprite
         {
             NPC.width = 20;
             NPC.height = 32;
-            NPC.defense = 33;
-            NPC.lifeMax = 400;
+            NPC.defense = 34;
+            NPC.lifeMax = Main.masterMode ? 1000 : Main.expertMode ? 700 : 400;
             NPC.scale = 1.1f;
+         
             NPC.value = 20 * 100f;
             NPC.noGravity = true;
             NPC.noTileCollide = true;
             InitializeVerlet();
             NPC.HitSound = SoundID.NPCHit5;
-            NPC.DeathSound = SoundID.NPCDeath7; ItemType < EchoSpriteBanner> ();
+            NPC.DeathSound = SoundID.NPCDeath7; Banner = NPC.type;
+
+            BannerItem = ItemType<EchoSpriteBanner>();
         }
+    
+
         public override void ModifyNPCLoot(NPCLoot npcLoot)
         {
-            npcLoot.Add(ItemDropRule.Common(ItemType<EchoHeart>(), 2, 1, 1));
-
-            npcLoot.Add(ItemDropRule.Common(ItemID.MoonStone, 33, 1, 1));
+            npcLoot.Add(ItemDropRule.Common(ItemType<EchoHeart>(), 10, 1, 1));
+            npcLoot.Add(ItemDropRule.Common(ItemID.Blindfold, 100, 1, 1));
+            //npcLoot.Add(ItemDropRule.Common(ItemID.MoonStone, 200, 1, 1));
         }
         ref float TurnaroundTimer => ref NPC.ai[1];
         ref float IdleMovementTimer => ref NPC.localAI[0];
@@ -72,6 +77,7 @@ namespace TRAEProject.NewContent.NPCs.Echosphere.EchoSprite
         {
             oldSPriteDirection = NPC.spriteDirection;
             EchosphereNPCHelper.SearchForSpaceLayerPlayers(NPC);
+    
             if (NPC.target < 0 || NPC.target >= Main.maxPlayers)
             {
                 NPC.ai[0] = 0;
@@ -98,6 +104,11 @@ namespace TRAEProject.NewContent.NPCs.Echosphere.EchoSprite
                 }
                 UpdateVerlet();
                 return;
+            }
+            if (Main.rand.NextBool(8))//8% chance of dust
+            {
+                Dust d = Dust.NewDustDirect(NPC.position, NPC.width, NPC.height, DustID.PinkTorch, NPC.velocity.X, NPC.velocity.Y, 0, default, 1.5f);
+                d.noGravity = true;
             }
             NPC.dontTakeDamage = false;
             NPC.Opacity = 1;
@@ -128,10 +139,10 @@ namespace TRAEProject.NewContent.NPCs.Echosphere.EchoSprite
                 {
                     NPC.ai[0] %= firerate;
                     int projID = ModContent.ProjectileType<EchoSpriteProj>();
-                    float shootSpeed = 12f;
-                    if (Main.expertMode)//from spaz code
+                    float shootSpeed = 15f;
+                    if (Main.masterMode) 
                     {
-                        shootSpeed *= 1.25f;
+                        shootSpeed *= 1.2f;
                     }
                     shootSpeed /= ContentSamples.ProjectilesByType[projID].MaxUpdates;
                     Vector2 projVel = NPC.DirectionTo(player.Center) * shootSpeed;
@@ -144,12 +155,12 @@ namespace TRAEProject.NewContent.NPCs.Echosphere.EchoSprite
                     }
                     if (Main.netMode != NetmodeID.MultiplayerClient)
                     {
-                        int damage = 100;
+                        int damage = 80;
                         if (NPC.confused)
                         {
                             damage = 40;
                         }
-                        Main.NewText(projVel.Length());
+                         
                         Projectile.NewProjectile(NPC.GetSource_FromAI(), NPC.Center, projVel, projID, damage / 2, 0, Main.myPlayer);
                     }
                     //pew pew (phantasmal bolt when shot from true eoc)
@@ -178,10 +189,10 @@ namespace TRAEProject.NewContent.NPCs.Echosphere.EchoSprite
             Player player = Main.player[NPC.target];
             float moveSpeed = 12f;
             float acceleration = 0.3f;
-            if (Main.getGoodWorld)//from spaz code. leaving it in cuz why not ig
+            if (Main.masterMode)//from spaz code. leaving it in cuz why not ig
             {
-                moveSpeed *= 1.15f;
-                acceleration *= 1.15f;
+                moveSpeed *= 1.25f;
+                acceleration *= 1.1f;
             }
 
             Vector2 offset = new Vector2(400, 0);
@@ -316,7 +327,12 @@ namespace TRAEProject.NewContent.NPCs.Echosphere.EchoSprite
             if(NPC.life <= 0)
             {
                 EchosphereNPCHelper.EchosphereEnemyDeathDust(NPC);
-                Gore.NewGore(NPC.GetSource_Death(), NPC.Center, NPC.velocity, ModContent.GoreType<EchoSpriteGoreBody>());
+                Gore.NewGore(NPC.GetSource_Death(), NPC.Center, NPC.velocity, GoreType<EchoSpriteGore1>());
+                Gore.NewGore(NPC.GetSource_Death(), NPC.Center, NPC.velocity, GoreType<EchoSpriteGore2>());
+
+                Gore.NewGore(NPC.GetSource_Death(), NPC.Center, NPC.velocity, GoreType<EchoSpriteGore3>());
+                Gore.NewGore(NPC.GetSource_Death(), NPC.Center, NPC.velocity, GoreType<EchoSpriteGore4>());
+
                 EchoSpriteGoreTail.Spawn(trail, NPC, NPC.Center);
             }
         }

@@ -1,15 +1,17 @@
+using Microsoft.Xna.Framework;
+using Steamworks;
+using System.Collections.Generic;
+using System.Reflection.Metadata.Ecma335;
 using Terraria;
+using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
-using static Terraria.ModLoader.ModContent;
-using TRAEProject.NewContent.Buffs;
-using TRAEProject.Changes.Items;
 using TRAEProject.Changes;
-using Terraria.DataStructures;
-using Microsoft.Xna.Framework;
 using TRAEProject.Changes.Accesory;
-using System.Collections.Generic;
-using Steamworks;
+using TRAEProject.Changes.Items;
+using TRAEProject.NewContent.Buffs;
+using TRAEProject.NewContent.NPCs.Echosphere.EchoStalker;
+using static Terraria.ModLoader.ModContent;
 
 namespace TRAEProject
 {
@@ -85,7 +87,8 @@ namespace TRAEProject
                     player.DelBuff(buffIndex);
                     return;
                 case BuffID.Inferno:
-                    player.infernoCounter = 0;
+                    player.AddBuff(BuffType<NewInferno>(), player.buffTime[buffIndex]);
+                    player.DelBuff(buffIndex);
                     return;
                 case BuffID.ManaRegeneration:
                     if (GetInstance<TRAEConfig>().ManaRework)
@@ -99,7 +102,14 @@ namespace TRAEProject
                         player.manaSickReduction = 0f;
                     }
                     return;
-
+                case BuffID.Lucky:
+                    if (player.buffTime[buffIndex] < 10 * 60 * 60)
+                    {
+                        player.luck += 0.1f;
+                        if (player.buffTime[buffIndex] < 5 * 60 * 60)
+                            player.luck += 0.1f;
+                    }
+                    return;
 
                 case BuffID.WaterWalking:
                     player.GetModPlayer<Mobility>().TRAEwaterwalk = true;
@@ -163,9 +173,7 @@ namespace TRAEProject
                 case BuffID.BeetleEndurance3:
                     tip = "Damage taken reduced by 30%";
                     return;
-                case BuffID.Werewolf:
-                    tip = "Damage and mobility increased";
-                    return;
+ 
                 case BuffID.Archery:
                     tip = "10% increased arrow damage, 20% increased arrow speed";
                     return;
@@ -184,9 +192,13 @@ namespace TRAEProject
                 case BuffID.StarInBottle:
                         tip = "Increased max mana by 20";
                     break;
-                   
-              
-    
+
+                case BuffID.Endurance:
+                    tip = "Reduces incoming damage by 8%";
+                    break;
+                case BuffID.IceBarrier:
+                    tip = "Damage taken is reduced by 20%";
+                    break;
             }
         }
     }
@@ -219,7 +231,8 @@ namespace TRAEProject
             {
                 target.AddBuff(BuffID.Venom, Main.rand.Next(9* 60, 12 * 60));
             }
-            if (player.inferno && InfernoHits < 3)
+  
+            if (player.HasBuff(BuffType<NewInferno>()) && InfernoHits < 3)
             {
                 InfernoHits += 1;
                 Lighting.AddLight((int)(target.Center.X / 16f), (int)(target.Center.Y / 16f), 0.65f, 0.4f, 0.1f);
@@ -254,7 +267,8 @@ namespace TRAEProject
                 for (int k = 0; k < 200; k++)
                 {
                     NPC nPC = Main.npc[k];
-                    if (nPC.active && !nPC.friendly && nPC.damage > 0 && !nPC.dontTakeDamage && Vector2.Distance(target.Center, nPC.Center) <= range)
+                    if (nPC.active && !nPC.friendly && nPC.damage > 0 && !nPC.dontTakeDamage && Vector2.Distance(target.Center, nPC.Center) <= range
+                        && nPC.type != NPCType<EchoStalkerBody1>() && nPC.type != NPCType<EchoStalkerBody2>() && nPC.type != NPCType<EchoStalkerTail>())
                     {
                         ++NPCLimit;
                         if (NPCLimit < 3)
@@ -282,10 +296,17 @@ namespace TRAEProject
             }
             return;
         }
+    
+        //public override bool? CanHitNPC(Projectile projectile, NPC target)
+        //{
+        //    //if (target.type == NPCType<EchoStalkerHead>() || target.type == NPCType<EchoStalkerBody1>() && projectile.friendly)
+        //    //    return !EchoStalkerHead.IsHeadImmuneToProj(target.whoAmI, projectile);
+        //    return base.CanHitNPC(projectile, target);
+        //}
     }
     public class BuffChangesModPlayer : ModPlayer
     {
-
+  
         public bool Celled = false;
         public override void ResetEffects()
         {
@@ -295,9 +316,9 @@ namespace TRAEProject
         {
             Celled = false;
         }
-        public override void PostUpdateBuffs()
-        {
-        }
+
+   
+ 
         public override void UpdateBadLifeRegen()
         {
             if (Player.HasBuff(BuffID.Bleeding) && Main.expertMode)
@@ -341,6 +362,7 @@ namespace TRAEProject
                 Player.lifeRegenTime += 3; // makes it tick up four times faster
                 Player.lifeRegenCount += 2; // adds 1 hp/s
             }
+
         }
 
         public override void ModifyHitByNPC(NPC npc, ref Player.HurtModifiers modifiers)

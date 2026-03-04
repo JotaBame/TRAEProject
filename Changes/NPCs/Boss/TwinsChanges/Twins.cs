@@ -3,9 +3,14 @@ using Microsoft.Xna.Framework.Graphics;
 using ReLogic.Content;
 using System;
 using Terraria;
+using Terraria.Audio;
 using Terraria.GameContent;
+using Terraria.Graphics.Renderers;
 using Terraria.ID;
 using Terraria.ModLoader;
+using TRAEProject.Changes.NPCs.Miniboss.Santa;
+using TRAEProject.NewContent.Items.FlamethrowerAmmo;
+using static AssGen.Assets;
 using static Terraria.ModLoader.ModContent;
 
 namespace TRAEProject.Changes.NPCs.Boss.TwinsChanges
@@ -21,13 +26,14 @@ namespace TRAEProject.Changes.NPCs.Boss.TwinsChanges
             NPCID.Sets.NoMultiplayerSmoothingByType[NPCID.Retinazer] = true;
         }
 
-
         public override void SetDefaults(NPC npc)
         {
             if (GetInstance<BossConfig>().TwinsRework && !Main.zenithWorld)
             {
                 if (npc.type == NPCID.Retinazer)
                 {
+                   
+
 
                     npc.lifeMax = (int)(npc.lifeMax * ((float)14000 / 20000));
                 }
@@ -199,23 +205,31 @@ namespace TRAEProject.Changes.NPCs.Boss.TwinsChanges
                 }
             }
         }
+
+        const int fireRate = 120;
+        const int shotsFired = 4;
+        const int delayBeforeRapidFire = 180;
+        const int RapidfireRate = 20;
+        const int rapidShotsFired = 16;
+        const float RetshootSpeed = 15f;
         public override bool PreAI(NPC npc)
         {
             if (GetInstance<BossConfig>().TwinsRework && !Main.zenithWorld)
             {
                 if (npc.type == NPCID.Retinazer)
                 {
+       
                     if (npc.target < 0 || npc.target == 255 || Main.player[npc.target].dead || !Main.player[npc.target].active)
                     {
                         npc.TargetClosest();
                     }
                     bool dead2 = Main.player[npc.target].dead;
 
-                    float shootSpeed = 12f;
+                   
                     RetPhase3.Rotate(npc);
                     if (npc.ai[0] < 5)
                     {
-                        float rotateTowards = TRAEMethods.PredictiveAimWithOffset(npc.Center, shootSpeed * 3, Main.player[npc.target].Center, Main.player[npc.target].velocity, npc.ai[1] == 0 ? 46 : 30) - MathF.PI / 2;
+                        float rotateTowards = TRAEMethods.PredictiveAimWithOffset(npc.Center, RetshootSpeed * 3, Main.player[npc.target].Center, Main.player[npc.target].velocity, npc.ai[1] == 0 ? 46 : 30) - MathF.PI / 2;
                         float rotSpeed = 0.1f;
                         if (npc.ai[1] == 0)
                         {
@@ -288,13 +302,13 @@ namespace TRAEProject.Changes.NPCs.Boss.TwinsChanges
                                 {
                                     npc.ai[3] += 1f;
                                 }
-                                if (npc.ai[3] >= 180f)
+                                if (npc.ai[3] >= 200f)
                                 {
                                     npc.ai[3] = 0f;
                                     Vector2 shotPos = npc.Center + TRAEMethods.PolarVector(30, npc.rotation + MathF.PI / 2) + npc.velocity * 2f;
 
                                     Vector2 particlePos = GetPupilPosition(npc);
-                                    Vector2 shotVel = TRAEMethods.PolarVector(shootSpeed, npc.rotation + MathF.PI / 2);
+                                    Vector2 shotVel = TRAEMethods.PolarVector(RetshootSpeed, npc.rotation + MathF.PI / 2);
                                     RetPhase3.EyeLaserShootDust(shotVel, particlePos);
                                     if (Main.netMode != 1)
                                     {
@@ -316,7 +330,7 @@ namespace TRAEProject.Changes.NPCs.Boss.TwinsChanges
                             if (npc.ai[2] % 4 == 0)
                             {
                                 Vector2 particlePos = GetPupilPosition(npc);
-                                Vector2 shotVel = TRAEMethods.PolarVector(shootSpeed, npc.rotation + MathF.PI / 2);
+                                Vector2 shotVel = TRAEMethods.PolarVector(RetshootSpeed, npc.rotation + MathF.PI / 2);
                                 RetPhase3.EyeLaserShootDust(shotVel, particlePos);
                                 if (Main.netMode != 1)
                                 {
@@ -346,6 +360,7 @@ namespace TRAEProject.Changes.NPCs.Boss.TwinsChanges
                             }
                             if (npc.life < npc.lifeMax * 0.4 || spazHealth != -1 && spazHealth < 0.05f)
                             {
+
                                 npc.ai[0] = 1f;
                                 npc.ai[1] = 0f;
                                 npc.ai[2] = 0f;
@@ -399,7 +414,7 @@ namespace TRAEProject.Changes.NPCs.Boss.TwinsChanges
                                 }
                                 npc.localAI[2] = 450;
                                 npc.localAI[3] = -300;
-                                //SoundEngine.PlaySound(15, npc.Center);
+                                SoundEngine.PlaySound(SoundID.ForceRoar, npc.Center);
                             }
                         }
                         Dust.NewDust(npc.position, npc.width, npc.height, 5, Main.rand.Next(-30, 31) * 0.2f, Main.rand.Next(-30, 31) * 0.2f);
@@ -415,21 +430,113 @@ namespace TRAEProject.Changes.NPCs.Boss.TwinsChanges
                         }
                         return false;
                     }
-                    npc.damage = (int)(npc.defDamage * 1.5);
-                    npc.defense = npc.defDefense + 10;
-                    npc.HitSound = SoundID.NPCHit4;
+                
                     if (npc.ai[1] == 0f)
                     {
-                        int fireRate = 120;
-                        int shotsFired = 4;
-                        int delayBeforeRapidFire = 60;
-                        int RapidfireRate = 15;
-                        int rapidShotsFired = 8;
+                        npc.damage = (int)(npc.defDamage * 1.5);
+                        npc.defense = npc.defDefense + 10;
+                        npc.HitSound = SoundID.NPCHit4;
                         npc.ai[2] += 1f;
-
+                        if (npc.ai[2] == fireRate * shotsFired)
+                        {
+                            npc.velocity *= 0.2f;
+                      
+                        }
                         if (npc.ai[2] > fireRate * shotsFired)
                         {
-                            npc.velocity = Vector2.Zero;
+                          
+                                Dust.NewDustPerfect(GetLaserCannonPosition(npc), DustID.TheDestroyer, Vector2.Zero, 0, Color.White with { A = 0 }, 1f);
+                            float speed = 1.25f;
+                            int num425 = 1;
+                            if (npc.position.X + npc.width / 2 < Main.player[npc.target].position.X + Main.player[npc.target].width)
+                            {
+                                num425 = -1;
+                            }
+                            Vector2 spazposition = new(npc.position.X + npc.width * 0.5f, npc.position.Y + npc.height * 0.5f);
+                            float playerpositionX = Main.player[npc.target].position.X + Main.player[npc.target].width / 2 + num425 * 180 - spazposition.X;
+                            float playerpositionY = Main.player[npc.target].position.Y + Main.player[npc.target].height / 2 - spazposition.Y;
+                            float playerpositiontospaz = MathF.Sqrt((float)(playerpositionX * playerpositionX + playerpositionY * playerpositionY));
+                            if (Main.expertMode)
+                            {
+                                if (playerpositiontospaz > 300f)
+                                {
+                                    speed += 0.5f;
+                                }
+                                if (playerpositiontospaz > 400f)
+                                {
+                                    speed += 0.5f;
+                                }
+                                if (playerpositiontospaz > 500f)
+                                {
+                                    speed += 0.75f;
+                                }
+                                if (playerpositiontospaz > 600f)
+                                {
+                                    speed += 0.75f;
+                                }
+                                if (playerpositiontospaz > 700f)
+                                {
+                                    speed += 1.5f;
+                                }
+                                if (playerpositiontospaz > 800f)
+                                {
+                                    speed += 1.5f;
+                                }
+                            }
+
+                            speed *= 2f; float accel = Main.expertMode ? 0.16f : 0.125f;
+
+                            playerpositiontospaz /= speed;
+                            playerpositionX *= playerpositiontospaz;
+                            playerpositionY *= playerpositiontospaz;
+                            if (npc.velocity.X < playerpositionX)
+                            {
+                                ref float x1 = ref npc.velocity.X; // could maybe be simplified to npc.velocity.X += accel 
+                                x1 += accel;
+                                if (npc.velocity.X < 0f && playerpositionX > 0f)
+                                {
+                                    ref float x2 = ref npc.velocity.X;
+                                    x2 += accel;
+                                }
+                            }
+                            else if (npc.velocity.X > playerpositionX)
+                            {
+                                ref float x3 = ref npc.velocity.X;
+                                x3 -= accel;
+                                if (npc.velocity.X > 0f && playerpositionX < 0f)
+                                {
+                                    ref float x4 = ref npc.velocity.X;
+                                    x4 -= accel;
+                                }
+                            }
+                            if (npc.velocity.Y < playerpositionY)
+                            {
+                                ref float x5 = ref npc.velocity.Y;
+                                x5 += accel;
+                                if (npc.velocity.Y < 0f && playerpositionY > 0f)
+                                {
+                                    ref float x6 = ref npc.velocity.Y;
+                                    x6 += accel;
+                                }
+                            }
+                            else if (npc.velocity.Y > playerpositionY)
+                            {
+                                ref float x7 = ref npc.velocity.Y;
+                                x7 -= accel;
+                                if (npc.velocity.Y > 0f && playerpositionY < 0f)
+                                {
+                                    ref float x8 = ref npc.velocity.Y;
+                                    x8 -= accel;
+                                }
+                            }
+                            ref float x = ref npc.ai[2];
+                            x += 1f;
+                            if (npc.ai[2] >= fireRate * shotsFired + delayBeforeRapidFire && npc.ai[2] % RapidfireRate == 0)
+                            {
+                                Dust dust = Dust.NewDustPerfect(GetLaserCannonPosition(npc), DustID.TheDestroyer, Vector2.Zero, 0, Color.White with { A = 0 }, 1f);
+                                dust.noGravity = true;
+
+                            }
                             if (npc.ai[2] >= fireRate * shotsFired + delayBeforeRapidFire && npc.ai[2] % RapidfireRate == 0)
                             {
                                 Player target = Main.player[npc.target];
@@ -450,7 +557,8 @@ namespace TRAEProject.Changes.NPCs.Boss.TwinsChanges
                                     int attackDamage_ForProjectiles3 = npc.GetAttackDamage_ForProjectiles(25f, 23f);
                                     Projectile.NewProjectile(npc.GetSource_ReleaseEntity(), pos.X, pos.Y, num959, num960, ProjectileID.DeathLaser, attackDamage_ForProjectiles3, 0f, Main.myPlayer);
                                 }
-                                RetPhase3.DeathLaserShootDust(shotVel, Twins.GetLaserCannonPosition(npc));
+                              
+                                RetPhase3.DeathLaserShootDust(shotVel, GetLaserCannonPosition(npc));
                             }
                             if (npc.ai[2] >= fireRate * shotsFired + delayBeforeRapidFire + RapidfireRate * rapidShotsFired)
                             {
@@ -465,7 +573,7 @@ namespace TRAEProject.Changes.NPCs.Boss.TwinsChanges
 
                             if (npc.ai[2] % fireRate == 0)
                             {
-                                Vector2 shotVel = TRAEMethods.PolarVector(shootSpeed, npc.rotation + MathF.PI / 2);
+                                Vector2 shotVel = TRAEMethods.PolarVector(RetshootSpeed, npc.rotation + MathF.PI / 2);
                                 if (Main.netMode != NetmodeID.MultiplayerClient)
                                 {
                                     int attackDamage_ForProjectiles3 = npc.GetAttackDamage_ForProjectiles(25f, 23f);
@@ -490,6 +598,7 @@ namespace TRAEProject.Changes.NPCs.Boss.TwinsChanges
                 }
                 if (npc.type == NPCID.Spazmatism)
                 {
+                     
                     if (npc.ai[0] == 0 && npc.ai[1] == 0)
                     {
                         float timerIncr = 1f;
@@ -501,11 +610,188 @@ namespace TRAEProject.Changes.NPCs.Boss.TwinsChanges
                         if (npc.ai[3] + timerIncr >= 60)
                         {
                             CursedFlameShootDust(GetPupilPosition(npc));
+                            int dustsToMake = 25;
+                   
+                            for (int i = 0; i < dustsToMake; i++)
+                            {
+                                double radius = 2 * Math.PI / dustsToMake;
+                                // Why 62.5f and not 41.67?
+                                // This is 150% of 41.67, because below the extra dusts get increased distance, with a max of 50% more.
+                                // Therefore, the circle of flames more or less accurately represents the radius of the fire ring.
+                                Vector2 speed = new(5, 5);
+                                Dust d = Dust.NewDustPerfect(GetPupilPosition(npc), DustID.CursedTorch, speed.RotatedBy(radius * i) + npc.velocity, Scale: 2.5f);
+                      
+                                d.noGravity = true;
+                            }
                         }
+                    }
+    
+                    
+                    if (npc.ai[0] == 3f)
+                    {
+                        npc.rotation = npc.DirectionTo(Main.player[npc.target].Center).ToRotation() - 1.567f;
+                        npc.TargetClosest();
+                        if (npc.ai[1] == 0f)
+                        {
+                            float speed = 2.4f;
+                            int num425 = 1;
+                            if (npc.position.X + npc.width / 2 < Main.player[npc.target].position.X + Main.player[npc.target].width)
+                            {
+                                num425 = -1;
+                            }
+                            Vector2 spazposition = new(npc.position.X + npc.width * 0.5f, npc.position.Y + npc.height * 0.5f);
+                            float playerpositionX = Main.player[npc.target].position.X + Main.player[npc.target].width / 2 + num425 * 180 - spazposition.X;
+                            float playerpositionY = Main.player[npc.target].position.Y + Main.player[npc.target].height / 2 - spazposition.Y;
+                            float playerpositiontospaz = MathF.Sqrt((float)(playerpositionX * playerpositionX + playerpositionY * playerpositionY));
+                            if (Main.expertMode)
+                            {
+                                if (playerpositiontospaz > 300f)
+                                {
+                                    speed += 0.5f;
+                                }
+                                if (playerpositiontospaz > 400f)
+                                {
+                                    speed += 0.5f;
+                                }
+                                if (playerpositiontospaz > 500f)
+                                {
+                                    speed += 0.75f;
+                                }
+                                if (playerpositiontospaz > 600f)
+                                {
+                                    speed += 0.75f;
+                                }
+                                if (playerpositiontospaz > 700f)
+                                {
+                                    speed += 1.5f;
+                                }
+                                if (playerpositiontospaz > 800f)
+                                {
+                                    speed += 1.5f;
+                                }
+                            }
+
+                            speed *= 2f; float accel = 0.2f;
+
+                            playerpositiontospaz /= speed;
+                            playerpositionX *= playerpositiontospaz;
+                            playerpositionY *= playerpositiontospaz;
+                            if (npc.velocity.X < playerpositionX)
+                            {
+                                ref float x1 = ref npc.velocity.X; // could maybe be simplified to npc.velocity.X += accel 
+                                x1 += accel;
+                                if (npc.velocity.X < 0f && playerpositionX > 0f)
+                                {
+                                    ref float x2 = ref npc.velocity.X;
+                                    x2 += accel;
+                                }
+                            }
+                            else if (npc.velocity.X > playerpositionX)
+                            {
+                                ref float x3 = ref npc.velocity.X;
+                                x3 -= accel;
+                                if (npc.velocity.X > 0f && playerpositionX < 0f)
+                                {
+                                    ref float x4 = ref npc.velocity.X;
+                                    x4 -= accel;
+                                }
+                            }
+                            if (npc.velocity.Y < playerpositionY)
+                            {
+                                ref float x5 = ref npc.velocity.Y;
+                                x5 += accel;
+                                if (npc.velocity.Y < 0f && playerpositionY > 0f)
+                                {
+                                    ref float x6 = ref npc.velocity.Y;
+                                    x6 += accel;
+                                }
+                            }
+                            else if (npc.velocity.Y > playerpositionY)
+                            {
+                                ref float x7 = ref npc.velocity.Y;
+                                x7 -= accel;
+                                if (npc.velocity.Y > 0f && playerpositionY < 0f)
+                                {
+                                    ref float x8 = ref npc.velocity.Y;
+                                    x8 -= accel;
+                                }
+                            }
+                            ref float x = ref npc.ai[2];
+                            x += 1f;
+                    
+                            if (npc.ai[2] >= 300f)
+                            {
+                                npc.ai[1] = 1f;
+                                npc.ai[2] = 0f;
+                                npc.ai[3] = 0f;
+                                npc.target = 255;
+                                npc.netUpdate = true;
+                            }
+                        
+                            if (Collision.CanHit(npc.position, npc.width, npc.height, Main.player[npc.target].position, Main.player[npc.target].width, Main.player[npc.target].height))
+                            {
+                                ref float y = ref npc.localAI[2];
+                                y += 2f;
+
+                                if (npc.localAI[2] > 22f)
+                                {
+                                    npc.localAI[2] = 0f;
+                                    Terraria.Audio.SoundEngine.PlaySound(SoundID.Item34 with { MaxInstances = 0 }, npc.position);
+                                }
+                                if (Main.netMode != NetmodeID.MultiplayerClient)
+                                {
+                                    ref float x9 = ref npc.localAI[1];
+                                    x9 += 2f;
+      
+                                    if (npc.soundDelay <= 0)
+                                    {
+                                        Terraria.Audio.SoundEngine.PlaySound(SoundID.ForceRoarPitched with { MaxInstances = 0 }, npc.Center);
+                                        npc.soundDelay = 300;
+                                    }
+                                     
+
+                                    if (npc.localAI[1] > 8f)
+                                    {
+                                        npc.localAI[1] = 0f;
+                                        float num487 = 6f;
+                                        int attackDamage_ForProjectiles7 = npc.GetAttackDamage_ForProjectiles(30f, 27f);
+
+                                        Vector2 vector51 = new Vector2(npc.position.X + (float)npc.width * 0.5f, npc.position.Y + (float)npc.height * 0.5f);
+                                        float num483 = Main.player[npc.target].position.X + (float)(Main.player[npc.target].width / 2) - vector51.X;
+                                        float num484 = Main.player[npc.target].position.Y + (float)(Main.player[npc.target].height / 2) - vector51.Y;
+                                        float num485 = (float)Math.Sqrt(num483 * num483 + num484 * num484);
+                                        num485 = num487 / num485;
+                                        num483 *= num485;
+                                        num484 *= num485;
+                                        num484 += (float)Main.rand.Next(-40, 41) * 0.01f;
+                                        num483 += (float)Main.rand.Next(-40, 41) * 0.01f;
+                                        num484 += npc.velocity.Y * 0.5f;
+                                        num483 += npc.velocity.X * 0.5f;
+                                        vector51.X -= num483 * 1f;
+                                        vector51.Y -= num484 * 1f;
+                                        Vector2 velocity = new(num483, num484);
+                                        float cosine = velocity.X / velocity.Length();
+                                        float sin = velocity.Y / velocity.Length();
+                                        int offSetX = 50;
+
+                                        int offSetY = 50;
+                             
+                                        Vector2 offset = new Vector2( offSetX * cosine, offSetY * sin);
+                                        int num489 = Projectile.NewProjectile(npc.GetSource_FromAI(), vector51 + offset, velocity, 101, attackDamage_ForProjectiles7, 0f, Main.myPlayer);
+
+
+                                    }
+                                }
+                            }
+                            return false;
+                        }
+                     
                     }
                     if (npc.ai[0] >= 4f)
                     {
+                       
 
+                       
                         if (npc.ai[0] == 4f || npc.ai[0] == 5f)
                         {
                             SpazPhase3.Start(npc);
@@ -544,8 +830,12 @@ namespace TRAEProject.Changes.NPCs.Boss.TwinsChanges
                             }
                         }
                     }
-                    //
-                    if (Main.expertMode)
+                    if (Main.masterMode && npc.ai[0] != 4f)
+                    {
+                        if (npc.ai[1] == 2f) // charge state
+             { }
+                    }
+                        if (Main.expertMode)
                     {
                         if (NPC.CountNPCS(NPCID.Retinazer) <= 0 && npc.ai[0] < 4 && Main.expertMode)
                         {
@@ -555,153 +845,7 @@ namespace TRAEProject.Changes.NPCs.Boss.TwinsChanges
                             npc.ai[3] = 0f;
                             npc.netUpdate = true;
                         }
-                        if (npc.ai[1] == 0f && npc.ai[0] != 1f && npc.ai[0] != 2f && npc.ai[0] != 0f)
-                        {
-                            npc.defense = 28;
-                            if (npc.ai[1] == 0f)
-                            {
-                                float speed = 2.4f;
-                                int num425 = 1;
-                                if (npc.position.X + npc.width / 2 < Main.player[npc.target].position.X + Main.player[npc.target].width)
-                                {
-                                    num425 = -1;
-                                }
-                                Vector2 spazposition = new(npc.position.X + npc.width * 0.5f, npc.position.Y + npc.height * 0.5f);
-                                float playerpositionX = Main.player[npc.target].position.X + Main.player[npc.target].width / 2 + num425 * 180 - spazposition.X;
-                                float playerpositionY = Main.player[npc.target].position.Y + Main.player[npc.target].height / 2 - spazposition.Y;
-                                float playerpositiontospaz = MathF.Sqrt((float)(playerpositionX * playerpositionX + playerpositionY * playerpositionY));
-                                if (Main.expertMode)
-                                {
-                                    if (playerpositiontospaz > 300f)
-                                    {
-                                        speed += 0.5f;
-                                    }
-                                    if (playerpositiontospaz > 400f)
-                                    {
-                                        speed += 0.5f;
-                                    }
-                                    if (playerpositiontospaz > 500f)
-                                    {
-                                        speed += 0.75f;
-                                    }
-                                    if (playerpositiontospaz > 600f)
-                                    {
-                                        speed += 0.75f;
-                                    }
-                                    if (playerpositiontospaz > 700f)
-                                    {
-                                        speed += 1.5f;
-                                    }
-                                    if (playerpositiontospaz > 800f)
-                                    {
-                                        speed += 1.5f;
-                                    }
-                                }
-
-                                speed *= 2f; float accel = 0.2f;
-
-                                playerpositiontospaz /= speed;
-                                playerpositionX *= playerpositiontospaz;
-                                playerpositionY *= playerpositiontospaz;
-                                if (npc.velocity.X < playerpositionX)
-                                {
-                                    ref float x1 = ref npc.velocity.X; // could maybe be simplified to npc.velocity.X += accel 
-                                    x1 += accel;
-                                    if (npc.velocity.X < 0f && playerpositionX > 0f)
-                                    {
-                                        ref float x2 = ref npc.velocity.X;
-                                        x2 += accel;
-                                    }
-                                }
-                                else if (npc.velocity.X > playerpositionX)
-                                {
-                                    ref float x3 = ref npc.velocity.X;
-                                    x3 -= accel;
-                                    if (npc.velocity.X > 0f && playerpositionX < 0f)
-                                    {
-                                        ref float x4 = ref npc.velocity.X;
-                                        x4 -= accel;
-                                    }
-                                }
-                                if (npc.velocity.Y < playerpositionY)
-                                {
-                                    ref float x5 = ref npc.velocity.Y;
-                                    x5 += accel;
-                                    if (npc.velocity.Y < 0f && playerpositionY > 0f)
-                                    {
-                                        ref float x6 = ref npc.velocity.Y;
-                                        x6 += accel;
-                                    }
-                                }
-                                else if (npc.velocity.Y > playerpositionY)
-                                {
-                                    ref float x7 = ref npc.velocity.Y;
-                                    x7 -= accel;
-                                    if (npc.velocity.Y > 0f && playerpositionY < 0f)
-                                    {
-                                        ref float x8 = ref npc.velocity.Y;
-                                        x8 -= accel;
-                                    }
-                                }
-                                ref float x = ref npc.ai[2];
-                                x += 1f;
-                                if (npc.ai[2] >= 300f)
-                                {
-                                    npc.ai[1] = 1f;
-                                    npc.ai[2] = 0f;
-                                    npc.ai[3] = 0f;
-                                    npc.target = 255;
-                                    npc.netUpdate = true;
-                                }
-                                if (Collision.CanHit(npc.position, npc.width, npc.height, Main.player[npc.target].position, Main.player[npc.target].width, Main.player[npc.target].height))
-                                {
-                                    ref float y = ref npc.localAI[2];
-                                    y += 2f;
-
-                                    if (npc.localAI[2] > 22f)
-                                    {
-                                        npc.localAI[2] = 0f;
-                                        Terraria.Audio.SoundEngine.PlaySound(SoundID.Item34 with { MaxInstances = 0 }, npc.position);
-                                    }
-                                    if (Main.netMode != NetmodeID.MultiplayerClient)
-                                    {
-                                        ref float x9 = ref npc.localAI[1];
-                                        x9 += 2f;
-                                        if (npc.life < npc.lifeMax * 0.75)
-                                        {
-                                            ref float x10 = ref npc.localAI[1];
-                                            x10 += 1f;
-                                        }
-                                        if (npc.life < npc.lifeMax * 0.5)
-                                        {
-                                            ref float y1 = ref npc.localAI[1];
-                                            y1 += 1f;
-                                        }
-                                        if (npc.life < npc.lifeMax * 0.25)
-                                        {
-                                            ref float y2 = ref npc.localAI[1];
-                                            y2 += 1f;
-                                        }
-                                        if (npc.life < npc.lifeMax * 0.1)
-                                        {
-                                            ref float y3 = ref npc.localAI[1];
-                                            y3 += 2f;
-                                        }
-                                        if (npc.soundDelay <= 0)
-                                        {
-                                            Terraria.Audio.SoundEngine.PlaySound(SoundID.ForceRoarPitched with { MaxInstances = 0 }, npc.Center);
-                                            npc.soundDelay = 240;
-                                        }
-                                        if (npc.localAI[1] > 8f)
-                                        {
-
-
-
-                                        }
-                                    }
-                                }
-                            }
-                        }
+          
                     }
                     if (npc.ai[0] == 0)
                     {
@@ -872,12 +1016,51 @@ namespace TRAEProject.Changes.NPCs.Boss.TwinsChanges
                             npc.position.Y - screenPos.Y + npc.height - TextureAssets.Npc[npc.type].Height() * npc.scale / Main.npcFrameCount[npc.type] + 4f + halfSize.Y * npc.scale + num36 + num35);
                         // spriteBatch.Draw(eyeGlow, Pos, npc.frame, color, npc.rotation, halfSize, npc.scale, SpriteEffects.None, 0f);
                         Pos += (Vector2.UnitX * TextureAssets.Npc[npc.type].Width() / 2).RotatedBy(npc.rotation + MathF.PI / 2);
-                        float progress = Utils.GetLerpValue(100f, 179f, npc.ai[3], true);
+                        float progress = Utils.GetLerpValue(100f, 199f, npc.ai[3], true);
                         Color violet = new(104f / 255f, 3f / 255f, 253f / 255);
                         Color purple = new(130f / 255f, 25f / 255f, 183f / 255f);
                         Pos += screenPos;
                         //ShootTelegraphNew(Pos, violet, progress, -1);
                         ShootTelegraphOld(Pos, violet * .75f, progress);
+                    }
+                    if (npc.ai[0] != 0f && npc.ai[2] < fireRate * shotsFired && npc.ai[0] != 6f)
+                    {
+                        Texture2D eyeGlow = Request<Texture2D>("TRAEProject/Changes/NPCs/Boss/TwinsChanges/Retinizer_Glow").Value;
+                        int c = (int)npc.ai[2] % 120;
+                        Color color = new(c, c, c, c);
+                        Vector2 halfSize = new(55f, 107f);
+                        float num35 = 0f;
+                        float num36 = Main.NPCAddHeight(npc);
+                        Vector2 Pos = GetLaserCannonPosition(npc);
+                        // spriteBatch.Draw(eyeGlow, Pos, npc.frame, color, npc.rotation, halfSize, npc.scale, SpriteEffects.None, 0f);
+
+                        float progress = Utils.GetLerpValue(1f, 120f, npc.ai[2] % 120, true);
+
+                        Color red = Color.Red;
+                        Color purple = new(130f / 255f, 25f / 255f, 183f / 255f);
+
+                        //ShootTelegraphNew(Pos, violet, progress, -1);
+                        ShootTelegraphOld(Pos, red * .75f, progress);
+                    }
+                    if (RetPhase3.ShootingInPhase3(npc) && npc.ai[0] == 6f)
+                    {
+ 
+                        Texture2D eyeGlow = Request<Texture2D>("TRAEProject/Changes/NPCs/Boss/TwinsChanges/Retinizer_Glow").Value;
+                        int c = (int)npc.ai[2] % 120;
+                        Color color = new(c, c, c, c);
+                        Vector2 halfSize = new(55f, 107f);
+                        float num35 = 0f;
+                        float num36 = Main.NPCAddHeight(npc);
+                        Vector2 Pos = GetLaserCannonPosition(npc);
+                        // spriteBatch.Draw(eyeGlow, Pos, npc.frame, color, npc.rotation, halfSize, npc.scale, SpriteEffects.None, 0f);
+
+                        float progress = RetPhase3.GetProgress(npc);
+                        
+                        Color red = Color.Red;
+                        Color purple = new(130f / 255f, 25f / 255f, 183f / 255f);
+
+                        //ShootTelegraphNew(Pos, violet, progress, -1);
+                        ShootTelegraphOld(Pos, red * .75f, progress);
                     }
                 }
                 if (npc.type == NPCID.Spazmatism)
@@ -895,7 +1078,7 @@ namespace TRAEProject.Changes.NPCs.Boss.TwinsChanges
                         Pos += screenPos;
 
                         float progress = Utils.GetLerpValue(10f, 60f, npc.ai[3], true);
-                        ShootTelegraphNew(Pos, CursedFlamesLime, progress, 1);
+                         ShootTelegraphNew(Pos, CursedFlamesLime, progress, 1);
                         //ShootTelegraphOld(Pos, CursedFlamesLime * 0.75f, progress);
 
                     }
