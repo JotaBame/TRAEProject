@@ -1,6 +1,7 @@
 using Microsoft.Xna.Framework;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using Terraria;
 using Terraria.Audio;
 using Terraria.ID;
@@ -194,6 +195,14 @@ namespace TRAEProject.Changes.Items
                         projectile.tileCollide = false;
                         projectile.timeLeft = 600;
                         break;
+           
+                    case ProjectileID.NettleBurstLeft:
+                    case ProjectileID.NettleBurstRight:
+
+                        //projectile.GetGlobalProjectile<ProjectileStats>().homesIn = true;
+                        //projectile.GetGlobalProjectile<ProjectileStats>().homingRange = 600f;
+
+                        break;
                 }
             }
         }
@@ -264,11 +273,36 @@ namespace TRAEProject.Changes.Items
             }
 
         }
+
+        public override void PostAI(Projectile projectile)
+        {
+            if (projectile.type == ProjectileID.NettleBurstLeft || projectile.type == ProjectileID.NettleBurstRight || projectile.type == ProjectileID.VilethornBase)
+            {
+                NPC target = null;
+                if (TRAEMethods.ClosestNPC(ref target, 300f, projectile.Center, true))
+                {
+                    float scaleFactor2 = projectile.velocity.Length();
+                    Vector2 diff = target.Center - projectile.Center;
+                    diff.Normalize();
+                    diff *= scaleFactor2;
+                    projectile.velocity = (projectile.velocity * 8f + diff) / 9f;
+                    projectile.velocity.Normalize();
+                    projectile.velocity *= scaleFactor2;
+                }
+                if (projectile.ai[2] == 0f)
+                    projectile.ai[2] = (float)Math.Atan2(projectile.velocity.Y, projectile.velocity.X) + 1.57f;
+                projectile.rotation = projectile.ai[2];
+         
+
+                projectile.ai[1] -= 0.1f;
+            }
+        }
         public override bool PreAI(Projectile projectile)
         {
             if (GetInstance<TRAEConfig>().ManaRework)
             {
                 Player player = Main.player[projectile.owner];
+ 
                 if (projectile.type == ProjectileID.MagnetSphereBall)
                 {
                     //projectile.velocity *= 0;

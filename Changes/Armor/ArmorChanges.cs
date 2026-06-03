@@ -329,6 +329,7 @@ namespace ChangesArmor
 
                 case ItemID.NinjaPants:
                     player.GetCritChance<GenericDamageClass>() += 1;
+                    player.moveSpeed += 0.05f;
                     break;
                 case ItemID.CrystalNinjaLeggings:
                     player.moveSpeed -= 0.05f;
@@ -422,7 +423,7 @@ namespace ChangesArmor
             if (head.type == ItemID.CrystalNinjaHelmet && body.type == ItemID.CrystalNinjaChestplate && legs.type == ItemID.CrystalNinjaLeggings)
                 return "CrystalAssassinSet";
             if (head.type == ItemID.NinjaHood && body.type == ItemID.NinjaShirt && legs.type == ItemID.NinjaPants)
-                return "PearlwoodSet";
+                return "NinjaSet";
             if (head.type == ItemID.PearlwoodHelmet && body.type == ItemID.PearlwoodBreastplate && legs.type == ItemID.PearlwoodGreaves)
                 return "PearlwoodSet";
             return base.IsArmorSet(head, body, legs);
@@ -435,6 +436,14 @@ namespace ChangesArmor
                 player.setBonus = "Reduces damage taken by " + DR; player.statDefense -= 1;
                 player.GetModPlayer<Defense>().FlatDamageReduction += 1;
 
+            }
+            if (armorSet == "NinjaSet")
+            {
+                 player.setBonus = "Increases jump speed by 20% and acceleration by 33%";
+                player.runAcceleration *= 1.33f;
+                player.jumpSpeedBoost += Mobility.JSV(0.2f);
+
+                player.moveSpeed -= 0.2f;
             }
             if (armorSet == "AshWoodSet")
             {
@@ -1011,7 +1020,7 @@ namespace ChangesArmor
                     {
                         if (line.Mod == "Terraria" && line.Name == "Tooltip0")
                         {
-                            line.Text = "6% increased critical strike chance";
+                            line.Text = "4% increased critical strike chance\n5% increased movement speed";
                         }
                     }
                     return;

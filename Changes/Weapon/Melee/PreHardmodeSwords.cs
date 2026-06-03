@@ -109,11 +109,15 @@ namespace TRAEProject.Changes.Weapon.Melee
                 // OTHER
                 case ItemID.Cutlass:
                 case ItemID.Muramasa:
-                case ItemID.Katana:
-                case ItemID.ChlorophyteSaber:
+                 case ItemID.ChlorophyteSaber:
                     item.useTurn = false;
                     break;
-                               
+                case ItemID.Katana:
+                    item.useTime = 15; // down from 20
+                    item.value = Item.buyPrice(gold: 15);
+                    item.useAnimation = 15;
+                    item.useTurn = false;
+                    break;
                 case ItemID.AntlionClaw:
                     item.damage = 14;// down from 16
                     item.useTime = 11;

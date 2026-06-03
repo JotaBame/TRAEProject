@@ -1,9 +1,10 @@
 ﻿using Microsoft.Xna.Framework;
-
+using Microsoft.Xna.Framework.Graphics;
 using System;
 using Terraria;
 using Terraria.Audio;
 using Terraria.DataStructures;
+using Terraria.GameContent;
 using Terraria.GameContent.ItemDropRules;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -507,5 +508,34 @@ namespace TRAEProject.Changes.NPCs.Boss
                 }
             }
         }
+        //public override bool PreDraw(NPC npc, SpriteBatch spriteBatch, Vector2 screenPos, Color drawColor)
+        //{
+        //    if (GetInstance<BossConfig>().KingSlimeChanges)
+        //    {
+        //        if (npc.type == NPCID.KingSlime && npc.ai[1] == 4f && npc.velocity.Y > 0 && Main.masterMode)
+        //        {
+                
+        //            Texture2D texture = TextureAssets.Npc[npc.type].Value;
+        //            float num92 = 1f;
+        //            int num89 = Main.npcFrameCount[npc.type];
+        //            int num90 = npc.frame.Y / npc.frame.Height;
+        //            Microsoft.Xna.Framework.Rectangle rectangle8 = texture.Frame(2, 16, num90 / num89, num90 % num89);
+        //            rectangle8.Inflate(0, -2);
+        //            Vector2 origin10 = rectangle8.Size() * new Vector2(0.5f, 1f);
+        //            Color color21 = Microsoft.Xna.Framework.Color.Lerp(Microsoft.Xna.Framework.Color.White, npc.color, 0.5f);
+        //            for (int num93 = 7; num93 >= 0; num93--)
+        //            {
+        //                float num94 = 1f - (float)num93 / 8f;
+        //                Vector2 vector21 = npc.oldPos[num93] + new Vector2((float)npc.width * 0.5f, npc.height);
+        //                //vector21 += npc.Center;
+        //                vector21 -= screenPos;
+        //                Color color22 = color21 * num94;
+        //                Main.NewText("draw:" + vector21 + "Center:" + npc.Center);
+        //                spriteBatch.Draw(texture, vector21, rectangle8, color22, npc.rotation, origin10, npc.scale, SpriteEffects.FlipHorizontally, 1f);
+        //            }
+        //        }
+        //    }
+        //    return base.PreDraw(npc, spriteBatch, screenPos, drawColor);
+        //}
     }
 }
