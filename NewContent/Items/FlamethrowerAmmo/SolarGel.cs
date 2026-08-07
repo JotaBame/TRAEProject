@@ -58,7 +58,7 @@ namespace TRAEProject.NewContent.Items.FlamethrowerAmmo
         public override void FlamethrowerDefaults()
         {
             dustID = DustID.HeatRay;
-            scalemodifier = 0.67f;
+            maxScale = 0.67f;
 
             ColorMiddle = new Color(222, 83, 43, 100);
             ColorBack = new Color(250, 247, 86, 100);

@@ -229,7 +229,7 @@ namespace TRAEProject.NewContent.Items.Weapons.Ranged.Launchers.CryoCannon
         public override void OnKill(int timeLeft)
         {
             Projectile.GetGlobalProjectile<CryoRockets>().FrostExplosion(Projectile);
-            Projectile.GetGlobalProjectile<NewRockets>().DestroyTiles(Projectile, 3);
+            Projectile.GetGlobalProjectile<NewRockets>().DestroyTiles(Projectile, 7);
         }
     }
     public class ClusterCryo : ModProjectile

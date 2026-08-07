@@ -38,6 +38,7 @@ namespace TRAEProject.Changes.TextureSwaps
                 SwapProjectile(ProjectileID.MoonlordTurret);
                 SwapProjectile(ProjectileID.MoonlordTurretLaser);
 
+                SwapItem(ItemID.MoonlordTurretStaff);
 
                 SwapItem(ItemID.DarkLance);
 

@@ -300,6 +300,7 @@ namespace TRAEProject.Changes.Weapon.Ranged.Rockets
        public bool explodeOnHit = false;
         public override void OnHitNPC(Projectile projectile, NPC target, NPC.HitInfo hit, int damageDone)
         {
+         
             if (DryRocket || WetRocket || LavaRocket || HoneyRocket)
             {
                 LiquidRocket(projectile);
@@ -315,7 +316,7 @@ namespace TRAEProject.Changes.Weapon.Ranged.Rockets
                 projectile.Kill();
             }
         }
-
+ 
         public void RocketStats(Projectile projectile, bool defaultExplosion)
         {
             projectile.friendly = true;
@@ -324,7 +325,8 @@ namespace TRAEProject.Changes.Weapon.Ranged.Rockets
             projectile.usesLocalNPCImmunity = true;
             projectile.localNPCHitCooldown = 10;
             projectile.timeLeft = 600;
-            IsARocket = true;
+            IsARocket = true; projectile.GetGlobalProjectile<ProjectileStats>().FirstHitDamage = 1.1f;
+
             projectile.GetGlobalProjectile<ProjectileStats>().explodes = true;
             if (defaultExplosion)
             {
@@ -353,6 +355,8 @@ namespace TRAEProject.Changes.Weapon.Ranged.Rockets
             projectile.localNPCHitCooldown = 10;
             projectile.timeLeft = 600;
             IsARocket = true;
+            projectile.GetGlobalProjectile<ProjectileStats>().FirstHitDamage = 1.1f;
+
             projectile.GetGlobalProjectile<ProjectileStats>().explodes = true;
             if (defaultExplosion)
             {
@@ -383,7 +387,8 @@ namespace TRAEProject.Changes.Weapon.Ranged.Rockets
             projectile.penetrate = 5; projectile.usesLocalNPCImmunity = true;
             projectile.localNPCHitCooldown = 10;
             IsARocket = true;
-            projectile.GetGlobalProjectile<ProjectileStats>().explodes = true;
+            projectile.GetGlobalProjectile<ProjectileStats>().explodes = true; projectile.GetGlobalProjectile<ProjectileStats>().FirstHitDamage = 1.1f;
+
             if (defaultExplosion)
             {
                 projectile.GetGlobalProjectile<ProjectileStats>().UsesDefaultExplosion = true;

@@ -1,8 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿ 
+using static Terraria.ModLoader.ModContent;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -113,7 +110,12 @@ namespace TRAEProject.Changes.Recipes
         }
         public static void Modify(Recipe recipe)
         {
-            Item ingredientToRemove;
+            Item ingredientToRemove; 
+            if (recipe.HasResult(ItemID.OnyxBlaster))
+            {
+ 
+                 recipe.AddIngredient(ItemID.AncientBattleArmorMaterial, 1);
+            }
             if (recipe.HasResult(ItemID.SilverBullet))
             {
                 recipe.ReplaceResult(ItemID.SilverBullet, 100);
@@ -196,18 +198,23 @@ namespace TRAEProject.Changes.Recipes
             {
                 recipe.TryGetIngredient(ItemID.ChlorophyteBar, out ingredientToRemove);
                 recipe.RemoveIngredient(ingredientToRemove);
-                recipe.AddIngredient(ItemID.ChlorophyteSaber, 1);
-                recipe.AddIngredient(ItemID.SoulofMight, 20);
+                 recipe.AddIngredient(ItemID.SoulofMight, 20);
+                recipe.AddIngredient(ItemID.SoulofSight, 20);
+                recipe.AddIngredient(ItemID.SoulofFright, 20);
+
                 recipe.AddIngredient(ItemID.SoulofLight, 20);
+            }
+            if (recipe.HasResult(ItemID.NightsEdge) || recipe.HasResult(ItemID.VoidVault) || recipe.HasResult(ItemID.VoidLens))
+
+            {
+
+                recipe.AddIngredient(ItemType<EchoHeart>(), 3);
+
             }
             if (recipe.HasResult(ItemID.TrueNightsEdge))
             {
-                recipe.TryGetIngredient(ItemID.SoulofFright, out ingredientToRemove);
-                recipe.RemoveIngredient(ingredientToRemove);
-                recipe.TryGetIngredient(ItemID.SoulofMight, out ingredientToRemove);
-                recipe.RemoveIngredient(ingredientToRemove);
-                recipe.AddIngredient(ItemID.ChlorophyteClaymore, 1);
-                recipe.AddIngredient(ItemID.SoulofNight, 20);
+        
+                 recipe.AddIngredient(ItemID.SoulofNight, 20);
             }
             if (recipe.HasResult(ItemID.Flamethrower))
             {

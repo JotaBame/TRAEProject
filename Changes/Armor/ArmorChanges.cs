@@ -41,6 +41,8 @@ namespace ChangesArmor
                     case ItemID.CopperHelmet:
                     case ItemID.CopperGreaves:
                     case ItemID.TinGreaves:
+                    case ItemID.BoneHelm:
+
                         item.defense = 3;
                         return;
                     case ItemID.CopperChainmail:
@@ -50,6 +52,8 @@ namespace ChangesArmor
                     case ItemID.AncientIronHelmet:
                     case ItemID.IronGreaves:
                     case ItemID.LeadGreaves:
+                    case ItemID.JungleHat:
+                    case ItemID.AncientCobaltHelmet:
                         item.defense = 4;
                         return;
                     case ItemID.IronChainmail:
@@ -58,6 +62,10 @@ namespace ChangesArmor
                     case ItemID.SilverGreaves:
                     case ItemID.TungstenGreaves:
                     case ItemID.SilverHelmet:
+                    case ItemID.JungleShirt:
+                    case ItemID.AncientCobaltBreastplate:
+                    case ItemID.JunglePants:
+                    case ItemID.AncientCobaltLeggings:
                         item.defense = 5;
                         return;
                
@@ -166,6 +174,9 @@ namespace ChangesArmor
                 case ItemID.CobaltShield:
                     item.defense = 2;
                     return;
+                case ItemID.ObsidianShield:
+                    item.defense = 4;
+                    return;
 
             }
 
@@ -175,6 +186,14 @@ namespace ChangesArmor
     {
             switch (item.type)
             {
+                case ItemID.JungleShirt:
+                case ItemID.AncientCobaltBreastplate:
+                    player.GetDamage<MagicDamageClass>() += 0.03f;
+                    break;
+      
+                case ItemID.Goggles:
+                    player.GetCritChance<GenericDamageClass>() += 8;
+                    break;
                 case ItemID.SWATHelmet:
                     player.GetDamage<RangedDamageClass>() *= 1.15f;
                      break;
@@ -189,6 +208,12 @@ namespace ChangesArmor
                     break;
                 case ItemID.PearlwoodGreaves:
                     player.moveSpeed += 0.15f;
+                    break;
+                case ItemID.AncientBattleArmorHat:
+                    player.statManaMax2 += 40;
+                    break;
+                case ItemID.AncientBattleArmorPants:
+                    player.statManaMax2 -= 40;
                     break;
                 case ItemID.AncientArmorHat:
                     player.GetDamage<SummonDamageClass>() += 0.17f;
@@ -220,7 +245,7 @@ namespace ChangesArmor
                     break;
                 case ItemID.RuneRobe:
                     player.statManaMax2 += 100;
-                    player.manaCost -= 0.21f;
+                    player.manaCost -= 0.17f;
                     break;
                 case ItemID.RuneHat:
                     player.GetDamage<MagicDamageClass>() += 0.15f;
@@ -301,8 +326,10 @@ namespace ChangesArmor
 ///////////////// end of OOA
                 case ItemID.NinjaHood:
                 case ItemID.NinjaShirt:
+
                 case ItemID.NinjaPants:
-                    player.GetCritChance<GenericDamageClass>() += 3;
+                    player.GetCritChance<GenericDamageClass>() += 1;
+                    player.moveSpeed += 0.05f;
                     break;
                 case ItemID.CrystalNinjaLeggings:
                     player.moveSpeed -= 0.05f;
@@ -318,9 +345,7 @@ namespace ChangesArmor
                     player.statManaMax2 += 100;
                     player.manaCost -= 0.13f;
                      break;
-                case ItemID.Goggles:
-                    player.GetCritChance<GenericDamageClass>() += 8;
-                    break;
+               
             }
         }
         public override string IsArmorSet(Item head, Item body, Item legs)
@@ -339,6 +364,8 @@ namespace ChangesArmor
                     return "WoodSet";
                 if (head.type == ItemID.RichMahoganyHelmet && body.type == ItemID.RichMahoganyBreastplate && legs.type == ItemID.RichMahoganyGreaves)
                     return "WoodSet";
+                if (head.type == ItemID.AshWoodHelmet && body.type == ItemID.AshWoodBreastplate && legs.type == ItemID.AshWoodGreaves)
+                    return "AshWoodSet";
                 if (head.type == ItemID.CopperHelmet && body.type == ItemID.CopperChainmail && legs.type == ItemID.CopperGreaves)
                     return "CopperSet";
                 if (head.type == ItemID.TinHelmet && body.type == ItemID.TinChainmail && legs.type == ItemID.TinGreaves)
@@ -395,6 +422,8 @@ namespace ChangesArmor
                 return "FrostSet";
             if (head.type == ItemID.CrystalNinjaHelmet && body.type == ItemID.CrystalNinjaChestplate && legs.type == ItemID.CrystalNinjaLeggings)
                 return "CrystalAssassinSet";
+            if (head.type == ItemID.NinjaHood && body.type == ItemID.NinjaShirt && legs.type == ItemID.NinjaPants)
+                return "NinjaSet";
             if (head.type == ItemID.PearlwoodHelmet && body.type == ItemID.PearlwoodBreastplate && legs.type == ItemID.PearlwoodGreaves)
                 return "PearlwoodSet";
             return base.IsArmorSet(head, body, legs);
@@ -403,62 +432,95 @@ namespace ChangesArmor
         {
             if (armorSet == "WoodSet")
             {
-                player.setBonus = "Reduces damage taken by 5%";
+                int DR = /*Main.masterMode ? 2 :*/ 1;
+                player.setBonus = "Reduces damage taken by " + DR; player.statDefense -= 1;
+                player.GetModPlayer<Defense>().FlatDamageReduction += 1;
+
+            }
+            if (armorSet == "NinjaSet")
+            {
+                 player.setBonus = "Increases jump speed by 20% and acceleration by 33%";
+                player.runAcceleration *= 1.33f;
+                player.jumpSpeedBoost += Mobility.JSV(0.2f);
+
+                player.moveSpeed -= 0.2f;
+            }
+            if (armorSet == "AshWoodSet")
+            {
+                int DR =/* Main.masterMode ? 2 :*/ 1;
+                player.setBonus = "Reduces damage taken by " + DR +"\nReduces damage from touching lava";
                 player.statDefense -= 1;
+                player.GetModPlayer<Defense>().FlatDamageReduction += 1;
+
             }
             if (armorSet == "WoodSetPlus")
             {
-                player.setBonus = "Reduces damage taken by 5%*";
+                int DR = /*Main.masterMode ? 2 :*/ 1;
+                player.setBonus = "Reduces damage taken by " + DR;
+                player.GetModPlayer<Defense>().FlatDamageReduction += DR; 
+                player.statDefense -= 1;
+
                 player.GetModPlayer<SetBonuses>().secretPearlwoodSetBonus = true;
             }
             if (armorSet == "CopperSet") 
             {
-                player.setBonus = "Reduces damage taken by 8%";
-                player.endurance += 0.08f;
+                int DR = /*Main.masterMode ? 3 :*/ 2;
+                player.setBonus = "Reduces damage taken by " + DR;
+                player.GetModPlayer<Defense>().FlatDamageReduction += DR; player.endurance += 0.08f;
+                player.GetModPlayer<Defense>().FlatDamageReduction += 2;
+
                 player.statDefense -= 2;
             }
             if (armorSet == "TinSet")
             {
-                player.setBonus = "Reduces damage taken by 9%";
-                player.endurance += 0.09f;
+                int DR =/* Main.masterMode ? 3 : */2;
+                player.setBonus = "Reduces damage taken by " + DR;
+                player.GetModPlayer<Defense>().FlatDamageReduction += DR;
+
                 player.statDefense -= 2;
             }
             if (armorSet == "IronSet") 
             {
-                player.setBonus = "Reduces damage taken by 10%";
-                player.endurance += 0.1f;
+                int DR = /*Main.masterMode ? 5 :*/ 3;
+                player.setBonus = "Reduces damage taken by " + DR;
+                player.GetModPlayer<Defense>().FlatDamageReduction += DR; 
                 player.statDefense -= 2;
             }
             if (armorSet == "LeadSet")
             {
-                player.setBonus = "Reduces damage taken by 11%";
-                player.endurance += 0.11f;
+                int DR = /*Main.masterMode ? 5 :*/ 3;
+                player.setBonus = "Reduces damage taken by " + DR;
+                player.GetModPlayer<Defense>().FlatDamageReduction += DR;
                 player.statDefense -= 3;
             }
             if (armorSet == "SilverSet")  
             {
-                player.setBonus = "Reduces damage taken by 12%";
-                player.endurance += 0.12f;
+                int DR = /*Main.masterMode ? 6 :*/ 4;
+                player.setBonus = "Reduces damage taken by " + DR;
+                player.GetModPlayer<Defense>().FlatDamageReduction += DR;
                 player.statDefense -= 3;
             }
             if (armorSet == "TungstenSet")
             {
-                player.setBonus = "Reduces damage taken by 13%";
-                player.endurance += 0.13f;
-                player.statDefense -= 3;
+                int DR = /*Main.masterMode ? 6 : */4;
+                player.setBonus = "Reduces damage taken by " + DR;
+                player.GetModPlayer<Defense>().FlatDamageReduction += DR;
+                 player.statDefense -= 3;
             }
             if (armorSet == "GoldSet")  
-            { 
-                player.setBonus = "Reduces damage taken by 14%";
-            player.endurance += 0.14f;
-            player.statDefense -= 3;
+            {
+                int DR =/* Main.masterMode ? 7 :*/ 5;
+                player.setBonus = "Reduces damage taken by " + DR;
+                player.GetModPlayer<Defense>().FlatDamageReduction += DR;
+                player.statDefense -= 3;
         }
             if (armorSet == "PlatinumSet")
             {
-                player.setBonus = "Reduces damage taken by 15%";
-                player.endurance += 0.15f;
+                int DR = /*aMin.masterMode ? 7 :*/ 5;
+                player.setBonus = "Reduces damage taken by " + DR;
+                player.GetModPlayer<Defense>().FlatDamageReduction += DR;
                 player.statDefense -= 4;
-            }
+             }            
             if (armorSet == "PharaohSet")
             {
                 player.setBonus = "Grants an improved double jump and the ability to float for a few seconds";
@@ -534,7 +596,7 @@ namespace ChangesArmor
             }
             if (armorSet == "CrystalAssassinSet")
             {
-                player.setBonus = "10% increased damage, critical strike chance and movement speed";
+                player.setBonus = "Allows the ability to dash\n10% increased damage, critical strike chance and movement speed";
                 player.moveSpeed += 0.1f;
             }
             if (armorSet == "PearlwoodSet")
@@ -573,6 +635,17 @@ namespace ChangesArmor
                         if (line.Mod == "Terraria" && line.Name == "Defense")
                         {
                             line.Text += "\n5% increased melee speed";
+                        }
+                    }
+                    return;
+                case ItemID.JungleShirt:
+                case ItemID.AncientCobaltBreastplate:
+
+                    foreach (TooltipLine line in tooltips)
+                    {
+                        if (line.Mod == "Terraria" && line.Name == "Tooltip1")
+                        {
+                            line.Text = "9% increased magic damage";
                         }
                     }
                     return;
@@ -668,6 +741,32 @@ namespace ChangesArmor
                         }
                     }
                     return;
+                case ItemID.AncientBattleArmorHat:
+                    foreach (TooltipLine line in tooltips)
+                    {
+                        if (line.Mod == "Terraria" && line.Name == "Tooltip0")
+                        {
+                            line.Text = "Increases maximum mana by 40\n15% increased magic and summon damage";
+                        }
+                    }
+                    return;
+                case ItemID.AncientBattleArmorPants:
+                    foreach (TooltipLine line in tooltips)
+                    {
+                        if (line.Mod == "Terraria" && line.Name == "Tooltip0")
+                        {
+                            line.Text = "10% increased magic and summon damage";
+                        }
+                        if (line.Mod == "Terraria" && line.Name == "Tooltip1")
+                        {
+                            line.Text = "Increases your maximum number of minions by 1";
+                        }
+                        if (line.Mod == "Terraria" && line.Name == "Tooltip2")
+                        {
+                            line.Text = "";
+                        }
+                    }
+                    return;
                 case ItemID.AncientArmorHat:
                     foreach (TooltipLine line in tooltips)
                     {
@@ -709,7 +808,7 @@ namespace ChangesArmor
                     {
                         if (line.Mod == "Terraria" && line.Name == "Defense")
                         {
-                            line.Text += "\nIncreases maximum mana by 100\nReduces mana costs by 21%";
+                            line.Text += "\nIncreases maximum mana by 100\nReduces mana costs by 17%";
                         }
                     }
                     return;              
@@ -783,7 +882,7 @@ namespace ChangesArmor
                     {
                         if (line.Mod == "Terraria" && line.Name == "Tooltip0")
                         {
-                            line.Text += "Increases your maximum number of sentries by 1\nIncreases life regeneration by 1 per second";
+                            line.Text = "Increases your maximum number of sentries by 1\nIncreases life regeneration by 1 per second";
                         }
                     }
                     return;
@@ -921,7 +1020,7 @@ namespace ChangesArmor
                     {
                         if (line.Mod == "Terraria" && line.Name == "Tooltip0")
                         {
-                            line.Text = "6% increased critical strike chance";
+                            line.Text = "4% increased critical strike chance\n5% increased movement speed";
                         }
                     }
                     return;

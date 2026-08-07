@@ -109,17 +109,11 @@ namespace TRAEProject.Changes.NPCs.Miniboss.Everscream
 					npc.ai[1] += 1f;
 					if (npc.ai[1] >= 60f)
 					{
-						Projectile p = Main.projectile[Projectile.NewProjectile(npc.GetSource_FromAI(), npc.Top, Vector2.UnitY * -6, ModContent.ProjectileType<Everstar>(), 50, 0)];
-						float dist = npc.Top.Y - Main.player[npc.target].Center.Y;
-						if(dist < 0)
-                        {
-							dist = 0;
-                        }
-						p.ai[0] = -dist / 6f;
-						p.ai[0] = (int)p.ai[0];
-						npc.ai[1] = 0f;
-						npc.ai[0] = 0f;
-					}
+						Projectile.NewProjectile(npc.GetSource_FromAI(), npc.Top, new (0, -6), ModContent.ProjectileType<Everstar>(), 50, 0);
+                        npc.ai[1] = 0f;
+                        npc.ai[0] = 0f;
+
+                    }
 				}
 				if (Math.Abs(npc.Center.X - Main.player[npc.target].Center.X) < 50f)
 				{

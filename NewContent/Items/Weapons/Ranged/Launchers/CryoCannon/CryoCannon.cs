@@ -22,9 +22,9 @@ namespace TRAEProject.NewContent.Items.Weapons.Ranged.Launchers.CryoCannon
         {
             Item.width = 40;
             Item.height = 26;
-            Item.damage = 70;
-            Item.useAnimation = 43;
-            Item.useTime = 43;
+            Item.damage = 80;
+            Item.useAnimation = 42;
+            Item.useTime = 42;
             Item.autoReuse = true;
             Item.rare = ItemRarityID.LightRed;
             Item.value = Item.sellPrice(gold: 8);

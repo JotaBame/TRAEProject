@@ -33,6 +33,15 @@ namespace TRAEProject.NewContent.Items.Weapons.Magic.FlashRay
             Item.knockBack = 6.25f;
             Item.UseSound = SoundID.Item72;
         }
+        public override void ModifyShootStats(Player player, ref Vector2 position, ref Vector2 velocity, ref int type, ref int damage, ref float knockback)
+        {
+            Vector2 muzzleOffset = Vector2.Normalize(velocity) * 25f;
+
+            if (Collision.CanHit(position, 0, 0, position + muzzleOffset, 0, 0))
+            {
+                position += muzzleOffset;
+            }
+        }
         public override void AddRecipes()
         {
 
@@ -61,34 +70,34 @@ namespace TRAEProject.NewContent.Items.Weapons.Magic.FlashRay
 
 
         }
-        float angle = 40f * (MathF.PI / 180f);
-        float zigzagTimer = 2;
-        float bounceAt = 12;
-        int bounced = 0;
+ 
 
         public override void AI()
         {
-			Projectile.ai[0] += 1f;
-           
+             Projectile.ai[0] += 1f;
+            int bounceAt = (int)6;
+            if (Projectile.ai[1] > 1)
+            {
+                bounceAt *= 2;
+            }
+
+            float angle = 40f * (MathF.PI / 180f);
+
             if (Projectile.ai[0] >= bounceAt)
             {
                 Projectile.ai[0] = 0;
+                Projectile.ai[1] += 1;
+
+
+                if (Projectile.ai[1] % 2 == 0)
+                {
+                    angle *= -1;
+                }
+                if (Projectile.ai[1] > 1)
+                {
+                    angle *= 2;
+                }
                 Projectile.velocity = Projectile.velocity.RotatedBy(angle);
-                angle *= -1;
-
-                if (bounced == 1)
-                {
-                    bounced++;
-                    bounceAt = zigzagTimer * 2; //takes twice as long after the first bounce
-                }
-                if (bounced == 0)
-                {
-                    bounced++;
-                    angle *= 2f;
-                    bounceAt = zigzagTimer;
-                }
-             
-
             }
             for (int i = 0; i < 2; i++)
 			{

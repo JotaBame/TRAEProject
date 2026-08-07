@@ -262,7 +262,7 @@ namespace TRAEProject.NewContent.Items.Weapons.Ranged.Launchers.H410WFLASH
         public override void OnKill(int timeLeft)
         {
             Projectile.GetGlobalProjectile<PixieRockets>().HallowExplosion(Projectile);
-            Projectile.GetGlobalProjectile<NewRockets>().DestroyTiles(Projectile, 3);
+            Projectile.GetGlobalProjectile<NewRockets>().DestroyTiles(Projectile, 7);
         }
     }
     public class ClusterPixie : ModProjectile

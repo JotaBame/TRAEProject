@@ -7,18 +7,45 @@ using Terraria;
 using Terraria.Audio;
 using Terraria.DataStructures;
 using Terraria.GameContent;
+using Terraria.GameContent.Bestiary;
+using Terraria.GameContent.ItemDropRules;
 using Terraria.ID;
 using Terraria.ModLoader;
+using TRAEProject.NewContent.Items.Materials;
+using TRAEProject.NewContent.NPCs.Banners;
+using TRAEProject.NewContent.NPCs.Echosphere.EchoLocator;
+using TRAEProject.NewContent.NPCs.Echosphere.EchoStalker;
 using TRAEProject.NewContent.Projectiles;
 using TRAEProject.NewContent.Projectiles.EchoLeviathanPortal;
+using static Terraria.ModLoader.ModContent;
 
 namespace TRAEProject.NewContent.NPCs.Echosphere.EchoLeviathan
 {
-    /// <summary>
-    /// UNFINISHED!!
-    /// </summary>
     internal class EchoLeviathanHead : ModNPC
     {
+ 
+        static float WormMovementTopSpeed => 7.25f;
+        static float WormMovementBaseAcceleration => 0.25f;
+
+        static float TimeSpentInWormMovement => 300;
+        static float MaxSegmentTurn => .8f;//higher value = segments can bend more
+        static float TurningRate => 0.1f;
+        static int SonicWaveStartTime => 130;
+        static int SonicWaveFireRate => 15;
+        static int SonicWaveNumShots => 3;
+        static int SonicWaveExtraWait => 60;
+        static int SonicWaveStateDuration => SonicWaveStartTime + SonicWaveFireRate * SonicWaveNumShots + SonicWaveExtraWait;
+        static int ShootingEndTime => SonicWaveStartTime + SonicWaveFireRate * SonicWaveNumShots;
+        static int GlowFadeInTime => 25;
+        static int GlowStayTimeBeforeShootingStart => 5;
+        static int GlowStayTimeAfterShootingStart => 20;
+        static int GlowFadeoutTime => 20;
+
+
+        public static SoundStyle ShotSFXOld => new SoundStyle("TRAEProject/Assets/Sounds/SonicWave") with { Pitch = -0.5f, MaxInstances = 0 };//in case it is ever needed again
+        public static SoundStyle ShotSFX => new("TRAEProject/NewContent/NPCs/Echosphere/EchoLeviathan/EchoLeviathanShot");
+        public static SoundStyle DeathSFX => new("TRAEProject/NewContent/NPCs/Echosphere/EchoLeviathan/EchoLeviathanDeath");
+        public static SoundStyle HitSFX => EchoStalkerHead.HitSFX.WithPitchOffset(-0.2f).WithVolumeScale(0.5f);
         enum AIState
         {
             Spawning = 0,
@@ -33,10 +60,10 @@ namespace TRAEProject.NewContent.NPCs.Echosphere.EchoLeviathan
         ref float Timer => ref NPC.ai[1];
         ref float OpacityCutoffFromFront => ref NPC.localAI[1];
         ref float OpacityCutoffFromBehind => ref NPC.localAI[2];
-        ref float SpawnTimer => ref NPC.localAI[0];
+        ref float PortalExitingTimer => ref NPC.localAI[0];
         Vector2 PortalPos
         {
-            get => new Vector2(NPC.ai[3], NPC.ai[2]); //this MUST be synced!!
+            get => new(NPC.ai[3], NPC.ai[2]); //this MUST be synced!!
             set
             {
                 NPC.ai[3] = value.X;
@@ -47,24 +74,53 @@ namespace TRAEProject.NewContent.NPCs.Echosphere.EchoLeviathan
         const float Phi = 1.61803398875f;
         public override void SetStaticDefaults()
         {
-            NPCID.Sets.TrailCacheLength[Type] = 300;//12 per advance
-            NPCID.Sets.TrailingMode[Type] = 0;//every three frames position is stored. counted with localai3!! Don't use localai3 in echo leviathan code!!
+            var drawModifier = new NPCID.Sets.NPCBestiaryDrawModifiers()
+            { // Influences how the NPC looks in the Bestiary
+                CustomTexturePath = "TRAEProject/NewContent/NPCs/Echosphere/EchoLeviathan/EchoLeviathan_Bestiary", // If the NPC is multiple parts like a worm, a custom texture for the Bestiary is encouraged.
+                 Position = new Vector2(40f, 24f),
+                PortraitPositionXOverride = 40f,
+                PortraitPositionYOverride = 12f
+            };
+            NPCID.Sets.NPCBestiaryDrawOffset.Add(NPC.type, drawModifier);
+
         }
         public override void SetDefaults()
         {
             NPC.noGravity = true;
-            NPC.lifeMax = 18000;
-            NPC.defense = 25;
+            NPC.lifeMax = 17500;
+            NPC.npcSlots = 3;
+            NPC.defense = 45;
             NPC.damage = 120;
+            NPC.scale = 1.1f;
             NPC.width = NPC.height = 70;
-            NPC.HitSound = SoundID.DD2_BetsyHurt;
+            NPC.HitSound = SoundID.DD2_DrakinHurt;
             NPC.DeathSound = SoundID.NPCDeath1;
             NPC.knockBackResist = 0;
             NPC.noTileCollide = true;
             NPC.alpha = 255;
-        }
+            NPC.DeathSound = DeathSFX;
+            NPC.HitSound = HitSFX;
+            Banner = NPC.type;
 
-        //REMEMBER, ONSPAWN IS ONLY CALLED ON SIDE THAT SPAWNED THE NPC
+            BannerItem = ItemType<EchoLeviathanBanner>();
+        }
+        public override void ModifyNPCLoot(NPCLoot npcLoot)
+        {
+            npcLoot.Add(ItemDropRule.Common(ItemType<EchoHeart>(), 1, 5, 7));
+            npcLoot.Add(ItemDropRule.Common(ItemType<EchoRectrix>(), 3, 1));
+            npcLoot.Add(ItemDropRule.Common(ItemID.MoonStone, 25, 1, 1));
+
+
+        }
+        public override void SetBestiary(BestiaryDatabase database, BestiaryEntry bestiaryEntry)
+        {
+            bestiaryEntry.Info.AddRange(new List<IBestiaryInfoElement>
+            {
+                BestiaryDatabaseNPCsPopulator.CommonTags.SpawnConditions.Biomes.Sky,
+                new FlavorTextBestiaryInfoElement("Cosmic whales dominating the upper bounds of our planet. The beats of their numerous hearts resonate through the entire Echosphere. ")
+            });
+        }
+        //REMEMBER, ONSPAWN IS ONLY CALLED SERVER SIDE
         public override void OnSpawn(IEntitySource source)
         {
 
@@ -97,9 +153,32 @@ namespace TRAEProject.NewContent.NPCs.Echosphere.EchoLeviathan
             }
             SpawnPortal(NPC.Center, 200);
         }
+        public override void HitEffect(NPC.HitInfo hit)
+        {
+            if (NPC.life <= 0)
+            {
+                EchosphereNPCHelper.EchosphereEnemyDeathDust(NPC);
+                Gore.NewGore(NPC.GetSource_Death(), NPC.Center, NPC.velocity, GoreType<EchoLeviathanGoreHead>());
+            }
+        }
+
+        public static bool EchoLeviIsIdle(float leviWhoAmI)
+        {
+            int index = (int)leviWhoAmI;
+            if (index < 0 || index >= Main.maxNPCs)
+            {
+                return false;
+            }
+            NPC leviNPC = Main.npc[index];
+            if (leviNPC.ModNPC is EchoLeviathanHead head)
+            {
+                return head.State == AIState.Idle;
+            }
+            return false;
+        }
         public override bool PreAI()
         {
-            if (SpawnTimer++ < 100)
+            if (State == AIState.Spawning && Timer++ < 100)//100 is time taken to come out of the portal
             {
                 NPC.position -= NPC.velocity;
                 return false;
@@ -108,18 +187,21 @@ namespace TRAEProject.NewContent.NPCs.Echosphere.EchoLeviathan
         }
         public override void AI()
         {
-            EchosphereHelper.SearchForAirbornePlayers(NPC);
+            if (State != AIState.SonicWave)//don't change or update targets while firing
+            {
+                EchosphereNPCHelper.SearchForSpaceLayerPlayers(NPC);
+            }
             if (State == AIState.Spawning)
             {
                 State_Spawning();
                 return;
             }
-            if (State != AIState.EnteringPortal && State != AIState.ExitingPortal && (NPC.target < 0 || NPC.target >= Main.maxNPCs))
+            if (State != AIState.EnteringPortal && State != AIState.ExitingPortal && !NPC.HasValidTarget)
             {
                 State = AIState.Idle;
             }
             //exit out of idle
-            if (NPC.target != -1 && State == AIState.Idle)
+            if (NPC.HasValidTarget && State == AIState.Idle)
             {
                 Timer = 0;
                 NPC.Opacity = 1;
@@ -154,28 +236,59 @@ namespace TRAEProject.NewContent.NPCs.Echosphere.EchoLeviathan
                 segment.dontTakeDamage = segment.Opacity < .6f;
             }
             NPC.dontTakeDamage = NPC.Opacity < .6f;
+            if (NPC.Opacity < 0.6f)
+            {
+                if (NPC.ai[0] % 60 == 0)
+                {
+                    float percentageHealed = 0.05f;
+
+                    int healAmount = NPC.lifeMax - NPC.life;
+                    if (healAmount > (int)(NPC.lifeMax * percentageHealed))
+                        healAmount = (int)(NPC.lifeMax * percentageHealed);
+                    if (healAmount > 0)
+                    {
+                        if (Main.netMode != NetmodeID.MultiplayerClient)
+                        {
+                            NPC.HealEffect(NPC.Hitbox, healAmount, true);
+                            NPC.netUpdate = true;
+                        }
+                        NPC.life += healAmount;
+                    }
+                    NPC.life += 100;
+                    NPC.netUpdate = true;
+
+                }
+            }
         }
+
+        private float PurpleGlowinessAmount => State == AIState.SonicWave ? Utils.GetLerpValue(SonicWaveStartTime - GlowFadeInTime - GlowStayTimeBeforeShootingStart, SonicWaveStartTime - GlowStayTimeBeforeShootingStart, Timer, true) *
+            Utils.GetLerpValue(ShootingEndTime + GlowFadeoutTime + GlowStayTimeAfterShootingStart, ShootingEndTime + GlowStayTimeAfterShootingStart, Timer, true) : 0;
 
         void State_SonicWave()
         {
             Timer++;
-            int start = 30;
-            int fireRate = 10;
-            int numShots = 3;
-            int extraWait = 50;
+
+            ExitPortal();
+
+            int start = SonicWaveStartTime;
+            int fireRate = SonicWaveFireRate;
+            int numShots = SonicWaveNumShots;
+            int extraWait = SonicWaveExtraWait;
             Player player = Main.player[NPC.target];
             float moveSpeed = Timer >= start && Timer < start + fireRate * numShots ? 4 : 7;
-            NPC.velocity = Vector2.Lerp(NPC.velocity, NPC.DirectionTo(player.Center) * moveSpeed, 0.1f);
+
+            Vector2 chaseDir = GetChaseDirection(1f);
+            NPC.velocity = Slerp(NPC.velocity, chaseDir * moveSpeed, TurningRate);
             if (Timer >= start && (Timer - start) % fireRate == 0 && Timer < start + fireRate * numShots)
             {
                 if (Timer == start)
                 {
-                    SoundEngine.PlaySound(new SoundStyle("TRAEProject/Assets/Sounds/SonicWave") with { MaxInstances = 0, Pitch = -.5f }, NPC.Center);
+                    SoundEngine.PlaySound(ShotSFX with { MaxInstances = 0 }, NPC.Center);
                 }
                 if (Main.netMode != NetmodeID.MultiplayerClient)
                 {
-                    float shootAngle = NPC.velocity.ToRotation().AngleLerp((player.Center - NPC.Center).ToRotation(), .5f);
-                    Projectile.NewProjectile(NPC.GetSource_FromAI(), NPC.Center, shootAngle.ToRotationVector2() * 10, ModContent.ProjectileType<EchoStalkerSonicWave>(), 75 / 2, 0, Main.myPlayer, 1);
+                    float shootAngle = NPC.velocity.ToRotation().AngleLerp(chaseDir.ToRotation(), .5f);
+                    Projectile.NewProjectile(NPC.GetSource_FromAI(), NPC.Center, shootAngle.ToRotationVector2() * 12, ModContent.ProjectileType<EchoStalkerSonicWave>(), 75 / 2, 0, Main.myPlayer, 1);
                 }
             }
             if (Timer > start + fireRate * numShots + extraWait)
@@ -205,15 +318,17 @@ namespace TRAEProject.NewContent.NPCs.Echosphere.EchoLeviathan
             }
             else
             {
-                Vector2 spawnDirectionTarget = NPC.DirectionTo(Main.player[ClosestPlayerConsiderAggro()].Center);
+
+                Vector2 spawnDirectionTarget = GetChaseDirection(1);
                 NPC.velocity = spawnDirectionTarget * 10;
+                PositionSegmentsInLine(-spawnDirectionTarget);
             }
             Timer++;
             if (OpacityCutoffFromBehind > totalWidth)
             {
                 Timer = 0;
                 State = AIState.WormMovement;
-                EchosphereHelper.SearchForAirbornePlayers(NPC);
+                EchosphereNPCHelper.SearchForSpaceLayerPlayers(NPC);
             }
             SetSegmentPositionRotationSpriteDirectionAndOpacity();
             NPC.rotation = NPC.velocity.ToRotation();
@@ -228,7 +343,7 @@ namespace TRAEProject.NewContent.NPCs.Echosphere.EchoLeviathan
             if (distToPortal > 20)
             {
                 Vector2 direction = NPC.DirectionTo(PortalPos);
-                NPC.velocity = Vector2.Lerp(NPC.velocity, direction * 7, Utils.Remap(distToPortal, 20, 200, .8f, .05f));
+                NPC.velocity = Slerp(NPC.velocity, direction * 7, Utils.Remap(distToPortal, 20, 200, .8f, .05f));
             }
             else
             {
@@ -254,6 +369,7 @@ namespace TRAEProject.NewContent.NPCs.Echosphere.EchoLeviathan
                     }
                     Player player = Main.player[indexForTarget];
                     State = AIState.ExitingPortal;
+                    State = AIState.SonicWave;
                     Vector2 portalPos = player.Center + player.velocity.SafeNormalize(Vector2.UnitX * NPC.spriteDirection) * 600;
                     SpawnPortal(portalPos, 200);
                     PortalPos = portalPos;
@@ -264,7 +380,7 @@ namespace TRAEProject.NewContent.NPCs.Echosphere.EchoLeviathan
                 OpacityCutoffFromFront = SegmentWidths.Sum();
                 OpacityCutoffFromBehind = 0;
             }
-            NPC.Opacity -= NPC.velocity.Length() * 2;
+            NPC.Opacity -= (NPC.velocity.Length() / SegmentWidths[0]) * 2;
             if (NPC.Opacity == 0)
             {
                 OpacityCutoffFromFront -= NPC.velocity.Length();
@@ -279,21 +395,16 @@ namespace TRAEProject.NewContent.NPCs.Echosphere.EchoLeviathan
             Timer++;
             if (Timer < 100)
             {
+                Vector2 chaseDir = GetChaseDirection(1);
+                PositionSegmentsInLine(-chaseDir);
+                NPC.velocity = chaseDir * 8;
                 NPC.Opacity = 0;
-                NPC.position -= NPC.velocity;
+                NPC.position -= NPC.velocity;//don't actually move but don't set velocity to zero
                 return;
             }
             if (NPC.Opacity == 0)
             {
-                if (NPC.target != -1)
-                {
-                    NPC.velocity = NPC.DirectionTo(Main.player[NPC.target].Center) * 8;
-                }
-                else
-                {
-                    Player plr = Main.player[ClosestPlayerConsiderAggro()];
-                    NPC.velocity = NPC.DirectionTo(plr.Center - new Vector2(0, 350)) * 8;
-                }
+                NPC.velocity = Slerp(NPC.velocity, GetChaseDirection(8f), TurningRate);
                 NPC.spriteDirection = MathF.Sign(NPC.velocity.X);
             }
             int[] segmentWidths = SegmentWidths;
@@ -312,6 +423,31 @@ namespace TRAEProject.NewContent.NPCs.Echosphere.EchoLeviathan
             }
             NPC.spriteDirection = MathF.Sign(NPC.velocity.X);
         }
+        void ExitPortal()
+        {
+            if (Timer < 100)
+            {
+                Vector2 chaseDir = GetChaseDirection(1);
+                PositionSegmentsInLine(-chaseDir);
+                NPC.velocity = chaseDir * 8;
+                NPC.Opacity = 0;
+                NPC.position -= NPC.velocity;//don't actually move but don't set velocity to zero
+                return;
+            }
+            if (NPC.Opacity == 0)
+            {
+                NPC.velocity = Slerp(NPC.velocity, GetChaseDirection(8f), TurningRate);
+                NPC.spriteDirection = MathF.Sign(NPC.velocity.X);
+            }
+            int[] segmentWidths = SegmentWidths;
+            NPC.Opacity += NPC.velocity.Length() / segmentWidths[0];
+            if (NPC.Opacity == 1)
+            {
+                OpacityCutoffFromBehind += NPC.velocity.Length();
+            }
+            NPC.rotation = NPC.velocity.ToRotation();
+            NPC.spriteDirection = MathF.Sign(NPC.velocity.X);
+        }
         private void State_Idle()
         {
             SetSegmentPositionRotationSpriteDirectionAndOpacity();
@@ -324,7 +460,7 @@ namespace TRAEProject.NewContent.NPCs.Echosphere.EchoLeviathan
             NPC.dontTakeDamage = true;
             NPC.Opacity = .5f;
             Timer += .01f;
-            NPC.velocity = Vector2.Lerp(NPC.velocity, new Vector2(MathF.Sin(Timer), MathF.Cos(Timer * Phi) * .75f) * 5, .1f);
+            NPC.velocity = Slerp(NPC.velocity, new Vector2(MathF.Sin(Timer), MathF.Cos(Timer * Phi) * .75f) * 5, TurningRate);
             NPC.rotation = NPC.velocity.ToRotation();
             NPC.spriteDirection = MathF.Sign(NPC.velocity.X);
         }
@@ -332,12 +468,12 @@ namespace TRAEProject.NewContent.NPCs.Echosphere.EchoLeviathan
         {
             Player player = Main.player[NPC.target];
             Timer++;
-            WormMovement(player, player.Center, 7);
+            WormMovement(player, player.Center, WormMovementTopSpeed + (Main.masterMode ? 0.75f : 0), WormMovementBaseAcceleration + (Main.masterMode ? 0.05f : 0));
             NPC.rotation = NPC.velocity.ToRotation();
             NPC.spriteDirection = MathF.Sign(NPC.velocity.X);
             SetSegmentPositionRotationSpriteDirectionAndOpacity();
 
-            if (Timer >= 460)
+            if (Timer >= TimeSpentInWormMovement - (Main.masterMode ? 50 : 0))
             {
                 OpacityCutoffFromBehind = 9999;
                 OpacityCutoffFromFront = 9999;
@@ -353,19 +489,60 @@ namespace TRAEProject.NewContent.NPCs.Echosphere.EchoLeviathan
                 }
             }
         }
+    
+        Vector2 GetChaseDirection(float magnitude)
+        {
+            if (!NPC.HasValidTarget)
+            {
+                return new Vector2(0, -magnitude);//go up if no targets
+            }
+            return Main.player[NPC.target].DirectionFrom(NPC.Center);
+        }
         int ClosestPlayerConsiderAggro()
         {
-            int target = -1;
+            int target = Main.maxPlayers;
             for (int i = 0; i < Main.maxPlayers; i++)
             {
                 Player player = Main.player[i];
-                if (!player.active || player.dead || target != -1 && player.DistanceSQ(NPC.Center) + player.aggro >= Main.player[target].Distance(NPC.Center) + Main.player[target].aggro)
+                if (!player.active || player.dead || target != Main.maxPlayers && player.DistanceSQ(NPC.Center) + player.aggro >= Main.player[target].Distance(NPC.Center) + Main.player[target].aggro)
                 {
                     continue;
                 }
                 target = i;
             }
             return target;
+        }
+        static Vector2 Slerp(Vector2 from, Vector2 to, float t)
+        {
+            float fromLen = from.Length();
+            float toLen = to.Length();
+
+            if (fromLen < 1e-6f || toLen < 1e-6f)
+                return Vector2.Lerp(from, to, t);
+
+            Vector2 fromNorm = from / fromLen;
+            Vector2 toNorm = to / toLen;
+
+            float dot = Vector2.Dot(fromNorm, toNorm);
+            dot = MathHelper.Clamp(dot, -1f, 1f);
+            float theta = (float)Math.Acos(dot);
+
+            Vector2 direction;
+
+            if (theta < 1e-5f)
+            {
+                direction = Vector2.Lerp(fromNorm, toNorm, t).SafeNormalize(Vector2.UnitX);
+            }
+            else
+            {
+                float sinTheta = (float)Math.Sin(theta);
+                float a = (float)Math.Sin((1 - t) * theta) / sinTheta;
+                float b = (float)Math.Sin(t * theta) / sinTheta;
+                direction = a * fromNorm + b * toNorm;
+            }
+
+            float length = MathHelper.Lerp(fromLen, toLen, t);
+            return direction * length;
         }
         NPC[] SearchForBodySegments()
         {
@@ -391,7 +568,139 @@ namespace TRAEProject.NewContent.NPCs.Echosphere.EchoLeviathan
             }
             return result;
         }
+        void PositionSegmentsInLine(Vector2 direction)
+        {
+            NPC[] segments = SearchForBodySegments();
+
+            int segmentCount = segments.Length;
+            int[] segmentWidths = SegmentWidths;
+            int lengthAcross = 0;
+            for (int i = 0; i < segmentCount; i++)
+            {
+                NPC curSegment = segments[i];
+                lengthAcross += segmentWidths[i];
+                curSegment.Center = NPC.Center + direction * lengthAcross;
+            }
+        }
+
+
         void SetSegmentPositionRotationSpriteDirectionAndOpacity()
+        {
+            NPC[] segments = SearchForBodySegments();
+            float minAngleDelta = MaxSegmentTurn; // max angle change per segment in radians
+            int segmentCount = segments.Length;
+            int[] segmentWidths = SegmentWidths;
+            float prevRotation = NPC.rotation;
+            int lengthAcross = 0;
+            float glowiness = PurpleGlowinessAmount;
+            int maxLength = segmentWidths.Sum();//sum of all the elements
+
+            for (int i = 0; i < segmentCount; i++)
+            {
+                int segmentWidth = segmentWidths[i];
+                NPC curSegment = segments[i];
+                NPC prevSegment = (i == 0) ? NPC : segments[i - 1];
+
+                Vector2 desiredDirection = (prevSegment.Center - curSegment.Center).SafeNormalize(Vector2.UnitY);
+                float desiredRotation = desiredDirection.ToRotation();
+
+                float angleDifference = MathHelper.WrapAngle(desiredRotation - prevRotation);
+                angleDifference = MathHelper.Clamp(angleDifference, -minAngleDelta, minAngleDelta);
+                float constrainedRotation = prevRotation + angleDifference;
+
+                Vector2 offsetDir = constrainedRotation.ToRotationVector2();
+                Vector2 segmentCenter = prevSegment.Center - offsetDir * segmentWidth;
+
+                curSegment.Center = segmentCenter;
+                curSegment.rotation = constrainedRotation;
+                curSegment.spriteDirection = (segmentCenter.X >= prevSegment.Center.X) ? -1 : 1;
+
+                prevRotation = constrainedRotation;
+
+
+                //for handling opacity and fading from going in and out of portals
+                float fadeDuration = segmentWidth - 8;
+                float behindOpacity = Utils.GetLerpValue(lengthAcross, lengthAcross + fadeDuration, OpacityCutoffFromBehind, true);
+                float frontOpacity = Utils.GetLerpValue(lengthAcross, lengthAcross - fadeDuration, maxLength - OpacityCutoffFromFront - segmentWidths[0], true);
+                segments[i].Opacity = behindOpacity * frontOpacity;
+                lengthAcross += segmentWidths[i];
+                EchoLeviathanBody1.SetPurpleGlowinessAmount(segments[i], glowiness);
+            }
+            NPC.localAI[3] = glowiness;
+
+        }
+
+
+
+
+        void SetSegmentPositionRotationSpriteDirectionAndOpacity_Old2()
+        {
+            NPC[] segments = SearchForBodySegments();
+            int segmentCount = segments.Length;
+            Vector2 lastSegmentCenter = NPC.Center;
+            int[] segmentWidths = SegmentWidths;
+            int maxLength = segmentWidths.Sum();//sum of all the elements
+            int lengthAcross = 0;
+            float glowiness = PurpleGlowinessAmount;
+            for (int i = 0; i < segmentCount; i++)
+            {
+                int segmentWidth = segmentWidths[i];
+                NPC curSegment = segments[i];
+                NPC prevSegment;
+                if (i == 0)
+                {
+                    prevSegment = NPC;
+                }
+                else
+                {
+                    prevSegment = segments[i - 1];
+                }
+
+                Vector2 offsetDir = (prevSegment.Center - curSegment.Center).SafeNormalize(Vector2.UnitY);
+                //need to constrain the direction to avoid issues from it turning too tightly
+                Vector2 segmentCenter = prevSegment.Center - offsetDir * segmentWidth;
+                float rotation = (lastSegmentCenter - segmentCenter).ToRotation();
+
+                int spriteDir = segmentCenter.X >= lastSegmentCenter.X ? -1 : 1;//    -1 is flip vertically in the drawing code
+                segments[i].Center = segmentCenter;
+                segments[i].spriteDirection = spriteDir;
+                segments[i].rotation = rotation;
+
+
+                //for handling opacity and fading from going in and out of portals
+                float fadeDuration = segmentWidth - 8;
+                float behindOpacity = Utils.GetLerpValue(lengthAcross, lengthAcross + fadeDuration, OpacityCutoffFromBehind, true);
+                float frontOpacity = Utils.GetLerpValue(lengthAcross, lengthAcross - fadeDuration, maxLength - OpacityCutoffFromFront - segmentWidths[0], true);
+                segments[i].Opacity = behindOpacity * frontOpacity;
+                lengthAcross += segmentWidths[i];
+                lastSegmentCenter = segmentCenter;
+                EchoLeviathanBody1.SetPurpleGlowinessAmount(segments[i], glowiness);
+            }
+            NPC.localAI[3] = glowiness;
+        }
+
+
+
+
+        static Vector2 ConstrainAngle(float minAngle, Vector2 angleCenter, Vector2 angleToLimit)
+        {
+            float dot = Vector2.Dot(angleCenter, angleToLimit);
+            float dotNormal = Vector2.Dot(angleToLimit, new Vector2(-angleCenter.Y, angleCenter.X));
+            float dotThreshold = MathF.Cos(minAngle * .5f);
+
+            if (dot < dotThreshold)
+            {
+                return angleToLimit;
+            }
+            if (dotNormal < 0)
+            {
+                return angleCenter.RotatedBy(-minAngle * .5f);
+            }
+            return angleCenter.RotatedBy(minAngle * .5f);
+        }
+
+
+        void SetSegmentPositionRotationSpriteDirectionAndOpacity_Old()
         {
             NPC[] segments = SearchForBodySegments();
 
@@ -400,6 +709,7 @@ namespace TRAEProject.NewContent.NPCs.Echosphere.EchoLeviathan
             int[] segmentWidths = SegmentWidths;
             int maxLength = segmentWidths.Sum();//sum of all the elements
             int lengthAcross = 0;
+            float glowiness = PurpleGlowinessAmount;
             for (int i = 0; i < segmentCount; i++)
             {
                 int segmentWidth = segmentWidths[i];
@@ -413,7 +723,7 @@ namespace TRAEProject.NewContent.NPCs.Echosphere.EchoLeviathan
                 segments[i].spriteDirection = spriteDir;
                 segments[i].rotation = rotation - MathF.PI / 2;
 
-                float fadeDuration = 30;
+                float fadeDuration = segmentWidth - 8;
                 float behindOpacity = Utils.GetLerpValue(lengthAcross, lengthAcross + fadeDuration, OpacityCutoffFromBehind, true);
                 float frontOpacity = Utils.GetLerpValue(lengthAcross, lengthAcross - fadeDuration, maxLength - OpacityCutoffFromFront - segmentWidths[0], true);
                 segments[i].Opacity = behindOpacity * frontOpacity;
@@ -421,11 +731,18 @@ namespace TRAEProject.NewContent.NPCs.Echosphere.EchoLeviathan
                 //Main.NewText($"front opacity: {frontOpacity}, cutoffFromFront: {OpacityCutoffFromFront}");
                 lengthAcross += segmentWidths[i];
                 lastSegmentCenter = segmentCenter;
+                EchoLeviathanBody1.SetPurpleGlowinessAmount(segments[i], glowiness);
             }
+            NPC.localAI[3] = glowiness;
         }
         public static void SpectralDraw(NPC NPC, SpriteBatch spriteBatch, Vector2 screenPos, Texture2D texture)
         {
-            Color drawColor = new Color(255, 52, 242, 0) * NPC.Opacity * .5f;
+            float opacity = NPC.Opacity * .5f;
+            if(opacity <= 0)
+            {
+                return;
+            }
+            Color drawColor = new Color(255, 52, 242, 0) * opacity;
             for (int i = 0; i < 4; i++)
             {
                 float rotation = Main.GlobalTimeWrappedHourly * 5 + i * .25f * MathF.Tau;
@@ -444,7 +761,12 @@ namespace TRAEProject.NewContent.NPCs.Echosphere.EchoLeviathan
         }
         public static void SpectralDrawVerticalFlip(NPC NPC, SpriteBatch spriteBatch, Vector2 screenPos, Texture2D texture)
         {
-            Color drawColor = new Color(255, 52, 242, 0) * NPC.Opacity * .5f;
+            float opacity = NPC.Opacity * .5f;
+            if (opacity <= 0)
+            {
+                return;
+            }
+            Color drawColor = new Color(255, 52, 242, 0) * opacity;
             for (int i = 0; i < 4; i++)
             {
                 float rotation = Main.GlobalTimeWrappedHourly * 5 + i * .25f * MathF.Tau;
@@ -463,22 +785,138 @@ namespace TRAEProject.NewContent.NPCs.Echosphere.EchoLeviathan
         }
         public override bool PreDraw(SpriteBatch spriteBatch, Vector2 screenPos, Color drawColor)
         {
-            Texture2D texture = TextureAssets.Npc[Type].Value;
-            if (NPC.Opacity != 1)
+            Texture2D texture = ModContent.Request<Texture2D>("TRAEProject/NewContent/NPCs/Echosphere/EchoLeviathan/EchoLeviathanJaw").Value;
+            if (NPC.Opacity != 1 && State == AIState.Idle)
             {
                 SpectralDrawVerticalFlip(NPC, spriteBatch, screenPos, texture);
-                texture = ModContent.Request<Texture2D>("TRAEProject/NewContent/NPCs/Echosphere/EchoLeviathan/EchoLeviathanJaw").Value;
+                texture = TextureAssets.Npc[Type].Value;
                 SpectralDrawVerticalFlip(NPC, spriteBatch, screenPos, texture);
-
             }
             else
             {
                 drawColor *= NPC.Opacity;
-                Main.EntitySpriteDraw(texture, NPC.Center - screenPos, null, drawColor, NPC.rotation, texture.Size() / 2, NPC.scale, NPC.spriteDirection == -1 ? SpriteEffects.FlipVertically : SpriteEffects.None);
-                texture = ModContent.Request<Texture2D>("TRAEProject/NewContent/NPCs/Echosphere/EchoLeviathan/EchoLeviathanJaw").Value;
-                Main.EntitySpriteDraw(texture, NPC.Center - screenPos, null, drawColor, NPC.rotation, texture.Size() / 2, NPC.scale, NPC.spriteDirection == -1 ? SpriteEffects.FlipVertically : SpriteEffects.None);
+                Vector2 origin = texture.Size() / 2;
+                GetHeadRotationOffset(out float headRot, out float jawRot, out Vector2 jawOffset, out Vector2 headOffset, origin);
+                Vector2 offset = (NPC.rotation - MathF.PI * 0.5f * NPC.spriteDirection).ToRotationVector2() * 6;
+                Main.EntitySpriteDraw(texture, NPC.Center - screenPos + offset + jawOffset, null, drawColor, NPC.rotation + headRot, origin, NPC.scale, NPC.spriteDirection == -1 ? SpriteEffects.FlipVertically : SpriteEffects.None);
+                texture = TextureAssets.Npc[Type].Value;
+                Main.EntitySpriteDraw(texture, NPC.Center - screenPos + offset + headOffset, null, drawColor, NPC.rotation + jawRot, origin, NPC.scale, NPC.spriteDirection == -1 ? SpriteEffects.FlipVertically : SpriteEffects.None);
+                if (State == AIState.SonicWave)
+                {
+                    texture = ModContent.Request<Texture2D>("TRAEProject/NewContent/NPCs/Echosphere/EchoLeviathan/EchoLeviathanHeadGlow").Value;
+                    float glowiness = NPC.localAI[3];// one minus??? wasn't working properly without it for some reason.
+                    glowiness *= NPC.Opacity;
+                    EchosphereNPCHelper.DrawEchoWormBlur(texture, NPC.Center - screenPos + offset + headOffset, glowiness, NPC.rotation + jawRot, origin, NPC.scale, NPC.spriteDirection == -1 ? SpriteEffects.FlipVertically : SpriteEffects.None);
+                }
             }
             return false;
+        }
+        void GetHeadRotationOffset(out float headRot, out float jawRot, out Vector2 jawOffset, out Vector2 headOffset, Vector2 origin)
+        {
+            Texture2D texture = TextureAssets.Npc[Type].Value;
+
+            Vector2 pivot = new(24, 50);
+            if (NPC.spriteDirection == -1)
+            {
+                pivot.Y = texture.Height - pivot.Y;
+            }
+            headRot = 0;
+            jawRot = 0;
+            float animationProgress;
+            if (State != AIState.SonicWave)
+            {
+                jawOffset = default;
+                headOffset = default;
+                return;
+            }
+            float mouthOpenAnimationDuration = 10;
+            float mouthCloseAnimationDuration = 20;
+            float readyShotDuration = MathF.Max(1, SonicWaveStartTime - mouthOpenAnimationDuration);
+            if (Timer <= readyShotDuration)//ready shot progress
+            {
+                animationProgress = 1 + Timer / readyShotDuration;
+            }
+            else if (Timer <= SonicWaveStartTime)//mouth open progress
+            {
+                animationProgress = Utils.Remap(Timer, readyShotDuration, SonicWaveStartTime, 2, 3);
+            }
+            else if (Timer <= SonicWaveStartTime + SonicWaveFireRate * SonicWaveNumShots)//wobble progress
+            {
+                animationProgress = Utils.Remap(Timer, SonicWaveStartTime, SonicWaveStartTime + SonicWaveFireRate * SonicWaveNumShots, 3, 4);
+            }
+            else if (Timer < SonicWaveStartTime + SonicWaveFireRate * SonicWaveNumShots + mouthCloseAnimationDuration)//mouth close progress
+            {
+                animationProgress = Utils.Remap(Timer, SonicWaveStartTime + SonicWaveFireRate * SonicWaveNumShots, SonicWaveStartTime + SonicWaveFireRate * SonicWaveNumShots + mouthCloseAnimationDuration, 4, 5);
+            }
+            else
+            {
+                animationProgress = 5;
+            }
+            float maxMouthOpen = .35f;
+            float maxMouthClose = 0.05f;
+            switch ((int)animationProgress)
+            {
+                case 1://ready shot
+                    animationProgress %= 1;
+                    animationProgress = EaseInOut(animationProgress);
+                    animationProgress *= maxMouthClose;
+                    headRot += animationProgress * -NPC.spriteDirection;
+                    jawRot -= animationProgress * -NPC.spriteDirection;
+
+                    break;
+                case 2://open mouth
+                    headRot += maxMouthClose * -NPC.spriteDirection;
+                    jawRot -= maxMouthClose * -NPC.spriteDirection;
+                    if (animationProgress > 2.75f)
+                    {
+                        animationProgress %= 1;
+                        animationProgress = Utils.Remap(animationProgress, 0.75f, 1, 0, 1);
+                        animationProgress = EaseInOut(animationProgress) * maxMouthOpen;
+                        headRot -= animationProgress * -NPC.spriteDirection;
+                        jawRot += animationProgress * -NPC.spriteDirection;
+                    }
+                    else
+                    {
+                        animationProgress %= 1;
+                        animationProgress += maxMouthClose;
+                    }
+                    break;
+                case 3://wobble during shooting
+                    animationProgress = WobblyEffect(animationProgress * 2f % 1) * .65f + maxMouthOpen;
+                    headRot -= animationProgress * -NPC.spriteDirection;
+                    jawRot += animationProgress * -NPC.spriteDirection;
+                    break;
+                case 4://close mouth
+                    animationProgress = (1 - EaseInOut(animationProgress % 1)) * maxMouthOpen;
+                    headRot -= animationProgress * -NPC.spriteDirection;
+                    jawRot += animationProgress * -NPC.spriteDirection;
+                    break;
+                default:
+                    animationProgress = 0;
+                    break;
+            }
+            //jawOffset = originToPivot.RotatedBy(jawRot);
+            //headOffset = originToPivot.RotatedBy(headRot);
+            //Vector2 moveToProperPosition = -originToPivot;
+            //jawOffset += moveToProperPosition;
+            //moveToProperPosition = -originToPivot;
+            //headOffset += moveToProperPosition;
+
+            Vector2 pivotOffset = (pivot - origin).RotatedBy(NPC.rotation);
+            Vector2 rotatedOffset = pivotOffset.RotatedBy(jawRot);
+            jawOffset = rotatedOffset - pivotOffset;
+            rotatedOffset = pivotOffset.RotatedBy(headRot);
+            headOffset = rotatedOffset - pivotOffset;
+
+        }
+        static float WobblyEffect(float progress)
+        {
+            progress = MathF.Sin(10f * progress / MathF.PI);
+            return progress * progress * 0.25f;
+        }
+        static float EaseInOut(float progress)
+        {
+            return -MathF.Cos(progress * MathF.PI) * 0.5f + 0.5f;
         }
         static float Magnitude(Vector2 vec)
         {
@@ -486,7 +924,7 @@ namespace TRAEProject.NewContent.NPCs.Echosphere.EchoLeviathan
         }
         void WormMovement(Player player, Vector2 targetPos, float topSpeed = 5, float acceleration = .3f)
         {
-            Vector2 npcTilePos = new Vector2(NPC.position.X + NPC.width * 0.5f, NPC.position.Y + NPC.height * 0.5f);
+            Vector2 npcTilePos = new(NPC.position.X + NPC.width * 0.5f, NPC.position.Y + NPC.height * 0.5f);
             float maxSpeedX = player.position.X + player.width / 2;
             float maxSpeedY = player.position.Y + player.height / 2;
             maxSpeedX = (int)(maxSpeedX / 16f) * 16;
@@ -620,11 +1058,78 @@ namespace TRAEProject.NewContent.NPCs.Echosphere.EchoLeviathan
         }
         public override bool CanHitPlayer(Player target, ref int cooldownSlot)
         {
-            return target.Hitbox.Intersects(Utils.CenteredRectangle(NPC.Center, new Vector2(50)));//hitbox of width and height 50 for damaging players
+            return NPC.alpha < 240 && target.Hitbox.Intersects(Utils.CenteredRectangle(NPC.Center, new Vector2(50)));//hitbox of width and height 50 for damaging players
         }
         void SpawnPortal(Vector2 position, int duration)
         {
             Projectile.NewProjectile(NPC.GetSource_FromAI(), position, default, ModContent.ProjectileType<EchoLeviathanPortal>(), -1, 0, -1, duration);
+        }
+        public override void Load()
+        {
+            On_NPC.NewNPC += ChangeSpawnPosition;
+        }
+
+        private int ChangeSpawnPosition(On_NPC.orig_NewNPC orig, IEntitySource source, int X, int Y, int Type, int Start, float ai0, float ai1, float ai2, float ai3, int Target)
+        {
+            if (Type != ModContent.NPCType<EchoLeviathanHead>())
+            {
+                return orig(source, X, Y, Type, Start, ai0, ai1, ai2, ai3, Target);
+            }
+            if (Target < 0 || Target >= Main.maxPlayers)//if no target when spawning, search for airborne players
+            {
+                Target = EchosphereNPCHelper.SearchForSpaceLayerPlayers(new Vector2(X, Y));
+            }
+            if (Target < 0 || Target >= Main.maxPlayers)//if no space target detected, check for valid targets that aren't necessarily on the space
+            {
+                Vector2 from = new(X, Y);
+                for (int i = 0; i < Main.maxPlayers; i++)
+                {
+                    Player player = Main.player[i];
+                    if (!player.active || player.dead || (Target >= 0 && Target < Main.maxPlayers) && player.DistanceSQ(from) + player.aggro < Main.player[Target].DistanceSQ(from) + Main.player[Target].aggro)
+                    {
+                        continue;
+                    }
+                    Target = i;
+                }
+            }
+            if (Target < 0 || Target >= Main.maxPlayers)//if all target searches failed, spawn with no position override
+            {
+                return orig(source, X, Y, Type, Start, ai0, ai1, ai2, ai3, Target);
+            }
+
+            //override spawning position to be around player
+            Player plr = Main.player[Target];
+            X = (int)plr.Center.X;
+            Y = (int)plr.Center.Y;
+            X += Main.rand.Next(90, 120) * (Main.rand.Next(0, 2) * 2 - 1);
+            Y += Main.rand.Next(90, 120) * (Main.rand.Next(0, 2) * 2 - 1);
+            return orig(source, X, Y, Type, Start, ai0, ai1, ai2, ai3, Target);
+        }
+        public static bool IsHeadImmuneToItem(float headNPCIndex, int playerIndex)
+        {
+            int index = (int)headNPCIndex;
+            if (!Main.npc.IndexInRange(index))
+            {
+                return true;
+            }
+            NPC npc = Main.npc[index];
+            if (npc.type != ModContent.NPCType<EchoLeviathanHead>())
+            {
+                return true;
+            }
+            Player player = Main.player[playerIndex];
+            return player.meleeNPCHitCooldown[index] > 0;
+        }
+
+
+
+
+        public override void ModifyHoverBoundingBox(ref Rectangle boundingBox)
+        {
+            if (NPC.alpha >= 254)
+            {
+                boundingBox.X = -1000;//put it out of bounds of the map so it is never displayed
+            }
         }
     }
 }

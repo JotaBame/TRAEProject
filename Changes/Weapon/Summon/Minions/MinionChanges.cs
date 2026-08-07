@@ -44,7 +44,7 @@ namespace TRAEProject.Changes.Weapon.Summon.Minions
                     item.damage = 45; // up from 34
                     break;
                 case ItemID.StormTigerStaff:
-				                    item.damage = 34; // down from 41
+				                    //item.damage = 34; // down from 41
 
                     item.useTime = 20;
                     item.useAnimation = 20;
@@ -125,9 +125,9 @@ namespace TRAEProject.Changes.Weapon.Summon.Minions
                     projectile.localNPCHitCooldown = 45;
                     break;
                 case ProjectileID.HornetStinger:
-                    projectile.extraUpdates = 2;
+                    projectile.extraUpdates = 1;
                     projectile.GetGlobalProjectile<ProjectileStats>().homesIn = true;
-                    projectile.GetGlobalProjectile<ProjectileStats>().homingRange = 150f;
+                    projectile.GetGlobalProjectile<ProjectileStats>().homingRange = 100f;
                     break;
                 case ProjectileID.ImpFireball:
                     projectile.usesIDStaticNPCImmunity = false;
@@ -151,19 +151,19 @@ namespace TRAEProject.Changes.Weapon.Summon.Minions
             }
 
         }
-        public override void AI(Projectile projectile)
-        {
-            switch (projectile.type)
-            {
-                case ProjectileID.FlyingImp:
-                    if (projectile.ai[1] > 0f)
-                    {
-                        projectile.ai[1] -= 0.33f;
-                    }
-                    break;
+        //public override void AI(Projectile projectile)
+        //{
+        //    switch (projectile.type)
+        //    {
+        //        case ProjectileID.FlyingImp:
+        //            if (projectile.ai[1] > 0f)
+        //            {
+        //                projectile.ai[1] -= 0.33f;
+        //            }
+        //            break;
 
-            }
-        }
+        //    }
+        //}
         public override void OnHitNPC(Projectile projectile, NPC target, NPC.HitInfo hit, int damageDone)
         {
             switch (projectile.type)
@@ -190,12 +190,13 @@ namespace TRAEProject.Changes.Weapon.Summon.Minions
                 modifiers.FlatBonusDamage += target.GetGlobalNPC<Tag>().Damage;
                 if (Main.rand.Next(100) < target.GetGlobalNPC<Tag>().Crit)
                 {
-                    modifiers.SetCrit();
+                     modifiers.SetCrit();
                 }
-                if (Main.rand.Next(100) < Main.player[projectile.owner].GetModPlayer<SummonStats>().minionCritChance)
+                else if (Main.rand.Next(100) < Main.player[projectile.owner].GetModPlayer<SummonStats>().minionCritChance)
                 {
                     modifiers.SetCrit();
                 }
+    
             }
         }
         public NPC target;

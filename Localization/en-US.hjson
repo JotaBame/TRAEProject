@@ -273,6 +273,23 @@ Mods: {
 			MirrorShot.DisplayName: Mirror Shot
 			MirrorShotEvil.DisplayName: Mirror Shot Evil
 			NeoShadowbeam.DisplayName: Neo Shadowbeam
+			DreamEaterShot.DisplayName: Dream Eater Shot
+			EchoLeviathanPortal.DisplayName: Echo Leviathan Portal
+			EchoSpriteProj.DisplayName: Echo Sprite Proj
+			EchoStalkerSonicWave.DisplayName: Echo Stalker Sonic Wave
+			KinnaraFeather.DisplayName: Kinnara Feather
+			Trirrow.DisplayName: Trirrow
+			DreamEaterShot1.DisplayName: Dream Eater Shot1
+			MeowmereAura1.DisplayName: Meowmere Aura1
+			MeowmereAura.DisplayName: Meowmere Aura
+			EchoStaffProj.DisplayName: Echo Staff Proj
+			FullMoonP.DisplayName: Full Moon P
+			StormbreakerP.DisplayName: Stormbreaker P
+			WingspanP.DisplayName: Green Feather
+			SonicRocket.DisplayName: Sonic Rocket
+			EcholaliaP.DisplayName: Echolalia P
+			WingspanBlueP.DisplayName: Blue Feather
+			KinglySmash.DisplayName: Kingly Smash
 		}
 
 		Prefixes: {
@@ -308,7 +325,7 @@ Mods: {
 
 			KaleidoscopeSecondTag: {
 				DisplayName: KaleidoscopeNewDebuff
-				Description: Mods.TRAEProject.Buffs.KaleidoscopeSecondTag.Description
+				Description: Going through this list i actually missed this one... not that i'm using it anymore.
 			}
 
 			LavaShield: {
@@ -398,7 +415,7 @@ Mods: {
 
 			Wipeout: {
 				DisplayName: Wiped Out
-				Description: The scroll needs to recharge.
+				Description: The scroll needs to recharge
 			}
 
 			BloodSquidBuff: {
@@ -413,7 +430,7 @@ Mods: {
 
 			LavamanderBuff: {
 				DisplayName: Lavamander
-				Description: Don't get cold feet again
+				Description: Don't get cold feet again!
 			}
 
 			Power: {
@@ -438,7 +455,7 @@ Mods: {
 
 			TailWhipTag: {
 				DisplayName: TailWhipTag
-				Description: I wanted the crit tag on this to be equal to pokemon's normal critical strike chance, but that's 6.25% and it was way too low
+				Description: I wanted the crit tag on this to be equal to pokemon's normal critical strike chance, but that's 6.25% and it was way too low...
 			}
 
 			Surge: {
@@ -448,7 +465,7 @@ Mods: {
 
 			AZSecondTag: {
 				DisplayName: A Z Second Tag
-				Description: Mods.TRAEProject.Buffs.AZSecondTag.Description
+				Description: I guess we are still doing this.
 			}
 
 			WishForSpeedBuff: {
@@ -458,17 +475,37 @@ Mods: {
 
 			TheFlysEndurance: {
 				DisplayName: The Flys Endurance
-				Description: Mods.TRAEProject.Buffs.TheFlysEndurance.Description
+				Description: How's your day been? At the time of writing Uni is being tough on me. I'm still finding the time to leave these little easter eggs here.
 			}
 
 			TheFlysLevitation: {
 				DisplayName: The Flys Levitation
-				Description: Mods.TRAEProject.Buffs.TheFlysLevitation.Description
+				Description: Appreciate the people around you. Cherish every moment. You'll never know when they'll up and fly away...
 			}
 
 			TheFlysSpeed: {
 				DisplayName: The Flys Speed
-				Description: Mods.TRAEProject.Buffs.TheFlysSpeed.Description
+				Description: Truth be told im running out of ideas for these.
+			}
+
+			EchoSense: {
+				DisplayName: Perception
+				Description: Shows the location of enemy and friendly projectiles
+			}
+
+			EcholaliaTag: {
+				DisplayName: Echolalia Tag
+				Description: Mods.TRAEProject.Buffs.EcholaliaTag.Description
+			}
+
+			EcholaliaSecondTag: {
+				DisplayName: Echolalia Second Tag
+				Description: Mods.TRAEProject.Buffs.EcholaliaSecondTag.Description
+			}
+
+			NewInferno: {
+				DisplayName: Inferno
+				Description: Your attacks create fiery explosions
 			}
 		}
 
@@ -499,7 +536,7 @@ Mods: {
 					'''
 					Increases damage by 20% when damaged
 					Increases maximum mana by 20
-					Restores mana and heal for 10% of damage taken when damaged
+					Restores mana and heal for 8% of damage taken when damaged
 					'''
 			}
 
@@ -549,7 +586,7 @@ Mods: {
 					'''
 					Absorbs 25% of damage done to players on your team when above 25% life
 					Grants immunity to knockback
-					8% increased damage to nearby enemies
+					10% increased damage to nearby enemies
 					'''
 			}
 
@@ -558,7 +595,7 @@ Mods: {
 				Tooltip:
 					'''
 					Unleashes curses to the wielder and nearby enemies when damaged
-					Projectiles deal 1% less damage for every 10 damage
+					Projectiles deal 1% less damage for every 10 damage they deal
 					Maxes out at 25% damage reduction
 					Reduced damage is reflected at the enemy in a cursed shot that inflicts all curses
 					'''
@@ -605,8 +642,8 @@ Mods: {
 			}
 
 			FaeInABottle: {
-				DisplayName: Fae in a bottle
-				Tooltip: A weak double jump that grant immunity frames
+				DisplayName: Fae in a Bottle
+				Tooltip: A weak double jump that grants immunity frames
 			}
 
 			FantasyPack: {
@@ -711,7 +748,7 @@ Mods: {
 				Tooltip:
 					'''
 					Increases max life by 50
-					Projectiles deal 1% less damage for every 10 damage
+					Projectiles deal 1% less damage for every 10 damage they deal
 					Maxes out at 25% damage reduction
 					Reduced damage is reflected at the enemy
 					'''
@@ -795,7 +832,7 @@ Mods: {
 				DisplayName: Tribal Beetle
 				Tooltip:
 					'''
-					Increases your maximum number of minions and sentries by 1
+					Increases your max number of minions and sentries by 1
 					Increased summon knockback
 					'''
 			}
@@ -853,7 +890,7 @@ Mods: {
 
 			ChlorophyteHood: {
 				DisplayName: Chlorophyte Hood
-				Tooltip: Increases your maximum number of minions by 2
+				Tooltip: Increases your max number of minions by 2
 			}
 
 			IceMajestyBreastplate: {
@@ -869,7 +906,7 @@ Mods: {
 				DisplayName: Glacial Crown
 				Tooltip:
 					'''
-					Increases your maximum number of minions by 1
+					Increases your max number of minions by 1
 					20% increased whip speed
 					'''
 			}
@@ -937,7 +974,7 @@ Mods: {
 				Tooltip:
 					'''
 					11% increased ranged and summon damage
-					Increased your maximum number of minions by 1
+					Increased your max number of minions by 1
 					'''
 			}
 
@@ -946,7 +983,7 @@ Mods: {
 				Tooltip:
 					'''
 					11% increased melee and summon damage
-					Increased your maximum number of minions by 1
+					Increased your max number of minions by 1
 					'''
 			}
 
@@ -993,7 +1030,7 @@ Mods: {
 				Tooltip:
 					'''
 					11% increased magic and summon damage
-					Increased your maximum number of minions by 1
+					Increased your max number of minions by 1
 					'''
 			}
 
@@ -1061,7 +1098,7 @@ Mods: {
 					12% increased melee speed
 					12% increased ranged critical strike damage
 					12% increased mana regeneration
-					Increases your maximum number of minions by 1
+					Increases your max number of minions by 1
 					'''
 			}
 
@@ -1365,7 +1402,11 @@ Mods: {
 
 			GraniteBook: {
 				DisplayName: Electro Shield
-				Tooltip: Summons an electric ring around you
+				Tooltip:
+					'''
+					Casts an electric shield around you
+					Shield grows bigger the more mana you have
+					'''
 			}
 
 			HeadHarvester: {
@@ -1635,6 +1676,192 @@ Mods: {
 
 					'''
 			}
+
+			DreamEater: {
+				DisplayName: Dream Eater
+				Tooltip: Bouncing fireballs that may inflict shadowflame
+			}
+
+			Tribow: {
+				DisplayName: Tri-Bow
+				Tooltip: Converts Wooden Arrows into special triple arrows
+			}
+
+			EchosphereGenTestItem: {
+				DisplayName: Echosphere Gen Test Item
+				Tooltip: ""
+			}
+
+			EchosphereSparkleTestItem: {
+				DisplayName: Echosphere Sparkle Test Item
+				Tooltip: ""
+			}
+
+			EchosphereGenDummyTilePlacerItem: {
+				DisplayName: Echosphere Gen Dummy Tile Placer Item
+				Tooltip: ""
+			}
+
+			EchosphereGenDummyDecorPlacerItem1: {
+				DisplayName: Echosphere Gen Dummy Decor Placer Item1
+				Tooltip: ""
+			}
+
+			EchosphereGenDummyDecorPlacerItem2: {
+				DisplayName: Echosphere Gen Dummy Decor Placer Item2
+				Tooltip: ""
+			}
+
+			EchosphereGenDummyDecorPlacerItem3: {
+				DisplayName: Echosphere Gen Dummy Decor Placer Item3
+				Tooltip: ""
+			}
+
+			EchoStaff: {
+				DisplayName: Echo Staff
+				Tooltip: Shoots a double helix wave projectile
+			}
+
+			EchoHeart: {
+				DisplayName: Echo Heart
+				Tooltip: "'You can feel echoing within'"
+			}
+
+			EchoSensePotion: {
+				DisplayName: Perception Potion
+				Tooltip: Shows the location of enemy and friendly projectiles
+			}
+
+			FullMoon: {
+				DisplayName: New Moon
+				Tooltip: A phantom flail appears behind you
+			}
+
+			Stormbreaker: {
+				DisplayName: Stormbreaker
+				Tooltip: Calls down lightning on impact
+			}
+
+			EchoRectrix: {
+				DisplayName: Echo Rectrix
+				Tooltip: ""
+			}
+
+			LeviathanWings: {
+				DisplayName: Leviathan Wings
+				Tooltip:
+					'''
+					Grants flight and slow fall
+					Allows control of gravity
+					25% increased movement speed
+					'''
+			}
+
+			EchoHunterChestplate: {
+				DisplayName: Echo Hunter Chestplate
+				Tooltip:
+					'''
+					9% increased damage
+					Increases your maximum number of minions by 1
+					'''
+			}
+
+			EchoHunterGreaves: {
+				DisplayName: Echo Hunter Greaves
+				Tooltip:
+					'''
+					9% increased damage
+					5% increased movement and jump speed
+					'''
+			}
+
+			EchoHunterHelmet: {
+				DisplayName: Echo Hunter Helmet
+				Tooltip:
+					'''
+					18% increased damage
+					5% increased movement and jump speed
+					'''
+			}
+
+			SonicBoom: {
+				DisplayName: Sonic Boom
+				Tooltip: Shoots expansive sound waves
+			}
+
+			Echolalia: {
+				DisplayName: Echolalia
+				Tooltip:
+					'''
+					11 summon tag damage
+					Your summons will focus struck enemies
+					Strike enemies with resonant energy
+					Damage resonates between all tagged enemies in a guaranteed critical hit
+					'''
+			}
+
+			EchoLeviathanBanner: {
+				DisplayName: Echo Leviathan Banner
+				Tooltip: ""
+			}
+
+			EchoLocatorBanner: {
+				DisplayName: Echo Locator Banner
+				Tooltip: ""
+			}
+
+			EchoSpriteBanner: {
+				DisplayName: Echo Sprite Banner
+				Tooltip: ""
+			}
+
+			EchoStalkerBanner: {
+				DisplayName: Echo Stalker Banner
+				Tooltip: ""
+			}
+
+			GargoyleBanner: {
+				DisplayName: Gargoyle Banner
+				Tooltip: ""
+			}
+
+			GriffinBanner: {
+				DisplayName: Griffin Banner
+				Tooltip: ""
+			}
+
+			KinnaraBanner: {
+				DisplayName: Kinnara Banner
+				Tooltip: ""
+			}
+
+			Wingspan: {
+				DisplayName: Green War Fan
+				Tooltip:
+					'''
+					Throws razor sharp feathers that ignore 10 points of enemy defense
+					Melee speed reduces spread of the feathers
+					'''
+			}
+
+			WingspanBlue: {
+				DisplayName: Blue War Fan
+				Tooltip:
+					'''
+					Throws razor sharp feathers that ignore 10 points of enemy defense
+					Melee speed reduces spread of the feathers
+					'''
+			}
+
+			SugarSkull: {
+				DisplayName: Sugar Skull
+				Tooltip:
+					'''
+					Attacks afflict enemies with Crystal Fire
+					Increases critical strike damage by 10%
+					Critical hits reduce defense by 3, up to 9 less defense
+					'''
+			}
 		}
 
 		NPCs: {
@@ -1661,6 +1888,23 @@ Mods: {
 			PrimeRail.DisplayName: Prime Rail
 			PrimeMace.DisplayName: Prime Mace
 			PrimeLauncher.DisplayName: Prime Launcher
+			EchoLeviathanBody1.DisplayName: Echo Leviathan
+			EchoLeviathanBody2.DisplayName: Echo Leviathan
+			EchoLeviathanBody3.DisplayName: Echo Leviathan
+			EchoLeviathanHead.DisplayName: Echo Leviathan
+			EchoLeviathanTail.DisplayName: Echo Leviathan
+			EchoLocator.DisplayName: Echo Locator
+			EchoSprite.DisplayName: Echo Sprite
+			EchoStalker.DisplayName: Echo Stalker
+			Gargoyle.DisplayName: Gargoyle
+			GriffinFlier.DisplayName: Griffin
+			GriffinWalker.DisplayName: Griffin
+			Kinnara.DisplayName: Kinnara
+			EchoStalkerBody.DisplayName: Echo Stalker
+			EchoStalkerBody1.DisplayName: Echo Stalker
+			EchoStalkerBody2.DisplayName: Echo Stalker
+			EchoStalkerHead.DisplayName: Echo Stalker
+			EchoStalkerTail.DisplayName: Echo Stalker
 		}
 
 		Tiles: {
@@ -1779,6 +2023,11 @@ Mods: {
 
 				CultistChanges: {
 					Label: Cultist Changes
+					Tooltip: ""
+				}
+
+				KingSlimeChanges: {
+					Label: King Slime Changes
 					Tooltip: ""
 				}
 			}

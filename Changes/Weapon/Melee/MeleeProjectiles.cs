@@ -1,22 +1,25 @@
-using TRAEProject.NewContent.Buffs;
-using TRAEProject.NewContent.Projectiles;
 using Microsoft.Xna.Framework;
 using System;
+using System.Collections.Generic;
+using Terraria;
 using Terraria;
 using Terraria.Audio;
-using Terraria.ID;
-using Terraria.ModLoader;
-using TRAEProject.NewContent.Items.Weapons.Summoner.Whip;
-using static Terraria.ModLoader.ModContent;
-using TRAEProject.Common;
-using TRAEProject.Common.ModPlayers;
-using TRAEProject.NewContent.TRAEDebuffs;
-using TRAEProject.NewContent.NPCs;
-using Terraria.Net;
 using Terraria.Chat;
 using Terraria.DataStructures;
-using System.Collections.Generic;
+using Terraria.ID;
 using Terraria.Localization;
+using Terraria.ModLoader;
+using TRAEProject.Common;
+using TRAEProject.Common.ModPlayers;
+using TRAEProject.NewContent.Buffs;
+using TRAEProject.NewContent.Items.Weapons.Melee.Stormbreaker;
+using TRAEProject.NewContent.Items.Weapons.Summoner.Whip;
+using TRAEProject.NewContent.NPCs;
+using TRAEProject.NewContent.NPCs.Echosphere.EchoStalker;
+using TRAEProject.NewContent.Projectiles;
+using TRAEProject.NewContent.TRAEDebuffs;
+using static Terraria.ModLoader.ModContent;
+using static TRAEProject.NewContent.Items.Weapons.Melee.Stormbreaker.Stormbreaker;
 
 namespace TRAEProject.Changes.Weapon.Melee
 {
@@ -54,7 +57,7 @@ namespace TRAEProject.Changes.Weapon.Melee
 
 
              ProjectileID.Sets.YoyosLifeTimeMultiplier[ProjectileID.HelFire] = -1f;
-
+            
             ProjectileID.Sets.YoyosMaximumRange[ProjectileID.TheEyeOfCthulhu] = 500f; // 
 
             ProjectileID.Sets.YoyosMaximumRange[ProjectileID.Kraken] = 300f; //
@@ -86,9 +89,7 @@ namespace TRAEProject.Changes.Weapon.Melee
                     projectile.usesIDStaticNPCImmunity = true;
                     projectile.idStaticNPCHitCooldown = 10;
                     break;
-                case ProjectileID.FormatC:
-                    projectile.GetGlobalProjectile<ProjectileStats>().DamageFalloff = 0.4f;
-                    break;
+         
                         case ProjectileID.VampireKnife:
                     projectile.ArmorPenetration = 20;
                     break;
@@ -215,6 +216,8 @@ namespace TRAEProject.Changes.Weapon.Melee
         Vector2 spawnCenter = new Vector2(0, 0);
         public override bool PreAI(Projectile projectile)
         {
+    
+
             if (projectile.type == ProjectileID.TrueNightsEdge)
             {
                 float num = 50f;
@@ -556,20 +559,13 @@ namespace TRAEProject.Changes.Weapon.Melee
         public override void AI(Projectile projectile)
         {
             Player player = Main.player[projectile.owner];
-            //if (projectile.type == ProjectileID.TrueNightsEdge)
-            //{
-
-
-
-            //    Main.NewText(spawnCenter);
-            //}
+  
  
-                if ((projectile.type == ProjectileID.HelFire || projectile.type == ProjectileID.Sunfury) && projectile.ai[2] == 0)
+                if ((projectile.type == ProjectileID.HelFire && projectile.ai[2] == 0) || (projectile.type == ProjectileID.Sunfury && projectile.ai[1] == 1 ))
             {
                 projectile.ai[2] = 1;
-                int damage = projectile.damage / 2;
-                if (projectile.type == ProjectileID.Sunfury)
-                    damage *= 2; // flail projectile's base damage is half of what's stated in the tooltip
+                int damage = projectile.damage / 2; // damage is 25% for sunfury
+                
                 Projectile.NewProjectile(projectile.GetSource_FromThis(), projectile.Center, Vector2.Zero, ModContent.ProjectileType<HelAura>(), damage, projectile.knockBack / 2, projectile.owner, projectile.whoAmI);
             }
             if (projectile.counterweight)
@@ -595,10 +591,10 @@ namespace TRAEProject.Changes.Weapon.Melee
                         bool flag4 = false;
                         if (projectile.owner == Main.myPlayer)
                         {
-                            projectile.localAI[1] += 1f + (1 * player.GetAttackSpeed(DamageClass.Melee));
-                            if (projectile.localAI[1] > 90f)
+                            projectile.localAI[1] += 1f;
+                            if (projectile.localAI[1] > 60f)
                             {
-                                projectile.localAI[1] = 90f;
+                                projectile.localAI[1] = 60f;
                                 for (int o = 0; o < 200; ++o)
                                 {
                                     if (Main.npc[o].CanBeChasedBy(this, false))
@@ -682,34 +678,7 @@ namespace TRAEProject.Changes.Weapon.Melee
                         */
                         return;
                     }
-                case ProjectileID.FormatC:
-                    {
-                        bool flag4 = false;
-                        int mult = 1;
-                        projectile.scale = 1f + (float)projectile.damage / 1000;
-                        projectile.localAI[1] += 1f;
-                        if (projectile.localAI[1] >= 36f && projectile.damage <= 300)
-                        {
-                            mult += 1;
-                            projectile.damage += projectile.damage / mult;
-                            Terraria.Audio.SoundEngine.PlaySound(SoundID.DD2_MonkStaffGroundImpact with { MaxInstances = 0 }, projectile.Center);
-                            for (int i = 0; i < 25; i++)
-                            {
-                                // Create a new dust
-                                Dust dust = Dust.NewDustDirect(projectile.position, projectile.width, projectile.height, 64, 10f, 10f, 0, default, 2f);
-                                dust.velocity *= Main.rand.NextFloat(-1.5f, 1.5f);
-                                dust.noGravity = true;
-                            }
-                            projectile.localAI[1] = 45f;
-                            flag4 = true;
-                        }
-                        if (flag4)
-                        {
-                            projectile.localAI[1] = 0f;
-                        }
-                        return;
-                    }
-            }                    
+             }                    
         }
 
         public int HitCount = 0;
@@ -758,6 +727,50 @@ namespace TRAEProject.Changes.Weapon.Melee
         }
         public override void PostAI(Projectile projectile)
         {
+            //if (projectile.aiStyle == 3 && projectile.ai[0] == 1)
+            //{
+            //    Player player = Main.player[projectile.owner];
+            //    float maxSpeed = 0f;
+            //    switch (projectile.type)
+            //    {
+            //        case ProjectileID.Flamarang:
+            //        case ProjectileID.Bananarang:
+            //            maxSpeed = 30f;
+            //            break;
+            //        case ProjectileID.EnchantedBoomerang:
+            //        case ProjectileID.IceBoomerang:          
+            //        case ProjectileID.Shroomerang:
+            //            maxSpeed = 9f;
+            //            break;
+            //        case ProjectileID.Trimarang:
+            //            maxSpeed = 9.5f;
+            //            break;
+            //        case ProjectileID.ThornChakram:
+            //            maxSpeed = 21.6f;
+            //            break;
+            //        case ProjectileID.CombatWrench:
+            //            maxSpeed = 20f ;
+            //            break;
+            //        case ProjectileID.LightDisc:
+ 
+            //        case ProjectileID.BouncingShield:
+            //            maxSpeed = 19.2f;
+            //            break;
+            //        case ProjectileID.BloodyMachete:
+            //            maxSpeed = 45f;
+            //            break;
+            //        case ProjectileID.FruitcakeChakram:
+            //            maxSpeed = 7.2f;
+            //            break;
+            //    }
+            //    if (maxSpeed != 0 && projectile.velocity.Length() < maxSpeed * player.GetAttackSpeed<MeleeDamageClass>())
+            //    {
+            //        Main.NewText(player.direction);
+            //        Main.NewText(projectile.velocity);
+
+            //     }
+                 
+            //}
             if (projectile.type == ProjectileID.TheHorsemansBlade)
             {
                 projectile.scale *= 1.2f;
@@ -807,7 +820,9 @@ namespace TRAEProject.Changes.Weapon.Melee
                         for (int k = 0; k < 200; k++)
                         {
                             NPC nPC = Main.npc[k];
-                            if (nPC.active && !nPC.friendly && nPC.damage > 0 && !nPC.dontTakeDamage && Vector2.Distance(projectile.Center, nPC.Center) <= 125)
+                            if (nPC.active && !nPC.friendly && nPC.damage > 0 && !nPC.dontTakeDamage && Vector2.Distance(projectile.Center, nPC.Center) <= 125
+                                && nPC.type != NPCType<EchoStalkerBody1>() && nPC.type != NPCType<EchoStalkerBody2>() && nPC.type != NPCType<EchoStalkerTail>()
+                          )
                             {
                                 Main.player[projectile.owner].ApplyDamageToNPC(nPC, (int)(projectile.damage * 2), 0f, 0, crit: false);
                                 if (nPC.FindBuffIndex(BuffID.OnFire) == -1)

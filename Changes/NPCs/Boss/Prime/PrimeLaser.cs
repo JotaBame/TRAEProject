@@ -3,6 +3,7 @@ using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
+using TRAEProject.Changes.NPCs.Boss.TwinsChanges;
 using static Terraria.ModLoader.ModContent;
 
 namespace TRAEProject.Changes.NPCs.Boss.Prime

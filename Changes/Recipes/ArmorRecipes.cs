@@ -61,6 +61,7 @@ namespace TRAEProject.Changes.Recipes
                 recipe.RemoveTile(TileID.Loom);
                 recipe.AddTile(TileID.MythrilAnvil);
             }
+ 
             if (GetInstance<TRAEConfig>().DefenseRework)
             {
                 if (recipe.HasResult(ItemID.CopperHelmet))

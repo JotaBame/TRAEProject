@@ -3,6 +3,7 @@ using Terraria;
 using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
+using TRAEProject.Common.ModPlayers;
 
 namespace TRAEProject.NewContent.Items.Weapons.Ranged.Jungla
 {
@@ -37,7 +38,7 @@ namespace TRAEProject.NewContent.Items.Weapons.Ranged.Jungla
         public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
         {
             float numberProjectiles = 3; 
-            float rotation = MathHelper.ToRadians(10);
+            float rotation = MathHelper.ToRadians(10) * player.GetModPlayer<RangedStats>().spreadModifier;
             position += Vector2.Normalize(new Vector2(velocity.X, velocity.Y)) * 10f;
             for (int i = 0; i < numberProjectiles; i++)
             {

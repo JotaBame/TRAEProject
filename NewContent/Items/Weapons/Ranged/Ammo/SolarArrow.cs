@@ -80,9 +80,11 @@ namespace TRAEProject.NewContent.Items.Weapons.Ranged.Ammo
             target.AddBuff(BuffID.OnFire3, 240);
             if (Main.rand.NextBool(20))
             {
-                modifiers.FinalDamage *= 2.5f;
+                 modifiers.FinalDamage *= 2.5f;
                 for (int i = 0; i < 30; i++)
                 {
+                    Dust.NewDustDirect(Projectile.Center, Projectile.width, Projectile.height, DustID.Torch, 0f, 0f);
+    
                     // Create a new dust
                     Dust dust = Dust.NewDustDirect(Projectile.Center, Projectile.width, Projectile.height, DustID.HeatRay, 0f, 0f);
                     dust.position = (dust.position + Projectile.Center) / 2f;
@@ -97,11 +99,18 @@ namespace TRAEProject.NewContent.Items.Weapons.Ranged.Ammo
         public override void OnKill(int timeLeft)    
         {
             Terraria.Audio.SoundEngine.PlaySound(SoundID.Item10 with { MaxInstances = 0 }, Projectile.position);
-            for (int i = 0; i < 10; i++)
+            for (int i = 0; i < 20; i++)
             {
-                Dust dust = Dust.NewDustDirect(Projectile.oldPosition, Projectile.width, Projectile.height, DustID.HeatRay, 1f);
-                dust.noGravity = true;
+                Dust dust = Dust.NewDustDirect(Projectile.position, Projectile.width, Projectile.height, DustID.HeatRay, 0f, 0f, 100);
+                if (Main.rand.NextBool(2))
+                {
+                    Dust dust2 = dust;
+                    dust2.scale *= 1.5f;
+                    dust2.noGravity = true;
+                     dust2.velocity *= 5f;
+                }
             }
+ 
         }
     }
 }

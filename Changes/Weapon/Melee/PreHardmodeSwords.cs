@@ -90,11 +90,11 @@ namespace TRAEProject.Changes.Weapon.Melee
                     item.useTime = 18;
                     item.useAnimation = 18;
                     break;
-                
-                    
-                    // SHORTSWORDS
-                
-                
+            
+
+                // SHORTSWORDS
+
+
                 case ItemID.CopperShortsword:
                 case ItemID.TinShortsword:
                 case ItemID.IronShortsword:
@@ -109,11 +109,15 @@ namespace TRAEProject.Changes.Weapon.Melee
                 // OTHER
                 case ItemID.Cutlass:
                 case ItemID.Muramasa:
-                case ItemID.Katana:
-                case ItemID.ChlorophyteSaber:
+                 case ItemID.ChlorophyteSaber:
                     item.useTurn = false;
                     break;
-                               
+                case ItemID.Katana:
+                    item.useTime = 15; // down from 20
+                    item.value = Item.buyPrice(gold: 15);
+                    item.useAnimation = 15;
+                    item.useTurn = false;
+                    break;
                 case ItemID.AntlionClaw:
                     item.damage = 14;// down from 16
                     item.useTime = 11;
@@ -136,6 +140,9 @@ namespace TRAEProject.Changes.Weapon.Melee
                     item.useTime = 30;
                     item.useAnimation = 30;
                     item.value = Item.buyPrice(gold: 5);
+                    break;
+                case ItemID.Starfury:
+                      item.useAnimation = 25; // up from 20
                     break;
                 case ItemID.PurpleClubberfish:
                     item.scale = 1.4f;

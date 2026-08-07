@@ -52,7 +52,7 @@ namespace TRAEProject.NewContent.Items.Accesories.LifeCuffs
                  Player.AddBuff(BuffType<HeartAttack>(), 180 + cuffs * info.Damage * 3); // 4 seconds base, +1 second for every 20 damage
                 if (balanceCuffs > 0)
                 {
-                    Player.Heal(info.Damage / 10 * balanceCuffs);
+                    Player.Heal(info.Damage / 8 * balanceCuffs);
                  }
             }
         }

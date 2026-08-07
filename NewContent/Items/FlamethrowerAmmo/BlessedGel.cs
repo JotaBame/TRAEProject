@@ -61,7 +61,7 @@ namespace TRAEProject.NewContent.Items.FlamethrowerAmmo
             Projectile.DamageType = DamageClass.Ranged;
             Projectile.friendly = true;
             Projectile.GetGlobalProjectile<ProjectileStats>().SmartBouncesOffEnemies = true;
-            Projectile.GetGlobalProjectile<ProjectileStats>().SmartBouncesOffTiles = true;
+ 
             Projectile.usesLocalNPCImmunity = true;
             Projectile.GetGlobalProjectile<ProjectileStats>().dontHitTheSameEnemyMultipleTimes = true;
             Projectile.GetGlobalProjectile<ProjectileStats>().DamageFalloff = 0.2f;

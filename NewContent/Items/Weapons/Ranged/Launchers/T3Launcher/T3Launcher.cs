@@ -4,6 +4,7 @@ using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.GameContent.Creative;
+using TRAEProject.Common.ModPlayers;
 
 namespace TRAEProject.NewContent.Items.Weapons.Ranged.Launchers.T3Launcher
 {
@@ -80,7 +81,7 @@ namespace TRAEProject.NewContent.Items.Weapons.Ranged.Launchers.T3Launcher
             int numberProjectiles = 2 + Main.rand.Next(2); // 2 to 3 rockets 
             for (int i = 0; i < numberProjectiles; i++)
             {
-                Vector2 perturbedSpeed = new Vector2(velocity.X, velocity.Y).RotatedByRandom(MathHelper.ToRadians(15));
+                Vector2 perturbedSpeed = new Vector2(velocity.X, velocity.Y).RotatedByRandom(MathHelper.ToRadians(15 * player.GetModPlayer<RangedStats>().spreadModifier));
                 float scale = 1f - (Main.rand.NextFloat() * .3f);
                 perturbedSpeed = perturbedSpeed * scale;
                 Projectile.NewProjectile(source, position.X, position.Y, perturbedSpeed.X, perturbedSpeed.Y, type, damage, knockback, player.whoAmI);

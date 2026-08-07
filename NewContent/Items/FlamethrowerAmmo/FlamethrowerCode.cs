@@ -44,9 +44,9 @@ namespace TRAEProject.NewContent.Items.FlamethrowerAmmo
         protected short dustID = DustID.Torch;
         protected float dustScale = 1;
         protected bool dieInWater = false;
-        protected float scalemodifier = 1f;
+        protected float maxScale = 1f;
         protected float dustAmount = 0.25f;
-
+        protected float minScale = 0.25f;
         public override bool PreDraw(ref Color lightColor)
         {
             DrawFlamethrower(ColorMiddle, ColorBack, ColorLerp, ColorSmoke);
@@ -79,7 +79,7 @@ namespace TRAEProject.NewContent.Items.FlamethrowerAmmo
             float num11 = Utils.Remap(Projectile.localAI[0], num, fromMax, 1f, 0f);
             float num12 = Math.Min(Projectile.localAI[0], 20f);
             float num13 = Utils.Remap(Projectile.localAI[0], 0f, fromMax, 0f, 1f);
-            float scale = Utils.Remap(num13, 0.2f, 0.5f, 0.25f, 1f) * scalemodifier;
+            float scale = Utils.Remap(num13, 0.2f, 0.5f, minScale, maxScale);
             Rectangle rectangle = value.Frame(1, num9, 0, 3);
             if (!(num13 < 1f))
             {
@@ -147,7 +147,7 @@ namespace TRAEProject.NewContent.Items.FlamethrowerAmmo
             float num2 = 12f;
             float fromMax = num + num2;
             float num13 = Utils.Remap(Projectile.localAI[0], 0f, fromMax, 0f, 1f);
-            float scale = Utils.Remap(num13, 0.2f, 0.5f, 0.25f, 1f) * scalemodifier * 50;//visual sprite size is around 55 pixels big
+            float scale = Utils.Remap(num13, 0.2f, 0.5f, 0.25f, 1f) * maxScale * 50;//visual sprite size is around 55 pixels big
 
             bool collided = (CheckCircleCollision(scale, Projectile.Center, targetHitbox) ||
                 (CheckCircleCollision(scale, Projectile.Center - Projectile.velocity * 7, targetHitbox) && Projectile.localAI[0] > 3 * Projectile.MaxUpdates) ||
@@ -222,7 +222,7 @@ namespace TRAEProject.NewContent.Items.FlamethrowerAmmo
         }
         public override void ModifyDamageHitbox(ref Rectangle hitbox)
         {
-            int num = (int)(Utils.Remap(Projectile.localAI[0], 0f, 72f, 10f, 40f) * scalemodifier);
+            int num = (int)(Utils.Remap(Projectile.localAI[0], 0f, 72f, 10f, 40f) * maxScale);
             hitbox.Inflate(num, num);
         }
     }

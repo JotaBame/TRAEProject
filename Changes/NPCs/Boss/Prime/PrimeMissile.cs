@@ -1,6 +1,5 @@
 using System;
 using System.IO;
-using Microsoft.CodeAnalysis;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Terraria;
@@ -14,6 +13,8 @@ namespace TRAEProject.Changes.NPCs.Boss.Prime
     
     public class PrimeMissile : ModProjectile
     {
+        public static int StartTimeLeft => 2700;
+        public ref float Timer => ref Projectile.localAI[2];
         public override void SetStaticDefaults()
         {
             ProjectileID.Sets.DrawScreenCheckFluff[Projectile.type] = 5000;
@@ -27,12 +28,13 @@ namespace TRAEProject.Changes.NPCs.Boss.Prime
             Projectile.penetrate = 3;
             Projectile.light = 0.75f;
             Projectile.extraUpdates = 1;
-            Projectile.timeLeft = 2700;
+            Projectile.timeLeft = StartTimeLeft;
             Projectile.aiStyle = -1;
+            Projectile.tileCollide = false;
         }
         public override bool CanHitPlayer(Player target)
         {
-            if(Projectile.timeLeft > 2)
+            if (Projectile.timeLeft > 2)
             {
                 return false;
             }
@@ -70,15 +72,24 @@ namespace TRAEProject.Changes.NPCs.Boss.Prime
         Vector2? boomHere = null;
         bool triggeredSound = false;
         float rotSpeed = MathF.PI / 120f;
+       
         public override void AI()
         {
-            if(boomHere != null)
+            if (boomHere != null)
             {
                 Vector2 toBoom = (Vector2)boomHere;
-                if(!triggeredSound)
+                Timer++;
+                if (!triggeredSound)
                 {
                     triggeredSound = true;
-                    SoundEngine.PlaySound(SoundID.Coins  with { MaxInstances = 0, Volume = 1.5f, Pitch = 0.5f}, toBoom);
+                    SoundStyle style = PrimeStats.ReticleAppear1;//repeated
+                    if (Projectile.ai[0] == 1)//rocket fired while in rapid fire state
+                    {
+                        style = PrimeStats.ReticleAppear2;//single beep
+                    }
+
+                    //style = PrimeStats.GetRandomReticleAppearSound();
+                    SoundEngine.PlaySound(style, toBoom);
                 }
                 float speed = 7f;
                 Projectile.velocity = TRAEMethods.PolarVector(speed, Projectile.rotation);
@@ -147,6 +158,65 @@ namespace TRAEProject.Changes.NPCs.Boss.Prime
             }
             base.ReceiveExtraAI(reader);
         }
+        public static void DrawReticle(Vector2 drawPos, float time, Projectile proj)
+        {
+            float distFadeMult = Utils.Remap(time, 0, 20f, 6f, 1f);
+            Vector2 projScreenPos = proj.Center - Main.screenPosition;
+            float closenessMultOverride = Utils.Remap(projScreenPos.Distance(drawPos), 0f, 80, -50f, 1f);
+            Texture2D tex = ModContent.Request<Texture2D>("TRAEProject/Changes/NPCs/Boss/Prime/ReticleSheetPremultiplied").Value;
+            if (proj.localAI[0]== 0)
+            {
+                proj.localAI[0] = Main.rand.Next(2) * 2 - 1;
+            }
+            float rotationDirection = proj.localAI[0];
+            float sineTime = MathF.Sin(time / 10f);
+            float closenessMultOverrideAmount = EaseInOutCubic(Utils.GetLerpValue(1f, 0f, closenessMultOverride, true));
+            float offsetMultLines = MathHelper.Lerp(Utils.Remap(sineTime, -1, 1, 1, 20), closenessMultOverride, closenessMultOverrideAmount);
+            float offsetMultCircleFrac = MathHelper.Lerp(Utils.Remap(sineTime, -1, 1, 1, 16), closenessMultOverride, closenessMultOverrideAmount);
+            float rotationOffset = EaseOut(Utils.GetLerpValue(25f, 0, time, true)) * MathF.PI * 0.5f * rotationDirection;
+            Color additiveWhite = Color.White with { A = 0 };
+            float fade = Utils.GetLerpValue(-1, 15f, time, true);
+            additiveWhite *= fade;
+            for (int i = 0; i < 4; i++)//lines
+            {
+                Rectangle frame = tex.Frame(2, 4, 1, i);
+                Vector2 offset = Vector2.UnitX.RotatedBy((-i / 4f) * MathF.Tau + MathF.PI) * offsetMultLines * distFadeMult;
+                offset = offset.RotatedBy(rotationOffset);
+                Main.EntitySpriteDraw(tex, drawPos + offset, frame, additiveWhite, rotationOffset, frame.Size() / 2, 1f, SpriteEffects.None, 0f);
+            }
+            for (int i = 0; i < 4; i++)//not lines
+            {
+                Rectangle frame = tex.Frame(2, 4, 0, i);
+                Vector2 offset = -Vector2.UnitX.RotatedBy((-i / 4f) * MathF.Tau +MathF.PI * 0.25f) * offsetMultCircleFrac * distFadeMult;
+                offset = offset.RotatedBy(rotationOffset);
+                Main.EntitySpriteDraw(tex, drawPos + offset, frame, additiveWhite, rotationOffset, frame.Size() / 2, 1f, SpriteEffects.None, 0f);
+            }
+        }
+        static void PrintTextWhenUnpaused(object obj, Color? col = null)
+        {
+            if (!Main.gamePaused)
+            {
+                Main.NewText(obj, col);
+            }
+        }
+        static float EaseInOutCubic(float progress)
+        {
+            if (progress < 0.5f)
+            {
+                return 4f * progress * progress * progress;
+            }
+            else
+            {
+                float t = 2f * progress - 2f;
+                return 0.5f * t * t * t + 1f;
+            }
+        }
+        static float EaseOut(float progress)
+        {
+            //progress = 1 - progress;
+            progress *= progress * progress;
+            return progress;
+        }
         public override bool PreDraw(ref Color lightColor)
         {
             if(Projectile.timeLeft > 2)
@@ -161,9 +231,10 @@ namespace TRAEProject.Changes.NPCs.Boss.Prime
                 if(boomHere != null)
                 {
                     Vector2 renderHere = (Vector2)boomHere;
-                    Texture2D ret = ModContent.Request<Texture2D>("TRAEProject/Changes/NPCs/Boss/Prime/TargetRetical").Value;
-                    float trig = 1f + 0.25f * MathF.Sin(MathF.PI * Projectile.timeLeft / 60f);
-                    Main.EntitySpriteDraw(ret, renderHere - Main.screenPosition, null, Color.White, 0, ret.Size() * 0.5f, trig, SpriteEffects.None, 0);
+                    //Texture2D ret = ModContent.Request<Texture2D>("TRAEProject/Changes/NPCs/Boss/Prime/TargetRetical").Value;
+                    //float trig = 1f + 0.25f * MathF.Sin(MathF.PI * Projectile.timeLeft / 60f);
+                    //Main.EntitySpriteDraw(ret, renderHere - Main.screenPosition, null, Color.White, 0, ret.Size() * 0.5f, trig, SpriteEffects.None, 0);
+                    DrawReticle(renderHere - Main.screenPosition, Timer, Projectile);
                 }
             }
             return false;

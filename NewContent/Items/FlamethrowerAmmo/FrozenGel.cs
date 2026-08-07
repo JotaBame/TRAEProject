@@ -7,6 +7,8 @@ using static Terraria.ModLoader.ModContent;
 using Terraria.GameContent.Creative;
 using TRAEProject.NewContent.Items.Materials;
 using TRAEProject.Common;
+using TRAEProject.Changes.Weapon.Ranged.Rockets;
+using TRAEProject.NewContent.Items.Weapons.Ranged.Launchers.CryoCannon;
 namespace TRAEProject.NewContent.Items.FlamethrowerAmmo
 {
     public class FrozenGel : ModItem
@@ -58,17 +60,23 @@ namespace TRAEProject.NewContent.Items.FlamethrowerAmmo
             ColorLerp = new Color(95, 160, 255, 240);
             ColorSmoke = new Color(33, 125, 202, 200);
             dustID = 135;
-            scalemodifier = 0.2f;
+            maxScale = 0.2f;
             Projectile.GetGlobalProjectile<ProjectileStats>().DamageFalloff = 0.15f;
 			Projectile.GetGlobalProjectile<ProjectileStats>().AddsBuff = BuffID.Frostburn2;
             Projectile.GetGlobalProjectile<ProjectileStats>().AddedBuffDuration = 180;
 			Projectile.penetrate = 5;
         }
-
+        public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
+        {
+            if (Main.rand.NextBool(5))
+            {
+                target.GetGlobalNPC<Freeze>().FreezeMe(target, Main.rand.Next(45, 60));
+            }
+        }
         public override bool PreAI()
         {
-            if (scalemodifier < 2.25f)               
-                scalemodifier += 2f / 60;
+            if (maxScale < 2.25f)               
+                maxScale += 2f / 60;
             return true;
         }
 

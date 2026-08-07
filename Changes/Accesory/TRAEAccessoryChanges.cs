@@ -1,19 +1,14 @@
+using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Input;
+  using System.Collections.Generic;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
-using Microsoft.Xna.Framework;
-using System;
-using TRAEProject;
-using System.Collections.Generic;
-using Terraria.Utilities;
-using TRAEProject.NewContent.Buffs;
-using TRAEProject.Changes;
-using TRAEProject.NewContent.Items.Accesories.ShadowflameCharm;
-using TRAEProject.Changes.Items;
-using TRAEProject.Common.ModPlayers;
-using static Terraria.ModLoader.ModContent;
-using TRAEProject.NewContent.Items.Accesories;
 using TRAEProject.Common;
+ using TRAEProject.Common.ModPlayers;
+ using TRAEProject.NewContent.Buffs;
+using TRAEProject.NewContent.Items.Accesories;
+ using TRAEProject.NewContent.Items.Accesories.ShadowflameCharm;
 
 namespace TRAEProject.Changes.Accesory
 {
@@ -28,21 +23,32 @@ namespace TRAEProject.Changes.Accesory
 
 
         
-        static void CelestialStoneStats(Player player)
+        static void CelestialStoneStats(Player player, int potency)
         {
             player.skyStoneEffects = false;
+ 
+            player.pickSpeed -= 0.1f / potency;
+            player.GetDamage<GenericDamageClass>() += 0.08f / potency;
+            player.GetCritChance<GenericDamageClass>() += 2 / potency;
+            player.statDefense += 4 / potency;
+
+            if (player.GetModPlayer<AccesoryEffects>().SimplePlayerTimer % potency == 0)
+                player.lifeRegen++;
+ 
+            player.statManaMax2 += 20 /*/ potency*/; // mana should never not be divisible by 20
+            player.GetAttackSpeed(DamageClass.Melee) += 0.05f / potency;
+            player.GetModPlayer<RangedStats>().chanceNotToConsumeAmmo += 10 / potency;
 
 
-            
-            player.pickSpeed -= 1.1f;
-            player.GetDamage<GenericDamageClass>() += 0.08f;
-            player.GetCritChance<GenericDamageClass>() += 2;
-            player.statDefense += 4;
-            player.lifeRegen++;
-            player.statManaMax2 += 20;
-            player.GetAttackSpeed(DamageClass.Melee) += 0.05f;
-            player.GetModPlayer<RangedStats>().chanceNotToConsumeAmmo += 10;
-            
+//player.pickSpeed -= 0.1f;
+            //player.GetDamage<GenericDamageClass>() += 0.08f;
+            //player.GetCritChance<GenericDamageClass>() += 2;
+            //player.statDefense += 4;
+            //player.lifeRegen++;
+            //player.statManaMax2 += 20;
+            //player.GetAttackSpeed(DamageClass.Melee) += 0.05f;
+            //player.GetModPlayer<RangedStats>().chanceNotToConsumeAmmo += 10;
+
         }
         public override void UpdateAccessory(Item item, Player player, bool hideVisual)
         {
@@ -111,70 +117,65 @@ namespace TRAEProject.Changes.Accesory
                     player.kbGlove = false;
                     player.meleeScaleGlove = false;
                     break;
-                case ItemID.MoonShell:
-                    if (player.statLife > player.statLifeMax2 * 0.67)
+                case ItemID.MoonCharm:
+                    if (player.statLife < player.statLifeMax2 * 0.67)
                     {
                         player.buffImmune[BuffID.Werewolf] = true;
                     }
+                    player.GetModPlayer<AccesoryEffects>().wErewolf = true;
+                    player.wolfAcc = false;
+                    break;
+                case ItemID.MoonShell:
+                    if (player.statLife < player.statLifeMax2 * 0.67)
+                    {
+                        player.buffImmune[BuffID.Werewolf] = true;
+                    }
+        
                     player.GetModPlayer<AccesoryEffects>().wErewolf = true;
                     if (player.statLife < player.statLifeMax2 * 0.5)
                         player.AddBuff(BuffID.IceBarrier, 1, false);
                     player.wolfAcc = false;
                     break;
-                case ItemID.MoonCharm:
-                    player.GetModPlayer<AccesoryEffects>().wErewolf = true;
-                    player.wolfAcc = false;
-                    break;
+            
                 // CELESTIAL STONE CHANGES
                 case ItemID.CelestialStone:
-                    CelestialStoneStats(player);
+                    CelestialStoneStats(player, 1);
 
                     
                     break;
                 case ItemID.MoonStone:
-                    if (!Main.dayTime)
+                    player.skyStoneEffects = false;
+                    {
+                        if (player.statLife < player.statLifeMax2 * 0.75)
+                        {
+                            CelestialStoneStats(player, player.statLife > player.statLifeMax2 * 0.5 ? 2 : 1);
+
+                        }
+     
+                    }
+                    break;
+                case ItemID.SunStone:             
+                    player.skyStoneEffects = false;
                     {
                         if (player.statLife > player.statLifeMax2 * 0.5)
                         {
-                            CelestialStoneStats(player);
-
+                
+                                CelestialStoneStats(player, player.statLife < player.statLifeMax2 * 0.75 ? 2 : 1);
+ 
                         }
-                        else if (player.statLife < player.statLifeMax2 * 0.75)
-                        {
-                            player.skyStoneEffects = false;
-                            player.pickSpeed -= 1.1f;
-                            player.GetDamage<GenericDamageClass>() += 0.04f;
-                            player.statDefense += 2;
-                            player.lifeRegen++;
-                           
-                        }
+                
+          
                        
                     }
-                    break;
-                case ItemID.SunStone:
-                    if (Main.dayTime)
-                    {
-                        if (player.statLife > player.statLifeMax2 * 0.75)
-                        {
-                            CelestialStoneStats(player);
-                        }
-                        else if (player.statLife > player.statLifeMax2 * 0.5)
-                        {
-                            player.skyStoneEffects = false;
-                            player.pickSpeed -= 1.1f;
-                            player.GetDamage<GenericDamageClass>() += 0.04f;
-                            player.statDefense += 2;
-                            player.lifeRegen++;
-
-                        }
-                    }
+                   
                     break;
                 case ItemID.CelestialShell:
-                    CelestialStoneStats(player);
+                    CelestialStoneStats(player, 1);
                     player.wolfAcc = false;
                     break;
 
                 case ItemID.DestroyerEmblem:
+ 
                     player.GetDamage<GenericDamageClass>() -= 0.1f;
                     player.GetCritChance<GenericDamageClass>() += 14;
                     break;
@@ -239,8 +240,16 @@ namespace TRAEProject.Changes.Accesory
                         player.GetDamage<SummonDamageClass>() += 0.04f;
                     player.dd2Accessory = false;
                     break;
-   
-    
+
+                case ItemID.ReflectiveShades:
+                    player.GetCritChance<GenericDamageClass>() += 8;
+                    break;
+                case ItemID.BoneHelm:
+                    ++player.maxTurrets;
+                    break;
+                case ItemID.ManaCloak:
+                    player.starCloakItem_manaCloakOverrideItem = item;
+                    break;
             }
         }
         public override void ModifyShootStats(Item item, Player player, ref Vector2 position, ref Vector2 velocity, ref int type, ref int damage, ref float knockback)
@@ -258,15 +267,23 @@ namespace TRAEProject.Changes.Accesory
          public override void ModifyTooltips(Item item, List<TooltipLine> tooltips)
         {
             string celStone = "8% increased damage\n2% increased critical strike chance\n5% increased melee speed\n10% increased mining speed and reduced ammo usage\nIncreases defense by 4\nIncreases mana by 20\nIncreases life regen by 0.5 per second";
+            string wereWolf =
+                                                                "\nIncreases life regeneration by 0.5 per second when the transformation wears off" +
+                                    (!Main.keyState.IsKeyDown(Keys.LeftShift) ? "\nHold down SHIFT to see the effects of the Werewolf form" :
+                                 "\nWerewolf form grants:\n17% increased movement and jump speed\n13% increased melee speed\n7% increased damage\n3 defense");
+
             //string celStone = "4% increased damage, critical strike chance, movement speed, and jump speed\n8% increased melee speed\n10% incresed mining speed and reduced ammo usage\nincreases defense and armor penetration by 4\nincreases max life and mana by 20\nincreases life regen by 0.5hp/s";
-             switch (item.type)
+            switch (item.type)
             {
-                case ItemID.ReflectiveShades:
+                case ItemID.BoneHelm:
                     foreach (TooltipLine line in tooltips)
                     {
                         if (line.Mod == "Terraria" && line.Name == "Tooltip0")
                         {
-                            line.Text = "+8% critical strike chance ";
+
+                        
+                                line.Text += "\nIncreases your maximum number of sentries by 1";
+ 
                         }
                     }
                     break;
@@ -554,16 +571,20 @@ namespace TRAEProject.Changes.Accesory
                     {
                         if (line.Mod == "Terraria" && line.Name == "Tooltip0")
                         {
-                            line.Text = "Turns the holder into a werewolf when missing health";
+                            line.Text = "Turns the holder into a werewolf when above 67% life" + wereWolf;
+
                         }
                     }
-                    break;
+                     break;
                 case ItemID.MoonShell:
                     foreach (TooltipLine line in tooltips)
                     {
                         if (line.Mod == "Terraria" && line.Name == "Tooltip0")
                         {
-                            line.Text = "Turns the holder into a werewolf when missing health and into a merfolk when entering water\nPuts a shell around the owner when below 50% life";
+                            line.Text = "Turns the holder into a werewolf when above 67% life and into a merfolk when entering water" +
+                                wereWolf +
+                                "\nPuts a shell around the owner when below 50% life that reduces damage by 20%";  
+         
                         }
                     }
                     break;
@@ -572,36 +593,43 @@ namespace TRAEProject.Changes.Accesory
                     {
                         if (line.Mod == "Terraria" && line.Name == "Tooltip0")
                         {
-                            line.Text = "Minor increases to all stats when above 50% health";
+                            line.Text = "Increases all stats as life increases";
                         }
                         if (line.Mod == "Terraria" && line.Name == "Tooltip1")
                         {
-                            line.Text = "Maxes out above 75% HP:";
+                            line.Text = "Half efficiency above 50% life, maxes out above 75% life";
                         }
-                        if (line.Mod == "Terraria" && line.Name == "Tooltip2")
+                        if (line.Mod == "Terraria" && line.Name == "Tooltip2" ) 
                         {
-                            line.Text = celStone;
-                        }
-             
+                            line.Text = "Hold down SHIFT to see maximum stat increases"; // make it empty
+                            if (Main.keyState.IsKeyDown(Keys.LeftShift))
+                                line.Text = celStone;
 
+                        }
 
                     }
                     break;
                 case ItemID.MoonStone:
+
                     foreach (TooltipLine line in tooltips)
                     {
                         if (line.Mod == "Terraria" && line.Name == "Tooltip0")
                         {
-                            line.Text = "Minor increases to all stats when losing health";
+                            line.Text = "Increases all stats as life goes down";
                         }
                         if (line.Mod == "Terraria" && line.Name == "Tooltip1")
                         {
-                            line.Text = "Maxes out below 50% HP:";
-                        }
+                            line.Text = "Half efficiency below 75% life, maxes out below 50% life";
+
+                         }
                         if (line.Mod == "Terraria" && line.Name == "Tooltip2")
                         {
-                            line.Text = celStone;
+                            line.Text = "Hold down SHIFT to see maximum stat increases"; // make it empty
+                            if (Main.keyState.IsKeyDown(Keys.LeftShift))
+                                line.Text = celStone;
                         }
+
+
 
                     }
                     break;
@@ -610,7 +638,11 @@ namespace TRAEProject.Changes.Accesory
                     {
                         if (line.Mod == "Terraria" && line.Name == "Tooltip0")
                         {
-                            line.Text = celStone;
+                            line.Text = "Minor increases to all stats";
+                            line.Text += "\nHold down SHIFT to see stat increases";  
+                            if (Main.keyState.IsKeyDown(Keys.LeftShift))
+                                line.Text = celStone;
+                          
                         }
                         if (line.Mod == "Terraria" && line.Name == "Tooltip1")
                         {
@@ -631,7 +663,10 @@ namespace TRAEProject.Changes.Accesory
                         }
                         if (line.Mod == "Terraria" && line.Name == "Tooltip1")
                         {
-                            line.Text = celStone;
+                            line.Text = "Minor increases to all stats";
+                            line.Text += "\nHold down SHIFT to see stat increases";
+                            if (Main.keyState.IsKeyDown(Keys.LeftShift))
+                                line.Text = celStone;
                         }
                         if (line.Mod == "Terraria" && line.Name == "Tooltip2")
                         {

@@ -5,6 +5,7 @@ using Terraria.ID;
 using TRAEProject.Common;
 using Terraria.ModLoader;
 using static Terraria.ModLoader.ModContent;
+using TRAEProject.NewContent.Buffs;
 
 namespace TRAEProject.Changes.NPCs.Boss
 {
@@ -22,20 +23,7 @@ namespace TRAEProject.Changes.NPCs.Boss
 						return;
 				}
 		}
-        public override void OnHitPlayer(NPC npc, Player target, Player.HurtInfo hurtInfo)
-        {
-			if (GetInstance<BossConfig>().FishronChanges)
-			{
-				switch (npc.type)
-				{
-					case NPCID.DukeFishron:
-						{
-							target.ClearBuff(BuffID.Rabies);
-							return;
-						}
-				}
-			}
-		}
+ 
 		public override void ApplyDifficultyAndPlayerScaling(NPC npc, int numPlayers, float balance, float bossAdjustment)/* tModPorter Note:bossAdjustment -> balance (bossAdjustment is different, see the docs for details) */
         {
 			if (GetInstance<BossConfig>().FishronChanges)

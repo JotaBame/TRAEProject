@@ -67,7 +67,7 @@ namespace TRAEProject.Changes.Items
                 {
                     case ItemID.WandofSparking:
                     case ItemID.WandofFrosting:
-                        item.mana = 5; // up from 2
+                        item.mana = 10; // up from 2
                         return;
                     case ItemID.AmethystStaff:
                         item.damage = 21; // up from 14
@@ -241,9 +241,8 @@ namespace TRAEProject.Changes.Items
                         item.knockBack = 1f;
                         return;
                     case ItemID.RainbowRod:
-                        item.mana = 36; // up from 21
-                        TooltipDrainManaPassively = RainbowPassiveCost;
-                        TooltipDrainManaOnHit = RainbowOnHitCost;
+                        item.mana = 42; // up from 21
+                      
                         return;
                     case ItemID.MagicalHarp:
                         item.mana = 8; // up from 5
@@ -264,10 +263,12 @@ namespace TRAEProject.Changes.Items
                         item.mana = 24; // up from 12
                         return;
                     case ItemID.LeafBlower:
-                        item.damage = 60; //  up from 48
+                        item.damage = 48;
+                        item.shootSpeed = 14f; // up from 11;
                         return;
                     case ItemID.HeatRay:
-                        item.mana = 12; // up from 8
+ 
+                        item.mana = 14; // up from 8
                         return;
                     case ItemID.StaffofEarth:
                         item.mana = 25; // up from 18
@@ -277,6 +278,7 @@ namespace TRAEProject.Changes.Items
                         item.damage = 80; // Vanilla value: 60
                         item.mana = 40; // up from 25
                         item.autoReuse = true;
+                        item.shootSpeed = 12f; // up from 8
                         item.useTime = 30; // vanilla value: 30
                         item.useAnimation = 30; // vanilla value: 30
                         return;
@@ -309,9 +311,9 @@ namespace TRAEProject.Changes.Items
                     case ItemID.RainbowGun:
                         item.mana = 180; // up from 20
                         item.useAnimation = 15; // down from 40
-                        item.useTime = 15;
-                        TooltipDrainManaOnHit = RainbowOnHitCost;
-                        rightClickSideWeapon = true;
+                        item.useTime = 15; 
+                         TooltipDrainManaOnHit = RainbowOnHitCost;
+                         rightClickSideWeapon = true;
                         break;
                     case ItemID.CrimsonRod:
                         item.damage = 12; // down from 12
@@ -408,7 +410,7 @@ namespace TRAEProject.Changes.Items
                 return;
             }
         }
-        public override void OnConsumeItem(Item item, Player player)
+         public override void OnConsumeItem(Item item, Player player)
         {
 
             switch (item.type)
@@ -453,9 +455,41 @@ namespace TRAEProject.Changes.Items
         {
             if (GetInstance<TRAEConfig>().ManaRework)
             {
-                Vector2 mousePosition = Main.screenPosition + new Vector2(Main.mouseX, Main.mouseY);
+                 Vector2 mousePosition = Main.screenPosition + new Vector2(Main.mouseX, Main.mouseY);
                 switch (item.type)
                 {
+                    case ItemID.CrystalVileShard:
+                        {
+                            float numberProjectiles = 3; // 3, 4, or 5 shots
+                            float rotation = MathHelper.ToRadians(Main.rand.Next(30, 40));
+
+                            position += Vector2.Normalize(velocity) * 45f;
+
+                            for (int i = 0; i < numberProjectiles; i++)
+                            {
+
+                                Vector2 perturbedSpeed = velocity.RotatedBy(MathHelper.Lerp(-rotation, rotation, i / (numberProjectiles - 1))); // Watch out for dividing by 0 if there is only 1 projectile.
+                                Projectile.NewProjectile(source, position, perturbedSpeed, type, damage, knockback, player.whoAmI);
+                            }
+
+                            return false;
+                        }
+                    case ItemID.NettleBurst:
+                        {
+                            float numberProjectiles = 2; // 3, 4, or 5 shots
+                            float rotation = MathHelper.ToRadians(Main.rand.Next(15,20));
+
+                            position += Vector2.Normalize(velocity) * 45f;
+
+                            for (int i = 0; i < numberProjectiles; i++)
+                            {
+
+                                Vector2 perturbedSpeed = velocity.RotatedBy(MathHelper.Lerp(-rotation, rotation, i / (numberProjectiles - 1))); // Watch out for dividing by 0 if there is only 1 projectile.
+                                Projectile.NewProjectile(source, position, perturbedSpeed, type, damage, knockback, player.whoAmI);
+                            }
+
+                            return false;
+                        }
                     case ItemID.BeeGun:
                         {
                             int bees = Main.rand.Next(2, 4); // 2-3 bees
@@ -588,7 +622,8 @@ namespace TRAEProject.Changes.Items
                 }
                 if (item.type == ItemID.ManaCloakStar)
                 {
-                    grabRange += 250;
+                    grabRange += 350;
+                   
                 }
             }
             return;

@@ -13,9 +13,10 @@ namespace TRAEProject.Changes.Projectiles
     public class FreezingProjectile : GlobalProjectile
     {
         public override bool InstancePerEntity => true;
-        int duration = 0;
+        
         public override void OnHitNPC(Projectile projectile, NPC target, NPC.HitInfo hit, int damageDone)
         {
+            int duration;
             if (projectile.GetGlobalProjectile<CryoRockets>().IceRocket)
             {
                 duration = Main.rand.Next(100, 120);
@@ -29,10 +30,7 @@ namespace TRAEProject.Changes.Projectiles
                 }
                 target.GetGlobalNPC<Freeze>().FreezeMe(target, duration);
             }
-            if (projectile.type == ProjectileType<FrozenGelP>() && Main.rand.NextBool(5))
-            {
-                target.GetGlobalNPC<Freeze>().FreezeMe(target, 60);
-            }
+   
  
             switch (projectile.type)
             {

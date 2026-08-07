@@ -134,7 +134,7 @@ namespace ChangesArmor
         int timeToMax = 120 - 15;
         float maxHeadDamage = 3.33f;
         public float damageMult = 1f;
-        float traeStealth = 0f;
+        public float traeStealth = 0f;
         bool maskSet = false;
         int shroomDodgeAnim = 0;
         public override void PostUpdateEquips()
@@ -227,7 +227,7 @@ namespace ChangesArmor
                 damageMult = 1f;
             }
         }
-        public override void PostUpdate()
+         public override void PostUpdate()
         {
             if(traeStealth > 0)
             {
@@ -237,6 +237,7 @@ namespace ChangesArmor
             if(shroomDodgeAnim > 0)
             {
                 shroomDodgeAnim--;
+              
                 //Main.NewText("huh");
                 /*
                 for(int i = 0; i < 8; i++)

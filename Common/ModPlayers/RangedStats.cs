@@ -13,6 +13,7 @@ namespace TRAEProject.Common.ModPlayers
     {
         public int CyberEye = 0;
         public int Magicquiver = 0;
+        public float spreadModifier = 1f;
         public bool GunScope = false;
         public int ReconScope = 0;
         public int AlphaScope = 0;
@@ -26,8 +27,10 @@ namespace TRAEProject.Common.ModPlayers
             CyberEye = 0;
             Magicquiver = 0;
             ReconScope = 0;
-            GunScope = false;
-            rangedVelocity = 1f;
+            GunScope = false;        
+            spreadModifier = 1f;
+
+        rangedVelocity = 1f;
             gunVelocity = 1f;
             chanceNotToConsumeAmmo = 0;
         }
@@ -57,7 +60,9 @@ namespace TRAEProject.Common.ModPlayers
             }
             return true;
         }
+  
     }
+    
    public class RangedStatsProjectile : GlobalProjectile
     {
         public override void OnSpawn(Projectile projectile, IEntitySource source)

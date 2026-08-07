@@ -7,6 +7,7 @@ using static Terraria.ModLoader.ModContent;
 using TRAEProject.NewContent.Items.Materials;
 using TRAEProject.NewContent.Items.Accesories;
 using TRAEProject.NewContent.Items.Accesories.MobilityJumps;
+using TRAEProject.NewContent.Items.Accesories.SugarSkull;
 
 namespace TRAEProject.Changes.Recipes
 {
@@ -162,15 +163,15 @@ namespace TRAEProject.Changes.Recipes
 
                 if (recipe.HasResult(ItemID.FrogGear))
                 {
-                    recipe.TryGetIngredient(ItemID.FrogWebbing, out ingredientToRemove);
-                    recipe.RemoveIngredient(ingredientToRemove);
-                    recipe.TryGetIngredient(ItemID.FrogFlipper, out ingredientToRemove);
-                    recipe.RemoveIngredient(ingredientToRemove);
-                    recipe.TryGetIngredient(ItemID.Flipper, out ingredientToRemove);
-                    recipe.RemoveIngredient(ingredientToRemove);
-                    recipe.TryGetIngredient(ItemID.TigerClimbingGear, out ingredientToRemove);
-                    recipe.RemoveIngredient(ingredientToRemove);
-                    recipe.AddIngredient(ItemID.FrogLeg, 1);
+                    //recipe.TryGetIngredient(ItemID.FrogWebbing, out ingredientToRemove);
+                    //recipe.RemoveIngredient(ingredientToRemove);
+                    //recipe.TryGetIngredient(ItemID.FrogFlipper, out ingredientToRemove);
+                    //recipe.RemoveIngredient(ingredientToRemove);
+                    //recipe.TryGetIngredient(ItemID.Flipper, out ingredientToRemove);
+                    //recipe.RemoveIngredient(ingredientToRemove);
+                    //recipe.TryGetIngredient(ItemID.TigerClimbingGear, out ingredientToRemove);
+                    //recipe.RemoveIngredient(ingredientToRemove);
+                    //recipe.AddIngredient(ItemID.FrogLeg, 1);
                     recipe.AddIngredient(ItemID.Tabi, 1);
                 }
                 if (recipe.HasResult(ItemID.ObsidianHorseshoe))
@@ -215,6 +216,13 @@ namespace TRAEProject.Changes.Recipes
             {
                 recipe.DisableRecipe();
             }
+            if (recipe.HasResult(ItemID.ReflectiveShades))
+            {
+                recipe.TryGetIngredient(ItemID.Blindfold, out ingredientToRemove);
+                recipe.RemoveIngredient(ingredientToRemove);
+ 
+                recipe.AddIngredient(ItemID.Sunglasses);
+             }
             if (recipe.HasResult(ItemID.BundleofBalloons) && GetInstance<TRAEConfig>().MobilityRework)
             {
                 recipe.AddIngredient(ItemID.SoulofFlight, 20);
@@ -240,22 +248,18 @@ namespace TRAEProject.Changes.Recipes
 
                 recipe.AddIngredient(ItemID.MagicQuiver, 1);
             }
-            if (recipe.HasResult(ItemID.AnkhShield))
-            {
-                recipe.TryGetIngredient(ItemID.ObsidianShield, out ingredientToRemove);
-                recipe.RemoveIngredient(ingredientToRemove);
-                recipe.AddIngredient(ItemID.CobaltShield, 1);
-            }
+
             if (recipe.HasResult(ItemID.HeroShield))
             {
                 recipe.TryGetIngredient(ItemID.PaladinsShield, out ingredientToRemove);
                 recipe.RemoveIngredient(ingredientToRemove);
                 recipe.AddIngredient(ItemID.CobaltShield, 1);
-            }
+             }
             if (recipe.HasResult(ItemID.ObsidianSkull))
             {
                 recipe.AddIngredient(ItemID.Bone, 20);
             }
+ 
             if (recipe.HasResult(3999)) // MAGMA SKULL
             {
                 recipe.TryGetIngredient(ItemID.LavaCharm, out ingredientToRemove);
@@ -266,6 +270,8 @@ namespace TRAEProject.Changes.Recipes
             {
                 recipe.TryGetIngredient(ItemID.LavaCharm, out ingredientToRemove);
                 recipe.RemoveIngredient(ingredientToRemove);
+                recipe.AddCustomShimmerResult(ItemType<SugarSkull>());
+                recipe.HasShimmerCondition(Condition.DownedPlantera);
 
             }
             if (recipe.HasResult(ItemID.MoltenSkullRose) && recipe.HasIngredient(ItemID.ObsidianSkullRose) && !recipe.HasIngredient(3999))

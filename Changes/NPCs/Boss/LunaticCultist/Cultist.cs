@@ -1,4 +1,5 @@
-﻿using Microsoft.Xna.Framework;
+﻿ using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -6,8 +7,11 @@ using System.Text;
 using System.Threading.Tasks;
 using Terraria;
 using Terraria.Audio;
+using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
+using TRAEProject.NewContent.Buffs;
+using static AssGen.Assets;
 using static Terraria.ModLoader.ModContent;
 
 namespace TRAEProject.Changes.NPCs.Boss.LunaticCultist
@@ -40,6 +44,7 @@ namespace TRAEProject.Changes.NPCs.Boss.LunaticCultist
                 npc.lifeMax = (int)(npc.lifeMax / 1.2f);
             }
         }
+      static bool HighOnCrack = false;
         static float AttackSpeed(NPC npc)
         {
             if (npc.type == NPCID.CultistBossClone)
@@ -58,16 +63,11 @@ namespace TRAEProject.Changes.NPCs.Boss.LunaticCultist
                     }
                 }
             }
-<<<<<<< HEAD
-        
-=======
-   
->>>>>>> 0.7
-
-            if (((float)npc.life / (float)npc.lifeMax) <= 0.1f)
+            if (((float)npc.life / (float)npc.lifeMax) <= 0.1f || HighOnCrack)
                 return 2.25f;
             if (Main.expertMode || Main.masterMode)
                 return 2.25f - 1f * ((float)npc.life / (float)npc.lifeMax);
+       
             else
                 return 2.25f - 1.25f * ((float)npc.life / (float)npc.lifeMax);
         }
@@ -84,12 +84,31 @@ namespace TRAEProject.Changes.NPCs.Boss.LunaticCultist
                 }
             }
         }
+        public override void OnSpawn(NPC npc, IEntitySource source)
+        {
+     
+          }
         public override bool PreAI(NPC npc)
 		{
             if (GetInstance<BossConfig>().CultistChanges)
             {
                 if (npc.type == NPCID.CultistBoss)
                 {
+          
+                        if (!HighOnCrack)
+                    {
+                        for (int i = 0; i < Main.maxPlayers; i++)
+                        {
+                            if (Main.player[npc.target].armor[0].type == ItemID.WhiteLunaticHood && Main.player[npc.target].armor[1].type == ItemID.WhiteLunaticRobe &&
+                               npc.Distance(Main.player[npc.target].position) < 1600f)
+                            {
+                                SoundEngine.PlaySound(SoundID.ScaryScream with { MaxInstances = 0 }, npc.Center);
+
+                                HighOnCrack = true;
+                                break;
+                            }
+                        }
+                    }
                     if (npc.ai[0] != -1f && Main.rand.NextBool(1000))
                     {
                         int Sound = Main.rand.Next(4);
@@ -992,7 +1011,7 @@ namespace TRAEProject.Changes.NPCs.Boss.LunaticCultist
 
         private static void Opening(NPC npc, out bool flag2, out bool flag3)
         {
-            npc.alpha -= 5;
+             npc.alpha -= 5;
             if (npc.alpha < 0)
             {
                 npc.alpha = 0;
@@ -1073,5 +1092,7 @@ namespace TRAEProject.Changes.NPCs.Boss.LunaticCultist
             npc.velocity = Vector2.Zero;
             npc.netUpdate = true;
         }
+ 
     }
+ 
 }

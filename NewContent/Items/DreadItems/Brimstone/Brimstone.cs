@@ -37,6 +37,7 @@ namespace TRAEProject.NewContent.Items.DreadItems.Brimstone
 			Item.useTime = 20;
 			Item.UseSound = SoundID.Item170;
 			Item.useStyle = 5;
+			Item.knockBack = 1f;
 			Item.shootSpeed = 14f;
 			Item.useAnimation = 20;
 			Item.shoot = ProjectileType<BrimstoneBeam>();

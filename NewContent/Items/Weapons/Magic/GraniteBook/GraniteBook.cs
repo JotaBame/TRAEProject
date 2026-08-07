@@ -8,12 +8,15 @@ using Terraria.ID;
 using Terraria.ModLoader;
 using TRAEProject.Changes.Items;
 using TRAEProject.NewContent.Items.Materials;
+using TRAEProject.NewContent.NPCs.Echosphere.EchoStalker;
 using static Terraria.ModLoader.ModContent;
 
 namespace TRAEProject.NewContent.Items.Weapons.Magic.GraniteBook
 {
     public class GraniteBook : ModItem
     {
+         public const int DrainManaPassively= 40;
+
         public override void SetStaticDefaults()
         {
             Terraria.GameContent.Creative.CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
@@ -28,7 +31,7 @@ namespace TRAEProject.NewContent.Items.Weapons.Magic.GraniteBook
             Item.damage = 60;
             Item.useAnimation = 30;
             Item.useTime = 30;
-            Item.mana = 30;
+            Item.mana = 50;
             Item.rare = ItemRarityID.Lime;
             Item.value = Item.sellPrice(gold: 5);
             Item.DamageType = DamageClass.Magic;
@@ -39,7 +42,8 @@ namespace TRAEProject.NewContent.Items.Weapons.Magic.GraniteBook
             Item.useStyle = ItemUseStyleID.Shoot;
             Item.UseSound = SoundID.Item20; 
             Item.GetGlobalItem<TRAEMagicItem>().rightClickSideWeapon = true;
-            Item.GetGlobalItem<TRAEMagicItem>().TooltipDrainManaPassively = 30;
+            Item.GetGlobalItem<TRAEMagicItem>().TooltipDrainManaPassively = DrainManaPassively;
+ 
 
         }
         public override Vector2? HoldoutOffset()
@@ -83,7 +87,9 @@ namespace TRAEProject.NewContent.Items.Weapons.Magic.GraniteBook
             Projectile.usesIDStaticNPCImmunity = true;
             Projectile.idStaticNPCHitCooldown = 10;
             Projectile.penetrate = -1;
-            Projectile.timeLeft = 1800;
+            Projectile.timeLeft = 3000;
+             Projectile.GetGlobalProjectile<MagicProjectile>().DrainManaPassively = GraniteBook.DrainManaPassively;
+
             Projectile.tileCollide = false;
         }
        public float angletimer = 0;
@@ -93,19 +99,14 @@ namespace TRAEProject.NewContent.Items.Weapons.Magic.GraniteBook
         {
             Player player = Main.player[Projectile.owner];
             Projectile.Center = player.Center;
-            manaDrain += (int)(30 * player.manaCost);
-            if (manaDrain >= 60)
-            {
-                manaDrain -= 60;
-                player.statMana--;
-            }
+ 
             if (player.statMana <= 0)
             {
                 Projectile.Kill();
             }
             int dusts = 2;
             int NPCLimit = 0;
-            int Range = 250;
+            float Range = 150 + player.statMana / 3;
             int damage = Projectile.damage;
             float dustScale = 1.25f;
 
@@ -117,7 +118,7 @@ namespace TRAEProject.NewContent.Items.Weapons.Magic.GraniteBook
                 for (int k = 0; k < 200; k++)
                 {
                     NPC nPC = Main.npc[k];
-                    if (nPC.active && !nPC.friendly && nPC.damage > 0 && !nPC.dontTakeDamage && Vector2.Distance(Projectile.Center, nPC.Center) <= Range)
+                    if (nPC.active && !nPC.friendly && nPC.damage > 0 && !nPC.dontTakeDamage && Vector2.Distance(Projectile.Center, nPC.Center) <= Range && nPC.type != NPCType<EchoStalkerBody1>() && nPC.type != NPCType<EchoStalkerBody2>() && nPC.type != NPCType<EchoStalkerTail>())
                     {
                         
                         if (NPCLimit < 3)

@@ -27,7 +27,8 @@ namespace TRAEProject.NewContent.Items.Accesories.MobilityJumps
         }
         public override void UpdateAccessory(Player player, bool hideVisual)
         {
-            player.jumpBoost = true; player.noFallDmg = true;
+            player.jumpBoost = true; 
+            player.noFallDmg = true;
 
             player.GetModPlayer<SpaceBalloonPlayer>().SpaceBalloon += 1;
         }
@@ -56,7 +57,7 @@ namespace TRAEProject.NewContent.Items.Accesories.MobilityJumps
             {
                 SpaceBalloonTimer = 0;
             }
-            if (Player.velocity.Y != 0 && SpaceBalloon > 0)
+            if (Player.velocity.Y != 0 && Player.empressBrooch)
             {
                 SpaceBalloonTimer += Player.empressBrooch ? 2 : 0;
                 if (SpaceBalloonTimer >= 720)

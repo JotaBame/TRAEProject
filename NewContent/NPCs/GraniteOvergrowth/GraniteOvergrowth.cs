@@ -2,20 +2,17 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System;
 using System.Collections.Generic;
-using System.IO;
-using Terraria;
+ using Terraria;
 using Terraria.Audio;
 using Terraria.GameContent.Bestiary;
 using Terraria.GameContent.ItemDropRules;
 using Terraria.ID;
 using Terraria.ModLoader;
-using Terraria.ModLoader.IO;
-using TRAEProject.NewContent.NPCs.Banners;
+ using TRAEProject.NewContent.NPCs.Banners;
 using TRAEProject.NewContent.Items.Materials;
 using static Terraria.ModLoader.ModContent;
 using TRAEProject.Common;
-using Terraria.Net;
-namespace TRAEProject.NewContent.NPCs.GraniteOvergrowth
+ namespace TRAEProject.NewContent.NPCs.GraniteOvergrowth
 
 {
 
@@ -58,15 +55,14 @@ namespace TRAEProject.NewContent.NPCs.GraniteOvergrowth
         }
         public override float SpawnChance(NPCSpawnInfo spawnInfo)
         {
-            for (int i = 0; i < 200; i++)
+            if (!NPC.AnyNPCs(NPCType<GraniteOvergrowthNPC>()))
             {
-                if (Main.npc[i].type == NPCType<GraniteOvergrowthNPC>())
-                    return 0f;
+                if (spawnInfo.Granite && Main.hardMode && spawnInfo.SpawnTileType == TileID.Granite)
+                {
+                    return 0.08f;
+                }
             }
-            if (spawnInfo.Granite && Main.hardMode && spawnInfo.SpawnTileType == TileID.Granite)
-            {
-                return 0.08f;
-            }
+
             return 0f;
         }
         public override void ModifyNPCLoot(NPCLoot npcLoot)
@@ -300,6 +296,11 @@ namespace TRAEProject.NewContent.NPCs.GraniteOvergrowth
     {
         public override void SetStaticDefaults()
         {
+            NPCID.Sets.NPCBestiaryDrawModifiers value = new NPCID.Sets.NPCBestiaryDrawModifiers()
+            {
+                Hide = true // Hides this NPC from the Bestiary, useful for multi-part NPCs whom you only want one entry.
+            };
+            NPCID.Sets.NPCBestiaryDrawOffset.Add(NPC.type, value);
             // DisplayName.SetDefault("Granite Core"); // Automatic from .lang files
         }
         public override void SetDefaults()

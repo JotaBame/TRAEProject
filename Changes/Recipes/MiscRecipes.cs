@@ -1,11 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿ 
 using Terraria;
 using Terraria.ID;
-using Terraria.ModLoader;
+using static Terraria.ModLoader.ModContent;
+using TRAEProject.NewContent.Items.Materials;
 
 namespace TRAEProject.Changes.Recipes
 {
@@ -21,7 +18,9 @@ namespace TRAEProject.Changes.Recipes
             Sashimi.Register();
             Recipe Leather = Recipe.Create(ItemID.Leather).AddIngredient(ItemID.Vertebrae, 5).AddTile(TileID.Tables);
             Leather.Register();
-     
+            
+            Recipe ShadowKey = Recipe.Create(ItemID.ShadowKey).AddIngredient(ItemID.GoldenKey, 1).AddIngredient(ItemType<EchoHeart>(), 3).AddTile(TileID.DemonAltar);
+            ShadowKey.Register();
             Recipe Wire = 
             Recipe.Create(ItemID.Wire, 3).
             AddIngredient(ItemID.CopperBar, 1).
@@ -58,6 +57,13 @@ namespace TRAEProject.Changes.Recipes
         public static void Modify(Recipe recipe)
         {
             Item ingredientToRemove;
+            if (recipe.HasResult(ItemID.FlaskofFire))
+            {
+                recipe.TryGetIngredient(ItemID.Hellstone, out ingredientToRemove);
+                recipe.RemoveIngredient(ingredientToRemove);
+           
+                recipe.AddIngredient(ItemID.Fireblossom, 2);
+             }
             if (recipe.HasResult(ItemID.HeartreachPotion))
             {
                 recipe.TryGetIngredient(ItemID.Daybloom, out ingredientToRemove);
@@ -66,6 +72,10 @@ namespace TRAEProject.Changes.Recipes
                 recipe.RemoveIngredient(ingredientToRemove);
                 recipe.AddIngredient(ItemID.Waterleaf, 1);
                 recipe.AddIngredient(ItemID.PrincessFish, 1);
+            }
+            if (recipe.HasResult(ItemID.Moondial))
+            {
+                recipe.AddCustomShimmerResult(ItemID.Sundial, 1);
             }
             if (recipe.HasResult(ItemID.RestorationPotion))
             {

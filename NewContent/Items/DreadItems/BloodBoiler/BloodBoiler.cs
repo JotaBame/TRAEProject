@@ -12,6 +12,7 @@ using TRAEProject.Changes.Weapons.Ranged;
 using TRAEProject.Common;
 using TRAEProject.NewContent.Items.FlamethrowerAmmo;
 using TRAEProject.NewContent.TRAEDebuffs;
+using static AssGen.Assets;
 using static Terraria.ModLoader.ModContent;
 using static TRAEProject.NewContent.Items.FlamethrowerAmmo.IchorGelP;
 
@@ -28,8 +29,8 @@ namespace TRAEProject.NewContent.Items.DreadItems.BloodBoiler
         }
         public override void SetDefaults()
         {
-            Item.width = 38;
-            Item.height = 32;
+            Item.width = 64;
+            Item.height = 30;
             Item.damage = 12;
             Item.useAnimation = 45;
             Item.useTime = 7;
@@ -46,18 +47,40 @@ namespace TRAEProject.NewContent.Items.DreadItems.BloodBoiler
             Item.UseSound = SoundID.Item34; // find flamethrower sound
         }
         int shotcount = 0;
+        public override void ModifyShootStats(Player player, ref Vector2 position, ref Vector2 velocity, ref int type, ref int damage, ref float knockback)
+        {
+            float cosine = velocity.X / velocity.Length();
+            float sin = velocity.Y / velocity.Length();
+            int offsetX = 0;
+            int offSetY = 0;
+            if (type == ProjectileType<IchorGelP>() || type == ProjectileType<BlessedGelP>())
+            {
+                offsetX = -25;
+                offSetY = -25;
+            }
+            Vector2 offset = new Vector2((Item.width + offsetX) * cosine, (Item.width + offSetY) * sin);
+           
+            position += offset;
+   
+        }
         public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
         {
             shotcount++;
-            Vector2 muzzleOffset = Vector2.Normalize(new Vector2(velocity.X, velocity.Y)) * 54f; //This gets the direction of the flame projectile, makes its length to 1 by normalizing it. It then multiplies it by 54 (the item width) to get the position of the tip of the flamethrower.
-            if (Collision.CanHit(position, 6, 6, position + muzzleOffset, 6, 6))
-            {
-                position += muzzleOffset;
-            }
+            //Vector2 muzzleOffset = Vector2.Normalize(new Vector2(velocity.X, velocity.Y)) * 54f; //This gets the direction of the flame projectile, makes its length to 1 by normalizing it. It then multiplies it by 54 (the item width) to get the position of the tip of the flamethrower.
+            //if (Collision.CanHit(position, 6, 6, position + muzzleOffset, 6, 6))
+            //{
+            //    position += muzzleOffset;
+            //}
             if (shotcount >= 12)
             {
+        
                 shotcount = 0;
-                Projectile.NewProjectile(source, position, velocity, ProjectileType<BloodyGelP>(), damage, knockback, player.whoAmI);
+                float cosine = velocity.X / velocity.Length();
+                float sin = velocity.Y / velocity.Length();
+                int offsetX = -25;
+             
+                Vector2 offset = new Vector2((Item.width + offsetX) * cosine, Item.width * sin);
+                Projectile.NewProjectile(source, position + offset, velocity, ProjectileType<BloodyGelP>(), damage, knockback, player.whoAmI);
             }
 
             // This is to prevent shooting through blocks and to make the fire shoot from the muzzle.
@@ -66,7 +89,7 @@ namespace TRAEProject.NewContent.Items.DreadItems.BloodBoiler
         public override Vector2? HoldoutOffset()
         // HoldoutOffset has to return a Vector2 because it needs two values (an X and Y value) to move your flamethrower sprite. Think of it as moving a point on a cartesian plane.
         {
-            return new Vector2(0, -2); // If your own flamethrower is being held wrong, edit these values. You can test out holdout offsets using Modder's Toolkit.
+            return new Vector2(0, 0); // If your own flamethrower is being held wrong, edit these values. You can test out holdout offsets using Modder's Toolkit.
         }
         public override bool CanConsumeAmmo(Item ammo, Player player)
         {

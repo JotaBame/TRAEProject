@@ -32,6 +32,8 @@ namespace TRAEProject.Changes.NPCs.Boss.Prime
         int timer = 0;
         public override void SetStaticDefaults()
         {
+            NPCID.Sets.SpecificDebuffImmunity[Type][BuffID.Confused] = true;
+            NPCID.Sets.SpecificDebuffImmunity[Type][BuffID.Poisoned] = true;
             NPCID.Sets.TrailingMode[NPC.type] = 6;
             base.SetStaticDefaults();
         }
@@ -79,7 +81,10 @@ namespace TRAEProject.Changes.NPCs.Boss.Prime
                         new Vector2(20f, 20f), 1f, spriteEffects, 0f);
             if (timer > PrimeStats.railChargeTime - PrimeStats.railWarnTime)
             {
-                DrawLaser(spriteBatch, NPC.Center + TRAEMethods.PolarVector(30, NPC.rotation), NPC.rotation, MathF.Max(0.1f, 1f - (float)(PrimeStats.railChargeTime - timer) / PrimeStats.railWarnTime), 3000);
+                float telegraphOpacity = Utils.GetLerpValue(PrimeStats.railChargeTime, PrimeStats.railChargeTime - PrimeStats.HighestWarnTime, timer, true);
+                telegraphOpacity = (1 - telegraphOpacity) * (1 - telegraphOpacity) * (1 - telegraphOpacity);
+                telegraphOpacity = Utils.Remap(telegraphOpacity, 0, 0.9f, 0.3f, 0.7f);
+                DrawLaser(spriteBatch, NPC.Center + TRAEMethods.PolarVector(30, NPC.rotation), NPC.rotation, telegraphOpacity, 3000);
             }
 
             return false;
@@ -178,23 +183,45 @@ namespace TRAEProject.Changes.NPCs.Boss.Prime
 
 
             timer++;
-            if(holdFireWhenRaged && timer >= PrimeStats.railChargeTime - PrimeStats.railWarnTime && prime.ai[1] != 0f)
+            int holdFireTimerVal = PrimeStats.railChargeTime - PrimeStats.HighestWarnTime - 1;
+            if (holdFireWhenRaged && timer >= holdFireTimerVal && prime.ai[1] != 0f)
             {
-                timer = PrimeStats.railChargeTime - PrimeStats.railWarnTime;
+                timer = holdFireTimerVal;
             }
             NPC.rotation.SlowRotation(aimToward, rotSpeed);
-
-
+            if(timer == holdFireTimerVal + 1)
+            {
+                SoundEngine.PlaySound(PrimeStats.RailCharge2, NPC.Center, SoundPositionStaysOnRailNPCCenter);
+            }
             if (timer >= PrimeStats.railChargeTime)
             {
                 timer = 0;
+                Vector2 shotVel = TRAEMethods.PolarVector(railVel, NPC.rotation);
                 if (Main.netMode != NetmodeID.MultiplayerClient)
                 {
-                    Projectile.NewProjectile(NPC.GetSource_FromAI(), NPC.Center + TRAEMethods.PolarVector(30, NPC.rotation), TRAEMethods.PolarVector(railVel, NPC.rotation), ModContent.ProjectileType<RailShot>(), PrimeStats.railDamage, 0, Main.myPlayer);
-                    DeathRailShootDust(TRAEMethods.PolarVector(railVel * 1.4f, NPC.rotation), NPC.Center + TRAEMethods.PolarVector(30, NPC.rotation));
+                    Projectile.NewProjectile(NPC.GetSource_FromAI(), NPC.Center + TRAEMethods.PolarVector(30, NPC.rotation), shotVel, ModContent.ProjectileType<RailShot>(), PrimeStats.railDamage, 0, Main.myPlayer);
                 }
+                NPC.velocity = -shotVel * (PrimeStats.railExtraUpdates + 1) * .5f;
+                Lighting.AddLight(NPC.Center, Vector3.One * 3);
+                //SoundEngine.PlaySound(PrimeStats.PrimeRailShot2, NPC.Center);
+                SoundEngine.PlaySound(PrimeStats.PrimeRailShot2, NPC.Center);
+                //SoundEngine.PlaySound(PrimeStats.PrimeRailShot.WithVolumeScale(0.05f), NPC.Center);
+                PrimeRailSpiralShake.AddShake();
+                DeathRailShootDust(TRAEMethods.PolarVector(railVel * 1.4f, NPC.rotation), NPC.Center + TRAEMethods.PolarVector(30, NPC.rotation));
             }
         }
+
+        private bool SoundPositionStaysOnRailNPCCenter(ActiveSound soundInstance)
+        {
+            NPC prime = Main.npc[(int)NPC.ai[1]];
+            if (prime.ai[1] == 1)
+            {
+                return false;
+            }
+            soundInstance.Position = NPC.Center;
+            return true;
+        }
+
         public static void DeathRailShootDust(Vector2 shootVelocity, Vector2 origin)
         {
             shootVelocity.Normalize();
@@ -229,12 +256,35 @@ namespace TRAEProject.Changes.NPCs.Boss.Prime
         {
             Vector2 segPos = pos - Main.screenPosition;
             Texture2D blankTexture = TextureAssets.Extra[178].Value;
-            Vector2 texScale = new Vector2(length, 10 * opacity);
+            Vector2 texScale = new Vector2(length, 20 * opacity);
             Color col = Color.Red with { A = 0 };
-            spriteBatch.Draw(blankTexture, segPos, new Rectangle(0, 0, 1, 1), col * opacity * 0.75f, dir, new Vector2(0, 0.5f), texScale, SpriteEffects.None, 0);
+            spriteBatch.Draw(blankTexture, segPos, new Rectangle(0, 0, 1, 1), col * opacity * 1.5f, dir, new Vector2(0, 0.5f), texScale, SpriteEffects.None, 0);
             texScale.Y *= .35f;
             col = Color.White with { A = 0 };
-            spriteBatch.Draw(blankTexture, segPos, new Rectangle(0, 0, 1, 1), col * opacity * 0.75f, dir, new Vector2(0, 0.5f), texScale, SpriteEffects.None, 0);
+            spriteBatch.Draw(blankTexture, segPos, new Rectangle(0, 0, 1, 1), col * opacity, dir, new Vector2(0, 0.5f), texScale, SpriteEffects.None, 0);
+        }
+        private class PrimeRailSpiralShake : ICameraModifier
+        {
+            public static void AddShake()
+            {
+                PrimeRailSpiralShake spiralShake = new();
+                Main.instance.CameraModifiers.Add(spiralShake);
+            }
+            public string UniqueIdentity => "PrimeRail";
+            float magnitude;
+            public bool Finished => magnitude <= 0;
+            public PrimeRailSpiralShake()
+            {
+                magnitude = 10;//initial shake magnitude
+            }
+            public void Update(ref CameraInfo cameraPosition)
+            {
+                float angle = Main.GlobalTimeWrappedHourly * 120;
+
+                Vector2 offset = new Vector2(MathF.Cos(angle) * magnitude, MathF.Sin(angle) * magnitude);
+                cameraPosition.CameraPosition += offset;
+                magnitude -= .5f;//decay speed
+            }
         }
     }
     public class RailShot : ModProjectile
@@ -243,7 +293,7 @@ namespace TRAEProject.Changes.NPCs.Boss.Prime
         {
             ProjectileID.Sets.TrailCacheLength[Type] = 20 * (PrimeStats.railExtraUpdates + 1);
             ProjectileID.Sets.TrailingMode[Type] = 0;
-            ProjectileID.Sets.DrawScreenCheckFluff[Type] = 2000;//renders further away(trail wont get cut off)
+            ProjectileID.Sets.DrawScreenCheckFluff[Type] = 3000;//renders further away(trail wont get cut off)
         }
         public override void SetDefaults()
         {
@@ -265,52 +315,62 @@ namespace TRAEProject.Changes.NPCs.Boss.Prime
         public override bool PreAI()
         {
             Projectile.rotation = Projectile.velocity.ToRotation() - MathF.PI * .5f;
-            if (Projectile.localAI[0] == 0)
-            {
-                Projectile.localAI[0] += 1f;
- 
-                SoundEngine.PlaySound(SoundID.Item67 with { Pitch = -1f, Volume = 2 }, Projectile.Center);
-                //SoundEngine.PlaySound(SoundID.Item158 with { Pitch = 1, Volume = 2 }, Projectile.Center);
-                //SoundEngine.PlaySound(SoundID.Item158 with { Pitch = -1, Volume = 2 }, Projectile.Center);
-
-                return false;
-            }
             if (Projectile.localAI[2] > 0)
             {
                 Projectile.damage = -1;
                 Projectile.localAI[2]++;
-                if (Projectile.localAI[2] >= 10 * Projectile.MaxUpdates)
+                if (Projectile.localAI[2] >= 40 * Projectile.MaxUpdates)
                 {
                     Projectile.Kill();
                 }
             }
-            else if (Collision.SolidTiles(Projectile.position, 1, 1))
-            {
-                Projectile.localAI[2]++;
-            }
             Projectile.localAI[0] += 1f;
-            if (Projectile.localAI[0] > 8f)
-            {
-                //for (int i = 0; i < 2; i++)
-                //{
-                //    int type = DustID.TheDestroyer;
-                //    int Dust = Terraria.Dust.NewDust(Projectile.Center, Projectile.width, Projectile.height, type, 0f, 0f, 100);
-                //    Main.dust[Dust].position = (Main.dust[Dust].position + Projectile.Center) / 2f;
-                //    Main.dust[Dust].noGravity = true;
-                //    Dust dust = Main.dust[Dust];
-                //    dust.velocity *= 0.1f;
-                //    if (i == 1)
-                //    {
-                //        dust = Main.dust[Dust];
-                //        dust.position += Projectile.velocity / 2f;
-                //    }
-                //    float ScaleMult = (1000f - Projectile.ai[0]) / 500f;
-                //    dust = Main.dust[Dust];
-                //    dust.scale *= ScaleMult + 0.1f;
-                //}
-            }
+            DustRings();
             return false;
         }
+
+        private void DustRings()
+        {
+            if (Projectile.localAI[0] % 15 == 0)
+            {
+                int count = 25;
+                for (int i = 0; i < count; i++)
+                {
+                    float progress = (float)i / count;
+                    Vector2 offset = (progress * MathF.Tau).ToRotationVector2();
+                    offset.X *= 0.5f;
+                    offset = offset.RotatedBy(Projectile.velocity.ToRotation());
+                    Dust d = Dust.NewDustPerfect(Projectile.Center + offset, DustID.TheDestroyer, offset * 6, 0, Color.White, 1f);
+                    d.noGravity = true;
+                    d.scale *= 2;
+                }
+            }
+        }
+
+        private void DustOld()
+        {
+            if (Projectile.localAI[0] > 8f)
+            {
+                for (int i = 0; i < 2; i++)
+                {
+                    int type = DustID.TheDestroyer;
+                    int Dust = Terraria.Dust.NewDust(Projectile.Center, Projectile.width, Projectile.height, type, 0f, 0f, 100);
+                    Main.dust[Dust].position = (Main.dust[Dust].position + Projectile.Center) / 2f;
+                    Main.dust[Dust].noGravity = true;
+                    Dust dust = Main.dust[Dust];
+                    dust.velocity *= 0.1f;
+                    if (i == 1)
+                    {
+                        dust = Main.dust[Dust];
+                        dust.position += Projectile.velocity / 2f;
+                    }
+                    float ScaleMult = (1000f - Projectile.ai[0]) / 500f;
+                    dust = Main.dust[Dust];
+                    dust.scale *= ScaleMult + 0.1f;
+                }
+            }
+        }
+
         static float Easing(float progress)
         {
             return .5f - MathF.Cos(progress * MathF.PI) * .5f;

@@ -22,8 +22,7 @@ namespace TRAEProject.NewContent.Items.Weapons.Melee.DoubleHaxor
         {
             Terraria.GameContent.Creative.CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
 
-            // DisplayName.SetDefault("Double Haxor");
-            // Tooltip.SetDefault("A chasing axe and a powerful hammer");
+   
         }
         public override void SetDefaults()
         {

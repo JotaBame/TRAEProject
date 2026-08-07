@@ -1,18 +1,14 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using Terraria;
 using Terraria.GameContent;
-using Terraria.ModLoader;
 
 namespace TRAEProject
 {
     public class Sparkle : BaseParticle
     {
-        readonly static Texture2D sparkleTexture = TextureAssets.Extra[98].Value;
+        public readonly static Texture2D sparkleTexture = TextureAssets.Extra[98].Value;
         public Vector2 Fatness { get; set; }
         public Sparkle(int index)
         {
@@ -37,6 +33,10 @@ namespace TRAEProject
         /// <returns></returns>
         public static Sparkle NewSparkle(Vector2 position, Color color, Vector2? scale = null, Vector2? velocity = null, int duration = 100, Vector2? fatness = null, Vector2? acceleration = null, float opacity = 1, float rotation = 0, float friction = 1)
         {
+            if (ParticleSystem.OutsideScreen(position))
+            {
+                return ParticleSystem.sparkle[ParticleSystem.maxSparkles];
+            }
             scale ??= Vector2.One;
             velocity ??= Vector2.Zero;
             fatness ??= Vector2.One;

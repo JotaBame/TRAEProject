@@ -26,7 +26,7 @@ namespace TRAEProject.NewContent.Projectiles
         public override void Kill(int timeLeft)
         {
             {
-                int[] array = new int[10];
+                int[] array = new int[200];
                 int num6 = 0;
                 int num7 = 1200;
                 int num8 = 20;
@@ -39,10 +39,10 @@ namespace TRAEProject.NewContent.Projectiles
                         {
                             array[num6] = j;
                             num6++;
-                            //if (num6 >= 9)
-                            //{
-                            //    break;
-                            //}
+                            if (num6 >= 9)
+                            {
+                                break;
+                            }
                         }
                     }
                 }

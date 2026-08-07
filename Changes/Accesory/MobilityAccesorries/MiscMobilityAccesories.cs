@@ -3,6 +3,7 @@ using Terraria.ID;
 using Terraria.ModLoader;
 using System.Collections.Generic;
 using static Terraria.ModLoader.ModContent;
+using TRAEProject.NewContent.Items.Accesories.MobilityJumps;
 
 
 namespace TRAEProject.Changes.Accesory
@@ -49,6 +50,7 @@ namespace TRAEProject.Changes.Accesory
 ;
               
                     case ItemID.EmpressFlightBooster:
+                        //player.GetModPlayer<SpaceBalloonPlayer>().SpaceBalloon += 1;
                         player.jumpSpeedBoost -= 1.8f;
                         break;
                     case ItemID.Magiluminescence:
@@ -75,7 +77,7 @@ namespace TRAEProject.Changes.Accesory
                         {
                             if (line.Mod == "Terraria" && line.Name == "Tooltip0")
                             {
-                                line.Text = "All horizontal movement has 15% more top speed";
+                                line.Text = "All horizontal movement has 15% more top speed\nAffects mounts";
                             }
                         }
                         break;
@@ -84,7 +86,7 @@ namespace TRAEProject.Changes.Accesory
                         {
                             if (line.Mod == "Terraria" && line.Name == "Tooltip1")
                             {
-                                line.Text = "Restores double jumps every 6 seconds while airborne";
+                                line.Text = "Greatly increases acceleration\nRestores double jumps every 6 seconds while airborne";
                             }
                         }
                         break;
@@ -121,13 +123,12 @@ namespace TRAEProject.Changes.Accesory
 
                         }
                         break;
-           
-                    case ItemID.HiveBackpack:
+                     case ItemID.HiveBackpack:
                         foreach (TooltipLine line in tooltips)
                         {
                             if (line.Mod == "Terraria" && line.Name == "Tooltip0")
                             {
-                                line.Text = "Stores up to 16 bees while grounded, releases them while in mid-air\nIncreases jump height by 4.5% for every bee stored\nDoubles strength, recharge delay, and release rate of the bees when honeyed";
+                                line.Text = "Stores bees while grounded, releases them while in mid-air\nIncreases jump height for every bee stored\nMore effective when covered in honey\nCounts as a Honey Comb";
                             }
                         }
                         break;

@@ -12,6 +12,7 @@ using Terraria.DataStructures;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 using Terraria.Audio;
 using static Terraria.ModLoader.PlayerDrawLayer;
+using TRAEProject.NewContent.NPCs.Echosphere.EchoStalker;
 
 namespace TRAEProject.NewContent.Items.BeholderItems
 {
@@ -93,7 +94,7 @@ namespace TRAEProject.NewContent.Items.BeholderItems
                         NPC nPC = Main.npc[k];
                         if (!killNPCs)
                         {
-                            if (nPC.active && !nPC.friendly && nPC.damage > 0 && !nPC.dontTakeDamage && Vector2.Distance(Player.Center, nPC.Center) <= 3000f)
+                            if (nPC.active && !nPC.friendly && nPC.damage > 0 && !nPC.dontTakeDamage && Vector2.Distance(Player.Center, nPC.Center) <= 3000f && nPC.type != NPCType<EchoStalkerBody1>() && nPC.type != NPCType<EchoStalkerBody2>() && nPC.type != NPCType<EchoStalkerTail>())
                             {
                                 for (int l = 0; l < 10; l++)
                                 {
@@ -104,7 +105,7 @@ namespace TRAEProject.NewContent.Items.BeholderItems
                         }
                         else
                         {
-                            if (nPC.active && nPC.friendly && !nPC.dontTakeDamage)
+                            if (nPC.active && nPC.friendly && !nPC.dontTakeDamage && nPC.type != NPCType<EchoStalkerBody1>() && nPC.type != NPCType<EchoStalkerBody2>() && nPC.type != NPCType<EchoStalkerTail>())
                             {
                                 for (int l = 0; l < 10; l++)
                                 {

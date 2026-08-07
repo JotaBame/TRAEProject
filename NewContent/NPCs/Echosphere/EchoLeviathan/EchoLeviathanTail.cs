@@ -4,11 +4,26 @@ using Terraria;
 using Terraria.GameContent;
 using Terraria.ID;
 using Terraria.ModLoader;
+using TRAEProject.NewContent.NPCs.Echosphere.EchoLocator;
 
 namespace TRAEProject.NewContent.NPCs.Echosphere.EchoLeviathan
 {
     internal class EchoLeviathanTail : ModNPC
     {
+        public override void SetStaticDefaults()
+        {
+
+            NPCID.Sets.SpecificDebuffImmunity[Type][BuffID.Confused] = true;
+            ;
+
+            NPCID.Sets.NPCBestiaryDrawModifiers value = new NPCID.Sets.NPCBestiaryDrawModifiers()
+            {
+                
+                Hide = true // Hides this NPC from the Bestiary, useful for multi-part NPCs whom you only want one entry.
+            };
+            NPCID.Sets.NPCBestiaryDrawOffset.Add(NPC.type, value);
+        }
+        public ref float PurpleGlowinessAmount => ref NPC.localAI[1];
         public override void SetDefaults()
         {
             NPC.noGravity = true;
@@ -16,8 +31,8 @@ namespace TRAEProject.NewContent.NPCs.Echosphere.EchoLeviathan
             NPC.defense = 34;
             NPC.damage = 70;
             NPC.width = NPC.height = 70;
-            NPC.HitSound = SoundID.DD2_BetsyHurt;
-            NPC.DeathSound = SoundID.NPCDeath1;
+            NPC.HitSound = EchoLeviathanHead.HitSFX;
+            NPC.DeathSound = EchoLeviathanHead.DeathSFX;
             NPC.knockBackResist = 0;
             NPC.noTileCollide = true;
             NPC.dontTakeDamage = true;//initially invincible
@@ -31,14 +46,7 @@ namespace TRAEProject.NewContent.NPCs.Echosphere.EchoLeviathan
         {
             return false;
         }
-        public override void OnHitByItem(Player player, Item item, NPC.HitInfo hit, int damageDone)
-        {
-
-        }
-        public override void OnHitByProjectile(Projectile projectile, NPC.HitInfo hit, int damageDone)
-        {
-
-        }
+ 
         public override void AI()
         {
             int parent = (int)NPC.ai[0];
@@ -54,14 +62,46 @@ namespace TRAEProject.NewContent.NPCs.Echosphere.EchoLeviathan
         public override bool PreDraw(SpriteBatch spriteBatch, Vector2 screenPos, Color drawColor)
         {
             Texture2D texture = TextureAssets.Npc[Type].Value;
-            if (NPC.Opacity != 1)
+            if (NPC.Opacity != 1 && EchoLeviathanHead.EchoLeviIsIdle(NPC.ai[0]))
             {
-                EchosphereHelper.SpectralDrawVerticalFlip(NPC, spriteBatch, screenPos, texture);
+                EchosphereNPCHelper.SpectralDrawVerticalFlip(NPC, spriteBatch, screenPos, texture);
                 return false;
             }
             drawColor *= NPC.Opacity;
-            Main.EntitySpriteDraw(texture, NPC.Center - screenPos, null, drawColor, NPC.rotation, texture.Size() / 2, NPC.scale, NPC.spriteDirection == -1 ? SpriteEffects.FlipVertically : SpriteEffects.None);
+            Texture2D blurTexture = ModContent.Request<Texture2D>("TRAEProject/NewContent/NPCs/Echosphere/EchoLeviathan/EchoLeviathanTailGlow").Value;
+            float opacity = NPC.Opacity;
+            opacity = Utils.GetLerpValue(0.75f, 1f, opacity, true);
+            EchosphereNPCHelper.DrawEchoWormSegmentWithBlur(blurTexture, texture, NPC.Center - screenPos, PurpleGlowinessAmount * opacity, NPC.rotation, texture.Size() / 2, NPC.scale, NPC.spriteDirection == -1 ? SpriteEffects.FlipVertically : SpriteEffects.None, NPC.Opacity, NPC.GetNPCColorTintedByBuffs(drawColor));
             return false;
+        }
+        public override bool CanHitPlayer(Player target, ref int cooldownSlot)
+        {
+            return NPC.alpha < 240 && target.Hitbox.Intersects(Utils.CenteredRectangle(NPC.Center, new Vector2(50)));//hitbox of width and height 50 for damaging players
+        }
+        public override void HitEffect(NPC.HitInfo hit)
+        {
+            if (NPC.life <= 0)
+            {
+                EchosphereNPCHelper.EchosphereEnemyDeathDust(NPC, 0.7f); Gore.NewGore(NPC.GetSource_Death(), NPC.Center, NPC.velocity, ModContent.GoreType<EchoLeviathanGoreTail>());
+
+            }
+        }
+        public override void OnKill()
+        {
+            Gore.NewGore(NPC.GetSource_Death(), NPC.Center, NPC.velocity, ModContent.GoreType<EchoLeviathanGoreTail>());
+
+        }
+        public override bool CheckDead()
+        {
+            int parent = (int)NPC.ai[0];
+            return parent < 0 || parent >= Main.maxNPCs || !Main.npc[parent].active || Main.npc[parent].type != ModContent.NPCType<EchoLeviathanHead>() || Main.npc[parent].life <= 0;
+        } 
+        public override void ModifyHoverBoundingBox(ref Rectangle boundingBox)
+        {
+            if (NPC.alpha >= 254)
+            {
+                boundingBox.X = -1000;//put it out of bounds of the map so it is never displayed
+            }
         }
     }
 }

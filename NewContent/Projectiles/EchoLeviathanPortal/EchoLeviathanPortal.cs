@@ -3,6 +3,7 @@ using Microsoft.Xna.Framework.Graphics;
 using System;
 using System.Collections.Generic;
 using Terraria;
+using Terraria.Audio;
 using Terraria.GameContent;
 using Terraria.ModLoader;
 using TRAEProject.NewContent.NPCs.Echosphere.EchoLeviathan;
@@ -11,15 +12,17 @@ namespace TRAEProject.NewContent.Projectiles.EchoLeviathanPortal
 {
     internal class EchoLeviathanPortal : ModProjectile
     {
+        public static SoundStyle OpenSFX => new SoundStyle("TRAEProject/NewContent/NPCs/Echosphere/EchoLeviathan/EchoLeviathanPortalOpen");
+        public static SoundStyle CloseSFX => new SoundStyle("TRAEProject/NewContent/NPCs/Echosphere/EchoLeviathan/EchoLeviathanPortalClose2");
         public override void SetDefaults()
         {
             Projectile.width = 32;
             Projectile.height = 32;
-            Projectile.alpha = 255;
+            Projectile.Opacity = 1f / 40f;
             Projectile.tileCollide = false;
             Projectile.ignoreWater = true;
             Projectile.hide = true;
-            Projectile.scale = 0;
+            Projectile.scale = EaseInOut(Projectile.Opacity);
         }
         public override void DrawBehind(int index, List<int> behindNPCsAndTiles, List<int> behindNPCs, List<int> behindProjectiles, List<int> overPlayers, List<int> overWiresUI)
         {
@@ -31,22 +34,31 @@ namespace TRAEProject.NewContent.Projectiles.EchoLeviathanPortal
         }
         public override void AI()
         {
-            Projectile.alpha -= 10;
-            if (Projectile.alpha < 0)
+            if(Projectile.soundDelay == 0)
             {
-                Projectile.alpha = 0;
+                SoundEngine.PlaySound(OpenSFX with { MaxInstances = 0 }, Projectile.Center);
+                Projectile.soundDelay = 99999;
             }
+           
             //ai0 is duration left, set when the projectile is spawned
             Projectile.ai[0]--;
             if (Projectile.ai[0] < 10)
             {
-                Projectile.Opacity -= .1f;
+                Projectile.Opacity -=1f/40f;
+            }
+            else
+            {
+                Projectile.Opacity += 1f/40f;
             }
             if (Projectile.Opacity == 0)
             {
                 Projectile.Kill();
             }
             Projectile.rotation -= Projectile.direction * (MathF.PI * 2f) / 120f;
+            if (Projectile.ai[0] == 10)
+            {
+                SoundEngine.PlaySound(CloseSFX with { MaxInstances = 0 }, Projectile.Center);
+            }
             Projectile.scale = EaseInOut(Projectile.Opacity);
             Lighting.AddLight(Projectile.Center, 0.7f, 0.2f, 0.6f);
             CreateDust();

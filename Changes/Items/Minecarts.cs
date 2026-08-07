@@ -2,7 +2,6 @@ using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 using TRAEProject.NewContent.Items.Materials;
-using TRAEProject.NewContent.Items.Weapons.Ranged.Jungla;
 using TRAEProject.NewContent.Items.Weapons.Ranged.Ammo;
 using TRAEProject.NewContent.Items.Armor.Joter;
 using static Terraria.ModLoader.ModContent;

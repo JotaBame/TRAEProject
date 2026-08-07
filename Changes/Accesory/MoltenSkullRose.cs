@@ -16,9 +16,7 @@ namespace TRAEProject.Changes.Accesory
         {
             switch (item.type)
             {
-                case ItemID.ObsidianShield:
-                    player.GetModPlayer<ObsidianSkullEffect>().shieldRange += 300f;
-                    break;
+              
                 case ItemID.MagmaStone:
                 case ItemID.FireGauntlet:
                     player.GetModPlayer<ObsidianSkullEffect>().magmas += 1;
@@ -116,7 +114,7 @@ namespace TRAEProject.Changes.Accesory
                         }
                         if (line.Mod == "Terraria" && line.Name == "Tooltip1")
                         {
-                            line.Text = "Magic and Ranged critical strikes lower defense by 3, up to 9";
+                            line.Text = "Magic and Ranged critical strikes briefly lower defense by 3, up to 9";
                         }
                     }
                     break;
@@ -129,7 +127,7 @@ namespace TRAEProject.Changes.Accesory
                         }
                         if (line.Mod == "Terraria" && line.Name == "Tooltip1")
                         {
-                            line.Text = "Melee and Ranged critical strikes lower defense by 3, up to 9";
+                            line.Text = "Melee and Ranged critical strikes briefly lower defense by 3, up to 9";
                         }
                     }
                     break;
@@ -138,7 +136,7 @@ namespace TRAEProject.Changes.Accesory
                     {
                         if (line.Mod == "Terraria" && line.Name == "Tooltip0")
                         {
-                            line.Text = "Ranged critical strikes lower defense by 3, up to 9";
+                            line.Text = "Ranged critical strikes briefly lower defense by 3, up to 9";
                         }
                     }
                     break;
@@ -152,15 +150,7 @@ namespace TRAEProject.Changes.Accesory
                         }
                     }
                     break;
-                case ItemID.ObsidianShield:
-                    foreach (TooltipLine line in tooltips)
-                    {
-                        if (line.Mod == "Terraria" && line.Name == "Tooltip1")
-                        {
-                            line.Text = "Hitting nearby enemies lowers their defense by 3, up to 9";
-                        }
-                    }
-                    break;
+          
             }
         }
     }
@@ -212,7 +202,7 @@ namespace TRAEProject.Changes.Accesory
                 int duration = damageDone / Main.rand.Next(3, 6) * (skull + moltenskullrose + magmaSkull);              
                 TRAEDebuff.Apply<ObsidianSkulled>(target, duration, 3);
             }
-            if (hit.Crit && Player.magmaStone)
+            if (hit.Crit && Player.magmaStone && hit.DamageType == DamageClass.Melee)
             {
                 
                 int chance = 3600 / (damageDone * magmas);
@@ -238,10 +228,10 @@ namespace TRAEProject.Changes.Accesory
         }
         public override void OnHitNPCWithProj(Projectile proj, NPC target, NPC.HitInfo hit, int damageDone)
         {
-            if ((target.Center - Player.Center).Length() < shieldRange)
-            {
-                TRAEDebuff.Apply<ObsidianSkulled>(target, 180, 3);
-            }
+            //if ((target.Center - Player.Center).Length() < shieldRange)
+            //{
+            //    TRAEDebuff.Apply<ObsidianSkulled>(target, 180, 3);
+            //}
             if (moltenskullrose > 0 || magmaSkull > 0)
             {
                 target.AddBuff(BuffID.OnFire3, Main.rand.Next(120, 360));
@@ -279,7 +269,7 @@ namespace TRAEProject.Changes.Accesory
                )
             {
                 int duration = damageDone * Main.rand.Next(3, 6) * (skull + moltenskullrose + roseskull);
-                TRAEDebuff.Apply<ObsidianSkulled>(target, duration, 4);
+                TRAEDebuff.Apply<ObsidianSkulled>(target, duration, 3);
             }
             if (proj.arrow && arrowsburn > 0)
             {

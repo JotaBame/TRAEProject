@@ -1,18 +1,27 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System;
+using System.Collections.Generic;
 using Terraria;
+using Terraria.Audio;
 using Terraria.GameContent;
+using Terraria.GameContent.Bestiary;
+using Terraria.GameContent.ItemDropRules;
 using Terraria.ID;
 using Terraria.ModLoader;
+using TRAEProject.NewContent.Items.Materials;
+using TRAEProject.NewContent.NPCs.Banners;
+using TRAEProject.NewContent.NPCs.Echosphere.EchoSprite;
+using static Terraria.ModLoader.ModContent;
 
 namespace TRAEProject.NewContent.NPCs.Echosphere.EchoLocator
 {
-    /// <summary>
-    /// UNTESTED
-    /// </summary>
     public class EchoLocator : ModNPC
     {
+        public static SoundStyle SlowdownSFX => new SoundStyle("TRAEProject/NewContent/NPCs/Echosphere/EchoLocator/EchoLocatorSlowdown2") with { MaxInstances = 0 };
+        public static SoundStyle SpeedupSFX => new SoundStyle("TRAEProject/NewContent/NPCs/Echosphere/EchoLocator/EchoLocatorSpeedup") with { MaxInstances = 0 };
+        public static SoundStyle DeathSFX => new SoundStyle("TRAEProject/NewContent/NPCs/Echosphere/EchoLocator/EchoLocatorDeath") with { MaxInstances = 0 };
+        public static SoundStyle FlyingSFX => new SoundStyle("TRAEProject/NewContent/NPCs/Echosphere/EchoLocator/EchoLocatorSpeedFly2").WithVolumeScale(.5f) with { MaxInstances = 0 };
         public override void SetStaticDefaults()
         {
             Main.npcFrameCount[Type] = 4;
@@ -21,13 +30,17 @@ namespace TRAEProject.NewContent.NPCs.Echosphere.EchoLocator
         {
             NPC.width = 22;
             NPC.height = 18;
-            NPC.defense = 32;
-            NPC.lifeMax = 250;
+            NPC.defense = 28;
+            NPC.lifeMax = 350;
             NPC.damage = 70;
-            NPC.noGravity = true;
+            NPC.DeathSound = DeathSFX;//ban edited at/mouse death sound
+            NPC.HitSound = SoundID.NPCHit1;//common organic hit sound
+            NPC.noGravity = true; Banner = NPC.type;
+
+            BannerItem = ItemType<EchoLocatorBanner>();
         }
-        static int RegularStateDuration => 500;
-        static int FastStateDuration => 200;
+        static int RegularStateDuration => 300;
+        static int FastStateDuration => 300;
         bool FastState => NPC.ai[0] % (RegularStateDuration + FastStateDuration) >= RegularStateDuration;
         bool JustEnteredFastState => NPC.ai[0] % (RegularStateDuration + FastStateDuration) == RegularStateDuration;
         Vector2 IdlePosition
@@ -39,14 +52,45 @@ namespace TRAEProject.NewContent.NPCs.Echosphere.EchoLocator
                 NPC.ai[2] = value.Y;
             }
         }
+        public override void SetBestiary(BestiaryDatabase database, BestiaryEntry bestiaryEntry)
+        {
+            bestiaryEntry.Info.AddRange(new List<IBestiaryInfoElement>
+            {
+                BestiaryDatabaseNPCsPopulator.CommonTags.SpawnConditions.Biomes.Sky,
+                new FlavorTextBestiaryInfoElement("An evolved species of Illuminant Bats, created when one finds its way into the surface. They can use their excess solar energy for bursts of speed.")
+            });
+        }
         bool JustStartedIdling { get => NPC.localAI[0] == 1; set => NPC.localAI[0] = value ? 1 : 0; }
+        public override void ModifyNPCLoot(NPCLoot npcLoot)
+        {
+            npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<EchoHeart>(), 8, 1));
+            npcLoot.Add(ItemDropRule.Common(ItemID.Blindfold, 100, 1, 1));
+
+        }
+        public override void HitEffect(NPC.HitInfo hit)
+        {
+            if (NPC.life <= 0)
+            {
+                EchosphereNPCHelper.EchosphereEnemyDeathDust(NPC);
+                Gore.NewGore(NPC.GetSource_Death(), NPC.Center, NPC.velocity, GoreType<EchoLocatorGore1>());
+                Gore.NewGore(NPC.GetSource_Death(), NPC.Center, NPC.velocity, GoreType<EchoLocatorGore2>());
+                Gore.NewGore(NPC.GetSource_Death(), NPC.Center, NPC.velocity, GoreType<EchoLocatorGore2>());
+
+
+            }
+        }
         public override void AI()
         {
-            float maxSpeedX = 4;
-            float accelerationX = 0.1f;
-            float maxSpeedY = 1.5f;
-            float accelerationY = 0.04f;
+            float maxSpeedX = 5;
+            float accelerationX = Main.masterMode ? 0.125f : 0.1f;
+            float maxSpeedY = Main.masterMode ? 2.5f : 1.5f;
+            float accelerationY = Main.masterMode ? 0.048f : 0.04f;
             FindTargetAndSetJustStartedIdlingFlag();
+            if (Main.rand.NextBool(8)) 
+            {
+                Dust d = Dust.NewDustDirect(NPC.position, NPC.width, NPC.height, DustID.PinkTorch, NPC.velocity.X, NPC.velocity.Y, 0, default, 1.5f);
+                d.noGravity = true;
+            }
             if (IdlePosition == default)
             {
                 IdlePosition = NPC.Center;
@@ -90,6 +134,8 @@ namespace TRAEProject.NewContent.NPCs.Echosphere.EchoLocator
             {
                 if (JustEnteredFastState)
                 {
+                    SoundEngine.PlaySound(FlyingSFX, NPC.Center, UpdateFlyingSFX);
+                    SoundEngine.PlaySound(SpeedupSFX, NPC.Center);
                     NPC.netUpdate = true;
                     int numDots = 32;
                     for (float i = 0; i < 1; i += 1f / numDots)
@@ -112,6 +158,10 @@ namespace TRAEProject.NewContent.NPCs.Echosphere.EchoLocator
             BatMovement(maxSpeedX, accelerationX, maxSpeedY, accelerationY);
             NPC.rotation = NPC.velocity.X * .1f;
             NPC.spriteDirection = MathF.Sign(NPC.velocity.X);
+            if (NPC.ai[0] % (RegularStateDuration + FastStateDuration) == 1 && NPC.ai[0] > 1)
+            {
+                SoundEngine.PlaySound(SlowdownSFX, NPC.Center);
+            }
         }
         public override void FindFrame(int frameHeight)
         {
@@ -124,6 +174,7 @@ namespace TRAEProject.NewContent.NPCs.Echosphere.EchoLocator
             int framey = (int)(NPC.frameCounter / frameSpeed % Main.npcFrameCount[Type]) * frameHeight;
             NPC.frame.Y = framey;
         }
+ 
         private void BatMovement(float maxSpeedX, float accelerationX, float maxSpeedY, float accelerationY)
         {
             if (NPC.collideX)
@@ -295,13 +346,13 @@ namespace TRAEProject.NewContent.NPCs.Echosphere.EchoLocator
                 }
             }
         }
+
         public override bool PreDraw(SpriteBatch spriteBatch, Vector2 screenPos, Color drawColor)
         {
             Texture2D texture = TextureAssets.Npc[Type].Value;
-
             if (NPC.Opacity != 1)
             {
-                EchosphereHelper.SpectralDrawMinusOneIsNoFlip(NPC, spriteBatch, screenPos, texture);
+                EchosphereNPCHelper.SpectralDrawMinusOneIsNoFlip(NPC, spriteBatch, screenPos, texture);
             }
             else
             {
@@ -325,10 +376,20 @@ namespace TRAEProject.NewContent.NPCs.Echosphere.EchoLocator
             }
             return false;
         }
+        bool UpdateFlyingSFX(ActiveSound instance)
+        {
+            instance.Position = NPC.Center;
+            if(!FastState || NPC.target < 0 || NPC.target >= Main.maxPlayers || NPC.life <= 0 || !NPC.active)
+            {
+                instance.Stop();
+                return false;
+            }
+            return true;
+        }
         void FindTargetAndSetJustStartedIdlingFlag()
         {
             int oldTarget = NPC.target;
-            EchosphereHelper.SearchForAirbornePlayers(NPC);
+            EchosphereNPCHelper.SearchForSpaceLayerPlayers(NPC);
             if(NPC.target == -1 && oldTarget != -1)
             {
                 JustStartedIdling = true;

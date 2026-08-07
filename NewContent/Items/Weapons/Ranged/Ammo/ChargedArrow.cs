@@ -81,10 +81,7 @@ namespace TRAEProject.NewContent.Items.Weapons.Ranged.Ammo
         public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
             ChargedArrowStacks GB = TRAEDebuff.Apply<ChargedArrowStacks>(target, damageDone, 5);
-            if (GB != null)
-            {
-                GB.SetProjectileAndPlayer(Projectile, Main.player[Projectile.owner]);
-            }
+  
         }
         public override void OnKill(int timeLeft)
         {

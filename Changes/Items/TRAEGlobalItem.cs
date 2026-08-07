@@ -41,13 +41,10 @@ namespace TRAEProject.Changes
         }
         public override void SetDefaults(Item item)
         {
-            if(item.createTile >= 0 && item.damage <=0)
-            {
-                item.useTime = 7; // down from 15
-                //item.useAnimation = 7;
-            }
+        
             switch (item.type)
             {
+                
                 case ItemID.GravityGlobe:
                     item.value = Item.sellPrice(gold: 4);
                     break;
@@ -60,8 +57,9 @@ namespace TRAEProject.Changes
                     item.useTime = 3; // down from 10
                     item.useAnimation = 3;
                     break;
-          
- 		
+                case ItemID.TitaniumPickaxe:
+                    item.useTime = 8;
+                    break;
                 case ItemID.ObsidianHorseshoe:
                     item.SetNameOverride("Gravity Horseshoe");
                     break;
@@ -87,6 +85,9 @@ namespace TRAEProject.Changes
                     break;
                 case ItemID.BottledHoney:
                     item.healLife = 70;
+                    break;
+                case ItemID.LuckPotionGreater:
+                    item.buffTime = 20 * 60 * 60; // 20 mins
                     break;
                 case ItemID.FastClock:
                     item.value = 100000;
@@ -305,9 +306,16 @@ namespace TRAEProject.Changes
 
         public override void OnHitNPC(Item item, Player player, NPC target, NPC.HitInfo hit, int damageDone)
         {
-            if (player.inferno)
+            if (player.HasBuff(BuffID.WeaponImbueCursedFlames) && hit.DamageType == DamageClass.Melee)
             {
-                if (player.inferno)
+                target.AddBuff(BuffID.CursedInferno, Main.rand.Next(9 * 60, 12 * 60));
+            }
+            if (player.HasBuff(BuffID.WeaponImbueVenom) && hit.DamageType == DamageClass.Melee)
+            {
+                target.AddBuff(BuffID.Venom, Main.rand.Next(9 * 60, 12 * 60));
+            }
+
+            if (player.HasBuff(BuffType<NewInferno>()))
                 {
                     Lighting.AddLight((int)(target.Center.X / 16f), (int)(target.Center.Y / 16f), 0.65f, 0.4f, 0.1f);
                     int OnFireID = 24;
@@ -362,7 +370,7 @@ namespace TRAEProject.Changes
                             }
                         }
                     }
-                }
+                
             }
         }
         /// SHOOT STUFF

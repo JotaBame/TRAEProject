@@ -59,12 +59,12 @@ namespace TRAEProject.Changes.Weapons.Rockets
                     item.SetNameOverride("Destructive Mini Nuke");
                     break;
                 case ItemID.GrenadeLauncher:
-                    item.damage = 25; // down from 60
+                    item.damage = 35; // down from 60
                     item.useTime = 30; // up from 20
                     item.useAnimation = 30;
                     break;
                 case ItemID.RocketLauncher:
-                    item.damage = 110; // up from 45
+                    item.damage = 150; // up from 45
 					break;
             }
         }
@@ -86,7 +86,7 @@ namespace TRAEProject.Changes.Weapons.Rockets
                     {
                         if (line.Mod == "Terraria" && line.Name == "Tooltip0")
                         {
-                            line.Text = "Normal explosion.";
+                            line.Text = "Normal explosion. Direct hits deal 10% more damage.";
                         }
                     }
                     return;
@@ -104,7 +104,7 @@ namespace TRAEProject.Changes.Weapons.Rockets
                     {
                         if (line.Mod == "Terraria" && line.Name == "Tooltip0")
                         {
-                            line.Text = "Big explosion.";
+                            line.Text = "Big explosion. Direct hits deal 10% more damage.";
                         }
                     }
                     return;
@@ -122,7 +122,7 @@ namespace TRAEProject.Changes.Weapons.Rockets
                     {
                         if (line.Mod == "Terraria" && line.Name == "Tooltip0")
                         {
-                            line.Text = "Giant Explosion.";
+                            line.Text = "Giant Explosion. Direct hits deal 10% more damage.";
                         }
                     }
                     return;
@@ -140,7 +140,7 @@ namespace TRAEProject.Changes.Weapons.Rockets
                     {
                         if (line.Mod == "Terraria" && line.Name == "Tooltip0")
                         {
-                            line.Text = "Normal explosion. Stuns enemies.";
+                            line.Text = "Normal explosion. Direct hits deal 10% more damage. Stuns enemies. ";
                         }
                     }
                     return;

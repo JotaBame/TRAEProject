@@ -11,6 +11,7 @@ using static Terraria.ModLoader.ModContent;
 using TRAEProject;
 using System.Collections.Generic;
 using Microsoft.CodeAnalysis.Emit;
+using TRAEProject.NewContent.NPCs.Echosphere.EchoStalker;
 
 namespace TRAEProject.Changes.Accesory
 {
@@ -182,7 +183,8 @@ namespace TRAEProject.Changes.Accesory
  
         public override void PostHurt(Player.HurtInfo info)
         {
-            if (crossNecklace)
+            int minimumDamage = Main.expertMode ? 40 : Main.masterMode ? 50 : 30; 
+            if (crossNecklace && info.Damage > minimumDamage)
             {
                 int invintime = (int)((float)info.Damage * 3 / 5); // every point of info.Damage adds 0.0083 seconds 
 
@@ -259,17 +261,17 @@ namespace TRAEProject.Changes.Accesory
                 {
                     direction = 1;
                 }
-                if (!enemy.dontTakeDamage && enemy.active && !enemy.friendly && !enemy.immortal && distanceTo < distance)
+                if (!enemy.dontTakeDamage && enemy.active && !enemy.friendly && !enemy.immortal && distanceTo < distance
+                    && enemy.type != NPCType<EchoStalkerBody1>() && enemy.type != NPCType<EchoStalkerBody2>() && enemy.type != NPCType<EchoStalkerTail>())
                 {
                     int thorndamage = (int)(damage * runethorns + enemy.defense * 0.5);
                     if (thorndamage > 1000)
                     {
                         thorndamage = 1000;
                     }
-                    if (enemy.type == NPCID.TheDestroyerBody)
+                    if (enemy.type == NPCID.TheDestroyerBody || enemy.type == NPCID.TheDestroyerTail)
                         thorndamage /= 10;
-                    if (enemy.type == NPCID.TheDestroyerTail)
-                        thorndamage /= 40;
+         
                     Player.ApplyDamageToNPC(enemy, thorndamage, 10, -direction, false);
                     for (int i = 0; i < 20; ++i)
                     {
@@ -293,10 +295,10 @@ namespace TRAEProject.Changes.Accesory
                 {
                     direction = 1;
                 }
-                if (!enemy.dontTakeDamage && enemy.active && !enemy.friendly && !enemy.immortal && distanceTo < distance)
+                if (!enemy.dontTakeDamage && enemy.active && !enemy.friendly && !enemy.immortal && distanceTo < distance
+                    && enemy.type != NPCType<EchoStalkerBody1>() && enemy.type != NPCType<EchoStalkerBody2>() && enemy.type != NPCType<EchoStalkerTail>())
                 {
-                    if (enemy.type == NPCID.TheDestroyerTail)
-                        damage /= 4;
+      
 
                     int thorndamage = (int)(damage * newthorns + enemy.defense * 0.5);
                     if (thorndamage > 1000)

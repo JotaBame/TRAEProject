@@ -1,14 +1,16 @@
 using Microsoft.Xna.Framework;
-using System;
 using Mono.Cecil.Cil;
 using MonoMod.Cil;
+using System;
 using Terraria;
+using Terraria.Audio;
 using Terraria.ID;
 using Terraria.ModLoader;
-using TRAEProject.NewContent.Items.Weapons.Summoner.Whip;
-
-using static Terraria.ModLoader.ModContent;
+using Terraria.WorldBuilding;
 using TRAEProject.Changes.Accesory;
+using TRAEProject.NewContent.Items.Weapons.Magic.DreamEater;
+using TRAEProject.NewContent.Items.Weapons.Summoner.Whip;
+using static Terraria.ModLoader.ModContent;
 
 namespace TRAEProject.Common
 {
@@ -57,7 +59,7 @@ namespace TRAEProject.Common
         public float timer = 0;
         public override void AI(Projectile projectile)
         {
-            Player player = Main.player[projectile.owner];
+             Player player = Main.player[projectile.owner];
             if (AddedBuffMinDuration == 0)
                 AddedBuffMinDuration = AddedBuffDuration;
             if (ProjectileID.Sets.IsAWhip[projectile.type] || projectile.type == ProjectileType<WhipProjectile>())
@@ -106,8 +108,13 @@ namespace TRAEProject.Common
 
         public override bool OnTileCollide(Projectile projectile, Vector2 oldVelocity)
         {
+
+            //if you ever want to add it back
+            //DreamEater.ShotTileCollision(projectile, oldVelocity);
+           
             if (explodes && !dontExplodeOnTiles) // If you want a projectile that doesn't explode in contact with tiles, make the second variable true.//
             {
+                FirstHit = true;
                 TRAEMethods.Explode(projectile, ExplosionRadius);
                 if (UsesDefaultExplosion)
                 {
@@ -115,11 +122,15 @@ namespace TRAEProject.Common
                 }
                 return false;
             }
-            if (MaxBounces > 0)
+ 
+            if (MaxBounces > 0 || MaxBounces == -1)
             {
-                MaxBounces--;
+                if (MaxBounces > 0)
+                  MaxBounces--;
                 if (BouncesOffTiles)
                 {
+                    SoundEngine.PlaySound(SoundID.Item10 with { MaxInstances = 0 }, projectile.Center);
+
                     // If the projectile hits the left or right side of the tile, reverse the X velocity
                     if (Math.Abs(projectile.velocity.X - oldVelocity.X) > float.Epsilon)
                     {
@@ -135,6 +146,8 @@ namespace TRAEProject.Common
                 }
                 if (BouncesBackOffTiles)
                 {
+                    SoundEngine.PlaySound(SoundID.Item10 with { MaxInstances = 0 }, projectile.Center);
+
                     projectile.velocity.X = -projectile.oldVelocity.X;
                     projectile.velocity.Y = -projectile.oldVelocity.Y;
                 }
@@ -142,6 +155,8 @@ namespace TRAEProject.Common
                     projectile.damage -= (int)(projectile.damage * DamageLossOffATileBounce);
                 if (SmartBouncesOffTiles)
                 {
+                    SoundEngine.PlaySound(SoundID.Item10 with { MaxInstances = 0 }, projectile.Center);
+
                     int[] array = new int[10];
                     int num6 = 0;
                     int Range = 700;
@@ -182,12 +197,12 @@ namespace TRAEProject.Common
         {
             if (!FirstHit)
             {
-                FirstHit = true;
+
                 modifiers.FinalDamage *= FirstHitDamage;
             }
             Player player = Main.player[projectile.owner];
             modifiers.FinalDamage *= DirectDamage;
-
+      
             if (cantCrit)
 			{
 				modifiers.DisableCrit();
@@ -227,7 +242,11 @@ namespace TRAEProject.Common
 
         public override void OnHitNPC(Projectile projectile, NPC target, NPC.HitInfo hit, int damageDone)
         {
-            
+            if (!FirstHit)
+            {
+                FirstHit = true;
+
+             }
             if (maxHits > -1)
             {
                 hits++;

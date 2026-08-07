@@ -7,7 +7,8 @@ using System;
 using Terraria.Audio;
 using Microsoft.Xna.Framework.Graphics;
 using Terraria.GameContent;
- using static Terraria.ModLoader.ModContent;
+using static Terraria.ModLoader.ModContent;
+using TRAEProject.Changes.NPCs.Boss.TwinsChanges;
 
 namespace TRAEProject.Changes.NPCs.Boss
 {

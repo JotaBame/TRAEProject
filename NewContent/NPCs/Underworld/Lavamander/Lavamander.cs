@@ -71,7 +71,7 @@ namespace TRAEProject.NewContent.NPCs.Underworld.Lavamander
 			int num = 1;
 			int num2 = 1;
 			int num3 = (int)((NPC.position.X + (NPC.width / 2)) / 16f);
-			int num4 = (int)(NPC.Bottom.Y / 16f);
+			int num4 = (int)((NPC.position.Y + NPC.height) / 16f);
 			for (int j = num3 - num; j <= num3 + num; j++)
 			{
 				for (int k = num4 - num2; k < num4 + num2; k++)

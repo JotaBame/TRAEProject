@@ -89,6 +89,24 @@ namespace TRAEProject.Changes.Weapon.Melee.SpearProjectiles
                 //projectile.rotation = MathF.Atan2(projectile.velocity.Y, projectile.velocity.X) + 1.57f;
             }
         }
+        public override bool PreKill(Projectile projectile, int timeLeft)
+        {
+            if (projectile.type == ProjectileID.NorthPoleSnowflake)
+            {
+                SoundEngine.PlaySound(SoundID.Item27 with { MaxInstances = 1 }, projectile.position);
+                for (int num427 = 4; num427 < 10; num427++)
+                {
+                    float num428 = projectile.oldVelocity.X * (30f / (float)num427);
+                    float num429 = projectile.oldVelocity.Y * (30f / (float)num427);
+                    int num430 = Dust.NewDust(new Vector2(projectile.oldPosition.X - num428, projectile.oldPosition.Y - num429), 8, 8, 197, projectile.oldVelocity.X, projectile.oldVelocity.Y, 100, default, 1.2f);
+                    Main.dust[num430].noGravity = true;
+                    Dust dust = Main.dust[num430];
+                    dust.velocity *= 0.5f;
+                }
+                return false;
+            }
+            return true;
+        }
     }
     public class NorthStar : ModProjectile
     {

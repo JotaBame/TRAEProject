@@ -378,6 +378,7 @@ namespace TRAEProject.NewContent.Items.Accesories.MobilityJumps
 					break;
 				case "Bame":
 				{
+					// float dicklength = 999999f;
 					float amount12 = Utils.PingPongFrom01To010(num2);
 					amount12 = MathHelper.SmoothStep(0f, 1f, amount12);
 					amount12 = MathHelper.SmoothStep(0f, 1f, amount12);

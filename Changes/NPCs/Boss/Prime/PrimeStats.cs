@@ -2,6 +2,7 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System;
 using Terraria;
+using Terraria.Audio;
 using Terraria.GameContent;
 using Terraria.ID;
 
@@ -28,7 +29,7 @@ public static class PrimeStats
     public const int primeMaceNonRageCooldown = 240; //time between mace swings when prime is not raged.
     //Prime rail
     public const int railHealth = 3000; //value in classic mode x1.5 in expert
-    
+    public static int RailWarnSoundTime => 270; 
     public const float railVel = 10f; //compined with railExtraUpdates, determines the velocity of the rail shot
     public const int railExtraUpdates = 5;
     //5
@@ -37,6 +38,7 @@ public static class PrimeStats
     public const int railChargeTime = 600; //time between rail shots
     public const int railWarnTime = 180; //how long the rail's warning sight line lasts
     public const int railDamage = 45;
+    public static int HighestWarnTime => railWarnTime > RailWarnSoundTime ? railWarnTime : RailWarnSoundTime;
     //Prime launcher
     public const int launcherHealth = 2600; //value in classic mode x1.5 in expert
     public const int missileBurstSize = 8; //size of missile burst when prime isn't raged
@@ -45,7 +47,23 @@ public static class PrimeStats
     public const int ragedMissileCooldown = 30; //when raged instead of periodicly doing bursts the launch will continously launch missiles using this cooldown
     public const int missileDamage = 32;
 
-
+    public static SoundStyle RailCharge => new SoundStyle("TRAEProject/Assets/Sounds/SansPrime/PrimeRailCharge");
+    public static SoundStyle RailCharge2 => new SoundStyle("TRAEProject/Assets/Sounds/SansPrime/PrimeRailCharge2");
+    public static SoundStyle PrimeRailShot => new SoundStyle("TRAEProject/Assets/Sounds/SansPrime/PrimeRailShot");
+    public static SoundStyle PrimeRailShot2 => new SoundStyle("TRAEProject/Assets/Sounds/SansPrime/PrimeRailShot2HighVolume");
+    public static SoundStyle PrimeRailShot3 => new SoundStyle("TRAEProject/Assets/Sounds/SansPrime/PrimeRailShot3");
+    public static SoundStyle ReticleAppear1 => new SoundStyle("TRAEProject/Assets/Sounds/SansPrime/PrimeReticleAppear");
+    public static SoundStyle ReticleAppear2 => new SoundStyle("TRAEProject/Assets/Sounds/SansPrime/PrimeReticleAppear2");
+    public static SoundStyle ReticleAppear3 => new SoundStyle("TRAEProject/Assets/Sounds/SansPrime/PrimeReticleAppear3");
+    public static SoundStyle ReticleAppear4 => new SoundStyle("TRAEProject/Assets/Sounds/SansPrime/PrimeReticleAppear4");
+    public static SoundStyle ReticleAppear5 => new SoundStyle("TRAEProject/Assets/Sounds/SansPrime/PrimeReticleAppear5");
+    public static SoundStyle ReticleAppear6 => new SoundStyle("TRAEProject/Assets/Sounds/SansPrime/PrimeReticleAppear6");
+    public static SoundStyle ReticleAppear7 => new SoundStyle("TRAEProject/Assets/Sounds/SansPrime/PrimeReticleAppear7");
+    public static SoundStyle ReticleAppear8 => new SoundStyle("TRAEProject/Assets/Sounds/SansPrime/PrimeReticleAppear8");
+    public static SoundStyle GetRandomReticleAppearSound()
+    {
+        return Main.rand.NextBool(8) ? ReticleAppear1 : Main.rand.NextBool(7) ? ReticleAppear2 : Main.rand.NextBool(6) ? ReticleAppear3 : Main.rand.NextBool(5) ? ReticleAppear4 : Main.rand.NextBool(4) ? ReticleAppear5 : Main.rand.NextBool(3) ? ReticleAppear6 : Main.rand.NextBool() ? ReticleAppear7 : ReticleAppear8; 
+    }
     public static void ArmGore(NPC npc)
     {
         Gore.NewGore(npc.GetSource_FromAI(), npc.position, npc.velocity, 147);

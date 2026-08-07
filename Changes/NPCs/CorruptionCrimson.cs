@@ -67,13 +67,13 @@ namespace TRAEProject.Changes.NPCs
         }
         public override void EditSpawnPool(IDictionary<int, float> pool, NPCSpawnInfo spawnInfo)
         {
-            if (spawnInfo.Player.ZoneSnow && spawnInfo.Player.ZoneRockLayerHeight && (spawnInfo.Player.ZoneCorrupt || spawnInfo.Player.ZoneCrimson || spawnInfo.Player.ZoneHallow))
+            if (spawnInfo.Player.ZoneSnow && spawnInfo.Player.ZoneRockLayerHeight && (spawnInfo.Player.ZoneCorrupt || spawnInfo.Player.ZoneCrimson || spawnInfo.Player.ZoneHallow) && Main.hardMode)
             {
                  pool.Add(NPCID.IceTortoise, 0.05f);
             }
                 if (spawnInfo.Player.ZoneCorrupt && !Main.remixWorld)
             {
-                float spawnrate = Main.hardMode ? 0.02f : 0.125f;
+                float spawnrate = Main.hardMode ? 0.01f : 0.04f;
                 pool.Remove(NPCID.DevourerHead);
                 pool.Add(NPCID.DevourerHead, spawnrate);
             }

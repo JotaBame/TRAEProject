@@ -61,6 +61,7 @@ namespace TRAEProject.Changes.Prefixes
 				case ItemID.PossessedHatchet:
 				case ItemID.SolarEruption:
 				case ItemID.Bananarang:
+				case ItemID.Trimarang:
 					canGetMeleeOtherModifers = true;
 					break;
 			}
