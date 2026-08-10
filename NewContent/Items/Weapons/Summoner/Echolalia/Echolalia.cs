@@ -47,7 +47,7 @@ namespace TRAEProject.NewContent.Items.Weapons.Summoner.Echolalia
         public override void AddRecipes()
 		{
             CreateRecipe(1)
-                              .AddIngredient(ItemType<EchoHeart>(), 4)
+                              .AddIngredient(ItemID.Leather, 7)
                               .AddIngredient(ItemID.SoulofFright, 8)
                                                             .AddIngredient(ItemID.SoulofLight, 16)
 

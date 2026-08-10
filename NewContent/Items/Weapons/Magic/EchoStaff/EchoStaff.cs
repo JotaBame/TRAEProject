@@ -37,6 +37,7 @@ namespace TRAEProject.NewContent.Items.Weapons.Magic.EchoStaff
         public override void AddRecipes()
         {
             CreateRecipe()
+                .AddIngredient(ItemID.UnicornHorn, 4)
                 .AddIngredient(ItemType<EchoHeart>(), 4)
                 .AddIngredient(ItemID.SoulofMight, 8)
                 .AddIngredient(ItemID.SoulofFright, 12)

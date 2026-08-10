@@ -20,7 +20,7 @@ namespace TRAEProject.Changes.Recipes
             Recipe Leather = Recipe.Create(ItemID.Leather).AddIngredient(ItemID.Vertebrae, 5).AddTile(TileID.Tables);
             Leather.Register();
             
-            Recipe ShadowKey = Recipe.Create(ItemID.ShadowKey).AddIngredient(ItemID.GoldenKey, 1).AddIngredient(ItemType<EchoHeart>(), 3).AddTile(TileID.DemonAltar);
+            Recipe ShadowKey = Recipe.Create(ItemID.ShadowKey).AddIngredient(ItemID.GoldenKey, 1).AddIngredient(ItemType<EchoHeart>(), 2).AddTile(TileID.DemonAltar);
             ShadowKey.Register();
             Recipe Wire = 
             Recipe.Create(ItemID.Wire, 3).

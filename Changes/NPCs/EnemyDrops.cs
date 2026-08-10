@@ -188,7 +188,7 @@ namespace TRAEProject.Changes.NPCs
                     break;
                 case NPCID.JungleCreeper:
                 case NPCID.JungleCreeperWall:
-                    npcLoot.Add(ItemDropRule.Common(ItemID.PoisonStaff, 33));
+                    npcLoot.Add(ItemDropRule.Common(ItemID.PoisonStaff, 16));
                     break;
                 case NPCID.BlackRecluse:
                 case NPCID.BlackRecluseWall:

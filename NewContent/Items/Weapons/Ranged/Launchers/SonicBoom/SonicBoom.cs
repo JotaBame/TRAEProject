@@ -90,7 +90,9 @@ namespace TRAEProject.NewContent.Items.Weapons.Ranged.Launchers.SonicBoom
         }
         public override void AddRecipes()
         {
-            CreateRecipe().AddIngredient(ItemType<EchoHeart>(), 4)             
+            CreateRecipe()
+                .AddIngredient(ItemID.Megaphone, 1)
+                .AddIngredient(ItemType<EchoHeart>(), 4)             
                 .AddIngredient(ItemID.SoulofSight, 8)
                 .AddIngredient(ItemID.SoulofFright, 12)
                 .AddIngredient(ItemID.SoulofLight, 16)

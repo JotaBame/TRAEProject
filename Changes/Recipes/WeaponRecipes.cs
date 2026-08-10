@@ -20,7 +20,6 @@ namespace TRAEProject.Changes.Recipes
             DarkLance.Register();
             Recipe WaspGun = Recipe.Create(ItemID.WaspGun);
             WaspGun.AddIngredient(ItemID.BeeGun, 1);
-            WaspGun.AddIngredient(ItemID.HallowedBar, 8);
             WaspGun.AddRecipeGroup("IronBar", 12);
             WaspGun.AddIngredient(ItemID.IllegalGunParts, 1);
             WaspGun.AddIngredient(ItemID.SoulofFright, 18);
@@ -233,7 +232,7 @@ namespace TRAEProject.Changes.Recipes
             {
  
  
-                recipe.AddIngredient(ItemType<EchoHeart>(), 3);
+                recipe.AddIngredient(ItemType<EchoHeart>(), 2);
 
             }
          

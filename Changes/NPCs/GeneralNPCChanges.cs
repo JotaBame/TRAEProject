@@ -129,7 +129,7 @@ namespace TRAEProject.Changes.NPCs
         {
 
             if (spawnInfo.Player.ZoneJungle && spawnInfo.SpawnTileY <= Main.maxTilesY - 200 && spawnInfo.SpawnTileY > Main.rockLayer)
-                pool.Add(NPCID.JungleCreeper, 0.2f);
+                pool.Add(NPCID.JungleCreeper, 0.1f);
             if (spawnInfo.Sky && Main.hardMode)
             {
                 pool.Remove(NPCID.WyvernHead);

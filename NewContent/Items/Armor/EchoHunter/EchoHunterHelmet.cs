@@ -34,10 +34,10 @@ namespace TRAEProject.NewContent.Items.Armor.EchoHunter
         {
             CreateRecipe()
 
-            .AddIngredient(ItemType<EchoHeart>(), 7)
-            .AddIngredient(ItemID.SoulofFright, 7)
-            .AddIngredient(ItemID.SoulofSight, 7)
-            .AddIngredient(ItemID.SoulofMight, 7)
+            .AddIngredient(ItemType<EchoHeart>(), 6)
+            .AddIngredient(ItemID.SoulofFright, 6)
+            .AddIngredient(ItemID.SoulofSight, 6)
+            .AddIngredient(ItemID.SoulofMight, 6)
             .AddTile(TileID.MythrilAnvil)
             .Register();
 

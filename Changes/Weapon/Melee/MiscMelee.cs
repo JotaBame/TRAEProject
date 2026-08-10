@@ -47,8 +47,8 @@ namespace TRAEProject.Changes.Weapon.Melee
                     item.crit = 12; // up from 6%
                     return;
 				case ItemID.LightDisc:
-                    item.useTime = 12; // down from 14
-                    item.useAnimation = 12; // up from 14
+                    item.crit = 12;
+                    item.shootSpeed = 12;
                     break;
                 case ItemID.Trimarang:
                     item.damage = 24; // up from 16
@@ -118,7 +118,32 @@ namespace TRAEProject.Changes.Weapon.Melee
             }
             return;
         }
+        public override bool Shoot(Item item, Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
+        {
+            if (GetInstance<TRAEConfig>().ManaRework)
+            {
+                switch (item.type)
+                {
+                    case ItemID.LightDisc:
+                        {
+                            float numberProjectiles = 3; 
+                            float rotation = MathHelper.ToRadians(20);
 
+                            position += Vector2.Normalize(velocity) * 45f;
+
+                            for (int i = 0; i < numberProjectiles; i++)
+                            {
+
+                                Vector2 perturbedSpeed = velocity.RotatedBy(MathHelper.Lerp(-rotation, rotation, i / (numberProjectiles - 1))); // Watch out for dividing by 0 if there is only 1 projectile.
+                                Projectile.NewProjectile(source, position, perturbedSpeed, type, damage, knockback, player.whoAmI);
+                            }
+
+                            return false;
+                        }
+                }
+            }
+            return true;
+        }
         public override bool CanUseItem(Item item, Player player)
         {
             if (item.type == ItemID.LightDisc)

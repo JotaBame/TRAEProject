@@ -116,6 +116,12 @@ namespace TRAEProject.Changes.Weapon.Melee
                     projectile.usesIDStaticNPCImmunity = true;
                     projectile.idStaticNPCHitCooldown = 10;
                     break;
+                case ProjectileID.LightDisc: 
+                     projectile.usesLocalNPCImmunity = true;
+                    projectile.localNPCHitCooldown = 10;
+                    projectile.extraUpdates = 1;
+
+                    break;
                 case ProjectileID.ChlorophyteOrb: // Revisit
                     projectile.penetrate = 5;
                     projectile.usesLocalNPCImmunity = true;
