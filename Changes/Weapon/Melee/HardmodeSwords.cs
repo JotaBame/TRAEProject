@@ -1,19 +1,20 @@
 ﻿using Microsoft.Xna.Framework;
+using Mono.Cecil;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using TRAEProject.Changes.Items;
 using Terraria;
-using static Terraria.ModLoader.ModContent;
-using TRAEProject.NewContent.Projectiles;
+using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
-using Terraria.DataStructures;
+using TRAEProject.Changes.Items;
 using TRAEProject.Common.ModPlayers;
-using Mono.Cecil;
-using System.Collections;
+using TRAEProject.NewContent.Buffs;
 using TRAEProject.NewContent.Items.Misc.Potions;
+using TRAEProject.NewContent.Projectiles;
+using static Terraria.ModLoader.ModContent;
 
 namespace TRAEProject.Changes.Weapon.Melee
 {
@@ -314,7 +315,19 @@ namespace TRAEProject.Changes.Weapon.Melee
 
         public override void OnHitNPC(Item item, Player player, NPC target, NPC.HitInfo hit, int damageDone)
         {
-            
+            if (player.HasBuff(BuffID.WeaponImbueNanites))
+            {
+                player.AddBuff(BuffType<NanoHealing>(), 60, false);
+            }
+            if (item.type == ItemID.Cutlass)
+            {
+                if (target.active && !target.dontTakeDamage && !target.friendly && target.lifeMax > 5 && !target.immortal && !target.SpawnedFromStatue)
+                {
+                    int amount = damageDone / 2;
+                    player.QuickSpawnItem(player.GetSource_OnHit(target), ItemID.CopperCoin, amount);
+                    return;
+                }
+            }
         }
         public override void HoldItem(Item item, Player player)
         {

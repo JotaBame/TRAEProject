@@ -119,23 +119,20 @@ namespace TRAEProject.Changes.Weapon.Melee
             return;
         }
 
-        
-        public override void OnHitNPC(Item item, Player player, NPC target, NPC.HitInfo hit, int damageDone)
-        { 
-            if (player.HasBuff(BuffID.WeaponImbueNanites))
+        public override bool CanUseItem(Item item, Player player)
+        {
+            if (item.type == ItemID.LightDisc)
             {
-                player.AddBuff(BuffType<NanoHealing>(), 60, false);
-            }
-            if (item.type == ItemID.Cutlass)
-            {
-                if (target.active && !target.dontTakeDamage && !target.friendly && target.lifeMax > 5 && !target.immortal && !target.SpawnedFromStatue)
+                if (player.ownedProjectileCounts[ProjectileID.LightDisc] >= 3)
                 {
-                    int amount = damageDone / 2;
-                    player.QuickSpawnItem(player.GetSource_OnHit(target), ItemID.CopperCoin, amount);
-                    return;
+                    return false;
                 }
+                
+
             }
+            return base.CanUseItem(item, player);
         }
+
 
         public override void ModifyTooltips(Item item, List<TooltipLine> tooltips)
         {

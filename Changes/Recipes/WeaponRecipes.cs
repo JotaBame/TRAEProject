@@ -20,7 +20,9 @@ namespace TRAEProject.Changes.Recipes
             DarkLance.Register();
             Recipe WaspGun = Recipe.Create(ItemID.WaspGun);
             WaspGun.AddIngredient(ItemID.BeeGun, 1);
-            WaspGun.AddIngredient(ItemID.SoulofMight, 15);
+            WaspGun.AddIngredient(ItemID.HallowedBar, 8);
+            WaspGun.AddRecipeGroup("SilverBar", 12);
+            WaspGun.AddIngredient(ItemID.SoulofFright, 12);
             WaspGun.AddTile(TileID.MythrilAnvil);
             WaspGun.Register(); 
             Recipe MagicDagger = Recipe.Create(ItemID.MagicDagger);
@@ -196,26 +198,44 @@ namespace TRAEProject.Changes.Recipes
             }
             if (recipe.HasResult(ItemID.TrueExcalibur))
             {
+                recipe.AddIngredient(ItemType<EchoHeart>(), 9);
+                for (int i = ItemID.SoulofFright; i <= ItemID.SoulofSight; i++)
+                {
+                    recipe.TryGetIngredient(i, out ingredientToRemove);
+                    recipe.RemoveIngredient(ingredientToRemove);
+                    recipe.AddIngredient(i, 15);
+                }
                 recipe.TryGetIngredient(ItemID.ChlorophyteBar, out ingredientToRemove);
                 recipe.RemoveIngredient(ingredientToRemove);
-                 recipe.AddIngredient(ItemID.SoulofMight, 20);
-                recipe.AddIngredient(ItemID.SoulofSight, 20);
-                recipe.AddIngredient(ItemID.SoulofFright, 20);
+               
+                recipe.AddIngredient(ItemID.SoulofLight, 15);
+                
 
-                recipe.AddIngredient(ItemID.SoulofLight, 20);
-            }
-            if (recipe.HasResult(ItemID.NightsEdge) || recipe.HasResult(ItemID.VoidVault) || recipe.HasResult(ItemID.VoidLens))
-
-            {
-
-                recipe.AddIngredient(ItemType<EchoHeart>(), 3);
 
             }
             if (recipe.HasResult(ItemID.TrueNightsEdge))
             {
-        
-                 recipe.AddIngredient(ItemID.SoulofNight, 20);
+                recipe.AddIngredient(ItemID.ChlorophyteBar, 24);
+                for (int i = ItemID.SoulofFright; i <= ItemID.SoulofSight; i++)
+                {
+                    recipe.TryGetIngredient(i, out ingredientToRemove);
+                    recipe.RemoveIngredient(ingredientToRemove);
+                    recipe.AddIngredient(i, 15);
+                }
+                recipe.AddIngredient(ItemID.SoulofNight, 15);
+
+                
+
             }
+            if (recipe.HasResult(ItemID.NightsEdge) || recipe.HasResult(ItemID.VoidVault) || recipe.HasResult(ItemID.VoidLens))
+
+            {
+ 
+ 
+                recipe.AddIngredient(ItemType<EchoHeart>(), 3);
+
+            }
+         
             if (recipe.HasResult(ItemID.Flamethrower))
             {
                 recipe.TryGetIngredient(ItemID.SoulofFright, out ingredientToRemove);

@@ -238,16 +238,7 @@ namespace TRAEProject.Changes.Recipes
                 recipe.RemoveIngredient(ingredientToRemove);
                 recipe.AddIngredient(ItemID.EyeoftheGolem, 1);
             }
-            if (recipe.HasResult(ItemID.ReconScope))
-            {
-                recipe.TryGetIngredient(ItemID.PutridScent, out ingredientToRemove);
-                recipe.RemoveIngredient(ingredientToRemove);
-                recipe.TryGetIngredient(ItemID.SniperScope, out ingredientToRemove);
-                recipe.RemoveIngredient(ingredientToRemove);
-                recipe.AddIngredient(ItemID.RifleScope, 1); recipe.AddIngredient(ItemID.SoulofSight, 10);
-
-                recipe.AddIngredient(ItemID.MagicQuiver, 1);
-            }
+  
 
             if (recipe.HasResult(ItemID.HeroShield))
             {
@@ -293,10 +284,19 @@ namespace TRAEProject.Changes.Recipes
                 recipe.RemoveIngredient(ingredientToRemove);
                 recipe.TryGetIngredient(ItemID.SoulofSight, out ingredientToRemove);
                 recipe.RemoveIngredient(ingredientToRemove);
-                recipe.AddIngredient(ItemID.SoulofMight, 15);
+                recipe.AddIngredient(ItemID.SoulofMight, 12);
 
             }
-         
+            if (recipe.HasResult(ItemID.ReconScope))
+            {
+                recipe.TryGetIngredient(ItemID.PutridScent, out ingredientToRemove);
+                recipe.RemoveIngredient(ingredientToRemove);
+                recipe.TryGetIngredient(ItemID.SniperScope, out ingredientToRemove);
+                recipe.RemoveIngredient(ingredientToRemove);
+                recipe.AddIngredient(ItemID.RifleScope, 1); recipe.AddIngredient(ItemID.SoulofSight, 12);
+
+                recipe.AddIngredient(ItemID.MagicQuiver, 1);
+            }
         }
     }
 }

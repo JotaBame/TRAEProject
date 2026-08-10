@@ -37,9 +37,10 @@ namespace TRAEProject.NewContent.Items.Weapons.Magic.EchoStaff
         public override void AddRecipes()
         {
             CreateRecipe()
-                 .AddIngredient(ItemType<EchoHeart>(), 4)
-                .AddIngredient(ItemID.SoulofSight, 8)
-                                .AddIngredient(ItemID.SoulofLight, 16)
+                .AddIngredient(ItemType<EchoHeart>(), 4)
+                .AddIngredient(ItemID.SoulofMight, 8)
+                .AddIngredient(ItemID.SoulofFright, 12)
+                .AddIngredient(ItemID.SoulofLight, 16)
 
                 .AddTile(TileID.MythrilAnvil)
                 .Register();

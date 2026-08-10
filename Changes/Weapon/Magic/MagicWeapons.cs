@@ -120,7 +120,7 @@ namespace TRAEProject.Changes.Items
                         return;
 
                     case ItemID.MagicDagger:
-                        item.damage = 16; // up from 17
+                        item.damage = 16; 
                         item.mana = 8; // up from 6
                         item.useTime = 12; // up from 8
                         item.useAnimation = 12;

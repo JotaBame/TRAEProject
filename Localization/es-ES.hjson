@@ -1813,7 +1813,7 @@ Mods: {
 			}
 
 			Wingspan: {
-				// DisplayName: Green War Fan
+				// DisplayName: Jade War Fan
 				/* Tooltip:
 					'''
 					Throws razor sharp feathers that ignore 10 points of enemy defense
@@ -1822,7 +1822,7 @@ Mods: {
 			}
 
 			WingspanBlue: {
-				// DisplayName: Blue War Fan
+				// DisplayName: Azure War Fan
 				/* Tooltip:
 					'''
 					Throws razor sharp feathers that ignore 10 points of enemy defense

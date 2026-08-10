@@ -32,7 +32,7 @@ namespace TRAEProject.NewContent.Items.Misc.Potions
             Item.height = 32;
             Item.rare = 2;
             Item.buffType = BuffType<EchoSense>();
-            Item.buffTime = 60 * 60 * 5;
+            Item.buffTime = 60 * 60 * 8;
             Item.value = 2000;
         }
 

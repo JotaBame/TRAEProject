@@ -149,8 +149,9 @@ public class TRAEProj : Mod
 
 
         public override void Load()
-        {          
-            
+        {
+            MusicLoader.AddMusic(this, "Changes/NPCs/Boss/Dreadnautilus/DreadTheme");
+
             MeowmereAuraEffectDrawer.FixMeomwereSound_CallOnLoad();
             
             //I ain't got anything special to say here; check the other classes for specific hook info

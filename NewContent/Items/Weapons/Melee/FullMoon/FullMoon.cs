@@ -56,7 +56,8 @@ namespace TRAEProject.NewContent.Items.Weapons.Melee.FullMoon
             CreateRecipe()
                 .AddIngredient(ItemID.BlueMoon)
                 .AddIngredient(ItemType<EchoHeart>(), 4)
-                .AddIngredient(ItemID.SoulofSight, 8)
+                .AddIngredient(ItemID.SoulofFright, 8)
+                .AddIngredient(ItemID.SoulofSight, 12)
                 .AddIngredient(ItemID.SoulofNight, 16)
                 .AddTile(TileID.MythrilAnvil)
                 .Register();

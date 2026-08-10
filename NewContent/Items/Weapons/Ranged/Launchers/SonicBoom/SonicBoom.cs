@@ -90,9 +90,10 @@ namespace TRAEProject.NewContent.Items.Weapons.Ranged.Launchers.SonicBoom
         }
         public override void AddRecipes()
         {
-            CreateRecipe().AddIngredient(ItemType<EchoHeart>(), 4)
-                 .AddIngredient(ItemID.SoulofFright, 8)
-                .AddIngredient(ItemID.SoulofNight, 16)
+            CreateRecipe().AddIngredient(ItemType<EchoHeart>(), 4)             
+                .AddIngredient(ItemID.SoulofSight, 8)
+                .AddIngredient(ItemID.SoulofFright, 12)
+                .AddIngredient(ItemID.SoulofLight, 16)
                 .AddTile(TileID.MythrilAnvil)
                 .Register();
         }

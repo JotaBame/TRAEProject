@@ -1,40 +1,49 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using Microsoft.Xna.Framework.Graphics.PackedVector;
-using ReLogic.Content;
 using Terraria;
+using Terraria.GameContent;
 using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.ObjectData;
+using ReLogic.Content;
+
 
 namespace TRAEProject.NewContent.Structures.NewSkyIslands
 {
     public class StarfuryPlacesSTarfuryRockAsTest : GlobalItem
     {
+
+
         public override bool AppliesToEntity(Item entity, bool lateInstantiation)
         {
             return entity.type == ItemID.Starfury;
         }
-        
-        public override void SetDefaults(Item entity)
+        public override bool AllowPrefix(Item item, int pre)
         {
-           
-            entity.createTile = ModContent.TileType<StarfuryRock>();
+            return false; // no more natural prefixes (biggest nerf ever)
         }
+ 
     }
     public class StarfuryRock : ModTile
     {
         public static Asset<Texture2D> starfury;
         public override void SetStaticDefaults()
         {
+            
+ 
             Main.tileNoAttach[Type] = true;
             Main.tileFrameImportant[Type] = true;
+            TileID.Sets.BreakableWhenPlacing[Type] = true;
+            TileID.Sets.ReplaceTileBreakUp[Type] = true;
+            RegisterItemDrop(ItemID.Starfury);
+            FlexibleTileWand.RubblePlacementLarge.AddVariation(ItemID.Starfury, Type, TileObjectData.newTile.Style);
 
             TileObjectData.newTile.CopyFrom(TileObjectData.Style3x3);
             TileObjectData.newTile.StyleHorizontal = true;
             TileObjectData.newTile.CoordinateHeights = [16, 16, 18];
             DustType = DustID.GemAmethyst;
-            TileObjectData.addTile(Type);
+            TileObjectData.addTile(Type); 
+   
             Main.tileLighted[Type] = true;
             
             AddMapEntry(new Color(237, 63, 133));

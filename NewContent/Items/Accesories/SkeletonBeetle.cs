@@ -33,7 +33,7 @@ namespace TRAEProject.NewContent.Items.Accesories
 		{
 			CreateRecipe().AddIngredient(ItemID.HerculesBeetle)
 				.AddIngredient(ItemID.PygmyNecklace)
-				.AddIngredient(ItemID.SoulofSight, 10)
+				.AddIngredient(ItemID.SoulofFright, 12)
 				.AddTile(TileID.TinkerersWorkbench)
 				.Register();
 		}

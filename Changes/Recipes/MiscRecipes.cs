@@ -3,6 +3,7 @@ using Terraria;
 using Terraria.ID;
 using static Terraria.ModLoader.ModContent;
 using TRAEProject.NewContent.Items.Materials;
+using static System.Collections.IEnumerable;
 
 namespace TRAEProject.Changes.Recipes
 {
@@ -135,13 +136,15 @@ namespace TRAEProject.Changes.Recipes
             }
             if (recipe.HasResult(ItemID.PickaxeAxe) || recipe.HasResult(ItemID.Drax))
             {
-                recipe.TryGetIngredient(ItemID.SoulofSight, out ingredientToRemove);
+                for (int i = ItemID.SoulofFright; i <= ItemID.SoulofSight; i++)
+                {
+                    recipe.TryGetIngredient(i, out ingredientToRemove);
+                    recipe.RemoveIngredient(ingredientToRemove);
+                }
+                recipe.TryGetIngredient(ItemID.HallowedBar, out ingredientToRemove);
                 recipe.RemoveIngredient(ingredientToRemove);
-                recipe.TryGetIngredient(ItemID.SoulofFright, out ingredientToRemove);
-                recipe.RemoveIngredient(ingredientToRemove);
-                recipe.TryGetIngredient(ItemID.SoulofMight, out ingredientToRemove);
-                recipe.RemoveIngredient(ingredientToRemove);
-                recipe.AddIngredient(ItemID.SoulofFright, 20);
+                recipe.AddIngredient(ItemID.HallowedBar, 27);
+              
 
             }
 
