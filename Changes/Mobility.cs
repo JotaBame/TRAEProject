@@ -210,7 +210,7 @@ namespace TRAEProject
                 }
 
                 Player.jumpSpeedBoost += 1.4f;
-                Player.moveSpeed *= 1.33f;
+                Player.moveSpeed *= 4f / 3f;
    
                 JumpsAndBalloons.DoubleJumpHorizontalSpeeds(Player);
 

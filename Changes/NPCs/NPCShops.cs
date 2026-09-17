@@ -53,12 +53,7 @@ namespace TRAEProject.Changes.NPCs
         }
         public override void ModifyShop(NPCShop shop)
         {
-            if (shop.NpcType == NPCID.Demolitionist)
-            {
-                shop.TryGetEntry(ItemID.Grenade, out var entry);
-                entry.Disable();
-                shop.Add(ItemID.Grenade, Condition.DownedEyeOfCthulhu);
-            }
+ 
             /*
             if (shop.NpcType == NPCID.BestiaryGirl)
             {
@@ -121,20 +116,20 @@ namespace TRAEProject.Changes.NPCs
                 shop.Add(ItemID.ThePlan);
             }
             var mechDowned = new Condition("DownedAMech", () => TRAEWorld.downedAMech);
-            if (shop.NpcType == NPCID.Steampunker)
-            {
+            //if (shop.NpcType == NPCID.Steampunker)
+            //{
 
-                shop.TryGetEntry(ItemID.StaticHook, out var entry);
-                entry.Disable();
-                shop.TryGetEntry(ItemID.Jetpack, out entry);
-                entry.Disable();
-                shop.TryGetEntry(ItemID.Cog, out entry);
-                entry.Disable();
-                shop.InsertAfter(ItemID.Clentaminator, ItemID.Jetpack, mechDowned);
-                shop.InsertAfter(ItemID.SteampunkMinecart, ItemID.Cog, mechDowned);
-                shop.InsertAfter(ItemID.LogicGateLamp_Faulty, ItemID.StaticHook, mechDowned);
+            //    shop.TryGetEntry(ItemID.StaticHook, out var entry);
+            //    entry.Disable();
+            //    shop.TryGetEntry(ItemID.Jetpack, out entry);
+            //    entry.Disable();
+            //    shop.TryGetEntry(ItemID.Cog, out entry);
+            //    entry.Disable();
+            //    shop.InsertAfter(ItemID.Clentaminator, ItemID.Jetpack, mechDowned);
+            //    shop.InsertAfter(ItemID.SteampunkMinecart, ItemID.Cog, mechDowned);
+            //    shop.InsertAfter(ItemID.LogicGateLamp_Faulty, ItemID.StaticHook, mechDowned);
 
-            }
+            //}
         }
 
         public override void ModifyActiveShop(NPC npc, string shopName, Item[] items)

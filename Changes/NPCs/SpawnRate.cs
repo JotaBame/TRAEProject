@@ -34,11 +34,7 @@ namespace TRAEProject.Changes.NPCs
                 maxSpawns = (int)(maxSpawns * 2f);
             }
         }
-        public override void OnSpawn(NPC npc, IEntitySource source)
-{
-    if (!TRAEWorld.downedAMech && npc.type == NPCID.Steampunker)
-        npc.life = 0;
-}
+ 
 
     }
 }

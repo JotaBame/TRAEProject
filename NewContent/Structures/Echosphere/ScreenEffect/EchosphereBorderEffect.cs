@@ -32,7 +32,7 @@ namespace TRAEProject.NewContent.Structures.Echosphere.ScreenEffect
         }
         public static void Update()
         {
-            if (EchosphereSystem.PlayerInEchosphere(Main.LocalPlayer) || Main.LocalPlayer.GetModPlayer<EchoHunterSet>().EchoHunterMode)
+            if (EchosphereSystem.PlayerInEchosphere(Main.LocalPlayer) /*|| Main.LocalPlayer.GetModPlayer<EchoHunterSet>().EchoHunterMode*/)
             {
                 intensity += FadeSpeed;
             }

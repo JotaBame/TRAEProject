@@ -38,6 +38,8 @@ namespace TRAEProject
             int finalIndex = ParticleSystem.maxGlowBalls;
             for (int i = 0; i < ParticleSystem.maxGlowBalls; i++)
             {
+           
+           
                 if (ParticleSystem.glowBall[i].Active)
                     continue;
                 finalIndex = i;
@@ -55,6 +57,7 @@ namespace TRAEProject
         }
         public void Update()
         {
+         
             TimeLeft--;
             Position += Velocity;
             Velocity += Acceleration;

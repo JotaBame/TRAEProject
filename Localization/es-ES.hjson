@@ -290,6 +290,7 @@ Mods: {
 			// EcholaliaP.DisplayName: Echolalia P
 			// WingspanBlueP.DisplayName: Blue Feather
 			// KinglySmash.DisplayName: Kingly Smash
+			// EchoHunterPing.DisplayName: Echo Hunter Ping
 		}
 
 		Prefixes: {
@@ -1839,6 +1840,8 @@ Mods: {
 					Critical hits reduce defense by 3, up to 9 less defense
 					''' */
 			}
+
+			// BuffChangesModPlayer.DeathMessage: "{0} tried and failed to handle a very volatile explosive device."
 		}
 
 		NPCs: {

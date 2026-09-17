@@ -21,8 +21,9 @@ namespace TRAEProject.Changes.Recipes
             Recipe WaspGun = Recipe.Create(ItemID.WaspGun);
             WaspGun.AddIngredient(ItemID.BeeGun, 1);
             WaspGun.AddRecipeGroup("IronBar", 12);
-            WaspGun.AddIngredient(ItemID.IllegalGunParts, 1);
+            
             WaspGun.AddIngredient(ItemID.SoulofFright, 18);
+            WaspGun.AddIngredient(ItemID.IllegalGunParts, 1);
             WaspGun.AddTile(TileID.MythrilAnvil);
             WaspGun.Register(); 
             Recipe MagicDagger = Recipe.Create(ItemID.MagicDagger);

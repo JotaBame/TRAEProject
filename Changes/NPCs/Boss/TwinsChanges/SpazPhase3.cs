@@ -15,7 +15,7 @@ namespace TRAEProject.Changes.NPCs.Boss.TwinsChanges
         const float flameTime = 400f;
         public static int CauldronFireRate => Main.masterMode ? 13 : 13;
         public static int CauldronDuration => 280;
-        public static int ChargeCount => Main.masterMode ? 3 : 3;
+        public static int ChargeCount => Main.masterMode ? 5 : 3;
         public static int ChargeDuration => 60;
         public static int ChargeDecelerateStart => ChargeDuration / 2;
         public static void Header(NPC npc)
@@ -25,8 +25,21 @@ namespace TRAEProject.Changes.NPCs.Boss.TwinsChanges
                 npc.TargetClosest();
             }
             bool playerDead = Main.player[npc.target].dead;
+            float rotationToPlayer = (Main.player[npc.target].Center - npc.Center).ToRotation();
             float angVel = MathF.PI / 240f + MathF.PI / 180f * (1f - npc.ai[2] / flameTime) * (1f - npc.ai[2] / flameTime);
-            npc.rotation.SlowRotation((Main.player[npc.target].Center - npc.Center).ToRotation() - MathF.PI / 2, angVel);
+            //if (Main.masterMode) 
+            //    angVel *= npc.rotation / rotationToPlayer;
+
+          
+                float angleDiff = MathF.Abs(MathHelper.WrapAngle(rotationToPlayer - npc.rotation));
+                float turnRatio = angleDiff / MathF.PI;
+                float howMuchToTurn = Main.masterMode ? 0.35f : 0.75f;
+                if (turnRatio > howMuchToTurn)
+                    angVel *= 1f + turnRatio;
+
+           
+         
+            npc.rotation.SlowRotation(rotationToPlayer - MathF.PI / 2, angVel);
 
             if (Main.rand.NextBool(5))
             {
@@ -187,26 +200,42 @@ namespace TRAEProject.Changes.NPCs.Boss.TwinsChanges
             float angVel = MathF.PI / 12f;
             npc.rotation.SlowRotation(MathF.PI, angVel);
             float accY = 0.2f;
-            float maxVelY = 5f;
-            float accX = 0.2f;
-            float maxVelX = 20f;
+            float maxVelY = 10f;
+
+            float accX = Main.masterMode ? 0.25f : 0.2f;
+            float maxVelX = Main.masterMode ? 30f : 20f;
 
             npc.TargetClosest(false);
             Player player = Main.player[npc.target];
 
-            npc.velocity.X += accX * Math.Sign(player.Center.X - npc.Center.X);
+            Vector2 distanceToPlayer = player.Center - npc.Center;
+            npc.velocity.X += accX * Math.Sign(distanceToPlayer.X);
             if (Math.Abs(npc.velocity.X) > maxVelX)
             {
-                npc.velocity.X = maxVelX * Math.Sign(player.Center.X - npc.Center.X);
+                npc.velocity.X = maxVelX * Math.Sign(distanceToPlayer.X);
             }
-
-            npc.velocity.Y += accY * Math.Sign(player.Center.Y - npc.Center.Y);
-            if (Math.Abs(npc.velocity.Y) > maxVelY)
+         
+            if (distanceToPlayer.Y > -400f) // below player
             {
-                npc.velocity.Y = maxVelY * Math.Sign(player.Center.Y - npc.Center.Y);
-            }
 
-            if (Math.Sign(npc.velocity.X) != Math.Sign(player.Center.X - npc.Center.X))
+                npc.velocity.Y += accY;
+                if (Math.Abs(npc.velocity.Y) > maxVelY * 1.5f)
+                {
+                    npc.velocity.Y = maxVelY;
+                }
+            }
+            if (distanceToPlayer.Y < 400f)  
+            {
+                
+                npc.velocity.Y += accY * Math.Sign(distanceToPlayer.Y);
+                if (Math.Abs(npc.velocity.Y) > maxVelY)
+                {
+                    npc.velocity.Y = maxVelY * Math.Sign(distanceToPlayer.Y);
+                }
+            }
+      
+
+            if (Math.Sign(npc.velocity.X) != Math.Sign(distanceToPlayer.X))
             {
                 npc.velocity.X *= 0.98f;
             }
@@ -236,7 +265,26 @@ namespace TRAEProject.Changes.NPCs.Boss.TwinsChanges
                 //SoundEngine.PlaySound(15, (int)npc.position.X, (int)npc.position.Y, 0);
                 npc.TargetClosest();
                 npc.rotation = (Main.player[npc.target].Center - npc.Center).ToRotation() - MathF.PI / 2;
-                float num489 = 24f;
+                if (Main.netMode != NetmodeID.MultiplayerClient && Main.masterMode)
+                {
+                    int numberOfProjectiles = 2;
+                    float rotation = MathHelper.ToRadians(14);
+                    Vector2 shootFrom = Twins.GetPupilPosition(npc);
+                    float shootSpeed = 7f;
+
+                    for (int i = 0; i < numberOfProjectiles + 1; i += 2)
+                    {
+                        float posX = npc.Center.X;
+                        float posY = npc.Center.Y;
+                        Vector2 vel = TRAEMethods.PolarVector(shootSpeed, npc.rotation + MathF.PI / 2);
+
+                        Vector2 perturbedSpeed = vel.RotatedBy(MathHelper.Lerp(-rotation, rotation, (float)((float)i / (float)numberOfProjectiles))); // Watch out for dividing by 0 if there is only 1 projectile.
+
+                        int damage = Twins.masterFlamesDamage / 6; // divide by 6 because that's how master calculates damage
+                        Projectile.NewProjectile(npc.GetSource_ReleaseEntity(), shootFrom, perturbedSpeed, ProjectileID.EyeFire, damage, 0);
+                    }
+                }
+                    float num489 = 24f;
                 //if (Main.masterMode)
                 //{
                 //    num489 += 5f;
@@ -259,7 +307,7 @@ namespace TRAEProject.Changes.NPCs.Boss.TwinsChanges
                 npc.ai[2] += 1f;
                 if (Main.masterMode)
                 {
-                    npc.ai[2] += 0.5f; // make it 0.5 on master
+                    npc.ai[2] += 1f / 4f;  
                 }
                 if (npc.ai[2] >= ChargeDecelerateStart)
                 {
@@ -283,8 +331,30 @@ namespace TRAEProject.Changes.NPCs.Boss.TwinsChanges
                     npc.ai[3] += 1f;
                     npc.ai[2] = 0f;
                     npc.target = 255;
-                    npc.rotation = (Main.player[npc.target].Center - npc.Center).ToRotation() - MathF.PI / 2;
-                    if (npc.ai[3] >= ChargeCount) // five on master
+                    Player player = Main.player[npc.target];
+                    npc.rotation = (player.Center - npc.Center).ToRotation() - MathF.PI / 2;
+
+                    //if (Main.masterMode && Main.netMode != NetmodeID.MultiplayerClient)
+                    //{
+                    //    int numberOfProjectiles = 3;
+                    //    float rotation = MathHelper.ToRadians(23);
+                    //    Vector2 shootFrom = Twins.GetPupilPosition(npc);
+                    //    float shootSpeed = 10;
+                    //    for (int i = 0; i < numberOfProjectiles; i += 1)
+                    //    {
+                    //        float posX = npc.Center.X;
+                    //        float posY = npc.Center.Y;
+                    //        float speedX = player.Center.X - posX;
+                    //        float speedY = player.Center.Y - posY;
+                    //        Vector2 vel = TRAEMethods.PolarVector(shootSpeed, npc.rotation + MathF.PI / 2);
+                    //        float count = -1 + i;
+                    //        Vector2 perturbedSpeed = vel.RotatedByRandom(MathHelper.Lerp(-rotation, rotation, i / (numberOfProjectiles))); // Watch out for dividing by 0 if there is only 1 projectile.
+                    //        int damage = Twins.masterFlamesDamage / 6;
+                    //        Projectile.NewProjectile(npc.GetSource_ReleaseEntity(), shootFrom, perturbedSpeed, ProjectileID.CursedFlameHostile, damage, 0, 0);
+                    //    }
+                    //}
+
+                    if (npc.ai[3] >= ChargeCount)   
                     {
                         npc.ai[1] = 3f;
                         npc.ai[3] = 0f;
@@ -437,6 +507,7 @@ namespace TRAEProject.Changes.NPCs.Boss.TwinsChanges
         }
         public static void Start(NPC npc)
         {
+            npc.defense = npc.defDefense + 50;
             if (npc.ai[0] == 4f)
             {
 
@@ -501,6 +572,10 @@ namespace TRAEProject.Changes.NPCs.Boss.TwinsChanges
             Projectile.alpha = 100;
             AIType = 95;
             Projectile.timeLeft = 240;
+        }
+        public override bool TileCollideStyle(ref int width, ref int height, ref bool fallThrough, ref Vector2 hitboxCenterFrac)
+        {
+            return base.TileCollideStyle(ref width, ref height, ref fallThrough, ref hitboxCenterFrac);
         }
     }
     public class SpamatizmFire : FlamethrowerProjectile

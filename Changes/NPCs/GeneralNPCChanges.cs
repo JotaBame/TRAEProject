@@ -75,7 +75,7 @@ namespace TRAEProject.Changes.NPCs
                     break;
                 case NPCID.StardustCellBig:
                     {
-                        int length = Main.rand.Next(90, 180);
+                        int length = Main.rand.Next(9999);
                         target.AddBuff(BuffType<Celled>(), length, false);
                     }
                     break;

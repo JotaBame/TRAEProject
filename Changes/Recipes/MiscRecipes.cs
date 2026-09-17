@@ -19,7 +19,8 @@ namespace TRAEProject.Changes.Recipes
             Sashimi.Register();
             Recipe Leather = Recipe.Create(ItemID.Leather).AddIngredient(ItemID.Vertebrae, 5).AddTile(TileID.Tables);
             Leather.Register();
-            
+            Recipe SolarTablet = Recipe.Create(ItemID.SolarTablet).AddIngredient(ItemID.Hellstone, 8).AddIngredient(ItemID.MudBlock, 8).AddIngredient(ItemID.SoulofFright, 5).AddIngredient(ItemID.SoulofSight, 5).AddTile(TileID.MythrilAnvil);
+            SolarTablet.Register();
             Recipe ShadowKey = Recipe.Create(ItemID.ShadowKey).AddIngredient(ItemID.GoldenKey, 1).AddIngredient(ItemType<EchoHeart>(), 2).AddTile(TileID.DemonAltar);
             ShadowKey.Register();
             Recipe Wire = 
@@ -143,11 +144,12 @@ namespace TRAEProject.Changes.Recipes
                 }
                 recipe.TryGetIngredient(ItemID.HallowedBar, out ingredientToRemove);
                 recipe.RemoveIngredient(ingredientToRemove);
-                recipe.AddIngredient(ItemID.HallowedBar, 27);
-              
-
+                recipe.AddIngredient(ItemID.HallowedBar, 24);
+                recipe.AddIngredient(ItemID.Cog, 32);
+                recipe.AddIngredient(ItemID.SoulofLight, 6);
+                recipe.AddIngredient(ItemID.UnicornHorn, 3);
             }
-
+ 
 
         }
     }

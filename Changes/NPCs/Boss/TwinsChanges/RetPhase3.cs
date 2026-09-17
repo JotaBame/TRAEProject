@@ -14,21 +14,25 @@ namespace TRAEProject.Changes.NPCs.Boss.TwinsChanges
     public static class RetPhase3
     {
 
-        static int tpAnimTime = 8;
-        static int tpTime = 16;
-        static int tpCount = 6;
-        static int shotTime = 48;
-        static int rapidShotTime = 8;
-        static int shotCount = 2;
-        static float shootSpeed = 10f;
-        static int nukeTime = 220;
-        static int waitTime = 55; // make this divisible by the above
-        static int firstShotDelay = 10;
-        static int periodTime = tpCount * tpTime + shotTime * shotCount + nukeTime + waitTime + firstShotDelay;
-        static bool IsSpazPhase3Teleporting(NPC npc) => ((int)npc.ai[2] % periodTime) < tpCount * tpTime;
+        static readonly int tpAnimTime = 8;
+        static readonly int tpTime = 16;
+         
+        static readonly int tpCount = 6;
+        static readonly int shotTime = 48;
+        static readonly int rapidShotTime = 8;
+        static readonly int masterRapidShotTime = 12;
+        static readonly int shotCount = 2;
+
+        static readonly float shootSpeed = 10f;
+        static readonly int nukeTime = 220;
+        static readonly int waitTime = 55; // make this divisible by the above
+        static readonly int firstShotDelay = 10;
+        static readonly int periodTime = tpCount * tpTime + shotTime * shotCount + nukeTime + waitTime + firstShotDelay;
+        static bool IsRetPhase3Teleporting(NPC npc) => ((int)npc.ai[2] % periodTime) < tpCount * tpTime;
         public static void Update(NPC npc) 
         {
-            GetProgress(npc);
+            GetProgress(npc); 
+            Rotate(npc);
             npc.HitSound = SoundID.NPCHit4;
             npc.velocity = Vector2.Zero;
             npc.ai[2]++;
@@ -39,7 +43,7 @@ namespace TRAEProject.Changes.NPCs.Boss.TwinsChanges
             int periodicTimer = (int)npc.ai[2] % periodTime;
             int periodCount = (int)npc.ai[2] / periodTime;
 
-            if (IsSpazPhase3Teleporting(npc))
+            if (IsRetPhase3Teleporting(npc))
             {
                 if (periodicTimer % tpTime < tpAnimTime)
                 {
@@ -54,6 +58,7 @@ namespace TRAEProject.Changes.NPCs.Boss.TwinsChanges
                 else
                 {
                     npc.scale = 1f;
+                    
                 }
                 if (npc.scale <= 0)
                 {
@@ -64,23 +69,36 @@ namespace TRAEProject.Changes.NPCs.Boss.TwinsChanges
                     SetupTeleport(npc);
                 }
             }
-
+            if (Main.masterMode)
+            {
+                if (periodicTimer == tpCount * tpTime + firstShotDelay)
+                {
+                    masterShootHexagonals(npc);
+                }
+            }
             if (periodicTimer > tpCount * tpTime + firstShotDelay)
             {
                 if (periodCount % 3 == 2)
                 {
-                    if (periodicTimer % rapidShotTime == 0 && periodicTimer < periodTime - nukeTime - waitTime)
+                    int cooldown = Main.masterMode ? masterRapidShotTime : rapidShotTime;
+                    if (periodicTimer % cooldown == 0 && periodicTimer < periodTime - nukeTime - waitTime)
                     {
                         Shoot(npc);
+                        if (Main.masterMode)
+                            masterExtraShoots(npc);
                     }
-
+              
 
                 }
                 else
                 {
+                    if (Main.masterMode)
+                        npc.ai[2] -= 0.25f;
                     if (periodicTimer % shotTime == 0)
                     {
                         Shoot(npc);
+                        if (Main.masterMode)
+                            npc.ai[2] += shotTime;
                     }
                 }
                 if (periodicTimer > periodTime - nukeTime - waitTime && periodCount % 3 != 2)
@@ -170,7 +188,8 @@ namespace TRAEProject.Changes.NPCs.Boss.TwinsChanges
                     vector6.Y += vector7.Y * 10f;
                     if (Main.netMode != 1)
                     {
-                        Projectile p = Main.projectile[Projectile.NewProjectile(npc.GetSource_ReleaseEntity(), vector5, Vector2.Zero, ModContent.ProjectileType<EyeNuke>(), npc.GetAttackDamage_ForProjectiles(45f, 40f), 0, 255)];
+                        int damage = Main.masterMode ? 30 : npc.GetAttackDamage_ForProjectiles(45f, 40f);
+                        Projectile p = Main.projectile[Projectile.NewProjectile(npc.GetSource_ReleaseEntity(), vector5, Vector2.Zero, ModContent.ProjectileType<EyeNuke>(), damage, 0, 255)];
                         p.velocity.X = vector7.X;
                         p.velocity.Y = vector7.Y;
 
@@ -223,16 +242,52 @@ namespace TRAEProject.Changes.NPCs.Boss.TwinsChanges
         static void Shoot(NPC npc)
         {
  
-            Vector2 shootPos = npc.Center + TRAEMethods.PolarVector(25 * 9, npc.rotation + MathF.PI / 2);
+ 
             Vector2 shootVel = TRAEMethods.PolarVector(shootSpeed, npc.rotation + MathF.PI / 2);
-            DeathLaserShootDust(shootVel, shootPos - Vector2.Normalize(shootVel) * 140);
+            DeathLaserShootDust(shootVel, Twins.GetLaserCannonPosition(npc));
             if (Main.netMode != 1)
             {
 
-                int attackDamage_ForProjectiles3 = npc.GetAttackDamage_ForProjectiles(35f, 30f);
-                Projectile.NewProjectile(npc.GetSource_ReleaseEntity(), shootPos, shootVel, ProjectileID.DeathLaser, attackDamage_ForProjectiles3, 0f, Main.myPlayer);
+                int damage = Main.masterMode ? 25 : npc.GetAttackDamage_ForProjectiles(35f, 30f);
+                Projectile.NewProjectile(npc.GetSource_ReleaseEntity(), Twins.GetLaserCannonPosition(npc), shootVel, ProjectileID.DeathLaser, damage, 0f);
             }
         }
+        static void masterExtraShoots(NPC npc)
+        {
+
+ 
+            Vector2 shootVel = TRAEMethods.PolarVector(shootSpeed, npc.rotation + MathF.PI / 2);
+
+            int numberOfProjectiles = 2;
+            float rotation = MathHelper.ToRadians(38);
+            int damage = 23;
+            if (Main.netMode != NetmodeID.MultiplayerClient)
+            {
+                for (int i = 0; i < numberOfProjectiles + 1; i += 2)
+                {           
+                    float count = -1 + i;
+                    Vector2 perturbedSpeed = shootVel.RotatedBy(MathHelper.Lerp(-rotation, rotation, i / (numberOfProjectiles))); // Watch out for dividing by 0 if there is only 1 projectile.
+                    //DeathLaserShootDust(perturbedSpeed, shootPos - Vector2.Normalize(perturbedSpeed) * 140);
+                    Projectile.NewProjectile(npc.GetSource_ReleaseEntity(), Twins.GetLaserCannonPosition(npc), perturbedSpeed, ProjectileID.DeathLaser, damage, 0f);
+                }
+            }
+        }
+
+        static void masterShootHexagonals(NPC npc)
+        {
+ 
+            Vector2 shootVel = TRAEMethods.PolarVector(shootSpeed, npc.rotation + MathF.PI / 2);
+            int numberOfProjectiles = 6;
+            int damage = 25;
+            for (int i = 1; i <= numberOfProjectiles; i++)
+            {
+                float radians = 0.33f;
+ 
+                Vector2 direction = shootVel.RotatedBy(2 * Math.PI - radians * Math.PI * i);
+                Projectile.NewProjectile(npc.GetSource_FromThis(), Twins.GetLaserCannonPosition(npc), direction, ProjectileID.DeathLaser, damage, 0f);
+            }
+        }
+        
 
         public static float GetProgress(NPC npc)
         {
@@ -256,6 +311,8 @@ namespace TRAEProject.Changes.NPCs.Boss.TwinsChanges
         }
         public static void Start(NPC npc)
         {
+
+
             if (npc.ai[0] == 4f)
             {
                 npc.ai[2] += 0.005f;
@@ -371,7 +428,7 @@ namespace TRAEProject.Changes.NPCs.Boss.TwinsChanges
                 }
                 Twins.RestartSpritebatchForVanillaDraw(spriteBatch);
             }
-            bool teleporting = IsSpazPhase3Teleporting(npc) && npc.ai[0] > 5;
+            bool teleporting = IsRetPhase3Teleporting(npc) && npc.ai[0] > 5;
             periodicTimer = (int)npc.ai[2] % periodTime;
             int treshold = tpCount * tpTime - tpTime;//don't override color on last tp.
             if(periodicTimer > treshold)
@@ -534,14 +591,17 @@ namespace TRAEProject.Changes.NPCs.Boss.TwinsChanges
         }
         public override void AI()
         {
+           
+                
             //fading in like the death laser does. looks nicer than it just suddenly popping into existence
             Projectile.alpha -= 50;
             Projectile.alpha = (int)MathF.Max(Projectile.alpha, 0);
             if (Projectile.timeLeft == 5)
             {
-                TRAEMethods.Explode(Projectile, 180); Explosion(Projectile);
+                TRAEMethods.Explode(Projectile, 180); 
+                Explosion(Projectile);
 
-            }
+            } 
             if (Projectile.timeLeft % 12 == 0)
             {
                 Projectile.frame += 1;
@@ -564,19 +624,30 @@ namespace TRAEProject.Changes.NPCs.Boss.TwinsChanges
                     return;
                 }
                 float flytowards = (player.Center - Projectile.Center).ToRotation();
-                float speedBonus = (player.Center - Projectile.Center).Length() / 100f;
+                float speedBonus = (player.Center - Projectile.Center).Length() / 150f;
 
                 //this is an easing so they lose homing strength over time so it looks nicer. it is a nerf overall so I increased the homing duration by 10 extra frames to compensate
                 float homingSpeedMultiplier = Utils.GetLerpValue(50, 90, Projectile.timeLeft, true);
                 homingSpeedMultiplier = .5f - MathF.Cos(homingSpeedMultiplier * MathF.PI) * .5f;
                 Projectile.rotation.SlowRotation(flytowards - MathF.PI / 2, MathF.PI / 45f * homingSpeedMultiplier);
-                Projectile.velocity = TRAEMethods.PolarVector(6.25f + speedBonus, Projectile.rotation + MathF.PI / 2f);
+
+                float velocity = Main.masterMode ? 7.75f : 6.75f;
+                Projectile.velocity = TRAEMethods.PolarVector(velocity + speedBonus, Projectile.rotation + MathF.PI / 2f);
             }
+
+            else if (Main.masterMode && Projectile.timeLeft > 25)
+                Projectile.timeLeft = 25;
         }
         public override void OnHitPlayer(Player target, Player.HurtInfo info)
         {
-            TRAEMethods.Explode(Projectile, 180);
-            Explosion(Projectile);
+            
+            target.AddBuff(BuffID.Dazed, 60);
+            if (Projectile.timeLeft > 5)
+            {
+                TRAEMethods.Explode(Projectile, 180);
+                Explosion(Projectile);
+            }
+         
         }
 
         static void AABBLineVisualizer(Vector2 lineStart, Vector2 lineEnd, float lineWidth)

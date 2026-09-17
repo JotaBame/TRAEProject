@@ -48,7 +48,9 @@ namespace TRAEProject.NewContent.Items.Weapons.Summoner.Echolalia
 		{
             CreateRecipe(1)
                               .AddIngredient(ItemID.Leather, 7)
+                              
                               .AddIngredient(ItemID.SoulofFright, 8)
+                              .AddIngredient(ItemID.SoulofMight, 12)
                                                             .AddIngredient(ItemID.SoulofLight, 16)
 
                               .AddTile(TileID.MythrilAnvil)

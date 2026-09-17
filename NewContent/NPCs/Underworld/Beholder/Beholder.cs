@@ -1,4 +1,3 @@
-using Microsoft.CodeAnalysis;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
@@ -7,24 +6,15 @@ using System.Collections.Generic;
 
 using Terraria;
 using Terraria.Audio;
-using Terraria.Chat;
 using Terraria.DataStructures;
 using Terraria.GameContent;
 using Terraria.GameContent.Bestiary;
 using Terraria.GameContent.ItemDropRules;
 using Terraria.ID;
-using Terraria.Localization;
 using Terraria.ModLoader;
-using Terraria.ModLoader.Config;
-using Terraria.ModLoader.Utilities;
 using TRAEProject.NewContent.Items.Armor.UnderworldWarrior;
 using TRAEProject.NewContent.Items.BeholderItems;
-using TRAEProject.NewContent.NPCs.Banners;
-using TRAEProject.NewContent.NPCs.Underworld.OniRonin;
-using TRAEProject.NewContent.Projectiles;
-using static System.Formats.Asn1.AsnWriter;
 using static Terraria.ModLoader.ModContent;
-using static Terraria.ModLoader.PlayerDrawLayer;
 
 namespace TRAEProject.NewContent.NPCs.Underworld.Beholder
 {    [AutoloadBossHead]

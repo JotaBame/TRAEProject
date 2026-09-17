@@ -4,14 +4,20 @@ using ReLogic.Content;
 using System;
 using Terraria;
 using Terraria.Audio;
+using Terraria.DataStructures;
 using Terraria.GameContent;
+using Terraria.GameContent.UI.BigProgressBar;
 using Terraria.Graphics.Renderers;
 using Terraria.ID;
 using Terraria.ModLoader;
 using TRAEProject.Changes.NPCs.Miniboss.Santa;
+using TRAEProject.Common;
 using TRAEProject.NewContent.Items.FlamethrowerAmmo;
+using TRAEProject.NewContent.Projectiles.KinnaraFeather;
 using static AssGen.Assets;
+using static System.Net.Mime.MediaTypeNames;
 using static Terraria.ModLoader.ModContent;
+using static tModPorter.ProgressUpdate;
 
 namespace TRAEProject.Changes.NPCs.Boss.TwinsChanges
 {
@@ -32,7 +38,7 @@ namespace TRAEProject.Changes.NPCs.Boss.TwinsChanges
             {
                 if (npc.type == NPCID.Retinazer)
                 {
-                   
+            
 
 
                     npc.lifeMax = (int)(npc.lifeMax * ((float)14000 / 20000));
@@ -43,32 +49,28 @@ namespace TRAEProject.Changes.NPCs.Boss.TwinsChanges
                 }
             }
         }
-        /*
         public override void ApplyDifficultyAndPlayerScaling(NPC npc, int numPlayers, float balance, float bossAdjustment)
         {
-            if (GetInstance<TRAEConfig>().TwinsRework && !Main.masterMode)
+            if (GetInstance<BossConfig>().TwinsRework && !Main.zenithWorld && Main.masterMode)
             {
-
-                switch (npc.type)
+                // Balance numbers are finely tuned to land at 34770 for Spaz and 24300 for Ret on Master singleplayer
+                if (npc.type == NPCID.Spazmatism)
                 {
-                    case NPCID.Retinazer:
-                        npc.lifeMax = (int)(npc.lifeMax * 20000 / 21000 * bossAdjustment);
-
-                        break;
-                    case NPCID.Spazmatism:
-                        if (Main.expertMode)
-                        {
-                            npc.lifeMax = (int)(npc.lifeMax * 30000 / 34500 * bossAdjustment);
-                        }
-                        break;
+                    balance = 0.90909090909f;
+                    npc.lifeMax = (int)(npc.lifeMax * balance);
+                }
+                if (npc.type == NPCID.Retinazer)
+                {
+                    balance = 0.90764f;
+                    npc.lifeMax = (int)(npc.lifeMax * balance);
                 }
             }
         }
-        */
+
         public static void Move(NPC npc)
         {
             int abs = (int)Math.Abs(npc.ai[3]);
-            Vector2 goHere = Main.player[npc.target].Center + new Vector2(abs % 10 == 2 ? 25 : -250, abs / 10 == 2 ? 200 : -200);
+            Vector2 goHere = Main.player[npc.target].Center + new Vector2(abs % 10 == 2 ? 40 : -450, abs / 10 == 2 ? 300 : -360);
             FlyTo(npc, goHere, true);
             if (npc.ai[3] >= 0)
             {
@@ -137,7 +139,7 @@ namespace TRAEProject.Changes.NPCs.Boss.TwinsChanges
         {
             float topSpeed = 18f;
             float acceleration = 0.05f;
-
+            
             if (phase2)
             {
                 float Distance = npc.Distance(Main.player[npc.target].Center);
@@ -145,7 +147,7 @@ namespace TRAEProject.Changes.NPCs.Boss.TwinsChanges
                 {
                     topSpeed *= Distance / 800f;
                 }
-                acceleration *= 10;
+                acceleration *= 5;
                 npc.damage = 0;
                 //if((goHere - npc.Center).Length() < acceleration)
                 //{
@@ -159,15 +161,21 @@ namespace TRAEProject.Changes.NPCs.Boss.TwinsChanges
                 topSpeed *= 1.25f;
                 acceleration *= 1.15f;
             }
+            if (Main.masterMode && !phase2)
+            {
+                topSpeed *= 1.25f;
+                acceleration *= 5f;
+
+            }
             if (Main.getGoodWorld)
             {
                 topSpeed *= 1.15f;
                 acceleration *= 1.15f;
             }
-            else if (npc.ai[1] == 1f)
+            else if (npc.ai[1] == 1f) // spin attack
             {
-                topSpeed = 5f;
-                acceleration = 0.06f;
+                topSpeed = Main.masterMode ? 15f : 5f;
+                
             }
             Vector2 targetVel = (goHere - npc.Center).SafeNormalize(Vector2.UnitY) * topSpeed;
             float velX = targetVel.X;
@@ -193,7 +201,9 @@ namespace TRAEProject.Changes.NPCs.Boss.TwinsChanges
                 npc.velocity.Y += acceleration;
                 if (npc.velocity.Y < 0f && velY > 0f)
                 {
-                    npc.velocity.Y += acceleration;
+                    npc.velocity.Y += acceleration; // so that he doesnt fly way up offscreen
+                    if (!phase2)
+                        npc.velocity.Y += acceleration * 2; // so that he doesnt fly way up offscreen
                 }
             }
             else if (npc.velocity.Y > velY)
@@ -204,33 +214,116 @@ namespace TRAEProject.Changes.NPCs.Boss.TwinsChanges
                     npc.velocity.Y -= acceleration;
                 }
             }
+            ;
         }
 
-        const int fireRate = 120;
-        const int shotsFired = 4;
+        const int masterDefenseUp = 8;
+        const float retMasterDamageNerf = 0.78f;
+
+        const int retLaserCooldownPhase1 = 240;
+        const int retLaserCooldownPhase2 = 120;
+        const int masterSecondShotTime = 10;
+ 
+
+      
+
+        const int retShotsFiredPhase1 = 3;
+        const int retShotsFiredPhase2 = 4;
+        const float masterRetNerfedShootSpeed = 0.25f;
+
+        const float spinAttackDuration = 240f;
+        const int spinAttackDelay = 5;
+
         const int delayBeforeRapidFire = 180;
-        const int RapidfireRate = 20;
+        
+        const int retRapidfireRatePhase2 = 20;
         const int rapidShotsFired = 16;
-        const float RetshootSpeed = 15f;
+        const int masterBonusRapidShots = 4;
+      
+        const float RetshootSpeed = 12.5f;
+
+        const float otherTwinhealthPercentforPhase2 = 0.05f;
+        const float otherTwinhealthPercentforPhase2Master = 0.25f;
+        const float phaseTransitionAt = 0.4f;
+        const float phaseTransitionAtMaster = 0.55f;
+
+        const float phase1SpazChargeDuration = 40f;
+        const int phase1SpazCharges = 9; // vanilla value, ai[3] references this 
+        public const int masterFlamesDamage = 132;
+
+        const float minSize = 1.375f;
+        const float maxSize = 1.485f;
+    
         public override bool PreAI(NPC npc)
         {
             if (GetInstance<BossConfig>().TwinsRework && !Main.zenithWorld)
             {
+ 
                 if (npc.type == NPCID.Retinazer)
                 {
-       
+                    if (Main.masterMode)
+                    {
+                        if (npc.ai[0] != 0)
+                        {
+  
+                            npc.defense = npc.defDefense + 10 + masterDefenseUp;
+                            npc.HitSound = SoundID.NPCHit4;
+
+                        }
+                        else
+                            npc.defense = npc.defDefense + masterDefenseUp;
+
+                    }
+ 
+                    npc.HitSound = SoundID.NPCHit1;
                     if (npc.target < 0 || npc.target == 255 || Main.player[npc.target].dead || !Main.player[npc.target].active)
                     {
                         npc.TargetClosest();
                     }
-                    bool dead2 = Main.player[npc.target].dead;
+                    bool dead = Main.player[npc.target].dead;
+                    //RetPhase3.Rotate(npc);
+                    if (Main.expertMode)
+                    {
 
-                   
-                    RetPhase3.Rotate(npc);
+                        if (NPC.CountNPCS(NPCID.Spazmatism) <= 0 && npc.ai[0] < 4)
+                        {
+                            npc.ai[0] = 4f;
+                            npc.ai[1] = 0f;
+                            npc.ai[2] = 0f;
+                            npc.ai[3] = 0f;
+                            npc.netUpdate = true;
+                        }
+
+                        if (npc.ai[0] == 0)
+                        {
+                            float phaseTransition = Main.masterMode ? phaseTransitionAtMaster : phaseTransitionAt;
+                            float otherTwinsPhaseTransition = Main.masterMode ? otherTwinhealthPercentforPhase2Master : otherTwinhealthPercentforPhase2;
+                            int spaz = NPC.FindFirstNPC(NPCID.Spazmatism);
+                            
+                            
+                            if (npc.GetLifePercent() < phaseTransition || (spaz != -1 && Main.npc[spaz].GetLifePercent() < otherTwinsPhaseTransition))
+                            {
+
+                                npc.ai[0] = 1f;
+                                npc.ai[1] = 0f;
+                                npc.ai[2] = 0f;
+                                npc.ai[3] = 0f;
+                                npc.netUpdate = true;
+                            }
+                            
+
+                        }
+                    }
+
+
+
+
+
+           
                     if (npc.ai[0] < 5)
                     {
-                        float rotateTowards = TRAEMethods.PredictiveAimWithOffset(npc.Center, RetshootSpeed * 3, Main.player[npc.target].Center, Main.player[npc.target].velocity, npc.ai[1] == 0 ? 46 : 30) - MathF.PI / 2;
-                        float rotSpeed = 0.1f;
+                        float rotateTowards = TRAEMethods.PredictiveAimWithOffset(GetPupilPosition(npc), RetshootSpeed * 100, Main.player[npc.target].Center, Main.player[npc.target].velocity, npc.ai[1] == 0 ? 60 : 45) - MathF.PI / 2;
+                        float rotSpeed = 0.05f;
                         if (npc.ai[1] == 0)
                         {
                             rotSpeed *= 3;
@@ -250,7 +343,7 @@ namespace TRAEProject.Changes.NPCs.Boss.TwinsChanges
                         Main.dust[num402].velocity.X *= 0.5f;
                         Main.dust[num402].velocity.Y *= 0.1f;
                     }
-                    if (Main.netMode != 1 && !Main.dayTime && !dead2 && npc.timeLeft < 10)
+                    if (Main.netMode != 1 && !Main.dayTime && !dead && npc.timeLeft < 10)
                     {
                         for (int num403 = 0; num403 < 200; num403++)
                         {
@@ -260,7 +353,7 @@ namespace TRAEProject.Changes.NPCs.Boss.TwinsChanges
                             }
                         }
                     }
-                    if (Main.dayTime || dead2)
+                    if (Main.dayTime || dead)
                     {
                         npc.velocity.Y -= 0.04f;
                         npc.EncourageDespawn(10);
@@ -268,27 +361,30 @@ namespace TRAEProject.Changes.NPCs.Boss.TwinsChanges
                     }
                     if (npc.ai[0] == 4 || npc.ai[0] == 5)
                     {
+                        npc.defense = npc.defDefense + 50;
                         RetPhase3.Start(npc);
                         return false;
                     }
                     else if (npc.ai[0] > 5)
                     {
+ 
                         RetPhase3.Update(npc);
                         return false;
                     }
                     if (npc.ai[0] == 0f)
                     {
+                   
                         int side = 1;
                         if (npc.Center.X < Main.player[npc.target].Center.X)
                         {
                             side = -1;
                         }
-                        Vector2 goHere = Main.player[npc.target].Center + new Vector2(side * 450, -300);
+                        Vector2 goHere = Main.player[npc.target].Center + new Vector2(side * 300, -250);
                         FlyTo(npc, goHere, false);
                         if (npc.ai[1] == 0f)
                         {
                             npc.ai[2] += 1f;
-                            if (npc.ai[2] >= 600f)
+                            if (npc.ai[2] >= retLaserCooldownPhase1 * retShotsFiredPhase1)
                             {
                                 npc.ai[1] = 1f;
                                 npc.ai[2] = 0f;
@@ -302,18 +398,27 @@ namespace TRAEProject.Changes.NPCs.Boss.TwinsChanges
                                 {
                                     npc.ai[3] += 1f;
                                 }
-                                if (npc.ai[3] >= 200f)
-                                {
-                                    npc.ai[3] = 0f;
-                                    Vector2 shotPos = npc.Center + TRAEMethods.PolarVector(30, npc.rotation + MathF.PI / 2) + npc.velocity * 2f;
 
+                                if (npc.ai[3] >= retLaserCooldownPhase1)
+                                {
+
+                                    if (Main.masterMode && ((npc.ai[2] == retLaserCooldownPhase1) || (npc.ai[2] == retLaserCooldownPhase1 * 2.25f)))
+                                        npc.ai[3] -= retLaserCooldownPhase1 / 4;
+                                    else
+                                        npc.ai[3] = 0;
+
+                               
+                                    Vector2 shotPos = GetPupilPosition(npc) + TRAEMethods.PolarVector(30, npc.rotation + MathF.PI / 2) + npc.velocity * 2f;
                                     Vector2 particlePos = GetPupilPosition(npc);
                                     Vector2 shotVel = TRAEMethods.PolarVector(RetshootSpeed, npc.rotation + MathF.PI / 2);
                                     RetPhase3.EyeLaserShootDust(shotVel, particlePos);
                                     if (Main.netMode != 1)
                                     {
-                                        int attackDamage_ForProjectiles3 = npc.GetAttackDamage_ForProjectiles(20f, 19f);
-                                        int num413 = Projectile.NewProjectile(npc.GetSource_ReleaseEntity(), shotPos, shotVel, ProjectileID.EyeLaser, attackDamage_ForProjectiles3, 0f, Main.myPlayer);
+                                        int damage = npc.GetAttackDamage_ForProjectiles(20f, 19f);
+                                        if (Main.masterMode)
+                                            damage = (int)(damage * retMasterDamageNerf);
+                                        int num413 = Projectile.NewProjectile(npc.GetSource_ReleaseEntity(), shotPos, shotVel, ProjectileID.EyeLaser, damage, 0f, Main.myPlayer);
+                                        
                                     }
                                 }
                             }
@@ -321,23 +426,36 @@ namespace TRAEProject.Changes.NPCs.Boss.TwinsChanges
                         else if (npc.ai[1] == 1f)
                         {
                             //spin attack
+                            
+                            //if (Main.masterMode)
+                            //{
+                            //    npc.HitSound = SoundID.NPCHit53;
+                            //    npc.defense = npc.defDefense + 10;
+                            //}
+                    
+
                             npc.ai[2] += 1f;
-                            if (npc.ai[2] >= 240f)
+                            if (npc.ai[2] >= spinAttackDuration)
                             {
                                 npc.ai[2] = 0;
                                 npc.ai[1] = 0;
                             }
-                            if (npc.ai[2] % 4 == 0)
+                            if (npc.ai[2] % spinAttackDelay == 0)
                             {
+                
                                 Vector2 particlePos = GetPupilPosition(npc);
                                 Vector2 shotVel = TRAEMethods.PolarVector(RetshootSpeed, npc.rotation + MathF.PI / 2);
                                 RetPhase3.EyeLaserShootDust(shotVel, particlePos);
                                 if (Main.netMode != 1)
                                 {
-                                    int attackDamage_ForProjectiles3 = npc.GetAttackDamage_ForProjectiles(20f, 19f);
-                                    int num413 = Projectile.NewProjectile(npc.GetSource_ReleaseEntity(), npc.Center + TRAEMethods.PolarVector(30, npc.rotation + MathF.PI / 2), shotVel, ProjectileID.EyeLaser, attackDamage_ForProjectiles3, 0f, Main.myPlayer);
+                                    int damage = npc.GetAttackDamage_ForProjectiles(20f, 19f);
+                                    if (Main.masterMode)
+                                        damage = (int)(damage * retMasterDamageNerf);
+                                    int num413 = Projectile.NewProjectile(npc.GetSource_ReleaseEntity(), GetPupilPosition(npc) + TRAEMethods.PolarVector(30, npc.rotation + MathF.PI / 2), shotVel, ProjectileID.EyeLaser, damage, 0f, Main.myPlayer);
                                 }
                             }
+                  
+                
                         }
                         if (NPC.CountNPCS(NPCID.Spazmatism) <= 0)
                         {
@@ -347,27 +465,7 @@ namespace TRAEProject.Changes.NPCs.Boss.TwinsChanges
                             npc.ai[3] = 0f;
                             npc.netUpdate = true;
                         }
-                        else
-                        {
-                            float spazHealth = -1;
-                            for (int spazIndex = 0; spazIndex < 200; spazIndex++)
-                            {
-                                if (Main.npc[spazIndex].active && Main.npc[spazIndex].type == NPCID.Spazmatism)
-                                {
-                                    spazHealth = Main.npc[spazIndex].life / (float)Main.npc[spazIndex].lifeMax;
-                                    break;
-                                }
-                            }
-                            if (npc.life < npc.lifeMax * 0.4 || spazHealth != -1 && spazHealth < 0.05f)
-                            {
-
-                                npc.ai[0] = 1f;
-                                npc.ai[1] = 0f;
-                                npc.ai[2] = 0f;
-                                npc.ai[3] = 0f;
-                                npc.netUpdate = true;
-                            }
-                        }
+                  
 
                         return false;
                     }
@@ -431,54 +529,72 @@ namespace TRAEProject.Changes.NPCs.Boss.TwinsChanges
                         return false;
                     }
                 
-                    if (npc.ai[1] == 0f)
+                    if (npc.ai[1] == 0f) // ret phase 2 
                     {
+                       
                         npc.damage = (int)(npc.defDamage * 1.5);
                         npc.defense = npc.defDefense + 10;
                         npc.HitSound = SoundID.NPCHit4;
                         npc.ai[2] += 1f;
-                        if (npc.ai[2] == fireRate * shotsFired)
-                        {
-                            npc.velocity *= 0.2f;
                       
-                        }
-                        if (npc.ai[2] > fireRate * shotsFired)
+                        int firingDuration = retLaserCooldownPhase2 * retShotsFiredPhase2;
+                        int cycleTime = firingDuration + delayBeforeRapidFire + retRapidfireRatePhase2 * rapidShotsFired;
+                        if (Main.masterMode)
                         {
-                          
-                                Dust.NewDustPerfect(GetLaserCannonPosition(npc), DustID.TheDestroyer, Vector2.Zero, 0, Color.White with { A = 0 }, 1f);
+                            cycleTime += retRapidfireRatePhase2 * masterBonusRapidShots;
+                            if ((int)npc.ai[2] <= firingDuration)
+                                npc.ai[2] -= masterRetNerfedShootSpeed;
+                        }
+
+                        //if (npc.ai[2] == retLaserCooldownPhase2 * retShotsFiredPhase2)
+                        //{
+
+                        //    npc.velocity *= 0.2f;
+
+                        //}
+                      
+                        if (npc.ai[2] > retLaserCooldownPhase2 * retShotsFiredPhase2)
+                        {
+                            Player target = Main.player[npc.target];
+
+                            Dust.NewDustPerfect(GetLaserCannonPosition(npc), DustID.TheDestroyer, Vector2.Zero, 0, Color.White with { A = 0 }, 1f);
+                            if (npc.velocity.Length() > 16f && Main.masterMode)
+                            {
+                                 npc.velocity = npc.oldVelocity + target.velocity / 2; // more aggressively tracks the player by keeping up with their speed
+                            }
                             float speed = 1.25f;
                             int num425 = 1;
                             if (npc.position.X + npc.width / 2 < Main.player[npc.target].position.X + Main.player[npc.target].width)
                             {
                                 num425 = -1;
                             }
-                            Vector2 spazposition = new(npc.position.X + npc.width * 0.5f, npc.position.Y + npc.height * 0.5f);
-                            float playerpositionX = Main.player[npc.target].position.X + Main.player[npc.target].width / 2 + num425 * 180 - spazposition.X;
-                            float playerpositionY = Main.player[npc.target].position.Y + Main.player[npc.target].height / 2 - spazposition.Y;
-                            float playerpositiontospaz = MathF.Sqrt((float)(playerpositionX * playerpositionX + playerpositionY * playerpositionY));
+                            Vector2 retPosition = new(npc.position.X + npc.width * 0.5f, npc.position.Y + npc.height * 0.5f);
+                            float playerpositionX = Main.player[npc.target].position.X + Main.player[npc.target].width / 2 + num425 * 180 - retPosition.X;
+                            float playerpositionY = Main.player[npc.target].position.Y + Main.player[npc.target].height / 2 - retPosition.Y;
+                            float playerDdistanceToRet = MathF.Sqrt((float)(playerpositionX * playerpositionX + playerpositionY * playerpositionY));
                             if (Main.expertMode)
                             {
-                                if (playerpositiontospaz > 300f)
+                                if (playerDdistanceToRet > 300f)
                                 {
                                     speed += 0.5f;
                                 }
-                                if (playerpositiontospaz > 400f)
+                                if (playerDdistanceToRet > 400f)
                                 {
                                     speed += 0.5f;
                                 }
-                                if (playerpositiontospaz > 500f)
+                                if (playerDdistanceToRet > 500f)
                                 {
                                     speed += 0.75f;
                                 }
-                                if (playerpositiontospaz > 600f)
+                                if (playerDdistanceToRet > 600f)
                                 {
                                     speed += 0.75f;
                                 }
-                                if (playerpositiontospaz > 700f)
+                                if (playerDdistanceToRet > 700f)
                                 {
                                     speed += 1.5f;
                                 }
-                                if (playerpositiontospaz > 800f)
+                                if (playerDdistanceToRet > 800f)
                                 {
                                     speed += 1.5f;
                                 }
@@ -486,9 +602,9 @@ namespace TRAEProject.Changes.NPCs.Boss.TwinsChanges
 
                             speed *= 2f; float accel = Main.expertMode ? 0.16f : 0.125f;
 
-                            playerpositiontospaz /= speed;
-                            playerpositionX *= playerpositiontospaz;
-                            playerpositionY *= playerpositiontospaz;
+                            playerDdistanceToRet /= speed;
+                            playerpositionX *= playerDdistanceToRet;
+                            playerpositionY *= playerDdistanceToRet;
                             if (npc.velocity.X < playerpositionX)
                             {
                                 ref float x1 = ref npc.velocity.X; // could maybe be simplified to npc.velocity.X += accel 
@@ -531,15 +647,14 @@ namespace TRAEProject.Changes.NPCs.Boss.TwinsChanges
                             }
                             ref float x = ref npc.ai[2];
                             x += 1f;
-                            if (npc.ai[2] >= fireRate * shotsFired + delayBeforeRapidFire && npc.ai[2] % RapidfireRate == 0)
+                          
+                            if ((int)npc.ai[2] >= firingDuration + delayBeforeRapidFire && (int)npc.ai[2] % (retRapidfireRatePhase2) == 0)
                             {
                                 Dust dust = Dust.NewDustPerfect(GetLaserCannonPosition(npc), DustID.TheDestroyer, Vector2.Zero, 0, Color.White with { A = 0 }, 1f);
                                 dust.noGravity = true;
+                   
 
-                            }
-                            if (npc.ai[2] >= fireRate * shotsFired + delayBeforeRapidFire && npc.ai[2] % RapidfireRate == 0)
-                            {
-                                Player target = Main.player[npc.target];
+
                                 Vector2 vector116 = new(npc.Center.X + npc.direction * 50, npc.Center.Y + Main.rand.Next(35, 90));
                                 float num959 = target.Center.X - vector116.X + Main.rand.Next(-40, 41);
                                 float num960 = target.Center.Y - vector116.Y + Main.rand.Next(-40, 41);
@@ -551,16 +666,18 @@ namespace TRAEProject.Changes.NPCs.Boss.TwinsChanges
                                 num959 *= num961;
                                 num960 *= num961;
                                 Vector2 shotVel = new(num959, num960);
-                                Vector2 pos = npc.Center + TRAEMethods.PolarVector(46, npc.rotation + MathF.PI / 2) + npc.velocity * 2f;
+                                Vector2 pos = GetPupilPosition(npc) + TRAEMethods.PolarVector(46, npc.rotation + MathF.PI / 2) + npc.velocity * 2f;
                                 if (Main.netMode != 1)
                                 {
-                                    int attackDamage_ForProjectiles3 = npc.GetAttackDamage_ForProjectiles(25f, 23f);
-                                    Projectile.NewProjectile(npc.GetSource_ReleaseEntity(), pos.X, pos.Y, num959, num960, ProjectileID.DeathLaser, attackDamage_ForProjectiles3, 0f, Main.myPlayer);
+                                    int damage = npc.GetAttackDamage_ForProjectiles(25f, 23f);
+                                    if (Main.masterMode)
+                                        damage = (int)(damage * retMasterDamageNerf);
+                                    Projectile.NewProjectile(npc.GetSource_ReleaseEntity(), pos.X, pos.Y, num959, num960, ProjectileID.DeathLaser, damage, 0f, Main.myPlayer);
                                 }
                               
                                 RetPhase3.DeathLaserShootDust(shotVel, GetLaserCannonPosition(npc));
                             }
-                            if (npc.ai[2] >= fireRate * shotsFired + delayBeforeRapidFire + RapidfireRate * rapidShotsFired)
+                            if (npc.ai[2] >= cycleTime)
                             {
                                 npc.ai[2] = 0;
                                 npc.netUpdate = true;
@@ -570,20 +687,28 @@ namespace TRAEProject.Changes.NPCs.Boss.TwinsChanges
                         {
                             //TRAEMethods.ServerClientCheck(npc.localAI[2] + ", " + npc.localAI[3]);
                             Move(npc);
-
-                            if (npc.ai[2] % fireRate == 0)
+                            int secondShot = 130;
+                            if ((int)npc.ai[2] % retLaserCooldownPhase2 == 0
+                                || (Main.masterMode && (int)npc.ai[2] % secondShot == 0)
+                                )
                             {
+                                if (npc.ai[2] > secondShot)
+                                    secondShot = (int)npc.ai[2] + masterSecondShotTime;
                                 Vector2 shotVel = TRAEMethods.PolarVector(RetshootSpeed, npc.rotation + MathF.PI / 2);
                                 if (Main.netMode != NetmodeID.MultiplayerClient)
                                 {
-                                    int attackDamage_ForProjectiles3 = npc.GetAttackDamage_ForProjectiles(25f, 23f);
-                                    int num413 = Projectile.NewProjectile(npc.GetSource_ReleaseEntity(), npc.Center + TRAEMethods.PolarVector(46, npc.rotation + MathF.PI / 2) + npc.velocity * 2f, shotVel, ProjectileID.DeathLaser, attackDamage_ForProjectiles3, 0f, Main.myPlayer);
+
+                                    int damage = npc.GetAttackDamage_ForProjectiles(25f, 23f);
+                                    if (Main.masterMode)
+                                        damage = (int)(damage * retMasterDamageNerf);
+                                    int num413 = Projectile.NewProjectile(npc.GetSource_ReleaseEntity(), GetPupilPosition(npc) + TRAEMethods.PolarVector(46, npc.rotation + MathF.PI / 2) + npc.velocity * 2f, shotVel, ProjectileID.DeathLaser, damage, 0f, Main.myPlayer);
                                 }
                                 RetPhase3.DeathLaserShootDust(shotVel, Twins.GetLaserCannonPosition(npc));
+                                
 
                             }
                         }
-                        if (NPC.CountNPCS(NPCID.Spazmatism) <= 0 && Main.expertMode)
+                        if (NPC.CountNPCS(NPCID.Spazmatism) <= 0 && Main.expertMode && !dead)
                         {
                             npc.ai[0] = 4f;
                             npc.ai[1] = 0f;
@@ -598,35 +723,140 @@ namespace TRAEProject.Changes.NPCs.Boss.TwinsChanges
                 }
                 if (npc.type == NPCID.Spazmatism)
                 {
-                     
-                    if (npc.ai[0] == 0 && npc.ai[1] == 0)
+                
+                    if (npc.ai[0] == 0)
                     {
+                 
+                        Player player = Main.player[npc.target];
                         float timerIncr = 1f;
-
-                        if (Main.expertMode && npc.GetLifePercent() < 0.8f)//when qwerty fixes his code this expert timer increase should be removed.
+                        
+                        if (Main.masterMode)
                         {
-                            timerIncr += 0.6f;
-                        }
-                        if (npc.ai[3] + timerIncr >= 60)
-                        {
-                            CursedFlameShootDust(GetPupilPosition(npc));
-                            int dustsToMake = 25;
-                   
-                            for (int i = 0; i < dustsToMake; i++)
+                            
+                            if (npc.ai[1] == 2f || npc.ai[1] == 1f) // charge state
                             {
-                                double radius = 2 * Math.PI / dustsToMake;
-                                // Why 62.5f and not 41.67?
-                                // This is 150% of 41.67, because below the extra dusts get increased distance, with a max of 50% more.
-                                // Therefore, the circle of flames more or less accurately represents the radius of the fire ring.
-                                Vector2 speed = new(5, 5);
-                                Dust d = Dust.NewDustPerfect(GetPupilPosition(npc), DustID.CursedTorch, speed.RotatedBy(radius * i) + npc.velocity, Scale: 2.5f);
-                      
-                                d.noGravity = true;
+                                //npc.HitSound = SoundID.NPCHit53;
+                         
+                         
+                                //npc.defense = npc.defDefense + 18;
+                                switch (npc.ai[2])
+                                {
+                                    case 0:
+                                        if (Main.netMode != NetmodeID.MultiplayerClient)
+                                        {
+                                            int numberOfProjectiles = 2;
+                                            float rotation = MathHelper.ToRadians(14);
+                                            Vector2 shootFrom = GetPupilPosition(npc);
+                                            float shootSpeed = 6.75f;
+                                        
+                                            for (int i = 0; i < numberOfProjectiles + 1; i += 2)
+                                            {
+                                                float posX = npc.Center.X;
+                                                float posY = npc.Center.Y;
+                                                Vector2 vel = TRAEMethods.PolarVector(shootSpeed, npc.rotation + MathF.PI / 2);
+
+                                                Vector2 perturbedSpeed = vel.RotatedBy(MathHelper.Lerp(-rotation, rotation, (float)((float)i / (float)numberOfProjectiles))); // Watch out for dividing by 0 if there is only 1 projectile.
+
+                                                int damage = masterFlamesDamage / 6; // divide by 6 because that's how master calculates damage
+                                                Projectile.NewProjectile(npc.GetSource_ReleaseEntity(), shootFrom, perturbedSpeed, ProjectileID.EyeFire, damage, 0);
+                                            }
+                                            int dustsToMake = 25;
+
+                                            for (int i = 0; i < dustsToMake; i++)
+                                            {
+                                                double radius = 2 * Math.PI / dustsToMake;
+
+                                                Vector2 speed = new(5, 5);
+                                                Dust d = Dust.NewDustPerfect(GetPupilPosition(npc), DustID.CursedTorch, speed.RotatedBy(radius * i) + npc.velocity, Scale: 2.5f);
+
+                                                d.noGravity = true;
+                                            }
+                                        }
+                                        break;
+                                    case < 10f:
+                                        npc.ai[2] -= 0.75f;
+                                        if (npc.velocity.Length() > 3)
+                                            npc.velocity += player.velocity * 0.67f / 60; // more aggressively tracks the player by keeping up with their speed
+                                        
+                                        break;
+                                    
+                           
+                                        
+
+
+                                }
+
+                                npc.velocity += npc.oldVelocity * 3;
                             }
                         }
+
+                      
+                        if (npc.ai[1] == 0f) // fireballs
+                        {
+                            
+                            if (npc.ai[3] + timerIncr >= 60 && npc.ai[2] <= 540f)
+                            {                                 
+                                CursedFlameShootDust(GetPupilPosition(npc));
+                            }
+                             if (Main.masterMode && 
+                                ((int)npc.ai[2] > 480f && (int)npc.ai[2] <= 540f)
+                                ||
+                                ((int)npc.ai[2] > 300f && (int)npc.ai[2] <= 360f)
+                                )
+                            {
+                      
+                                if ((int)npc.ai[2] == 540f || (int)npc.ai[2] == 360f)
+                                {
+                                    for (int i = 0; i < 25; i++)
+                                    {
+                                        double radius = 2 * Math.PI / 25;
+                                        Vector2 speed = new(5, 5);
+                                        Dust d = Dust.NewDustPerfect(GetPupilPosition(npc), DustID.CursedTorch, speed.RotatedBy(radius * i) + npc.velocity, Scale: 2.5f);
+                                        d.noGravity = true;
+                                    }
+                                    int numberOfProjectiles = 2;
+                                    float rotation = MathHelper.ToRadians(26);
+                                    Vector2 shootFrom = npc.Center + TRAEMethods.PolarVector(14, npc.rotation + MathF.PI / 2);
+                                    float shootSpeed = 13.5f;
+                                    if (Main.netMode != NetmodeID.MultiplayerClient)
+                                    {
+                                        for (int i = 0; i < numberOfProjectiles + 1; i += 2)
+                                        {
+                                            float posX = npc.Center.X;
+                                            float posY = npc.Center.Y;
+                                            float speedX = player.Center.X - posX;
+                                            float speedY = player.Center.Y - posY;
+                                            Vector2 vel = TRAEMethods.PolarVector(shootSpeed, npc.rotation + MathF.PI / 2);
+                                            float count = -1 + i;
+                                            Vector2 perturbedSpeed = vel.RotatedBy(MathHelper.Lerp(-rotation, rotation, i / (numberOfProjectiles))); // Watch out for dividing by 0 if there is only 1 projectile.
+                                            Projectile.NewProjectile(npc.GetSource_ReleaseEntity(), shootFrom, perturbedSpeed, ProjectileID.CursedFlameHostile, 22, 0);
+                                        }
+                                    }
+                                }
+                                npc.ai[3] -= 0.25f;
+                                npc.ai[2] -= 0.25f;
+
+
+
+
+
+                            }
+                            if (Main.masterMode && npc.ai[2] >= 570)
+                            {
+                                npc.velocity *= 0.966f; // slow him down before he does the first charge, else the flame jets almost always hit
+                            }
+                            if (npc.ai[2] >= 600)
+                            {
+
+                                npc.ai[2] = 0;
+                            }
+                        }
+
+                      
+                           
                     }
-    
-                    
+
+                  
                     if (npc.ai[0] == 3f)
                     {
                         npc.rotation = npc.DirectionTo(Main.player[npc.target].Center).ToRotation() - 1.567f;
@@ -753,14 +983,14 @@ namespace TRAEProject.Changes.NPCs.Boss.TwinsChanges
                                     if (npc.localAI[1] > 8f)
                                     {
                                         npc.localAI[1] = 0f;
-                                        float num487 = 6f;
+                                        float shootVel = 5.5f;
                                         int attackDamage_ForProjectiles7 = npc.GetAttackDamage_ForProjectiles(30f, 27f);
 
                                         Vector2 vector51 = new Vector2(npc.position.X + (float)npc.width * 0.5f, npc.position.Y + (float)npc.height * 0.5f);
                                         float num483 = Main.player[npc.target].position.X + (float)(Main.player[npc.target].width / 2) - vector51.X;
                                         float num484 = Main.player[npc.target].position.Y + (float)(Main.player[npc.target].height / 2) - vector51.Y;
                                         float num485 = (float)Math.Sqrt(num483 * num483 + num484 * num484);
-                                        num485 = num487 / num485;
+                                        num485 = shootVel / num485;
                                         num483 *= num485;
                                         num484 *= num485;
                                         num484 += (float)Main.rand.Next(-40, 41) * 0.01f;
@@ -784,6 +1014,63 @@ namespace TRAEProject.Changes.NPCs.Boss.TwinsChanges
                                 }
                             }
                             return false;
+                        } // flamethrower
+
+                        if (npc.ai[1] == 2f) // charges
+                        {
+                            Player player = Main.player[npc.target];
+                
+                            
+                            if (Main.masterMode)
+                            {
+
+                                if (npc.ai[1] == 2f || npc.ai[1] == 1f) // charge state
+                                {
+
+                                    //npc.HitSound = SoundID.NPCHit53;
+
+
+                                    //npc.defense = npc.defDefense + 18;
+
+                                    if (npc.ai[2] == 60f && Main.netMode != NetmodeID.MultiplayerClient)
+                                    {
+                                        int numberOfProjectiles = 3;
+                                        float rotation = MathHelper.ToRadians(21);
+                                        Vector2 shootFrom = GetPupilPosition(npc);
+                                        float shootSpeed = 9.5f;
+                                        for (int i = 0; i < numberOfProjectiles; i += 1)
+                                        {
+                                            float posX = npc.Center.X;
+                                            float posY = npc.Center.Y;
+                                            float speedX = player.Center.X - posX;
+                                            float speedY = player.Center.Y - posY;
+                                            Vector2 vel = TRAEMethods.PolarVector(shootSpeed, npc.rotation + MathF.PI / 2);
+                                            float count = -1 + i;
+                                            Vector2 perturbedSpeed = vel.RotatedByRandom(MathHelper.Lerp(-rotation, rotation, i / (numberOfProjectiles))); // Watch out for dividing by 0 if there is only 1 projectile.
+                                            int damage = masterFlamesDamage / 6;
+                                            Projectile.NewProjectile(npc.GetSource_ReleaseEntity(), shootFrom, perturbedSpeed, ProjectileID.CursedFlameHostile, damage, 0, 0);
+                                        }
+                                        int dustsToMake = 25;
+
+                                        for (int i = 0; i < dustsToMake; i++)
+                                        {
+                                            double radius = 2 * Math.PI / dustsToMake;
+
+                                            Vector2 speed = new(5, 5);
+                                            Dust d = Dust.NewDustPerfect(GetPupilPosition(npc), DustID.CursedTorch, speed.RotatedBy(radius * i) + npc.velocity, Scale: 2.5f);
+
+                                            d.noGravity = true;
+                                        }
+
+                                    }
+
+
+                                    // npc.ai[2] -= 0.25f; // important that this is last
+
+
+                                    //npc.velocity += npc.oldVelocity * 3;
+                                }
+                            }
                         }
                      
                     }
@@ -794,10 +1081,12 @@ namespace TRAEProject.Changes.NPCs.Boss.TwinsChanges
                        
                         if (npc.ai[0] == 4f || npc.ai[0] == 5f)
                         {
+                            npc.dontTakeDamage = true;
                             SpazPhase3.Start(npc);
                         }
                         else
                         {
+                            npc.dontTakeDamage = false;
                             SpazPhase3.Update(npc);
                         }
                         return false;
@@ -809,35 +1098,34 @@ namespace TRAEProject.Changes.NPCs.Boss.TwinsChanges
 
         public override void AI(NPC npc)
         {
+
+      
             if (GetInstance<BossConfig>().TwinsRework && !Main.zenithWorld)
             {
+         
                 if (npc.type == NPCID.Spazmatism)
-                {   // shoot fireballs slower
-                    if (npc.ai[0] == 0f)
+                {   if (Main.masterMode)
                     {
-                        if (npc.ai[1] == 0f)
+                        
+                        if (npc.ai[0] > 1)
                         {
-                            if (npc.ai[2] <= 600)
-                            {
-                                if (Main.expertMode && npc.life < npc.lifeMax * 0.8)
-                                {
-                                    npc.ai[3] -= 0.6f; // goes up 1.6 on expert mode when below 80% hp... let me just get rid of that real quick
-                                }
-                                if (!Main.player[npc.target].dead)
-                                {
-                                    npc.ai[3] -= 0.25f; // goes up by 1 normally, so 25% slower
-                                }
-                            }
+                
+                            npc.damage = (int)(npc.defDamage * 1.5);
+                            npc.defense = npc.defDefense + 18 + masterDefenseUp;
+                            npc.HitSound = SoundID.NPCHit4;
+
                         }
+                        else 
+                            npc.defense = npc.defDefense + masterDefenseUp;
+
                     }
-                    if (Main.masterMode && npc.ai[0] != 4f)
+                    
+
+
+                    if (Main.expertMode)
                     {
-                        if (npc.ai[1] == 2f) // charge state
-             { }
-                    }
-                        if (Main.expertMode)
-                    {
-                        if (NPC.CountNPCS(NPCID.Retinazer) <= 0 && npc.ai[0] < 4 && Main.expertMode)
+                        bool dead = Main.player[npc.target].dead;
+                        if (NPC.CountNPCS(NPCID.Retinazer) <= 0 && npc.ai[0] < 4 && Main.expertMode && !dead)
                         {
                             npc.ai[0] = 4f;
                             npc.ai[1] = 0f;
@@ -845,27 +1133,27 @@ namespace TRAEProject.Changes.NPCs.Boss.TwinsChanges
                             npc.ai[3] = 0f;
                             npc.netUpdate = true;
                         }
-          
-                    }
-                    if (npc.ai[0] == 0)
-                    {
-                        float retHealth = -1;
-                        for (int retIndex = 0; retIndex < 200; retIndex++)
+                        if (npc.ai[0] == 0)
                         {
-                            if (Main.npc[retIndex].active && Main.npc[retIndex].type == NPCID.Retinazer)
+
+                            int ret = NPC.FindFirstNPC(NPCID.Retinazer);
+
+                            float phaseTransition = Main.masterMode ? phaseTransitionAtMaster : phaseTransitionAt;
+                            float otherTwinsPhaseTransition = Main.masterMode ? otherTwinhealthPercentforPhase2Master : otherTwinhealthPercentforPhase2;
+                        
+                            if (npc.GetLifePercent() < phaseTransition || (ret != -1 && Main.npc[ret].GetLifePercent() < otherTwinsPhaseTransition))
                             {
-                                retHealth = Main.npc[retIndex].life / (float)Main.npc[retIndex].lifeMax;
-                                break;
+
+                                npc.ai[0] = 1f;
+                                npc.ai[1] = 0f;
+                                npc.ai[2] = 0f;
+                                npc.ai[3] = 0f;
+                                npc.netUpdate = true;
                             }
+
                         }
-                        if (npc.life < npc.lifeMax * 0.4 || retHealth != -1 && retHealth < 0.05f)
-                        {
-                            npc.ai[0] = 1f;
-                            npc.ai[1] = 0f;
-                            npc.ai[2] = 0f;
-                            npc.ai[3] = 0f;
-                            npc.netUpdate = true;
-                        }
+                    
+
                     }
                 }
             }
@@ -882,6 +1170,8 @@ namespace TRAEProject.Changes.NPCs.Boss.TwinsChanges
                 }
                 if (npc.type == NPCID.Spazmatism)
                 {
+
+                    
                     if (npc.ai[0] >= 4)
                     {
                         SpazPhase3.Phase3Draw(npc, spriteBatch, screenPos, drawColor);
@@ -929,6 +1219,21 @@ namespace TRAEProject.Changes.NPCs.Boss.TwinsChanges
                 Sparkle.NewSparkle(origin, Twins.CursedFlamesLime, new Vector2(1.6f), Vector2.Zero, 20, new Vector2(1f), Vector2.Zero, 1f, MathF.PI / 4f, 1f);
             }
         }
+        public static void ImFuckingInvincible(Vector2 position, Color color, float progress)
+        {
+            float scale = MathHelper.Lerp(2f, 1f, progress);
+            Color drawCol = color * Utils.GetLerpValue(0, .6f, progress, true);
+            position -= Main.screenPosition;
+            //FadeLightBall(position, drawCol, scale);
+            Texture2D ring = ModContent.Request<Texture2D>("TRAEProject/Assets/SpecialTextures/RingPremultiplied").Value;
+            drawCol = color * Utils.GetLerpValue(0.4f, 1f, progress, true);
+            drawCol.A = 0;
+            scale = MathHelper.Lerp(3f, 0.01f, progress);
+            Main.EntitySpriteDraw(ring, position, null, drawCol, Main.rand.NextFloat(MathF.Tau), ring.Size() / 2, scale, SpriteEffects.None);
+            Texture2D bubble = ModContent.Request<Texture2D>("TRAEProject/Assets/SpecialTextures/BubbleGlow").Value;
+            Main.EntitySpriteDraw(bubble, position + new Vector2(5, 2), null, Color.White * 0.5f, MathF.PI, bubble.Size() / 2, scale, SpriteEffects.None);
+
+        }
         public static void ShootTelegraph(Vector2 position, Color color, float progress)
         {
             float opacity = Utils.GetLerpValue(0f, .4f, progress, true);
@@ -968,6 +1273,7 @@ namespace TRAEProject.Changes.NPCs.Boss.TwinsChanges
             float scale = MathHelper.Lerp(2f, 1f, progress);
             Color drawCol = color * Utils.GetLerpValue(0, .6f, progress, true);
             position -= Main.screenPosition;
+          
             FadeLightBall(position, drawCol, scale);
             Texture2D ring = ModContent.Request<Texture2D>("TRAEProject/Assets/SpecialTextures/RingPremultiplied").Value;
             drawCol = color * Utils.GetLerpValue(0.5f, 1f, progress, true);
@@ -986,7 +1292,7 @@ namespace TRAEProject.Changes.NPCs.Boss.TwinsChanges
             Pos += (Vector2.UnitX * (30 + TextureAssets.Npc[npc.type].Width() / 2)).RotatedBy(npc.rotation + MathF.PI / 2);
             return Pos;
         }
-        static Vector2 GetPupilPosition(NPC npc)
+        public static Vector2 GetPupilPosition(NPC npc)
         {
             Vector2 halfSize = new(55f, 107f);
             float num35 = 0f;
@@ -1003,6 +1309,49 @@ namespace TRAEProject.Changes.NPCs.Boss.TwinsChanges
             {
                 if (npc.type == NPCID.Retinazer)
                 {
+                    //if (Main.masterMode)
+                    //{
+                    //    //spin attack
+                    //    if (npc.ai[1] == 1f)
+                    //    {
+
+
+
+                    //        int c = (int)npc.ai[3];
+                    //        Color color = new(c, c, c, c);
+                    //        Vector2 halfSize = new(55f, 107f);
+                    //        float num35 = 0f;
+                    //        float num36 = Main.NPCAddHeight(npc);
+
+                    //        float progress = npc.ai[2] / spinAttackDuration;
+
+
+                    //        float size = maxSize; // default to the max
+                    //        if (progress <= 0.25f)
+                    //        {
+                    //            ;
+
+
+                    //            size = MathHelper.Lerp(minSize, maxSize, progress / 0.25f);
+                    //        }
+                    //        else if (progress >= 0.75f)
+                    //        {
+
+                    //            size = MathHelper.Lerp(maxSize, minSize, (progress - 0.75f) / 0.25f);
+
+
+                    //        }
+                    //        int offSetShield = 2;
+                    //        Vector2 pos = npc.Center + npc.rotation.ToRotationVector2() * offSetShield * npc.direction;
+                    //        Lighting.AddLight(npc.Center, DustID.PurpleTorch);
+
+
+
+                            
+
+
+                    //    }
+                    //}
                     if (npc.ai[0] == 0f && npc.ai[1] == 0)
                     {
                         Texture2D eyeGlow = Request<Texture2D>("TRAEProject/Changes/NPCs/Boss/TwinsChanges/Retinizer_Glow").Value;
@@ -1016,14 +1365,14 @@ namespace TRAEProject.Changes.NPCs.Boss.TwinsChanges
                             npc.position.Y - screenPos.Y + npc.height - TextureAssets.Npc[npc.type].Height() * npc.scale / Main.npcFrameCount[npc.type] + 4f + halfSize.Y * npc.scale + num36 + num35);
                         // spriteBatch.Draw(eyeGlow, Pos, npc.frame, color, npc.rotation, halfSize, npc.scale, SpriteEffects.None, 0f);
                         Pos += (Vector2.UnitX * TextureAssets.Npc[npc.type].Width() / 2).RotatedBy(npc.rotation + MathF.PI / 2);
-                        float progress = Utils.GetLerpValue(100f, 199f, npc.ai[3], true);
+                        float progress = Utils.GetLerpValue(100f, 239f, npc.ai[3], true);
                         Color violet = new(104f / 255f, 3f / 255f, 253f / 255);
                         Color purple = new(130f / 255f, 25f / 255f, 183f / 255f);
                         Pos += screenPos;
                         //ShootTelegraphNew(Pos, violet, progress, -1);
                         ShootTelegraphOld(Pos, violet * .75f, progress);
                     }
-                    if (npc.ai[0] != 0f && npc.ai[2] < fireRate * shotsFired && npc.ai[0] != 6f)
+                    if (npc.ai[0] != 0f && npc.ai[2] < retLaserCooldownPhase2 * retShotsFiredPhase2 && npc.ai[0] != 6f)
                     {
                         Texture2D eyeGlow = Request<Texture2D>("TRAEProject/Changes/NPCs/Boss/TwinsChanges/Retinizer_Glow").Value;
                         int c = (int)npc.ai[2] % 120;
@@ -1065,7 +1414,7 @@ namespace TRAEProject.Changes.NPCs.Boss.TwinsChanges
                 }
                 if (npc.type == NPCID.Spazmatism)
                 {
-                    if (npc.ai[0] == 0f && npc.ai[1] == 0 && npc.ai[2] < 560)
+                    if (npc.ai[0] == 0f && npc.ai[1] == 0 && npc.ai[2] < 540)
                     {
                         Vector2 halfSize = new(55f, 107f);
                         float num35 = 0f;
@@ -1078,10 +1427,50 @@ namespace TRAEProject.Changes.NPCs.Boss.TwinsChanges
                         Pos += screenPos;
 
                         float progress = Utils.GetLerpValue(10f, 60f, npc.ai[3], true);
-                         ShootTelegraphNew(Pos, CursedFlamesLime, progress, 1);
+                        ShootTelegraphNew(Pos, CursedFlamesLime, progress, 1);
                         //ShootTelegraphOld(Pos, CursedFlamesLime * 0.75f, progress);
 
                     }
+                    //if (Main.masterMode && npc.ai[0] != 4f )
+                    //{
+
+                    //    if (npc.ai[1] == 2f || npc.ai[1] == 1f) // charge state
+                    //    {
+                    //        //if (npc.ai[0] == 0)
+                    //        //{
+                    //        //    int c = (int)npc.ai[3];
+                    //        //    Color color = new(c, c, c, c);
+                    //        //    Vector2 halfSize = new(55f, 107f);
+                    //        //    float num35 = 0f;
+                    //        //    float num36 = Main.NPCAddHeight(npc);
+
+                    //        //    float progress = npc.ai[2] / phase1SpazChargeDuration;
+
+
+                    //        //    float size = maxSize; // default to the max
+
+                    //        //    if (npc.ai[3] == 0)
+                    //        //    {
+
+                    //        //        size = MathHelper.Lerp(minSize, maxSize, progress);
+                    //        //    }
+                    //        //    else if (npc.ai[3] == phase1SpazCharges)
+                    //        //    {
+                    //        //        // 0 -> 20: size 1.5 -> 1.0
+                    //        //        size = MathHelper.Lerp(maxSize, minSize, progress);
+                    //        //    }
+                    //        //    int offSetShield = 2;
+                    //        //    Vector2 pos = npc.Center + npc.rotation.ToRotationVector2() * offSetShield * npc.direction;
+                    //        //    Lighting.AddLight(npc.Center, DustID.GreenTorch); 
+                    //        //    //ImFuckingInvincible(pos, Color.LimeGreen, size * npc.scale);
+
+                    //        //}
+        
+
+
+                    //    }
+
+                    //} 
                 }
             }
             base.PostDraw(npc, spriteBatch, screenPos, drawColor);
@@ -1112,6 +1501,19 @@ namespace TRAEProject.Changes.NPCs.Boss.TwinsChanges
             spriteBatch.End();
             spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, Main.DefaultSamplerState, DepthStencilState.None, Main.Rasterizer, null, Main.Transform);
         }
+        public override void UpdateLifeRegen(NPC npc, ref int damage)
+        {
+            //if (npc.type == NPCID.Spazmatism)
+            //{
+            //    if (Main.masterMode)
+            //    { 
+            //        if ((npc.ai[1] == 2f || npc.ai[1] == 1f) && npc.ai[0] == 0 && npc.lifeRegen < 0)
+            //        {
+            //            npc.lifeRegen /= 10;
+            //        }
+            //    }
+            //}
+        }
     }
     public class TwinProjecileChanges : GlobalProjectile
     {
@@ -1123,7 +1525,53 @@ namespace TRAEProject.Changes.NPCs.Boss.TwinsChanges
                 {
                     projectile.tileCollide = false;
                 }
+                if (projectile.type == ProjectileID.CursedFlameHostile)
+                {
+                    projectile.timeLeft = 240;
+                }
             }
+        }
+        public override void OnSpawn(Projectile projectile, IEntitySource source)
+        {
+            //if (GetInstance<BossConfig>().TwinsRework && !Main.zenithWorld && Main.masterMode)
+            //{
+            //    if (projectile.type == ProjectileID.CursedFlameHostile)
+            //    {
+            //        NPC spaz = Main.npc[NPC.FindFirstNPC(NPCID.Spazmatism)];
+            //        Player player = Main.player[spaz.target];
+            //        projectile.velocity += player.velocity;
+            //    }
+            //}
+        }
+ 
+        public override void ModifyHitPlayer(Projectile projectile, Player target, ref Player.HurtModifiers modifiers)
+        {
+            if (GetInstance<BossConfig>().TwinsRework && !Main.zenithWorld && Main.masterMode)
+            {
+                if (NPC.AnyNPCs(NPCID.Spazmatism) && (projectile.type == ProjectileID.CursedFlameHostile || projectile.type == ProjectileID.EyeFire))
+                {
+                    modifiers.SourceDamage *= 0.9f;  
+
+                }
+            }
+        }
+        
+ 
+        public override void OnHitPlayer(Projectile projectile, Player target, Player.HurtInfo info)
+        {
+            //if (GetInstance<BossConfig>().TwinsRework && !Main.zenithWorld && Main.masterMode)
+            //{
+            //    if (projectile.type == ProjectileID.CursedFlameHostile || projectile.type == ProjectileID.EyeFire)
+            //    {
+            //        int cursedInfernoID = target.FindBuffIndex(BuffID.CursedInferno);
+            //        if (cursedInfernoID != -1)
+            //        {
+            //            target.buffTime[cursedInfernoID] += cursedInfernoIncreasedDurationOnMaster;
+            //        }
+            //        else
+            //            target.AddBuff(BuffID.CursedInferno,  cursedInfernoIncreasedDurationOnMaster);
+            //    }
+            //}
         }
     }
 }

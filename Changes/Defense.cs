@@ -109,11 +109,11 @@ namespace TRAEProject
  
         public override void ModifyHitByNPC(NPC npc, ref Player.HurtModifiers modifiers)
         {
-
-            timeWithoutRegen = 90;
+           
             if (GetInstance<TRAEConfig>().DefenseRework)
             {
-
+                if (Player.lifeRegen >= 0)
+                    timeWithoutRegen = 90;
                 Player.DefenseEffectiveness *= 0f;
                 float defense = Player.statDefense;
                 float DefenseDamageReduction = defense / (defense + 80); // Formula for defense
@@ -179,10 +179,11 @@ namespace TRAEProject
         }
         public override void ModifyHitByProjectile(Projectile proj, ref Player.HurtModifiers modifiers)
         {
-            timeWithoutRegen = 90;
+          
             if (GetInstance<TRAEConfig>().DefenseRework)
             {
-
+                if (Player.lifeRegen >= 0)
+                    timeWithoutRegen = 90;
                 Player.DefenseEffectiveness *= 0f;
                 float defense = Player.statDefense;
                 float DefenseDamageReduction = defense / (defense + 80); // Formula for defense

@@ -89,7 +89,15 @@ namespace TRAEProject.Changes.Prefixes
                     }
                     if (line.Name == "PrefixAccMoveSpeed")
                     {
-                        line.Text += " and jump speed";
+                        //if the tooltip has a character equal to 'i' replace it with "i% movement and jump speed"
+                        for (int i = 1; i <= 4; i++)
+                        {
+                            if (line.Text.Contains("" + i))
+                            {
+                                line.Text = i + "% increased movement and jump speed";
+                                break;
+                            }
+                        }
 
 
                     }

@@ -47,7 +47,8 @@ namespace TRAEProject.Changes.Weapon.Melee
                     item.crit = 12; // up from 6%
                     return;
 				case ItemID.LightDisc:
-                    item.crit = 12;
+                    item.useAnimation = 26;
+                    item.useTime = 26;
                     item.shootSpeed = 12;
                     break;
                 case ItemID.Trimarang:

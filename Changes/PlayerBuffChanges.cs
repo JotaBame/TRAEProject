@@ -1,10 +1,9 @@
-using Microsoft.Xna.Framework;
-using Steamworks;
-using System.Collections.Generic;
-using System.Reflection.Metadata.Ecma335;
+ using Microsoft.Xna.Framework;
+ 
 using Terraria;
 using Terraria.DataStructures;
 using Terraria.ID;
+using Terraria.Localization;
 using Terraria.ModLoader;
 using TRAEProject.Changes;
 using TRAEProject.Changes.Accesory;
@@ -316,9 +315,9 @@ namespace TRAEProject
         {
             Celled = false;
         }
+    
 
-   
- 
+
         public override void UpdateBadLifeRegen()
         {
             if (Player.HasBuff(BuffID.Bleeding) && Main.expertMode)
@@ -327,7 +326,7 @@ namespace TRAEProject
                 {
                     Player.lifeRegen = 0;
                 }
-                Player.lifeRegen -= 4;
+                //Player.lifeRegen -= 4;
             }
             if (Celled)
             {
@@ -341,7 +340,13 @@ namespace TRAEProject
 
         public override void UpdateLifeRegen()
         {
- 
+            if (Player.HasBuff(BuffID.CursedInferno))
+            {
+                if (Player.lifeRegen > 0)
+                {
+                    Player.lifeRegen += 8;
+                }
+            }
             if (Player.HasBuff(BuffID.Regeneration))
             {
                 if (Player.lifeRegen > 0)
@@ -372,16 +377,14 @@ namespace TRAEProject
                 modifiers.FinalDamage *= 0.84f;
             }    
         }
+ 
+
         public override bool PreKill(double damage, int hitDirection, bool pvp, ref bool playSound, ref bool genGore, ref PlayerDeathReason damageSource)
         {
-            if (Celled && hitDirection == 0 && damageSource.SourceOtherIndex == 8)
-            {
-                damageSource = PlayerDeathReason.ByCustomReason(Player.name + " was consumed by cells");
-                return true;
-            }
+       
             if (Player.HasBuff(BuffID.Bleeding) && hitDirection == 0 && damageSource.SourceOtherIndex == 8)
             {
-                damageSource = PlayerDeathReason.ByCustomReason(Player.name + " bled to death");
+                  damageSource = PlayerDeathReason.ByCustomReason((Player.name + "bled to death")); 
                 return true;
             }
             return true;

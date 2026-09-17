@@ -560,14 +560,14 @@ namespace TRAEProject.NPCs.Boss
 								num655 *= num657;
 								num656 *= num657;
 								int num658 = 11;
-								int num659 = 719;
+				 
 								for (int i = 1; i <= 4 + bonus; i++)
 								{
 									float radians = 0.5f;
 									if (bonus == 2)
 										radians = 0.33f;
 									Vector2 direction = new Vector2(num655, num656).RotatedBy(2 * Math.PI - radians * Math.PI * i);
-									Projectile.NewProjectile(npc.GetSource_FromThis(), vector80, direction, num659, num658, 1f);
+									Projectile.NewProjectile(npc.GetSource_FromThis(), vector80, direction, ProjectileID.QueenBeeStinger, num658, 1f);
 								}
 
 							}
