@@ -253,7 +253,7 @@ namespace TRAEProject.Changes.Accesory
             }
             foreach (NPC enemy in Main.npc)
             {
-                float distance = 300f;
+                float distance = 1000f;
                 Vector2 newMove = enemy.Center - Player.Center;
                 float distanceTo = MathF.Sqrt(newMove.X * newMove.X + newMove.Y * newMove.Y);
                 int direction = -1;

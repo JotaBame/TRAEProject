@@ -7,6 +7,7 @@ using TRAEProject.Changes.Accesory;
 using TRAEProject.Changes.Armor;
 using Microsoft.Xna.Framework;
 using static Terraria.ModLoader.ModContent;
+using TRAEProject.Changes.Items.RuneSetEffects;
 
 namespace ChangesArmor
 {
@@ -250,6 +251,7 @@ namespace ChangesArmor
                 case ItemID.RuneHat:
                     player.GetDamage<MagicDamageClass>() += 0.15f;
                     player.GetCritChance<MagicDamageClass>()  += 15;
+                    player.GetModPlayer<RuneSetPlayer>().runeEffects = true;
                     break;
                 case ItemID.OrichalcumMask:
                     player.GetDamage<MeleeDamageClass>()  -= 0.11f;

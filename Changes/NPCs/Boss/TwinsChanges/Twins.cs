@@ -977,6 +977,12 @@ namespace TRAEProject.Changes.NPCs.Boss.TwinsChanges
         }
         public static Vector2 GetLaserCannonPosition(NPC npc)
         {
+            //texture is not loaded on servers
+            //this function is only ever used for VFX positioning
+            if (Main.dedServ)
+            {
+                return npc.Center;
+            }
             Vector2 halfSize = new(55f, 107f);
             float num35 = 0f;
             float num36 = Main.NPCAddHeight(npc);
@@ -988,6 +994,11 @@ namespace TRAEProject.Changes.NPCs.Boss.TwinsChanges
         }
         static Vector2 GetPupilPosition(NPC npc)
         {
+            if (Main.dedServ)
+            {
+                //failsafe
+                return npc.Center;
+            }
             Vector2 halfSize = new(55f, 107f);
             float num35 = 0f;
             float num36 = Main.NPCAddHeight(npc);

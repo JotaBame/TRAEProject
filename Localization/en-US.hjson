@@ -290,6 +290,7 @@ Mods: {
 			EcholaliaP.DisplayName: Echolalia P
 			WingspanBlueP.DisplayName: Blue Feather
 			KinglySmash.DisplayName: Kingly Smash
+			CrystalVileShardExplosionFrag.DisplayName: Crystal Vile Shard Explosion Frag
 		}
 
 		Prefixes: {

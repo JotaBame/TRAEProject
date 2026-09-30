@@ -170,7 +170,7 @@ namespace TRAEProject.Changes.NPCs.Boss.TwinsChanges
                     vector6.Y += vector7.Y * 10f;
                     if (Main.netMode != 1)
                     {
-                        Projectile p = Main.projectile[Projectile.NewProjectile(npc.GetSource_ReleaseEntity(), vector5, Vector2.Zero, ModContent.ProjectileType<EyeNuke>(), npc.GetAttackDamage_ForProjectiles(45f, 40f), 0, 255)];
+                        Projectile p = Main.projectile[Projectile.NewProjectile(npc.GetSource_ReleaseEntity(), vector5, Vector2.Zero, ModContent.ProjectileType<EyeNuke>(), npc.GetAttackDamage_ForProjectiles(45f, 40f), 0, 255, npc.target)];
                         p.velocity.X = vector7.X;
                         p.velocity.Y = vector7.Y;
 
