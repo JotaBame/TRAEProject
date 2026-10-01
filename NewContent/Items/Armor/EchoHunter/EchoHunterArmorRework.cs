@@ -40,9 +40,10 @@ private void ModifyDrawDust(ILContext il)
     // Draw obstruction immediately after Begin()
     c.EmitDelegate(() =>
     {
-        if (Main.LocalPlayer.active && Main.LocalPlayer.GetModPlayer<EchoHunterSet>().EchoHunterMode)
+        if (Main.LocalPlayer.active && Main.LocalPlayer.GetModPlayer<EchoHunterSet>().EchoHunterModeActiveFrames > 0)
         {
-            DrawEchoHunterDarkness(Main.spriteBatch);
+
+            DrawEchoHunterDarkness(Main.spriteBatch, Main.LocalPlayer.GetModPlayer<EchoHunterSet>().EchoHunterModeActiveFrames);
         }
     });
 
@@ -89,15 +90,15 @@ private void DrawScreenObstruction(On_ScreenObstruction.orig_Draw orig, SpriteBa
     }
     orig(spriteBatch);
 }
-public static void DrawEchoHunterDarkness(SpriteBatch spriteBatch)
+public static void DrawEchoHunterDarkness(SpriteBatch spriteBatch, int progress)
 {
     // this is effectively just the normal Obstructed layer code, but reimplemented so we can place it pre-drawDust
-    if (!Main.LocalPlayer.active || !Main.LocalPlayer.GetModPlayer<EchoHunterSet>().EchoHunterMode)
-        return;
+ 
 
     Player player = Main.LocalPlayer;
 
-    float obstruction = 0.92f;
+    float obstruction = 0.92f * (float)((float)progress /  player.GetModPlayer<EchoHunterSet>().EchoHunterModeFramesToDarkenScreen );
+      
     Color color = Color.Black * obstruction;
     int num1 = TextureAssets.Extra[49].Width();
     int num2 = 10;
@@ -120,9 +121,10 @@ public override void PostUpdate()
     {
         if (EchoHunterMode)
         {
-                Main.LocalPlayer.GetModPlayer<CritDamage>().critDamage += 0.8f;
+                Main.LocalPlayer.GetModPlayer<CritDamage>().critDamage += 0.2f;
 
-            // lmao /* Fine, i'll keep it -bame
+            // lmao
+            // Fine, i'll keep it -bame
             if (Main.rand.NextBool(3000000))
             {
                 CombatText.NewText(Player.Hitbox, Color.Red, "GET HIS ASS, DAREDEVIL!");
@@ -256,7 +258,7 @@ public class EchoHunterPing : ModProjectile
 
         float size = GetNPCSize(target);
 
-        SpawnEchoDust(size, target.chaseable, target.friendly);
+        SpawnEchoDust(size, target.chaseable, target.friendly, target.velocity.X, target.velocity.Y);
     }
     private void FollowProjectile(int index)
     {
@@ -278,7 +280,7 @@ public class EchoHunterPing : ModProjectile
         Projectile.timeLeft = 2;
 
         float size = GetProjectileSize(target);
-        SpawnEchoDust(size, target.hostile, target.friendly);
+        SpawnEchoDust(size, target.hostile, target.friendly, 0, 0);
     }
     private float GetNPCSize(NPC npc)
     {
@@ -291,7 +293,7 @@ public class EchoHunterPing : ModProjectile
 
         return MathHelper.Clamp(targetSize / 32f, 0.25f, 3f);
     }
-    private void SpawnEchoDust(float size, bool hostile, bool friendly)
+    private void SpawnEchoDust(float size, bool hostile, bool friendly, float SpeedX, float SpeedY)
     {
         Vector2 currentPosition = Projectile.Center;
 
@@ -305,8 +307,8 @@ public class EchoHunterPing : ModProjectile
 
         ulong ticksSinceSpawn = Main.GameUpdateCount - EchoDustLastSpawn;
 
-        const float distancePerBurst = 40f;
-        const ulong maximumSpawnInterval = 30;
+        const float distancePerBurst = 45f;
+        const ulong maximumSpawnInterval = 45;
 
         if (EchoDustDistance < distancePerBurst &&
             ticksSinceSpawn < maximumSpawnInterval)
@@ -321,7 +323,7 @@ public class EchoHunterPing : ModProjectile
         EchoDustDistance = 0f;
         EchoDustLastSpawn = Main.GameUpdateCount;
 
-        int num = (int)Math.Clamp(size * 10, 4.0, 20.0);
+        int num = (int)Math.Clamp(size * 8, 4.0, 20.0);
 
         if (EchoDustIndices.Count > num * 2)
         {
@@ -332,15 +334,15 @@ public class EchoHunterPing : ModProjectile
         for (int i = 0; i < num; i++)
         {
             float angle = i * MathHelper.TwoPi / num;
-            Vector2 velocity = angle.ToRotationVector2() * (4f * size);
+            Vector2 velocity = angle.ToRotationVector2() * (5f * size);
 
             int dustIndex = Dust.NewDust(
                 Projectile.Center,
                 0,
                 0,
                 GetEchoDustType(hostile, friendly),
-                0f,
-                0f,
+                SpeedX,
+                SpeedY,
                 0,
                 default,
                 2f

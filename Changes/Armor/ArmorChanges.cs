@@ -1,11 +1,12 @@
+using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Input;
+using System.Collections.Generic;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 using TRAEProject;
-using System.Collections.Generic;
 using TRAEProject.Changes.Accesory;
 using TRAEProject.Changes.Armor;
-using Microsoft.Xna.Framework;
 using static Terraria.ModLoader.ModContent;
 
 namespace ChangesArmor
@@ -581,10 +582,14 @@ namespace ChangesArmor
             }
             if (armorSet == "FrostSet")
             {
-                player.setBonus = "Melee and ranged attacks inflict frostburn\nDouble tap down to freeze all enemies around you, 10 second cooldown";
+                
+                string keyName = "DOWN";
+                if (Main.ReversedUpDownArmorSetBonuses)
+                {
+                    keyName = "UP";
+                }
+                player.setBonus += "\nDouble tap " + keyName +  " to freeze all enemies around you, this ability is on a 15 second cooldown";
                 player.GetModPlayer<FrostArmor>().frostArmor = true;
-                player.GetDamage<RangedDamageClass>() -= 0.1f;
-                player.GetDamage<MeleeDamageClass>() -= 0.1f;
             }
             if (armorSet == "FossilSet")
             {

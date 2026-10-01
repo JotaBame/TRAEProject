@@ -1748,7 +1748,7 @@ Mods: {
 				// DisplayName: Echo Hunter Greaves
 				/* Tooltip:
 					'''
-					9% increased damage
+					9% increased damage				
 					5% increased movement and jump speed
 					''' */
 			}
@@ -1841,7 +1841,10 @@ Mods: {
 					''' */
 			}
 
-			// BuffChangesModPlayer.DeathMessage: "{0} tried and failed to handle a very volatile explosive device."
+			DreadMusicBox: {
+				// DisplayName: Music Box (Dreadnautilus)
+				// Tooltip: ""
+			}
 		}
 
 		NPCs: {

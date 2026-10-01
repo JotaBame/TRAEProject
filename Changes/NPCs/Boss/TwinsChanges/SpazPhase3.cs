@@ -202,8 +202,8 @@ namespace TRAEProject.Changes.NPCs.Boss.TwinsChanges
             float accY = 0.2f;
             float maxVelY = 10f;
 
-            float accX = Main.masterMode ? 0.25f : 0.2f;
-            float maxVelX = Main.masterMode ? 30f : 20f;
+            float accX = 0.2f;
+            float maxVelX = 20f;
 
             npc.TargetClosest(false);
             Player player = Main.player[npc.target];
@@ -245,7 +245,8 @@ namespace TRAEProject.Changes.NPCs.Boss.TwinsChanges
             {
                 int attackDamage_ForProjectiles7 = npc.GetAttackDamage_ForProjectiles(30f, 27f);
                 Vector2 shootFrom = npc.Center + TRAEMethods.PolarVector(6, npc.rotation + MathF.PI / 2);
-                Vector2 vel = TRAEMethods.PolarVector(12f + npc.velocity.Y, npc.rotation + MathF.PI / 2) + TRAEMethods.PolarVector(Main.rand.Next(-4, 5), npc.rotation);
+                float shootSpeed = Main.masterMode ? 20f : 14f;
+                Vector2 vel = TRAEMethods.PolarVector(shootSpeed + npc.velocity.Y, npc.rotation + MathF.PI / 2) + TRAEMethods.PolarVector(Main.rand.Next(-4, 5), npc.rotation);
                 Projectile.NewProjectile(npc.GetSource_ReleaseEntity(), shootFrom, vel, ModContent.ProjectileType<BouncingFlames>(), attackDamage_ForProjectiles7, 0f, Main.myPlayer);
             }
             if (npc.ai[2] >= CauldronDuration)
@@ -571,7 +572,7 @@ namespace TRAEProject.Changes.NPCs.Boss.TwinsChanges
             Projectile.light = 0.8f;
             Projectile.alpha = 100;
             AIType = 95;
-            Projectile.timeLeft = 240;
+            Projectile.timeLeft = 120;
         }
         public override bool TileCollideStyle(ref int width, ref int height, ref bool fallThrough, ref Vector2 hitboxCenterFrac)
         {

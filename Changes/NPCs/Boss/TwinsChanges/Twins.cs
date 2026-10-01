@@ -137,8 +137,8 @@ namespace TRAEProject.Changes.NPCs.Boss.TwinsChanges
         }
         public static void FlyTo(NPC npc, Vector2 goHere, bool phase2 = false)
         {
-            float topSpeed = 18f;
-            float acceleration = 0.05f;
+            float topSpeed = 15f;
+            float acceleration = 0.075f;
             
             if (phase2)
             {
@@ -261,6 +261,7 @@ namespace TRAEProject.Changes.NPCs.Boss.TwinsChanges
  
                 if (npc.type == NPCID.Retinazer)
                 {
+ 
                     if (Main.masterMode)
                     {
                         if (npc.ai[0] != 0)
@@ -361,13 +362,13 @@ namespace TRAEProject.Changes.NPCs.Boss.TwinsChanges
                     }
                     if (npc.ai[0] == 4 || npc.ai[0] == 5)
                     {
-                        npc.defense = npc.defDefense + 50;
+                        npc.dontTakeDamage = true;
                         RetPhase3.Start(npc);
                         return false;
                     }
                     else if (npc.ai[0] > 5)
                     {
- 
+                        npc.dontTakeDamage = false;
                         RetPhase3.Update(npc);
                         return false;
                     }

@@ -71,7 +71,7 @@ namespace TRAEProject.Changes.NPCs.Boss.TwinsChanges
             }
             if (Main.masterMode)
             {
-                if (periodicTimer == tpCount * tpTime + firstShotDelay)
+                if (periodicTimer == tpCount * tpTime)
                 {
                     masterShootHexagonals(npc);
                 }
@@ -312,7 +312,7 @@ namespace TRAEProject.Changes.NPCs.Boss.TwinsChanges
         public static void Start(NPC npc)
         {
 
-
+            Main.NewText(npc.ai[0]);
             if (npc.ai[0] == 4f)
             {
                 npc.ai[2] += 0.005f;
@@ -345,7 +345,7 @@ namespace TRAEProject.Changes.NPCs.Boss.TwinsChanges
                     {
                         Dust.NewDust(npc.position, npc.width, npc.height, 5, Main.rand.Next(-30, 31) * 0.2f, Main.rand.Next(-30, 31) * 0.2f);
                     }
-
+                    
                     SoundEngine.PlaySound(SoundID.ForceRoarPitched with { MaxInstances = 0 }, npc.Center);
                 }
             }

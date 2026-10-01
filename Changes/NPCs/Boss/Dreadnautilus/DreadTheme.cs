@@ -1,7 +1,7 @@
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
-
+ 
 namespace TRAEProject.Changes.NPCs.Boss.Dreadnautilus
 {
     public class DreadTheme : ModSceneEffect
@@ -20,4 +20,6 @@ namespace TRAEProject.Changes.NPCs.Boss.Dreadnautilus
             return NPC.AnyNPCs(NPCID.BloodNautilus);
         }
     }
+
+
 }

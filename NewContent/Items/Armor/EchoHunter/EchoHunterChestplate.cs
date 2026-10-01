@@ -13,6 +13,7 @@ using Terraria.ID;
 using Terraria.ModLoader;
 using TRAEProject.Changes.Accesory;
 using TRAEProject.Common.ModPlayers;
+using TRAEProject.NewContent.Items.Armor.UnderworldWarrior;
 using TRAEProject.NewContent.Items.Materials;
 using TRAEProject.NewContent.Items.Misc.Potions;
 using static Terraria.ModLoader.ModContent;
@@ -56,7 +57,7 @@ namespace TRAEProject.NewContent.Items.Armor.EchoHunter
         }
         public override void UpdateArmorSet(Player player)
         {
-            player.setBonus = "Increases maximum mana by 40 and melee speed, chance not to consume ammo and whip range by 25%\nDouble tap down to activate Echo Hunter Mode, granting heightened senses and 50% increased critical strike damage\nHowever, the hunters of the Echosphere are blind";
+            player.setBonus = "Increases melee speed, chance not to consume ammo and whip range by 25%, and maximum mana by 40\nDouble tap down to activate Echo Hunter Mode, granting heightened senses and 20% increased critical strike damage\nHowever, the hunters of the Echosphere are blind";
             player.GetAttackSpeed(DamageClass.Melee) += 0.25f;
             player.ammoCost75 = true;
             player.statManaMax2 += 40;
@@ -81,6 +82,8 @@ namespace TRAEProject.NewContent.Items.Armor.EchoHunter
     {
         public bool EchoHunterSetBonus;
         public bool EchoHunterMode;
+        public int EchoHunterModeActiveFrames = 0;
+        public int EchoHunterModeFramesToDarkenScreen = 8;
         public override void ResetEffects()
         {
             EchoHunterSetBonus = false;
@@ -91,32 +94,28 @@ namespace TRAEProject.NewContent.Items.Armor.EchoHunter
             EchoHunterMode = false;
 
         }
-        public override void PostUpdateEquips()
+
+        public override void ArmorSetBonusActivated()
+
         {
             if (EchoHunterSetBonus)
             {
-                if (Player.whoAmI == Main.myPlayer && Player.controlDown && Player.releaseDown && Player.doubleTapCardinalTimer[0] > 0 && Player.doubleTapCardinalTimer[0] != 15)
-                {
-                    EchoHunterMode = !EchoHunterMode;
-                }
-
+               
+                EchoHunterMode = !EchoHunterMode;
             }
-            else
-                EchoHunterMode = false;
-
-            if (EchoHunterMode)
-            {
-                Player.AddBuff(BuffID.Hunter, 1);
-                Player.AddBuff(BuffID.Dangersense, 1);
-                Player.AddBuff(BuffType<EchoSense>(), 1);
-                Player.AddBuff(BuffID.Blackout, 1);
-                Player.slowFall = true; Player.shroomiteStealth = true;
-
-                Player.GetModPlayer<ShroomiteEffects>().traeStealth = 1f;
-
-                // make the invisibility special effect
-            }
+                
         }
+        public override void PostUpdate()
+        {
+     
+            if (EchoHunterMode && EchoHunterModeActiveFrames < EchoHunterModeFramesToDarkenScreen)
+            {
+                EchoHunterModeActiveFrames++;
+            }
+            else if (!EchoHunterMode && EchoHunterModeActiveFrames > 0)
+                EchoHunterModeActiveFrames--;
+        }
+ 
     }
 }
 

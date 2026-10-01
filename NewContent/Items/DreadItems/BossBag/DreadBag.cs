@@ -2,9 +2,8 @@
 using Terraria.ID;
 using Terraria.GameContent.Creative;
 using Terraria.ModLoader;
-using TRAEProject.NewContent.Items.FlamethrowerAmmo;
-using static Terraria.ModLoader.ModContent;
-using TRAEProject.NewContent.Items.Armor.UnderworldWarrior;
+ using static Terraria.ModLoader.ModContent;
+ 
 using Terraria.GameContent.ItemDropRules;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework;
