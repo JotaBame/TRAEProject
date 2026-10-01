@@ -17,6 +17,9 @@ namespace TRAEProject.Changes.Items.RuneSetEffects
             if (RuneSetHelper.IsFastThenSlow(proj.ai[2]))
             {
                 proj.MaxUpdates = ContentSamples.ProjectilesByType[proj.type].MaxUpdates * 2;
+                if (proj.timeLeft > 240)
+                    proj.timeLeft = 240;
+                RuneSetHelper.SlowDownnnn(proj, ref proj.localAI[2]);
             }
             if (RuneSetHelper.IsHoming(proj.ai[2]))
             {
@@ -38,6 +41,7 @@ namespace TRAEProject.Changes.Items.RuneSetEffects
             if (RuneSetHelper.IsFastThenSlow(proj.ai[2]))
             {
                 proj.MaxUpdates = ContentSamples.ProjectilesByType[proj.type].MaxUpdates * 2;
+                RuneSetHelper.SlowDownnnn(proj, ref proj.localAI[2]);
             }
             if (proj.soundDelay == 0)
             {
@@ -155,7 +159,8 @@ namespace TRAEProject.Changes.Items.RuneSetEffects
             }
             if (RuneSetHelper.IsFastThenSlow(proj.ai[2]))
             {
-                proj.MaxUpdates = ContentSamples.ProjectilesByType[proj.type].MaxUpdates * 2;
+                proj.MaxUpdates = ContentSamples.ProjectilesByType[proj.type].MaxUpdates * 2; 
+                RuneSetHelper.SlowDownnnn(proj, ref proj.localAI[2], whenToStop: 28, deceleration: 0.975f, newLifeTime: 270);
             }
             if (RuneSetHelper.IsHoming(proj.ai[2]))
             {
@@ -231,6 +236,7 @@ namespace TRAEProject.Changes.Items.RuneSetEffects
             if (RuneSetHelper.IsFastThenSlow(proj.ai[2]))
             {
                 proj.MaxUpdates = ContentSamples.ProjectilesByType[proj.type].MaxUpdates * 2;
+                RuneSetHelper.SlowDownnnn(proj, ref proj.localAI[2]);
             }
             if (RuneSetHelper.IsHoming(proj.ai[2]))
             {

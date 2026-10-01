@@ -121,20 +121,17 @@ namespace TRAEProject.Changes.Items.RuneSetEffects.SpecificWeapons
             RuneSetHelper.SetUpAI2(player, item, ref ai2, out bool doubleFire, out float secondAi2, out float damageMult, out float secondProjVelMult, out int extraFlatDamage, out float globalvelocityMult);
             damage = (int)(damage * damageMult);
             damage += extraFlatDamage;
-            float numberProjectiles = 3; // 3, 4, or 5 shots
+       
             float rotation = MathHelper.ToRadians(Main.rand.Next(30, 40));
-            position += Vector2.Normalize(velocity) * 45f;
-            for (int i = 0; i < numberProjectiles; i++)
+            position += Vector2.Normalize(velocity) * 24f;
+            Projectile.NewProjectile(source, position, velocity, type, damage, knockback, player.whoAmI, 0, 0, ai2);
+            if (doubleFire)
             {
-
-                Vector2 perturbedSpeed = velocity.RotatedBy(MathHelper.Lerp(-rotation, rotation, i / (numberProjectiles - 1))); // Watch out for dividing by 0 if there is only 1 projectile.
-                Projectile.NewProjectile(source, position, perturbedSpeed, type, damage, knockback, player.whoAmI, 0, 0, ai2);
-                if (doubleFire)
-                {
-                    Projectile.NewProjectile(source, position, perturbedSpeed, type, damage, knockback, Main.myPlayer, 0, 0, secondAi2);
-                }
-
+                Projectile.NewProjectile(source, position, velocity, type, damage, knockback, Main.myPlayer, 0, 0, secondAi2);
             }
+
+
+
         }
 
 

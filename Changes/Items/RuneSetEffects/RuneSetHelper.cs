@@ -2,8 +2,10 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading;
 using Terraria;
 using Terraria.ID;
+using TRAEProject.Changes.NPCs.Miniboss.Santa;
 
 namespace TRAEProject.Changes.Items.RuneSetEffects
 {
@@ -144,6 +146,17 @@ namespace TRAEProject.Changes.Items.RuneSetEffects
         {
             int code = BitConverter.SingleToInt32Bits(ai2);
             return (code & 2) == 2;
+        }
+        public static void SlowDownnnn(Projectile proj, ref float timer, int whenToStop = 17, float deceleration = 0.92f, int newLifeTime = 240)
+        {
+            if (proj.timeLeft > newLifeTime)
+                proj.timeLeft = newLifeTime;
+            if (timer > whenToStop)
+            {
+                proj.velocity *= deceleration;
+            }
+            else
+                timer++;
         }
         public static bool CanBounce(float ai2)
         {

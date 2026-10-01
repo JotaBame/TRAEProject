@@ -25,7 +25,7 @@ namespace TRAEProject.Changes.Items.RuneSetEffects
             }
             int itemSlot = RuneSetHelper.FindItemInvSlot(plr, item);
             RuneSetHelper.FindClosestStaffToSlot(plr, itemSlot, out int closestGemStaffID);
-            if(closestGemStaffID <= 0)
+            if(closestGemStaffID <= 0 || itemSlot < 0)
             {
                 return;
             }
