@@ -23,6 +23,7 @@ using MonoMod.RuntimeDetour;
 using System.Reflection;
 using TRAEilHooks;
 using TRAEProject.Changes.Weapon.Melee.MeowmereEffect;
+using TRAEProject.Netcode;
 
 namespace TRAEProject
 {
@@ -270,7 +271,24 @@ public class TRAEProj : Mod
 
             });
         }
-
+        public override void HandlePacket(BinaryReader reader, int whoAmI)
+        {
+            byte packetID = reader.ReadByte();
+            ModPacketType packetType = (ModPacketType)packetID;
+            switch (packetType)
+            {
+                case ModPacketType.RequestEchospherePositionData:
+                    NetMethods.ReadRequestEchospherePositionData(reader, whoAmI);
+                    break;
+                case ModPacketType.SendEchospherePositionData:
+                    NetMethods.ReadSendEchospherePositionData(reader);
+                    break;
+                default:
+                    Logger.Warn($"Received invalid packet ID of {packetID}. Did you forget to write the packet type?");
+                    Logger.Warn($"invalid packet length (bytes): {reader.BaseStream.Length}");
+                    break;
+            }
+        }
         public override object Call(params object[] args) 
         {
 			try 

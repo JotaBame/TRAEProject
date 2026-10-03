@@ -12,6 +12,7 @@ using Terraria.Audio;
 using System;
 using TRAEProject.NewContent.Items.Accesories;
 using TRAEProject.NewContent.Items.Misc.Potions;
+using TRAEProject.Changes.Items.RuneSetEffects.SpecificWeapons;
 
 namespace TRAEProject.Changes.Items
 {
@@ -458,21 +459,6 @@ namespace TRAEProject.Changes.Items
                  Vector2 mousePosition = Main.screenPosition + new Vector2(Main.mouseX, Main.mouseY);
                 switch (item.type)
                 {
-                    case ItemID.CrystalVileShard:
-                        {
-                            float numberProjectiles = 3; // 3, 4, or 5 shots
-                            float rotation = MathHelper.ToRadians(Main.rand.Next(30, 40));
-
-                            position += Vector2.Normalize(velocity) * 45f;
-
-                            for (int i = 0; i < numberProjectiles; i++)
-                            {
-                                Vector2 perturbedSpeed = velocity.RotatedBy(MathHelper.Lerp(-rotation, rotation, i / (numberProjectiles - 1))); // Watch out for dividing by 0 if there is only 1 projectile.
-                                Projectile.NewProjectile(source, position, perturbedSpeed, type, damage, knockback, player.whoAmI);
-                            }
-
-                            return false;
-                        }
                     case ItemID.NettleBurst:
                         {
                             float numberProjectiles = 2; // 3, 4, or 5 shots

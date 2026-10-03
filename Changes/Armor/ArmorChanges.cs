@@ -7,6 +7,7 @@ using Terraria.ModLoader;
 using TRAEProject;
 using TRAEProject.Changes.Accesory;
 using TRAEProject.Changes.Armor;
+using TRAEProject.Changes.Items.RuneSetEffects;
 using static Terraria.ModLoader.ModContent;
 
 namespace ChangesArmor
@@ -246,11 +247,14 @@ namespace ChangesArmor
                     break;
                 case ItemID.RuneRobe:
                     player.statManaMax2 += 100;
-                    player.manaCost -= 0.17f;
+                    player.manaCost -= 0.16f;
+                    
                     break;
                 case ItemID.RuneHat:
+        
                     player.GetDamage<MagicDamageClass>() += 0.15f;
                     player.GetCritChance<MagicDamageClass>()  += 15;
+                    
                     break;
                 case ItemID.OrichalcumMask:
                     player.GetDamage<MeleeDamageClass>()  -= 0.11f;
@@ -530,8 +534,18 @@ namespace ChangesArmor
             }
             if (armorSet == "WizardSetHM")
             {
-                player.setBonus = "Return quintuple damage taken to near enemies";
-                player.GetModPlayer<OnHitEffects>().runethorns += 5f;
+                string affectedIcons = "";
+                for (int i = 0; i < RuneSetPlayer.RuneAffectedItems.Length; i++)
+                {
+                    affectedIcons += "[i:" + RuneSetPlayer.RuneAffectedItems[i] + "] ";
+                }
+                
+                string helpfulInfo = !Main.keyState.IsKeyDown(Keys.LeftShift) ? "Hold down SHIFT to see affected weapons" :  
+                               affectedIcons;
+                player.setBonus = "Attackers also take triple damage in an area\nEnchants Crystal Magic with Gem Powers\n" + helpfulInfo;
+               
+                player.GetModPlayer<RuneSetPlayer>().runeEffects = true;
+                player.GetModPlayer<OnHitEffects>().runethorns += 3f;
             }
             if (armorSet == "ShadowSet")
             {
@@ -813,7 +827,7 @@ namespace ChangesArmor
                     {
                         if (line.Mod == "Terraria" && line.Name == "Defense")
                         {
-                            line.Text += "\nIncreases maximum mana by 100\nReduces mana costs by 17%";
+                            line.Text += "\nIncreases maximum mana by 100\nReduces mana costs by 16%";
                         }
                     }
                     return;              
